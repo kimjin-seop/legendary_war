@@ -1,0 +1,87 @@
+{
+ "_note": "보류 7명 확정안(송서사, 2026-11-04). 편입 확정 2명(헤라클리우스 총대주교, 콜로만), 시대 불일치 제외 5명. 병종·수치는 임밸런2, 초상은 안아트, 시드는 박백엔. 근거는 FACT_CHECK_MEMO.md 하단 '보류 7명 판단' 절. 코드·수치는 이 파일에서 확정, 외부 문헌 재대조 전 life 는 evidence_level 에 따름.",
+ "adopt": [
+  {
+   "code": "npc_heraclius_patriarch",
+   "name_ko": "헤라클리우스 총대주교",
+   "short_name": "헤라클리우스",
+   "title": "예루살렘 총대주교",
+   "life": "?~1191경",
+   "desc": "예루살렘 총대주교(재임 1180~1191)다. 1187년 살라딘이 예루살렘을 포위했을 때 도시 안에서 방어와 항복 협상에 관여했다.",
+   "side": "enemy",
+   "troop_hint": "support",
+   "combat_role": "비전투 지원형(치유·사기 계열). 군사 지휘관 아님 -> 지휘관 슬롯에 두지 않고 지원 유닛으로만 배치",
+   "stage_candidates": ["ch19_s6"],
+   "stage_note": "ch19_s6(성벽 굴 파기·서쪽 문으로 사람들 나옴) 도시 안 장면. 기존 발리앙 디벨랭과 함께 협상 쪽 인물. 전투 승패에 영향 없는 지원 유닛 1기",
+   "evidence_level": "accepted",
+   "verify": "재임 시작·종료 연도(1180/1191)와 1187년 예루살렘 체류 세부는 십자군 연표 대조 권장"
+  },
+  {
+   "code": "npc_coloman_hungary",
+   "name_ko": "콜로만",
+   "short_name": "콜로만",
+   "title": "슬라보니아 공, 벨라 4세의 동생",
+   "life": "1208~1241",
+   "desc": "헝가리 왕 벨라 4세의 동생으로 슬라보니아 공이었다. 1241년 사요강 전투(모히)에서 몽골군과 싸웠고, 부상을 입은 채 후퇴하다 그해 세상을 떠났다.",
+   "side": "enemy",
+   "troop_hint": "cavalry",
+   "combat_role": "기병 지휘관(중형). 우그린 차크와 한 쌍으로 s5 헝가리 측 수뇌",
+   "stage_candidates": ["ch21_s5"],
+   "stage_note": "ch21_s5(사요강)는 모히 전투 배경이고 대사(s5 pre)에 이미 이름이 나온다. 레그니차(1241.4.9)와 같은 해 4월이라 시대는 맞는다. 이미 npc 로스터에 존재(existing)하므로 신규 행 없이 stage squad 배치만 필요",
+   "evidence_level": "accepted",
+   "verify": "한글 표기(콜로만/칼만)와 사망 시기(모히 직후 부상사)는 출처별 차이"
+  }
+ ],
+ "exclude": [
+  {
+   "code": "npc_sataek_jijeok",
+   "name_ko": "사택지적",
+   "reason": "654년 사택지적비로 전하는 대좌평급 관료. 660년 사비성·황산벌 시점의 행적이 없어 ch13 부적합. 문신이라 전장 유닛 근거도 약함",
+   "future": "백제 정치 서가(외교·불교 건축)를 신설할 때 후보",
+   "evidence_level": "verify"
+  },
+  {
+   "code": "npc_yang_manchun",
+   "name_ko": "양만춘",
+   "reason": "안시성주 이름은 후대 기록에서 전하며 당대 사서에는 이름이 없다. 645년 인물이라 612년 살수 서가(ch14)와 시대 불일치",
+   "future": "안시성 서가(645) 신설 때 사용",
+   "evidence_level": "verify"
+  },
+  {
+   "code": "npc_go_yeonsu",
+   "name_ko": "고연수",
+   "reason": "645년 안시성 원군(고구려·말갈) 지휘. ch14(612)와 시대 불일치",
+   "future": "안시성 서가(645)",
+   "evidence_level": "accepted"
+  },
+  {
+   "code": "npc_go_hyejin",
+   "name_ko": "고혜진",
+   "reason": "645년 안시성 원군 지휘. ch14(612)와 시대 불일치",
+   "future": "안시성 서가(645)",
+   "evidence_level": "accepted"
+  },
+  {
+   "code": "npc_memnon",
+   "name_ko": "멤논",
+   "reason": "로도스의 멤논은 기원전 333년 사망. ch17 가우가멜라(기원전 331)와 시대 불일치",
+   "future": "그라니코스·이소스 서가를 만들 때 후보",
+   "evidence_level": "confirmed"
+  }
+ ],
+ "other_decisions": [
+  {
+   "item": "발두앵 4세(npc_baldwin_iv) ch19_s1",
+   "decision": "1185년 사망으로 하틴(1187) 시점 불일치. shelf_map_meta ch19 칩(heroes)에서 제거(두 사본), heroes_archive 보존. 스테이지 배치(stages_ch19_holy_land.json 의 ref/enemy 지정)는 임밸런2가 대체 인물로 교체 필요",
+   "replacement_suggestion": "르노 드 샤티용(npc_reynald_chatillon, 하틴 포로·처형, confirmed) 또는 레몽 3세(npc_raymond_tripoli, 하틴 참전). 둘 다 이미 ch19 칩에 있음"
+  },
+  {
+   "item": "선덕여왕(seondeok) ch13",
+   "decision": "647년 사망으로 660년 황산벌 시점 불일치. shelf_map_meta ch13 칩에서 제거(두 사본), heroes_archive 보존. stages_ch13 에는 배치 없음. 대사 ch13 'hero:npc_kim_inmun' 의 '선덕 대왕께서 계셨다면' 은 과거 회상이라 유지"
+  },
+  {
+   "item": "신세웅(辛世雄) vs 설세웅(薛世雄) ch14",
+   "decision": "동일 인물 여부 미확정 -> 보수적으로 신세웅·유사룡·최홍승은 칩 미노출 유지. 스테이지의 설세웅(npc_xue_shixiong) 배치는 그대로 두되 신세웅 별개 배치는 隋書 원문 대조 전까지 보류 권장"
+  }
+ ]
+}

@@ -1,0 +1,664 @@
+{
+  "_note": "서가 12(적벽, 208년 겨울) 스테이지별 전/후 장면과 전투 이벤트 초안. 스키마는 shelf_11_scenes.json과 동일(proposal-0.1). speaker: shiori | protagonist | hero:<code>(zhou_yu, zhuge_liang, liu_bei, sun_quan, cao_cao) | npc:<npc_code>. 적 측 인물도 짧은 대사를 가진다(중립 어조, 존엄 유지, 전부 is_invented=true, WRITING_RULES.md 준수). is_invented=true는 실존 인물의 실제 발언이 아닌 창작 대사이며 주인공 대사 전부 포함. evidence: confirmed/accepted/verify/invented/n-a. verify=true는 사람 확인 필요(표시 여부는 코드가 판단). 주인공 호칭 {protagonist_name} 님 고정, 시오리는 지휘관님 호칭. 병력 수치, 사망 묘사, 조조 진영 비하 금지. 화공은 불길 연출과 퇴각 처리로만 다룬다. 불은 엔진 지형 밖이라 연출이며 effects의 engine_support에 기재. 수치는 TBD(임밸런). note/meta/requires/effects는 제작용 필드로 화면에 노출하지 않는다. 이 파일은 신규 제안이며 JSON 파서 검증 결과는 보고서에 따로 적는다.",
+  "version": 1,
+  "author": "송서사",
+  "generated": "2026-11-01",
+  "shelf": "shelf_12_redcliff",
+  "sources": [
+    "https://en.wikipedia.org/wiki/Battle_of_Red_Cliffs",
+    "https://en.wikipedia.org/wiki/Zhou_Yu",
+    "https://en.wikipedia.org/wiki/Zhuge_Liang",
+    "https://en.wikipedia.org/wiki/Huang_Gai",
+    "database/data/scenario/SCENARIO_03_CH5-10_AND_OPEN.md 13-3",
+    "database/data/WATER_RULES_SPEC.md"
+  ],
+  "speaker_profile": {
+    "protagonist": { "name": "{protagonist_name}", "note": "허구 인물, 대사 전부 is_invented=true" },
+    "shiori": { "name": "시오리" },
+    "hero:zhou_yu": { "name": "주유" },
+    "hero:zhuge_liang": { "name": "제갈량" },
+    "hero:liu_bei": { "name": "유비" },
+    "hero:sun_quan": { "name": "손권" },
+    "hero:cao_cao": { "name": "조조" },
+    "npc:npc_huang_gai": { "name": "황개" },
+    "npc:npc_cheng_pu": { "name": "정보" },
+    "npc:npc_lu_su": { "name": "노숙" },
+    "npc:npc_wei_vanguard_captain": { "name": "조조군 선봉 수군장" },
+    "npc:npc_wei_jing_marine_chief": { "name": "형주 출신 수군 지휘관" },
+    "npc:npc_wei_archer_captain": { "name": "조조군 궁병 선단장" },
+    "npc:npc_wei_chain_captain": { "name": "연환 선단 지휘관" },
+    "npc:npc_wei_rearguard_chief": { "name": "조조군 후위 지휘관" }
+  },
+  "relation_proposals": [
+    { "a": "zhou_yu", "b": "zhuge_liang", "type": "same_event", "evidence_level": "accepted", "reason": "적벽의 손유 연합이라는 같은 사건에서 각각 오와 유비 측을 대표해 움직인 인물. 연의의 라이벌 구도는 정사 근거가 없다.", "source": "https://en.wikipedia.org/wiki/Zhou_Yu ; https://en.wikipedia.org/wiki/Zhuge_Liang", "note": "라이벌 type은 쓰지 않는다. 기존 hero_relations.json 중복 여부 확인 필요." },
+    { "a": "liu_bei", "b": "sun_quan", "type": "ally", "evidence_level": "accepted", "reason": "208년 적벽에서 연합해 조조에 맞섰고 209년 형주 문제로 이어진 관계. 이후 관계 악화는 이 서가 범위 밖.", "source": "https://en.wikipedia.org/wiki/Battle_of_Red_Cliffs", "note": "결혼 동맹은 열람 범위 밖이라 verify, 쓰지 않음." },
+    { "a": "zhou_yu", "b": "cao_cao", "type": "rival", "evidence_level": "accepted", "reason": "적벽에서 마주한 양측 총지휘관. 선악 평가 없이 대치 관계로만 둔다.", "source": "https://en.wikipedia.org/wiki/Battle_of_Red_Cliffs", "note": "hero_relations.json 중복 여부 확인 필요." },
+    { "a": "zhou_yu", "b": "sun_quan", "type": "lord_vassal", "evidence_level": "confirmed", "reason": "손권이 주유와 정보에게 연합군을 맡김. 기존 rel_0004 존재 가능.", "source": "https://en.wikipedia.org/wiki/Zhou_Yu", "note": "기존 관계와 중복이면 추가 불필요." }
+  ],
+  "entry_conditions": {
+    "key_bookmark": "zhou_yu (주유 책갈피, 서가를 여는 열쇠)",
+    "required_party": ["zhou_yu"],
+    "forced_hero": "zhou_yu 1명 강제 출전",
+    "companion_pool": ["zhuge_liang", "liu_bei", "sun_quan"],
+    "companion_max": 2,
+    "unlock": "서가 12 s5 클리어 시 npc_huang_gai 영구 합류 제안(NPC 1명, 영웅 풀 승격 프로필 별도 필요). 주유는 열쇠로 이미 보유. 확정은 팀장/임밸런.",
+    "naval_note": "주유는 수병 지휘관 전제. 병종은 임밸런 확정. 동반 영웅과 일반 아군 병사는 sea/reef에서 배 탑승 상태가 된다."
+  },
+  "scenes": [
+    {
+      "id": "shelf12_open",
+      "stage_code": null,
+      "timing": "shelf_start",
+      "bg": "서고 남쪽 서가 앞. 주유의 책갈피를 꽂자 책장 사이로 강바람과 물비린내가 밀려온다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "지휘관님, 책갈피가 반응했습니다. 주유 장군의 이름에 서가의 문이 열렸습니다.", "is_invented": false, "verify": false, "evidence": "n-a" },
+        { "speaker": "shiori", "expr": "serious", "text": "208년 겨울, 장강입니다. 손권과 유비가 손을 잡고 북쪽에서 내려온 조조를 맞은 해로 꼽힙니다.", "is_invented": false, "verify": false, "evidence": "confirmed" },
+        { "speaker": "hero:zhou_yu", "expr": "neutral", "text": "물 위의 일이로군. 서고에도 물이 있었다니 뜻밖이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "혹시 이 서가에도 번짐이 있나요? 먼저 어디부터 보면 될까요?", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhou_yu", "expr": "smile", "text": "먼저 묻는 이는 전장에서도 오래 사오. 좋은 버릇이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "이 서가에는 정사의 쪽과 후대 이야기책의 쪽이 한 서랍에 섞여 있습니다. 어느 글씨가 어느 쪽인지 가려 가며 읽어야 합니다. 먼저 강 위의 첫 대치부터 가겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "배에 오르시면 아시겠지만, 육지의 병사는 물 위에서 걸음이 무뎌집니다. 이 서가의 첫 가르침이니 기억해 주십시오.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": []
+    },
+    {
+      "id": "shelf12_s1_pre",
+      "stage_code": "shelf12_s1",
+      "timing": "before_battle",
+      "bg": "장강 남안 포구 앞 물길. 이른 겨울 아침 안개, 중앙에 암초 무리, 멀리 북안에 조조군 선단의 깃발",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "조조는 형주를 얻고 장강을 따라 내려왔습니다. 유비는 장판에서 쫓겨 하구로 물러났고, 제갈량이 시상에서 손권을 만나 연합을 청했다고 전합니다.", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "shiori", "expr": "serious", "text": "손권은 주유와 정보, 노숙에게 연합군을 맡겼습니다. 오늘은 그 연합군과 조조군 선봉이 처음 맞부딪치는 날입니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "hero:zhou_yu", "expr": "neutral", "text": "북쪽 병사들은 배 위에서 걸음이 불안하오. 그것을 숨기려 기세로 덮을 것이오. 기세에 말려들지 마시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_cheng_pu", "expr": "serious", "text": "젊은 지휘관의 말이 맞소. 나는 전열의 뱃머리를 맡겠소. 암초 쪽은 비워 두지 마시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_wei_vanguard_captain", "expr": "serious", "text": "남쪽의 배는 작다. 단숨에 밀어 부수고 포구까지 간다. 노를 더 빨리 저어라.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhuge_liang", "expr": "neutral", "text": "물 위에서는 마음이 먼저 흔들리는 쪽이 지오. 우리는 흔들리지 않도록 배를 모읍시다.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "zhuge_liang 편성" },
+        { "speaker": "hero:liu_bei", "expr": "serious", "text": "의탁한 몸이라 폐가 크오. 내 몫의 앞줄은 내가 서겠소.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "liu_bei 편성" },
+        { "speaker": "hero:sun_quan", "expr": "neutral", "text": "강동의 일이오. 물러설 곳이 없으니 가장 먼저 쓰시오.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "sun_quan 편성" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "배 위에서는 이동이 느려지는 거죠? 암초 뒤에 궁수를 두고, 앞줄은 암초 앞을 막겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "예, 암초는 몸을 가려 주는 방패입니다. 적 선봉장을 물러나게 하면 승리입니다. 수병은 물 위에서 강하다는 점을 잊지 마십시오.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": ["zhou_yu:sun_quan"]
+    },
+    {
+      "id": "shelf12_s1_post",
+      "stage_code": "shelf12_s1",
+      "timing": "after_clear",
+      "bg": "안개가 걷힌 장강. 조조군 선단이 북안 쪽으로 물러나며 깃발을 접는다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "조조군은 초전에서 이득을 얻지 못하고 장강 북안으로 물러났다고 전합니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "npc:npc_wei_vanguard_captain", "expr": "serious", "text": "물이 우리 편이 아니었소. 물러난다. 이 말은 본진에 그대로 전하겠다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhou_yu", "expr": "neutral", "text": "기세가 꺾였을 뿐이오. 조조는 물러난 자리에서 방법을 찾을 사람이오. 다음 수를 준비합시다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_cheng_pu", "expr": "neutral", "text": "첫 싸움을 이기면 마음이 풀리기 쉽소. 오늘 밤은 노를 쉬게 하되 눈은 쉬게 하지 마시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "적의 다음 수가 궁금하네요. 북안으로 물러난 선단을 정찰해도 될까요?", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "정찰은 사서의 본업에 가깝습니다. 다음은 북안 수채 앞입니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": []
+    },
+    {
+      "id": "shelf12_s2_pre",
+      "stage_code": "shelf12_s2",
+      "timing": "before_battle",
+      "bg": "북안이 가까운 물길. 모래톱과 암초 사이에 조조군 수채의 깃발이 줄지어 서 있다. 선단은 이미 서로 이어져 있다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "조조군은 배를 앞뒤로 이어 묶었다고 전합니다. 북쪽 병사들이 배의 흔들림에 익숙하지 않았기 때문이라는 설명이 따라옵니다.", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "hero:cao_cao", "expr": "serious", "text": "물에 익숙지 않은 이들이 많소. 배를 이어 흔들림을 줄이라. 서두르지 말고 대열부터 갖추시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_wei_jing_marine_chief", "expr": "neutral", "text": "형주의 물길은 제가 압니다. 암초 위치와 얕은 곳을 알려 드리겠으나, 겨울 바람은 변덕이 심합니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_lu_su", "expr": "neutral", "text": "손권 님께서는 이 물길에서 하루를 지체하는 것도 큰 손해로 보십니다. 오늘은 길을 여는 데 힘을 모아 주십시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhou_yu", "expr": "serious", "text": "수채의 앞길에는 모래톱과 암초가 있소. 두 곳을 쥐면 밤에 배를 띄울 길이 열리오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhuge_liang", "expr": "neutral", "text": "묶인 배는 한 번 막히면 풀기 어렵소. 그 점을 마음에 두시오.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "zhuge_liang 편성" },
+        { "speaker": "hero:liu_bei", "expr": "neutral", "text": "형주 사람들의 마음도 이 물길에 걸려 있소. 서두르지 말고 한 곳씩 쥐시오.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "liu_bei 편성" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "점령할 곳이 두 군데네요. 한쪽을 먼저 잡고 다른 쪽은 시간을 맞춰 잡겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "모래톱과 암초 두 곳을 차지하면 승리입니다. 적은 이어진 선단이라 한 번 움직이면 방향을 바꾸기 어렵습니다. 그 점을 이용해 주십시오.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": ["liu_bei:sun_quan"]
+    },
+    {
+      "id": "shelf12_s2_post",
+      "stage_code": "shelf12_s2",
+      "timing": "after_clear",
+      "bg": "해 질 무렵의 모래톱. 저편 수채에 이어 묶인 배들이 긴 그림자를 드리운다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "npc:npc_wei_archer_captain", "expr": "serious", "text": "두 곳을 내주었다. 그러나 이 선단은 묶여 있어 쉽게 무너지지 않는다. 본진에 전하라.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_huang_gai", "expr": "neutral", "text": "묶어 놓은 배들을 오래 바라보았소. 한 곳에 불이 붙으면 모두가 한꺼번에 움직이지 못하겠더이다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "화공을 처음 건의한 사람은 황개였다고 전합니다. 주유 장군이 그 계책을 받아 썼습니다.", "is_invented": false, "verify": false, "evidence": "confirmed" },
+        { "speaker": "hero:zhou_yu", "expr": "serious", "text": "황개 장군, 그 계책을 자세히 들려 주시오. 바람과 시각, 서신을 보낼 사람까지 모두 헤아려야 하오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "그 계책이라면 저도 따라가고 싶어요. 먼저 필요한 게 무엇인가요?", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "먼저 묻는 습관은 서가에서도 변함이 없으시군요. 다음은 황개의 서신이 닿는 밤입니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": []
+    },
+    {
+      "id": "shelf12_s3_pre",
+      "stage_code": "shelf12_s3",
+      "timing": "before_battle",
+      "bg": "달 없는 밤의 장강. 강바람이 돛을 부풀리고, 북안 수채의 불빛이 멀리 점처럼 보인다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "황개는 조조에게 거짓 항복의 서신을 보냈다고 전합니다. 이어 마른 풀과 기름을 실은 배를 이끌고 수채로 향했습니다.", "is_invented": false, "verify": false, "evidence": "confirmed" },
+        { "speaker": "shiori", "expr": "serious", "text": "후대의 이야기책에는 황개가 주유에게 매를 맞는 장면이 덧붙었습니다. 정사에는 없는 쪽입니다. 이 서가에서는 그 쪽을 읽지 않습니다.", "is_invented": false, "verify": false, "evidence": "confirmed" },
+        { "speaker": "npc:npc_huang_gai", "expr": "serious", "text": "서신은 이미 건너갔소. 이제 배가 닿을 곳까지 가는 일만 남았소. 내 배를 지켜 주시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_wei_jing_marine_chief", "expr": "neutral", "text": "항복을 청하는 선단이 온다고 했다. 다만 이 시각에 암초 사이로 오는 점이 마음에 걸린다. 경계를 풀지 마라.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_wei_chain_captain", "expr": "serious", "text": "대열을 흩지 마라. 묶인 채로 서 있는 것이 우리의 방진이다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhou_yu", "expr": "serious", "text": "황개의 배가 접촉점에 닿을 때까지 지켜야 하오. 이 일은 시각이 전부요.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:sun_quan", "expr": "serious", "text": "강동이 오늘 밤을 기다렸소. 주유를 믿고 맡기는 것이 내 몫이오.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "sun_quan 편성" },
+        { "speaker": "hero:zhuge_liang", "expr": "neutral", "text": "바람의 결을 손바닥으로 읽어 보시오. 지금 이 강의 바람은 오는 쪽으로 불고 있소.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "zhuge_liang 편성" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "황개 님의 배가 먼저 닿아야 하니, 호위를 두껍게 하고 접촉점까지 길을 열겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "선택지가 나옵니다. 어느 쪽이든 화공의 결과는 바뀌지 않습니다. 달라지는 것은 준비의 모양입니다. 황개가 접촉점에 닿고, 황개 부대가 살아 있으면 승리입니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "choice": {
+        "id": "shelf12_choice_1", "prompt": "황개의 계책을 어떻게 서가에 꽂으시겠습니까?", "default": "A",
+        "note": "분기 1. 역사 결과는 두 안 모두 동일. 보상과 시작 버프만 다름. 스킵 시 A.",
+        "options": [
+          {
+            "id": "A", "label": "거짓 항서를 먼저 띄운다",
+            "lines": [
+              { "speaker": "protagonist", "expr": "neutral", "text": "서신이 먼저 닿아야 의심이 풀리니, 서신 쪽부터 챙기겠습니다.", "is_invented": true },
+              { "speaker": "npc:npc_huang_gai", "expr": "smile", "text": "서신은 서두를수록 의심을 부르오. 그래도 때를 놓치는 것보다는 낫소.", "is_invented": true }
+            ],
+            "captions": [{ "text": "책장에 주석이 한 줄 붙습니다. 황개가 서신으로 조조의 경계를 풀었다고 전한다.", "is_invented": false, "evidence": "confirmed" }],
+            "effects": [{ "op": "reward", "item": "record_fragment", "count": 1, "value": "TBD(임밸런)" }, { "op": "buff", "unit": "npc_huang_gai", "stat": "move", "value": "TBD(임밸런)", "turns": 1 }, { "op": "set_flag", "key": "shelf12_s3_letter_first", "value": true }]
+          },
+          {
+            "id": "B", "label": "항로의 암초를 먼저 살핀다",
+            "lines": [
+              { "speaker": "protagonist", "expr": "neutral", "text": "암초 사이 항로를 먼저 살피겠습니다. 접촉점까지 가는 길을 익혀 두는 게 먼저 같아요.", "is_invented": true },
+              { "speaker": "hero:zhou_yu", "expr": "neutral", "text": "길을 알면 기다릴 수 있소. 그 점을 아는 사람이 지휘관의 몫을 하오.", "is_invented": true }
+            ],
+            "captions": [{ "text": "책장에 주석이 한 줄 붙습니다. 접근 항로의 세부는 더 읽어야 한다.", "is_invented": false, "evidence": "verify" }],
+            "effects": [{ "op": "reward", "item": "record_fragment", "count": 1, "value": "TBD(임밸런)" }, { "op": "show_marker", "zone": "reef_route", "kind": "path" }, { "op": "set_flag", "key": "shelf12_s3_route_first", "value": true }]
+          }
+        ]
+      },
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": []
+    },
+    {
+      "id": "shelf12_s3_post",
+      "stage_code": "shelf12_s3",
+      "timing": "after_clear",
+      "bg": "수채 가까운 강 위. 황개의 배들이 돛을 높이 올린 채 바람을 타고 나아간다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "npc:npc_wei_jing_marine_chief", "expr": "serious", "text": "돛이 너무 높다. 항복하러 오는 배가 아니다. 그러나 이미 늦었다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "황개의 선단은 수채에서 가까운 곳까지 닿자 배에 불을 붙이고 사람은 작은 배로 옮겨 탔다고 전합니다. 바람이 거셌다고도 전합니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "npc:npc_huang_gai", "expr": "serious", "text": "불을 붙이시오. 모두 작은 배로 옮겨 타시오. 오늘 우리의 일은 여기까지요.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhou_yu", "expr": "serious", "text": "이제 불길의 뒤를 따라 들어가겠소. 흩어진 대열을 놓치지 마시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "불길이 번지는 방향을 읽어서 들어가야겠어요. 연기에 시야가 막히는 점도 조심하고요.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "serious", "text": "이 장면은 이 서가에서 가장 밝은 쪽입니다. 그리고 가장 위험한 쪽이기도 합니다. 다음은 불길 한가운데입니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": []
+    },
+    {
+      "id": "shelf12_s4_pre",
+      "stage_code": "shelf12_s4",
+      "timing": "before_battle",
+      "bg": "불길에 물든 장강. 이어 묶인 배들 사이로 붉은 빛이 번지고, 연기가 수면 위를 낮게 흐른다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "serious", "text": "불길은 수채의 배에서 강가의 진영까지 번졌다고 전합니다. 배를 묶어 둔 것이 오히려 흩어지는 길을 막았다는 설명도 따릅니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "npc:npc_wei_chain_captain", "expr": "serious", "text": "닻줄을 끊어라. 불붙은 배를 밀어내어 연결을 풀어라. 시간이 없다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_wei_archer_captain", "expr": "serious", "text": "불빛을 보고 쏴라. 저쪽 배의 그림자를 놓치지 마라.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:cao_cao", "expr": "serious", "text": "대열을 거두어 북으로 간다. 남은 배는 풀고 가라. 여기서 더 얻을 것이 없소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_cheng_pu", "expr": "serious", "text": "불길 쪽으로 너무 가까이 가지 마시오. 연기가 눈을 가리면 물 위에서는 길을 잃소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhou_yu", "expr": "neutral", "text": "여섯 번의 신호를 버티면 적은 물러나오. 불에 서두르지 말고 길을 잃지 마시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:liu_bei", "expr": "serious", "text": "남은 자들을 쫓는 일은 서두르면 헛수고가 되오. 먼저 이쪽 대열부터 지킵시다.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "liu_bei 편성" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "여섯 턴을 버티면 되는 거죠? 불길과 연기가 번지는 방향부터 확인하겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "6턴을 버티면 승리입니다. 불길 구역에 오래 머물면 안 됩니다. 사서는 불과 책이 만나는 일을 좋아하지 않습니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": []
+    },
+    {
+      "id": "shelf12_s4_post",
+      "stage_code": "shelf12_s4",
+      "timing": "after_clear",
+      "bg": "불길이 잦아든 새벽 강. 연기 너머로 북쪽 물가가 비어 있다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "조조는 남은 배 일부를 버리고 북으로 물러났다고 전합니다. 주유와 유비가 그 뒤를 쫓아 남군까지 이르렀습니다. 조조는 조인을 강릉에 남기고 업으로 돌아갔습니다.", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "npc:npc_wei_rearguard_chief", "expr": "neutral", "text": "물길은 닫혔다. 이 길로 더는 가지 못하겠소. 육로로 대열을 이끌겠다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:cao_cao", "expr": "neutral", "text": "오늘은 졌소. 다만 북쪽의 일은 끝나지 않았소. 돌아가서 다시 헤아리겠소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhou_yu", "expr": "neutral", "text": "이겼다고 말하기에는 이르오. 강가의 진영이 비었을 뿐이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_huang_gai", "expr": "smile", "text": "불이 지나간 강은 의외로 조용하구려. 내 계책을 이렇게 오래 바라본 것은 처음이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "serious", "text": "서가 안쪽에서 번짐이 한 곳으로 모이고 있습니다. 불길 아래 덧쓰인 글씨들입니다. 마지막 칸으로 가겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": []
+    },
+    {
+      "id": "shelf12_s5_pre",
+      "stage_code": "shelf12_s5",
+      "timing": "before_battle",
+      "bg": "서가 맨 안쪽. 장강의 물빛과 불빛이 책등 위로 겹쳐 흐르고, 먹물이 두 겹의 글자 모양으로 일어난다",
+      "what_if": true,
+      "lines": [
+        { "speaker": "shiori", "expr": "serious", "text": "이번에는 사람이 아니라 기록의 번짐입니다. 정사의 글씨 위에 이야기책의 글씨가 겹겹이 덧쓰여, 어느 쪽이 처음 글씨인지 가리기 어려워진 형체입니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhou_yu", "expr": "neutral", "text": "내 이름 위에 덧쓰인 글씨가 보이오. 나는 그 글씨 속의 사람이 아니오. 그래도 지울 일은 아니오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhuge_liang", "expr": "serious", "text": "나는 사람이오. 바람을 부르는 자가 아니라 길을 걸어 다니던 자요. 덧쓰인 글씨 속에서 나를 찾지 마시오.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "zhuge_liang 편성" },
+        { "speaker": "hero:liu_bei", "expr": "neutral", "text": "사람들은 내가 이긴 이야기만 기억하려 하오. 이긴 날의 뒤편도 읽어 주는 이가 있어야 하오.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "liu_bei 편성" },
+        { "speaker": "hero:sun_quan", "expr": "neutral", "text": "강동의 결정이 한 줄로 접히는 것은 아쉬운 일이오. 풀 수 있다면 풀어 보시오.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "sun_quan 편성" },
+        { "speaker": "npc:npc_huang_gai", "expr": "neutral", "text": "나는 불을 놓은 사람이오. 그 불을 다시 쓸 줄은 몰랐소. 이번에는 불로 풀지 않겠소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "닦아 내는 게 아니라 정사와 이야기를 서랍에 나눠 담으러 왔어요. 어느 글씨가 어느 서랍인지부터 확인하겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "서랍 정리는 사서의 일입니다. 겹친 글씨 사이에 틈이 생기는 곳이 약점입니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "unlock_npc": null, "relation_ref": []
+    },
+    {
+      "id": "shelf12_s5_post",
+      "stage_code": "shelf12_s5",
+      "timing": "after_clear",
+      "bg": "먹물이 가라앉은 서가. 장강 한 굽이 위에 천막이 세워지고 탁자 위에 잔 넷이 놓여 있다. 후일담",
+      "what_if": true,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "번짐이 가라앉았습니다. 이제 기록이 적은 그 다음 장면입니다. 209년, 유기가 세상을 떠나고 유비는 형주의 여러 땅을 다스리게 됩니다. 노숙의 조언으로 손권이 그 일을 받아들였다고 전합니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "npc:npc_lu_su", "expr": "neutral", "text": "손권 님께서는 형주를 잠시 빌려 드리는 쪽을 택하셨소. 연합이 흩어지지 않는 길을 먼저 보셨소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:liu_bei", "expr": "neutral", "text": "오와 함께한 날이 짧지 않았소. 그 은혜를 가볍게 쓰지 않겠소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:sun_quan", "expr": "neutral", "text": "함께 막은 일은 함께 기억하겠소. 그 뒤의 일은 그때 가서 헤아립시다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhuge_liang", "expr": "neutral", "text": "손을 맞잡은 이유와 맞잡은 뒤의 길은 서로 다른 쪽이오. 둘을 따로 읽어야 하오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:zhou_yu", "expr": "smile", "text": "이 자리에 앉아 있으니 강 위의 불이 먼 일 같소. 곡이 틀리면 돌아본다는 말이 있으나, 오늘은 틀린 곡이 없구려.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "주유 장군은 210년, 서른여섯 안팎의 나이로 세상을 떠납니다. 오늘 그 장면은 펼치지 않겠습니다. 어느 서랍에 꽂을지는 지휘관님께서 정하십시오.", "is_invented": false, "verify": true, "evidence": "accepted" }
+      ],
+      "choice": {
+        "id": "shelf12_choice_2", "prompt": "손유 동맹의 이야기를 어떻게 서가에 꽂으시겠습니까?", "default": "A",
+        "note": "분기 2. 역사 결과는 두 안 모두 동일. 보상 종류와 호감 대사만 다름. 스킵 시 A.",
+        "options": [
+          {
+            "id": "A", "label": "손을 맞잡은 이유를 먼저 적는다",
+            "lines": [
+              { "speaker": "protagonist", "expr": "neutral", "text": "왜 손을 잡았는지부터 적겠습니다. 이유가 있어야 이후도 이해할 수 있으니까요.", "is_invented": true },
+              { "speaker": "hero:zhou_yu", "expr": "smile", "text": "이유를 먼저 적는 이는 지휘관의 눈을 가졌소.", "is_invented": true }
+            ],
+            "captions": [{ "text": "책장에 주석이 한 줄 붙습니다. 조조의 남하가 두 세력을 한 편으로 묶었다.", "is_invented": false, "evidence": "accepted" }],
+            "effects": [{ "op": "reward", "item": "record_fragment", "count": 1, "value": "TBD(임밸런)" }, { "op": "set_flag", "key": "shelf12_s5_reason_first", "value": true }]
+          },
+          {
+            "id": "B", "label": "맞잡은 뒤의 갈림길을 먼저 적는다",
+            "lines": [
+              { "speaker": "protagonist", "expr": "neutral", "text": "손을 잡은 뒤에 어떤 갈림길이 있었는지도 적어 두겠습니다. 비워 두지는 않을게요.", "is_invented": true },
+              { "speaker": "hero:zhuge_liang", "expr": "neutral", "text": "갈림길을 먼저 적는 이는 드물소. 그것도 쓸모 있는 눈이오.", "is_invented": true }
+            ],
+            "captions": [{ "text": "책장에 주석이 한 줄 붙습니다. 형주를 둘러싼 조정은 이후에도 이어졌다.", "is_invented": false, "evidence": "accepted" }],
+            "effects": [{ "op": "reward", "item": "record_fragment", "count": 1, "value": "TBD(임밸런)" }, { "op": "set_flag", "key": "shelf12_s5_after_first", "value": true }]
+          }
+        ]
+      },
+      "closing_lines": [
+        { "speaker": "hero:zhou_yu", "expr": "neutral", "text": "정사 위에 이야기가 덧쓰이는 것을 탓하지는 않겠소. 다만 어느 쪽이 처음 글씨인지만 알려 주오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_huang_gai", "expr": "smile", "text": "불을 놓은 자가 이제 서고의 등불을 지키게 되었구려. 부르시면 가겠소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "마지막 줄은 비워 둘까요? 다음 사서가 채울 수 있도록요.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "비워 두지요. 사서의 규칙입니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null,
+      "unlock_npc": "npc_huang_gai",
+      "unlock_note": "황개 영구 합류 제안(서가 클리어 보상 NPC 1명). 영웅 풀 승격 시 프로필, 병종, 패시브는 별도 작업. 확정은 팀장/임밸런.",
+      "relation_ref": ["zhou_yu:sun_quan", "liu_bei:sun_quan", "zhou_yu:zhuge_liang"]
+    }
+  ],
+  "battle_events": {
+    "schema_version": "proposal-0.1",
+    "policy_default": { "once": true, "skippable": true, "pause_input": true, "max_sec": 20, "replay": "short_after_first_clear", "effects_apply_on_skip": true, "multiplayer": false, "enabled": true },
+    "stages": [
+      {
+        "stage_id": "shelf12_s1", "title": "장강의 초전", "goal": "commander_defeat (조조군 선봉 수군장 퇴각 처리)", "classification": "사실 기반 각색",
+        "enemy_unit_guide": "4부대: 선봉 수군장 1, 궁병선 2, 보병선 1. 수치 TBD(임밸런)",
+        "terrain_keywords": "장강 본류 sea, 중앙 암초 군집 reef, 남안 항구 harbor, 모래톱 sand",
+        "events": [
+          {
+            "id": "shelf12_s1_e01", "name": "안개 낀 물길", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "hero:zhou_yu"],
+            "scene": {
+              "captions": [{ "text": "208년 겨울, 장강.", "is_invented": false }],
+              "lines": [
+                { "speaker": "shiori", "text": "수병은 물 위에서 강하고, 육지의 병사는 배 위에서 둔해집니다. 암초는 몸을 가려 줍니다.", "expr": "neutral", "is_invented": true },
+                { "speaker": "hero:zhou_yu", "text": "암초 뒤에 궁수를 두고 앞줄을 세우시오. 적이 먼저 지칠 때까지 기다리오.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "장강 초전: 암초를 방패 삼아라."
+            },
+            "effects": [{ "op": "show_objective", "type": "commander_defeat", "value": 1 }, { "op": "show_marker", "zone": "reef_cluster", "kind": "cover" }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["초전에서 조조군 불리: en.wikipedia Battle of Red Cliffs"], "engine_support": "기본(확인 필요)" }
+          },
+          {
+            "id": "shelf12_s1_e02", "name": "선봉의 돌진", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "enemy", "turn": 2 }, "when_text": "2턴째 적군 페이즈 시작",
+            "priority": 65, "requires": { "engine_support": "확장 필요(AI 패턴)" },
+            "cast": ["shiori", "npc_wei_vanguard_captain"],
+            "scene": {
+              "captions": [{ "text": "조조군 선봉 선단이 노를 빠르게 젓는다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_wei_vanguard_captain", "text": "단숨에 포구까지 간다. 암초 앞을 돌아서 가라.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "적이 정면으로 돌진합니다. 암초 쪽 앞줄이 비지 않게 해 주십시오.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "2턴: 적 선봉이 돌진한다."
+            },
+            "effects": [{ "op": "ai_pattern", "side": "enemy", "pattern": "assault_zone", "zone": "south_port", "turns": 2 }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "확장 필요(AI 패턴)" }
+          },
+          {
+            "id": "shelf12_s1_e03", "name": "배 위의 걸음", "types": ["A"],
+            "trigger": { "type": "unit_enter_zone", "unit": "any_enemy", "zone": "reef_cluster", "first_time": true }, "when_text": "적이 암초 구역에 처음 들어섰을 때",
+            "priority": 45, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["npc_cheng_pu", "npc_wei_archer_captain"],
+            "scene": {
+              "captions": [],
+              "lines": [
+                { "speaker": "npc:npc_wei_archer_captain", "text": "배가 흔들려 활이 흔들린다. 쏘는 때를 놓치지 마라.", "expr": "serious", "is_invented": true },
+                { "speaker": "npc:npc_cheng_pu", "text": "저쪽이 흔들리는 틈이오. 지금 쳐야 하오.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "적이 암초 사이에서 흔들린다."
+            },
+            "effects": [{ "op": "debuff", "side": "enemy", "stat": "accuracy", "value": "TBD(임밸런)", "turns": 1 }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["북쪽 병사들의 수전 미숙: en.wikipedia Battle of Red Cliffs"], "engine_support": "확장 필요" }
+          },
+          {
+            "id": "shelf12_s1_e04", "name": "선봉장이 물러서다", "types": ["E"],
+            "trigger": { "type": "hp_threshold", "unit": "npc_wei_vanguard_captain", "lte_tenths": 3, "first_time": true, "after": "action" }, "when_text": "선봉 수군장 HP가 30% 이하가 된 직후",
+            "priority": 80, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "npc_wei_vanguard_captain"],
+            "scene": {
+              "captions": [{ "text": "조조군 선봉이 뱃머리를 돌린다. 퇴각이다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_wei_vanguard_captain", "text": "물이 우리 편이 아니다. 북안으로 돌아간다.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "선봉장이 물러납니다. 격파로 처리됩니다. 사서는 이것을 퇴각이라고 적습니다.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "선봉장 부대가 물러난다."
+            },
+            "effects": [{ "op": "unit_retreat", "unit": "npc_wei_vanguard_captain" }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)", "note": "commander_defeat 판정을 퇴각 연출로 처리" }
+          }
+        ]
+      },
+      {
+        "stage_id": "shelf12_s2", "title": "북안의 수채", "goal": "capture_points 2 (모래톱과 암초 점령)", "classification": "사실 기반 각색",
+        "enemy_unit_guide": "5부대: 형주 출신 수군 지휘관 1, 궁병 선단장 1, 보병선 2, 궁병선 1. 연환 상태로 이동 제한 TBD(임밸런)",
+        "terrain_keywords": "북안 가까운 sea, 모래톱 sand 2곳, 암초 reef 벽, 북안 harbor, 이어 묶인 선단 연출",
+        "events": [
+          {
+            "id": "shelf12_s2_e01", "name": "묶인 선단", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "신규 필요(연환 연출)" },
+            "cast": ["shiori", "hero:cao_cao"],
+            "scene": {
+              "captions": [{ "text": "조조의 수채에서 배들이 앞뒤로 이어져 있다.", "is_invented": false }],
+              "lines": [
+                { "speaker": "hero:cao_cao", "text": "물에 익숙지 않은 이들이 많소. 배를 이어 흔들림을 줄이라.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "묶인 배는 방향을 바꾸기 어렵습니다. 모래톱과 암초 두 곳을 차지하십시오.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "수채: 두 곳을 점령하라."
+            },
+            "effects": [{ "op": "show_objective", "type": "capture_points", "value": 2 }, { "op": "ai_pattern", "side": "enemy", "pattern": "chained_fleet", "turns": 3 }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["배를 이어 묶음: en.wikipedia Battle of Red Cliffs"], "engine_support": "신규 필요(연환 연출)" }
+          },
+          {
+            "id": "shelf12_s2_e02", "name": "첫 번째 점령지", "types": ["E"],
+            "trigger": { "type": "unit_enter_zone", "unit": "any_ally", "zone": "sandbar_a", "first_time": true }, "when_text": "아군이 첫 모래톱에 처음 들어섰을 때",
+            "priority": 60, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["npc_lu_su", "npc_cheng_pu"],
+            "scene": {
+              "captions": [],
+              "lines": [
+                { "speaker": "npc:npc_cheng_pu", "text": "한 곳은 쥐었소. 남은 암초는 저쪽이오.", "expr": "neutral", "is_invented": true },
+                { "speaker": "npc:npc_lu_su", "text": "서두르지 않아도 됩니다. 순서만 맞추십시오.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "첫 번째 점령 성공."
+            },
+            "effects": [{ "op": "capture_progress", "value": 1 }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)" }
+          },
+          {
+            "id": "shelf12_s2_e03", "name": "경계의 활", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "enemy", "turn": 3 }, "when_text": "3턴째 적군 페이즈 시작",
+            "priority": 70, "requires": { "engine_support": "확장 필요(AI 패턴)" },
+            "cast": ["shiori", "npc_wei_archer_captain", "npc_wei_jing_marine_chief"],
+            "scene": {
+              "captions": [{ "text": "수채 외곽의 궁병선이 일제히 활을 든다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_wei_archer_captain", "text": "묶인 배가 방패다. 앞쪽을 향해 쏘아라.", "expr": "serious", "is_invented": true },
+                { "speaker": "npc:npc_wei_jing_marine_chief", "text": "얕은 곳으로 돌아가는 길이 열려 있다. 그쪽을 막아라.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "적이 사선을 겹칩니다. 암초 뒤로 물러서 한 박자 쉬어 주십시오.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "3턴: 적이 사격선을 겹친다."
+            },
+            "effects": [{ "op": "ai_pattern", "side": "enemy", "pattern": "defend_zone", "zone": "reef_wall", "turns": 2 }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "확장 필요(AI 패턴)" }
+          },
+          {
+            "id": "shelf12_s2_e04", "name": "묶은 배의 약점", "types": ["E"],
+            "trigger": { "type": "stage_victory" }, "when_text": "승리 판정 직후",
+            "priority": 100, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "npc_huang_gai", "hero:zhou_yu"],
+            "scene": {
+              "captions": [{ "text": "해 질 녘, 이어 묶인 배들의 그림자가 길게 늘어진다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_huang_gai", "text": "한 곳에 불이 붙으면 모두가 한꺼번에 움직이지 못하겠소.", "expr": "serious", "is_invented": true },
+                { "speaker": "hero:zhou_yu", "text": "그 말을 오늘 밤 안에 계획으로 만들겠소.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "승리: 황개가 화공을 청한다."
+            },
+            "effects": [],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "confirmed", "fact_refs": ["황개의 화공 건의: en.wikipedia Huang Gai"], "engine_support": "기본(확인 필요)" }
+          }
+        ]
+      },
+      {
+        "stage_id": "shelf12_s3", "title": "항서를 띄운 밤", "goal": "capture_points 1 (황개 선단이 접촉점 도달, 황개 부대 생존)", "classification": "사실 기반 각색",
+        "enemy_unit_guide": "5부대: 형주 출신 수군 지휘관 1, 연환 선단 지휘관 1, 궁병 선단장 1, 보병선 2. 야간 시야 제한 TBD(임밸런)",
+        "terrain_keywords": "야간 sea, 암초 사이 좁은 항로 reef_route, 접촉점 북안 수채 외곽, 순풍 방향 연출",
+        "events": [
+          {
+            "id": "shelf12_s3_e01", "name": "항서가 닿은 밤", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "신규 필요(야간 연출)" },
+            "cast": ["shiori", "npc_huang_gai"],
+            "scene": {
+              "captions": [{ "text": "달 없는 밤, 황개의 선단이 돛을 올린다.", "is_invented": false }],
+              "lines": [
+                { "speaker": "npc:npc_huang_gai", "text": "서신은 이미 건너갔소. 이제 접촉점에 닿는 일만 남았소.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "황개 부대를 접촉점까지 지켜 주십시오. 황개 부대가 물러나면 임무는 실패입니다.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "접촉점까지 황개를 호위하라."
+            },
+            "effects": [{ "op": "show_objective", "type": "capture_points", "value": 1 }, { "op": "protect_unit", "unit": "npc_huang_gai" }, { "op": "weather", "preset": "night_wind", "value": "TBD(임밸런)" }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "confirmed", "fact_refs": ["거짓 항복 서신과 화공선 접근: en.wikipedia Huang Gai"], "engine_support": "신규 필요(야간 연출, 호위 목표)" }
+          },
+          {
+            "id": "shelf12_s3_e02", "name": "의심하는 눈", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "enemy", "turn": 2 }, "when_text": "2턴째 적군 페이즈 시작",
+            "priority": 65, "requires": { "engine_support": "확장 필요(AI 패턴)" },
+            "cast": ["shiori", "npc_wei_jing_marine_chief"],
+            "scene": {
+              "captions": [{ "text": "수채 외곽에서 등불이 흔들린다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_wei_jing_marine_chief", "text": "항복을 청하는 배의 돛이 높다. 마음에 걸린다. 외곽 선단은 나를 따르라.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "형주 출신 지휘관이 접근로를 막으러 나옵니다. 그 배를 먼저 묶어 주십시오.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "2턴: 외곽 선단이 접근로를 막으러 나온다."
+            },
+            "effects": [{ "op": "ai_pattern", "side": "enemy", "pattern": "intercept_unit", "unit": "npc_huang_gai", "turns": 2 }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "확장 필요(AI 패턴)" }
+          },
+          {
+            "id": "shelf12_s3_e03", "name": "묶인 중앙", "types": ["A"],
+            "trigger": { "type": "unit_distance", "a": "npc_huang_gai", "b": "npc_wei_chain_captain", "lte": 3, "first_time": true, "after": "action" }, "when_text": "황개 유닛이 연환 선단 지휘관과 3칸 이내가 된 직후",
+            "priority": 70, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["npc_wei_chain_captain", "npc_huang_gai", "shiori"],
+            "scene": {
+              "captions": [],
+              "lines": [
+                { "speaker": "npc:npc_wei_chain_captain", "text": "대열을 흩지 마라. 묶인 채로 서 있는 것이 우리의 방진이다.", "expr": "serious", "is_invented": true },
+                { "speaker": "npc:npc_huang_gai", "text": "한 걸음만 더 가면 되오. 방향을 바꾸지 마시오.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "접촉점이 가깝습니다. 연환 지휘관의 사선을 비켜 가십시오.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "접촉점 직전: 중앙의 사선을 피하라."
+            },
+            "effects": [{ "op": "show_marker", "zone": "contact_point", "kind": "target" }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)" }
+          },
+          {
+            "id": "shelf12_s3_e04", "name": "돛에 불이 오르다", "types": ["E"],
+            "trigger": { "type": "stage_victory" }, "when_text": "승리 판정 직후",
+            "priority": 100, "requires": { "engine_support": "신규 필요(불길 연출)" },
+            "cast": ["shiori", "npc_huang_gai"],
+            "scene": {
+              "captions": [{ "text": "화공선의 돛에 불이 오르고, 바람이 불길을 수채 쪽으로 밀어 보낸다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_huang_gai", "text": "불을 붙이시오. 모두 작은 배로 옮겨 타시오.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "황개 부대는 작은 배로 물러납니다. 불길은 다음 전투의 배경이 됩니다.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "승리: 화공선에 불이 오른다."
+            },
+            "effects": [{ "op": "vfx", "preset": "fire_ships", "value": "연출만, 지형 변경 없음" }, { "op": "unit_retreat", "unit": "npc_huang_gai" }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["화공선 점화, 바람: en.wikipedia Battle of Red Cliffs, 바람 세부 verify"], "engine_support": "신규 필요(불길 연출)" }
+          }
+        ]
+      },
+      {
+        "stage_id": "shelf12_s4", "title": "불붙은 수채", "goal": "survive_turns 6", "classification": "사실 기반 각색(verify 포함)",
+        "enemy_unit_guide": "7부대: 연환 선단 지휘관 1, 궁병 선단장 1, 후위 지휘관 1, 조조 1(후방 고정), 보병선 2, 궁병선 1. 불길 구역 지속 피해 TBD(임밸런)",
+        "terrain_keywords": "불길과 연기 sea 위 연출, 암초 reef 틈 대피처, 북안 harbor 후방, 불길 구역 표시",
+        "events": [
+          {
+            "id": "shelf12_s4_e01", "name": "불길과 연기", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "신규 필요(불길 구역 연출)" },
+            "cast": ["shiori", "npc_cheng_pu"],
+            "scene": {
+              "captions": [{ "text": "불길이 수채에서 강가까지 번진다.", "is_invented": false }],
+              "lines": [
+                { "speaker": "npc:npc_cheng_pu", "text": "연기가 눈을 가리면 물 위에서는 길을 잃소. 불길 구역에서 떨어지시오.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "6턴을 버티면 승리입니다. 불길 구역은 화면에 표시됩니다.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "불길 속에서 6턴을 버텨라."
+            },
+            "effects": [{ "op": "show_objective", "type": "survive_turns", "value": 6 }, { "op": "show_marker", "zone": "fire_zone", "kind": "danger" }, { "op": "vfx", "preset": "fire_smoke", "value": "연출만" }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["불길이 강가 진영까지 번짐: en.wikipedia Battle of Red Cliffs, 세부 verify"], "engine_support": "신규 필요(불길 구역 연출)" }
+          },
+          {
+            "id": "shelf12_s4_e02", "name": "닻줄을 끊어라", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "enemy", "turn": 2 }, "when_text": "2턴째 적군 페이즈 시작",
+            "priority": 70, "requires": { "engine_support": "확장 필요(AI 패턴)" },
+            "cast": ["shiori", "npc_wei_chain_captain"],
+            "scene": {
+              "captions": [{ "text": "묶인 배들이 서로를 밀어내며 흩어진다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_wei_chain_captain", "text": "닻줄을 끊어라. 불붙은 배를 밀어내어 연결을 풀어라.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "연결이 풀려 적이 움직임을 되찾습니다. 불길과 함께 한꺼번에 밀려옵니다.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "2턴: 연결이 풀린 적이 움직인다."
+            },
+            "effects": [{ "op": "ai_pattern", "side": "enemy", "pattern": "free_move", "turns": 2 }, { "op": "spawn", "side": "b", "zone": "north_bank", "units": ["boat_infantry", "boat_archer"], "limit": 2, "value": "TBD(임밸런)" }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "신규 필요(증원 트리거)" }
+          },
+          {
+            "id": "shelf12_s4_e03", "name": "육로로 물러서다", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "enemy", "turn": 4 }, "when_text": "4턴째 적군 페이즈 시작",
+            "priority": 75, "requires": { "engine_support": "확장 필요(AI 패턴)" },
+            "cast": ["shiori", "npc_wei_rearguard_chief", "hero:cao_cao"],
+            "scene": {
+              "captions": [{ "text": "조조의 본대가 북쪽 물가로 방향을 돌린다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "hero:cao_cao", "text": "대열을 거두어 북으로 간다. 남은 배는 풀고 가라.", "expr": "serious", "is_invented": true },
+                { "speaker": "npc:npc_wei_rearguard_chief", "text": "후위는 나와 함께 남는다. 대열이 지나갈 때까지 길을 막겠소.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "본대가 물러납니다. 후위만 남아 시간을 벌고 있습니다.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "4턴: 본대가 북으로 물러난다."
+            },
+            "effects": [{ "op": "ai_pattern", "side": "enemy", "pattern": "retreat_north", "turns": 3 }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["조조의 퇴각, 남은 배 일부를 버림: en.wikipedia Battle of Red Cliffs"], "engine_support": "확장 필요(AI 패턴)" }
+          },
+          {
+            "id": "shelf12_s4_e04", "name": "여명의 물가", "types": ["E"],
+            "trigger": { "type": "stage_victory" }, "when_text": "승리 판정 직후",
+            "priority": 100, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "hero:zhou_yu", "npc_huang_gai"],
+            "scene": {
+              "captions": [{ "text": "새벽, 불길이 잦아든 강 위로 연기만 남는다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "hero:zhou_yu", "text": "이겼다고 말하기에는 이르오. 강가의 진영이 비었을 뿐이오.", "expr": "neutral", "is_invented": true },
+                { "speaker": "shiori", "text": "조조 측은 북으로 물러났습니다. 불길 아래 덧쓰인 글씨들이 한 곳으로 모이고 있습니다.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "승리: 불길이 잦아든다."
+            },
+            "effects": [],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)" }
+          }
+        ]
+      },
+      {
+        "stage_id": "shelf12_s5", "title": "덧쓰인 쪽의 그림자", "goal": "commander_defeat (보스: npc_ink_overwrite)", "classification": "허구",
+        "enemy_unit_guide": "보스 1 + 번진 글자 소형 유닛 3(sword). 보스 2페이즈 TBD(임밸런)",
+        "terrain_keywords": "서가 내부의 장강, sea와 void 혼합, 두 겹 글자 타일 layered_ink, 틈 지점 ink_seams",
+        "events": [
+          {
+            "id": "shelf12_s5_e01", "name": "겹친 글씨", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "신규 필요(보스 연출)" },
+            "cast": ["shiori", "hero:zhou_yu"],
+            "scene": {
+              "captions": [{ "text": "……바람을 불러…… ……라고만 전한다. ……", "is_invented": true }],
+              "lines": [
+                { "speaker": "shiori", "text": "그림자가 두 겹의 글씨로 움직입니다. 글씨가 겹치지 않은 틈을 노려 주십시오.", "expr": "serious", "is_invented": true },
+                { "speaker": "hero:zhou_yu", "text": "겹친 글씨에도 틈은 있소. 틈은 처음 글씨가 숨 쉬는 곳이오.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "보스: 글씨가 겹치지 않은 틈을 공격하라."
+            },
+            "effects": [{ "op": "show_objective", "type": "commander_defeat", "value": 1 }, { "op": "show_marker", "zone": "ink_seams", "kind": "target" }],
+            "meta": { "classification": "허구", "evidence_level": "invented", "fact_refs": [], "engine_support": "신규 필요" }
+          },
+          {
+            "id": "shelf12_s5_e02", "name": "두 번째 서랍", "types": ["A", "D"],
+            "trigger": { "type": "hp_threshold", "unit": "npc_ink_overwrite", "lte_tenths": 6, "first_time": true, "after": "action" }, "when_text": "그림자 HP 60% 이하",
+            "priority": 85, "requires": { "engine_support": "신규 필요(보스 페이즈)" },
+            "cast": ["shiori", "npc_huang_gai"],
+            "scene": {
+              "captions": [{ "text": "……그 이상은 이야기가 이어 쓴다. ……", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_huang_gai", "text": "겹친 글씨가 퍼집니다. 이번에는 불로 풀지 않겠소. 틈 사이를 파고드시오.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "2페이즈입니다. 번진 글자가 늘어납니다. 아군 사이를 좁혀 주십시오.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "2페이즈: 겹친 글씨가 퍼진다."
+            },
+            "effects": [{ "op": "boss_phase", "phase": 2, "value": "TBD(임밸런)" }],
+            "meta": { "classification": "허구", "evidence_level": "invented", "fact_refs": [], "engine_support": "신규 필요(보스 페이즈)" }
+          },
+          {
+            "id": "shelf12_s5_e03", "name": "두 사람의 말", "types": ["E"],
+            "trigger": { "type": "unit_adjacent", "unit": "zhou_yu", "fallback_unit": "zhuge_liang", "target": "npc_ink_overwrite", "first_time": true, "after": "action" }, "when_text": "주유 또는 제갈량이 그림자와 처음 인접한 직후",
+            "priority": 60, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["hero:zhou_yu", "hero:zhuge_liang"],
+            "scene": {
+              "captions": [],
+              "lines": [
+                { "speaker": "hero:zhou_yu", "text": "내 이름 위에 덧쓰인 글씨를 읽으면서도 지우지는 않겠소. 처음 글씨를 분명히 해 두면 되오.", "expr": "serious", "is_invented": true },
+                { "speaker": "hero:zhuge_liang", "text": "덧쓰인 글씨 속의 나는 내가 아니오. 그래도 나를 그렇게 기억하는 이들의 마음은 알겠소.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "두 사람의 말이 그림자에 닿는다."
+            },
+            "effects": [{ "op": "buff", "unit": "adjacent_ally", "stat": "attack", "value": "TBD(임밸런)", "turns": 1 }],
+            "meta": { "classification": "허구", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)" }
+          },
+          {
+            "id": "shelf12_s5_e04", "name": "서랍을 나누다", "types": ["E"],
+            "trigger": { "type": "stage_victory" }, "when_text": "승리 판정 직후",
+            "priority": 100, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "protagonist"],
+            "scene": {
+              "captions": [{ "text": "먹물이 두 갈래로 갈라져 각자의 서랍으로 스며든다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "protagonist", "text": "글씨가 두 서랍으로 나뉘었어요. 정사는 정사대로, 이야기는 이야기대로 읽을 수 있겠네요.", "expr": "neutral", "is_invented": true },
+                { "speaker": "shiori", "text": "예. 서랍 정리의 첫 시연으로 충분합니다.", "expr": "smile", "is_invented": true }
+              ],
+              "short": "서가 복원: 두 서랍이 나뉜다."
+            },
+            "effects": [],
+            "meta": { "classification": "허구", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)" }
+          }
+        ]
+      }
+    ]
+  }
+}

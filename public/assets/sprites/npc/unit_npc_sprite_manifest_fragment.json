@@ -1,0 +1,4260 @@
+{
+ "note": "NPC 전용 전투 스프라이트(원균·정운·이여송·진린 2026-11-02 + 메인 스토리 2막 봉군·사공·돌 아주머니 2026-11-03 + 후속: 메인 스토리 NPC 12종·짐수레 4코드(3시트: 2026-11-03 npc_cart_rear 짐 변형 별도)·나룻배 노꾼 2026-11-03 + ch21/ch22 카단·바이다르·우스타드 알리 쿨리·바부르(babur)·바투·후마윤(잠정, 초상 없음) 2026-11-03) manifest 조각. 미병합 — manifest.json 직접 수정 안 함. 병합: merge_fragments.mjs FRAGMENTS 에 { path: `${A}/sprites/npc/unit_npc_sprite_manifest_fragment.json`, kind: 'npc_naval' } 1줄 추가.",
+ "generated": "2026-11-03T00:42:09.597Z",
+ "keyRules": {
+  "npc_sprite": "unit.npc.<npc_code>.<ally|enemy>.64.sheet — npc_code 는 로스터 코드 그대로(npc_won_gyun 등, 접두사 변환·별칭 불필요). assets.npcCode() 가 manifest 존재로 바로 인식",
+  "side": "아군 NPC 는 ally 시트 사용(assets.npcSheetSide: npc_jp_ 접두사만 enemy 고정). enemy 시트는 같은 인물이 적으로 나올 때용(파랑 계열 색만 적색 스왑)",
+  "lookup": "unitTex 후보 순서: (영웅이면 unit.hero.*) → unit.npc.<code>.<side>.64.sheet → unit.<culture>.<cls>.<side>.64.sheet → unit.default... → unit.<cls>... (fallback 필드 = 같은 순서의 권장 폴백)",
+  "sheet_layout": "192x256, 64x64 프레임 3열x4행, 행=down,left,right,up, 열=walk1,idle,walk2 (hero v4·npc_naval 과 동일), x2 는 variants.x2"
+ },
+ "items": [
+  {
+   "key": "unit.npc.npc_won_gyun.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_won_gyun_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_won_gyun_ally_sheet.png"
+   },
+   "bytes": 11341,
+   "npc": "npc_won_gyun",
+   "name_ko": "원균",
+   "side": "ally",
+   "npc_default_side": "환도를 몸 앞에 칼끝 아래로, 투구 목 드림",
+   "culture": "korea",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_won_gyun",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_won_gyun.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_won_gyun.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "1차: 측면 idle 칸 환도 누락 → 재생성 1회(2차 채택, 9칸 환도 일관)",
+     "2차: 측면에서 투구 챙이 넓게 보여 전립에 가까운 실루엣(정면·후면은 둥근 쇠 투구), 붉은 술이 작아짐",
+     "64px 1배에서 공용 조선 검병(unit.korea.sword)과 짙은 청색·둥근 머리 실루엣이 비슷함 — 수염·방패 없음으로만 구분. 물 배경 위 대비 낮음(배 오버레이 위에서는 상체만 보여 문제 적음)",
+     "투구 꼭대기 일부 1~2px 상단 잘림(clipped_px 42)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 두정갑 색(청색)은 초상 기준",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_won_gyun.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_won_gyun_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_won_gyun_enemy_sheet.png"
+   },
+   "bytes": 11234,
+   "npc": "npc_won_gyun",
+   "name_ko": "원균",
+   "side": "enemy",
+   "npc_default_side": "환도를 몸 앞에 칼끝 아래로, 투구 목 드림",
+   "culture": "korea",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_won_gyun",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_won_gyun.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_won_gyun.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "1차: 측면 idle 칸 환도 누락 → 재생성 1회(2차 채택, 9칸 환도 일관)",
+     "2차: 측면에서 투구 챙이 넓게 보여 전립에 가까운 실루엣(정면·후면은 둥근 쇠 투구), 붉은 술이 작아짐",
+     "64px 1배에서 공용 조선 검병(unit.korea.sword)과 짙은 청색·둥근 머리 실루엣이 비슷함 — 수염·방패 없음으로만 구분. 물 배경 위 대비 낮음(배 오버레이 위에서는 상체만 보여 문제 적음)",
+     "투구 꼭대기 일부 1~2px 상단 잘림(clipped_px 42)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 두정갑 색(청색)은 초상 기준",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jeong_un.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jeong_un_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jeong_un_ally_sheet.png"
+   },
+   "bytes": 12598,
+   "npc": "npc_jeong_un",
+   "name_ko": "정운",
+   "side": "ally",
+   "npc_default_side": "창을 몸 앞에 세워 쥠, 전립 챙 옆선",
+   "culture": "korea",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.spear.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jeong_un",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jeong_un.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jeong_un.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "창 끝이 칸 상단에 닿아 일부 잘림(clipped_px 114, 창날 끝 1~2px) — 1배에서 식별 영향 없음",
+     "측면 idle 얼굴이 완전 프로필보다 약간 3/4 쪽"
+    ]
+   },
+   "verify": true,
+   "verify_note": "붉은 철릭은 roster appearance 근거",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jeong_un.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jeong_un_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jeong_un_enemy_sheet.png"
+   },
+   "bytes": 12420,
+   "npc": "npc_jeong_un",
+   "name_ko": "정운",
+   "side": "enemy",
+   "npc_default_side": "창을 몸 앞에 세워 쥠, 전립 챙 옆선",
+   "culture": "korea",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.spear.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jeong_un",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jeong_un.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jeong_un.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "창 끝이 칸 상단에 닿아 일부 잘림(clipped_px 114, 창날 끝 1~2px) — 1배에서 식별 영향 없음",
+     "측면 idle 얼굴이 완전 프로필보다 약간 3/4 쪽"
+    ]
+   },
+   "verify": true,
+   "verify_note": "붉은 철릭은 roster appearance 근거",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_i_yeoseong.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_i_yeoseong_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_i_yeoseong_ally_sheet.png"
+   },
+   "bytes": 11494,
+   "npc": "npc_i_yeoseong",
+   "name_ko": "이여송",
+   "side": "ally",
+   "npc_default_side": "말이 왼쪽을 향해 걷고 기수는 쇠 채찍을 몸 앞에 듦",
+   "culture": "china",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_i_yeoseong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_i_yeoseong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_i_yeoseong.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "기마(말+기수) 시트, 초상과 금테 투구·붉은 술·붉은 갑옷·망토·쇠 채찍 일치",
+     "적 스왑 시 붉은 계열이라 색 변화 거의 없음(발밑 빨강 받침으로만 구분) — 아군 NPC 라 실사용 영향 낮음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "지휘 깃발은 깃발 금지 규칙으로 생략(초상과 동일)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_i_yeoseong.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_i_yeoseong_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_i_yeoseong_enemy_sheet.png"
+   },
+   "bytes": 11411,
+   "npc": "npc_i_yeoseong",
+   "name_ko": "이여송",
+   "side": "enemy",
+   "npc_default_side": "말이 왼쪽을 향해 걷고 기수는 쇠 채찍을 몸 앞에 듦",
+   "culture": "china",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_i_yeoseong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_i_yeoseong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_i_yeoseong.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "기마(말+기수) 시트, 초상과 금테 투구·붉은 술·붉은 갑옷·망토·쇠 채찍 일치",
+     "적 스왑 시 붉은 계열이라 색 변화 거의 없음(발밑 빨강 받침으로만 구분) — 아군 NPC 라 실사용 영향 낮음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "지휘 깃발은 깃발 금지 규칙으로 생략(초상과 동일)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jin_rin.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jin_rin_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jin_rin_ally_sheet.png"
+   },
+   "bytes": 10658,
+   "npc": "npc_jin_rin",
+   "name_ko": "진린",
+   "side": "ally",
+   "npc_default_side": "칼집째 든 칼을 몸 앞에, 긴 콧수염 옆선",
+   "culture": "china",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jin_rin",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jin_rin.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jin_rin.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "1차: 측면·후면 idle 칼 누락(칼집만) → 재생성 1회(2차 채택)",
+     "2차: 오른손 칼날 + 왼손 빈 칼집을 9칸 모두 함께 들고 있음(일관은 됨, 초상의 '칼집째 든 칼'과는 다름)",
+     "관모가 측면에서 높은 상투처럼 보임(사모형 둥근 윗부분이 길어짐) — 1배에서는 검은 높은 관모로 읽힘"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jin_rin.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jin_rin_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jin_rin_enemy_sheet.png"
+   },
+   "bytes": 10529,
+   "npc": "npc_jin_rin",
+   "name_ko": "진린",
+   "side": "enemy",
+   "npc_default_side": "칼집째 든 칼을 몸 앞에, 긴 콧수염 옆선",
+   "culture": "china",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jin_rin",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jin_rin.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jin_rin.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "1차: 측면·후면 idle 칼 누락(칼집만) → 재생성 1회(2차 채택)",
+     "2차: 오른손 칼날 + 왼손 빈 칼집을 9칸 모두 함께 들고 있음(일관은 됨, 초상의 '칼집째 든 칼'과는 다름)",
+     "관모가 측면에서 높은 상투처럼 보임(사모형 둥근 윗부분이 길어짐) — 1배에서는 검은 높은 관모로 읽힘"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_bonggun.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_bonggun_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_bonggun_ally_sheet.png"
+   },
+   "bytes": 11758,
+   "npc": "npc_bonggun",
+   "name_ko": "봉군",
+   "side": "ally",
+   "npc_default_side": "횃불을 몸 앞에 세워 듦, 패랭이 챙 옆선",
+   "culture": "korea",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_bonggun",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_bonggun.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_bonggun.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "정면 walk2 칸에서 섶나무 다발이 왼쪽 어깨로 옮겨 감(1배 영향 작음)",
+     "패랭이 챙이 넓어 64px 에서 둥근 검은 모자로 읽힘 — 초상과 일치"
+    ]
+   },
+   "verify": true,
+   "verify_note": "봉수군 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_bonggun.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_bonggun_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_bonggun_enemy_sheet.png"
+   },
+   "bytes": 11554,
+   "npc": "npc_bonggun",
+   "name_ko": "봉군",
+   "side": "enemy",
+   "npc_default_side": "횃불을 몸 앞에 세워 듦, 패랭이 챙 옆선",
+   "culture": "korea",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_bonggun",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_bonggun.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_bonggun.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "정면 walk2 칸에서 섶나무 다발이 왼쪽 어깨로 옮겨 감(1배 영향 작음)",
+     "패랭이 챙이 넓어 64px 에서 둥근 검은 모자로 읽힘 — 초상과 일치"
+    ]
+   },
+   "verify": true,
+   "verify_note": "봉수군 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_sagong.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_sagong_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_sagong_ally_sheet.png"
+   },
+   "bytes": 11590,
+   "npc": "npc_sagong",
+   "name_ko": "사공",
+   "side": "ally",
+   "npc_default_side": "상앗대를 몸 앞에 세워 쥠, 흰 머리띠 옆선",
+   "culture": "korea",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_sagong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_sagong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_sagong.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0 채택: 뒷모습 idle 칸의 복제 장대를 raw 에서 마젠타로 지움(sprite_raw_patch.py, 호출 없음) — 오른손 끝 1px 직선 잘림 흔적, 사람 리터치 권장",
+     "r1(raw try2 보존)은 측면 walk 2칸 장대 누락으로 미채택",
+     "측심 줄은 정면·측면 일부 칸에만 보임"
+    ]
+   },
+   "verify": true,
+   "verify_note": "당항포 사공 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_sagong.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_sagong_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_sagong_enemy_sheet.png"
+   },
+   "bytes": 11391,
+   "npc": "npc_sagong",
+   "name_ko": "사공",
+   "side": "enemy",
+   "npc_default_side": "상앗대를 몸 앞에 세워 쥠, 흰 머리띠 옆선",
+   "culture": "korea",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_sagong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_sagong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_sagong.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0 채택: 뒷모습 idle 칸의 복제 장대를 raw 에서 마젠타로 지움(sprite_raw_patch.py, 호출 없음) — 오른손 끝 1px 직선 잘림 흔적, 사람 리터치 권장",
+     "r1(raw try2 보존)은 측면 walk 2칸 장대 누락으로 미채택",
+     "측심 줄은 정면·측면 일부 칸에만 보임"
+    ]
+   },
+   "verify": true,
+   "verify_note": "당항포 사공 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_dol_ajumeoni.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_dol_ajumeoni_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_dol_ajumeoni_ally_sheet.png"
+   },
+   "bytes": 11133,
+   "npc": "npc_dol_ajumeoni",
+   "name_ko": "돌 아주머니",
+   "side": "ally",
+   "npc_default_side": "돌 든 덧치마를 몸 앞에 안음, 머릿수건 옆선",
+   "culture": "korea",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_dol_ajumeoni",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_dol_ajumeoni.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_dol_ajumeoni.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0(try1 보존)은 측면 idle·walk2 가 오른쪽을 향해 탈락 → r1 채택(측면 3칸 좌향)",
+     "뒷모습에서 덧치마가 손에 든 천처럼 보임"
+    ]
+   },
+   "verify": true,
+   "verify_note": "산성 치마 돌 나르기 전승(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_dol_ajumeoni.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_dol_ajumeoni_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_dol_ajumeoni_enemy_sheet.png"
+   },
+   "bytes": 11183,
+   "npc": "npc_dol_ajumeoni",
+   "name_ko": "돌 아주머니",
+   "side": "enemy",
+   "npc_default_side": "돌 든 덧치마를 몸 앞에 안음, 머릿수건 옆선",
+   "culture": "korea",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_dol_ajumeoni",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_dol_ajumeoni.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_dol_ajumeoni.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0(try1 보존)은 측면 idle·walk2 가 오른쪽을 향해 탈락 → r1 채택(측면 3칸 좌향)",
+     "뒷모습에서 덧치마가 손에 든 천처럼 보임"
+    ]
+   },
+   "verify": true,
+   "verify_note": "산성 치마 돌 나르기 전승(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jimkkun.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jimkkun_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jimkkun_ally_sheet.png"
+   },
+   "bytes": 11209,
+   "npc": "npc_jimkkun",
+   "name_ko": "짐꾼",
+   "side": "ally",
+   "npc_default_side": "지게와 자루가 등 뒤로 튀어나온 옆선, 작대기를 몸 앞에 세워 쥠",
+   "culture": "korea",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jimkkun",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jimkkun.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jimkkun.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "초상과 망건 띠·황토 저고리·지게+삼베 자루·Y자 작대기 일치",
+     "원본 측면 walk2 가 오른쪽 향함 → facing 매핑으로 walk1 칸 재사용(측면 걷기 2프레임 왕복)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "보급로 짐꾼 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jimkkun.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jimkkun_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jimkkun_enemy_sheet.png"
+   },
+   "bytes": 11104,
+   "npc": "npc_jimkkun",
+   "name_ko": "짐꾼",
+   "side": "enemy",
+   "npc_default_side": "지게와 자루가 등 뒤로 튀어나온 옆선, 작대기를 몸 앞에 세워 쥠",
+   "culture": "korea",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jimkkun",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jimkkun.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jimkkun.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "초상과 망건 띠·황토 저고리·지게+삼베 자루·Y자 작대기 일치",
+     "원본 측면 walk2 가 오른쪽 향함 → facing 매핑으로 walk1 칸 재사용(측면 걷기 2프레임 왕복)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "보급로 짐꾼 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_mabu.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_mabu_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_mabu_ally_sheet.png"
+   },
+   "bytes": 11944,
+   "npc": "npc_mabu",
+   "name_ko": "마부",
+   "side": "ally",
+   "npc_default_side": "녹색 두건 옆선, 채찍을 몸 앞에 듦",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_mabu",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_mabu.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_mabu.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "녹색 두건 망토·갈색 튜닉·채찍 일치. 측면 3칸 좌향"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오를레앙 보급 행렬 마부 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_mabu.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_mabu_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_mabu_enemy_sheet.png"
+   },
+   "bytes": 11988,
+   "npc": "npc_mabu",
+   "name_ko": "마부",
+   "side": "enemy",
+   "npc_default_side": "녹색 두건 옆선, 채찍을 몸 앞에 듦",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_mabu",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_mabu.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_mabu.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "녹색 두건 망토·갈색 튜닉·채찍 일치. 측면 3칸 좌향"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오를레앙 보급 행렬 마부 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_bobyeong.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_bobyeong_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_bobyeong_ally_sheet.png"
+   },
+   "bytes": 12281,
+   "npc": "npc_bobyeong",
+   "name_ko": "보병",
+   "side": "ally",
+   "npc_default_side": "쇠 모자 넓은 챙 옆선, 장병기를 몸 앞에 세워 쥠",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_bobyeong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_bobyeong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_bobyeong.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "케틀 햇·누빈 황갈 갬비슨·빌훅 일치",
+     "빌훅 날 끝 1~2px 상단 잘림(clipped_px 51) — 1배 식별 영향 없음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "15세기 프랑스 민병 장비 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_bobyeong.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_bobyeong_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_bobyeong_enemy_sheet.png"
+   },
+   "bytes": 12145,
+   "npc": "npc_bobyeong",
+   "name_ko": "보병",
+   "side": "enemy",
+   "npc_default_side": "쇠 모자 넓은 챙 옆선, 장병기를 몸 앞에 세워 쥠",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_bobyeong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_bobyeong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_bobyeong.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "케틀 햇·누빈 황갈 갬비슨·빌훅 일치",
+     "빌훅 날 끝 1~2px 상단 잘림(clipped_px 51) — 1배 식별 영향 없음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "15세기 프랑스 민병 장비 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_baetsagong.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_baetsagong_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_baetsagong_ally_sheet.png"
+   },
+   "bytes": 10965,
+   "npc": "npc_baetsagong",
+   "name_ko": "뱃사공",
+   "side": "ally",
+   "npc_default_side": "펠트 모자 처진 챙과 흰 수염 옆선, 노를 몸 앞에 세워 쥠",
+   "culture": "europe",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_baetsagong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_baetsagong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_baetsagong.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0: 측면 걷기 2칸 노 누락 + 측면 walk2 우향 → r1 재생성(--extra 노 1개)",
+     "r1: 뒷모습 노 2개 복제·정면 idle 노 누락 → 두 raw 합성: 정면·뒷모습 = r0(try1), 측면 = r1 칸3·4(walk2 자리에 walk1 재사용)",
+     "같은 격자(200)·같은 팔레트로 합성, 9칸 노 1개 일관 확인"
+    ]
+   },
+   "verify": true,
+   "verify_note": "루아르 나루 뱃사공 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_baetsagong.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_baetsagong_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_baetsagong_enemy_sheet.png"
+   },
+   "bytes": 10845,
+   "npc": "npc_baetsagong",
+   "name_ko": "뱃사공",
+   "side": "enemy",
+   "npc_default_side": "펠트 모자 처진 챙과 흰 수염 옆선, 노를 몸 앞에 세워 쥠",
+   "culture": "europe",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_baetsagong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_baetsagong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_baetsagong.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0: 측면 걷기 2칸 노 누락 + 측면 walk2 우향 → r1 재생성(--extra 노 1개)",
+     "r1: 뒷모습 노 2개 복제·정면 idle 노 누락 → 두 raw 합성: 정면·뒷모습 = r0(try1), 측면 = r1 칸3·4(walk2 자리에 walk1 재사용)",
+     "같은 격자(200)·같은 팔레트로 합성, 9칸 노 1개 일관 확인"
+    ]
+   },
+   "verify": true,
+   "verify_note": "루아르 나루 뱃사공 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jjogi.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jjogi_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jjogi_ally_sheet.png"
+   },
+   "bytes": 11194,
+   "npc": "npc_jjogi",
+   "name_ko": "쪽이",
+   "side": "ally",
+   "npc_default_side": "외투 끝자락 옆선, 종이를 가슴 앞에 쥠",
+   "culture": "default",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jjogi",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jjogi.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jjogi.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "잿빛 머리·양피지색 해진 후드 외투·빈 종이 일치. 측면 3칸 좌향"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jjogi.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jjogi_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jjogi_enemy_sheet.png"
+   },
+   "bytes": 11145,
+   "npc": "npc_jjogi",
+   "name_ko": "쪽이",
+   "side": "enemy",
+   "npc_default_side": "외투 끝자락 옆선, 종이를 가슴 앞에 쥠",
+   "culture": "default",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jjogi",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jjogi.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jjogi.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "잿빛 머리·양피지색 해진 후드 외투·빈 종이 일치. 측면 3칸 좌향"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_ilkkun.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ilkkun_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ilkkun_ally_sheet.png"
+   },
+   "bytes": 11983,
+   "npc": "npc_ilkkun",
+   "name_ko": "성당 일꾼",
+   "side": "ally",
+   "npc_default_side": "머릿수건 옆선, 빗자루를 몸 앞에 비스듬히",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_ilkkun",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_ilkkun.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_ilkkun.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "흰 머릿수건·적갈 드레스·베이지 앞치마·빗자루 일치",
+     "측면 idle 얼굴이 완전 프로필보다 약간 3/4"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_ilkkun.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ilkkun_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ilkkun_enemy_sheet.png"
+   },
+   "bytes": 11844,
+   "npc": "npc_ilkkun",
+   "name_ko": "성당 일꾼",
+   "side": "enemy",
+   "npc_default_side": "머릿수건 옆선, 빗자루를 몸 앞에 비스듬히",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_ilkkun",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_ilkkun.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_ilkkun.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "흰 머릿수건·적갈 드레스·베이지 앞치마·빗자루 일치",
+     "측면 idle 얼굴이 완전 프로필보다 약간 3/4"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_gilzabi.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_gilzabi_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_gilzabi_ally_sheet.png"
+   },
+   "bytes": 11927,
+   "npc": "npc_gilzabi",
+   "name_ko": "길잡이",
+   "side": "ally",
+   "npc_default_side": "머리 천 옆선, 매듭 끈을 몸 앞에 듦",
+   "culture": "middle_east",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_gilzabi",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_gilzabi.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_gilzabi.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "모래색 머리 천·흙갈 망토·매듭 끈 일치",
+     "측면 idle 이 약간 3/4 각도",
+     "64px 에서 대상 상인과 같은 중동 체형 — 머리 천 색(모래 대 흰색)으로 구분"
+    ]
+   },
+   "verify": true,
+   "verify_note": "12세기 대상로 길잡이 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_gilzabi.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_gilzabi_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_gilzabi_enemy_sheet.png"
+   },
+   "bytes": 11889,
+   "npc": "npc_gilzabi",
+   "name_ko": "길잡이",
+   "side": "enemy",
+   "npc_default_side": "머리 천 옆선, 매듭 끈을 몸 앞에 듦",
+   "culture": "middle_east",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_gilzabi",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_gilzabi.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_gilzabi.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "모래색 머리 천·흙갈 망토·매듭 끈 일치",
+     "측면 idle 이 약간 3/4 각도",
+     "64px 에서 대상 상인과 같은 중동 체형 — 머리 천 색(모래 대 흰색)으로 구분"
+    ]
+   },
+   "verify": true,
+   "verify_note": "12세기 대상로 길잡이 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_sangin.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_sangin_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_sangin_ally_sheet.png"
+   },
+   "bytes": 10381,
+   "npc": "npc_sangin",
+   "name_ko": "대상 상인",
+   "side": "ally",
+   "npc_default_side": "흰 터번 옆선, 두루마리를 가슴 앞에",
+   "culture": "middle_east",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_sangin",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_sangin.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_sangin.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "흰 터번·남청 겉옷·사프란 띠·두루마리 일치"
+    ]
+   },
+   "verify": true,
+   "verify_note": "12세기 대상 상인 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_sangin.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_sangin_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_sangin_enemy_sheet.png"
+   },
+   "bytes": 10272,
+   "npc": "npc_sangin",
+   "name_ko": "대상 상인",
+   "side": "enemy",
+   "npc_default_side": "흰 터번 옆선, 두루마리를 가슴 앞에",
+   "culture": "middle_east",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_sangin",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_sangin.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_sangin.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "흰 터번·남청 겉옷·사프란 띠·두루마리 일치"
+    ]
+   },
+   "verify": true,
+   "verify_note": "12세기 대상 상인 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_yumokmin.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_yumokmin_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_yumokmin_ally_sheet.png"
+   },
+   "bytes": 11657,
+   "npc": "npc_yumokmin",
+   "name_ko": "양치기 무리 어른",
+   "side": "ally",
+   "npc_default_side": "머리쓰개 옆선, 갈고리 지팡이를 몸 앞에 세워 짚음",
+   "culture": "middle_east",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_yumokmin",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_yumokmin.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_yumokmin.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "갈색 머리쓰개·회갈 털 망토·갈고리 지팡이 일치. 9칸 지팡이 일관"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 성별 제안값(확정 필요)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_yumokmin.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_yumokmin_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_yumokmin_enemy_sheet.png"
+   },
+   "bytes": 11535,
+   "npc": "npc_yumokmin",
+   "name_ko": "양치기 무리 어른",
+   "side": "enemy",
+   "npc_default_side": "머리쓰개 옆선, 갈고리 지팡이를 몸 앞에 세워 짚음",
+   "culture": "middle_east",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_yumokmin",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_yumokmin.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_yumokmin.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "갈색 머리쓰개·회갈 털 망토·갈고리 지팡이 일치. 9칸 지팡이 일관"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 성별 제안값(확정 필요)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jieum.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jieum_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jieum_ally_sheet.png"
+   },
+   "bytes": 10233,
+   "npc": "npc_jieum",
+   "name_ko": "지음",
+   "side": "ally",
+   "npc_default_side": "단발과 안경 옆선, 두루마리를 가슴 앞에 안음",
+   "culture": "default",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jieum",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jieum.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jieum.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "밤색 단발·안경·청회 코트·두루마리 일치",
+     "디바이더는 1배에서 거의 안 보임(두루마리만 식별)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_jieum.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jieum_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jieum_enemy_sheet.png"
+   },
+   "bytes": 10327,
+   "npc": "npc_jieum",
+   "name_ko": "지음",
+   "side": "enemy",
+   "npc_default_side": "단발과 안경 옆선, 두루마리를 가슴 앞에 안음",
+   "culture": "default",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_jieum",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_jieum.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_jieum.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "밤색 단발·안경·청회 코트·두루마리 일치",
+     "디바이더는 1배에서 거의 안 보임(두루마리만 식별)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_red_pen.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_red_pen_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_red_pen_ally_sheet.png"
+   },
+   "bytes": 11597,
+   "npc": "npc_red_pen",
+   "name_ko": "붉은 펜의 사자",
+   "side": "ally",
+   "npc_default_side": "세운 깃과 깃펜 옆선, 깃펜을 몸 앞에 듦",
+   "culture": "default",
+   "troop": "mage",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.mage.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_red_pen",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_red_pen.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_red_pen.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "흑발·차콜 제복·진홍 띠·붉은 깃펜 일치. 적 시트 스왑 시 진홍 유지(파랑 계열 없음)",
+     "놋쇠 직인은 1배에서 식별 어려움"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_red_pen.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_red_pen_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_red_pen_enemy_sheet.png"
+   },
+   "bytes": 11528,
+   "npc": "npc_red_pen",
+   "name_ko": "붉은 펜의 사자",
+   "side": "enemy",
+   "npc_default_side": "세운 깃과 깃펜 옆선, 깃펜을 몸 앞에 듦",
+   "culture": "default",
+   "troop": "mage",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.mage.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_red_pen",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_red_pen.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_red_pen.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "흑발·차콜 제복·진홍 띠·붉은 깃펜 일치. 적 시트 스왑 시 진홍 유지(파랑 계열 없음)",
+     "놋쇠 직인은 1배에서 식별 어려움"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_gyojeong.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_gyojeong_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_gyojeong_ally_sheet.png"
+   },
+   "bytes": 10257,
+   "npc": "npc_gyojeong",
+   "name_ko": "교정관",
+   "side": "ally",
+   "npc_default_side": "쪽진 머리와 세운 깃 옆선, 장부를 가슴 앞에 안음",
+   "culture": "default",
+   "troop": "mage",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.mage.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_gyojeong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_gyojeong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_gyojeong.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "회백 쪽머리·슬레이트 정복·어깨 망토·장부 일치",
+     "유닛 아님(음성·대면 전용) — 예비 시트"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값. 유닛 아님(음성·대면 전용) — 예비 시트",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_gyojeong.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_gyojeong_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_gyojeong_enemy_sheet.png"
+   },
+   "bytes": 10292,
+   "npc": "npc_gyojeong",
+   "name_ko": "교정관",
+   "side": "enemy",
+   "npc_default_side": "쪽진 머리와 세운 깃 옆선, 장부를 가슴 앞에 안음",
+   "culture": "default",
+   "troop": "mage",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.mage.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_gyojeong",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_gyojeong.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_gyojeong.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "회백 쪽머리·슬레이트 정복·어깨 망토·장부 일치",
+     "유닛 아님(음성·대면 전용) — 예비 시트"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구, 외형 제안값. 유닛 아님(음성·대면 전용) — 예비 시트",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_boat_2.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_boat_2_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_boat_2_ally_sheet.png"
+   },
+   "bytes": 12212,
+   "npc": "npc_boat_2",
+   "name_ko": "나룻배(노꾼)",
+   "side": "ally",
+   "npc_default_side": "두건 옆선, 노를 몸 앞에 세워 쥠",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_boat_2",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_boat_2.jpg",
+   "ship_overlay": "배 본체는 엔진 ship_overlay(default 거룻배) back/front, 이 시트는 배 위 노꾼 몸통",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "배 위 노꾼 몸통(벽돌색 두건·녹갈 조끼·짧은 노). 배 본체는 엔진 ship_overlay default 거룻배가 그림",
+     "초상 없음(오리지널 무명 인물) — 초상 필요 시 별도"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구(3-3 두 번째 나룻배). 배는 ship_overlay default",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_boat_2.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_boat_2_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_boat_2_enemy_sheet.png"
+   },
+   "bytes": 12186,
+   "npc": "npc_boat_2",
+   "name_ko": "나룻배(노꾼)",
+   "side": "enemy",
+   "npc_default_side": "두건 옆선, 노를 몸 앞에 세워 쥠",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_boat_2",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_boat_2.jpg",
+   "ship_overlay": "배 본체는 엔진 ship_overlay(default 거룻배) back/front, 이 시트는 배 위 노꾼 몸통",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "배 위 노꾼 몸통(벽돌색 두건·녹갈 조끼·짧은 노). 배 본체는 엔진 ship_overlay default 거룻배가 그림",
+     "초상 없음(오리지널 무명 인물) — 초상 필요 시 별도"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오리지널 허구(3-3 두 번째 나룻배). 배는 ship_overlay default",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_cart_front.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cart_front_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cart_front_ally_sheet.png"
+   },
+   "bytes": 12715,
+   "npc": "npc_cart_front",
+   "name_ko": "앞 짐수레",
+   "side": "ally",
+   "npc_default_side": "ally",
+   "culture": "korea",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.heavy.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_cart_front",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_cart_front.jpg",
+   "object": "cart",
+   "map_object": true,
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "조선 두 바퀴 손수레형 짐수레(가마니·삼베 자루·새끼줄), 사람·소 없음. 9칸 같은 짐·같은 크기",
+     "측면 행은 끌채 때문에 짐칸이 타일 중심보다 약 8px 오른쪽(발 무게중심 정렬 결과) — 이동 시 시각 중심이 약간 뒤로 보임",
+     "정면 걷기 = idle 1px 바운스(파이프라인 규칙)",
+     "enemy_swap none(사물)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "조선 달구지 형태 일반화(verify). npc_cart_rear 와 같은 시트",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_cart_front.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cart_front_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cart_front_enemy_sheet.png"
+   },
+   "bytes": 12713,
+   "npc": "npc_cart_front",
+   "name_ko": "앞 짐수레",
+   "side": "enemy",
+   "npc_default_side": "ally",
+   "culture": "korea",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.heavy.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_cart_front",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_cart_front.jpg",
+   "object": "cart",
+   "map_object": true,
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "조선 두 바퀴 손수레형 짐수레(가마니·삼베 자루·새끼줄), 사람·소 없음. 9칸 같은 짐·같은 크기",
+     "측면 행은 끌채 때문에 짐칸이 타일 중심보다 약 8px 오른쪽(발 무게중심 정렬 결과) — 이동 시 시각 중심이 약간 뒤로 보임",
+     "정면 걷기 = idle 1px 바운스(파이프라인 규칙)",
+     "enemy_swap none(사물)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "조선 달구지 형태 일반화(verify). npc_cart_rear 와 같은 시트",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_cart_1.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cart_1_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cart_1_ally_sheet.png"
+   },
+   "bytes": 13313,
+   "npc": "npc_cart_1",
+   "name_ko": "짐수레 1",
+   "side": "ally",
+   "npc_default_side": "ally",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_cart_1",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_cart_1.jpg",
+   "object": "cart",
+   "map_object": true,
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "15세기 프랑스 두 바퀴 짐수레(쇠테 바퀴·나무 통·밀가루 자루·녹회색 덮개), 사람·말 없음",
+     "측면 짐칸 중심 오른쪽 치우침(cart_front 와 동일)",
+     "정면 idle 높이 62px로 타일 거의 가득(heavy 자리라 허용)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "15세기 짐수레 형태 일반화(verify). npc_cart_2 와 같은 시트",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_cart_1.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cart_1_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cart_1_enemy_sheet.png"
+   },
+   "bytes": 13311,
+   "npc": "npc_cart_1",
+   "name_ko": "짐수레 1",
+   "side": "enemy",
+   "npc_default_side": "ally",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_cart_1",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_cart_1.jpg",
+   "object": "cart",
+   "map_object": true,
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "15세기 프랑스 두 바퀴 짐수레(쇠테 바퀴·나무 통·밀가루 자루·녹회색 덮개), 사람·말 없음",
+     "측면 짐칸 중심 오른쪽 치우침(cart_front 와 동일)",
+     "정면 idle 높이 62px로 타일 거의 가득(heavy 자리라 허용)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "15세기 짐수레 형태 일반화(verify). npc_cart_2 와 같은 시트",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_cart_rear.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cart_rear_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cart_rear_ally_sheet.png"
+   },
+   "bytes": 11121,
+   "npc": "npc_cart_rear",
+   "name_ko": "뒤 짐수레",
+   "side": "ally",
+   "npc_default_side": "ally",
+   "culture": "korea",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.heavy.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_cart_rear",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_cart_rear.jpg",
+   "object": "cart",
+   "map_object": true,
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "앞 수레(누런 볏짚 가마니+삼베 자루)와 짐 구분: 쪽빛 천 덮개+적갈 옹기 2개+장작 다발. 수레 틀(짐칸·끌채·바퀴)은 앞 수레 raw 를 구조 참조로 동일",
+     "64px 1배에서 노랑 vs 남색·적갈 색면으로 즉시 구분",
+     "이전 공유본 raw 는 raw/npc_cart_rear_try1.jpg 로 보존"
+    ]
+   },
+   "verify": true,
+   "verify_note": "조선 달구지 형태 일반화(verify). 짐 변형(장작·옹기·쪽빛 덮개)은 제안값 — npc_cart_front 와 짐으로 구분",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 구조 참조 docker/gemini/unit_npc_sprite/raw/npc_cart_front.jpg(짐만 변형, 초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_cart_rear.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cart_rear_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cart_rear_enemy_sheet.png"
+   },
+   "bytes": 11123,
+   "npc": "npc_cart_rear",
+   "name_ko": "뒤 짐수레",
+   "side": "enemy",
+   "npc_default_side": "ally",
+   "culture": "korea",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.korea.heavy.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_cart_rear",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_cart_rear.jpg",
+   "object": "cart",
+   "map_object": true,
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "앞 수레(누런 볏짚 가마니+삼베 자루)와 짐 구분: 쪽빛 천 덮개+적갈 옹기 2개+장작 다발. 수레 틀(짐칸·끌채·바퀴)은 앞 수레 raw 를 구조 참조로 동일",
+     "64px 1배에서 노랑 vs 남색·적갈 색면으로 즉시 구분",
+     "이전 공유본 raw 는 raw/npc_cart_rear_try1.jpg 로 보존"
+    ]
+   },
+   "verify": true,
+   "verify_note": "조선 달구지 형태 일반화(verify). 짐 변형(장작·옹기·쪽빛 덮개)은 제안값 — npc_cart_front 와 짐으로 구분",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 구조 참조 docker/gemini/unit_npc_sprite/raw/npc_cart_front.jpg(짐만 변형, 초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_cart_2.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cart_2_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cart_2_ally_sheet.png"
+   },
+   "bytes": 13313,
+   "npc": "npc_cart_2",
+   "name_ko": "짐수레 2",
+   "side": "ally",
+   "npc_default_side": "ally",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_cart_2",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_cart_1.jpg",
+   "object": "cart",
+   "map_object": true,
+   "same_sheet_as": "npc_cart_1",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "npc_cart_1 과 같은 raw·같은 시트(호출 0)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "15세기 짐수레 형태 일반화(verify). npc_cart_1 과 같은 시트",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": true
+  },
+  {
+   "key": "unit.npc.npc_cart_2.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cart_2_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cart_2_enemy_sheet.png"
+   },
+   "bytes": 13311,
+   "npc": "npc_cart_2",
+   "name_ko": "짐수레 2",
+   "side": "enemy",
+   "npc_default_side": "ally",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_cart_2",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_cart_1.jpg",
+   "object": "cart",
+   "map_object": true,
+   "same_sheet_as": "npc_cart_1",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "npc_cart_1 과 같은 raw·같은 시트(호출 0)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "15세기 짐수레 형태 일반화(verify). npc_cart_1 과 같은 시트",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": true
+  },
+  {
+   "key": "unit.npc.npc_kadan.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_kadan_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_kadan_ally_sheet.png"
+   },
+   "bytes": 10842,
+   "npc": "npc_kadan",
+   "name_ko": "카단",
+   "side": "ally",
+   "npc_default_side": "뾰족한 투구 옆선, 휜 칼을 몸 앞에 칼끝 아래로",
+   "culture": "mongol",
+   "troop": "archer",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.archer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_kadan",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_kadan.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_kadan.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "초상과 뾰족한 쇠 투구·갈색 목 드림·적갈 델·검은 찰갑·금빛 버클·뽑은 휜 칼 일치",
+     "목 드림이 64px 에서 긴 갈색 머리처럼 읽힘",
+     "투구 끝 1~2px 상단 잘림(clipped_px 42, 1배 영향 없음)",
+     "로스터 병종 archer 이나 초상 기준으로 활 없음(칼) — 공격 모션은 엔진 공용"
+    ]
+   },
+   "verify": true,
+   "verify_note": "생몰·용모 근거 없음(나이 제안값). 로스터 병종 archer 이나 초상 소지품(뽑은 휜 칼) 기준",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_kadan.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_kadan_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_kadan_enemy_sheet.png"
+   },
+   "bytes": 10576,
+   "npc": "npc_kadan",
+   "name_ko": "카단",
+   "side": "enemy",
+   "npc_default_side": "뾰족한 투구 옆선, 휜 칼을 몸 앞에 칼끝 아래로",
+   "culture": "mongol",
+   "troop": "archer",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.archer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_kadan",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_kadan.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_kadan.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "초상과 뾰족한 쇠 투구·갈색 목 드림·적갈 델·검은 찰갑·금빛 버클·뽑은 휜 칼 일치",
+     "목 드림이 64px 에서 긴 갈색 머리처럼 읽힘",
+     "투구 끝 1~2px 상단 잘림(clipped_px 42, 1배 영향 없음)",
+     "로스터 병종 archer 이나 초상 기준으로 활 없음(칼) — 공격 모션은 엔진 공용"
+    ]
+   },
+   "verify": true,
+   "verify_note": "생몰·용모 근거 없음(나이 제안값). 로스터 병종 archer 이나 초상 소지품(뽑은 휜 칼) 기준",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_baidar.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_baidar_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_baidar_ally_sheet.png"
+   },
+   "bytes": 11568,
+   "npc": "npc_baidar",
+   "name_ko": "바이다르",
+   "side": "ally",
+   "npc_default_side": "말이 왼쪽을 향해 걷고 기수는 채찍을 몸 앞에 듦, 털 테 모자 옆선",
+   "culture": "mongol",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_baidar",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_baidar.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_baidar.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "기마(회갈색 말), 초상과 털 테 청회 모자·감청 델·강철 찰갑·말채찍·허리 칼 일치",
+     "적 스왑 시 청색 계열이 적갈로 바뀜(정상)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "생몰·용모 근거 없음(나이 제안값). 말 색은 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_baidar.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_baidar_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_baidar_enemy_sheet.png"
+   },
+   "bytes": 11339,
+   "npc": "npc_baidar",
+   "name_ko": "바이다르",
+   "side": "enemy",
+   "npc_default_side": "말이 왼쪽을 향해 걷고 기수는 채찍을 몸 앞에 듦, 털 테 모자 옆선",
+   "culture": "mongol",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_baidar",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_baidar.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_baidar.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "기마(회갈색 말), 초상과 털 테 청회 모자·감청 델·강철 찰갑·말채찍·허리 칼 일치",
+     "적 스왑 시 청색 계열이 적갈로 바뀜(정상)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "생몰·용모 근거 없음(나이 제안값). 말 색은 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_ustad_ali_quli.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ustad_ali_quli_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ustad_ali_quli_ally_sheet.png"
+   },
+   "bytes": 11279,
+   "npc": "npc_ustad_ali_quli",
+   "name_ko": "우스타드 알리 쿨리",
+   "side": "ally",
+   "npc_default_side": "흰 터번 옆선, 갈색 앞치마, 화승 막대를 몸 앞에 세워 쥠",
+   "culture": "middle_east",
+   "troop": "archer",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.archer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_ustad_ali_quli",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_ustad_ali_quli.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_ustad_ali_quli.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "초상과 붉은 모자 흰 터번·남색 카프탄·그을린 가죽 앞치마·화승 막대(불씨)·놋쇠 화약 통 일치",
+     "원본 뒷모습 walk1 만 화승 막대가 반대 손 → facing.json 으로 walk2 칸 재사용(뒷모습 걷기 2프레임 왕복)",
+     "측면 walk1 은 막대를 몸 앞으로 기울여 쥠(일관은 됨)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오스만 출신 포병 복식 일반화(verify). 용모 근거 없음",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_ustad_ali_quli.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ustad_ali_quli_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ustad_ali_quli_enemy_sheet.png"
+   },
+   "bytes": 11098,
+   "npc": "npc_ustad_ali_quli",
+   "name_ko": "우스타드 알리 쿨리",
+   "side": "enemy",
+   "npc_default_side": "흰 터번 옆선, 갈색 앞치마, 화승 막대를 몸 앞에 세워 쥠",
+   "culture": "middle_east",
+   "troop": "archer",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.archer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_ustad_ali_quli",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_npc_ustad_ali_quli.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_ustad_ali_quli.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "초상과 붉은 모자 흰 터번·남색 카프탄·그을린 가죽 앞치마·화승 막대(불씨)·놋쇠 화약 통 일치",
+     "원본 뒷모습 walk1 만 화승 막대가 반대 손 → facing.json 으로 walk2 칸 재사용(뒷모습 걷기 2프레임 왕복)",
+     "측면 walk1 은 막대를 몸 앞으로 기울여 쥠(일관은 됨)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "오스만 출신 포병 복식 일반화(verify). 용모 근거 없음",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.babur.ally.64.sheet",
+   "path": "assets/sprites/npc/64/babur_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/babur_ally_sheet.png"
+   },
+   "bytes": 10454,
+   "npc": "babur",
+   "name_ko": "바부르",
+   "side": "ally",
+   "npc_default_side": "흰 터번 옆선, 공책을 가슴 앞에 쥠, 허리 칼집",
+   "culture": "middle_east",
+   "troop": "archer",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.archer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.babur",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_babur.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/babur.jpg",
+   "roster_code": "npc_babur",
+   "alias_note": "assets.js NPC_ASSET_ALIAS npc_babur → babur(초상 portrait.babur 와 같은 코드)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "초상과 흰 터번(뒤 끝자락)·올리브녹색 겉옷·갈색 가죽 조끼·공책·허리 휜 칼 일치",
+     "에셋 코드 babur(로스터 npc_babur → assets.js NPC_ASSET_ALIAS), 초상 키 portrait.babur 와 같은 코드"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화(verify). 로스터 코드 npc_babur → 에셋 코드 babur(assets.js NPC_ASSET_ALIAS)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.babur.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/babur_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/babur_enemy_sheet.png"
+   },
+   "bytes": 10310,
+   "npc": "babur",
+   "name_ko": "바부르",
+   "side": "enemy",
+   "npc_default_side": "흰 터번 옆선, 공책을 가슴 앞에 쥠, 허리 칼집",
+   "culture": "middle_east",
+   "troop": "archer",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.archer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.babur",
+   "ref_portrait": "docker/gemini/portrait_campaign/raw/portrait_babur.jpg",
+   "raw": "docker/gemini/unit_npc_sprite/raw/babur.jpg",
+   "roster_code": "npc_babur",
+   "alias_note": "assets.js NPC_ASSET_ALIAS npc_babur → babur(초상 portrait.babur 와 같은 코드)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "초상과 흰 터번(뒤 끝자락)·올리브녹색 겉옷·갈색 가죽 조끼·공책·허리 휜 칼 일치",
+     "에셋 코드 babur(로스터 npc_babur → assets.js NPC_ASSET_ALIAS), 초상 키 portrait.babur 와 같은 코드"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화(verify). 로스터 코드 npc_babur → 에셋 코드 babur(assets.js NPC_ASSET_ALIAS)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 초상 담당 정식 초상 raw(portrait_campaign)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_batu.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_batu_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_batu_ally_sheet.png"
+   },
+   "bytes": 11964,
+   "npc": "npc_batu",
+   "name_ko": "바투",
+   "side": "ally",
+   "npc_default_side": "흰 말이 왼쪽을 향해 걷고 기수는 휜 칼을 몸 앞에 듦",
+   "culture": "mongol",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_batu",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_batu.jpg",
+   "provisional": "정식 초상 없음(잠정 시트)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "정식 초상 없음 — 잠정 시트(로스터 appearance: 금실 델·철 투구·곡도). 초상 제작 시 이 시트 기준으로 맞추거나 재생성 필요",
+     "흰 말총 술이 64px 에서 깃털처럼 크게 보임",
+     "흰 말은 밝은 바닥 타일 위 대비 낮을 수 있음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "정식 초상 없음(잠정 시트, 로스터 appearance 기준). 흰 말·황토 델은 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_batu.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_batu_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_batu_enemy_sheet.png"
+   },
+   "bytes": 11639,
+   "npc": "npc_batu",
+   "name_ko": "바투",
+   "side": "enemy",
+   "npc_default_side": "흰 말이 왼쪽을 향해 걷고 기수는 휜 칼을 몸 앞에 듦",
+   "culture": "mongol",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_batu",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_batu.jpg",
+   "provisional": "정식 초상 없음(잠정 시트)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "정식 초상 없음 — 잠정 시트(로스터 appearance: 금실 델·철 투구·곡도). 초상 제작 시 이 시트 기준으로 맞추거나 재생성 필요",
+     "흰 말총 술이 64px 에서 깃털처럼 크게 보임",
+     "흰 말은 밝은 바닥 타일 위 대비 낮을 수 있음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "정식 초상 없음(잠정 시트, 로스터 appearance 기준). 흰 말·황토 델은 제안값",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_humayun.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_humayun_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_humayun_ally_sheet.png"
+   },
+   "bytes": 10875,
+   "npc": "npc_humayun",
+   "name_ko": "후마윤",
+   "side": "ally",
+   "npc_default_side": "밤색 말이 왼쪽을 향해 걷고 기수는 휜 칼을 몸 앞에 듦",
+   "culture": "middle_east",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_humayun",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_humayun.jpg",
+   "provisional": "정식 초상 없음(잠정 시트)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "정식 초상 없음 — 잠정 시트(로스터 appearance: 붉은 외투·가벼운 철 투구·곡도)",
+     "원본 정면 walk2 만 칼을 반대 손에 아래로 → walk1 칸 재사용",
+     "얼굴이 앳되게 보임(1526 당시 약 18세, verify)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "정식 초상 없음(잠정 시트, 로스터 appearance 기준). 1526 당시 약 18세(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  },
+  {
+   "key": "unit.npc.npc_humayun.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_humayun_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_humayun_enemy_sheet.png"
+   },
+   "bytes": 10622,
+   "npc": "npc_humayun",
+   "name_ko": "후마윤",
+   "side": "enemy",
+   "npc_default_side": "밤색 말이 왼쪽을 향해 걷고 기수는 휜 칼을 몸 앞에 듦",
+   "culture": "middle_east",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/unit_npc_sprite_gen.mjs(unit_npc_sprite_gen.sh) + unit_npc_sprite_style.mjs → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/unit_npc_sprite_style.mjs NPC.npc_humayun",
+   "ref_portrait": null,
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_humayun.jpg",
+   "provisional": "정식 초상 없음(잠정 시트)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "정식 초상 없음 — 잠정 시트(로스터 appearance: 붉은 외투·가벼운 철 투구·곡도)",
+     "원본 정면 walk2 만 칼을 반대 손에 아래로 → walk1 칸 재사용",
+     "얼굴이 앳되게 보임(1526 당시 약 18세, verify)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "정식 초상 없음(잠정 시트, 로스터 appearance 기준). 1526 당시 약 18세(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs)만(초상 없음)",
+   "calls_shared": false
+  }
+ ]
+}

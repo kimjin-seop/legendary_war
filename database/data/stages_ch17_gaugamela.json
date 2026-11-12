@@ -1,0 +1,2592 @@
+{
+ "_note": "[임밸런 / 초안] ch17 가우가멜라 스테이지 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 좌표 채움 완료(2026-11-03, maps_ch17_gaugamela.json): cells/x/y/tiles/waypoints 채움, zone_ref 는 tiles/rect 로 치환(엔진 규칙), spawn 후보 칸 <=12. map_requirements 의 zone_ref 문구는 설명용. 시드 미적재.",
+ "version": 1,
+ "chapter": 17,
+ "shelf_code": "ch17",
+ "status": "map_filled",
+ "items": [
+  {
+   "code": "ch17_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "마케도니아 군",
+     "enemy": "페르시아 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "alexander",
+      "x": 5,
+      "y": 11,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         11,
+         13
+        ],
+        [
+         19,
+         13
+        ],
+        [
+         21,
+         13
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 4
+      }
+     },
+     {
+      "hero": "npc_craterus",
+      "x": 5,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_ptolemy",
+      "x": 6,
+      "y": 12,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "둔덕 보병대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          11
+         ],
+         [
+          17,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "dune_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 5,
+       "when": {
+        "not": {
+         "type": "flag",
+         "key": "dune_signal_up"
+        }
+       }
+      },
+      "do": "spawn",
+      "side": "b",
+      "tiles": [
+       [
+        10,
+        20
+       ],
+       [
+        11,
+        20
+       ],
+       [
+        10,
+        21
+       ],
+       [
+        11,
+        21
+       ]
+      ],
+      "tag": "ambush",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 4
+     },
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "type": "flag",
+        "key": "dune_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        12,
+        9
+       ],
+       [
+        12,
+        13
+       ]
+      ],
+      "tag": "cover",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "alex",
+      "type": "unit_survive",
+      "unit": "hero:alexander",
+      "label": "알렉산드로스를 지켜라"
+     },
+     {
+      "id": "craterus",
+      "type": "unit_survive",
+      "unit": "hero:npc_craterus",
+      "label": "크라테로스를 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "내가 합류 구역에 선다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         21,
+         13
+        ],
+        [
+         22,
+         13
+        ],
+        [
+         21,
+         14
+        ],
+        [
+         22,
+         14
+        ],
+        [
+         21,
+         15
+        ],
+        [
+         22,
+         15
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "alex_down",
+      "label": "알렉산드로스가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:alexander"
+      }
+     }
+    ]
+   },
+   "name": "티그리스 도하",
+   "year_label": "BC 331",
+   "chapter": 17,
+   "shelf_code": "ch17",
+   "map": "su_ch17_s1_tigris",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 15,
+   "enemy_level": 15,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 12,
+   "difficulty": 5,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "alexander",
+     "npc_craterus",
+     "npc_ptolemy"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "페르시아 정찰 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       19,
+       10
+      ],
+      [
+       20,
+       10
+      ],
+      [
+       19,
+       9
+      ],
+      [
+       20,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "페르시아 정찰 기병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "둔덕 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       20,
+       16
+      ],
+      [
+       20,
+       15
+      ],
+      [
+       19,
+       16
+      ],
+      [
+       21,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "둔덕 궁병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "C",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "둔덕 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       27,
+       10
+      ],
+      [
+       28,
+       10
+      ],
+      [
+       27,
+       11
+      ],
+      [
+       28,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "둔덕 보병"
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      19,
+      10
+     ],
+     "name": "페르시아 정찰 기병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      9
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      20,
+      16
+     ],
+     "name": "둔덕 궁병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      20,
+      15
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      19,
+      16
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      21,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      10
+     ],
+     "name": "둔덕 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      11
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1060,
+    "exp": 1537,
+    "gold": 1378,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "alex"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "72~85 (신호 달성 기준 중앙 약 78, 미달성 약 62)",
+   "sort_order": 1701,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal": "건너편 둔덕 신호 타일 1~2칸",
+     "join_zone": "합류 구역 6칸(동쪽 기슭)",
+     "ford": "여울 shallows 폭 3~4",
+     "ambush_bank": "미달성 시 매복 기병 4 출현칸(남쪽 강변 후방)",
+     "cover_bank": "호위 궁병 2 출현칸",
+     "dune": "둔덕(hill)",
+     "enemy_deploy": "둔덕 2구역 + 정찰 1구역",
+     "alex_start": "알렉산드로스+크라테로스+프톨레마이오스 시작칸(서쪽 기슭)"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal",
+     "join_zone"
+    ],
+    "path_cost": "alex_start -> join_zone <= 24; protagonist_start -> signal <= 12"
+   },
+   "design_notes": [
+    "Lv15 offset -3(eff 12). 적 12기(정찰 기병 4 advance / 둔덕 궁병 4 / 보병 4, 둔덕 hold_until_contact). 신호 = 둔덕 신호 지점. 아웃라인 '신호 도달 시 매복 소수 해제': hold_until_turn 은 정수라 flag 해제 불가 -> 역으로 '신호 미달성이면 턴5에 매복 기병 4기가 강변에서 나타남(spawn cue, when not flag)' 으로 구현. 달성 시에는 턴4 호위 궁병 2기 접안. 대사 턴3(둔덕 도착)/턴5(방패 위로)와 맞춤. 주인공은 턴3 안에 신호에 닿아야 하므로 시작칸->signal 이동 비용 <= 12.",
+    "알렉산드로스 route 턴2 출발 move_cap 3, 여울(shallows)을 건너 합류 구역까지 비용 <= 24. NPC 알렉산드로스는 신규 로스터 행(alexander S cavalry, 영웅 행과 동일 스탯).",
+    "맵 확정 후 지휘관 분대를 A(기병, 둔덕 i 위)에서 C(평지 보병)로 변경: MapChecker 수병 규칙(지휘관은 언덕/산 위 금지)",
+    "무행동 2턴 즉사 점검(거리·이동력 계산): 엔진은 ai 이름(hold_until_contact 등)을 읽지 않고 hold_until_turn 만 반영하므로, 아군 NPC 첫 피격 >= 적 행동 4번째, 배치 구역 첫 피격 >= 3번째가 되도록 분대 hold_until_turn 을 올림: A None->2, B None->2"
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch17_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "마케도니아 군",
+     "enemy": "페르시아 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "alexander",
+      "x": 3,
+      "y": 13,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_parmenion",
+      "x": 7,
+      "y": 9,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "페르시아 정찰 기병대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          12,
+          7
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "scout_1_done",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "scout_1_done"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            18,
+            10
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "chariot_road_known",
+      "value": true
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "alex",
+      "type": "unit_survive",
+      "unit": "hero:alexander",
+      "label": "알렉산드로스를 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "첫 정찰 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         12,
+         7
+        ]
+       ]
+      }
+     },
+     {
+      "label": "두 번째 정찰 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         18,
+         10
+        ]
+       ]
+      }
+     },
+     {
+      "label": "정찰대를 격퇴한다",
+      "latch": false,
+      "when": {
+       "type": "alive_count",
+       "side": "b",
+       "op": "eq",
+       "value": 0,
+       "kind": "any"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "alex_down",
+      "label": "알렉산드로스가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:alexander"
+      }
+     }
+    ]
+   },
+   "name": "야영과 정찰",
+   "year_label": "BC 331",
+   "chapter": 17,
+   "shelf_code": "ch17",
+   "map": "su_ch17_s2_camp_scout",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 16,
+   "enemy_level": 16,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 14,
+   "difficulty": 6,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "alexander",
+     "npc_parmenion"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "페르시아 정찰 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       5
+      ],
+      [
+       16,
+       5
+      ],
+      [
+       15,
+       4
+      ],
+      [
+       16,
+       4
+      ]
+     ],
+     "soldier_display_name_ko": "페르시아 정찰 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "야영지 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       15,
+       17
+      ],
+      [
+       16,
+       17
+      ],
+      [
+       15,
+       16
+      ],
+      [
+       16,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "야영지 궁병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "정찰 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       12
+      ],
+      [
+       26,
+       11
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       27,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "정찰 보병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "후위 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       30,
+       6
+      ],
+      [
+       30,
+       5
+      ],
+      [
+       29,
+       6
+      ],
+      [
+       31,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "후위 창병",
+     "hold_until_turn": 5
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 16,
+   "enemy_units_peak": 16,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      15,
+      5
+     ],
+     "name": "페르시아 정찰 기병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      5
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      15,
+      4
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      4
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      15,
+      17
+     ],
+     "name": "야영지 궁병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      16,
+      17
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      15,
+      16
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      16,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      26,
+      12
+     ],
+     "name": "정찰 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      30,
+      6
+     ],
+     "name": "후위 창병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      30,
+      5
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      29,
+      6
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      31,
+      6
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1160,
+    "exp": 1682,
+    "gold": 1508,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "alex"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "70~82 (중앙 약 76)",
+   "sort_order": 1702,
+   "prerequisite": "ch17_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal_1": "정찰 지점 1(1~2칸)",
+     "signal_2": "정찰 지점 2(1~2칸)",
+     "signal": "signal_1+signal_2 합집합(대사 cue 가 zone_ref 'signal' 을 쓸 경우)",
+     "camp": "야영지",
+     "plain": "평지",
+     "enemy_deploy": "정찰 2구역 + 야영 1 + 후위 1"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal"
+    ],
+    "path_cost": "protagonist_start -> signal_1 <= 12, signal_1 -> signal_2 <= 12"
+   },
+   "design_notes": [
+    "Lv16 offset -2(eff 14). 적 16기, 증원 없음. 승리: 신호 2곳 latch + 적 전멸(정찰대 격퇴). 신호 2 도달 시 flag chariot_road_known(스테이지 내 효과 없음 = 연출/다음 장면용; 서가 간 flag 이월은 엔진 미지원이라 s3 는 독립 설계). 대사 턴3(첫 지점)/턴6(두 번째) 에 맞춰 신호1 <= 3턴, 신호1->신호2 <= 3턴 거리. 전멸 조건이 hold 분대(D 턴5 해제)까지 요구하므로 max_turns 12."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch17_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "마케도니아 군",
+     "enemy": "페르시아 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "alexander",
+      "x": 5,
+      "y": 21,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         6,
+         14
+        ],
+        [
+         14,
+         14
+        ],
+        [
+         22,
+         14
+        ],
+        [
+         30,
+         14
+        ],
+        [
+         34,
+         14
+        ]
+       ],
+       "from_turn": 5,
+       "move_cap": 7
+      }
+     },
+     {
+      "hero": "npc_parmenion",
+      "x": 7,
+      "y": 6,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_craterus",
+      "x": 8,
+      "y": 9,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_ptolemy",
+      "x": 6,
+      "y": 19,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "다리우스 3세",
+     "hero": "npc_darius_iii"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          20,
+          13
+         ],
+         [
+          20,
+          14
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "gap_open",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "gap_open"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        15,
+        13
+       ]
+      ],
+      "tag": "gap",
+      "ready": true,
+      "hero": "npc_hephaestion"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "gap_open"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        13,
+        12
+       ],
+       [
+        13,
+        15
+       ],
+       [
+        14,
+        12
+       ],
+       [
+        14,
+        15
+       ]
+      ],
+      "tag": "gap",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "parmenion",
+      "type": "unit_survive",
+      "unit": "hero:npc_parmenion",
+      "label": "파르메니온을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "다리우스 본진 지휘관을 쓰러뜨린다",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     },
+     {
+      "label": "먼지의 틈 신호에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         20,
+         13
+        ],
+        [
+         20,
+         14
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "parmenion_down",
+      "label": "파르메니온이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:npc_parmenion"
+      }
+     }
+    ]
+   },
+   "name": "가우가멜라 본전",
+   "year_label": "BC 331",
+   "chapter": 17,
+   "shelf_code": "ch17",
+   "map": "su_ch17_s3_gaugamela",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 17,
+   "difficulty": 8,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "alexander",
+     "npc_parmenion",
+     "npc_craterus",
+     "npc_ptolemy",
+     "npc_hephaestion"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_darius_iii",
+      "display_name_ko": "다리우스 3세",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 3
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       34,
+       12
+      ],
+      [
+       35,
+       12
+      ],
+      [
+       34,
+       13
+      ],
+      [
+       35,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "다리우스 친위 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_phrataphernes",
+      "display_name_ko": "프라타페르네스",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       10
+      ],
+      [
+       29,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "프라타페르네스 부대 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_atropates",
+      "display_name_ko": "아트로파테스",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       11
+      ],
+      [
+       29,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "아트로파테스 부대 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_orontes",
+      "display_name_ko": "오론테스",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       28,
+       16
+      ],
+      [
+       29,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "오론테스 부대 병사",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_mithraustes",
+      "display_name_ko": "미트라우스테스",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       28,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "미트라우스테스 부대 병사",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_mazaeus",
+      "display_name_ko": "마자이오스",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 2
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       5
+      ],
+      [
+       28,
+       4
+      ],
+      [
+       27,
+       5
+      ],
+      [
+       29,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "우익 창병"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_bessus",
+      "display_name_ko": "베소스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       28,
+       22
+      ],
+      [
+       28,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "베소스 부대 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_barsaentes",
+      "display_name_ko": "바르사엔테스",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       27,
+       22
+      ],
+      [
+       29,
+       22
+      ]
+     ],
+     "soldier_display_name_ko": "바르사엔테스 부대 병사"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_satibarzanes",
+      "display_name_ko": "사티바르자네스",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       13
+      ],
+      [
+       32,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "사티바르자네스 부대 병사"
+    },
+    {
+     "id": "J",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "본진 궁병부장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       31,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "본진 궁병"
+    }
+   ],
+   "enemy_squads_count": 10,
+   "enemy_units_initial": 22,
+   "enemy_units_peak": 22,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      34,
+      12
+     ],
+     "ref": "npc_darius_iii",
+     "kind": "npc",
+     "name": "다리우스 3세"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      34,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      10
+     ],
+     "ref": "npc_phrataphernes",
+     "kind": "npc",
+     "name": "프라타페르네스"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      11
+     ],
+     "ref": "npc_atropates",
+     "kind": "npc",
+     "name": "아트로파테스"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      16
+     ],
+     "ref": "npc_orontes",
+     "kind": "npc",
+     "name": "오론테스"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      16
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      17
+     ],
+     "ref": "npc_mithraustes",
+     "kind": "npc",
+     "name": "미트라우스테스"
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      28,
+      5
+     ],
+     "ref": "npc_mazaeus",
+     "kind": "npc",
+     "name": "마자이오스"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      28,
+      4
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      27,
+      5
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      29,
+      5
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      28,
+      22
+     ],
+     "ref": "npc_bessus",
+     "kind": "npc",
+     "name": "베소스"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      21
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      22
+     ],
+     "ref": "npc_barsaentes",
+     "kind": "npc",
+     "name": "바르사엔테스"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      22
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      32,
+      13
+     ],
+     "ref": "npc_satibarzanes",
+     "kind": "npc",
+     "name": "사티바르자네스"
+    },
+    {
+     "squad": "I",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      32,
+      14
+     ]
+    },
+    {
+     "squad": "J",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      31,
+      13
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "본진 궁병부장"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1370,
+    "exp": 1986,
+    "gold": 1781,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "parmenion"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    }
+   ],
+   "win_rate_band_target_pct": "58~72 (신호 달성 기준 중앙 약 65)",
+   "sort_order": 1703,
+   "prerequisite": "ch17_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "gap_signal": "중앙 신호 타일 2칸(아군 본대와 다리우스 사이 평지 중앙)",
+     "reinforce_gap_h": "헤파이스티온 출현 1칸",
+     "reinforce_gap": "기병 2 출현 후보 칸 2~6(중앙 뒤)",
+     "parmenion_start": "파르메니온 시작(좌익)",
+     "alex_start": "알렉산드로스 시작(우익 뒤)",
+     "darius": "다리우스 본진 구역 6칸(적 후방 중앙)",
+     "chariot_lane": "평평한 평원 폭 4 이상(전차 돌진 길)",
+     "enemy_deploy": "본진 1 + 전차 2 + 우익 1 + 좌익 1 + 궁 1"
+    },
+    "deploy_zone_count": 9,
+    "tile_tags": [
+     "gap_signal"
+    ],
+    "path_cost": "protagonist_start -> gap_signal <= 20(턴5 대사 기준)"
+   },
+   "design_notes": [
+    "Lv18 offset -1(eff 17). 적 22기(다리우스 4 hp3.0 / 낫 전차 기병 4 즉시 돌진 / 후속 전차 3 hold 3 / 마자이오스 우익 창병 4 / 좌익 보병 4 / 궁병 3). 증원 없음. 낫 전차 = enemy cavalry 한 줄 돌진(전용 유닛 없음). 승리: 다리우스 격파 + gap_signal latch. 신호 도달(대사 턴5) -> flag gap_open -> 헤파이스티온(NPC) + 아군 기병 2 spawn. 알렉산드로스 NPC route 턴5 출발 move_cap 5 로 다리우스 방향 돌파. 패배: 파르메니온(왼쪽 날개) 사망 - 낫 전차 후속(턴3 해제)이 파르메니온 쪽으로 몰림을 의도. 승률은 gap_open 달성/미달성 두 봇으로 따로 측정 필요. npc_darius_iii 는 C sword 12/2/2 + hp_mult 3.0 로 보정(상향 후보).",
+    "비교: 가우가멜라는 ch16_s4(Lv18 eff18 22기 55~70)와 같은 급이라 같은 밴드 하단을 피해 58~72 로 둠.",
+    "맵 확정 후 알렉산드로스 route 경로 비용 36: cap 5 로는 턴12 도착이라 move_cap 7 로 수정(턴5 출발 -> 턴10 도착, 대사 턴7 '지금이다' 이후 돌파)"
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)",
+   "gen10_note": "2026-11-03 임밸런: 송서사 EXPAND_ENEMY_ROSTERS.md/EXPAND_ch15_ch17.md 후보 기준 분대 분할(총 유닛 22기 불변, 분대장 10명, 이름 있는 장수 9). 병종은 편성상 배분(슬롯 병종 유지). 직함형(generic)은 invented."
+  },
+  {
+   "code": "ch17_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "마케도니아 군",
+     "enemy": "페르시아 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "alexander",
+      "x": 3,
+      "y": 12,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_ptolemy",
+      "x": 4,
+      "y": 14,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "페르시아 후위 지휘관",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          11,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "well_1_ok",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "well_1_ok"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        10,
+        9
+       ],
+       [
+        11,
+        9
+       ]
+      ],
+      "tag": "fresh_horse",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          25,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "well_3_ok",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "well_3_ok"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        24,
+        9
+       ],
+       [
+        25,
+        9
+       ]
+      ],
+      "tag": "fresh_horse",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "alex",
+      "type": "unit_survive",
+      "unit": "hero:alexander",
+      "label": "알렉산드로스를 지켜라"
+     },
+     {
+      "id": "well_1",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        11,
+        10
+       ]
+      ],
+      "turns": 1,
+      "label": "우물 1을 확보한다"
+     },
+     {
+      "id": "well_2",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        16,
+        13
+       ]
+      ],
+      "turns": 1,
+      "label": "우물 2을 확보한다"
+     },
+     {
+      "id": "well_3",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        25,
+        10
+       ]
+      ],
+      "turns": 1,
+      "label": "우물 3을 확보한다"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "후위 지휘관을 쓰러뜨린다",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "alex_down",
+      "label": "알렉산드로스가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:alexander"
+      }
+     }
+    ]
+   },
+   "name": "추격",
+   "year_label": "BC 331",
+   "chapter": 17,
+   "shelf_code": "ch17",
+   "map": "su_ch17_s4_pursuit",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 17,
+   "difficulty": 7,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "alexander",
+     "npc_ptolemy"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "페르시아 후위 지휘관",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 2
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       14,
+       12
+      ],
+      [
+       14,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "후위 근위 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "페르시아 후위 부장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       13,
+       12
+      ],
+      [
+       15,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "후위 근위 보병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "언덕 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       17,
+       5
+      ],
+      [
+       17,
+       4
+      ]
+     ],
+     "soldier_display_name_ko": "언덕 궁병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "언덕 궁병부장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       16,
+       5
+      ],
+      [
+       18,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "언덕 궁병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_nabarzanes",
+      "display_name_ko": "낫바르자네스",
+      "evidence_level": "verify",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       12
+      ],
+      [
+       29,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "낫바르자네스 부대 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "퇴각 창병부장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       11
+      ],
+      [
+       29,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "퇴각 창병"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_bessus",
+      "display_name_ko": "베소스",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       29,
+       17
+      ],
+      [
+       30,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "베소스 부대 병사",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "후위 기병부장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       29,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "후위 기병",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "후위 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       29,
+       7
+      ],
+      [
+       30,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "후위 보병"
+    },
+    {
+     "id": "J",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "후위 보병부장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       29,
+       6
+      ],
+      [
+       30,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "후위 보병"
+    }
+   ],
+   "enemy_squads_count": 10,
+   "enemy_units_initial": 19,
+   "enemy_units_peak": 19,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      14,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "페르시아 후위 지휘관"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      14,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      13,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "페르시아 후위 부장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      17,
+      5
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "언덕 궁병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      17,
+      4
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      16,
+      5
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "언덕 궁병부장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      18,
+      5
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      28,
+      12
+     ],
+     "ref": "npc_nabarzanes",
+     "kind": "npc",
+     "name": "낫바르자네스"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      29,
+      12
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      28,
+      11
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "퇴각 창병부장"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      29,
+      11
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      17
+     ],
+     "ref": "npc_bessus",
+     "kind": "npc",
+     "name": "베소스"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      17
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      16
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "후위 기병부장"
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      7
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "후위 보병대장"
+    },
+    {
+     "squad": "I",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      7
+     ]
+    },
+    {
+     "squad": "J",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      6
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "후위 보병부장"
+    },
+    {
+     "squad": "J",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      6
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1480,
+    "exp": 2146,
+    "gold": 1924,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "well_1"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "62~75 (중앙 약 68)",
+   "sort_order": 1704,
+   "prerequisite": "ch17_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "well_1": "우물 1(1~2칸)",
+     "well_2": "우물 2(1~2칸, 효과 없음)",
+     "well_3": "우물 3(1~2칸)",
+     "reinforce_w1": "우물1 근처 기병 출현칸 2",
+     "reinforce_w3": "우물3 근처 기병 출현칸 2",
+     "retreat_road": "퇴각로(동쪽으로 이어지는 길)",
+     "hill": "언덕(궁병)",
+     "enemy_deploy": "후위 1 + 언덕 1 + 퇴각 2"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "well"
+    ],
+    "path_cost": "protagonist_start -> well_1 <= 12(턴4), well_1 -> well_2 <= 9(턴7)"
+   },
+   "design_notes": [
+    "Lv19 offset -2(eff 17). 적 19기(근위 보병 4 hp2.0 / 언덕 궁병 4 / 퇴각 창병 4 / 후위 기병 3 hold 4 / 후위 보병 4), 증원 없음. 우물 3곳: 1번(대사 턴4 '물 있음') -> 아군 기병 2 접안, 2번(대사 턴7 '비어 있음') -> 효과 없음(기만 지점; 가면 시간 손실), 3번 -> 아군 기병 2 접안. '아군 기병 이동 보너스'는 엔진에 flag 기반 이동력 보정이 없어 '신선한 말 = 기병 증원'으로 치환(엔진 요청 후보: flag 기반 이동력 +1 오라). 우물 hold_zone 은 별 조건(1번)용. 퇴각로를 따라 적이 도주하므로 턴 상한 12 가 압박."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)",
+   "gen10_note": "2026-11-03 임밸런: 송서사 EXPAND_ENEMY_ROSTERS.md/EXPAND_ch15_ch17.md 후보 기준 분대 분할(총 유닛 19기 불변, 분대장 10명, 이름 있는 장수 2). 병종은 편성상 배분(슬롯 병종 유지). 직함형(generic)은 invented."
+  }
+ ],
+ "npc_needed": {
+  "existing_db": [
+   "npc_parmenion",
+   "npc_hephaestion",
+   "npc_craterus",
+   "npc_ptolemy",
+   "npc_darius_iii",
+   "npc_mazaeus"
+  ],
+  "new_rows": [
+   "alexander"
+  ],
+  "proposal_file": "npc_roster_shelf_ch17_20_stats.json"
+ },
+ "engine_checks": [
+  "spawn cue when: not flag 조합 + turn 지정(턴5에 flag 미달성이면 매복 출현)",
+  "hero spawn (npc_hephaestion) + unit_type count 동시 사용",
+  "enemy_squads leader ref npc_darius_iii/npc_mazaeus"
+ ]
+}

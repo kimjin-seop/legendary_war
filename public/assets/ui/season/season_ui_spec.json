@@ -1,0 +1,213 @@
+{
+ "_note": "시즌 전쟁 화면 UI 스펙(안아트 2026-11-04, 사용자 시안 images/65.png 분석 + 정정: 수도 핀·범례 제외). 크기 1x 기준(@2x = 2배). 텍스트는 모두 FE 렌더. 신규 파일 키는 ui.season.*, 나머지는 기존 키 재사용 | r2(2026-11-04): 서버 거점 기준 재생성",
+ "layout_1x": {
+  "screen": [
+   1920,
+   1080
+  ],
+  "map_box": {
+   "x": 690,
+   "y": 200,
+   "w": 531,
+   "h": 846,
+   "note": "r2: ui.season.map.base @1x 531x846(제주·쓰시마 포함). 화면 높이에 맞춰 축소 가능(일러스트, LANCZOS)"
+  },
+  "left_faction": {
+   "x": 120,
+   "y": 160,
+   "w": 520
+  },
+  "right_faction": {
+   "x": 1240,
+   "y": 160,
+   "w": 520
+  },
+  "info_panel": {
+   "x": 1385,
+   "y": 140,
+   "w": 520,
+   "h": 720
+  }
+ },
+ "components": {
+  "mode_tabs": {
+   "labels": [
+    "시즌 전쟁",
+    "랭크전",
+    "방 대전"
+   ],
+   "on": "atlas.uiskin#tab.on",
+   "off": "atlas.uiskin#tab.off",
+   "slice": "3h",
+   "h": 48
+  },
+  "title_banner": {
+   "bg": "atlas.uiskin#header.ribbon(3h, 폭 420)",
+   "icon": "ui.battle.ico.swords_cross(왼쪽, 48)",
+   "text": {
+    "label": "시즌 전쟁",
+    "size": 40,
+    "fill": "#F7D77A→#C08A2E",
+    "stroke": "#3A2508 2px"
+   },
+   "note": "시안의 월계관은 기존 에셋에 없어 생략(필요 시 다음 생성 라운드 1칸)"
+  },
+  "season_line": {
+   "name": {
+    "size": 26,
+    "color": "#F4E6C0"
+   },
+   "period": {
+    "size": 17,
+    "color": "#C9C3B0",
+    "remain_color": "#F0C65A"
+   }
+  },
+  "ratio_bar": {
+   "track": "atlas.uiskin#bar.track(3h, 폭 600, 높이 34)",
+   "fill_ally": "atlas.uiskin#bar.fill.exp(파랑)",
+   "fill_enemy": "atlas.uiskin#bar.fill.hp(빨강, 오른쪽에서 채움)",
+   "center": "ui.battle.ico.swords_cross(64, 경계 위치에 놓음)",
+   "side_plates": "ui.season.pill.ally / ui.season.pill.enemy(진영명)",
+   "pct": {
+    "size": 24,
+    "weight": 700,
+    "color": "#FFFFFF",
+    "stroke": "#14182A 3px"
+   }
+  },
+  "faction_hero": {
+   "ally": {
+    "portrait": "portrait.yi_sun_sin",
+    "flip_x": true,
+    "flag": "ui.flag.joseon"
+   },
+   "enemy": {
+    "portrait": "portrait.npc_kato_kiyomasa",
+    "flip_x": false,
+    "flag": "ui.flag.toyotomi_japan"
+   },
+   "size": [
+    420,
+    560
+   ],
+   "note": "기존 초상 재사용(새 생성 0). 아래쪽은 화면 배경으로 페이드(FE 그라데이션 마스크). 시즌별로 대표 장수만 바꿔 끼움"
+  },
+  "faction_emblem": {
+   "ally": "ui.season.emblem.joseon",
+   "enemy": "ui.season.emblem.japan",
+   "size": 96,
+   "name": {
+    "size": 46,
+    "weight": 800,
+    "color": "#F4E6C0",
+    "stroke": "#14182A 3px"
+   },
+   "motto": {
+    "size": 20,
+    "color": "#E6D8B0"
+   },
+   "members": {
+    "icon": "result.ico.hero.sm(24)",
+    "size": 18
+   }
+  },
+  "map": {
+   "base": "ui.season.map.base",
+   "cells": "ui.season.map.cell.<node>(점령 진영색 알파 0.55로 칠해 base 위)",
+   "cell_edges": "ui.season.map.cell_edges",
+   "nodes": "assets/ui/season/season_map_nodes.json(r2: 서버 war/imjin.json 거점 id·좌표·links 그대로, rank major = 서버 kind=capital)",
+   "route": "nodes.route_style 대로 FE 점선(Graphics)",
+   "arrows": {
+    "ally": "ui.season.arrow.ally",
+    "enemy": "ui.season.arrow.enemy(좌우 반전해 서→동 반대 방향)"
+   },
+   "pins": {
+    "major": "ui.season.pin.major.<ally|enemy|neutral>",
+    "normal": "ui.season.pin.normal.<ally|enemy|neutral>",
+    "selected": "ui.season.pin.selected(핀 뒤, 맥동)",
+    "size_1x": {
+     "major": [
+      64,
+      75
+     ],
+     "normal": [
+      64,
+      64
+     ]
+    },
+    "label": "ui.season.label(3h) + 거점명 15px #F4E6C0, 핀 아래 4px"
+   },
+   "sea_route": "nodes.sea_edges(busan-tsushima, jeonju-jeju)는 바다 위 점선, 색 #9FC3E8"
+  },
+  "legend_panel": {
+   "bg": "atlas.uiskin#panel.sub(9)",
+   "rows": [
+    "주요 거점 = ui.season.pin.major.neutral(20)",
+    "일반 거점 = ui.season.pin.normal.neutral(20)",
+    "전군로 = 점선 샘플(FE)",
+    "조선 영토 = #2E6FD8 사각",
+    "일본 영토 = #C8322E 사각",
+    "교전 지역 = 빗금(FE)"
+   ],
+   "note": "수도(승리 조건) 항목 없음(사용자 정정)"
+  },
+  "info_panel": {
+   "bg": "atlas.uiskin#panel.main(9)",
+   "rule_button": "atlas.uiskin#btn.secondary.sm.normal + atlas.uiskin#ico.log",
+   "sub_tabs": {
+    "labels": [
+     "전황",
+     "거점",
+     "순위",
+     "기록"
+    ],
+    "on": "atlas.uiskin#tab.on",
+    "off": "atlas.uiskin#tab.off",
+    "icons": [
+     "ui.battle.ico.swords_cross",
+     "ui.battle.ico.flag",
+     "ui.battle.ico.crown",
+     "atlas.uiskin#ico.log"
+    ]
+   },
+   "node_row": {
+    "bg": "atlas.uiskin#row.list.normal(3h)",
+    "icon": "ui.season.pin.major.neutral / normal.neutral(32)",
+    "status": "ui.season.pill.<ally|enemy|neutral>(3h, 140x34)",
+    "zoom": "atlas.uiskin#ico.filter 대신 돋보기 없음 → atlas.uiskin#ico.fit(지도 이동)"
+   },
+   "power_table": {
+    "header_color": "#C9B98A",
+    "bar": "atlas.uiskin#bar.track + bar.fill.exp / bar.fill.hp",
+    "power_icon": "ui.battle.ico.swords_cross(20)"
+   }
+  },
+  "sortie_button": {
+   "bg": "atlas.uiskin#btn.danger.normal(3h, 360x84)",
+   "glow": "atlas.uiskin#btn.glow(뒤, 맥동)",
+   "top_icon": "ui.battle.ico.swords_cross(72, 버튼 위 가운데 겹침)",
+   "label": {
+    "text": "전쟁 출정",
+    "size": 38,
+    "weight": 800,
+    "fill": "#F7D77A→#C08A2E",
+    "stroke": "#3A0E0A 3px"
+   }
+  },
+  "background": "ui.season.bg"
+ },
+ "colors": {
+  "ally": "#2E6FD8",
+  "enemy": "#C8322E",
+  "neutral": "#6B7280",
+  "gold": "#E9B649",
+  "text": "#F4E6C0",
+  "sub_text": "#C9C3B0"
+ },
+ "contrast": {
+  "text_on_panel": "#F4E6C0 on #0F1730 ≈ 13.5:1",
+  "pill_label": "흰색 + 2px 외곽선 on #2E6FD8 ≈ 4.6:1 / on #C8322E ≈ 5.0:1 / on #6B7280 ≈ 4.8:1",
+  "sub_text_on_panel": "#C9C3B0 on #0F1730 ≈ 9.8:1"
+ }
+}

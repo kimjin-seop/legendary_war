@@ -1,0 +1,212 @@
+{
+ "_meta": {
+  "title": "뽑기(소집) 화면 UI 디자인 스펙 v1 — 역사책 콘셉트",
+  "owner": "안아트-2(asset-designer)",
+  "date": "2026-11-03",
+  "status": "에셋 제작 완료, FE 구현 대기(윤프론-3 진행 중)",
+  "assets_fragment": "public/assets/gacha_ui/manifest_fragment.json (manifest.json 병합 완료, 키 61개 추가, 기존 키 변경 없음)",
+  "asset_version": "올릴 필요 있음(팀장이 올림). 이번 작업에서는 변경하지 않음",
+  "units": "좌표·크기는 표시 px(CSS px). 이미지 파일은 @2x(표시 x2), mask.* 와 book.pageflip 은 표기된 배율",
+  "concept": "어두운 서고 중앙의 오래된 역사책. 인장이 깨지고 표지가 열리면 페이지가 넘어가며 등급색 빛이 번지고, 펼친 페이지에서 글자 조각과 빛줄기가 솟은 뒤 영웅이 책 속에서 튀어나온다(팝 인). 가운데 큰 초상, 옆에 영웅 카드"
+ },
+
+ "asset_key_table": {
+  "_note": "윤프론-3 교체 지점 표(문서 상단 고정). replaces = 현재 Lobby.js 의 어느 부분을 바꾸는지",
+  "rows": [
+   {"slot": "뽑기 메인 배경", "key": "bg.screen.gacha (기존, 서고·천문대)", "scope": "gacha", "replaces": "tabGacha sectionBg 단색 카드(배경은 이미 show('gacha') 에서 bgscreen_gacha 로 교체됨) — 화면 전체 cover + 어둡게 alpha 0.35 오버레이"},
+   {"slot": "피처드 배너 배경", "key": "gacha.banner.bg.s / .a / .b", "scope": "gacha_ui", "replaces": "신규(피처드 영웅 뒤 빛)"},
+   {"slot": "피처드 영웅 일러스트", "key": "portrait.<hero> (기존 896x1200 투명) + gacha.mask.feature", "scope": "hero(기존 ensurePortrait) / gacha_ui", "replaces": "신규"},
+   {"slot": "피처드 후광", "key": "gacha.halo.<r>", "scope": "gacha_fx", "replaces": "신규(메인 화면에서도 alpha 0.5 로 재사용)"},
+   {"slot": "확률 UP 태그", "key": "gacha.tag.rateup", "scope": "gacha_ui", "replaces": "신규"},
+   {"slot": "영웅 이름 명판", "key": "gacha.scroll", "scope": "gacha_ui", "replaces": "신규(이름 큰 글씨는 FE 텍스트)"},
+   {"slot": "배너 목록 항목", "key": "gacha.list.frame / gacha.list.frame.selected + portrait.<hero>.thumb 또는 portrait 크롭", "scope": "gacha_ui", "replaces": "신규"},
+   {"slot": "모바일 배너 칩", "key": "gacha.chip.frame / gacha.chip.frame.selected", "scope": "gacha_ui", "replaces": "신규"},
+   {"slot": "NEW 리본", "key": "gacha.ribbon.new", "scope": "gacha_ui", "replaces": "신규"},
+   {"slot": "1회 뽑기 버튼", "key": "gacha.btn.pull.single", "scope": "gacha_ui", "replaces": "tabGacha Button(variant default) 1회"},
+   {"slot": "10연 뽑기 버튼", "key": "gacha.btn.pull.ten", "scope": "gacha_ui", "replaces": "tabGacha Button(variant primary) 10연"},
+   {"slot": "할인 꼬리표", "key": "gacha.tag.discount", "scope": "gacha_ui", "replaces": "신규(10연 우상단, '10% 할인')"},
+   {"slot": "재화 아이콘", "key": "icon.gold (기존) / atlas.uiskin 프레임 currency.capsule (기존)", "scope": "boot", "replaces": "보유 골드 텍스트 줄"},
+   {"slot": "천장 게이지", "key": "atlas.uiskin 프레임 bar.track + bar.fill.gold (기존)", "scope": "boot", "replaces": "'천장 진행도' 텍스트 줄"},
+   {"slot": "확률 보기 버튼", "key": "atlas.uiskin 프레임 btn.icon.round.* + ico.info (기존)", "scope": "boot", "replaces": "'확률 보기' 텍스트 버튼(모달 gachaRates 는 그대로)"},
+   {"slot": "좌우 군기 장식(선택)", "key": "gacha.warbanner.l / .r", "scope": "gacha_ui", "replaces": "신규(데스크톱만)"},
+   {"slot": "닫힌 책 표지", "key": "gacha.book.cover", "scope": "gacha_fx", "replaces": "gachaResult 모달의 card.back 순차 공개 -> 전체 화면 연출 오버레이"},
+   {"slot": "표지 안쪽", "key": "gacha.book.cover_inner", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "펼친 책", "key": "gacha.book.open", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "페이지 넘김", "key": "gacha.book.pageflip (6프레임)", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "페이지 등급 빛", "key": "gacha.book.pageglow.<r>", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "페이지 문양(선택)", "key": "gacha.circle.inner / gacha.circle.glow (소환진에서 재활용: 펼친 페이지 위 빛나는 문양)", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "봉인 인장", "key": "gacha.seal / gacha.seal.crack / gacha.seal.shard.0~5", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "빛줄기", "key": "gacha.beam.<r>", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "글자 조각 파티클", "key": "gacha.glyph (16프레임)", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "빛 파티클", "key": "gacha.particle (8프레임)", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "팝 인 충격파", "key": "gacha.pop.<r>", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "섬광", "key": "gacha.flash", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "초상 솟음 마스크", "key": "gacha.mask.emerge", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "리빌 오라(카드 뒤)", "key": "gacha.aura.<r>", "scope": "gacha_fx", "replaces": "신규"},
+   {"slot": "영웅 카드(옆 카드·결과 그리드)", "key": "card.bg/frame/border/flag.<r> (기존 448x600) + gacha.cardglow.<r>", "scope": "cards / gacha_fx", "replaces": "gachaCard 의 slot_<r> 9-slice + 사각 초상 -> 기존 영웅 카드 조립(영웅 탭 카드와 같은 구성)"},
+   {"slot": "결과 그리드 카드 뒷면", "key": "card.back (기존) 또는 atlas.uiskin_gacha 프레임 card.back (기존)", "scope": "cards / gacha", "replaces": "유지"},
+   {"slot": "최고 등급 광선", "key": "gacha.rays", "scope": "gacha_fx", "replaces": "신규(결과 그리드 최고 등급 카드 뒤)"},
+   {"slot": "S 등급 카드 장식", "key": "atlas.uiskin_gacha 프레임 frame.rank.s.ornament (기존)", "scope": "gacha", "replaces": "유지"},
+   {"slot": "신규 배지", "key": "gacha.badge.new", "scope": "gacha_fx", "replaces": "카드 하단 'NEW' 텍스트"},
+   {"slot": "효과음", "key": "sfx_gacha_book_open / page_flip / light_rise / seal_break / pop_in / card_slide / new (신규 7) + sfx_gacha_reveal_n/r/sr/ssr (기존 4)", "scope": "audio manifest", "replaces": "신규 + 기존 리빌음 매핑(아래 sound_cues)"},
+   {"slot": "BGM", "key": "로비 공통 트랙 유지(사용자 지시: 로비 음악 통일). bgm.gacha 는 미사용 유지", "scope": "-", "replaces": "없음"}
+  ]
+ },
+
+ "current_structure": {
+  "client": "Lobby.js tabGacha(정보 GET /api/gacha -> 골드·확률 보기·보장 문구·천장 진행 텍스트·1회/10연 Button) -> gachaPull(count, request_id 멱등 재시도) -> gachaResult 모달(card.back 뒷면 -> 160ms 간격 뒤집기, 건너뛰기) -> gachaCard(slot_<r> 프레임 + 얼굴 크롭 + 등급 별 + 이름 + NEW/조각+N)",
+  "server": "GachaService: 단일 풀(gacha_pool.json v2, 배너 개념 없음). 확률 S2/A10/B30/C58%, 가격 1회 100·10연 900 골드(10% 할인), 보장 = 10연 내 A 이상 1회(마지막 슬롯 재추첨, 1회 뽑기 보장 없음), progress = A 이상 연속 미출현 횟수(표시용, 하드 천장 아님), 중복 = 등급별 조각 S50/A30/B20/C10",
+  "pull_response": "replay, pull_id, pool_version, count, gold_spent, gold, pity{before,after,guarantee_applied}, results[{hero, name, title, short_name, display_name, rarity, unit_type, user_hero_id, is_new, shards_gained, shards_total}]",
+  "rarity": "rarity.js: S 금 #F0B23C(별 4) / A 보라 #B06AD8(별 3) / B 청록 #2FB5A6(별 2) / C 회청 #8B97A8(별 1)",
+  "server_gaps": [
+   "배너 목록·픽업(확률 UP) 영웅·배너 기간: 서버에 없음. FE 는 우선 '상시 소집' 배너 1개 + 피처드 영웅 = 풀의 S 등급 영웅 중 클라이언트 회전(확률 UP 태그는 서버 픽업 생기기 전까지 숨김) 로 시작",
+   "무료 횟수('오늘 무료 N회'): 서버에 없음. 퀘스트 daily_gacha 보상 안내로 대체하거나 박백엔 작업 필요",
+   "영웅 상세 이동: user_hero_id 있음 -> 영웅 탭 상세로 이동 가능",
+   "results 에 skill/능력치 없음: 옆 카드의 능력치·스킬 아이콘은 GameData(영웅 정의)에서 hero 코드로 조회"
+  ]
+ },
+
+ "reference_analysis": {
+  "source": "사용자 제공 참고 이미지(30.png, '이런 느낌' 참고, 복제 아님)",
+  "takeaways": [
+   "좌측 세로 배너 목록: 영웅 일러스트 썸네일 + 둥근 사각 프레임 + 우하단 보유 상태 라벨 + 새 배너 NEW 리본, 선택 항목만 크게 -> gacha.list.frame(.selected) + gacha.ribbon.new, 라벨 '미보유'/'보유'",
+   "화면 우측 대부분을 피처드 영웅 대형 일러스트가 차지, 배경은 어둡고 장엄한 실내 + 은은한 빛 -> 기존 portrait 896x1200(투명 배경)을 그대로 크게 배치, 왼쪽·아래 페이드 마스크로 배경에 녹임",
+   "일러스트 하단 주황 태그 + 영웅 이름 큰 글씨 -> gacha.tag.rateup + gacha.scroll 명판 위 이름",
+   "상단 재화·뒤로가기 바, 하단 1회/10회 소환 버튼 + 무료 횟수 -> 기존 상단바 재사용, gacha.btn.pull.* + 할인/무료 꼬리표",
+   "차별점: 판타지 성당 대신 서고와 역사책(우리 게임 정체성 '역사서 속 전장'), 등급색 빛, 인장"
+  ]
+ },
+
+ "reuse_map": {
+  "_note": "기존 에셋 최대 활용. 신규 이미지 호출은 조각·책만",
+  "bg.screen.gacha": "뽑기 메인·연출 공통 배경(서고, 바닥 원형 문양 = 책 아래 받침 빛 자리)",
+  "portrait.<hero> (896x1200)": "피처드 일러스트(높이 = 화면 높이 0.95), 리빌 가운데 큰 초상, 배너 목록 썸네일 크롭(위 5%~37% 가로 띠)",
+  "portrait.<hero>.thumb (256x343 webp)": "모바일 칩 얼굴 크롭, 10연 요약 그리드 저용량 대체",
+  "card.bg/frame/border/flag.<r>, card.part.*": "옆 영웅 카드·결과 그리드(영웅 탭 카드와 동일 조립)",
+  "card.back / atlas.uiskin_gacha card.back": "결과 그리드 미공개 카드",
+  "atlas.uiskin_gacha frame.rank.<r>, frame.rank.s.ornament": "결과 그리드 소형 카드 대체 프레임(모바일 5x2 작은 칸)",
+  "atlas.uiskin: currency.capsule, bar.track, bar.fill.gold, btn.icon.round.*, ico.info, ico.skip, ico.speed, header.ribbon, panel.main": "재화 캡슐·천장 게이지·확률 보기·건너뛰기/빠르게·확률 모달",
+  "icon.gold": "버튼 안 재화 아이콘",
+  "sfx_gacha_reveal_n/r/sr/ssr": "리빌 순간 등급음(C/B/A/S 매핑)",
+  "gacha.circle.* (이번 라운드 소환진용으로 먼저 제작)": "역사책 전환 후 펼친 페이지 위 빛나는 문양으로 재활용(scaleY 0.55, 페이지 중앙)"
+ },
+
+ "cleanup": {
+  "_note": "소환진 -> 역사책 전환 정리",
+  "kept_reused": ["gacha.circle.inner/glow(페이지 문양)", "gacha.circle.outer(선택: 책 아래 바닥 고리, 없어도 됨)", "gacha.beam.*", "gacha.aura.*", "gacha.cardglow.*", "gacha.particle", "gacha.flash", "gacha.rays", "gacha.seal(+crack, shard: 책 걸쇠 인장으로 의미 변경)", "gacha.warbanner.l/r(메인 화면 장식, 선택)"],
+  "not_registered_raw_kept": ["raw/gacha/brazier.jpg(청동 화로, 서고 콘셉트와 맞지 않아 미등록)", "raw/gacha/bg_hall.jpg(왕궁 홀 배경, 기존 서고 배경 재사용으로 미등록)"],
+  "regen": "python docker/gemini/gacha_pp.py 는 GACHA_LEGACY=1 이면 위 2종도 등록"
+ },
+
+ "colors": {
+  "rarity": {"C": {"base": "#8B97A8", "glow": "#D6DEE8"}, "B": {"base": "#2FB5A6", "glow": "#8FF2E4"}, "A": {"base": "#B06AD8", "glow": "#E2B8FF"}, "S": {"base": "#F0B23C", "glow": "#FFE39A"}},
+  "text": {"title": "#F3DC8E", "body": "#E8ECF4", "muted": "#9AA6BD", "on_scroll": "#3A2A10", "on_crimson": "#FFFFFF", "stroke_dark": "#0B1020"},
+  "contrast": {"#E8ECF4 on #101C3A": "14.2:1", "#F3DC8E on #101C3A": "12.4:1", "#3A2A10 on #EBDDB8(두루마리)": "10.3:1", "#FFFFFF on #9E2B25(10연 버튼)": "7.4:1", "#FFFFFF on #EC8A26(확률 UP, 외곽선 #6A3208 3px 필수)": "2.6:1 -> 외곽선으로 보완", "#9AA6BD on #101C3A": "6.9:1"},
+  "overlay": "배경 위 검정 alpha 0.35(메인), 연출 중 0.55"
+ },
+ "typography": {
+  "hero_name": "제목 서체(theme heading) 44px(데스크톱)/30px(모바일), #F3DC8E, 외곽선 #0B1020 4px",
+  "hero_title": "18/14px, #E8ECF4",
+  "tag": "20/16px 굵게",
+  "button_label": "22/18px 굵게(1회 #F3DC8E, 10연 #FFFFFF), 가격 줄 16/14px + icon.gold 20/16px",
+  "list_name": "16/13px 굵게, 이름 띠 위",
+  "list_label": "12px, 미보유 #F3DC8E / 보유 #9AA6BD",
+  "card_name": "18px(옆 카드)/13px(그리드)"
+ },
+
+ "screens": {
+  "main_desktop_1280x720": {
+   "layers": ["bg.screen.gacha cover + 검정 0.35", "gacha.banner.bg.<featured rarity> x0~1280 y60~620, 왼쪽 25~50% 알파 페이드(코드 그라데이션 마스크)", "gacha.halo.<r> 중심 (800,340) 지름 720 alpha 0.5 회전 40s", "portrait.<featured> + gacha.mask.feature, 높이 690(scale 0.575), 오른쪽 기준 x 520~1040, y 0", "gacha.particle dot/ember 등급 색 12~16개 천천히 상승(6~10s, alpha 0.2~0.6) = 떠도는 먼지/빛", "UI"],
+   "top_bar": "기존 로비 상단바(뒤로/재화 캡슐 icon.gold + 수치 + '+')",
+   "banner_list": "x20, y80, 항목 280x120, 간격 16, 최대 4개 보이고 세로 스크롤. 선택 항목 scale 1.08 + list.frame.selected. 항목 = 초상 크롭(둥근 사각 반경 13) + 이름 띠(프레임에 포함) + 우하단 라벨 '미보유'/'보유 n/m'. 마지막 = '상시 소집'(서고 배경 크롭 + 책 아이콘 대신 gacha.book.cover 축소)",
+   "featured_info": "x 360~, y 430: gacha.tag.rateup(180x36) -> y 476 영웅 이름 44px -> y 528 칭호 18px + 등급 별(rarityMark) + 병종 아이콘(class_*) 32px. 이름 뒤 gacha.scroll(480x195) 은 선택(텍스트만으로도 됨)",
+   "pity_rates": "x 360, y 590: 천장 게이지(bar.track 300x14 + bar.fill.gold, '10연 A 이상 보장 · A 이상 연속 미출현 n회') + 오른쪽 btn.icon.round + ico.info(확률 보기)",
+   "pull_buttons": "y 620~690: 1회 x 640(300x86), 10연 x 960(300x89). 버튼 안: 첫 줄 '1회 소집'/'10연 소집', 둘째 줄 icon.gold + 가격. 10연 오른쪽 위에 gacha.tag.discount(140x36, '10% 할인'). 골드 부족 = 버튼 채도 0 alpha 0.6 + 아래 사유 문구",
+   "decor": "gacha.warbanner.l/r 높이 450 을 목록 뒤 x 0 / 화면 오른쪽 x 1180 에 alpha 0.6(선택)"
+  },
+  "main_mobile_390x844": {
+   "layers": "배경 동일, 피처드 초상 높이 520 가운데 x 195 y 90, banner.bg 높이 560 상단",
+   "banner_chips": "상단바 아래 y 64: 가로 스크롤 칩 152x64, 간격 10, 좌우 16 여백, 선택 칩 chip.frame.selected. 칩 = 얼굴 크롭(thumb) 왼쪽 64x64 + 이름 13px",
+   "featured_info": "y 560: 확률 UP 태그(150x30) -> 이름 30px -> 칭호·별·병종 한 줄",
+   "pity_rates": "y 680: 게이지 폭 300 + 정보 버튼 40",
+   "pull_buttons": "y 730~800: 두 버튼 각 175x50(1회 왼쪽, 10연 오른쪽), 간격 8, 할인 꼬리표 10연 위 y -18",
+   "safe_area": "하단 탭바 높이만큼 버튼 영역을 위로(로비 layout 기준)"
+  },
+  "summon_overlay": {
+   "container": "화면 전체 오버레이(모달 대신), 검정 0.55, 입력 차단. 책 기준점: 데스크톱 (420, 520) 책 하단 중심 / 모바일 (195, 470)",
+   "book_display": "gacha.book.open 600x357(모바일 0.6 배 = 360x214). 등 x = layout.spineX 299, 페이지 = layout.page [51,6,547,295]",
+   "portrait_center": "데스크톱: 가운데 큰 초상 중심 x 420, 하단이 페이지 하단 1/3 지점, 높이 600(scale 0.5). 모바일: x 195, 높이 420",
+   "side_card": "데스크톱: 오른쪽 x 760~984 y 120, 224x300 + 아래 정보 패널(panel.sub) 224x200: 이름·칭호·등급 별·병종·능력치 4줄(HP/공/방/이동)·스킬 아이콘 2~3개(atlas.skill_icons)·신규/중복 라벨. 모바일: 아래쪽 y 560 에서 슬라이드 업, 가로형(카드 120x160 왼쪽 + 정보 오른쪽) 358x200",
+   "controls": "오른쪽 위 '건너뛰기'(ico.skip) / '빠르게'(ico.speed, 연출 1.8배속 토글, 설정 저장) / 10연 진행 표시 'n/10'. 화면 탭 = 다음 단계로 즉시 진행"
+  },
+  "result_grid_10": {
+   "desktop": "오버레이 위 패널(panel.main) 1040x600 가운데. 5x2 카드 176x236(card.* 조립 축소) 간격 16. 각 카드 아래 이름 13px + 라벨(신규 = gacha.badge.new 40px 우상단, 중복 = '조각 +N' #2FB5A6). 최고 등급 카드(동률이면 첫 번째)는 gacha.rays 뒤 회전 + gacha.cardglow.<r> 맥동 + scale 1.05. 하단: '확인' / '10연 다시'(골드 충분할 때) / 요약 '골드 -900 · 남은 골드 n · A 이상 보장 적용'",
+   "mobile": "5x2 카드 66x88 간격 6(frame.rank.<r> 소형 + thumb 얼굴), 탭하면 해당 영웅 리빌 카드 다시 보기. 하단 버튼 2개",
+   "hero_detail": "카드 탭 -> 영웅 상세(user_hero_id)로 이동(오버레이 닫고 영웅 탭 상세 열기)"
+  }
+ },
+
+ "sequence": {
+  "_note": "단위 ms(빠르게 모드 = 모든 시간 / 1.8). reduce motion 또는 연출 끄기(isInstant) = 4단계로 바로 + 섬광 없음",
+  "per_hero": [
+   {"step": "0 대기", "t": "0", "do": "닫힌 표지 gacha.book.cover(왼쪽 끝 = spineX) + 걸쇠 인장 gacha.seal(cover.layout.sealCenter, 지름 103). gacha.book.open 은 오른쪽 절반만 보이게(left crop) 표지 아래. 숨쉬기 scale 1~1.015 1.6s", "sfx": "-"},
+   {"step": "1 인장 깨짐", "t": "0~450", "do": "인장 흔들림(rotate ±4deg 3회) -> seal.crack 겹침 -> 등급 S/A 면 균열 틈에 gacha.flash(틴트 등급색) 소형 -> 인장 숨김 + shard.0~5 를 offset 에서 dir 방향 60~120px 비산 + 회전 + 중력 + 페이드 500ms", "sfx": "sfx_gacha_seal_break"},
+   {"step": "2 표지 열림", "t": "450~900", "do": "표지 scaleX 1->0(origin 왼쪽=spine, Cubic.In 220ms) -> cover_inner scaleX 0->1(origin 오른쪽=spine, 왼쪽으로, Cubic.Out 220ms) -> 끝나면 open crop 해제, cover_inner 페이드", "sfx": "sfx_gacha_book_open"},
+   {"step": "3 페이지 넘김 + 빛 번짐(등급 암시)", "t": "900~1700", "do": "gacha.book.pageflip 6프레임 24fps 를 2회(S/A 3회) + 회당 page_flip 음. 동시에 gacha.book.pageglow.<r> alpha 0->1, gacha.circle.inner+glow 를 페이지 중앙(scaleY 0.55, 틴트 등급색) 점등·회전. 암시 규칙: 처음 1회는 항상 B 색, S 는 마지막에 금으로 '색 바뀜'(B->A->S) 연출로 기대감, C 는 회청 그대로", "sfx": "sfx_gacha_page_flip x2~3, sfx_gacha_light_rise"},
+   {"step": "4 빛줄기·글자 조각", "t": "1500~2000", "do": "gacha.beam.<r> 를 등(spineX) 위로 origin(0.5,1) scaleY 0->1(300ms), 12fps 반복. gacha.glyph 먹색 6~10개 + 금색 8~16개(틴트 등급색)가 페이지에서 위로 솟으며 회전·페이드(800~1200ms). gacha.particle spark4/ember 10~30개", "sfx": "-"},
+   {"step": "5 팝 인", "t": "2000~2450", "do": "가운데 초상(portrait + gacha.mask.emerge)이 페이지 아래 1/3 에서 y +120 -> 0, scale 0.6 -> 1.12 -> 1(Back.Out 350ms). 같은 순간 gacha.flash 전체 화면(scale 0.5->4, alpha 1->0 120ms, 틴트 등급 glow) + gacha.pop.<r> 30fps 1회 + 카메라 흔들림(S 6px 200ms, A 3px, B/C 없음). 초상 뒤 gacha.halo.<r> 페이드 인 후 회전 30s", "sfx": "sfx_gacha_pop_in + 등급음(C sfx_gacha_reveal_n / B _r / A _sr / S _ssr)"},
+   {"step": "6 옆 카드", "t": "2450~2800", "do": "영웅 카드(card.* 조립 + gacha.cardglow.<r> 맥동, 뒤 gacha.aura.<r> 1회) 데스크톱 오른쪽에서 x +80 -> 0 / 모바일 아래에서 y +120 -> 0, 300ms Cubic.Out. 신규면 gacha.badge.new scale 0->1.2->1 + sfx_gacha_new, 중복이면 '조각 +N (보유 n)' 라벨", "sfx": "sfx_gacha_card_slide (+ sfx_gacha_new)"},
+   {"step": "7 대기", "t": "2800~", "do": "탭 대기. '다음'(10연) / '확인'(1회) 버튼 표시. 초상·후광·파티클 루프 유지"}
+  ],
+  "ten_pull": "1번째는 1~7 전체. 2~10번째는 책이 펼쳐진 상태에서 3~7 만(페이지 넘김 1회 = 영웅 교체 신호, 이전 초상·카드는 왼쪽으로 페이드 아웃 200ms). C/B 는 4·5 를 짧게(합계 약 1.2s), A/S 는 전체 길이. 10명 끝나면 결과 그리드(result_grid_10)로 전환(책 닫힘 없이 오버레이 페이드)",
+  "skip": "'건너뛰기' = 남은 모든 영웅을 건너뛰고 결과 그리드로(새로 얻은 S 가 남아 있으면 그 S 1명만 5~6 단계 보여 준 뒤 그리드). 화면 탭 = 현재 단계 즉시 완료(트윈 complete)",
+  "fast": "'빠르게' 토글 = timeScale 1.8, 설정 저장(settings)",
+  "replay_flag": "응답 replay=true 면 같은 연출 + 요약 줄에 '이전 요청 결과'"
+ },
+
+ "rarity_fx": {
+  "C": {"page": "회청 pageglow.c", "beam": "beam.c 폭 x0.8", "particles": "ember 10, 금 글자 0, 먹 글자 6", "pop": "pop.c", "shake": 0, "flash": "약(alpha 0.5)", "sfx": "sfx_gacha_reveal_n"},
+  "B": {"page": "청록", "beam": "beam.b", "particles": "spark4 14, 금 글자 6", "pop": "pop.b", "shake": 0, "flash": "중(0.7)", "sfx": "sfx_gacha_reveal_r"},
+  "A": {"page": "보라(B 에서 색 전환)", "beam": "beam.a 폭 x1.2", "particles": "spark8 20, 금 글자 10, 인장 틈 섬광", "pop": "pop.a", "shake": 3, "flash": "강(0.9)", "sfx": "sfx_gacha_reveal_sr"},
+  "S": {"page": "금(B->A->S 2단 전환)", "beam": "beam.s 폭 x1.5 + 2번째 빛줄기 alpha 0.5", "particles": "spark8 30, 금 글자 16, petal 10, 인장 틈 섬광 + 화면 가장자리 금 비네팅", "pop": "pop.s", "shake": 6, "flash": "최대(1.0, 2회)", "card": "frame.rank.s.ornament / card.flag.s", "sfx": "sfx_gacha_reveal_ssr"}
+ },
+
+ "sound_cues": [
+  {"key": "sfx_gacha_seal_break", "when": "1 인장 깨짐", "len_s": 0.6, "status": "제작(코드 합성), 청취 UNVERIFIED"},
+  {"key": "sfx_gacha_book_open", "when": "2 표지 열림", "len_s": 0.9, "status": "제작, 청취 UNVERIFIED"},
+  {"key": "sfx_gacha_page_flip", "when": "3 페이지 1장마다(10연 120ms 간격 겹침 허용)", "len_s": 0.28, "status": "제작, 청취 UNVERIFIED"},
+  {"key": "sfx_gacha_light_rise", "when": "3 빛 번짐 시작", "len_s": 1.3, "status": "제작, 청취 UNVERIFIED"},
+  {"key": "sfx_gacha_pop_in", "when": "5 팝 인", "len_s": 0.7, "status": "제작, 청취 UNVERIFIED"},
+  {"key": "sfx_gacha_reveal_n / _r / _sr / _ssr", "when": "5 팝 인 직후 등급음(C/B/A/S)", "status": "기존"},
+  {"key": "sfx_gacha_card_slide", "when": "6 옆 카드", "len_s": 0.3, "status": "제작, 청취 UNVERIFIED"},
+  {"key": "sfx_gacha_new", "when": "6 신규 배지", "len_s": 0.6, "status": "제작, 청취 UNVERIFIED"},
+  {"key": "sfx_ui_confirm / sfx_ui_tap", "when": "뽑기 버튼 / 배너 선택", "status": "기존"}
+ ],
+
+ "components": {
+  "_note": "윤프론 구현 목록(Phaser). 이름은 제안",
+  "GachaScreen": "탭 루트. state: loading -> ready -> pulling(버튼 잠금) -> summoning(SummonOverlay) -> result(ResultGrid) -> ready(info 재조회). error: retryable 모달(기존 로직 유지)",
+  "BannerList(desktop) / BannerChips(mobile)": "props: banners[{id, heroCode, label, owned, isNew}], selectedId. 상태: normal/hover(scale 1.03)/selected/pressed(0.97). 선택 시 FeaturedPanel 교체(초상 크로스페이드 250ms)",
+  "FeaturedPanel": "portrait + mask.feature + banner.bg + halo + 먼지 파티클 + 태그/이름/별/병종. 초상 미로드 시 thumb 확대 -> 로드되면 교체",
+  "PityGauge": "bar.track/fill.gold, 값 = pity.progress / applies_to_count 대신 '10연 보장' 문구 + progress 숫자(하드 천장 아님 — 게이지는 '10연 안 A 이상 보장' 설명용 10칸 눈금으로 표현 권장)",
+  "PullButton(single|ten)": "상태 normal/hover(밝기 1.1)/pressed(scale 0.96, 밝기 0.85)/disabled(채도 0, alpha 0.6, reason 툴팁)/busy(라벨 '소집 중…'). ten 은 discount 태그 + 가벼운 반짝임(particle spark4 3초마다)",
+  "SummonOverlay": "sequence 상태 머신: sealed -> sealBreak -> coverOpen -> pageFlip -> beam -> popIn -> sideCard -> waitTap -> (next | grid). skip/fast/tap 처리. 리소스: ensureScope('gacha_fx', filter = 결과에 나온 등급의 beam/aura/pop/halo/pageglow/cardglow + 공통) — 버튼 누르는 순간 요청과 병렬로 공통 키 프리로드",
+  "HeroRevealCard": "카드 조립(card.*) + cardglow + 정보 패널 + 신규/중복 라벨 + '상세' 버튼(user_hero_id)",
+  "ResultGrid": "10장, 최고 등급 강조, 카드 탭 -> HeroRevealCard 다시 보기 / 상세 이동"
+ },
+
+ "load_hints": {
+  "gacha_ui": "뽑기 탭 진입 시 ensureScope('gacha_ui') 1.33MB. 배너 목록 초상은 ensurePortrait(기존 hero scope 개별 지연)",
+  "gacha_fx": "10.09MB 전체를 받지 말 것. 공통(book.*, seal*, glyph, particle, flash, mask.emerge, badge.new, circle.inner/glow) 약 2.9MB 는 탭 진입 후 idle 에 warmScope, 등급별(beam/aura/pop/halo/pageglow/cardglow .<r>) 은 pull 응답의 등급만 filter 로드(등급당 약 1.9~2.0MB). C/B 만 나온 10연은 S/A 시트 불필요",
+  "filters": "UI 조각·초상 LINEAR. 파티클·fx 도 LINEAR(픽셀 아트 아님) — assets.js 의 fx 접두 NEAREST 규칙은 gacha.* 키에 적용되지 않게 확인 필요",
+  "blend": "manifest 항목 blend 'add' = Phaser BlendModes.ADD, tintable=true 는 흰색 원본(setTint)",
+  "spritesheet": "type spritesheet 항목은 frameWidth/frameHeight 로 load.spritesheet. aura/pop 은 4열x2행, pageflip 3열x2행, beam 8열, particle 8열, glyph 8열x2행"
+ },
+
+ "qa": {
+  "generated": "seal, pull_buttons(2), scroll_tag(2), war_banners(2), book_closed, book_open: 글자·문장 없음, 마젠타 잔여 0px(edge.magenta_px), 헤일로 없음, 좌우 대칭 양호. pass",
+  "procedural": "빛줄기·오라·팝·후광·페이지 빛·카드 글로우·파티클·글자 조각·마스크·리본·태그·프레임: 결정적 생성(재실행 동일). pass",
+  "mockups": "서고 배경 + 책 + 페이지 빛 + 빛줄기 + 후광 + 초상 + 팝 + 옆 카드 합성, 메인(목록 + 피처드 + 버튼) 합성으로 확인. pass",
+  "known": ["pop.<r> 마지막 프레임 가시가 프레임 가장자리에 살짝 닿음(페이드 상태라 눈에 띄지 않음)", "pageflip 은 1장 텍스처 가로 압축 방식이라 종이 휘어짐(곡면)은 없음 — 0.25s 빠른 넘김에서는 자연스러움, 느린 넘김이 필요하면 사람 애니메이터 작업", "책 펼침은 정면 평면 뷰라 원근 회전감은 FE scaleX 로만 표현"]
+ }
+}

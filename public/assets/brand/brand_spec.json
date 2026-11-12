@@ -1,0 +1,62 @@
+{
+ "_note": "「레전드리 워」 로고 사용 사양(안아트, 2026-11-01). 서체는 시안 단계 — 최종 서체는 사용자 선택. candidates/<서체>/ 의 파일 이름은 최종 확정 후 상위 폴더로 승격(같은 이름 유지).",
+ "status": "final (Hahmlet Black + emblem_a, 팀장 위임 결정 2026-11-01; WM_FONT 로 교체 가능)",
+ "title": {
+  "ko": "레전드리 워",
+  "en_subtitle": "LEGENDARY WAR",
+  "trademark": "상표·도메인 선점 여부는 사람이 확인 필요(안아트 판단 안 함)"
+ },
+ "emblem": {
+  "source": "brand/raw/emblem_a.jpg (Gemini, 글자 없음) → raw/emblem_a_key.png",
+  "alt": "brand/raw/emblem_b.jpg (원형 메달+투구, 예비안)",
+  "files": [
+   "logo_emblem@3x.png (768x768)",
+   "logo_emblem@1.5x.png"
+  ]
+ },
+ "variants": {
+  "logo_h": "가로형(엠블럼+워드마크+부제) — 타이틀 씬 중앙, 로그인 상단",
+  "logo_stack": "세로형(엠블럼 위, 워드마크 아래) — 로딩/Preload 화면, 세로 화면(390px) 타이틀",
+  "logo_wordmark": "워드마크+부제 단독 — 결과/크레딧, 설정 정보 화면",
+  "logo_wordmark_title": "워드마크(부제 없음) + SVG 벡터",
+  "logo_small_h96/h64/h32": "소형(엠블럼+제목, 글로우 없음·외곽선 강화) — 로비 상단바 좌측(h64@3x 또는 h32 표시), 로딩 바 옆",
+  "logo_mono_white / logo_mono_gold": "단색 — 어두운 사진 배경·워터마크·스플래시 위 겹침",
+  "favicon_16/32/48.png, favicon.ico": "브라우저 탭 파비콘(엠블럼 단독)",
+  "app_icon_180.png / app_icon_512.png": "apple-touch-icon(180) / PWA·스토어 마스터(512), 남색 배경 불투명",
+  "og_image.jpg": "og:image 1200x630(타이틀 배경 + 가로형 로고)"
+ },
+ "clearspace": "로고 둘레 최소 여백 = 워드마크 '레' 글자 높이의 0.5배(가로형 기준 약 높이의 25%). 여백 안에 다른 글자·UI 금지",
+ "minSize": {
+  "logo_h": "높이 48 CSS px 이상(그 미만은 logo_small 사용)",
+  "logo_stack": "높이 120 CSS px 이상",
+  "logo_small": "높이 24~48 CSS px",
+  "emblem": "16 px 이상(16은 실루엣만 식별)"
+ },
+ "backgrounds": {
+  "dark": "기본(남색 #0B1328~#172750, 어두운 사진). 금박 버전 그대로",
+  "light": "밝은 배경(#ECE6D6 등)도 남흑 외곽선으로 가독 가능 — 단 글로우는 생략 권장(mono_gold 또는 small 사용)",
+  "busy_photo": "mono_white 또는 반투명 남색 판(alpha 0.6) 위에"
+ },
+ "dont": [
+  "늘리거나 눌러 비율 변경 금지",
+  "엠블럼과 워드마크 간격·비율 임의 변경 금지(가로형/세로형 파일 사용)",
+  "색 바꾸기·그라데이션 재착색 금지(단색 파일만)",
+  "그림자·외곽선 추가 금지(이미 포함)",
+  "보라·분홍 배경 위 사용 금지(외곽선 대비 저하)"
+ ],
+ "fe_placement_proposal": [
+  "Title 씬: 배경 bg.screen.title + logo_h(가로) 화면 위쪽 35% 영역 중앙, 폭 = min(화면폭 x 0.62, 1100 CSS px), 세로 화면은 logo_stack",
+  "Auth(로그인): logo_stack 소형(높이 160) 입력 폼 위",
+  "Lobby 상단바: logo_small_h32(표시 높이 28~32) 좌측, 설정·로그아웃과 겹치지 않게",
+  "Preload/로딩: logo_stack 중앙 + 진행 바",
+  "브라우저: <title>레전드리 워</title>, favicon.ico + favicon_32.png(link rel=icon), apple-touch-icon=app_icon_180.png, og:image 는 별도 1200x630 필요(미제작)",
+  "설정 > 정보(버전·크레딧): logo_wordmark",
+  "결과/크레딧: logo_wordmark 또는 mono_gold"
+ ],
+ "fonts": {
+  "wordmark_candidates_sheet": "brand/preview/wordmark_contact_sheet.png (11종, 전부 SIL OFL 1.1, 출처 github.com/google/fonts ofl/<폴더>, 원문 docker/gemini/fonts/<폴더>/OFL.txt, 해시 docker/gemini/fonts/SHA256SUMS.txt)",
+  "subtitle": "Cinzel Bold (SIL OFL 1.1, google/fonts ofl/cinzel)",
+  "ofl_note": "OFL: 로고처럼 서체로 만든 이미지·윤곽선(SVG path)은 서체 재배포가 아니므로 제한 없음. 서체 파일 자체를 게임과 함께 배포할 때만 OFL.txt 동봉·이름 변경 규칙 적용(법무 최종 확인은 사람)",
+  "user_font_swap": "WM_FONT=<서체 경로>[:wght] python docker/gemini/brand_logo.py build public/assets/brand <emblem.png> → candidates/user_font/ (스크립트 수정 불필요)"
+ }
+}

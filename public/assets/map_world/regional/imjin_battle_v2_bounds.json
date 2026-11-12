@@ -1,0 +1,60 @@
+{
+ "region": "imjin_battle_v2",
+ "desc": "1592년 조선 전장(한반도 전체·제주·쓰시마, 큐슈 북서 일부)",
+ "geo": {
+  "lonMin": 124.0,
+  "lonMax": 131.2,
+  "latMin": 32.8,
+  "latMax": 43.0
+ },
+ "normalized": {
+  "x0": 0.8444444444444444,
+  "x1": 0.8644444444444445,
+  "y0": 0.2611111111111111,
+  "y1": 0.31777777777777777,
+  "w": 0.01999999999999997,
+  "h": 0.056666666666666685
+ },
+ "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+ "desktop": {
+  "path": "assets/map_world/regional/imjin_battle_v2_1728.webp",
+  "size": "1728x2448",
+  "ppd": 240,
+  "bytes": 273248,
+  "sharpnessVsWorld4096": 21.09
+ },
+ "mobile": {
+  "path": "assets/map_world/regional/imjin_battle_v2_864.webp",
+  "size": "864x1224",
+  "ppd": 120.0,
+  "bytes": 57426,
+  "sharpnessVsWorld2048": 21.09
+ },
+ "placement": "세계판 이미지 위 정규화 사각형 [x0*Ww, y0*Hw, w*Ww, h*Hw] 에 그대로 늘려 덮으면 해안이 일치(가로·세로 같은 배율)",
+ "landmask": {
+  "desktop": {
+   "path": "assets/map_world/regional/imjin_battle_v2_landmask_1728.png",
+   "size": "1728x2448",
+   "bytes": 157120,
+   "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+  },
+  "mobile": {
+   "path": "assets/map_world/regional/imjin_battle_v2_landmask_864.png",
+   "size": "864x1224",
+   "bytes": 56982,
+   "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+  }
+ },
+ "qa_metrics": {
+  "land_iou_vs_world4096_datamask": 0.9027,
+  "soft_centroid_offset_world4096_px": [
+   -0.46,
+   -1.959
+  ],
+  "land_area_ratio": 0.9273,
+  "soft_mask_mae": 0.0482,
+  "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+  "land_iou_vs_world4096_image_estimate": 0.7851,
+  "lowfreq_color_mae_0_255": 24.58
+ }
+}

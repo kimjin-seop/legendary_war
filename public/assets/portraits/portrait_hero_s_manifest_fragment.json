@@ -1,0 +1,430 @@
+{
+ "note": "S등급 2차(안아트 2026-11-04): 신규 S 영웅 초상(portrait.<code>) + S 배경 판(portrait.s_bg.<theme>). 합성 순서는 item.s_layers",
+ "items": [
+  {
+   "key": "portrait.chok_jun_gyeong",
+   "path": "assets/portraits/chok_jun_gyeong.png",
+   "type": "portrait",
+   "subtype": "hero",
+   "grade": "S",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1456594,
+   "hero": "chok_jun_gyeong",
+   "name_ko": "척준경",
+   "culture": "korea",
+   "era": "11~12세기 고려 중기",
+   "unit_type": "sword",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "s_layers": {
+    "bg": "portrait.s_bg.snow",
+    "frame": "atlas.uiskin_gacha#frame.rank.s",
+    "ornament": "atlas.uiskin_gacha#frame.rank.s.ornament",
+    "order": "bg → portrait → frame → ornament (전투 대사·목록은 portrait 만)"
+   },
+   "thumb": {
+    "key": "portrait.chok_jun_gyeong.thumb",
+    "path": "assets/portraits/thumb/chok_jun_gyeong.webp",
+    "size": "256x343",
+    "bytes": 31482
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_s_gen.mjs(portrait_s_style.mjs S_NEW, 참조 없음) → portrait_npc_v3_pp.sh(alpha_process.py B, T_lo=40 T_hi=90)"
+   },
+   "prompt_ref": "docker/gemini/portrait_s_style.mjs S_NEW.chok_jun_gyeong",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "방패 오른쪽 끝이 프레임 가장자리에 닿음",
+     "머리 위 여백이 기존 초상(6%)보다 좁음(약 1.5%)"
+    ],
+    "notes": "참조 없이 새로 그림. 외곽 글로우 없음, 림라이트가 외곽선 안쪽"
+   },
+   "verify": true,
+   "verify_note": "시대 복식 일반화(특정 인물 얼굴 재현 아님)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.belisarius",
+   "path": "assets/portraits/belisarius.png",
+   "type": "portrait",
+   "subtype": "hero",
+   "grade": "S",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1182380,
+   "hero": "belisarius",
+   "name_ko": "벨리사리우스",
+   "culture": "byzantine",
+   "era": "6세기 동로마",
+   "unit_type": "cavalry",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "s_layers": {
+    "bg": "portrait.s_bg.royal_west",
+    "frame": "atlas.uiskin_gacha#frame.rank.s",
+    "ornament": "atlas.uiskin_gacha#frame.rank.s.ornament",
+    "order": "bg → portrait → frame → ornament (전투 대사·목록은 portrait 만)"
+   },
+   "thumb": {
+    "key": "portrait.belisarius.thumb",
+    "path": "assets/portraits/thumb/belisarius.webp",
+    "size": "256x343",
+    "bytes": 28104
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_s_gen.mjs(portrait_s_style.mjs S_NEW, 참조 없음) → portrait_npc_v3_pp.sh(alpha_process.py B, T_lo=40 T_hi=90) → portrait_s_outline_fix.py → alpha_keep_main.py"
+   },
+   "prompt_ref": "docker/gemini/portrait_s_style.mjs S_NEW.belisarius",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "r0 외곽 크림색 스티커 테두리 → r1 재생성 후에도 일부 남아 portrait_s_outline_fix.py 로 제거(망토 아래 오른쪽 끝에 약간 남음)",
+     "망토 외곽선이 일부 얇아짐"
+    ],
+    "notes": "능선 투구·라멜라·진홍 망토·기병창. 십자 문양 없음"
+   },
+   "verify": true,
+   "verify_note": "시대 복식 일반화(특정 인물 얼굴 재현 아님)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.baybars",
+   "path": "assets/portraits/baybars.png",
+   "type": "portrait",
+   "subtype": "hero",
+   "grade": "S",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1232201,
+   "hero": "baybars",
+   "name_ko": "바이바르스",
+   "culture": "middle_east",
+   "era": "13세기 맘루크",
+   "unit_type": "archer",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "s_layers": {
+    "bg": "portrait.s_bg.fire",
+    "frame": "atlas.uiskin_gacha#frame.rank.s",
+    "ornament": "atlas.uiskin_gacha#frame.rank.s.ornament",
+    "order": "bg → portrait → frame → ornament (전투 대사·목록은 portrait 만)"
+   },
+   "thumb": {
+    "key": "portrait.baybars.thumb",
+    "path": "assets/portraits/thumb/baybars.webp",
+    "size": "256x343",
+    "bytes": 28900
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_s_gen.mjs(portrait_s_style.mjs S_NEW, 참조 없음) → portrait_npc_v3_pp.sh(alpha_process.py B, T_lo=40 T_hi=90)"
+   },
+   "prompt_ref": "docker/gemini/portrait_s_style.mjs S_NEW.baybars",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "투구 앞 코가리개 모양 장식(지시는 없음, 시대상 허용)"
+    ],
+    "notes": "흰 천 감은 뾰족 투구·라멜라·녹색 전포·복합궁·화살통. 글자·초승달 없음"
+   },
+   "verify": true,
+   "verify_note": "시대 복식 일반화(특정 인물 얼굴 재현 아님)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.baibars",
+   "path": "assets/portraits/baibars.webp",
+   "type": "portrait",
+   "subtype": "hero",
+   "grade": "S",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 202142,
+   "hero": "baibars",
+   "name_ko": "바이바르스",
+   "culture": "middle_east",
+   "era": "13세기 맘루크",
+   "unit_type": "archer",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "s_layers": {
+    "bg": "portrait.s_bg.fire",
+    "frame": "atlas.uiskin_gacha#frame.rank.s",
+    "ornament": "atlas.uiskin_gacha#frame.rank.s.ornament",
+    "order": "bg → portrait → frame → ornament (전투 대사·목록은 portrait 만)"
+   },
+   "thumb": {
+    "key": "portrait.baibars.thumb",
+    "path": "assets/portraits/thumb/baibars.webp",
+    "size": "256x343",
+    "bytes": 28900
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_s_gen.mjs(portrait_s_style.mjs S_NEW, 참조 없음) → portrait_npc_v3_pp.sh(alpha_process.py B, T_lo=40 T_hi=90)"
+   },
+   "prompt_ref": "docker/gemini/portrait_s_style.mjs S_NEW.baybars",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "투구 앞 코가리개 모양 장식(지시는 없음, 시대상 허용)"
+    ],
+    "notes": "흰 천 감은 뾰족 투구·라멜라·녹색 전포·복합궁·화살통. 글자·초승달 없음"
+   },
+   "verify": true,
+   "verify_note": "시대 복식 일반화(특정 인물 얼굴 재현 아님)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "format": "webp",
+   "copy_of": "portrait.baybars",
+   "note": "서버 영웅 코드 baibars 별칭(파일 = baybars.webp 복사)"
+  },
+  {
+   "key": "portrait.s_bg.sea",
+   "path": "assets/portraits/s_bg/sea.webp",
+   "type": "image",
+   "subtype": "s_portrait_bg",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": false,
+   "format": "webp",
+   "bytes": 87890,
+   "theme": "sea",
+   "desc": "바다와 폭풍: 멀리 높은 파도와 비구름 사이로 터지는 금빛 햇살, 물보라 입자",
+   "note": "S등급 초상 배경 판(영웅 공유 테마).",
+   "load": "lazy(카드·상세 화면에서만)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "sheet": "portrait_s/raw/s_bg_a.jpg",
+    "script": "docker/gemini/portrait_s_gen.mjs → portrait_s_mock.py/hero_s_bg_webp.py(2x2 칸 자르기)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함)"
+  },
+  {
+   "key": "portrait.s_bg.fire",
+   "path": "assets/portraits/s_bg/fire.webp",
+   "type": "image",
+   "subtype": "s_portrait_bg",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": false,
+   "format": "webp",
+   "bytes": 47408,
+   "theme": "fire",
+   "desc": "불과 전장: 멀리 타오르는 불길과 위로 날리는 금빛 불티, 붉은 기 도는 연기층",
+   "note": "S등급 초상 배경 판(영웅 공유 테마).",
+   "load": "lazy(카드·상세 화면에서만)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "sheet": "portrait_s/raw/s_bg_a.jpg",
+    "script": "docker/gemini/portrait_s_gen.mjs → portrait_s_mock.py/hero_s_bg_webp.py(2x2 칸 자르기)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함)"
+  },
+  {
+   "key": "portrait.s_bg.steppe",
+   "path": "assets/portraits/s_bg/steppe.webp",
+   "type": "image",
+   "subtype": "s_portrait_bg",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": false,
+   "format": "webp",
+   "bytes": 73268,
+   "theme": "steppe",
+   "desc": "초원과 하늘: 낮은 지평선, 거대한 적란운 가장자리가 금빛으로 빛남, 바람에 눕는 풀",
+   "note": "S등급 초상 배경 판(영웅 공유 테마).",
+   "load": "lazy(카드·상세 화면에서만)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "sheet": "portrait_s/raw/s_bg_a.jpg",
+    "script": "docker/gemini/portrait_s_gen.mjs → portrait_s_mock.py/hero_s_bg_webp.py(2x2 칸 자르기)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함)"
+  },
+  {
+   "key": "portrait.s_bg.storm",
+   "path": "assets/portraits/s_bg/storm.webp",
+   "type": "image",
+   "subtype": "s_portrait_bg",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": false,
+   "format": "webp",
+   "bytes": 64646,
+   "theme": "storm",
+   "desc": "번개와 산: 검은 산맥 위 금빛 번개 가지, 흩어지는 구름",
+   "note": "S등급 초상 배경 판(영웅 공유 테마).",
+   "load": "lazy(카드·상세 화면에서만)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "sheet": "portrait_s/raw/s_bg_b.jpg",
+    "script": "docker/gemini/portrait_s_gen.mjs → portrait_s_mock.py/hero_s_bg_webp.py(2x2 칸 자르기)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함)"
+  },
+  {
+   "key": "portrait.s_bg.dawn",
+   "path": "assets/portraits/s_bg/dawn.webp",
+   "type": "image",
+   "subtype": "s_portrait_bg",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": false,
+   "format": "webp",
+   "bytes": 27328,
+   "theme": "dawn",
+   "desc": "새벽과 깃발 없는 진영: 지평선의 금빛 여명, 길게 깔린 안개",
+   "note": "S등급 초상 배경 판(영웅 공유 테마).",
+   "load": "lazy(카드·상세 화면에서만)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "sheet": "portrait_s/raw/s_bg_b.jpg",
+    "script": "docker/gemini/portrait_s_gen.mjs → portrait_s_mock.py/hero_s_bg_webp.py(2x2 칸 자르기)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함)"
+  },
+  {
+   "key": "portrait.s_bg.royal_west",
+   "path": "assets/portraits/s_bg/royal_west.webp",
+   "type": "image",
+   "subtype": "s_portrait_bg",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": false,
+   "format": "webp",
+   "bytes": 41896,
+   "theme": "royal_west",
+   "desc": "왕도와 밤: 짙은 밤하늘 아래 멀리 성벽 실루엣(첨탑 없는 낮은 성곽 — 시안 1회차는 유럽 첨탑 성이라 동아시아 영웅에 부적합, 문화권별 변형 royal_east/royal_west 로 분리 예정), 위에서 쏟아지는 금빛 광막",
+   "note": "S등급 초상 배경 판(영웅 공유 테마). 유럽식 첨탑 성(서양 영웅용)",
+   "load": "lazy(카드·상세 화면에서만)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "sheet": "portrait_s/raw/s_bg_a.jpg",
+    "script": "docker/gemini/portrait_s_gen.mjs → portrait_s_mock.py/hero_s_bg_webp.py(2x2 칸 자르기)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함)"
+  },
+  {
+   "key": "portrait.s_bg.royal_east",
+   "path": "assets/portraits/s_bg/royal_east.webp",
+   "type": "image",
+   "subtype": "s_portrait_bg",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": false,
+   "format": "webp",
+   "bytes": 36984,
+   "theme": "royal_east",
+   "desc": "왕도와 밤(동아시아): 짙은 밤하늘 아래 멀리 낮게 이어진 돌 성벽과 기와 지붕을 얹은 성문 누각 실루엣(첨탑·뾰족 지붕 없음), 위에서 쏟아지는 금빛 광막",
+   "note": "S등급 초상 배경 판(영웅 공유 테마). 기와 성문 누각(동아시아 영웅용)",
+   "load": "lazy(카드·상세 화면에서만)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "sheet": "portrait_s/raw/s_bg_b.jpg",
+    "script": "docker/gemini/portrait_s_gen.mjs → portrait_s_mock.py/hero_s_bg_webp.py(2x2 칸 자르기)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함)"
+  },
+  {
+   "key": "portrait.s_bg.snow",
+   "path": "assets/portraits/s_bg/snow.webp",
+   "type": "image",
+   "subtype": "s_portrait_bg",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": false,
+   "format": "webp",
+   "bytes": 71374,
+   "theme": "snow",
+   "desc": "북방 변경의 눈바람: 멀리 눈 덮인 낮은 산등성이와 나무 목책 실루엣, 비스듬히 날리는 눈발, 구름 사이 금빛 햇살",
+   "note": "S등급 초상 배경 판(영웅 공유 테마).",
+   "load": "lazy(카드·상세 화면에서만)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "sheet": "portrait_s/raw/s_bg_b.jpg",
+    "script": "docker/gemini/portrait_s_gen.mjs → portrait_s_mock.py/hero_s_bg_webp.py(2x2 칸 자르기)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함)"
+  }
+ ]
+}

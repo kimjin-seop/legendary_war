@@ -1,0 +1,850 @@
+{
+ "version": 1,
+ "date": "2026-11-01",
+ "key": "tileset.water_set",
+ "principle": "Unity 타일맵 가이드: 32x32 격자·여백 0·PPU 32·Point 필터·정수 배율, 사람이 골라 칠하는 개별 타일(tile_layer). 오토타일/런타임 이웃 규칙 없음. 회전 없음(방향별 타일 제공).",
+ "source": "generated(procedural) — 이미지 생성 모델 호출 0회. 원본 TileMap.png 0·2·3번 픽셀을 땅/바다 텍스처로 그대로 사용 + 팔레트 확장색(ADDED)",
+ "palette_added": {
+  "hill_hi": "c4d62a",
+  "fl": "7a5638",
+  "fl_hi": "93704c",
+  "fl_sh": "5e4129",
+  "fl_ln": "3e2a1a",
+  "v0": "07060d",
+  "v1": "110e1d",
+  "v2": "1c1730",
+  "v3": "2a2347",
+  "v4": "3d3462",
+  "paper": "c9c3d6",
+  "teal": "2f8f83",
+  "gold": "ffd23c",
+  "gold_hi": "fff2a0",
+  "red": "c8281e",
+  "glow": "ffe08a",
+  "shade_w": "0040c0"
+ },
+ "sheets": {
+  "static": {
+   "file": "/assets/tiles/water_set/ws_static.png",
+   "size": [
+    320,
+    160
+   ],
+   "cols": 10,
+   "count": 50,
+   "frame": "frame = 목록 순서(0부터)"
+  },
+  "anim": {
+   "file": "/assets/tiles/water_set/ws_anim.png",
+   "size": [
+    320,
+    1024
+   ],
+   "cols": 10,
+   "count": 73,
+   "frames": 4,
+   "rows_per_frame": 8,
+   "frame_index": "sheet_frame = tile + f * rows_per_frame * cols (f = 0..3)",
+   "fps_hint": 4,
+   "note": "모든 애니 타일이 같은 4프레임 주기를 공유(같은 시각 f 로 전부 갱신해야 바다·전이 경계가 맞음). 애니를 끄면 f=0 만 사용(원본 0번 바다와 동일)"
+  },
+  "building_overlay": {
+   "file": "/assets/tiles/water_set/ws_building_ov.png",
+   "size": [
+    320,
+    64
+   ],
+   "cols": 10,
+   "frames": {
+    "hanok_ridge_L": 0,
+    "hanok_ridge_C": 1,
+    "hanok_ridge_R": 2,
+    "hanok_mid_L": 3,
+    "hanok_mid_C": 4,
+    "hanok_mid_R": 5,
+    "hanok_eave_L": 6,
+    "hanok_eave_C": 7,
+    "hanok_eave_R": 8,
+    "hanok_full_L": 9,
+    "hanok_full_C": 10,
+    "hanok_full_R": 11,
+    "hanok_facade_L": 12,
+    "hanok_facade_C": 13,
+    "hanok_facade_R": 14,
+    "hanok_small": 15
+   },
+   "use": "성 안(castle_pave)·서가 바닥 등 풀이 아닌 칸 위의 건물: 바탕 지형 타일 + 같은 이름 투명 조각 덧그림(ws_static 의 hanok_* 는 풀 바탕 구움)"
+  },
+  "overlay": {
+   "file": "/assets/tiles/water_set/ws_overlay.png",
+   "size": [
+    192,
+    32
+   ],
+   "frames": {
+    "objective": [
+     0,
+     1,
+     2,
+     3
+    ],
+    "tower_a": 4,
+    "tower_b": 5
+   },
+   "alpha": "binary(0/255) + 그림자 타원만 반투명(90~110)"
+  }
+ },
+ "conventions": {
+  "shore": "해안 전이(sand_sea_* / grass_sea_*)는 바다 칸에 칠한다. 이름 방향 = 땅이 있는 쪽. _inner = 두 변이 땅, _outer = 대각 꼭짓점만 땅, NS/EW = 마주보는 두 변, U_X = X 쪽만 열린 세 변, pond = 네 변. 땅 쪽 가장자리 줄 = 원본 모래(2)/풀(3) 타일 같은 줄과 픽셀 동일, 먼 쪽은 바다(프레임별 sea_a)와 동일.",
+  "void_edge": "허공 가장자리는 허공 칸에 칠한다. 이름 방향 = 바닥이 있는 쪽. 바닥 쪽 가장자리 = seoga_floor_a 와 픽셀 동일(서가 맵의 . 칸은 seoga_floor_a/b 로 칠할 것).",
+  "wall": "1칸 두께 성벽 고리 기준. 북쪽 줄 wall_h_N, 남쪽 줄 wall_h_S, 서쪽 열 wall_v_W, 동쪽 열 wall_v_E, 네 모서리 wall_NW/NE/SW/SE. 성문 G 는 남쪽 줄(wall_h_S) 안에 gate_S(단독) 또는 gate_L,gate_C..,gate_R. 모서리-세로벽 이음부에 3px 면 차이(알려진 한계).",
+  "hanok": "건물 B 묶음(w x h): 맨 아래 줄 facade, 그 위 h=2 면 full, h=3 이면 위에서 ridge, eave 순(h>=4 는 ridge, mid.., eave). 열은 왼끝 L, 가운데 C, 오른끝 R(w=2 면 L,R). 1x1 은 hanok_small.",
+  "tower": "탑 T 는 tower_a(풀 바탕) 또는 바탕 지형 + ws_overlay 프레임 4/5 덧그림. 서가 맵은 tower_b.",
+  "objective": "목표 O 는 바탕 지형 위 ws_overlay 프레임 0~3 덧그림(4fps 루프).",
+  "harbor": "항구 P(땅 칸)는 harbor_a/b/c, 물에 닿는 변은 quay_<물 방향>. 바다 위로 뻗는 잔교는 ws_anim pier_*.",
+  "reef": "암초 R(바다 칸)은 reef_a/b/c(좌표 해시). 서가 맵(08)의 R 은 rift_plank_a/b.",
+  "hill": "언덕 H 는 hill_a/b/c(좌표 해시). 가장자리 픽셀이 풀(3)과 같아 L 과 이음새 없음."
+ },
+ "static_tiles": [
+  {
+   "frame": 0,
+   "name": "hill_a",
+   "code": "H/i hill",
+   "use": "언덕: 큰 둔덕 1개"
+  },
+  {
+   "frame": 1,
+   "name": "hill_b",
+   "code": "H/i hill",
+   "use": "언덕: 작은 둔덕 2개"
+  },
+  {
+   "frame": 2,
+   "name": "hill_c",
+   "code": "H/i hill",
+   "use": "언덕: 둔덕+곁둔덕"
+  },
+  {
+   "frame": 3,
+   "name": "seoga_hill_a",
+   "code": "H/i hill (biome seoga)",
+   "use": "서가 언덕: 책 더미(서가 바닥 바탕)"
+  },
+  {
+   "frame": 4,
+   "name": "seoga_hill_b",
+   "code": "H/i hill (biome seoga)",
+   "use": "서가 언덕 변형"
+  },
+  {
+   "frame": 5,
+   "name": "plain_a",
+   "code": ". plain",
+   "use": "평지(L 풀과 구분: 흙 길 자국)"
+  },
+  {
+   "frame": 6,
+   "name": "plain_b",
+   "code": ". plain",
+   "use": "평지 변형"
+  },
+  {
+   "frame": 7,
+   "name": "seoga_floor_a",
+   "code": ". plain (biome seoga)",
+   "use": "번진 서가 바닥(허공 가장자리와 픽셀 일치)"
+  },
+  {
+   "frame": 8,
+   "name": "seoga_floor_b",
+   "code": ". plain (biome seoga)",
+   "use": "서가 바닥 변형(먹물 얼룩·종이)"
+  },
+  {
+   "frame": 9,
+   "name": "castle_pave_a",
+   "code": "c castle_district",
+   "use": "성내 포장(돌판)"
+  },
+  {
+   "frame": 10,
+   "name": "castle_pave_b",
+   "code": "c castle_district",
+   "use": "성내 포장 변형(이끼·균열)"
+  },
+  {
+   "frame": 11,
+   "name": "wall_h_N",
+   "code": "C wall",
+   "use": "성벽: 가로(바깥=북, 아래 안쪽 면)"
+  },
+  {
+   "frame": 12,
+   "name": "wall_h_S",
+   "code": "C wall",
+   "use": "성벽: 가로(바깥=남, 바깥 면)"
+  },
+  {
+   "frame": 13,
+   "name": "wall_v_W",
+   "code": "C wall",
+   "use": "성벽: 세로(바깥=서)"
+  },
+  {
+   "frame": 14,
+   "name": "wall_v_E",
+   "code": "C wall",
+   "use": "성벽: 세로(바깥=동)"
+  },
+  {
+   "frame": 15,
+   "name": "wall_NW",
+   "code": "C wall",
+   "use": "성벽: 모서리 북서"
+  },
+  {
+   "frame": 16,
+   "name": "wall_NE",
+   "code": "C wall",
+   "use": "성벽: 모서리 북동"
+  },
+  {
+   "frame": 17,
+   "name": "wall_SW",
+   "code": "C wall",
+   "use": "성벽: 모서리 남서"
+  },
+  {
+   "frame": 18,
+   "name": "wall_SE",
+   "code": "C wall",
+   "use": "성벽: 모서리 남동"
+  },
+  {
+   "frame": 19,
+   "name": "wall_h_N_b",
+   "code": "C wall",
+   "use": "성벽: 가로 북 무너진 변형"
+  },
+  {
+   "frame": 20,
+   "name": "wall_h_S_b",
+   "code": "C wall",
+   "use": "성벽: 가로 남 무너진 변형"
+  },
+  {
+   "frame": 21,
+   "name": "gate_S",
+   "code": "G gate",
+   "use": "성문: 단독 1칸 (wall_h_S 줄에 놓음)"
+  },
+  {
+   "frame": 22,
+   "name": "gate_L",
+   "code": "G gate",
+   "use": "성문: 여러 칸 왼끝 (wall_h_S 줄에 놓음)"
+  },
+  {
+   "frame": 23,
+   "name": "gate_C",
+   "code": "G gate",
+   "use": "성문: 여러 칸 가운데 (wall_h_S 줄에 놓음)"
+  },
+  {
+   "frame": 24,
+   "name": "gate_R",
+   "code": "G gate",
+   "use": "성문: 여러 칸 오른끝 (wall_h_S 줄에 놓음)"
+  },
+  {
+   "frame": 25,
+   "name": "hanok_ridge_L",
+   "code": "B building",
+   "use": "한옥 ridge L"
+  },
+  {
+   "frame": 26,
+   "name": "hanok_ridge_C",
+   "code": "B building",
+   "use": "한옥 ridge C"
+  },
+  {
+   "frame": 27,
+   "name": "hanok_ridge_R",
+   "code": "B building",
+   "use": "한옥 ridge R"
+  },
+  {
+   "frame": 28,
+   "name": "hanok_mid_L",
+   "code": "B building",
+   "use": "한옥 mid L"
+  },
+  {
+   "frame": 29,
+   "name": "hanok_mid_C",
+   "code": "B building",
+   "use": "한옥 mid C"
+  },
+  {
+   "frame": 30,
+   "name": "hanok_mid_R",
+   "code": "B building",
+   "use": "한옥 mid R"
+  },
+  {
+   "frame": 31,
+   "name": "hanok_eave_L",
+   "code": "B building",
+   "use": "한옥 eave L"
+  },
+  {
+   "frame": 32,
+   "name": "hanok_eave_C",
+   "code": "B building",
+   "use": "한옥 eave C"
+  },
+  {
+   "frame": 33,
+   "name": "hanok_eave_R",
+   "code": "B building",
+   "use": "한옥 eave R"
+  },
+  {
+   "frame": 34,
+   "name": "hanok_full_L",
+   "code": "B building",
+   "use": "한옥 full L"
+  },
+  {
+   "frame": 35,
+   "name": "hanok_full_C",
+   "code": "B building",
+   "use": "한옥 full C"
+  },
+  {
+   "frame": 36,
+   "name": "hanok_full_R",
+   "code": "B building",
+   "use": "한옥 full R"
+  },
+  {
+   "frame": 37,
+   "name": "hanok_facade_L",
+   "code": "B building",
+   "use": "한옥 facade L"
+  },
+  {
+   "frame": 38,
+   "name": "hanok_facade_C",
+   "code": "B building",
+   "use": "한옥 facade C"
+  },
+  {
+   "frame": 39,
+   "name": "hanok_facade_R",
+   "code": "B building",
+   "use": "한옥 facade R"
+  },
+  {
+   "frame": 40,
+   "name": "hanok_small",
+   "code": "B building",
+   "use": "한옥 1칸 단독"
+  },
+  {
+   "frame": 41,
+   "name": "tower_a",
+   "code": "T tower",
+   "use": "망루(석축+누각) 풀 바탕"
+  },
+  {
+   "frame": 42,
+   "name": "tower_b",
+   "code": "T tower (biome seoga)",
+   "use": "서가 석등탑 서가 바닥 바탕"
+  },
+  {
+   "frame": 43,
+   "name": "harbor_a",
+   "code": "P harbor",
+   "use": "항구 데크"
+  },
+  {
+   "frame": 44,
+   "name": "harbor_b",
+   "code": "P harbor",
+   "use": "항구 데크+계류주"
+  },
+  {
+   "frame": 45,
+   "name": "harbor_c",
+   "code": "P harbor",
+   "use": "항구 데크+화물"
+  },
+  {
+   "frame": 46,
+   "name": "quay_N",
+   "code": "P harbor",
+   "use": "항구 석축(물=북)"
+  },
+  {
+   "frame": 47,
+   "name": "quay_E",
+   "code": "P harbor",
+   "use": "항구 석축(물=동)"
+  },
+  {
+   "frame": 48,
+   "name": "quay_S",
+   "code": "P harbor",
+   "use": "항구 석축(물=남)"
+  },
+  {
+   "frame": 49,
+   "name": "quay_W",
+   "code": "P harbor",
+   "use": "항구 석축(물=서)"
+  }
+ ],
+ "anim_tiles": [
+  {
+   "tile": 0,
+   "name": "sea_a",
+   "code": "~ sea",
+   "use": "바다(프레임0 = 원본 0번과 픽셀 동일)"
+  },
+  {
+   "tile": 1,
+   "name": "sea_b",
+   "code": "~ sea",
+   "use": "바다 반짝임 변형(가중 1/6 권장)"
+  },
+  {
+   "tile": 2,
+   "name": "reef_d",
+   "code": "R reef",
+   "use": "암초/바위(바다 위)"
+  },
+  {
+   "tile": 3,
+   "name": "reef_a",
+   "code": "R reef",
+   "use": "암초/바위(바다 위)"
+  },
+  {
+   "tile": 4,
+   "name": "reef_b",
+   "code": "R reef",
+   "use": "암초/바위(바다 위)"
+  },
+  {
+   "tile": 5,
+   "name": "reef_c",
+   "code": "R reef",
+   "use": "암초/바위(바다 위)"
+  },
+  {
+   "tile": 6,
+   "name": "pier_v",
+   "code": "P harbor(물 위)",
+   "use": "잔교(바다 칸): pier_v"
+  },
+  {
+   "tile": 7,
+   "name": "pier_h",
+   "code": "P harbor(물 위)",
+   "use": "잔교(바다 칸): pier_h"
+  },
+  {
+   "tile": 8,
+   "name": "pier_end_N",
+   "code": "P harbor(물 위)",
+   "use": "잔교(바다 칸): pier_end_N"
+  },
+  {
+   "tile": 9,
+   "name": "pier_end_E",
+   "code": "P harbor(물 위)",
+   "use": "잔교(바다 칸): pier_end_E"
+  },
+  {
+   "tile": 10,
+   "name": "pier_end_S",
+   "code": "P harbor(물 위)",
+   "use": "잔교(바다 칸): pier_end_S"
+  },
+  {
+   "tile": 11,
+   "name": "pier_end_W",
+   "code": "P harbor(물 위)",
+   "use": "잔교(바다 칸): pier_end_W"
+  },
+  {
+   "tile": 12,
+   "name": "sand_sea_N",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 N"
+  },
+  {
+   "tile": 13,
+   "name": "sand_sea_E",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 E"
+  },
+  {
+   "tile": 14,
+   "name": "sand_sea_S",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 S"
+  },
+  {
+   "tile": 15,
+   "name": "sand_sea_W",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 W"
+  },
+  {
+   "tile": 16,
+   "name": "sand_sea_NW_inner",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 NW_inner"
+  },
+  {
+   "tile": 17,
+   "name": "sand_sea_NE_inner",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 NE_inner"
+  },
+  {
+   "tile": 18,
+   "name": "sand_sea_SE_inner",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 SE_inner"
+  },
+  {
+   "tile": 19,
+   "name": "sand_sea_SW_inner",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 SW_inner"
+  },
+  {
+   "tile": 20,
+   "name": "sand_sea_NW_outer",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 NW_outer"
+  },
+  {
+   "tile": 21,
+   "name": "sand_sea_NE_outer",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 NE_outer"
+  },
+  {
+   "tile": 22,
+   "name": "sand_sea_SE_outer",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 SE_outer"
+  },
+  {
+   "tile": 23,
+   "name": "sand_sea_SW_outer",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 SW_outer"
+  },
+  {
+   "tile": 24,
+   "name": "sand_sea_NS",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 NS"
+  },
+  {
+   "tile": 25,
+   "name": "sand_sea_EW",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 EW"
+  },
+  {
+   "tile": 26,
+   "name": "sand_sea_U_N",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 U_N"
+  },
+  {
+   "tile": 27,
+   "name": "sand_sea_U_E",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 U_E"
+  },
+  {
+   "tile": 28,
+   "name": "sand_sea_U_S",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 U_S"
+  },
+  {
+   "tile": 29,
+   "name": "sand_sea_U_W",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 U_W"
+  },
+  {
+   "tile": 30,
+   "name": "sand_sea_pond",
+   "code": "~ sea(해안 전이)",
+   "use": "모래->바다 전이: 바다 칸에 칠함, 땅 방향 pond"
+  },
+  {
+   "tile": 31,
+   "name": "grass_sea_N",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 N"
+  },
+  {
+   "tile": 32,
+   "name": "grass_sea_E",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 E"
+  },
+  {
+   "tile": 33,
+   "name": "grass_sea_S",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 S"
+  },
+  {
+   "tile": 34,
+   "name": "grass_sea_W",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 W"
+  },
+  {
+   "tile": 35,
+   "name": "grass_sea_NW_inner",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 NW_inner"
+  },
+  {
+   "tile": 36,
+   "name": "grass_sea_NE_inner",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 NE_inner"
+  },
+  {
+   "tile": 37,
+   "name": "grass_sea_SE_inner",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 SE_inner"
+  },
+  {
+   "tile": 38,
+   "name": "grass_sea_SW_inner",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 SW_inner"
+  },
+  {
+   "tile": 39,
+   "name": "grass_sea_NW_outer",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 NW_outer"
+  },
+  {
+   "tile": 40,
+   "name": "grass_sea_NE_outer",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 NE_outer"
+  },
+  {
+   "tile": 41,
+   "name": "grass_sea_SE_outer",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 SE_outer"
+  },
+  {
+   "tile": 42,
+   "name": "grass_sea_SW_outer",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 SW_outer"
+  },
+  {
+   "tile": 43,
+   "name": "grass_sea_NS",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 NS"
+  },
+  {
+   "tile": 44,
+   "name": "grass_sea_EW",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 EW"
+  },
+  {
+   "tile": 45,
+   "name": "grass_sea_U_N",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 U_N"
+  },
+  {
+   "tile": 46,
+   "name": "grass_sea_U_E",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 U_E"
+  },
+  {
+   "tile": 47,
+   "name": "grass_sea_U_S",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 U_S"
+  },
+  {
+   "tile": 48,
+   "name": "grass_sea_U_W",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 U_W"
+  },
+  {
+   "tile": 49,
+   "name": "grass_sea_pond",
+   "code": "~ sea(해안 전이)",
+   "use": "풀->바다 전이: 바다 칸에 칠함, 땅 방향 pond"
+  },
+  {
+   "tile": 50,
+   "name": "void_a",
+   "code": "X void",
+   "use": "허공(먹물 심연)"
+  },
+  {
+   "tile": 51,
+   "name": "void_b",
+   "code": "X void",
+   "use": "허공 변형"
+  },
+  {
+   "tile": 52,
+   "name": "void_edge_N",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 N"
+  },
+  {
+   "tile": 53,
+   "name": "void_edge_E",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 E"
+  },
+  {
+   "tile": 54,
+   "name": "void_edge_S",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 S"
+  },
+  {
+   "tile": 55,
+   "name": "void_edge_W",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 W"
+  },
+  {
+   "tile": 56,
+   "name": "void_edge_NW_inner",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 NW_inner"
+  },
+  {
+   "tile": 57,
+   "name": "void_edge_NE_inner",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 NE_inner"
+  },
+  {
+   "tile": 58,
+   "name": "void_edge_SE_inner",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 SE_inner"
+  },
+  {
+   "tile": 59,
+   "name": "void_edge_SW_inner",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 SW_inner"
+  },
+  {
+   "tile": 60,
+   "name": "void_edge_NW_outer",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 NW_outer"
+  },
+  {
+   "tile": 61,
+   "name": "void_edge_NE_outer",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 NE_outer"
+  },
+  {
+   "tile": 62,
+   "name": "void_edge_SE_outer",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 SE_outer"
+  },
+  {
+   "tile": 63,
+   "name": "void_edge_SW_outer",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 SW_outer"
+  },
+  {
+   "tile": 64,
+   "name": "void_edge_NS",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 NS"
+  },
+  {
+   "tile": 65,
+   "name": "void_edge_EW",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 EW"
+  },
+  {
+   "tile": 66,
+   "name": "void_edge_U_N",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 U_N"
+  },
+  {
+   "tile": 67,
+   "name": "void_edge_U_E",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 U_E"
+  },
+  {
+   "tile": 68,
+   "name": "void_edge_U_S",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 U_S"
+  },
+  {
+   "tile": 69,
+   "name": "void_edge_U_W",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 U_W"
+  },
+  {
+   "tile": 70,
+   "name": "void_edge_pond",
+   "code": "X void(가장자리)",
+   "use": "서가 바닥->허공 전이: 허공 칸에 칠함, 바닥 방향 pond"
+  },
+  {
+   "tile": 71,
+   "name": "rift_plank_a",
+   "code": "R(서가) rift_plank",
+   "use": "허공 위 부서진 판자 발판"
+  },
+  {
+   "tile": 72,
+   "name": "rift_plank_b",
+   "code": "R(서가) rift_plank",
+   "use": "허공 위 책 더미 발판"
+  }
+ ]
+}

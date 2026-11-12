@@ -1,0 +1,85 @@
+{
+ "_note": "[임밸런 / 제안] npc_roster_shelf_ch23_24.json 에 추가할 핵심 영웅 NPC 2행(박백엔 반영). 일반 영웅 행(william_i, charles_martel)은 플레이어 소유 여부에 따라 전투에 안 나오므로 NPC 전용 코드로 분리. 스탯은 heroes.json 기존 행과 동일(정합). 오라는 기존과 같이 null. 카를(C)은 ch24_s4 패배 조건 대상이라 지나치게 약하면 hp_bonus/등급을 B로 올리는 것이 1순위 튜닝 후보(측정 전 시작값). playable=true 는 npc_babur 행 형식 따름(박백엔 확인).",
+ "version": 1,
+ "count": 2,
+ "items": [
+  {
+   "name_ko": "윌리엄 1세",
+   "short_name": "윌리엄",
+   "hanja": "William I",
+   "culture": "europe",
+   "era": "1066",
+   "faction": "노르망디 공국",
+   "troop_type": "sword",
+   "unit_type": "sword",
+   "rarity": "B",
+   "skill": null,
+   "aura": null,
+   "used_in": [
+    "ch23_s1",
+    "ch23_s2",
+    "ch23_s3",
+    "ch23_s4",
+    "ch23_s5"
+   ],
+   "role": "ally_npc",
+   "hp_bonus": 10,
+   "atk_bonus": -3,
+   "def_bonus": 7,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.4,
+   "growth_def_pct": 3.5,
+   "cost": 3,
+   "stat_basis": "heroes.json william_i 행과 동일(B 보병, heavy 이관 Lv1 보정 -3/7 포함)",
+   "template_hero": "william_i",
+   "code": "npc_william_i",
+   "appearance": "임시(초상 제작 전). 기존 영웅 초상 재사용 가능",
+   "flags": {
+    "npc": true,
+    "campaign_only": true,
+    "obtainable": false,
+    "gacha": false
+   },
+   "is_hero_row": true,
+   "playable": false
+  },
+  {
+   "name_ko": "카를 마르텔",
+   "short_name": "카를",
+   "hanja": "Charles Martel",
+   "culture": "europe",
+   "era": "732",
+   "faction": "프랑크 왕국 궁재",
+   "troop_type": "sword",
+   "unit_type": "sword",
+   "rarity": "C",
+   "skill": null,
+   "aura": null,
+   "used_in": [
+    "ch24_s2",
+    "ch24_s3",
+    "ch24_s4"
+   ],
+   "role": "ally_npc",
+   "hp_bonus": 10,
+   "atk_bonus": -4,
+   "def_bonus": 7,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.0,
+   "growth_def_pct": 3.0,
+   "cost": 2,
+   "stat_basis": "heroes.json charles_martel 행과 동일(C 보병, heavy 이관 Lv1 보정 -4/7 포함)",
+   "template_hero": "charles_martel",
+   "code": "npc_charles_martel",
+   "appearance": "임시(초상 제작 전). 기존 영웅 초상 재사용 가능",
+   "flags": {
+    "npc": true,
+    "campaign_only": true,
+    "obtainable": false,
+    "gacha": false
+   },
+   "is_hero_row": true,
+   "playable": false
+  }
+ ]
+}

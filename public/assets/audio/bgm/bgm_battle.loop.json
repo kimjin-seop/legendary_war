@@ -1,0 +1,119 @@
+{
+ "key": "bgm.battle",
+ "slot": "bgm_battle",
+ "files": [
+  {
+   "path": "assets/audio/bgm/bgm_battle.opus",
+   "type": "opus",
+   "codec": "libopus 20k VBR mono (compression 10), +0.7dB(모노 다운믹스 보정)",
+   "sampleRate": 48000,
+   "channels": 1,
+   "measuredKbps": 21.0,
+   "bytes": 284946,
+   "durationS": 108.51,
+   "lufsI_stereoDecode": -17.0,
+   "truePeakDbtp": -1.9,
+   "sha256": "e9f2a919695757d5e3ad1e253bea24e205f7d9719c9e7a017717e518a90cfb1f"
+  },
+  {
+   "path": "assets/audio/bgm/bgm_battle.mp3",
+   "type": "mp3",
+   "codec": "LAME ABR 22k mono 22.05kHz, lowpass 7.0kHz, +1.2dB(모노 보정)",
+   "sampleRate": 22050,
+   "channels": 1,
+   "measuredKbps": 20.9,
+   "bytes": 284068,
+   "durationS": 108.5,
+   "lufsI_stereoDecode": -17.0,
+   "truePeakDbtp": -3.4,
+   "sha256": "f6c7de6820ba106ec57f0e2e40e85195cae7c59907193353f85da494ad7b4403"
+  }
+ ],
+ "loop": {
+  "note": "파일 = [프리롤 0.2s] + [루프 본체 108.10s] + [포스트롤 0.2s]. 프리롤은 본체 끝, 포스트롤은 본체 처음의 복사본이라 파일 전체가 주기 108.10s 로 연속. 반드시 마커 구간(start~end)만 반복(파일 전체 loop:true 금지).",
+  "marker": "loop",
+  "start": 0.2,
+  "end": 108.3,
+  "duration": 108.1,
+  "start_sample_48k": 9600,
+  "end_sample_48k": 5198400,
+  "length_samples_48k": 5188800,
+  "start_sample_44k1": 8820,
+  "end_sample_44k1": 4776030,
+  "length_samples_44k1": 4767210,
+  "sampleExact": "길이 108.10s 는 48kHz·44.1kHz 양쪽 정수 샘플(Web Audio 는 컨텍스트 레이트로 리샘플해 재생)"
+ },
+ "phaser": {
+  "load": "scene.load.audio('bgm_battle', ['/assets/audio/bgm/bgm_battle.opus', '/assets/audio/bgm/bgm_battle.mp3'])",
+  "play": "audio.bgm('bgm_battle', scene)  // audio.js 가 catalog marker 로 addMarker({name:'loop', start:0.2, duration:108.10, config:{loop:true}}) 후 play('loop')"
+ },
+ "source": {
+  "file": "사용자 제공 battle.mp3 (MP3 48kHz stereo 177kbps, 184.20s, 제목 'Main Theme Loop', comment 'made with suno')",
+  "loopStartSrcS": 25.67,
+  "loopEndSrcS": 133.77,
+  "loopStartSrcSample48k": 1232160,
+  "loopEndSrcSample48k": 6420960,
+  "crossfade": {
+   "durationS": 0.9,
+   "curve": "equal-power (sin/cos, 비반복 곡이라 비상관 소재)"
+  },
+  "similarity": {
+   "waveCorr1s": "낮음(반복 구간 없음, 정상)",
+   "spectralDist4s": 0.599,
+   "onsetContinuity": 0.79,
+   "onsetOffsetMs": -7,
+   "onsetResidualMsAfter10msSnap": 3
+  },
+  "tempo": {
+   "bpm": 133.2,
+   "loopBeats": 240,
+   "loopBars4_4": 60,
+   "note": "박 단위 길이 고정(60마디) + 이음새 전후 4초 스펙트럼/리듬 연속성 최적 지점. 원본 끝 2초는 페이드아웃 엔딩이라 루프에서 제외"
+  },
+  "loudness": {
+   "loopIntegratedBeforeLufs": -16.1,
+   "gainDb": -0.9,
+   "targetLufs": -17.0,
+   "limiter": "없음(선형 게인만)"
+  }
+ },
+ "sizeBudget": {
+  "targetBytes": 300000,
+  "rule": "총 길이 T초 -> 약 2400/T kbps",
+  "fileSeconds": 108.5,
+  "kbpsBudget": 22.1
+ },
+ "qa": {
+  "opus": {
+   "seamErrVsCodecNoiseDb": -1.4,
+   "seamErrInnerPercentile": 23.8,
+   "seamHfBurstInnerPercentile": 12.5,
+   "rms50msDeltaDb": -0.97,
+   "rms1sDeltaDb": -2.04,
+   "hfCutoffHz": "없음(전대역)",
+   "bandExcess4to20kDb": "+0.6~+0.8",
+   "pumpStdDb": 0.07,
+   "lsd4to8kDb": 7.53,
+   "stereo": "모노(스테레오 20k 는 좌우 상관 0.755->0.913 으로 이미 폭이 무너지고 스펙트럼 오차가 더 커 모노 채택)"
+  },
+  "mp3": {
+   "seamErrVsCodecNoiseDb": -0.9,
+   "seamErrInnerPercentile": 36.0,
+   "rms1sDeltaDb": -1.92,
+   "hfCutoffHz": 6914,
+   "pumpStdDb": 0.08,
+   "lsd4to8kDb": 55.11,
+   "stereo": "모노"
+  }
+ },
+ "issues": [
+  "청취 미검증: 이음새 133.77s -> 25.67s 는 서로 다른 소절을 0.9s 크로스페이드로 잇는 음악적 접합(반복 구간이 없는 곡). 이음새에서 1초 RMS -2.0dB(곡이 점층적으로 커지는 구조라 루프 시작 시 한 단계 내려감)",
+  "원본 인트로 0~25.67s, 133.77s 이후(~184s) 는 재생되지 않음",
+  "모노(전투는 효과음 위주라 폭 손실 허용 판단)",
+  "mp3 폴백은 7kHz 이하로 둔탁"
+ ],
+ "listenVerified": false,
+ "license": "사용자 제작 파일(Suno 생성물, 'made with suno' 메타데이터). 공개 전 Suno 약관(요금제별 상업 이용 권리) 확인 필요",
+ "backup": "public/assets/audio/_orig_bgm_20261102/ (이전 서비스 파일 + 사용자 원본 user_src_*.mp3)",
+ "script": "docker/gemini/bgm_v2/ (analyze.py, refine.py, beatgrid.py, onsetalign.py, pad.py, final2.sh, select.sh, check2.py, burst_pct.py, seam_native.py, seam_err.py, qa.py, write_meta.py) - 호스트 ffmpeg 9.0.2(gyan full build), numpy 2.5.4"
+}

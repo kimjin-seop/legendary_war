@@ -1,0 +1,21 @@
+{
+ "date": "2026-11-01",
+ "generator_calls": 0,
+ "checks": {
+  "TileMap 0,1,5,6 (물·판자·해안) 픽셀 불변": "assert pass",
+  "TileMap 2,3 테두리 1px = 원본(해안·여울·언덕 전이 이음새 보존)": "assert pass",
+  "ext 30~48·103 불변": "assert pass",
+  "숲 내부 a/b/c 테두리 2px 동일(서로 이음새 없음)": "assert pass",
+  "전이 타일(blob47/road16) 경계 일치": "월드 필드 설계로 보장 + 미리보기 육안 확인"
+ },
+ "verdicts": {
+  "grass": "pass(바탕색 a5bd00 고채도는 기존 팔레트 유지 때문 — 넓은 평지는 여전히 단조로움)",
+  "forest": "pass(오토타일 적용 시). drop-in 만으로는 숲 가장자리 직각(이웃 판정 없음)",
+  "mountain": "pass(산맥은 mount47 적용 시 한 덩어리, drop-in 은 독립 봉우리)",
+  "road": "pass(road16/dirt47 적용 시). drop-in 은 길=모래(2) 그대로",
+  "castle": "needs work(세로 성벽은 FE 규칙 없으면 정면 반복, 성문 1종)",
+  "village": "pass(한옥 조립), 고증 verify",
+  "cliff": "needs work(절벽 면 얇고 단순)",
+  "biome_snow_desert_swamp": "needs work(기본 수준)"
+ }
+}

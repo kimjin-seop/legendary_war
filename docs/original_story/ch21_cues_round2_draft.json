@@ -1,0 +1,81 @@
+{
+ "_note": "[초안, 2026-11-03, 송서사 2회차] (1) 신규 s6(에스테르곰)·s7(아드리아 해안)·s8(후위)의 stages.rules.cues 초안과 (2) 기존 draft(ch21_ch22_cues_draft.json)의 ch21_s1/ch21_s2 항목을 Plan A 코드(ch21_s4/ch21_s5)로 재키잉한 사본(migration 절). 형식과 원칙은 ch21_cues_round1_draft.json 과 동일(cues=좌표·유닛 없이 성립, pending=좌표·유닛·증원 확정 후, 판정은 임밸런). 기존 draft 파일은 수정하지 않았고, 실제 stages_ch21_legnica.json 의 cues 는 이미 s4/s5 코드로 이전되어 있으므로(박백엔) 이 사본은 pending 항목의 id/키 정리용이다. 화자 코드는 hero:npc_batu, hero:npc_baidar, hero:npc_kadan, protagonist, caption(NPC_NAMES 등록 완료/요청 중인 코드만). 효과음은 sfx_battle_rumble / sfx_battle_tick / sfx_turn_enemy / sfx_move_step / sfx_battle_roar 만 사용. 인질·약탈·학살·헨리크 최후는 어떤 cue 로도 연출하지 않는다.",
+ "version": 1,
+ "status": "draft",
+ "stages": {
+  "ch21_s6": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "얼어붙은 도나우 위로 말발굽 자국이 길게 이어진다. 언덕 위 돌 성채는 불빛 하나 없이 서 있다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_batu", "expr": "serious", "text": "외성 광장은 잡는다. 성채 문은 내가 보고 정한다."},
+   {"on": {"turn": 2}, "do": "sfx", "key": "sfx_battle_rumble"},
+   {"on": {"turn": 2}, "do": "shake", "power": 2, "ms": 300},
+   {"on": {"turn": 2}, "do": "say", "speaker": "caption", "text": "투석기 돌이 성채 담에 부딪혀 튕겨 나온다. 담에는 흠집 하나 남지 않는다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_baidar", "expr": "neutral", "text": "돌이 돌에 맞으면 깨지는 것은 돌입니다. 총사령께 말씀드렸습니다."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "문 앞 선 안쪽으로 들어가는 유닛이 있으면 바투 님의 허락이 필요합니다."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_batu", "expr": "serious", "text": "한 번 더, 라고 하고 싶다. 하지 않는다. 적지 마라, 서기."}
+  ]}},
+  "ch21_s7": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "석회암 길이 바다까지 이어진다. 풀은 없고 파도 소리만 가깝다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_kadan", "expr": "neutral", "text": "서기, 지난달 줄 그대로 적었소? 오늘 줄은 맞게 쓰시오."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "말들이 풀을 찾아 고개를 숙입니다. 먹을 것이 없습니다."},
+   {"on": {"turn": 4}, "do": "sfx", "key": "sfx_move_step"},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_kadan", "expr": "serious", "text": "둑길이 보인다. 이쪽이오. 뒤는 보지 마시오."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "뒤는 제가 봅니다. 서기는 그 일을 합니다."}
+  ]}},
+  "ch21_s8": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "눈이 녹은 산길에 수레 바퀴 자국이 깊다. 양쪽 능선에 먼지가 일어난다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_kadan", "expr": "neutral", "text": "수레가 먼저요. 우리는 그 뒤요."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "serious", "text": "수레 바퀴가 진흙에 빠집니다. 한 대는 속도가 처집니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "caption", "text": "후위 병사들 사이에 소문이 돈다. 칸이 돌아가셨다는 사람, 아직 모른다는 사람, 성채가 지쳤다는 사람."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_kadan", "expr": "serious", "text": "누가 먼저 등을 돌렸는지 묻지 마시오. 모두 돌렸소."},
+   {"on": {"when": {"type": "flag", "key": "c21_s8_cart_pass"}}, "do": "say", "speaker": "hero:npc_kadan", "expr": "neutral", "text": "수레가 고개를 넘었다. 이제 우리 차례요."}
+  ]}}
+ },
+ "pending": {
+  "ch21_s6": [
+   {"id": "s6_p1_ice_road", "needs": "도나우 강 칸 좌표, 맵(pk_12_central_keep 또는 pk_14_twin_rivers) 확정, shallows 지형 코드 확인", "cues": [
+    {"on": {"battle_start": true}, "do": "terrain_change", "tiles": "TBD", "to": "shallows"}
+   ], "note": "얼음 길의 근사. 전용 얼음 타일은 안아트 요청(D-21-3)."},
+   {"id": "s6_p2_gate_line", "needs": "성채 정문 앞 zone 좌표(lose_conditions in_zone side a)", "cues": [], "note": "cue 가 아니라 rules.lose_conditions. label '성채 정면 돌격'. 대사 없음. pre 의 '문 앞에 서는 자는 내 허락이 있어야 한다'와 맞춘다."},
+   {"id": "s6_p3_square_flag", "needs": "외성 광장 capture 완료 시 set_flag c21_s6_square", "cues": [
+    {"on": {"when": {"type": "flag", "key": "c21_s6_square"}}, "do": "say", "speaker": "hero:npc_batu", "expr": "serious", "text": "광장은 됐다. 문은 내일 이야기다."}
+   ], "note": "capture 달성 flag 설정 방식은 임밸런/박백엔 확정."}
+  ],
+  "ch21_s7": [
+   {"id": "s7_p1_ship_leaves", "needs": "항구의 적 NPC 유닛(배 모양) 참조, 출항 칸", "cues": [
+    {"on": {"turn": 6}, "do": "camera", "tile": "TBD", "ms": 600},
+    {"on": {"turn": 6}, "do": "say", "speaker": "caption", "text": "만 바깥으로 돛 하나가 미끄러져 나간다."},
+    {"on": {"turn": 6}, "do": "retreat", "unit": "UNIT@x,y"},
+    {"on": {"turn": 7}, "do": "camera", "mode": "restore"}
+   ], "note": "벨라 4세 이름은 쓰지 않는다(배/돛 연출 유닛). 승리 달성이 턴 6 이전이면 발동하지 않는 것이 맞고, 그 경우 post 대사는 '이미 떠난 뒤'로 동일하게 성립하므로 조건 분기가 필요 없다."},
+   {"id": "s7_p2_route_lose", "needs": "win_mode only: 카단과 주인공이 둑길 끝 zone 도달, 카단 must_survive", "cues": [], "note": "rules 항목. 승리 시 왕은 없다는 점이 이 스테이지의 의도."}
+  ],
+  "ch21_s8": [
+   {"id": "s8_p1_carts_route", "needs": "ally_npcs: npc_cart_1, npc_cart_2(route 출구 zone), 재사용 가능성 박백엔 확인", "cues": [
+    {"on": {"when": {"type": "in_zone", "unit": "hero:npc_cart_2", "tiles": "TBD"}}, "do": "set_flag", "key": "c21_s8_cart_pass"}
+   ], "note": "마지막 수레가 출구 zone 에 닿으면 flag. 위 cues 의 카단 '우리 차례요' 대사와 연결."},
+   {"id": "s8_p2_ridge_waves", "needs": "양쪽 능선 spawn 위치, hold_until_turn 순차 투입", "cues": [], "note": "stages.enemy_squads 의 hold_until_turn 으로 구현. 대사 없음."},
+   {"id": "s8_p3_cart_delay", "needs": "뒤 수레 지체(cue move 또는 terrain_change 진흙)", "cues": [
+    {"on": {"turn": 4}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "뒤 수레가 늦습니다. 등을 맡을 사람이 한 걸음 더 물러나야 합니다."}
+   ], "note": "ch102_s3 뒤 수레 지체(turn 4 cue) 선례."}
+  ]
+ },
+ "migration": {
+  "_note": "기존 ch21_ch22_cues_draft.json 의 ch21_s1/ch21_s2 키를 s4/s5 로 읽는 대응표. 내용은 변경하지 않았다. pending id 의 s1_/s2_ 접두는 s4_/s5_ 로 읽는다.",
+  "key_map": {"ch21_s1": "ch21_s4", "ch21_s2": "ch21_s5", "ch22_s1": "ch22_s5"},
+  "pending_id_map": {
+   "s1_p1_smoke": "s4_p1_smoke",
+   "s1_p2_run_shout": "s4_p2_run_shout (verify, 단일 서술)",
+   "s1_p3_bohemian_vanguard": "s4_p3_bohemian_vanguard",
+   "s1_p4_gap_report": "s4_p4_gap_report",
+   "s2_p1_south_bridge": "s5_p1_south_bridge"
+  },
+  "flag_keys": ["c21_gap_opened(s4)", "c21_bridgehead(s5)", "c21_s1_gap(신규 s1)", "c21_s3_tower(s3)", "c21_s6_square(s6)", "c21_s8_cart_pass(s8)"],
+  "check": "flag 키 접두 c21_ 중복 없음 확인. s4 의 c21_gap_opened 와 신규 s1 의 c21_s1_gap 은 이름이 달라 충돌하지 않는다.",
+  "ch22_note": "ch22 쪽 재키잉은 3회차에 처리."
+ },
+ "notes": {
+  "ch21_s6": "cue 7개. 바이다르는 현장 존재 창작(verify). 바투의 '한 번 더' 포기를 cue 로 확인(turn 6)하고 post 에서 철수 논의 이어짐.",
+  "ch21_s7": "cue 6개. 카단 '맞게 쓰시오'의 선행 한 줄. 왕 연출은 배/돛 유닛으로 이름 비표기.",
+  "ch21_s8": "cue 6개(flag 조건 1). 철수 원인 소문 3종을 동등하게 나열(하나를 고르지 않음)."
+ }
+}

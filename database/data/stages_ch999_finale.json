@@ -1,0 +1,2476 @@
+{
+ "_note": "[임밸런 / 초안] ch999 종장 서고의 마지막 장 스테이지 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 좌표 채움 완료(2026-11-03, maps_ch999_finale.json): cells/x/y/tiles/waypoints 채움, zone_ref 는 tiles/rect 로 치환(엔진 규칙), spawn 후보 칸 <=12. map_requirements 의 zone_ref 문구는 설명용. 시드 미적재.",
+ "version": 1,
+ "chapter": 999,
+ "shelf_code": "ch999",
+ "status": "map_filled",
+ "items": [
+  {
+   "code": "ch999_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "서고 원정대",
+     "enemy": "지워진 줄"
+    },
+    "ally_npcs": [
+     {
+      "hero": "yi_sun_sin",
+      "x": 3,
+      "y": 3,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "지워진 줄(복도 앞)",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          14,
+          4
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "marker_1_read",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "marker_1_read"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            26,
+            4
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "marker_2_read",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "marker_2_read"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            34,
+            8
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "marker_3_read",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "marker_1_read"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        10,
+        7
+       ],
+       [
+        10,
+        8
+       ],
+       [
+        10,
+        9
+       ],
+       [
+        10,
+        10
+       ]
+      ],
+      "to": "plain"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "marker_3_read"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        30,
+        15
+       ],
+       [
+        30,
+        16
+       ],
+       [
+        30,
+        17
+       ],
+       [
+        30,
+        18
+       ],
+       [
+        30,
+        19
+       ]
+      ],
+      "to": "plain"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "yss",
+      "type": "unit_survive",
+      "unit": "hero:yi_sun_sin",
+      "label": "이순신을 지켜라"
+     },
+     {
+      "id": "marker_1",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        14,
+        4
+       ]
+      ],
+      "turns": 1,
+      "label": "번호 표지 1에서 한 라운드 읽는다"
+     },
+     {
+      "id": "marker_2",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        26,
+        4
+       ]
+      ],
+      "turns": 1,
+      "label": "번호 표지 2에서 한 라운드 읽는다"
+     },
+     {
+      "id": "marker_3",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        34,
+        8
+       ]
+      ],
+      "turns": 1,
+      "label": "번호 표지 3에서 한 라운드 읽는다"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "세 번째 번호 표지까지 읽는다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "marker_3_read"
+      }
+     },
+     {
+      "label": "지워진 줄을 모두 지운다",
+      "latch": false,
+      "when": {
+       "type": "alive_count",
+       "side": "b",
+       "op": "eq",
+       "value": 0,
+       "kind": "any"
+      }
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "겹쳐진 복도",
+   "year_label": "서고",
+   "chapter": 999,
+   "shelf_code": "ch999",
+   "map": "su_ch999_s1_corridor",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 18,
+   "difficulty": 6,
+   "culture": "library",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "yi_sun_sin",
+     "npc_jieum"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(복도 앞)",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       19,
+       4
+      ],
+      [
+       20,
+       4
+      ],
+      [
+       19,
+       5
+      ],
+      [
+       20,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(검)",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(궁)",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       29,
+       12
+      ],
+      [
+       30,
+       12
+      ],
+      [
+       29,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(궁)"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(창)",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       16,
+       12
+      ],
+      [
+       16,
+       13
+      ],
+      [
+       16,
+       11
+      ],
+      [
+       15,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(창)"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(후속 검)",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       12,
+       21
+      ],
+      [
+       12,
+       22
+      ],
+      [
+       12,
+       20
+      ],
+      [
+       11,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(후속 검)",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(후속 궁)",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       26,
+       21
+      ],
+      [
+       26,
+       22
+      ],
+      [
+       26,
+       20
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(후속 궁)",
+     "hold_until_turn": 6
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 18,
+   "enemy_units_peak": 18,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      19,
+      4
+     ],
+     "name": "지워진 줄(복도 앞)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      4
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      5
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      29,
+      12
+     ],
+     "name": "지워진 줄(궁)"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      30,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      29,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      16,
+      12
+     ],
+     "name": "지워진 줄(창)"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      15,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      12,
+      21
+     ],
+     "name": "지워진 줄(후속 검)"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      22
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      20
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      21
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      21
+     ],
+     "name": "지워진 줄(후속 궁)"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      22
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      20
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1590,
+    "exp": 2306,
+    "gold": 2067,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "marker_1"
+    },
+    {
+     "type": "sub_objective",
+     "id": "marker_3"
+    }
+   ],
+   "win_rate_band_target_pct": "62~76 (중앙 약 70)",
+   "sort_order": 99901,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "page_marker_1": "번호 표지 1(복도 앞쪽, 1칸)",
+     "page_marker_2": "번호 표지 2(복도 중간, 1칸)",
+     "page_marker_3": "번호 표지 3(복도 끝쪽, 1칸)",
+     "shelf_block_1": "막힌 책장 칸 4~8(표지1이 여는 곳)",
+     "shelf_block_2": "막힌 책장 칸 4~8(표지3이 여는 곳)",
+     "join_zone": "합류 구역 6칸",
+     "corridor": "긴 복도 폭 3~4",
+     "enemy_deploy": "복도 3구역 + 후속 2"
+    },
+    "deploy_zone_count": 8,
+    "tile_tags": [
+     "page_marker",
+     "join_zone"
+    ],
+    "path_cost": "protagonist_start -> page_marker_1 <= 12, marker_1 -> marker_2 <= 12, marker_2 -> marker_3 <= 12"
+   },
+   "design_notes": [
+    "Lv20 offset -2(eff 18). 적 18기 '지워진 줄' = 일반 유닛(검/창/궁 외형만 먹그림자, 신규 에셋). 표지 순서 읽기: flag marker_1_read -> 2 -> 3 은 이전 flag 가 있어야 다음이 서므로 순서 강제. '읽는 동안 한 라운드 서 있기'는 현 엔진 조건으로 불가 -> 진입 즉시 flag(단순화) + 같은 칸 hold_zone 서브(별)로 대체. 길 열림: marker_1 -> shelf_block_1, marker_3 -> shelf_block_2 가 plain 으로(막힌 책장이 열림; 이동 경로 개방). 대사 cue(page_marker_1, marker_3_read) 이름 동일. 허준은 cue 화자만(NPC 유닛 없음; healer 병종 NPC 불가). 이순신 NPC 신규 행(heroes.json yi_sun_sin 스탯 동일). 종장 첫 스테이지라 난도 낮음.",
+    "승리 조건에 '적 전멸(alive_count eq 0)'을 쓰므로 후속 hold 분대(턴4·6 해제)가 반드시 전진해야 함. 후속 궁 hold_rear 가 후방에 서 있어도 다가오는 ai 확인.",
+    "무행동 2턴 즉사 점검(거리·이동력 계산): 엔진은 ai 이름(hold_until_contact 등)을 읽지 않고 hold_until_turn 만 반영하므로, 아군 NPC 첫 피격 >= 적 행동 4번째, 배치 구역 첫 피격 >= 3번째가 되도록 분대 hold_until_turn 을 올림: A None->2",
+    "지워진 줄 분대 leader 를 kind npc / ref npc_erased_line 로 지정(공용 병종 시트 대신 전용 외형). 병종은 leader.troop_type 이 결정(ref 는 이름·외형·문화용). soldier_look 필드는 EnemyV3Adapter 가 읽지 않아 생략"
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch999_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "서고 원정대",
+     "enemy": "지워진 줄"
+    },
+    "ally_npcs": [],
+    "enemy_commander": {
+     "name": "지워진 줄(점거)",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          6,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "signal_1_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "signal_1_up"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            10,
+            7
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "signal_2_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "signal_2_up"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            15,
+            5
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "signal_3_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "signal_3_up"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            21,
+            7
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "signal_4_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "signal_4_up"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            25,
+            12
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "signal_5_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 2,
+       "when": {
+        "type": "flag",
+        "key": "signal_1_up"
+       }
+      },
+      "do": "spawn",
+      "side": "b",
+      "tiles": [
+       [
+        4,
+        12
+       ],
+       [
+        4,
+        11
+       ],
+       [
+        4,
+        13
+       ],
+       [
+        4,
+        10
+       ]
+      ],
+      "tag": "erased_gap",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 3
+     },
+     {
+      "on": {
+       "turn": 2,
+       "when": {
+        "type": "flag",
+        "key": "signal_3_up"
+       }
+      },
+      "do": "spawn",
+      "side": "b",
+      "tiles": [
+       [
+        27,
+        12
+       ],
+       [
+        27,
+        11
+       ],
+       [
+        27,
+        13
+       ],
+       [
+        27,
+        10
+       ]
+      ],
+      "tag": "erased_gap",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 3
+     }
+    ],
+    "sub_objectives": [],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "다섯 번째 신호를 올린다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "signal_5_up"
+      }
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "신호의 방",
+   "year_label": "서고",
+   "chapter": 999,
+   "shelf_code": "ch999",
+   "map": "su_ch999_s2_signal_room",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 20,
+   "difficulty": 7,
+   "culture": "library",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(점거)",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_point",
+     "cells": [
+      [
+       15,
+       4
+      ],
+      [
+       14,
+       5
+      ],
+      [
+       16,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(점거 검)",
+     "point": [
+      15,
+      5
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(점거)",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_point",
+     "cells": [
+      [
+       21,
+       6
+      ],
+      [
+       20,
+       7
+      ],
+      [
+       22,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(점거 창)",
+     "point": [
+      21,
+      7
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(궁)",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       15,
+       11
+      ],
+      [
+       16,
+       11
+      ],
+      [
+       15,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(궁)"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(검)",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       11,
+       4
+      ],
+      [
+       12,
+       4
+      ],
+      [
+       11,
+       3
+      ],
+      [
+       12,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(검)"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 13,
+   "enemy_units_peak": 13,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      15,
+      4
+     ],
+     "name": "지워진 줄(점거)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      14,
+      5
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      21,
+      6
+     ],
+     "name": "지워진 줄(점거)"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      20,
+      7
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      7
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      15,
+      11
+     ],
+     "name": "지워진 줄(궁)"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      16,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      15,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      11,
+      4
+     ],
+     "name": "지워진 줄(검)"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      4
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      3
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      3
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1700,
+    "exp": 2465,
+    "gold": 2210,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "60~75 (중앙 약 68)",
+   "sort_order": 99902,
+   "prerequisite": "ch999_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal_1": "신호 타일 1(서쪽 끝, 봉수)",
+     "signal_2": "신호 타일 2(횃불)",
+     "signal_3": "신호 타일 3(깃발, 점거 분대 A)",
+     "signal_4": "신호 타일 4(북, 점거 분대 B)",
+     "signal_5": "신호 타일 5(동쪽 끝, 호각)",
+     "gap_west": "출현 틈 후보칸 4(서쪽 벽)",
+     "gap_east": "출현 틈 후보칸 4(동쪽 벽)",
+     "room": "원형 방",
+     "enemy_deploy": "점거 2 + 중앙 궁 1 + 북 검 1"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal"
+    ],
+    "path_cost": "protagonist_start -> signal_1 <= 8, 각 신호 간 <= 9"
+   },
+   "design_notes": [
+    "Lv21 offset -1(eff 20). 승리 only = signal_5_up. 점화 순서 = 이전 flag 연쇄(signal_k_up 은 signal_{k-1}_up 이 있어야 선다 -> 순서 강제; 순서를 어기면 flag 초기화는 구현하지 않음 = 단순화안 채택 근거: 연쇄 flag 만으로 순서가 강제되고 어긴 방문은 무효가 되므로 초기화와 효과 동일). 적 초기 13기(점거 검 3·창 3 = 신호 3·4 타일을 guard_point 로 점거 / 궁 3 / 검 4 advance). 신호1 점화 -> 출현 틈에서 검 3, 신호3 점화 -> 틈에서 창 3 (spawn side b). 합 peak 19. 점거 분대는 신호 타일에 서 있어 점화를 막음 -> 처치 필수(대사 '신호 타일 점거'). 아군 NPC 없음(출연 인물은 연출 대사). 서→동 순서는 맵에서 signal_1~5 가 서쪽부터 배치.",
+    "guard_point 분대의 point 는 signal_3, signal_4 칸(점거 칸이 곧 point).",
+    "지워진 줄 분대 leader 를 kind npc / ref npc_erased_line 로 지정(공용 병종 시트 대신 전용 외형). 병종은 leader.troop_type 이 결정(ref 는 이름·외형·문화용). soldier_look 필드는 EnemyV3Adapter 가 읽지 않아 생략"
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch999_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "서고 원정대",
+     "enemy": "지워진 줄"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_jieum",
+      "x": 18,
+      "y": 23,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_gyojeong",
+      "x": 22,
+      "y": 23,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "지워진 줄(낭독 자리 1)",
+     "hero": null
+    },
+    "max_turns": 15,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          14,
+          17
+         ],
+         [
+          14,
+          16
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "reading_1_done",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "reading_1_done"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            25,
+            16
+           ],
+           [
+            25,
+            17
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "reading_2_done",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "reading_2_done"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            20,
+            12
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "reading_3_done",
+      "value": true
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "reading_1",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        14,
+        17
+       ],
+       [
+        14,
+        16
+       ]
+      ],
+      "turns": 2,
+      "label": "낭독 자리 1에서 두 라운드 읽는다"
+     },
+     {
+      "id": "reading_2",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        25,
+        16
+       ],
+       [
+        25,
+        17
+       ]
+      ],
+      "turns": 2,
+      "label": "낭독 자리 2에서 두 라운드 읽는다"
+     },
+     {
+      "id": "reading_3",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        20,
+        12
+       ]
+      ],
+      "turns": 2,
+      "label": "낭독 자리 3에서 두 라운드 읽는다"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "세 번째 칸까지 읽는다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "reading_3_done"
+      }
+     },
+     {
+      "label": "지워진 줄을 모두 지운다",
+      "latch": false,
+      "when": {
+       "type": "alive_count",
+       "side": "b",
+       "op": "eq",
+       "value": 0,
+       "kind": "any"
+      }
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "이름 없는 칸",
+   "year_label": "서고",
+   "chapter": 999,
+   "shelf_code": "ch999",
+   "map": "su_ch999_s3_nameless",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 21,
+   "difficulty": 8,
+   "culture": "library",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "npc_jieum",
+     "npc_jjogi",
+     "npc_gyojeong"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(낭독 자리 1)",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_point",
+     "cells": [
+      [
+       14,
+       17
+      ],
+      [
+       14,
+       15
+      ],
+      [
+       13,
+       16
+      ],
+      [
+       15,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(검)",
+     "point": [
+      14,
+      17
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(낭독 자리 2)",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_point",
+     "cells": [
+      [
+       25,
+       16
+      ],
+      [
+       25,
+       15
+      ],
+      [
+       24,
+       16
+      ],
+      [
+       26,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(창)",
+     "point": [
+      25,
+      16
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(궁)",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       19,
+       12
+      ],
+      [
+       19,
+       13
+      ],
+      [
+       20,
+       13
+      ],
+      [
+       18,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(궁)"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(검)",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       14,
+       10
+      ],
+      [
+       14,
+       11
+      ],
+      [
+       14,
+       9
+      ],
+      [
+       13,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(검)"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(후속 창)",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       25,
+       10
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       9
+      ],
+      [
+       24,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(후속 창)",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(후속 궁)",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       19,
+       4
+      ],
+      [
+       20,
+       4
+      ],
+      [
+       19,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(후속 궁)",
+     "hold_until_turn": 6
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 23,
+   "enemy_units_peak": 23,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      14,
+      17
+     ],
+     "name": "지워진 줄(낭독 자리 1)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      14,
+      15
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      13,
+      16
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      16
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      25,
+      16
+     ],
+     "name": "지워진 줄(낭독 자리 2)"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      15
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      16
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      19,
+      12
+     ],
+     "name": "지워진 줄(궁)"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      19,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      20,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      18,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      14,
+      10
+     ],
+     "name": "지워진 줄(검)"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      14,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      14,
+      9
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      13,
+      10
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      25,
+      10
+     ],
+     "name": "지워진 줄(후속 창)"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      9
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      10
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      19,
+      4
+     ],
+     "name": "지워진 줄(후속 궁)"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      20,
+      4
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      19,
+      5
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1820,
+    "exp": 2639,
+    "gold": 2366,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "reading_1"
+    },
+    {
+     "type": "sub_objective",
+     "id": "reading_3"
+    }
+   ],
+   "win_rate_band_target_pct": "58~72 (중앙 약 65)",
+   "sort_order": 99903,
+   "prerequisite": "ch999_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "reading_1": "낭독 자리 1(1~2칸, 점거 분대 A 가 서 있는 칸)",
+     "reading_2": "낭독 자리 2(점거 분대 B)",
+     "reading_3": "낭독 자리 3(후방)",
+     "ledger_table": "중앙 장부 탁자(장식/장애물 2x2)",
+     "low_shelves": "낮은 책장 줄(이동 가능한 낮은 장애물)",
+     "enemy_deploy": "점거 2 + 중앙 3 + 후속 2"
+    },
+    "deploy_zone_count": 9,
+    "tile_tags": [
+     "reading_spot"
+    ],
+    "path_cost": "protagonist_start -> reading_1 <= 12, -> reading_2 <= 14, -> reading_3 <= 14"
+   },
+   "design_notes": [
+    "Lv22 offset -1(eff 21). 적 23기(점거 검 4·창 4 = 낭독 자리 1·2 점거 guard_point / 궁 4 / 검 4 advance / 후속 창 4 hold 4 / 후속 궁 3 hold 6). 승리: reading_1~3_done 연쇄(+전멸). 아웃라인은 '낭독 자리에 두 라운드 서 있기 = 판정(hold_zone)'이나 hold_zone 서브는 별 조건 전용이라 승리에 쓰면 안 됨 -> 진입 flag + hold_zone 별 조건 이중 구현. 엔진 요청: hold_zone 완료를 flag(예: hold_<id>_done) 로 노출 또는 in_zone 에 min_turns 필드. 점거 칸은 적이 서 있으면 진입 불가라 소탕이 선행. 쪽이(npc_jjogi)·교정관(npc_gyojeong)·지음(npc_jieum) 은 기존 C sword 행: 전투 비참여 권장(시작칸 후방), 필수 생존 아님.",
+    "대사 cue 이름 reading_1_done/reading_3_done 동일.",
+    "지워진 줄 분대 leader 를 kind npc / ref npc_erased_line 로 지정(공용 병종 시트 대신 전용 외형). 병종은 leader.troop_type 이 결정(ref 는 이름·외형·문화용). soldier_look 필드는 EnemyV3Adapter 가 읽지 않아 생략"
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch999_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "서고 원정대",
+     "enemy": "지워진 줄"
+    },
+    "ally_npcs": [
+     {
+      "hero": "yi_sun_sin",
+      "x": 6,
+      "y": 9,
+      "must_survive": false
+     },
+     {
+      "hero": "joan_of_arc",
+      "x": 6,
+      "y": 14,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "백지",
+     "hero": "npc_blank_page"
+    },
+    "max_turns": 15,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "hp_pct_lte",
+        "unit": "enemy_commander",
+        "pct": 50
+       }
+      },
+      "do": "set_flag",
+      "key": "last_line_open",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "last_line_open"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        22,
+        11
+       ],
+       [
+        22,
+        12
+       ]
+      ],
+      "to": "plain"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "last_line_open"
+       }
+      },
+      "do": "spawn",
+      "side": "b",
+      "tiles": [
+       [
+        20,
+        11
+       ],
+       [
+        20,
+        12
+       ],
+       [
+        20,
+        10
+       ],
+       [
+        19,
+        11
+       ]
+      ],
+      "tag": "blank_phase",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 3
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "yss",
+      "type": "unit_survive",
+      "unit": "hero:yi_sun_sin",
+      "label": "이순신을 지켜라"
+     },
+     {
+      "id": "joan",
+      "type": "unit_survive",
+      "unit": "hero:joan_of_arc",
+      "label": "잔을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "백지를 쓰러뜨린다",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     },
+     {
+      "label": "마지막 칸에 한 줄을 적는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         22,
+         11
+        ],
+        [
+         22,
+         12
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "마지막 장",
+   "year_label": "서고",
+   "chapter": 999,
+   "shelf_code": "ch999",
+   "map": "su_ch999_s4_last_page",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": 0,
+   "effective_enemy_level": 22,
+   "difficulty": 10,
+   "culture": "library",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "yi_sun_sin",
+     "joan_of_arc",
+     "npc_gyojeong",
+     "npc_jieum"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_blank_page",
+      "display_name_ko": "백지",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 3.5
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       16,
+       11
+      ],
+      [
+       17,
+       11
+      ],
+      [
+       16,
+       12
+      ],
+      [
+       17,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "백지의 친위(지워진 줄)"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(통로 1)",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       8
+      ],
+      [
+       16,
+       9
+      ],
+      [
+       15,
+       8
+      ],
+      [
+       17,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(검)"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(통로 2)",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       14
+      ],
+      [
+       16,
+       15
+      ],
+      [
+       15,
+       14
+      ],
+      [
+       17,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(창)"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erased_line",
+      "display_name_ko": "지워진 줄(궁)",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       21,
+       4
+      ],
+      [
+       20,
+       4
+      ],
+      [
+       22,
+       4
+      ],
+      [
+       19,
+       4
+      ]
+     ],
+     "soldier_display_name_ko": "지워진 줄(궁)"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 16,
+   "enemy_units_peak": 16,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      16,
+      11
+     ],
+     "name": "백지"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      16,
+      8
+     ],
+     "name": "지워진 줄(통로 1)"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      8
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      16,
+      14
+     ],
+     "name": "지워진 줄(통로 2)"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      15,
+      14
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      17,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      21,
+      4
+     ],
+     "name": "지워진 줄(궁)"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      20,
+      4
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      22,
+      4
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      19,
+      4
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1820,
+    "exp": 2639,
+    "gold": 2366,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "yss"
+    },
+    {
+     "type": "turn_within",
+     "value": 13
+    }
+   ],
+   "win_rate_band_target_pct": "48~62 (중앙 약 55; 최종 난도)",
+   "sort_order": 99904,
+   "prerequisite": "ch999_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "last_line": "마지막 칸 타일 1~2칸(보스 뒤쪽 끝, 초기 비활성 타일)",
+     "boss_seat": "백지 자리(중앙 안쪽)",
+     "lane_1": "접근 통로 1",
+     "lane_2": "접근 통로 2",
+     "phase2_gap": "페이즈2 증원 출현 후보칸 4",
+     "enemy_deploy": "보스 1 + 통로 2 + 궁 1",
+     "white_room": "흰 방(타일 단순)"
+    },
+    "deploy_zone_count": 5,
+    "tile_tags": [
+     "last_line"
+    ],
+    "path_cost": "protagonist_start -> last_line <= 16 (보스 우회 없이 통로 경유)"
+   },
+   "design_notes": [
+    "Lv22 offset 0(eff 22). 보스 백지(npc_blank_page sword, hp_mult 3.5) + 친위 3 / 통로 두 줄(검 4·창 4) / 궁 4 = 초기 16기. 2페이즈 = hp_pct_lte 50 (unit 'enemy_commander', 임시 표기 'boss' 대신 EventConditions 지원 참조) -> flag last_line_open: 마지막 칸 타일(last_line)이 활성(초기 wall/void 같은 비활성 칸 -> plain) + 지워진 줄 검 3 증원. 승리 = 백지 격파 + last_line 도달 latch. last_line 이 비활성이면 도달 불가 -> 보스 체력 절반 이하를 만들어야 승리 진행 = 아웃라인 흐름. 바하 앗딘/허준/지음/교정관/쪽이는 연출 화자만. 이순신(yi_sun_sin)·잔(joan_of_arc)은 유닛으로 합류(조력). 대사 파일의 hp_pct_lte unit 'boss' 는 'enemy_commander' 로 교체 요청(송서사/박백엔).",
+    "보스 패턴: 후반 페이즈에 증원이 붙는 구조라 권장 파티 4영웅. 종장 난이도는 승률 50대 중반 목표(전 서가 클리어 유저 기준).",
+    "클리어 보상 영웅 없음(영웅은 뽑기로만 획득, join_hero 비활성). baha_ad_din 은 campaign_only 로 뽑기 불가이며 연출용 NPC/화자로만 쓴다",
+    "지워진 줄 분대 leader 를 kind npc / ref npc_erased_line 로 지정(공용 병종 시트 대신 전용 외형). 병종은 leader.troop_type 이 결정(ref 는 이름·외형·문화용). soldier_look 필드는 EnemyV3Adapter 가 읽지 않아 생략"
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  }
+ ],
+ "npc_needed": {
+  "existing_db": [
+   "npc_jieum",
+   "npc_jjogi",
+   "npc_gyojeong",
+   "joan_of_arc",
+   "baha_ad_din"
+  ],
+  "new_rows": [
+   "yi_sun_sin",
+   "npc_erased_line(적 일반)",
+   "npc_blank_page(보스)"
+  ],
+  "proposal_file": "npc_roster_shelf_ch999_stats.json"
+ },
+ "engine_checks": [
+  "hp_pct_lte unit 'enemy_commander' 사용(대사 json 은 'boss' 임시표기)",
+  "hold_zone 완료 flag 노출 또는 in_zone min_turns",
+  "guard_point 분대 point 필드",
+  "terrain_change 비활성 칸(wall)->plain"
+ ]
+}

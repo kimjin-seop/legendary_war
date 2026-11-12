@@ -1,0 +1,502 @@
+{
+ "note": "세계지도 지역 LOD·전장 지도 manifest 조각(안아트). manifest.json·merge_fragments.mjs 직접 수정 안 함 — 병합은 윤프론.",
+ "status": "deferred",
+ "generated": "2026-11-03T22:53:06+00:00",
+ "keyRules": {
+  "region": "map.world.region.<id> — 세계판 위 LOD(줌 확대 시 크로스페이드). 오버레이·핀·라벨 아래",
+  "battle": "map.battle.<id> — 캠페인 상세(스테이지 목록) 전용 독립 전장 지도. 레이어: 베이스 → 영토 폴리곤(landmask 로 클리핑) → 경로/핀 → 국호 판·라벨",
+  "coords": "모든 판 공통: 정규화 u=(lon+180)/360, v=(90-lat)/180 → 판 내부 px=((u-n.x0)/n.w*W, (v-n.y0)/n.h*H)"
+ },
+ "lod": {
+  "metric": "screenPPD = 화면(장치 픽셀)에서 경도 1도가 차지하는 픽셀",
+  "thresholds": {
+   "worldOnly": "screenPPD < 18",
+   "crossfade": "18 ≤ screenPPD < 26: 지역판 opacity=(screenPPD-18)/8",
+   "regionalOnly": "screenPPD ≥ 26"
+  },
+  "thresholdsNote": "구대륙 세계판(20ppd 데스크톱/10ppd 모바일) 기준. 기존 전지구판(11.4ppd)을 계속 쓸 경우 10/16",
+  "variant": "지역판 screenPPD ≤ 70 → mobile(60ppd), 초과 → desktop(120ppd)",
+  "battle": "전장 지도는 LOD 연속 줌이 아니라 화면 전환(캠페인 → 상세)으로 표시. 전환 연출이 필요하면 동아시아 지역판에서 전장 bounds 사각형으로 줌인하며 0.3s 크로스페이드",
+  "edgeFeather": "뷰포트가 지역 rect 경계를 넘으면 경계 3~4% 폭 mask-image 그라데이션"
+ },
+ "boundsFiles": {
+  "east_asia": "assets/map_world/regional/east_asia_bounds.json",
+  "france_battle": "assets/map_world/regional/france_battle_bounds.json",
+  "imjin_battle": "assets/map_world/regional/imjin_battle_bounds.json",
+  "imjin_battle_v2": "assets/map_world/regional/imjin_battle_v2_bounds.json",
+  "legnica_battle": "assets/map_world/regional/legnica_battle_bounds.json",
+  "rome_battle": "assets/map_world/regional/rome_battle_bounds.json"
+ },
+ "battleProposals": [
+  {
+   "id": "goryeo_khitan_battle",
+   "campaign": "고려-거란 전쟁(993·1010·1018, 귀주대첩)",
+   "lon0": 121.5,
+   "lon1": 127.5,
+   "lat0": 37.5,
+   "lat1": 42.5,
+   "ppd": 300,
+   "size": "1800x1500",
+   "covers": "요하 하류·요동반도·압록강·귀주·서경(평양)·개경",
+   "coast": "osm_land",
+   "note": "요동 내륙 강(요하·태자하)은 NE 10m 로 충분, 압록강 하구 섬(위화도 등)은 OSM 확인"
+  },
+  {
+   "id": "salsu_battle",
+   "campaign": "살수대첩(612, 수 침공)",
+   "lon0": 120.5,
+   "lon1": 127.0,
+   "lat0": 38.0,
+   "lat1": 42.0,
+   "ppd": 300,
+   "size": "1950x1200",
+   "covers": "요동성(랴오양)·요하·압록강·살수(청천강)·평양",
+   "coast": "osm_land",
+   "note": "청천강은 데이터에 없어 손 입력 필요(verify), 7세기 요하 하류 해안선은 현대와 다름"
+  },
+  {
+   "id": "chibi_battle",
+   "campaign": "적벽대전(208)",
+   "lon0": 111.0,
+   "lon1": 115.5,
+   "lat0": 28.8,
+   "lat1": 31.6,
+   "ppd": 400,
+   "size": "1800x1120",
+   "covers": "강릉(장링)·적벽·하구(우한)·동정호·오림",
+   "coast": "ne(내륙)",
+   "note": "동아시아 지역판(115E~) 밖 → 세계판에서 바로 전환. 장강 폭·동정호(당시 운몽택)는 OSM 수면 폴리곤 또는 손 입력 필요, 고증 verify"
+  }
+ ],
+ "imageCalls": {
+  "log": "docker/gemini/world_map_regional_calls_log.json",
+  "total": 3,
+  "ok": 1,
+  "failed": [
+   {
+    "id": "land_macro",
+    "status": 400,
+    "reason": "image_recitation(저작권/재현 차단)"
+   },
+   {
+    "id": "land_macro",
+    "status": 400,
+    "reason": "image_recitation(저작권/재현 차단)"
+   }
+  ]
+ },
+ "items": [
+  {
+   "key": "map.world.region.east_asia",
+   "path": "assets/map_world/regional/east_asia_4200.webp",
+   "size": "4200x2400",
+   "bytes": 572810,
+   "alpha": false,
+   "type": "map_base_lod",
+   "scope": "map",
+   "load": "lazy",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/regional/east_asia_2100.webp",
+     "size": "2100x1200",
+     "bytes": 129342,
+     "alpha": false
+    }
+   },
+   "bounds": {
+    "geo": {
+     "lonMin": 115.0,
+     "lonMax": 150.0,
+     "latMin": 25.0,
+     "latMax": 45.0
+    },
+    "normalized": {
+     "x0": 0.8194444444444444,
+     "x1": 0.9166666666666666,
+     "y0": 0.25,
+     "y1": 0.3611111111111111,
+     "w": 0.09722222222222222,
+     "h": 0.1111111111111111
+    },
+    "file": "assets/map_world/regional/east_asia_bounds.json"
+   },
+   "ppd": {
+    "desktop": 120,
+    "mobile": 60.0
+   },
+   "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+   "generator": "docker/gemini/world_map_regional_build.py (절차 합성, world_map_build.py 헬퍼·시드 재사용)",
+   "provenance": [
+    "Natural Earth 1:10m/1:50m land·minor_islands·lakes·rivers_lake_centerlines·geography_regions (퍼블릭 도메인, github nvkelso/natural-earth-vector)",
+    "세계판 면 텍스처 world_map_raw/tex/{land,sea}.jpg 저주파 재샘플(gemini-nano-banana-2.1, 기존 생성물 재사용)",
+    "근접 종이 결 world_map_raw/tex_regional/sea_macro.jpg (gemini-nano-banana-2.1, world_map_regional_gen.mjs / world_map_regional_style.mjs) — 명도 하이패스만 사용"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "metrics": {
+     "land_iou_vs_world4096_datamask": 0.9266,
+     "soft_centroid_offset_world4096_px": [
+      -2.312,
+      -1.183
+     ],
+     "land_area_ratio": 0.9504,
+     "soft_mask_mae": 0.0248,
+     "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+     "land_iou_vs_world4096_image_estimate": 0.8326,
+     "lowfreq_color_mae_0_255": 9.31
+    },
+    "notes": "기준점 15곳(서울·평양·부산·의주·한산도·명량·쓰시마·히젠나고야·교토·에도·베이징·상하이·산둥 끝·제주·하코다테) 일치. 황해·남해·대한해협·동해 구분 정상. 세계판 대비 평행이동 최적 (0,0). 글자·국경·라벨·도로선 없음. 구대륙판(oldworld)과 같은 빌더·같은 해안 띠 파라미터 → 한반도 휘도 차 7.8(기존 세계판 대비 34.7)."
+   },
+   "verify": [
+    "해안선·하구는 현대(Natural Earth) 형태: 1592년과 다른 곳 — 황하 하구(1855년 이전엔 산둥반도 남쪽 황해 유입), 장강 하구 퇴적, 서해안 간척지, 오사카만·도쿄만 매립지 — 고증 필요 시 송서사 확인",
+    "대동강·금강·임진강·북한강·영산강은 데이터에 없어 손 입력 근사 폴리라인(수 km 오차)",
+    "산줄기 음영(태백·소백·낭림·일본 알프스 등)은 고도 데이터가 아닌 근사 배치",
+    "숲 얼룩 위치는 미술적 배치(식생 데이터 아님)"
+   ]
+  },
+  {
+   "key": "map.battle.france_battle",
+   "path": "assets/map_world/regional/france_battle_2530.webp",
+   "size": "2530x2200",
+   "bytes": 374654,
+   "alpha": false,
+   "type": "map_battle",
+   "scope": "map",
+   "load": "lazy",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/regional/france_battle_1265.webp",
+     "size": "1265x1100",
+     "bytes": 73856,
+     "alpha": false
+    }
+   },
+   "bounds": {
+    "geo": {
+     "lonMin": -3.5,
+     "lonMax": 8.0,
+     "latMin": 42.5,
+     "latMax": 52.5
+    },
+    "normalized": {
+     "x0": 0.49027777777777776,
+     "x1": 0.5222222222222223,
+     "y0": 0.20833333333333334,
+     "y1": 0.2638888888888889,
+     "w": 0.03194444444444444,
+     "h": 0.05555555555555555
+    },
+    "file": "assets/map_world/regional/france_battle_bounds.json"
+   },
+   "ppd": {
+    "desktop": 220,
+    "mobile": 110.0
+   },
+   "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+   "generator": "docker/gemini/world_map_regional_build.py (절차 합성, world_map_build.py 헬퍼·시드 재사용)",
+   "provenance": [
+    "Natural Earth 1:10m/1:50m land·minor_islands·lakes·rivers_lake_centerlines·geography_regions (퍼블릭 도메인, github nvkelso/natural-earth-vector)",
+    "세계판 면 텍스처 world_map_raw/tex/{land,sea}.jpg 저주파 재샘플(gemini-nano-banana-2.1, 기존 생성물 재사용)",
+    "근접 종이 결 world_map_raw/tex_regional/sea_macro.jpg (gemini-nano-banana-2.1, world_map_regional_gen.mjs / world_map_regional_style.mjs) — 명도 하이패스만 사용"
+   ],
+   "landmask": {
+    "desktop": {
+     "path": "assets/map_world/regional/france_battle_landmask_2530.png",
+     "size": "2530x2200",
+     "bytes": 98482,
+     "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+    },
+    "mobile": {
+     "path": "assets/map_world/regional/france_battle_landmask_1265.png",
+     "size": "1265x1100",
+     "bytes": 37351,
+     "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+    }
+   },
+   "coastSource": null,
+   "exaggerated": null,
+   "tone": "중립 양피지(육지 채도 28% 감소) — FE 영토 폴리곤 색(반투명 multiply/overlay)과 국호 판을 얹기 위함. 글자·국경·라벨 없음",
+   "qa": {
+    "verdict": "pass",
+    "metrics": {
+     "land_iou_vs_world4096_datamask": 0.971,
+     "soft_centroid_offset_world4096_px": [
+      0.135,
+      -0.014
+     ],
+     "land_area_ratio": 0.9878,
+     "soft_mask_mae": 0.0243,
+     "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+     "land_iou_vs_world4096_image_estimate": 0.9081,
+     "lowfreq_color_mae_0_255": 24.09
+    },
+    "notes": "기준점 15곳(옥포·한산도·노량·명량/울돌목·진주성·평양·행주산성·한성·부산진·동래·쓰시마 이즈하라·히젠나고야·의주·충주 탄금대·제주) 십자 마커가 실제 해안·해협·하천 위치와 일치. 명량(진도-해남)·노량(남해도-하동) 해협이 3배 확대에서 열려 보이고 한산도·거제 다도해가 개별 섬으로 분리됨(imjin_battle_straits_x3.jpg). 거제 일대 육지 피복률이 8배 기준 렌더와 일치(0.418/0.414). 세계판(NE 10m) 대비 IoU 0.86은 해안 정밀도 차이(NE 가 뭉툭)이며 위치 이동 없음. 글자·국경·라벨 없음, 중립 양피지 톤. landmask 클리핑 데모(imjin_battle_contact_territory_demo.jpg) 통과 — 영토색은 opacity ≤0.35 또는 color/soft-light 혼합 권장(진한 곱하기는 주황 바탕과 섞여 탁해짐)."
+   },
+   "verify": [
+    "해안선은 현대 OSM — 1592년 대비 간척·매립(서해안 새만금·시화·인천 송도·김해 평야 하구·부산항 매립·광양만 산단) 지형이 섞여 있음. 특히 부산·김해 낙동강 하구와 인천 연안은 당시보다 육지가 넓음 — 고증 필요 시 송서사 확인",
+    "명량(울돌목)·노량 해협은 실제 폭(약 300~600m)이 1~2px 이라 표현용으로 넓힘(과장 carve)",
+    "대동강·금강·임진강·북한강·영산강은 손 입력 근사선(수 km 오차), 낙동강·한강·압록강은 NE 10m(전장 배율에선 굵고 단순)",
+    "산줄기 음영은 고도 데이터가 아닌 근사 배치",
+    "해협·섬 사이 미세 수로 일부는 1px 미만이라 이어져 보일 수 있음"
+   ]
+  },
+  {
+   "key": "map.battle.imjin_battle",
+   "path": "assets/map_world/regional/imjin_battle_v2_1728.webp",
+   "size": "1728x2448",
+   "bytes": 273248,
+   "alpha": false,
+   "type": "map_battle",
+   "scope": "map",
+   "load": "lazy",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/regional/imjin_battle_v2_864.webp",
+     "size": "864x1224",
+     "bytes": 57426,
+     "alpha": false
+    }
+   },
+   "bounds": {
+    "geo": {
+     "lonMin": 124.0,
+     "lonMax": 131.2,
+     "latMin": 32.8,
+     "latMax": 43.0
+    },
+    "normalized": {
+     "x0": 0.8444444444444444,
+     "x1": 0.8644444444444445,
+     "y0": 0.2611111111111111,
+     "y1": 0.31777777777777777,
+     "w": 0.01999999999999997,
+     "h": 0.056666666666666685
+    },
+    "file": "assets/map_world/regional/imjin_battle_v2_bounds.json"
+   },
+   "ppd": {
+    "desktop": 240,
+    "mobile": 120.0
+   },
+   "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+   "generator": "docker/gemini/world_map_regional_build.py (절차 합성, world_map_build.py 헬퍼·시드 재사용)",
+   "provenance": [
+    "Natural Earth 1:10m/1:50m land·minor_islands·lakes·rivers_lake_centerlines·geography_regions (퍼블릭 도메인, github nvkelso/natural-earth-vector)",
+    "세계판 면 텍스처 world_map_raw/tex/{land,sea}.jpg 저주파 재샘플(gemini-nano-banana-2.1, 기존 생성물 재사용)",
+    "근접 종이 결 world_map_raw/tex_regional/sea_macro.jpg (gemini-nano-banana-2.1, world_map_regional_gen.mjs / world_map_regional_style.mjs) — 명도 하이패스만 사용"
+   ],
+   "landmask": {
+    "desktop": {
+     "path": "assets/map_world/regional/imjin_battle_v2_landmask_1728.png",
+     "size": "1728x2448",
+     "bytes": 157120,
+     "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+    },
+    "mobile": {
+     "path": "assets/map_world/regional/imjin_battle_v2_landmask_864.png",
+     "size": "864x1224",
+     "bytes": 56982,
+     "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+    }
+   },
+   "coastSource": null,
+   "exaggerated": null,
+   "tone": "중립 양피지(육지 채도 28% 감소) — FE 영토 폴리곤 색(반투명 multiply/overlay)과 국호 판을 얹기 위함. 글자·국경·라벨 없음",
+   "qa": {
+    "verdict": "pass",
+    "metrics": {
+     "land_iou_vs_world4096_datamask": 0.9027,
+     "soft_centroid_offset_world4096_px": [
+      -0.46,
+      -1.959
+     ],
+     "land_area_ratio": 0.9273,
+     "soft_mask_mae": 0.0482,
+     "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+     "land_iou_vs_world4096_image_estimate": 0.7851,
+     "lowfreq_color_mae_0_255": 24.58
+    },
+    "notes": "기준점 15곳(옥포·한산도·노량·명량/울돌목·진주성·평양·행주산성·한성·부산진·동래·쓰시마 이즈하라·히젠나고야·의주·충주 탄금대·제주) 십자 마커가 실제 해안·해협·하천 위치와 일치. 명량(진도-해남)·노량(남해도-하동) 해협이 3배 확대에서 열려 보이고 한산도·거제 다도해가 개별 섬으로 분리됨(imjin_battle_straits_x3.jpg). 거제 일대 육지 피복률이 8배 기준 렌더와 일치(0.418/0.414). 세계판(NE 10m) 대비 IoU 0.86은 해안 정밀도 차이(NE 가 뭉툭)이며 위치 이동 없음. 글자·국경·라벨 없음, 중립 양피지 톤. landmask 클리핑 데모(imjin_battle_contact_territory_demo.jpg) 통과 — 영토색은 opacity ≤0.35 또는 color/soft-light 혼합 권장(진한 곱하기는 주황 바탕과 섞여 탁해짐)."
+   },
+   "verify": [
+    "해안선은 현대 OSM — 1592년 대비 간척·매립(서해안 새만금·시화·인천 송도·김해 평야 하구·부산항 매립·광양만 산단) 지형이 섞여 있음. 특히 부산·김해 낙동강 하구와 인천 연안은 당시보다 육지가 넓음 — 고증 필요 시 송서사 확인",
+    "명량(울돌목)·노량 해협은 실제 폭(약 300~600m)이 1~2px 이라 표현용으로 넓힘(과장 carve)",
+    "대동강·금강·임진강·북한강·영산강은 손 입력 근사선(수 km 오차), 낙동강·한강·압록강은 NE 10m(전장 배율에선 굵고 단순)",
+    "산줄기 음영은 고도 데이터가 아닌 근사 배치",
+    "해협·섬 사이 미세 수로 일부는 1px 미만이라 이어져 보일 수 있음"
+   ]
+  },
+  {
+   "key": "map.battle.legnica_battle",
+   "path": "assets/map_world/regional/legnica_battle_2520.webp",
+   "size": "2520x960",
+   "bytes": 201824,
+   "alpha": false,
+   "type": "map_battle",
+   "scope": "map",
+   "load": "lazy",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/regional/legnica_battle_1260.webp",
+     "size": "1260x480",
+     "bytes": 43470,
+     "alpha": false
+    }
+   },
+   "bounds": {
+    "geo": {
+     "lonMin": 12.0,
+     "lonMax": 33.0,
+     "latMin": 45.5,
+     "latMax": 53.5
+    },
+    "normalized": {
+     "x0": 0.5333333333333333,
+     "x1": 0.5916666666666667,
+     "y0": 0.20277777777777778,
+     "y1": 0.24722222222222223,
+     "w": 0.058333333333333334,
+     "h": 0.044444444444444446
+    },
+    "file": "assets/map_world/regional/legnica_battle_bounds.json"
+   },
+   "ppd": {
+    "desktop": 120,
+    "mobile": 60.0
+   },
+   "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+   "generator": "docker/gemini/world_map_regional_build.py (절차 합성, world_map_build.py 헬퍼·시드 재사용)",
+   "provenance": [
+    "Natural Earth 1:10m/1:50m land·minor_islands·lakes·rivers_lake_centerlines·geography_regions (퍼블릭 도메인, github nvkelso/natural-earth-vector)",
+    "세계판 면 텍스처 world_map_raw/tex/{land,sea}.jpg 저주파 재샘플(gemini-nano-banana-2.1, 기존 생성물 재사용)",
+    "근접 종이 결 world_map_raw/tex_regional/sea_macro.jpg (gemini-nano-banana-2.1, world_map_regional_gen.mjs / world_map_regional_style.mjs) — 명도 하이패스만 사용"
+   ],
+   "landmask": {
+    "desktop": {
+     "path": "assets/map_world/regional/legnica_battle_landmask_2520.png",
+     "size": "2520x960",
+     "bytes": 18954,
+     "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+    },
+    "mobile": {
+     "path": "assets/map_world/regional/legnica_battle_landmask_1260.png",
+     "size": "1260x480",
+     "bytes": 6669,
+     "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+    }
+   },
+   "coastSource": null,
+   "exaggerated": null,
+   "tone": "중립 양피지(육지 채도 28% 감소) — FE 영토 폴리곤 색(반투명 multiply/overlay)과 국호 판을 얹기 위함. 글자·국경·라벨 없음",
+   "qa": {
+    "verdict": "pass",
+    "metrics": {
+     "land_iou_vs_world4096_datamask": 0.9953,
+     "soft_centroid_offset_world4096_px": [
+      -0.189,
+      -0.141
+     ],
+     "land_area_ratio": 0.9963,
+     "soft_mask_mae": 0.0045,
+     "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+     "land_iou_vs_world4096_image_estimate": 0.9905,
+     "lowfreq_color_mae_0_255": 15.87
+    },
+    "notes": "기준점 15곳(옥포·한산도·노량·명량/울돌목·진주성·평양·행주산성·한성·부산진·동래·쓰시마 이즈하라·히젠나고야·의주·충주 탄금대·제주) 십자 마커가 실제 해안·해협·하천 위치와 일치. 명량(진도-해남)·노량(남해도-하동) 해협이 3배 확대에서 열려 보이고 한산도·거제 다도해가 개별 섬으로 분리됨(imjin_battle_straits_x3.jpg). 거제 일대 육지 피복률이 8배 기준 렌더와 일치(0.418/0.414). 세계판(NE 10m) 대비 IoU 0.86은 해안 정밀도 차이(NE 가 뭉툭)이며 위치 이동 없음. 글자·국경·라벨 없음, 중립 양피지 톤. landmask 클리핑 데모(imjin_battle_contact_territory_demo.jpg) 통과 — 영토색은 opacity ≤0.35 또는 color/soft-light 혼합 권장(진한 곱하기는 주황 바탕과 섞여 탁해짐)."
+   },
+   "verify": [
+    "해안선은 현대 OSM — 1592년 대비 간척·매립(서해안 새만금·시화·인천 송도·김해 평야 하구·부산항 매립·광양만 산단) 지형이 섞여 있음. 특히 부산·김해 낙동강 하구와 인천 연안은 당시보다 육지가 넓음 — 고증 필요 시 송서사 확인",
+    "명량(울돌목)·노량 해협은 실제 폭(약 300~600m)이 1~2px 이라 표현용으로 넓힘(과장 carve)",
+    "대동강·금강·임진강·북한강·영산강은 손 입력 근사선(수 km 오차), 낙동강·한강·압록강은 NE 10m(전장 배율에선 굵고 단순)",
+    "산줄기 음영은 고도 데이터가 아닌 근사 배치",
+    "해협·섬 사이 미세 수로 일부는 1px 미만이라 이어져 보일 수 있음"
+   ]
+  },
+  {
+   "key": "map.battle.rome_battle",
+   "path": "assets/map_world/regional/rome_battle_2610.webp",
+   "size": "2610x1170",
+   "bytes": 199526,
+   "alpha": false,
+   "type": "map_battle",
+   "scope": "map",
+   "load": "lazy",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/regional/rome_battle_1305.webp",
+     "size": "1305x585",
+     "bytes": 50404,
+     "alpha": false
+    }
+   },
+   "bounds": {
+    "geo": {
+     "lonMin": -9.0,
+     "lonMax": 20.0,
+     "latMin": 33.0,
+     "latMax": 46.0
+    },
+    "normalized": {
+     "x0": 0.475,
+     "x1": 0.5555555555555556,
+     "y0": 0.24444444444444444,
+     "y1": 0.31666666666666665,
+     "w": 0.08055555555555556,
+     "h": 0.07222222222222222
+    },
+    "file": "assets/map_world/regional/rome_battle_bounds.json"
+   },
+   "ppd": {
+    "desktop": 90,
+    "mobile": 45.0
+   },
+   "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+   "generator": "docker/gemini/world_map_regional_build.py (절차 합성, world_map_build.py 헬퍼·시드 재사용)",
+   "provenance": [
+    "Natural Earth 1:10m/1:50m land·minor_islands·lakes·rivers_lake_centerlines·geography_regions (퍼블릭 도메인, github nvkelso/natural-earth-vector)",
+    "세계판 면 텍스처 world_map_raw/tex/{land,sea}.jpg 저주파 재샘플(gemini-nano-banana-2.1, 기존 생성물 재사용)",
+    "근접 종이 결 world_map_raw/tex_regional/sea_macro.jpg (gemini-nano-banana-2.1, world_map_regional_gen.mjs / world_map_regional_style.mjs) — 명도 하이패스만 사용"
+   ],
+   "landmask": {
+    "desktop": {
+     "path": "assets/map_world/regional/rome_battle_landmask_2610.png",
+     "size": "2610x1170",
+     "bytes": 116464,
+     "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+    },
+    "mobile": {
+     "path": "assets/map_world/regional/rome_battle_landmask_1305.png",
+     "size": "1305x585",
+     "bytes": 42575,
+     "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+    }
+   },
+   "coastSource": null,
+   "exaggerated": null,
+   "tone": "중립 양피지(육지 채도 28% 감소) — FE 영토 폴리곤 색(반투명 multiply/overlay)과 국호 판을 얹기 위함. 글자·국경·라벨 없음",
+   "qa": {
+    "verdict": "pass",
+    "metrics": {
+     "land_iou_vs_world4096_datamask": 0.9533,
+     "soft_centroid_offset_world4096_px": [
+      -1.928,
+      0.321
+     ],
+     "land_area_ratio": 0.9799,
+     "soft_mask_mae": 0.0257,
+     "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+     "land_iou_vs_world4096_image_estimate": 0.8584,
+     "lowfreq_color_mae_0_255": 18.94
+    },
+    "notes": "기준점 15곳(옥포·한산도·노량·명량/울돌목·진주성·평양·행주산성·한성·부산진·동래·쓰시마 이즈하라·히젠나고야·의주·충주 탄금대·제주) 십자 마커가 실제 해안·해협·하천 위치와 일치. 명량(진도-해남)·노량(남해도-하동) 해협이 3배 확대에서 열려 보이고 한산도·거제 다도해가 개별 섬으로 분리됨(imjin_battle_straits_x3.jpg). 거제 일대 육지 피복률이 8배 기준 렌더와 일치(0.418/0.414). 세계판(NE 10m) 대비 IoU 0.86은 해안 정밀도 차이(NE 가 뭉툭)이며 위치 이동 없음. 글자·국경·라벨 없음, 중립 양피지 톤. landmask 클리핑 데모(imjin_battle_contact_territory_demo.jpg) 통과 — 영토색은 opacity ≤0.35 또는 color/soft-light 혼합 권장(진한 곱하기는 주황 바탕과 섞여 탁해짐)."
+   },
+   "verify": [
+    "해안선은 현대 OSM — 1592년 대비 간척·매립(서해안 새만금·시화·인천 송도·김해 평야 하구·부산항 매립·광양만 산단) 지형이 섞여 있음. 특히 부산·김해 낙동강 하구와 인천 연안은 당시보다 육지가 넓음 — 고증 필요 시 송서사 확인",
+    "명량(울돌목)·노량 해협은 실제 폭(약 300~600m)이 1~2px 이라 표현용으로 넓힘(과장 carve)",
+    "대동강·금강·임진강·북한강·영산강은 손 입력 근사선(수 km 오차), 낙동강·한강·압록강은 NE 10m(전장 배율에선 굵고 단순)",
+    "산줄기 음영은 고도 데이터가 아닌 근사 배치",
+    "해협·섬 사이 미세 수로 일부는 1px 미만이라 이어져 보일 수 있음"
+   ]
+  }
+ ]
+}

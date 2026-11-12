@@ -1,0 +1,30 @@
+{
+ "_note": "속성 시스템 첫 증분(2026-11-04). 내성 값 resist(%) 양수=받는 속성 피해 감소, 음수=약점(증가). 속성 배율 = 1 - 합산 내성%/100, 합산은 resist_clamp(+-50)로 제한. 합산 = 병종 + 피격자 타일 지형 + 영웅 + 장비(장비 가산은 다음 증분). 수치는 시작값(미측정). 연소·날씨는 이번 제외.",
+ "version": 1,
+ "resist_clamp": 50,
+ "elements": [
+  {"code": "fire", "name_ko": "불"},
+  {"code": "thunder", "name_ko": "번개"},
+  {"code": "water_ice", "name_ko": "물·얼음"},
+  {"code": "poison", "name_ko": "독"}
+ ],
+ "unit_type_resist": {
+  "cavalry": {"fire": -20, "thunder": -10},
+  "flyer": {"fire": -30},
+  "naval": {"fire": -30, "thunder": -20, "water_ice": 20},
+  "monster": {"fire": 30, "poison": 30},
+  "mage": {"thunder": 10}
+ },
+ "terrain_resist": {
+  "forest": {"fire": -20},
+  "swamp": {"fire": 10, "poison": -10},
+  "snow_desert": {"fire": 20, "water_ice": -10},
+  "sand": {"fire": 20},
+  "water": {"fire": 50, "thunder": -20},
+  "shallows": {"fire": 30, "thunder": -20},
+  "sea": {"fire": 50, "thunder": -20},
+  "reef": {"fire": 30},
+  "harbor": {"fire": 30}
+ },
+ "hero_resist": {}
+}

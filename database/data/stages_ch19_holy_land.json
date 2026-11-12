@@ -1,0 +1,2338 @@
+{
+ "_note": "[임밸런 / 초안] ch19 성지를 둘러싼 해 스테이지 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 좌표 채움 완료(2026-11-03, maps_ch19_holy_land.json): cells/x/y/tiles/waypoints 채움, zone_ref 는 tiles/rect 로 치환(엔진 규칙), spawn 후보 칸 <=12. map_requirements 의 zone_ref 문구는 설명용. 시드 미적재.",
+ "version": 1,
+ "chapter": 19,
+ "shelf_code": "ch19",
+ "status": "map_filled",
+ "items": [
+  {
+   "code": "ch19_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군",
+     "enemy": "십자군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "saladin",
+      "x": 15,
+      "y": 21,
+      "must_survive": true
+     }
+    ],
+    "enemy_commander": {
+     "name": "고립 십자군 기사대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          16,
+          7
+         ],
+         [
+          16,
+          8
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "well_cut",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "well_cut"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        9,
+        14
+       ],
+       [
+        10,
+        14
+       ],
+       [
+        11,
+        14
+       ],
+       [
+        12,
+        14
+       ],
+       [
+        13,
+        14
+       ],
+       [
+        14,
+        14
+       ],
+       [
+        15,
+        14
+       ],
+       [
+        16,
+        14
+       ],
+       [
+        17,
+        14
+       ],
+       [
+        18,
+        14
+       ],
+       [
+        19,
+        14
+       ],
+       [
+        20,
+        14
+       ],
+       [
+        21,
+        14
+       ],
+       [
+        22,
+        14
+       ],
+       [
+        23,
+        14
+       ],
+       [
+        24,
+        14
+       ]
+      ],
+      "to": "snow_desert"
+     },
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "type": "flag",
+        "key": "well_cut"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        27,
+        17
+       ],
+       [
+        28,
+        17
+       ]
+      ],
+      "tag": "ayyub",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "saladin",
+      "type": "unit_survive",
+      "unit": "hero:saladin",
+      "label": "살라딘을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "마지막 우물을 막는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         16,
+         7
+        ],
+        [
+         16,
+         8
+        ]
+       ]
+      }
+     },
+     {
+      "label": "고립 부대를 격파한다",
+      "latch": false,
+      "when": {
+       "type": "alive_count",
+       "side": "b",
+       "op": "eq",
+       "value": 0,
+       "kind": "any"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "saladin_down",
+      "label": "살라딘이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:saladin"
+      }
+     }
+    ]
+   },
+   "name": "하틴",
+   "year_label": "1187년",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_ch19_s1_hattin",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 16,
+   "enemy_level": 16,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 11,
+   "difficulty": 6,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "saladin"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "고립 십자군 기사대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       11,
+       10
+      ],
+      [
+       12,
+       10
+      ],
+      [
+       11,
+       9
+      ],
+      [
+       12,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "고립 십자군 기사",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "고립 십자군 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       20,
+       10
+      ],
+      [
+       21,
+       10
+      ],
+      [
+       20,
+       9
+      ],
+      [
+       21,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "고립 십자군 창병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_raymond_tripoli",
+      "display_name_ko": "트리폴리 백작 레몽 3세",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       11
+      ],
+      [
+       16,
+       10
+      ],
+      [
+       15,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "고립 십자군 기병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "고립 십자군 석궁대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       9,
+       7
+      ],
+      [
+       9,
+       6
+      ],
+      [
+       8,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "고립 십자군 석궁병",
+     "hold_until_turn": 2
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 14,
+   "enemy_units_peak": 14,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      11,
+      10
+     ],
+     "name": "고립 십자군 기사대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      9
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      20,
+      10
+     ],
+     "name": "고립 십자군 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      20,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      16,
+      11
+     ],
+     "ref": "npc_raymond_tripoli",
+     "kind": "npc",
+     "name": "트리폴리 백작 레몽 3세"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      15,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      9,
+      7
+     ],
+     "name": "고립 십자군 석궁대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      9,
+      6
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      8,
+      7
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1160,
+    "exp": 1682,
+    "gold": 1508,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "saladin"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "68~82 (신호 달성 중앙 약 75, 미달성 약 60)",
+   "sort_order": 1901,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal": "마지막 우물 신호 타일 1~2칸(건조 언덕)",
+     "dry_belt": "적 접근로 평지 12~20칸(terrain_change 대상)",
+     "reinforce_ayyub": "아군 기병 2 출현칸",
+     "saladin_start": "살라딘 시작",
+     "hill": "건조한 언덕",
+     "enemy_deploy": "고립 부대 4구역(언덕 아래 집결)"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal",
+     "well"
+    ],
+    "path_cost": "protagonist_start -> signal <= 14"
+   },
+   "design_notes": [
+    "Lv16 offset -3(eff 13). 적 14기(기사 4·창 4 hold / 기병 3 advance / 석궁 3 hold). 신호(마지막 우물) 도달 -> well_cut: 적 접근로 dry_belt 를 snow_desert 로(foot 비용 1->2: '수원 차단으로 이동 둔화' 의 데이터 치환; 수치형 이동력 감소는 엔진에 없음) + 턴4 아군 기병 2 합류. 신호는 필수(승리 조건 latch) = 수원 차단 완성. 종교 우열 표현 없는 중립 명칭(십자군/아이유브). 살라딘 NPC 신규 행(saladin = saladin 영웅 행 스탯).",
+    "무행동 2턴 즉사 점검(거리·이동력 계산): 엔진은 ai 이름(hold_until_contact 등)을 읽지 않고 hold_until_turn 만 반영하므로, 아군 NPC 첫 피격 >= 적 행동 4번째, 배치 구역 첫 피격 >= 3번째가 되도록 분대 hold_until_turn 을 올림: A None->2, B None->2, C None->3, D None->2",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_raymond_tripoli(convert_C, 발두앵 4세 교체). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 송서사 확정] 발두앵 4세(1185 사망) 배치 철회 -> 레몽 3세(히틴 참전 인물)로 교체.",
+    "[2026-11-04 보정4회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -3->-5, 일반 부대 병사/부대 0기 축소(초기 14->14), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1->1. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch19_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군·퇴거 행렬",
+     "enemy": "약탈 무리"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_cart_1",
+      "x": 15,
+      "y": 5,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         9,
+         7
+        ],
+        [
+         8,
+         14
+        ],
+        [
+         8,
+         20
+        ]
+       ],
+       "from_turn": 4,
+       "move_cap": 4
+      }
+     },
+     {
+      "hero": "npc_cart_2",
+      "x": 16,
+      "y": 5,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         10,
+         7
+        ],
+        [
+         8,
+         13
+        ],
+        [
+         8,
+         20
+        ]
+       ],
+       "from_turn": 5,
+       "move_cap": 4
+      }
+     },
+     {
+      "hero": "npc_balian_ibelin",
+      "x": 17,
+      "y": 7,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "약탈 기병대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          15,
+          13
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "order_1_set",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "flag",
+        "key": "order_1_set"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        10,
+        16
+       ],
+       [
+        11,
+        16
+       ],
+       [
+        10,
+        15
+       ],
+       [
+        11,
+        15
+       ]
+      ],
+      "tag": "escort",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "order_1_set"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            12,
+            18
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "order_2_set",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 5,
+       "when": {
+        "type": "flag",
+        "key": "order_2_set"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        10,
+        16
+       ],
+       [
+        11,
+        16
+       ],
+       [
+        10,
+        15
+       ],
+       [
+        11,
+        15
+       ]
+      ],
+      "tag": "escort",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "c1",
+      "type": "unit_survive",
+      "unit": "hero:npc_cart_1",
+      "label": "퇴거 행렬 1을 지켜라"
+     },
+     {
+      "id": "c2",
+      "type": "unit_survive",
+      "unit": "hero:npc_cart_2",
+      "label": "퇴거 행렬 2를 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "퇴거 행렬 1이 안전 구역에 닿는다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_cart_1",
+       "tiles": [
+        [
+         6,
+         20
+        ],
+        [
+         7,
+         20
+        ],
+        [
+         8,
+         20
+        ],
+        [
+         6,
+         21
+        ],
+        [
+         7,
+         21
+        ],
+        [
+         8,
+         21
+        ]
+       ]
+      }
+     },
+     {
+      "label": "퇴거 행렬 2가 안전 구역에 닿는다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_cart_2",
+       "tiles": [
+        [
+         6,
+         20
+        ],
+        [
+         7,
+         20
+        ],
+        [
+         8,
+         20
+        ],
+        [
+         6,
+         21
+        ],
+        [
+         7,
+         21
+        ],
+        [
+         8,
+         21
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "convoy_down",
+      "label": "퇴거 행렬이 모두 쓰러짐",
+      "when": {
+       "all": [
+        {
+         "type": "defeated",
+         "unit": "hero:npc_cart_1"
+        },
+        {
+         "type": "defeated",
+         "unit": "hero:npc_cart_2"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "name": "예루살렘 퇴거",
+   "year_label": "1187년",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_ch19_s2_jerusalem",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 14,
+   "difficulty": 4,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_balian_ibelin",
+     "npc_cart_1",
+     "npc_cart_2"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "약탈 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       19,
+       17
+      ],
+      [
+       20,
+       17
+      ],
+      [
+       19,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "약탈 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_reynald_chatillon",
+      "display_name_ko": "르노 드 샤티용",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       28,
+       14
+      ],
+      [
+       29,
+       14
+      ],
+      [
+       28,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "길목 방해 보병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "후방 방해 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       3,
+       11
+      ],
+      [
+       4,
+       11
+      ],
+      [
+       3,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "후방 방해 궁병",
+     "hold_until_turn": 5
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 9,
+   "enemy_units_peak": 9,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      19,
+      17
+     ],
+     "name": "약탈 기병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      17
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      16
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      28,
+      14
+     ],
+     "ref": "npc_reynald_chatillon",
+     "kind": "npc",
+     "name": "르노 드 샤티용"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      3,
+      11
+     ],
+     "name": "후방 방해 궁병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      4,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      3,
+      12
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1270,
+    "exp": 1842,
+    "gold": 1651,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "c1"
+    },
+    {
+     "type": "sub_objective",
+     "id": "c2"
+    }
+   ],
+   "win_rate_band_target_pct": "78~90 (전투 최소 스테이지, 중앙 약 84)",
+   "sort_order": 1902,
+   "prerequisite": "ch19_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal_1": "퇴거 순서 지점 1",
+     "signal_2": "퇴거 순서 지점 2",
+     "signal": "signal_1+2 합집합",
+     "safe_zone": "안전 구역 6칸(성문에서 먼 쪽)",
+     "gate": "성문",
+     "retreat_road": "퇴거로 폭 2~3 (행렬 이동 경로 비용 <= 24)",
+     "reinforce_escort": "호위 출현 후보칸 4",
+     "enemy_deploy": "길목 1 + 후방 1 + 약탈 1"
+    },
+    "deploy_zone_count": 5,
+    "tile_tags": [
+     "signal",
+     "safe_zone"
+    ],
+    "path_cost": "cart_start -> safe_zone <= 24; protagonist_start -> signal_1 <= 9, signal_1 -> signal_2 <= 9"
+   },
+   "design_notes": [
+    "Lv17 offset -3(eff 14). 적 9기(약탈 기병 3 advance / 길목 보병 3 hold / 후방 궁 3 hold 5) = 방해 소수. 퇴거 행렬 = npc_cart_1/2 재사용(표시명 수레, 시드 시 '퇴거 행렬' 이름 변경 후보). 신호 flag 로 NPC route 개방: 데이터상 route 시작 턴(4, 6)이 고정이므로 flag 대기 대신 '신호 1 -> 턴3 호위 보병 2, 신호 2 -> 턴5 호위 창 2' 로 치환. 신호(대사 cue 'signal' = 신호1+2 합집합)를 못 들러도 행렬은 출발하나 호위가 없어 방해에 노출. 행렬 route 비용 <= 24(8턴: 턴4 출발 -> 턴12, max 14). 발리앙은 서술 장면용 서 있는 NPC(전투 비참여 권장 = 후보칸 안전 구역 근처).",
+    "맵 확정 후 퇴거 행렬 경로 비용 22/23: 수레2 출발을 턴6->5로 앞당김(도착 턴 12 이내)",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_reynald_chatillon(convert_B). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch19_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군",
+     "enemy": "십자군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "saladin",
+      "x": 33,
+      "y": 14,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_al_afdal",
+      "x": 33,
+      "y": 13,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "병원기사단 후위 지휘관",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          23,
+          11
+         ],
+         [
+          23,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "rear_stretched",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "flag",
+        "key": "rear_stretched"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        5,
+        12
+       ],
+       [
+        6,
+        12
+       ],
+       [
+        5,
+        11
+       ],
+       [
+        6,
+        11
+       ],
+       [
+        5,
+        13
+       ],
+       [
+        6,
+        13
+       ],
+       [
+        5,
+        10
+       ],
+       [
+        6,
+        10
+       ]
+      ],
+      "tag": "charge",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 3
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "flag",
+        "key": "rear_stretched"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        5,
+        12
+       ],
+       [
+        6,
+        12
+       ],
+       [
+        5,
+        11
+       ],
+       [
+        6,
+        11
+       ],
+       [
+        5,
+        13
+       ],
+       [
+        6,
+        13
+       ],
+       [
+        5,
+        10
+       ],
+       [
+        6,
+        10
+       ]
+      ],
+      "tag": "charge",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_eschiva_tiberias",
+      "tiles": [
+       [
+        11,
+        12
+       ],
+       [
+        11,
+        13
+       ],
+       [
+        9,
+        14
+       ],
+       [
+        10,
+        14
+       ],
+       [
+        11,
+        14
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "saladin",
+      "type": "unit_survive",
+      "unit": "hero:saladin",
+      "label": "살라딘을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "후위 지휘관을 쓰러뜨린다",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "saladin_down",
+      "label": "살라딘이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:saladin"
+      }
+     }
+    ]
+   },
+   "name": "아르수프",
+   "year_label": "1191년",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_ch19_s3_arsuf",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -7,
+   "effective_enemy_level": 12,
+   "difficulty": 8,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "saladin",
+     "npc_al_adil",
+     "npc_al_afdal"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "병원기사단 후위 지휘관",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.6
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       9,
+       21
+      ],
+      [
+       9,
+       22
+      ],
+      [
+       9,
+       20
+      ],
+      [
+       8,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "병원기사단 후위 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "richard_i",
+      "display_name_ko": "리처드 1세",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       9,
+       25
+      ],
+      [
+       9,
+       24
+      ]
+     ],
+     "soldier_display_name_ko": "리처드 직속 기사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_gerard_ridefort",
+      "display_name_ko": "제라르 드 리드포르",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       9,
+       3
+      ],
+      [
+       10,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 반격 기병",
+     "hold_until_turn": 5
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_raymond_tripoli",
+      "display_name_ko": "트리폴리 백작 레몽 3세",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       11,
+       16
+      ],
+      [
+       11,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 호송 보병",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 10,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      9,
+      21
+     ],
+     "name": "병원기사단 후위 지휘관"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      9,
+      22
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      9,
+      20
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      8,
+      21
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      9,
+      25
+     ],
+     "ref": "richard_i",
+     "kind": "npc",
+     "name": "리처드 1세"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      9,
+      24
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      9,
+      3
+     ],
+     "ref": "npc_gerard_ridefort",
+     "kind": "npc",
+     "name": "제라르 드 리드포르"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      10,
+      3
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      11,
+      16
+     ],
+     "ref": "npc_raymond_tripoli",
+     "kind": "npc",
+     "name": "트리폴리 백작 레몽 3세"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      15
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1480,
+    "exp": 2146,
+    "gold": 1924,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "saladin"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    }
+   ],
+   "win_rate_band_target_pct": "58~72 (신호 달성 중앙 약 65)",
+   "sort_order": 1903,
+   "prerequisite": "ch19_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "signal": "해안 언덕 신호 타일 1~2칸",
+     "reinforce_charge": "돌격 부대 출현 후보칸 6~12(해안선 쪽)",
+     "coast": "해안선 sea/sand",
+     "hill": "언덕",
+     "saladin_start": "살라딘 시작",
+     "enemy_deploy": "행군 대열 후위 2 + 본대 2 + 반격 1"
+    },
+    "deploy_zone_count": 9,
+    "tile_tags": [
+     "signal",
+     "hill"
+    ],
+    "path_cost": "protagonist_start -> signal <= 16"
+   },
+   "design_notes": [
+    "Lv19 offset -1(eff 18). 적 21기(후위 지휘 4 hp2.0 / 리처드 분대 3 hold / 창 4 / 석궁 4 / 반격 기병 3 hold 5 / 호송 보병 3). 증원 없음. 리처드(richard_i hero 행 A sword 34/-2/7 탱크)는 지휘관이 아닌 '대치 영웅'(hp_mult 1.0)이라 격파 의무 없음. 신호(해안 언덕: 후위가 늘어난 시각) -> rear_stretched -> 아군 돌격 부대(기병 3·창 2)가 턴3 이상에서 출현. 미달성이면 아군 병력 부족 -> 두 봇 측정.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_al_afdal(ally_npcs), npc_raymond_tripoli(convert_F), npc_gerard_ridefort(convert_E), npc_eschiva_tiberias(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정1회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -1->-4, 일반 부대 병사/부대 7기 축소(초기 20->13), 증원 0기 감소, 대장 hp_mult 1.6->1.6. 시작값/needs tuning.",
+    "[2026-11-04 보정2회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -4->-7, 일반 부대 병사/부대 3기 축소(초기 13->10), 증원 0기 감소, advance 부대 1개 hold_until_turn 3, 대장 hp_mult 1.6->1.6. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch19_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군",
+     "enemy": "십자군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "saladin",
+      "x": 24,
+      "y": 6,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_gokbori",
+      "x": 23,
+      "y": 5,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "리처드 1세",
+     "hero": "richard_i"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          15,
+          4
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "halt_1",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "halt_1"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            6,
+            4
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "adil_halted",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 6,
+       "when": {
+        "not": {
+         "type": "flag",
+         "key": "adil_halted"
+        }
+       }
+      },
+      "do": "spawn",
+      "side": "b",
+      "tiles": [
+       [
+        30,
+        14
+       ],
+       [
+        31,
+        14
+       ],
+       [
+        30,
+        15
+       ],
+       [
+        31,
+        15
+       ],
+       [
+        30,
+        13
+       ],
+       [
+        31,
+        13
+       ],
+       [
+        30,
+        16
+       ],
+       [
+        31,
+        16
+       ]
+      ],
+      "tag": "adil_wave",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 3
+     },
+     {
+      "on": {
+       "turn": 6,
+       "when": {
+        "not": {
+         "type": "flag",
+         "key": "adil_halted"
+        }
+       }
+      },
+      "do": "spawn",
+      "side": "b",
+      "tiles": [
+       [
+        30,
+        14
+       ],
+       [
+        31,
+        14
+       ],
+       [
+        30,
+        15
+       ],
+       [
+        31,
+        15
+       ],
+       [
+        30,
+        13
+       ],
+       [
+        31,
+        13
+       ],
+       [
+        30,
+        16
+       ],
+       [
+        31,
+        16
+       ]
+      ],
+      "tag": "adil_wave",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "saladin",
+      "type": "unit_survive",
+      "unit": "hero:saladin",
+      "label": "살라딘을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "아홉 번째 턴까지 버틴다",
+      "latch": false,
+      "when": {
+       "type": "turn_gte",
+       "value": 9
+      }
+     },
+     {
+      "label": "교전선의 십자군을 정리한다",
+      "latch": false,
+      "when": {
+       "type": "alive_count",
+       "side": "b",
+       "op": "lte",
+       "value": 4,
+       "kind": "any"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "saladin_down",
+      "label": "살라딘이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:saladin"
+      }
+     }
+    ]
+   },
+   "name": "야파",
+   "year_label": "1192년",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_ch19_s4_jaffa",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 20,
+   "difficulty": 8,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "saladin",
+     "npc_gokbori"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "richard_i",
+      "display_name_ko": "리처드 1세",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       12,
+       5
+      ],
+      [
+       12,
+       4
+      ],
+      [
+       11,
+       5
+      ],
+      [
+       13,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "리처드 친위 기사"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "야파 수비 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       14,
+       11
+      ],
+      [
+       13,
+       10
+      ],
+      [
+       13,
+       11
+      ],
+      [
+       15,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "야파 수비 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "야파 석궁대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       7,
+       7
+      ],
+      [
+       8,
+       7
+      ],
+      [
+       7,
+       6
+      ],
+      [
+       8,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "야파 석궁병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "야파 반격 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       6,
+       14
+      ],
+      [
+       7,
+       14
+      ],
+      [
+       6,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "야파 반격 기병",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_guy_lusignan",
+      "display_name_ko": "기 드 뤼지냥",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       14
+      ],
+      [
+       14,
+       12
+      ],
+      [
+       15,
+       13
+      ],
+      [
+       12,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "야파 상륙 보병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 19,
+   "enemy_units_peak": 19,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      12,
+      5
+     ],
+     "ref": "richard_i",
+     "kind": "npc",
+     "name": "리처드 1세"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      4
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      5
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      13,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      14,
+      11
+     ],
+     "name": "야파 수비 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      13,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      13,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      15,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      7,
+      7
+     ],
+     "name": "야파 석궁대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      8,
+      7
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      7,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      8,
+      6
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      6,
+      14
+     ],
+     "name": "야파 반격 기병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      7,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      6,
+      13
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      15,
+      14
+     ],
+     "ref": "npc_guy_lusignan",
+     "kind": "npc",
+     "name": "기 드 뤼지냥"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      14,
+      12
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      13
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      14
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1700,
+    "exp": 2465,
+    "gold": 2210,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "saladin"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "58~72 (신호 달성 중앙 약 66, 미달성 약 50)",
+   "sort_order": 1904,
+   "prerequisite": "ch19_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal_1": "항구 신호 지점 1",
+     "signal_2": "해안 신호 지점 2",
+     "signal": "signal_1+2 합집합",
+     "adil_entry": "알아딜 부대 출현 후보칸 6~8(내륙 쪽)",
+     "harbor": "항구",
+     "coast": "해안",
+     "saladin_start": "살라딘 시작",
+     "enemy_deploy": "항구 2구역 + 해안 2 + 반격 1"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal",
+     "harbor"
+    ],
+    "path_cost": "protagonist_start -> signal_1 <= 12, signal_1 -> signal_2 <= 10 (모두 턴6 이전)"
+   },
+   "design_notes": [
+    "Lv21 offset -1(eff 20). 적 초기 19기(리처드 분대 4 / 창 4 / 석궁 4 / 반격 기병 3 hold 4 / 상륙 보병 4). 신호 2곳(알아딜 부대 정지) 달성(adil_halted) 시 알아딜 부대는 나오지 않음, 미달성이면 턴6에 알아딜 부대(기병 3·검 2)가 적측으로 출현 = 아웃라인 '신호 전에는 알아딜 부대 hold, 후 정지'의 역구현. 승리: 턴9 도달 + 적 잔존 4기 이하(교전선 정리). 리처드는 지휘관이지만 격파 의무 없음. 알아딜은 이 스테이지에서는 연출 인물(아군 전열 배치 아님).",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_gokbori(ally_npcs), npc_guy_lusignan(convert_E). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  }
+ ],
+ "npc_needed": {
+  "existing_db": [
+   "npc_al_adil",
+   "baha_ad_din",
+   "npc_balian_ibelin",
+   "npc_guy_lusignan",
+   "npc_cart_1",
+   "npc_cart_2",
+   "richard_i(hero 행)"
+  ],
+  "new_rows": [
+   "saladin"
+  ],
+  "proposal_file": "npc_roster_shelf_ch14_15_19_stats.json"
+ },
+ "engine_checks": [
+  "terrain_change to:'snow_desert' 허용",
+  "enemy leader ref richard_i(hero 행)",
+  "win_conditions 턴 단독 조건(turn_gte)",
+  "when: not flag + 적측 spawn"
+ ]
+}

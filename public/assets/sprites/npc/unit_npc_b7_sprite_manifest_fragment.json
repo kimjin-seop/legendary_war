@@ -1,0 +1,279 @@
+{
+ "note": "강화면 지적 보충: npc_lu_su(노숙, ch12)·npc_torii_suneemon(도리이 스네에몬, ch20) 전용 시트(안아트 2026-11-03). 초상은 기존 키",
+ "generated": "2026-11-03T09:53:42.875Z",
+ "keyRules": {
+  "npc_sprite": "unit.npc.<npc_code>.<ally|enemy>.64.sheet",
+  "reuse_map": {}
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "unit.npc.npc_lu_su.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_lu_su_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_lu_su_ally_sheet.png"
+   },
+   "bytes": 10563,
+   "npc": "npc_lu_su",
+   "name_ko": "노숙",
+   "side": "ally",
+   "npc_default_side": "ally",
+   "culture": "china",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b7_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b7_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b7/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b7_style.mjs S_B4.npc_lu_su",
+   "ref_portrait": "public/assets/portraits/preview/npc_lu_su.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_lu_su.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "뒷모습 칸에서 두루마리가 어깨 위로 올라감(정면과 위치 차)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "복식 일반화(관 형태는 후한 문관관 일반화)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  },
+  {
+   "key": "unit.npc.npc_lu_su.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_lu_su_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_lu_su_enemy_sheet.png"
+   },
+   "bytes": 10338,
+   "npc": "npc_lu_su",
+   "name_ko": "노숙",
+   "side": "enemy",
+   "npc_default_side": "ally",
+   "culture": "china",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b7_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b7_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b7/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b7_style.mjs S_B4.npc_lu_su",
+   "ref_portrait": "public/assets/portraits/preview/npc_lu_su.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_lu_su.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "뒷모습 칸에서 두루마리가 어깨 위로 올라감(정면과 위치 차)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "복식 일반화(관 형태는 후한 문관관 일반화)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  },
+  {
+   "key": "unit.npc.npc_torii_suneemon.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_torii_suneemon_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_torii_suneemon_ally_sheet.png"
+   },
+   "bytes": 10282,
+   "npc": "npc_torii_suneemon",
+   "name_ko": "도리이 스네에몬",
+   "side": "ally",
+   "npc_default_side": "ally",
+   "culture": "japan",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.japan.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b7_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b7_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b7/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b7_style.mjs S_B4.npc_torii_suneemon",
+   "ref_portrait": "public/assets/portraits/npc/npc_torii_suneemon.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_torii_suneemon.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "evidence accepted. 전령 복장은 appearance 일반화. 처형 장면 표현 없음",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  },
+  {
+   "key": "unit.npc.npc_torii_suneemon.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_torii_suneemon_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_torii_suneemon_enemy_sheet.png"
+   },
+   "bytes": 10111,
+   "npc": "npc_torii_suneemon",
+   "name_ko": "도리이 스네에몬",
+   "side": "enemy",
+   "npc_default_side": "ally",
+   "culture": "japan",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.japan.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b7_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b7_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b7/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b7_style.mjs S_B4.npc_torii_suneemon",
+   "ref_portrait": "public/assets/portraits/npc/npc_torii_suneemon.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_torii_suneemon.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "evidence accepted. 전령 복장은 appearance 일반화. 처형 장면 표현 없음",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  }
+ ]
+}

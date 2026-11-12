@@ -1,0 +1,211 @@
+{
+ "_note": "스킬 아이콘 manifest 조각(안아트, 2026-11-03 개정). manifest 에는 아틀라스 1항목(atlas.skill_icons)만 등록하고 개별 PNG(48/·96/)는 소스로 보관(개별 로드 금지). 프레임명 = skill.<skill_code>, 코드별 메타(계열·프레임 종류·QA)는 skill_icon_map.json. 픽셀아트: NEAREST, 정수 배율만.",
+ "generatedAt": "2026-11-04T05:59:14.178188+00:00",
+ "basePath": "public",
+ "rules": {
+  "frame": {
+   "active": "금 프레임 + 팔각(모서리 5px 깎음)",
+   "passive": "은 프레임 + 사각(모서리 2px 깎음)",
+   "conditional": "패시브 중 발동 조건 템플릿은 우상단 보라 마름모(7x7)",
+   "aura": "지휘관 오라(auras·공유 오라 au_*)는 원형 청동 프레임(모티프 30px)"
+  },
+  "category_by_template": {
+   "aoe": [
+    "T_ACTIVE_AOE"
+   ],
+   "atk": [
+    "T_ACTIVE_PIERCE",
+    "T_ACTIVE_STRIKE",
+    "T_ATK_UP",
+    "T_AURA_ATK",
+    "T_CHARGE",
+    "T_COUNTER_ATK",
+    "T_FIRST_STRIKE",
+    "T_PURSUIT",
+    "T_SIEGE_ATK",
+    "T_VS_TYPE_ATK"
+   ],
+   "cmd": [
+    "T_ACTIVE_BUFF",
+    "T_FORMATION"
+   ],
+   "def": [
+    "T_ACTIVE_STANCE",
+    "T_AURA_DEF",
+    "T_DEF_UP",
+    "T_MATCHUP_NEGATE",
+    "T_TERRAIN_DEF"
+   ],
+   "heal": [
+    "T_ACTIVE_HEAL",
+    "T_HEAL_UP",
+    "T_REGEN"
+   ],
+   "hyb": [
+    "T_ATKDEF_HYBRID",
+    "T_AURA_BOTH",
+    "T_AURA_WIDE_BOTH",
+    "T_LAST_STAND",
+    "T_TERRAIN_MASTER"
+   ],
+   "move": [
+    "T_ACTIVE_SURGE",
+    "T_MOVE_UP"
+   ],
+   "trick": [
+    "T_ACTIVE_DECOY"
+   ]
+  },
+  "category_colors": {
+   "atk": {
+    "outer": "#2E1414",
+    "disk": "#5A2A26",
+    "accent": "#E0503F",
+    "accent_vs_outer_contrast": 4.39
+   },
+   "def": {
+    "outer": "#121E38",
+    "disk": "#2A4268",
+    "accent": "#5A9AF0",
+    "accent_vs_outer_contrast": 5.77
+   },
+   "heal": {
+    "outer": "#10281A",
+    "disk": "#285238",
+    "accent": "#5AD078",
+    "accent_vs_outer_contrast": 8.0
+   },
+   "move": {
+    "outer": "#0E2A2E",
+    "disk": "#215A5E",
+    "accent": "#46D6D2",
+    "accent_vs_outer_contrast": 8.5
+   },
+   "aoe": {
+    "outer": "#33190A",
+    "disk": "#66381A",
+    "accent": "#FF9A36",
+    "accent_vs_outer_contrast": 7.73
+   },
+   "cmd": {
+    "outer": "#262219",
+    "disk": "#4A4232",
+    "accent": "#F4EEDC",
+    "accent_vs_outer_contrast": 13.67
+   },
+   "trick": {
+    "outer": "#1A1B30",
+    "disk": "#3A3D60",
+    "accent": "#AAB4DA",
+    "accent_vs_outer_contrast": 8.24
+   }
+  },
+  "hyb": "공수 혼합(T_ATKDEF_HYBRID·T_LAST_STAND)은 배경판을 대각선으로 분할(왼쪽 위 atk 적색 / 오른쪽 아래 def 청색)",
+  "conditional_templates": [
+   "T_CHARGE",
+   "T_COUNTER_ATK",
+   "T_FIRST_STRIKE",
+   "T_FORMATION",
+   "T_LAST_STAND",
+   "T_MATCHUP_NEGATE",
+   "T_PURSUIT",
+   "T_SIEGE_ATK",
+   "T_TERRAIN_DEF",
+   "T_TERRAIN_MASTER",
+   "T_VS_TYPE_ATK"
+  ],
+  "frame_colors": {
+   "active": [
+    "#1A1206",
+    "#F3DC8E",
+    "#D9B45A",
+    "#8A6A1E"
+   ],
+   "passive": [
+    "#14161E",
+    "#EEF2F6",
+    "#AEB8C6",
+    "#5E6878"
+   ],
+   "aura": [
+    "#1A0E08",
+    "#F2C9A0",
+    "#C8875A",
+    "#7A4526"
+   ]
+  },
+  "gem_colors": [
+   "#2A0E3A",
+   "#E9C6FA",
+   "#B06AD8",
+   "#6A2F8C"
+  ],
+  "size": "48x48 @1x, 96x96 @2x(NEAREST 2배). 모티프 36px(오라 30px)+1px 외곽선, 안쪽 판 42px. 아틀라스 칸 사이 투명 여백 2px(@2x 4px) = 번짐 방지",
+  "fallback": {
+   "order": [
+    "skill.<code>",
+    "skill.default_<unit_type> (액티브, 영웅 병종)",
+    "skill.sh_atk_m (패시브 공격계) / skill.sh_def_m (방어계) / skill.sh_heal_m (치유계) / skill.sh_hyb_m (그 외 패시브)",
+    "skill.aura_both (오라)"
+   ],
+   "note": "category_by_template 로 계열을 구해 같은 계열 sh_*_m 을 쓰면 색 체계가 유지됨. 끝까지 없으면 아이콘 칸 숨김(빈 사각 금지)"
+  }
+ },
+ "items": [
+  {
+   "key": "atlas.skill_icons",
+   "textureKey": "skill_icons",
+   "type": "atlas",
+   "scope": "skill",
+   "deferred": true,
+   "unitPx": 2,
+   "alpha": true,
+   "filter": "NEAREST",
+   "path": "assets/skill_icons/atlas/skill_icons@2x.png",
+   "json": "assets/skill_icons/atlas/skill_icons@2x.json",
+   "size": [
+    2080,
+    2184
+   ],
+   "bytes": 906119,
+   "cell": 96,
+   "pad": 4,
+   "cols": 20,
+   "frames": 409,
+   "variants": {
+    "1x": {
+     "unitPx": 1,
+     "path": "assets/skill_icons/atlas/skill_icons@1x.png",
+     "json": "assets/skill_icons/atlas/skill_icons@1x.json",
+     "size": [
+      1040,
+      1092
+     ],
+     "bytes": 739958,
+     "cell": 48,
+     "pad": 2
+    }
+   },
+   "frameMap": "assets/skill_icons/skill_icon_map.json",
+   "keyRule": "프레임명 skill.<skill_code> (DB skills.code / default_active_skills by_unit_type.*.code / auras.code / 공유 au_*·sh_*). 프레임 없으면 skill_icon_map.json rules.fallback 참고",
+   "loadHints": "Phaser: ensureSkinTexture(scene, \"skill_icons\", cb) 로 지연 로드(scope skill). 기본 경로 = @2x(96px 칸, 2px*2 투명 여백), variants.1x = 48px 칸. 표시 48px -> @2x 를 0.5 또는 @1x 를 1.0, 96px -> @2x 1.0, 24px -> @1x 0.5. texture.setFilter(NEAREST). 프레임 조회: scene.textures.get(\"skill_icons\").has(\"skill.\" + code)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/skill_icon_gen.mjs + style_skill_icons.mjs -> skill_icon_pp.py -> skill_icon_build.py",
+    "sheets": "public/assets/skill_icons/raw/{sk01..sk18,rgA01..rgD01,nx01,nx02}.jpg"
+   },
+   "prompt_ref": "docker/gemini/skill_icon_motifs.json + style_skill_icons.mjs SKILL_ICON_STYLE/NEG",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함), 후처리(다운샘플·양자화·프레임)는 자체 코드. 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "verdicts": {
+     "pass": 306,
+     "unreviewed": 103
+    },
+    "auto_issues": 0
+   },
+   "verify": true
+  }
+ ]
+}

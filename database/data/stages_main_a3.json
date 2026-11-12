@@ -1,0 +1,1522 @@
+{
+ "_note": "[박백엔 초안 v0, 2026-11-03] 오리지널 메인 3막 ch103_s1~s5 시드 입력(game:seed-main --act=3). cues = act3_cues_draft + act3_cues_coords 병합(1·2막과 같은 규칙; hero:147 -> hero:heo_jun; e5-E6 지휘관 격파 시 retreat 4건은 승리와 동시라 도달 불가해 제외; pending_cues(배 2·수레)는 제외). ally_npcs 는 맵 meta.npc_tiles(수레 cart_1/2·boat_2 제외). 3-5 첫 클리어 join_hero joan_of_arc. 보상·적 편성·레벨·턴 수는 임시값(임밸런 후속). 엔진 미지원: 도달+격파 AND 판정, 배 도달만 인정하는 판정, 3-5 문 선통과 금지.",
+ "version": 1,
+ "status": "draft",
+ "act": 3,
+ "chapter": 103,
+ "items": [
+  {
+   "code": "ch103_s1",
+   "chapter": 103,
+   "name": "성벽 아래의 짐수레",
+   "map": "main_a3_1_wall_road",
+   "objective": {
+    "type": "capture",
+    "points": "map",
+    "mode": "any",
+    "hold_turns": 0,
+    "by": "any_unit"
+   },
+   "triggers": [],
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "enemy_squad": {
+    "code": "e_ch103_s1_v0",
+    "name": "성벽 공백병(임시)",
+    "culture": null,
+    "commander": {
+     "display_name_ko": "공백병 선임",
+     "unit_type": "sword",
+     "troop_type": "sword",
+     "hp_mult": 1,
+     "atk_mult": 1,
+     "def_mult": 1,
+     "aura": null,
+     "skills": []
+    },
+    "units": [],
+    "soldier_display_name_ko": "공백병",
+    "squads": [
+     {
+      "id": "spear",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "spear",
+       "troop_type": "spear",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "spear"
+      ],
+      "soldier_display_name_ko": "공백병"
+     },
+     {
+      "id": "bow",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "archer",
+       "troop_type": "archer",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "archer"
+      ],
+      "soldier_display_name_ko": "공백병"
+     }
+    ]
+   },
+   "recommended_level": 10,
+   "enemy_level": 6,
+   "enemy_level_offset": 4,
+   "difficulty": 5,
+   "sort_order": 10301,
+   "prerequisite": "ch102_s5",
+   "reward": {
+    "exp": 1300,
+    "user_exp": 460,
+    "gold": 1000
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "mabu"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "rules": {
+    "factions": {
+     "ally": "순회원과 오를레앙 사람들",
+     "enemy": "공백병"
+    },
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       17,
+       6
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "성벽 위에서 누군가 외치는 소리가 바람에 실려 온다."
+     },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_mabu", "expr": "neutral", "text": "짐수레 여덟 대를 문 안으로 들여야 해요. 해가 지면 문이 닫혀요." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레를 한 줄로 세우겠습니다. 길이 좁아 앞 수레가 멈추면 전부 멈춥니다." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "성벽 위에서 누가 외치는지 모르겠어. 우리 쪽이면 좋겠는데." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "확인하는 동안 수레는 멈추지 않습니다. 문 쪽부터 열어 두겠습니다." },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "hero:npc_mabu",
+      "expr": "neutral",
+      "text": "해가 기울어요. 문 닫히기 전에 들어가야 해요."
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       17,
+       6
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "sfx",
+      "key": "sfx_move_step"
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "say",
+      "speaker": "hero:npc_mabu",
+      "expr": "neutral",
+      "text": "문이 보여요. 해가 아직 남았어요."
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_jieum",
+      "expr": "neutral",
+      "text": "진창 칸에는 기병이 들어가지 못하고 보병도 발이 묶입니다. 수레 줄을 마른 칸으로 한 줄로 세우십시오."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_mabu",
+      "expr": "neutral",
+      "text": "큰길 바닥이 질어졌어요!"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "sfx",
+      "key": "sfx_battle_rumble"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        7,
+        6
+       ],
+       [
+        8,
+        6
+       ],
+       [
+        9,
+        6
+       ]
+      ],
+      "to": "swamp"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "hero:npc_jieum",
+      "expr": "neutral",
+      "text": "척후가 큰길 앞쪽에서 접근합니다."
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "move",
+      "unit": "UNIT@13,3",
+      "to": [
+       12,
+       7
+      ]
+     }
+    ],
+    "ally_npcs": [
+     {
+      "hero": "npc_mabu",
+      "x": 4,
+      "y": 6,
+      "must_survive": false,
+      "route": {
+       "waypoints": [
+        [
+         13,
+         5
+        ]
+       ],
+       "from_turn": 1,
+       "move_cap": 2
+      }
+     },
+     {
+      "hero": "npc_cart_1",
+      "x": 3,
+      "y": 6,
+      "must_survive": true,
+      "unit_type": "sword",
+      "route": {
+       "waypoints": [
+        [
+         17,
+         6
+        ]
+       ],
+       "from_turn": 1,
+       "move_cap": 3
+      }
+     },
+     {
+      "hero": "npc_cart_2",
+      "x": 3,
+      "y": 7,
+      "must_survive": true,
+      "unit_type": "sword",
+      "route": {
+       "waypoints": [
+        [
+         17,
+         7
+        ]
+       ],
+       "from_turn": 1,
+       "move_cap": 3
+      }
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "mabu",
+      "type": "unit_survive",
+      "unit": "hero:npc_mabu",
+      "label": "마부를 지켜라"
+     },
+     {
+      "id": "cart_1",
+      "type": "unit_survive",
+      "unit": "hero:npc_cart_1",
+      "label": "앞 수레를 지켜라"
+     },
+     {
+      "id": "cart_2",
+      "type": "unit_survive",
+      "unit": "hero:npc_cart_2",
+      "label": "뒤 수레를 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "앞 수레가 성문에 도달",
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_cart_1",
+       "rect": [
+        16,
+        6,
+        17,
+        7
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "code": "ch103_s2",
+   "chapter": 103,
+   "name": "진창의 보병",
+   "map": "su_ch103_s2_mud_plain",
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "triggers": [],
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "enemy_squad": {
+    "code": "e_ch103_s2_v0",
+    "name": "진창 평원 공백병(임시)",
+    "culture": null,
+    "commander": {
+     "display_name_ko": "공백병 기병장",
+     "unit_type": "cavalry",
+     "troop_type": "cavalry",
+     "hp_mult": 1.4,
+     "atk_mult": 1,
+     "def_mult": 1,
+     "aura": null,
+     "skills": []
+    },
+    "units": [
+     "cavalry"
+    ],
+    "soldier_display_name_ko": "공백병",
+    "squads": [
+     {
+      "id": "spear",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "spear",
+       "troop_type": "spear",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "spear"
+      ],
+      "soldier_display_name_ko": "공백병"
+     },
+     {
+      "id": "bow",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "archer",
+       "troop_type": "archer",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "archer",
+       "archer"
+      ],
+      "soldier_display_name_ko": "공백병"
+     }
+    ]
+   },
+   "recommended_level": 11,
+   "enemy_level": 10,
+   "enemy_level_offset": 0,
+   "difficulty": 5,
+   "sort_order": 10302,
+   "prerequisite": "ch103_s1",
+   "reward": {
+    "exp": 1500,
+    "user_exp": 500,
+    "gold": 1100
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "bobyeong"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "rules": {
+    "factions": {
+     "ally": "순회원과 오를레앙 사람들",
+     "enemy": "공백병"
+    },
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "비에 젖은 들판에서 말발굽 소리가 낮게 깔린다."
+     },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "들판 절반이 진창입니다. 기병은 진창에 들어가면 발이 빠집니다." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "보병이 진창 칸에 서겠습니다. 말이 몰려오는 쪽을 그쪽으로 돌립니다." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:heo_jun", "expr": "neutral", "text": "다친 분이 생기면 마른 땅으로 옮기시오. 진창에 두면 상처가 더 나빠집니다." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "마른 땅을 먼저 확인하겠습니다. 표시를 남겨 두겠습니다." },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "hero:npc_jieum",
+      "expr": "neutral",
+      "text": "진창 칸에는 기병이 들어가지 못합니다."
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "hero:heo_jun",
+      "expr": "neutral",
+      "text": "다친 분은 마른 땅으로 오시오. 내가 보겠습니다."
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       17,
+       10
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "진창 속에서 낡은 신발 한 짝이 모습을 드러낸다."
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_bobyeong",
+      "expr": "neutral",
+      "text": "앉았다! 저놈들 앉았다!"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "sfx",
+      "key": "sfx_battle_fall"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "move",
+      "unit": "UNIT@23,9",
+      "to": [
+       20,
+       9
+      ]
+     }
+    ],
+    "ally_npcs": [
+     {
+      "hero": "npc_bobyeong",
+      "x": 8,
+      "y": 12,
+      "must_survive": false
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "bobyeong",
+      "type": "unit_survive",
+      "unit": "hero:npc_bobyeong",
+      "label": "보병을 지켜라"
+     }
+    ]
+   }
+  },
+  {
+   "code": "ch103_s3",
+   "chapter": 103,
+   "name": "강가의 뱃사공",
+   "map": "su_ch103_s3_loire_ford",
+   "objective": {
+    "type": "capture",
+    "points": "map",
+    "mode": "any",
+    "hold_turns": 0,
+    "by": "any_unit"
+   },
+   "triggers": [],
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "enemy_squad": {
+    "code": "e_ch103_s3_v0",
+    "name": "강둑 공백병(임시)",
+    "culture": null,
+    "commander": {
+     "display_name_ko": "공백병 선임",
+     "unit_type": "sword",
+     "troop_type": "sword",
+     "hp_mult": 1.4,
+     "atk_mult": 1,
+     "def_mult": 1,
+     "aura": null,
+     "skills": []
+    },
+    "units": [
+     "sword",
+     "sword",
+     "sword",
+     "sword"
+    ],
+    "soldier_display_name_ko": "공백병",
+    "squads": [
+     {
+      "id": "spear",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "spear",
+       "troop_type": "spear",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "spear",
+       "spear",
+       "spear",
+       "spear"
+      ],
+      "soldier_display_name_ko": "공백병",
+      "cells": [
+       [
+        20,
+        8
+       ],
+       [
+        21,
+        7
+       ],
+       [
+        20,
+        3
+       ],
+       [
+        25,
+        7
+       ],
+       [
+        30,
+        6
+       ]
+      ]
+     },
+     {
+      "id": "bow",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "archer",
+       "troop_type": "archer",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "archer",
+       "archer",
+       "archer",
+       "archer"
+      ],
+      "soldier_display_name_ko": "공백병",
+      "cells": [
+       [
+        21,
+        16
+       ],
+       [
+        20,
+        15
+       ],
+       [
+        20,
+        20
+       ],
+       [
+        25,
+        16
+       ],
+       [
+        30,
+        21
+       ]
+      ]
+     }
+    ],
+    "cells": [
+     [
+      22,
+      11
+     ],
+     [
+      19,
+      12
+     ],
+     [
+      28,
+      11
+     ],
+     [
+      28,
+      12
+     ],
+     [
+      27,
+      16
+     ]
+    ]
+   },
+   "recommended_level": 12,
+   "enemy_level": 7,
+   "enemy_level_offset": 0,
+   "difficulty": 6,
+   "sort_order": 10303,
+   "prerequisite": "ch103_s2",
+   "reward": {
+    "exp": 1700,
+    "user_exp": 540,
+    "gold": 1200
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "baetsagong"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "rules": {
+    "factions": {
+     "ally": "순회원과 오를레앙 사람들",
+     "enemy": "공백병"
+    },
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "강안개 속에서 노 젓는 소리만 들린다."
+     },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_baetsagong", "expr": "neutral", "text": "나룻배가 둘이에요. 한 번에 건너는 건 열 명까지고요." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "그러면 열 명씩 세어서 보내겠습니다. 이름도 함께 적겠습니다." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_baetsagong", "expr": "neutral", "text": "첫 배는 비워 보내요. 되돌아오면 건너도 된다는 뜻이에요." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "안개 때문에 건너편이 안 보여. 그래도 나는 보이니까 걱정 마." },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "hero:npc_baetsagong",
+      "expr": "neutral",
+      "text": "첫 배는 비워 보내요. 안 돌아오면 아무도 건너지 마요."
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "쪽이의 소맷자락 끝이 안개처럼 흐려 보인다."
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "sfx",
+      "key": "sfx_move_step"
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "say",
+      "speaker": "hero:npc_baetsagong",
+      "expr": "neutral",
+      "text": "하나, 둘. 하나, 둘."
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "expr": "neutral",
+      "text": "배 줄을 붙이겠습니다. 항로로 돌려놓겠습니다."
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "hero:npc_jieum",
+      "expr": "neutral",
+      "text": "배 한 척이 항로를 벗어났습니다."
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "hero:npc_baetsagong",
+      "expr": "neutral",
+      "text": "물살이 이쪽으로 밀어요!"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "move",
+      "unit": "hero:npc_boat_2",
+      "to": [
+       16,
+       14
+      ]
+     }
+    ],
+    "ally_npcs": [
+     {
+      "hero": "npc_baetsagong",
+      "x": 14,
+      "y": 10,
+      "must_survive": true,
+      "unit_type": "naval",
+      "route": {
+       "waypoints": [
+        [
+         18,
+         9
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 2
+      }
+     },
+     {
+      "hero": "npc_boat_2",
+      "x": 14,
+      "y": 9,
+      "must_survive": false,
+      "unit_type": "naval",
+      "route": {
+       "waypoints": [
+        [
+         14,
+         9
+        ]
+       ],
+       "from_turn": 1,
+       "move_cap": 2
+      }
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "baetsagong",
+      "type": "unit_survive",
+      "unit": "hero:npc_baetsagong",
+      "label": "뱃사공을 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "뱃사공의 배가 나루에 도착",
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_baetsagong",
+       "tiles": [
+        [
+         18,
+         9
+        ],
+        [
+         18,
+         10
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "enemyscale_20261103": {
+    "unit_change_raw": "6->15",
+    "companion_exception": "database/data/stage_companions.json stages.ch103_s3.enemy=0",
+    "basis": "docs/BALANCE_UNIT_COUNT_CURVE.md B(L); anchors = maps_scaleup_*.json spawns.b",
+    "status": "starting value / needs remeasure"
+   }
+  },
+  {
+   "code": "ch103_s4",
+   "chapter": 103,
+   "name": "지워진 이름",
+   "map": "su_ch103_s4_clerk_office",
+   "objective": {
+    "type": "capture",
+    "points": "map",
+    "mode": "any",
+    "hold_turns": 3,
+    "by": "any_unit"
+   },
+   "triggers": [],
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "enemy_squad": {
+    "code": "e_ch103_s4_v0",
+    "name": "서기소 공백병(임시)",
+    "culture": null,
+    "commander": {
+     "display_name_ko": "공백병 선임",
+     "unit_type": "sword",
+     "troop_type": "sword",
+     "hp_mult": 1.2,
+     "atk_mult": 1,
+     "def_mult": 1,
+     "aura": null,
+     "skills": []
+    },
+    "units": [
+     "sword"
+    ],
+    "soldier_display_name_ko": "공백병",
+    "squads": [
+     {
+      "id": "spear",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "spear",
+       "troop_type": "spear",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "spear",
+       "spear"
+      ],
+      "soldier_display_name_ko": "공백병"
+     },
+     {
+      "id": "bow",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "archer",
+       "troop_type": "archer",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "archer"
+      ],
+      "soldier_display_name_ko": "공백병"
+     }
+    ]
+   },
+   "recommended_level": 13,
+   "enemy_level": 10,
+   "enemy_level_offset": 0,
+   "difficulty": 6,
+   "sort_order": 10304,
+   "prerequisite": "ch103_s3",
+   "reward": {
+    "exp": 1900,
+    "user_exp": 580,
+    "gold": 1300
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "jjogi"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "rules": {
+    "factions": {
+     "ally": "순회원과 오를레앙 사람들",
+     "enemy": "공백병"
+    },
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       21,
+       6
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "문서함 서랍이 벽을 따라 줄지어 있고 일곱째 칸에만 먼지가 없다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_jieum",
+      "expr": "serious",
+      "text": "'정리 예정.' ……서명란이 비어 있습니다."
+     },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "서명 없이 정리할 수 있는 겁니까." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "serious", "text": "규정상 안 됩니다. 그래서 일곱째 칸만 먼지가 없는 것입니다. 누군가 손댔습니다." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "그 칸 옆에 서 있을게. 열리면 알려 줄 수 있어." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "서랍 앞을 지키겠습니다. 열리기 전에 막아야 합니다." },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "hero:heo_jun",
+      "expr": "neutral",
+      "text": "쪽이, 숨이 가쁘면 말하시오. 맥을 보겠소."
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "쪽이의 손끝이 종이처럼 얇게 비친다."
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       21,
+       6
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "문서함 일곱째 칸에서 낱장 한 장 끝이 보인다."
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_jieum",
+      "expr": "neutral",
+      "text": "문서함 뒤에서 공백병이 나옵니다. 칸 앞을 막으십시오."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "b",
+      "unit_type": "sword",
+      "tiles": [
+       [
+        19,
+        5
+       ],
+       [
+        20,
+        5
+       ],
+       [
+        21,
+        5
+       ],
+       [
+        22,
+        5
+       ]
+      ],
+      "tag": "a3e4_blank",
+      "ready": false
+     }
+    ],
+    "ally_npcs": [
+     {
+      "hero": "npc_jjogi",
+      "x": 11,
+      "y": 16,
+      "must_survive": false
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "jjogi",
+      "type": "unit_survive",
+      "unit": "hero:npc_jjogi",
+      "label": "쪽이를 지켜라"
+     }
+    ]
+   }
+  },
+  {
+   "code": "ch103_s5",
+   "chapter": 103,
+   "name": "대관식의 뒷줄",
+   "map": "su_ch103_s5_cathedral",
+   "objective": {
+    "type": "capture",
+    "points": "map",
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "triggers": [],
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "enemy_squad": {
+    "code": "e_ch103_s5_v0",
+    "name": "성당 앞 공백병(임시)",
+    "culture": null,
+    "commander": {
+     "display_name_ko": "공백병 지휘 개체",
+     "unit_type": "sword",
+     "troop_type": "sword",
+     "hp_mult": 1.2,
+     "atk_mult": 1,
+     "def_mult": 1,
+     "aura": null,
+     "skills": []
+    },
+    "units": [
+     "sword"
+    ],
+    "soldier_display_name_ko": "공백병",
+    "squads": [
+     {
+      "id": "spear",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "spear",
+       "troop_type": "spear",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "spear"
+      ],
+      "soldier_display_name_ko": "공백병"
+     },
+     {
+      "id": "bow",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병",
+       "unit_type": "archer",
+       "troop_type": "archer",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "archer"
+      ],
+      "soldier_display_name_ko": "공백병"
+     },
+     {
+      "id": "hl",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병 치유자",
+       "unit_type": "healer",
+       "troop_type": "healer",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [],
+      "soldier_display_name_ko": "공백병"
+     },
+     {
+      "id": "cv",
+      "role": "sub",
+      "commander": {
+       "display_name_ko": "공백병 기병",
+       "unit_type": "cavalry",
+       "troop_type": "cavalry",
+       "hp_mult": 1,
+       "atk_mult": 1,
+       "def_mult": 1,
+       "aura": null,
+       "skills": []
+      },
+      "units": [
+       "cavalry"
+      ],
+      "soldier_display_name_ko": "공백병"
+     }
+    ]
+   },
+   "recommended_level": 14,
+   "enemy_level": 13,
+   "enemy_level_offset": 4,
+   "difficulty": 6,
+   "sort_order": 10305,
+   "prerequisite": "ch103_s4",
+   "reward": {
+    "exp": 2300,
+    "user_exp": 640,
+    "gold": 1500
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "ilkkun"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "join_hero": [],
+   "rules": {
+    "factions": {
+     "ally": "순회원과 오를레앙 사람들",
+     "enemy": "공백병"
+    },
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       17,
+       9
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "sfx",
+      "key": "sfx_battle_tick"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "성당 문 위로 종소리가 한 번 울린다. 행렬이 멈추었다."
+     },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_ilkkun", "expr": "neutral", "text": "행렬이 문 앞에서 멈췄어요. 안에서는 문을 못 열어요." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "그러면 밖에서 열어야 합니다. 행렬 맨 앞이 누구인지 먼저 확인하겠습니다." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "hero:heo_jun", "expr": "neutral", "text": "행렬에 아픈 분이 섞여 있소. 문 앞이 좁으니 순서를 정하시오." },
+     { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "아픈 분부터 세우겠습니다. 문 앞에 길을 하나 만들어 두겠습니다." },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "hero:npc_ilkkun",
+      "expr": "neutral",
+      "text": "문이 닫히면 안에서는 못 열어요. 서둘러 주세요."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "sfx",
+      "key": "sfx_aura_pulse"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_jieum",
+      "expr": "neutral",
+      "text": "통신선에 신호가 끼었습니다. 이 층의 신호가 아닙니다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_gyojeong",
+      "expr": "neutral",
+      "text": "순회원 여러분, 교정 담당입니다. 첫 장 복원 건으로 직접 연락드렸습니다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_gyojeong",
+      "expr": "neutral",
+      "text": "이름이 비어 있는 책은 읽는 이를 속입니다. 읽는 이는 누가 한 일인지 알아야 하니까요."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "expr": "neutral",
+      "text": "알 권리는 인정합니다. 다만 이름 칸이 비어 있어도 쪽은 사람이 한 일을 적고 있습니다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_gyojeong",
+      "expr": "neutral",
+      "text": "한 일이 적혀 있어도 누가 했는지 대답하지 못하면 읽는 이에게는 오류입니다. 정리도 보존입니다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:heo_jun",
+      "expr": "neutral",
+      "text": "내 장부에는 대답 없는 병자도 있소. 그래도 내 환자였소."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_gyojeong",
+      "expr": "neutral",
+      "text": "허준 님의 장부는 보존 가치가 있다고 평가합니다. 열람 방식에는 개선이 필요합니다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "expr": "serious",
+      "text": "그 개선이 이름을 대신 적는 것이면 받아들일 수 없습니다."
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "shake",
+      "power": 2,
+      "ms": 300
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "hero:npc_jieum",
+      "expr": "neutral",
+      "text": "발신 층 표시 7. 교정관 신호와 일치합니다."
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       18,
+       6
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "문 앞 돌계단에서 공백병이 무너진다. 종이 한 장이 미끄러져 내려온다."
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "hero:npc_ilkkun",
+      "expr": "neutral",
+      "text": "사람들이 문 앞으로 몰려요! 길을 열어 주세요!"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        16,
+        8
+       ],
+       [
+        17,
+        8
+       ],
+       [
+        19,
+        8
+       ]
+      ],
+      "to": "wall"
+     }
+    ],
+    "ally_npcs": [
+     {
+      "hero": "npc_ilkkun",
+      "x": 14,
+      "y": 8,
+      "must_survive": false
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "ilkkun",
+      "type": "unit_survive",
+      "unit": "hero:npc_ilkkun",
+      "label": "성당 일꾼을 지켜라"
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "door_first",
+      "label": "공백병이 문을 먼저 통과",
+      "when": {
+       "all": [
+        {
+         "type": "turn_gte",
+         "value": 6
+        },
+        {
+         "any": [
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             17,
+             9
+            ],
+            [
+             18,
+             9
+            ]
+           ]
+          },
+          {
+           "type": "in_zone",
+           "side": "b",
+           "rect": [
+            15,
+            10,
+            20,
+            15
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   }
+  }
+ ]
+}

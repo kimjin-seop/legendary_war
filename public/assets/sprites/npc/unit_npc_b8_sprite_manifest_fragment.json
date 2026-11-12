@@ -1,0 +1,279 @@
+{
+ "note": "강화면 25회차 보충: npc_craterus·npc_ptolemy(ch17 가우가멜라) 전용 시트(안아트 2026-11-03). 초상은 기존 키",
+ "generated": "2026-11-03T10:18:49.639Z",
+ "keyRules": {
+  "npc_sprite": "unit.npc.<npc_code>.<ally|enemy>.64.sheet",
+  "reuse_map": {}
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "unit.npc.npc_craterus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_craterus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_craterus_ally_sheet.png"
+   },
+   "bytes": 12679,
+   "npc": "npc_craterus",
+   "name_ko": "크라테로스",
+   "side": "ally",
+   "npc_default_side": "enemy",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b8_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b8_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b8/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b8_style.mjs S_B4.npc_craterus",
+   "ref_portrait": "public/assets/portraits/npc/npc_craterus.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_craterus.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "뒷모습 걷기 칸에서 망토가 사라짐(정지 칸에는 있음)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 방패에 문양 없음(규칙)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  },
+  {
+   "key": "unit.npc.npc_craterus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_craterus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_craterus_enemy_sheet.png"
+   },
+   "bytes": 12458,
+   "npc": "npc_craterus",
+   "name_ko": "크라테로스",
+   "side": "enemy",
+   "npc_default_side": "enemy",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b8_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b8_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b8/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b8_style.mjs S_B4.npc_craterus",
+   "ref_portrait": "public/assets/portraits/npc/npc_craterus.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_craterus.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "뒷모습 걷기 칸에서 망토가 사라짐(정지 칸에는 있음)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 방패에 문양 없음(규칙)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  },
+  {
+   "key": "unit.npc.npc_ptolemy.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ptolemy_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ptolemy_ally_sheet.png"
+   },
+   "bytes": 12473,
+   "npc": "npc_ptolemy",
+   "name_ko": "프톨레마이오스",
+   "side": "ally",
+   "npc_default_side": "enemy",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b8_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b8_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b8/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b8_style.mjs S_B4.npc_ptolemy",
+   "ref_portrait": "public/assets/portraits/npc/npc_ptolemy.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_ptolemy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 왕관·이집트 요소 없음(장수 시절)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  },
+  {
+   "key": "unit.npc.npc_ptolemy.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ptolemy_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ptolemy_enemy_sheet.png"
+   },
+   "bytes": 12054,
+   "npc": "npc_ptolemy",
+   "name_ko": "프톨레마이오스",
+   "side": "enemy",
+   "npc_default_side": "enemy",
+   "culture": "europe",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b8_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b8_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b8/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b8_style.mjs S_B4.npc_ptolemy",
+   "ref_portrait": "public/assets/portraits/npc/npc_ptolemy.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_ptolemy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 왕관·이집트 요소 없음(장수 시절)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  }
+ ]
+}

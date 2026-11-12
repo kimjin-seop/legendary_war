@@ -1,0 +1,492 @@
+{
+ "_note": "14장 '살수의 물결'(가칭) 장면 대사. 원본(database/data) -> resources/js/game/data/dialogue 동기화 대상(sync FILES 에 ch14_salsu.json 추가 필요). 옴니버스 규칙: 서고 장면은 ch14_open / ch14_end 뿐, 시오리는 스테이지 장면·battle_cues 에 없다. 서가 개입 없음. 대량 사상은 주제로 삼지 않고 narrator 한 줄로만 넘긴다. 유닛 id·좌표가 필요한 cue 는 맵 확정 후 채운다(docs/original_story/ch14_salsu_outline.md).",
+ "version": 1,
+ "protagonist_rule": "주인공 호칭은 항상 '{protagonist_name} 님' 형태만 쓴다(이름 뒤 직접 조사 금지).",
+ "speaker_profile": {
+  "protagonist": { "name": "{protagonist_name}", "note": "을지문덕 막하 척후 장교. 물길과 대열의 상태를 숫자로 알린다. 간결한 합쇼체" },
+  "shiori": { "name": "시오리" },
+  "hero:eulji_mundeok": { "name": "을지문덕", "note": "key. 낮고 느린 하오체, 질문으로 상대의 생각을 끌어낸다. 웃음기를 숨긴다" },
+  "hero:npc_yeongyang": { "name": "영양왕", "note": "고구려 왕. 짧은 하오체" },
+  "hero:npc_yuzhongwen": { "name": "우중문", "note": "수 별동대 지휘관. 의심 많은 하오체" },
+  "hero:npc_wuwenshu": { "name": "우문술", "note": "수 별동대 지휘관. 군량을 먼저 걱정하는 말투" },
+  "hero:npc_liaodong_chief": { "name": "요동성 수비대장", "note": "요동성을 지키는 고구려 장수(신규, 이름 미상). 짧고 단단한 하오체" },
+  "hero:npc_sinseong_chief": { "name": "신성 수비대장", "note": "신성을 지키는 고구려 장수(신규, 이름 미상). 돌아올 길을 먼저 챙기는 하오체" },
+  "hero:npc_go_geonmu": { "name": "고건무", "note": "고구려 왕족 장수(신규). 침착한 하오체, 적의 방심을 읽는다" },
+  "hero:npc_lai_huer": { "name": "내호아", "note": "수 수군 지휘관(신규). 서두르는 명령조" }
+ },
+ "arc": {
+  "chapter_question": "이긴 쪽이 졌다고 말한 이유는 무엇인가",
+  "table": [
+   { "phase": "기", "scene": "ch14_open", "what": "서고 입구, 612년 여름" },
+   { "phase": "기", "scene": "ch14_s1", "what": "요동성 외곽. 청야와 척후" },
+   { "phase": "승", "scene": "ch14_s2", "what": "항복 사자. 적 진영 안의 눈" },
+   { "phase": "전", "scene": "ch14_s3", "what": "하루 일곱 번의 패배와 평양 가는 길" },
+   { "phase": "결", "scene": "ch14_s4", "what": "살수. 절반 건넜을 때" },
+   { "phase": "결", "scene": "ch14_end", "what": "서고 퇴장" }
+  ]
+ },
+ "intervention_scene_ids": [],
+ "chapter": 14,
+ "scenes": [
+  {
+   "id": "ch14_open",
+   "stage_code": null,
+   "timing": "chapter_start",
+   "bg": "시간의 서고 입구. 열린 문 너머로 넓은 강과 갈대 냄새가 번져 온다",
+   "lines": [
+    { "speaker": "shiori", "expr": "serious", "text": "612년 여름. 마을을 통째로 비우던 해입니다. 비운 마을 목록에 한 칸이 비어 있습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "세는 사람이 빠졌다는 뜻이군요. ...그게 저고요." },
+    { "speaker": "shiori", "expr": "neutral", "text": "{protagonist_name} 님은 을지문덕 장군 막하의 척후 장교로 적혀 있습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "수의 대군이 온다던데, 막는 싸움입니까, 비우는 싸움입니까." },
+    { "speaker": "shiori", "expr": "smile", "text": "둘 다입니다. 비우는 쪽부터 보시지요." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s1_pre",
+   "stage_code": "ch14_s1",
+   "timing": "before_battle",
+   "bg": "요하 동쪽 들판의 이른 아침. 마을의 곡식 창고가 비어 있고 집 앞에 짐수레가 줄지어 서 있다",
+   "lines": [
+    { "speaker": "caption", "text": "612년. 수 양제의 대군이 요하를 건너 요동성을 에워쌌다. 고구려는 성 밖 들판의 곡식을 모두 거두어 비웠다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "수를 대라. 틀린 수로 짠 작전은 틀린 길로 간다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "비운 마을 열둘, 남은 우물 일곱입니다. ...우물 하나는 노인 한 분이 뚜껑을 닫고 가셨습니다. 돌아와서 열 테니 그때까지 아무도 건드리지 말라고요." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "우물까지 세었으면 됐다. 그 숫자가 적의 목을 조일 것이다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "들에 한 알도 남기지 마라. 적이 먹을 것은 저들이 가져온 것뿐이어야 한다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "서쪽 마을 두 곳이 아직 안 비었습니다. 수의 선봉이 하루 거리입니다. 제가 먼저 가겠습니다. 안 나가겠다는 분은 업어서라도 모셔 오겠습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "사람이 먼저고 곡식이 다음이다. 선봉은 몇 기냐." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "서른 기쯤입니다. 본대는 아직 강 건너에 있습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "서른 기면 길 하나는 막는다. 막되 쫓지는 마라. 쫓는 맛을 들이면 눈이 먼다." },
+    { "speaker": "caption", "text": "목표: 마을 사람들 수레를 요동성 구역까지 호송한다. 수레가 전멸하거나 주인공이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s1_post",
+   "stage_code": "ch14_s1",
+   "timing": "after_clear",
+   "bg": "성문 앞의 저녁. 수레가 성 안으로 줄지어 들어가고 문이 닫힌다",
+   "lines": [
+    { "speaker": "protagonist", "expr": "neutral", "text": "수레 서른 대, 전부 성 안입니다. 들에는 쭉정이 하나 남기지 않았습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "그러면 수의 대군은 이제 제 짐만 먹는다. 그 짐이 얼마나 가는지 세어 보았느냐." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "수레 행렬이 이십 리에 이어집니다. 한 달 치쯤으로 보입니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "smile", "text": "한 달이라. 그 한 달을 우리 땅에서 쓰게 만들면 짐은 날마다 짧아진다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...장군, 뚜껑 닫고 가신 그 노인 우물은 어찌합니까." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "열 사람이 돌아와야 열린다. 그러니 이겨서 돌아오게 해 드려라." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s2_pre",
+   "stage_code": "ch14_s2",
+   "timing": "before_battle",
+   "bg": "수 별동대 진영 앞 야지의 새벽. 흰 깃발을 단 고구려 사자 일행이 말을 세운다",
+   "lines": [
+    { "speaker": "caption", "text": "수의 별동대 삼십만이 압록강을 건너 평양을 향해 나아간다. 을지문덕은 항복을 청한다는 명목으로 적진에 들어간다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "나는 항복하러 가는 사람이다. 가서 군량 수레와 병사들 얼굴을 보고 온다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "제가 시종으로 따르겠습니다. 눈은 제가 쓰겠습니다. 수레가 몇 대인지, 걸음이 어떤지." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "입은 내가, 눈은 자네가. 말은 아끼고 걸음은 느리게 걸어라. 들키는 쪽은 언제나 급한 쪽이다." },
+    { "speaker": "hero:npc_yuzhongwen", "expr": "serious", "text": "고구려 장수가 제 발로 왔다? 항복치고는 걸음이 너무 당당하지 않소. 속임수가 아닌지 칼부터 살피시오." },
+    { "speaker": "hero:npc_wuwenshu", "expr": "neutral", "text": "우중문 공, 군량부터 보시오. 싸움이 길어지면 먼저 쓰러지는 건 우리요. 항복이라면 받고 돌아가는 길도 있소." },
+    { "speaker": "hero:npc_yuzhongwen", "expr": "neutral", "text": "...당신은 늘 곡식 타령이오." },
+    { "speaker": "hero:npc_wuwenshu", "expr": "neutral", "text": "곡식 걱정 안 하는 장수가 먼저 죽소." },
+    { "speaker": "caption", "text": "목표: 적진을 통과하는 동안 신호 지점 세 곳에 닿아 군량 수레와 병력 배치를 파악한다. 을지문덕이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s2_post",
+   "stage_code": "ch14_s2",
+   "timing": "after_clear",
+   "bg": "적진을 빠져나온 야지의 낮. 사자 일행이 말을 몰아 강변으로 향한다",
+   "lines": [
+    { "speaker": "protagonist", "expr": "neutral", "text": "수레는 전부 대열 뒤쪽에 몰려 있었습니다. 병사들 허리에는 건량이 한 줌뿐이고 걸음이 무거웠습니다. ...그리고 장군, 나올 때 우중문이 한참 쳐다봤습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "나도 뒷덜미가 서늘했다. 등을 보이는 일이 제일 어려웠다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "적은 이미 배가 고프다. 배고픈 군대는 지름길만 찾는다. 지름길을 만들어 주마." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "쫓게 하되 일부러 지는 겁니까. 하루에 일곱 번쯤 물러서면 적은 이겼다고 믿을 겁니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "smile", "text": "일곱 번이면 넉넉하다. 이긴 맛을 본 군대는 돌아갈 길을 잊는다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s3_pre",
+   "stage_code": "ch14_s3",
+   "timing": "before_battle",
+   "bg": "평양으로 이어지는 구릉길의 아침. 고구려 군이 싸우다 물러서기를 되풀이하며 길 위에 흙먼지를 일으킨다",
+   "lines": [
+    { "speaker": "caption", "text": "고구려군은 하루에 일곱 번 싸우고 일곱 번 물러섰다. 수의 별동대는 평양 가까이까지 들어왔다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "적은 우리가 쫓기고 있다고 믿는다. 그 믿음이 지금 우리 군사 중 제일 크다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "장군, 적이 평양에서 사십 리 구릉에 진을 쳤습니다. 군량은 사흘 치밖에 안 남았다고 합니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "smile", "text": "사흘이라. 그럼 편지 한 통 쓸 시간은 되겠군." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...편지입니까. 굶는 군대에, 편지를요." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "시다. 칼은 이미 충분히 보여 주었으니 이번엔 칭찬을 보낸다. 적장은 지금 돌아갈 이유를 찾고 있다. 내가 그 이유를 대신 써 주는 것이다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "읽어 봐도 되겠습니까." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "귀신같은 책략은 하늘의 이치를 다했고, 오묘한 계산은 땅의 이치를 다했소. 싸움에 이긴 공이 이미 높으니, 만족함을 알고 그치기를 바라오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...욕이 한 줄도 없는데 이보다 기분 나쁜 편지는 없겠습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "smile", "text": "그것이 시의 쓸모다. 가거라. 전하는 길에 선봉 위치도 다시 보고, 읽는 얼굴도 보고 오너라." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "얼굴을 보겠습니다. 돌아오는 길목 신호 지점에서 깃발을 올리겠습니다." },
+    { "speaker": "caption", "text": "목표: 구릉길을 돌아 신호 지점 두 곳에 닿고 후위 정찰대를 격퇴한다. 을지문덕이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s3_post",
+   "stage_code": "ch14_s3",
+   "timing": "after_clear",
+   "bg": "해 질 녘의 구릉. 수의 진영에서 퇴각 북소리가 먼 데서 들려온다",
+   "lines": [
+    { "speaker": "hero:npc_yuzhongwen", "expr": "serious", "text": "...퇴각한다. 평양성은 단단하다. 군량이 바닥나기 전에 강을 건너야 하오." },
+    { "speaker": "hero:npc_wuwenshu", "expr": "neutral", "text": "그 편지가 칭찬이라 더 마음에 걸리오. 물러나면 뒤를 치는 자가 있을 것이오." },
+    { "speaker": "hero:npc_yuzhongwen", "expr": "serious", "text": "시끄럽소. 북이나 치시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "물러나기 시작했습니다. 퇴각로는 살수입니다. 강폭과 수심을 다시 보고 오겠습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "살수라. 강을 건널 때 대열이 제일 길어진다. 절반이 건너기를 기다린다. ...서두르지 마라. 이번엔 우리가 참을 차례다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s4_pre",
+   "stage_code": "ch14_s4",
+   "timing": "before_battle",
+   "bg": "살수 강변의 이른 아침. 강폭이 넓고 물이 천천히 흐른다. 건너편 기슭에 수의 선두가 줄지어 서 있다",
+   "lines": [
+    { "speaker": "caption", "text": "수의 별동대는 살수에 이르러 강을 건너기 시작했다. 고구려군은 강 북쪽 기슭에서 기다린다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "선두가 건너는 동안은 건드리지 마라. 대열이 절반쯤 건너 길게 늘어졌을 때 후미를 친다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "강폭은 백 보, 물살은 느립니다. 선두가 건너편에 닿으면 깃발을 올립니다. ...손이 근질거리는 병사가 걱정입니다. 갈대 속에서 벌써 몇이 일어서려 했습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "일어서는 놈은 앉혀라. 깃발 오르기 전에 달리는 병사는 적보다 먼저 아군을 죽인다. 자네 깃발은 한 번도 늦은 적이 없었다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "오늘도 안 늦습니다. ...이르지도 않게요. 후미 지휘관 자리는 봐 두었습니다." },
+    { "speaker": "caption", "text": "목표: 신호 지점에 닿아 후미 공격을 개시하고 후위 지휘관을 쓰러뜨린다. 신호가 오르기 전에 병력을 움직이면 선두 지휘관이 반격한다. 을지문덕이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s4_post",
+   "stage_code": "ch14_s4",
+   "timing": "after_clear",
+   "bg": "해 질 녘의 살수 강변. 물결이 잔잔해지고 갈대가 바람에 눕는다",
+   "lines": [
+    { "speaker": "caption", "text": "수의 별동대는 크게 무너졌다. 요동을 떠나 돌아간 이는 극히 적었다." },
+    { "speaker": "hero:npc_yeongyang", "expr": "neutral", "text": "장군, 수고했소. 이 싸움은 칼보다 길로 이겼다고들 하오." },
+    { "speaker": "hero:eulji_mundeok", "expr": "smile", "text": "길을 비운 것은 백성이고, 칼을 쓴 것은 병사입니다. 저는 하루에 일곱 번 도망친 사람일 뿐입니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...일곱 번째 물러설 때, 병사 하나가 제 소매를 잡았습니다. 우리가 정말 지는 거냐고요." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "뭐라 답했느냐." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "답을 못 했습니다. 저도 모르는 채 물러났으니까요." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "그것이다. 아군이 먼저 속아야 적이 속는다. 그 아이에게 사과는 하지 마라. 이름을 묻고, 이겼다는 것을 제일 먼저 알려 주어라." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...그리하겠습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "이긴 사람이 졌다고 말하면 진 사람이 이겼다고 믿는다. 그 믿음이 오늘 길이 되었다. 그걸로 족하다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s5_pre",
+   "stage_code": "ch14_s5",
+   "timing": "before_battle",
+   "bg": "요동성 성벽 위의 이른 아침. 성벽 아래로 사다리와 충차가 줄지어 오고 성 안에서는 병사들이 돌을 쌓는다",
+   "lines": [
+    { "speaker": "caption", "text": "서고가 같은 책의 앞 장을 다시 펼친다. 612년 봄. 수 양제의 대군이 요동성을 에워쌌다. 성은 여러 달 버텼다." },
+    { "speaker": "hero:npc_liaodong_chief", "expr": "neutral", "text": "성벽이 낮은 곳은 서쪽 모퉁이 하나뿐이오. 적도 그걸 아오. 알고 올라오는 놈이 제일 독하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 사다리가 오르는 순서를 신호로 알리겠습니다. 한꺼번에 오르지 못하게 먼저 오르는 것부터 쳐 내십시오." },
+    { "speaker": "hero:npc_liaodong_chief", "expr": "neutral", "text": "사다리가 열이라도 꼭대기에 닿는 놈은 한둘이오. 그 한둘만 막으면 되오. 이래 봬도 여러 달을 버틴 성이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그 한둘이 어느 쪽으로 올라올지 읽는 게 제 몫입니다. 틀리면 공 머리 위로 올라옵니다." },
+    { "speaker": "hero:npc_liaodong_chief", "expr": "neutral", "text": "그럼 틀리지 마시오. 내 머리는 아직 쓸 데가 있소." },
+    { "speaker": "caption", "text": "목표: 서쪽 모퉁이 신호 지점에 닿아 사다리 공격 순서를 알리고 성벽을 정해진 턴 동안 지킨다. 성문이 뚫리거나 요동성 수비대장이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s5_post",
+   "stage_code": "ch14_s5",
+   "timing": "after_clear",
+   "bg": "성벽 위의 저녁. 부러진 사다리와 돌 더미가 성벽 아래에 쌓여 있다",
+   "lines": [
+    { "speaker": "hero:npc_liaodong_chief", "expr": "neutral", "text": "오늘도 성이 서 있소. 내일도 서 있을 것이오. ...서 있게 만들 것이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "서쪽 모퉁이에 돌을 더 쌓겠습니다. 내일은 사다리 말고 흙산을 쌓아 올 겁니다." },
+    { "speaker": "hero:npc_liaodong_chief", "expr": "neutral", "text": "흙산이면 밑에서 파내면 되오. 쌓는 놈은 위만 보고 파는 놈은 아래를 보오. 버티는 쪽이 이기는 법이오. 자, 눈 붙이시오. 내일은 못 붙이오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s6_pre",
+   "stage_code": "ch14_s6",
+   "timing": "before_battle",
+   "bg": "신성 성문 앞의 해 질 녘. 수의 진영이 성 아래에 줄지어 있고 성 안에서는 횃불을 한 줄로 켠다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 앞 장. 612년 여름. 요동 북쪽의 신성도 수의 공격을 받았다. 고구려는 성문을 열고 밤에 나가 적 진영을 흔들었다." },
+    { "speaker": "hero:npc_sinseong_chief", "expr": "neutral", "text": "문을 열고 나가면 돌아올 문도 열려 있어야 하오. 닫히면 나간 병사는 그대로 적 한가운데 남소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "문 위에 횃불 둘을 세우겠습니다. 나간 병사는 그 불만 보고 오십시오." },
+    { "speaker": "hero:npc_sinseong_chief", "expr": "neutral", "text": "횃불이 꺼지면 어쩔 셈이오. 밤바람이 사람 사정을 봐주던가." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "꺼지게 두지 않습니다. 제가 불 곁을 떠나지 않습니다. 불 없는 곳으로는 한 사람도 돌려보내지 않습니다." },
+    { "speaker": "hero:npc_sinseong_chief", "expr": "neutral", "text": "큰소리 한번 장하오. ...지키시오. 나는 문을 지키겠소." },
+    { "speaker": "caption", "text": "목표: 신호 지점에 횃불을 켜고 야간 기습 부대를 적 진영 중앙까지 보낸 뒤 성문 구역으로 돌려 보낸다. 성문이 뚫리면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s6_post",
+   "stage_code": "ch14_s6",
+   "timing": "after_clear",
+   "bg": "새벽의 신성 성문. 돌아온 병사들이 문 안쪽에 앉고 문이 닫힌다",
+   "lines": [
+    { "speaker": "hero:npc_sinseong_chief", "expr": "neutral", "text": "나간 수가 그대로 돌아왔소. 이번 싸움은 그 한 줄이 전부요." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "불은 한 번도 꺼지지 않았습니다. ...방패 뒤에서 손은 좀 데었지만요." },
+    { "speaker": "hero:npc_sinseong_chief", "expr": "smile", "text": "그 손으로 문 닫는 걸 거드시오. 데인 손이 제일 단단히 잠그는 법이오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s7_pre",
+   "stage_code": "ch14_s7",
+   "timing": "before_battle",
+   "bg": "평양성 가까운 포구 뒤 골목의 이른 아침. 수의 전선이 포구에 닿았고 병사들이 줄지어 뭍에 오른다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 앞 장. 612년 여름. 수의 수군이 바다를 건너 평양 가까이 상륙했다. 선두는 군기를 어지럽게 풀어 두고 성 안으로 밀려들고 있다." },
+    { "speaker": "hero:npc_go_geonmu", "expr": "neutral", "text": "병사 오백이면 되오. 저들은 이겼다고 믿고 흩어졌소. 이긴 줄 아는 군대처럼 허술한 것이 없소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 골목 어귀에서 선두가 들어서는 순간을 신호로 알리겠습니다. 선두만 막으면 후미는 포구에 갇힙니다." },
+    { "speaker": "hero:npc_go_geonmu", "expr": "neutral", "text": "후미가 갇히면 선두는 길을 잃소. 그때까지 숨죽이는 게 오백 명의 일이오. 기침하는 놈은 내가 직접 입을 막겠소." },
+    { "speaker": "hero:npc_lai_huer", "expr": "serious", "text": "성이 눈앞이다! 서둘러 들어가 성문을 장악하라!" },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...저 서두름이 우리 쪽 신호입니다." },
+    { "speaker": "caption", "text": "목표: 골목 어귀 신호 지점에 닿아 매복 개시를 알리고 수군 선두 부대를 격파한다. 수군이 포구에서 증원을 모두 내리기 전에 끝내야 한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s7_post",
+   "stage_code": "ch14_s7",
+   "timing": "after_clear",
+   "bg": "포구 뒤 골목의 낮. 깨진 짐 상자와 흩어진 깃발이 길에 널려 있다",
+   "lines": [
+    { "speaker": "hero:npc_go_geonmu", "expr": "neutral", "text": "선두를 꺾었소. 수군은 이제 배로 돌아갈 것이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "포구에 남은 배가 서른쯤입니다. 돌아갈 바닷길을 막을까요, 열어 줄까요." },
+    { "speaker": "hero:npc_go_geonmu", "expr": "smile", "text": "열어 주면 다시 오지 않고, 막으면 다시 올 것이오. 열어 주시오. 돌아가서 전할 말이 많을 테니." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s8_pre",
+   "stage_code": "ch14_s8",
+   "timing": "before_battle",
+   "bg": "압록강 하류의 한밤. 얕은 여울 위로 수의 군량 수레가 천천히 건너고 있고 강변에는 횃불이 길게 이어진다",
+   "lines": [
+    { "speaker": "caption", "text": "612년 여름. 수의 별동대가 압록강을 건너 남쪽으로 내려가는 동안 군량 수레는 대열 뒤에서 느리게 따라온다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "군량이 닿지 않으면 앞선 군은 멈춘다. 수레를 끊어라." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "강폭이 제일 좁은 곳에서 수레가 한 줄로 건넙니다. 제가 먼저 건너가 갈대 속에서 깃발을 올리겠습니다. 깃발이 오르면 양쪽에서 수레를 막으십시오." },
+    { "speaker": "hero:npc_wuwenshu", "expr": "serious", "text": "수레가 늦다. 뒤쪽에 무슨 일이 있느냐. ...가서 뒤를 보고 오라." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "수레는 불태우지 않습니다. 길에 세워 두기만 합니다. 굶기는 데는 불보다 기다림이 더 잘 듣습니다." },
+    { "speaker": "caption", "text": "목표: 강 건너 신호 지점에 닿아 군량 수레를 가로막고 수레 구역을 점령한다. 강 위에서 수레가 모두 건너기 전에 끝내야 한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s8_post",
+   "stage_code": "ch14_s8",
+   "timing": "after_clear",
+   "bg": "새벽의 압록강변. 길 위에 서 있는 군량 수레와 지친 병사들이 보인다",
+   "lines": [
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "수레가 섰다. 앞선 군은 이제 굶는 속도로 걷는다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "수레 열일곱 대를 잡았습니다. 곡식은 마을로 돌려보내겠습니다. ...뚜껑 닫고 가신 노인이 돌아오시면 밥 한 끼는 지으실 수 있겠습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "smile", "text": "그리하라. 우리는 이 곡식에 손대지 않는다. 그 노인 밥상에 먼저 올려라." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s9_pre",
+   "stage_code": "ch14_s9",
+   "timing": "before_battle",
+   "bg": "평양 가는 구릉길의 정오. 고구려 군이 일부러 대열을 흩뜨린 채 뒤돌아서 달아나는 시늉을 한다",
+   "lines": [
+    { "speaker": "caption", "text": "같은 책의 앞 장, 살수 싸움보다 먼저 있었던 하루. 하루에 일곱 번의 교전. 일곱 번째 후퇴가 가장 어렵다. 이번에는 진짜 물러서는 것처럼 보여야 한다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "일곱 번째는 진짜로 지는 얼굴이어야 한다. 적이 의심할 틈이 없도록." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "대열이 가지런하면 오히려 의심을 삽니다. 구릉 신호 지점에서 흩뜨릴 때를 알리고, 둘째 지점에서 다시 모이게 하겠습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "흩어지는 것도 연습이 필요하다. 병사들에게 일러 두었느냐." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "일러 뒀습니다. 한 놈은 도망치라는 명령은 처음 받아 본다며 얼굴이 굳었습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "smile", "text": "굳은 얼굴이 쓸 만하다. 웃는 놈은 빼라." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "예. 한 사람도 길을 잃지 않게 둘째 지점에 횃불 하나를 세우겠습니다." },
+    { "speaker": "caption", "text": "목표: 구릉 신호 지점 두 곳을 차례로 지나 후퇴 대열을 이끌고 탈출 구역에 닿는다. 한 곳이라도 건너뛰면 적 추격이 앞선다. 을지문덕이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s9_post",
+   "stage_code": "ch14_s9",
+   "timing": "after_clear",
+   "bg": "구릉 반대편 사면의 저녁. 흩어졌던 병사들이 다시 모여 대열을 짠다",
+   "lines": [
+    { "speaker": "hero:npc_yuzhongwen", "expr": "neutral", "text": "고구려군이 이렇게 약하다니! 평양이 눈앞이오." },
+    { "speaker": "hero:npc_wuwenshu", "expr": "serious", "text": "너무 쉽소. 이렇게 쉬운 싸움은 나중에 값을 치르게 되어 있소. 게다가 군량이 닷새도 안 남았소." },
+    { "speaker": "hero:npc_yuzhongwen", "expr": "neutral", "text": "그러니 서둘러야 하지 않소!" },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...서두르고 있습니다. 평양 쪽으로 방향을 잡았습니다. 이제 대열이 제일 길어집니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s10_pre",
+   "stage_code": "ch14_s10",
+   "timing": "before_battle",
+   "bg": "살수 이후의 북쪽 강변길 이른 아침. 흩어진 군기와 버려진 짐이 길을 따라 이어지고 강 건너 안개 속에서 퇴각 대열이 서둘러 걷는다",
+   "lines": [
+    { "speaker": "caption", "text": "살수에서 무너진 수의 별동대는 압록강까지 서둘러 물러났다. 고구려군은 그 뒤를 따랐다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "쫓되 포위하지는 마라. 끝까지 몰린 자의 마지막 칼이 제일 세다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "압록강까지 사십 리, 얕은 곳이 둘입니다. 하류와 상류. 두 곳에 신호를 올려 길을 보이겠습니다." },
+    { "speaker": "hero:npc_yuzhongwen", "expr": "serious", "text": "강을 건너라! 건너기만 하면 살 길이 있다!" },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...적장이 살 길을 외치는데, 그 길을 열어 준 쪽은 우리인 셈이군요." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "밀어붙이지 않는 것도 싸움이다. 첫 건널목까지만 쫓고 둘째에서 멈춘다." },
+    { "speaker": "caption", "text": "목표: 도하 신호 지점 두 곳에 닿아 퇴각로를 알리고 후미 부대를 격파한다. 첫 건널목을 넘으면 적 증원이 합류한다. 을지문덕이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_s10_post",
+   "stage_code": "ch14_s10",
+   "timing": "after_clear",
+   "bg": "저녁의 압록강변. 건너편 안개 속으로 마지막 대열이 사라진다",
+   "lines": [
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "여기까지다. 더 쫓을 이유가 없다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...건너편이 조용합니다. 이긴 날치고는 너무 조용하군요." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "이긴 날은 원래 그렇다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "일지에는 날짜와 강 이름만 적겠습니다. 숫자는 쓰지 않겠습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "그것이 좋겠다. 숫자는 읽는 사람이 무겁게 느낄 것이다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch14_end",
+   "stage_code": null,
+   "timing": "chapter_end",
+   "bg": "시간의 서고. 갈대 냄새가 가신 복도. 책장 사이에 흰 깃발 하나가 접혀 있다",
+   "lines": [
+    { "speaker": "shiori", "expr": "neutral", "text": "살수의 물결이 책장에 꽂혔습니다. 이긴 쪽이 일곱 번 졌다고 말하는 대목이 이 책에서 가장 긴 문장이었습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그 문장 사이사이에 깃발을 든 사람이 있었군요. ...우물 뚜껑은 열렸겠지요." },
+    { "speaker": "shiori", "expr": "smile", "text": "열렸을 겁니다. 다음 책장에서는 바닷바람이 불어옵니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  }
+ ],
+ "battle_cues": {
+  "ch14_s1": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "빈 들판 위로 짐수레 바퀴 소리가 길게 이어진다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레 서른 대입니다. 앞쪽 열 대에는 노인과 아이가 타고 있습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "아이 탄 수레를 앞으로 보내라. 느린 수레는 뒤에 두고 길을 터 줘라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "서쪽 길에 먼지가 오릅니다. 선봉은 아직 아닙니다만, 오래 걸리지 않겠습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "먼지는 말발굽 소리보다 먼저 온다. 그 사이에 수레 한 대라도 더 들여보내라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "예. 길 한쪽은 비워 두고 수레부터 성문에 붙이겠습니다. 느린 수레는 제가 뒤에서 밀겠습니다." },
+   { "on": { "turn": 3 }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "선봉입니다. 서른 기, 먼지 값은 하는군요. 길을 막고 수레는 계속 보냅니다." }
+  ],
+  "ch14_s2": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "수의 진영에서 낮은 북소리와 말울음이 들린다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yuzhongwen", "expr": "neutral", "text": "흰 깃발이라. 사자가 직접 왔다니, 이상하지 않소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_wuwenshu", "expr": "neutral", "text": "들어 보면 알 일이오. 군량이 이만큼 줄었는데 마다할 이유도 없소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "우리 왕의 뜻을 전하러 왔소. 말은 길지 않소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "장군, 수레가 대열 뒤쪽에 몰려 있습니다. 병사들 허리춤이 가볍습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "보고 있다. 걸음을 늦춰라. 천천히 걸을수록 많이 보인다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal_1", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 지점입니다. 수레가 대열 뒤쪽에 몰려 있습니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal_3", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "세 번째 지점입니다. 병사들의 걸음이 무겁습니다." }
+  ],
+  "ch14_s3": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "구릉 사이로 흙먼지가 걷히며 퇴각하는 대열이 보인다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "후위가 또 한 번 무너졌습니다. 일곱 번째를 넘겼는데도 적이 따라붙습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "이긴 줄 아는 자는 서두른다. 서두르는 자는 길을 가리지 않는다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "적 선봉이 구릉 아래 마을을 지났습니다. 군량 수레는 사십 리 뒤에 처져 있습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "수레가 못 따라오면 선봉이 먼저 배를 곯는다. 시는 지금 가고 있다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "답이 올 때까지 후위 정찰대부터 쳐 두겠습니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal_1", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "선봉 위치를 확인했습니다. 깃발을 올립니다." }
+  ],
+  "ch14_s4": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "강 위로 안개가 느리게 흩어진다. 건너는 대열이 한 줄로 늘어난다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "선두가 강 한가운데를 넘었습니다. 후미는 아직 이쪽 기슭입니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "아직이다. 절반이 건너야 대열이 끊긴다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "깃발은 손에 쥐고 있습니다. 병사들은 갈대 속에서 숨을 죽이고 있습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "숨은 오래 못 참는다. 신호는 한 번뿐이다. 틀리지 마라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "선두가 건너편에 닿는 순간 올리겠습니다." },
+   { "on": { "turn": 4 }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "선두가 건너편 기슭에 닿았습니다. ...깃발, 올립니다." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "crossing_signal" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "crossing_signal" } }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "serious", "text": "지금이다. 후미를 친다." }
+  ],
+  "ch14_s5": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "성벽 아래에서 북소리가 길게 울린다. 사다리 끝이 성가퀴에 걸린다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_liaodong_chief", "expr": "neutral", "text": "첫 사다리다. 서쪽 모퉁이로 몰린다. 돌 준비하라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "공, 사다리 셋이 한꺼번에 걸렸습니다. 가장 높이 오른 것부터 쳐야 합니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_liaodong_chief", "expr": "neutral", "text": "밀 놈은 밀고, 쌓을 놈은 쌓아라. 구경하는 놈은 없어야 한다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "서쪽 모퉁이에 쓸 손이 모자랍니다. 제가 그쪽으로 붙겠습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_liaodong_chief", "expr": "neutral", "text": "붙으려면 지금 붙으시오. 두 번째 사다리가 오르기 전에." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "corner_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 사다리가 서쪽 모퉁이로 옵니다. 그 사다리부터 쳐 내십시오." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "corner_signal_up" } }, "do": "sfx", "key": "sfx_battle_clash" },
+   { "on": { "turn": 6 }, "do": "say", "speaker": "hero:npc_liaodong_chief", "expr": "neutral", "text": "돌을 더 올려라. 사다리 끝을 밀어내라." }
+  ],
+  "ch14_s6": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "성문이 낮게 열리고 병사들이 소리 없이 어둠 속으로 나간다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_sinseong_chief", "expr": "neutral", "text": "소리 내지 마라. 발을 천으로 싸고 나가라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "공, 횃불 둘을 문 위에 세울 자리를 잡았습니다. 바람은 북서쪽에서 옵니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_sinseong_chief", "expr": "neutral", "text": "바람이 불을 끄면 돌아올 길도 꺼지오. 방패로 막아 두시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "방패 둘을 불 곁에 세웠습니다. 나간 수는 장부에 적어 두었습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_sinseong_chief", "expr": "neutral", "text": "장부는 돌아온 뒤에 맞춰 보겠소. 나갈 때는 세지 않는 법이오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "torch_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "횃불 둘을 켭니다. 이 불을 보고 돌아오십시오." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "torch_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 7 }, "do": "say", "speaker": "narrator", "text": "적 진영 한가운데서 천막 하나가 무너진다. 불빛이 사방으로 흩어진다." }
+  ],
+  "ch14_s7": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "포구에서 선원들의 외침이 들린다. 병사들이 군기를 풀고 줄지어 뭍을 밟는다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_lai_huer", "expr": "serious", "text": "서둘러라! 해 지기 전에 성문 앞까지 간다!" },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_go_geonmu", "expr": "neutral", "text": "소리가 크오. 앞에서 큰 소리를 내는 자는 뒤를 돌아보지 않소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "공, 골목 입구까지 오십 보입니다. 선두는 갑옷 끈도 매지 않았습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_go_geonmu", "expr": "neutral", "text": "오백이 골목 양쪽 지붕 뒤에 있소. 신호 전에는 숨도 쉬지 마시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "신호 지점으로 먼저 가겠습니다. 선두가 들어서면 깃발을 올리겠습니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "alley_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "선두가 골목에 들어왔습니다. 지금입니다." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "alley_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 5 }, "do": "say", "speaker": "hero:npc_lai_huer", "expr": "serious", "text": "대열을 갖춰라! 누가 앞이냐!" }
+  ],
+  "ch14_s8": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "여울 위로 수레바퀴 소리가 낮게 이어진다. 강변 갈대가 바람에 일렁인다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레가 한 줄로 건넙니다. 호위는 열 명 남짓입니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "수레를 부수지 마라. 서게만 하면 된다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_wuwenshu", "expr": "serious", "text": "수레가 줄어든 듯하다. 앞을 살펴라. 뒤가 비면 안 된다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "적이 앞을 살피고 있습니다. 제가 강 건너 갈대 속으로 먼저 건너가겠습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "자네가 오르는 깃발을 보고 병사들이 건넌다. 높이 올려라." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "ford_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레가 한가운데 있습니다. 양쪽에서 막으십시오." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "ford_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 6 }, "do": "say", "speaker": "hero:npc_wuwenshu", "expr": "serious", "text": "수레를 앞으로 당겨라. 군량이 멈추면 군이 멈춘다." }
+  ],
+  "ch14_s9": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "구릉 위로 먼지가 일고 후퇴하는 병사들이 어지럽게 흩어진다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yuzhongwen", "expr": "neutral", "text": "저것이 고구려 정병이란 말이냐. 이렇게 약해서야." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_wuwenshu", "expr": "serious", "text": "약한 게 아니라 가벼운 것이오. 군량이 닷새면 우리가 더 가볍소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "흩어지는 방향이 한쪽이면 의심을 삽니다. 첫 신호에서 서쪽으로 갈라지게 하겠습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "진짜로 달아나는 얼굴을 해라. 웃는 놈은 대열에서 뺀다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "웃을 병사는 없습니다. 모두 숨이 찼습니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "hill_1", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 신호입니다. 대열을 흩뜨리십시오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "hill_2", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "둘째 신호입니다. 횃불 쪽으로 다시 모이십시오." },
+   { "on": { "turn": 7 }, "do": "say", "speaker": "hero:npc_yuzhongwen", "expr": "neutral", "text": "추격하라. 놓치지 마라." }
+  ],
+  "ch14_s10": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "버려진 군기가 길을 따라 이어진다. 강 건너 안개 속에서 급한 발소리가 들린다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "버려진 짐이 이십 리 가까이 이어집니다. 갑옷을 벗고 간 자도 있습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "줍지 마라. 줍는 순간 대열이 흐트러진다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yuzhongwen", "expr": "serious", "text": "강만 건너면 된다. 뒤를 보지 마라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 건널목이 앞입니다. 강을 건너는 자도 따라가야 합니까." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "둘째 건널목까지다. 그 너머는 강이 정한다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "cross_1", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 건널목입니다. 여기까지는 쫓아도 됩니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "cross_2", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "serious", "text": "둘째 건널목입니다. 여기서 멈추십시오." },
+   { "on": { "turn": 7 }, "do": "say", "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "더 가지 마라." }
+  ]
+ }
+}

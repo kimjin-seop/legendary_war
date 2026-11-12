@@ -1,0 +1,78 @@
+{
+ "_note": "[초안, 2026-11-03, 송서사 1회차] ch21 신규 s1(헤움니크)·s2(라치보르)·s3(브로츠와프) 의 stages.rules.cues 초안. 형식과 원칙은 docs/original_story/ch21_ch22_cues_draft.json 과 동일(cues=좌표·유닛 id 없이 성립하는 항목만, pending=좌표·유닛·증원이 확정되어야 성립하는 항목, 판정 필드는 임밸런이 확정). 주의: 기존 ch21_ch22_cues_draft.json 의 키 ch21_s1/ch21_s2 는 Plan A 에 따라 ch21_s4/ch21_s5 로 읽어야 한다(그 파일은 수정하지 않았다). 화자 코드 hero:npc_wlodzimierz_krakow, hero:npc_mieszko_ii_opole, hero:npc_mongol_vanguard 는 NPC_NAMES 등록이 필요하다(윤프론). 효과음 키는 기존 draft 에서 확인된 sfx_battle_rumble / sfx_battle_tick / sfx_turn_enemy / sfx_move_step / sfx_battle_roar 만 사용. 모든 대사는 창작이며 사료 근거는 사건 골격에만 있다. 브워지미에시·파코스와프·미에슈코의 최후 정황은 어떤 cue 로도 연출하지 않는다.",
+ "version": 1,
+ "status": "draft",
+ "stages": {
+  "ch21_s1": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "산도미에시와 크라쿠프에서 모인 기사들이 구릉 아래 진창에 말을 세운다. 눈 녹은 땅이 질다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "답신에 쓸 문장을 아직 정하지 못했습니다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_baidar", "expr": "neutral", "text": "끝나기 전에 쓸 수 있는 것은 계획뿐이라고 했습니다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_wlodzimierz_krakow", "expr": "serious", "text": "물러난다. 쫓아라. 지금 쫓지 않으면 저들이 다시 선다."},
+   {"on": {"turn": 4}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_baidar", "expr": "neutral", "text": "호각 셋. 불었습니다. 들린 곳만 돕니다."},
+   {"on": {"when": {"type": "hp_pct_lte", "unit": "enemy_commander", "pct": 40}}, "do": "say", "speaker": "hero:npc_wlodzimierz_krakow", "expr": "serious", "text": "대형을 세워라. 누가 먼저 돌아선 거냐."}
+  ]}},
+  "ch21_s2": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "오데르 강 위로 안개가 걷힌다. 건너편 풀밭에 말 그림자가 줄지어 서 있다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_mongol_vanguard", "expr": "neutral", "text": "열 필 먼저 건넌다. 돌아오는 것부터 세시오."},
+   {"on": {"turn": 2}, "do": "sfx", "key": "sfx_battle_roar"},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_mieszko_ii_opole", "expr": "serious", "text": "건너는 동안이 가장 약하다. 지금이다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "protagonist", "expr": "serious", "text": "선 자국이 맞았습니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_mongol_vanguard", "expr": "serious", "text": "물러난다. 여울 쪽이다. 서기, 먼저 가시오."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "뒤에 서겠습니다. 서기는 마지막에 달리는 것으로 알고 있습니다."}
+  ]}},
+  "ch21_s3": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "브로츠와프 성벽 위에서 연기가 한 줄 오른다. 성 앞 작은 망루가 보인다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_kadan", "expr": "neutral", "text": "벽이 낮소. 한 번만 두드려 봅시다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_baidar", "expr": "neutral", "text": "망루가 먼저입니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_kadan", "expr": "serious", "text": "서기. 읽을 것이 있으면 두 사람에게 같이 말하시오."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "아직 읽을 것이 없습니다. 있으면 같이 말씀드리겠습니다."}
+  ]}}
+ },
+ "pending": {
+  "ch21_s1": [
+   {"id": "s1_p1_retreat_show", "needs": "바이다르 부대 유닛 참조, 후퇴 목표 칸(아군 진영 쪽 3~4칸), 맵(pk_01_plain_clash) 확정 후 좌표", "cues": [
+    {"on": {"turn": 2}, "do": "move", "unit": "hero:npc_baidar", "tile": "TBD"},
+    {"on": {"turn": 2}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "앞줄이 진짜로 물러납니다. 병사는 계획을 모릅니다."}
+   ], "note": "연출 이동(move)은 아군 NPC 가 그 턴 행동을 건너뛴다(SPEC 7절 참조). 플레이어가 먼저 쳐서 일찍 끝내면 발동하지 않는 것이 맞다."},
+   {"id": "s1_p2_reserve", "needs": "예비 기병 spawn(side a, 턴 4 가안, 좌측 숲 칸)", "cues": [
+    {"on": {"turn": 4}, "do": "camera", "tile": "TBD", "ms": 500},
+    {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_baidar", "expr": "neutral", "text": "예비대 나옵니다. 지금 돕니다."},
+    {"on": {"turn": 5}, "do": "camera", "mode": "restore"}
+   ], "note": "spawn 은 stages.triggers 가 아닌 cue spawn(턴 1 허용, SPEC 7절)으로 임밸런이 확정. 대사는 spawn 과 같은 턴에 합친다."},
+   {"id": "s1_p3_gap_flag", "needs": "적 중기병 선두와 보병 후열 사이의 칸 범위(in_zone rect)", "cues": [
+    {"on": {"when": {"type": "in_zone", "side": "b", "rect": "TBD"}}, "do": "set_flag", "key": "c21_s1_gap"},
+    {"on": {"when": {"type": "flag", "key": "c21_s1_gap"}}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "앞줄이 뒷줄에서 떨어졌습니다."}
+   ], "note": "거짓 후퇴가 먹혔는지의 분기(SPEC 6절 in_zone). 후속 post 대사는 분기 없이 공통."}
+  ],
+  "ch21_s2": [
+   {"id": "s2_p1_far_bank_ambush", "needs": "적 기병 spawn(side b, 턴 2, 강 건너 숲 칸)", "cues": [
+    {"on": {"turn": 2}, "do": "camera", "tile": "TBD", "ms": 500},
+    {"on": {"turn": 3}, "do": "camera", "mode": "restore"}
+   ], "note": "기습은 적 spawn 으로 구현. cues 의 미에슈코 대사(턴 2)와 같은 턴이어야 한다."},
+   {"id": "s2_p2_deep_water", "needs": "도하 구간 깊은 칸 좌표(terrain_change 대상), 맵(pk_02_ford_small) 확정", "cues": [
+    {"on": {"battle_start": true}, "do": "terrain_change", "tiles": "TBD", "to": "water"}
+   ], "note": "얕은 여울과 깊은 칸을 시각적으로 구분하는 용도. 판정 영향이 있으므로 임밸런 확정."},
+   {"id": "s2_p3_vanguard_route", "needs": "ally_npcs.route(선발대장 -> 하류 여울 웨이포인트), 승리 조건 win_mode only + in_zone", "cues": [
+    {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "열 필 중 돌아오는 것이 아직 여섯입니다."}
+   ], "note": "'여섯'은 시나리오 연출값이며 실제 유닛 수와 맞출 때만 쓴다. 맞지 않으면 대사에서 숫자를 뺀다."}
+  ],
+  "ch21_s3": [
+   {"id": "s3_p1_tower_dust", "needs": "망루 capture 완료 판정 flag(점령 2턴), 북서쪽 칸 좌표", "cues": [
+    {"on": {"when": {"type": "flag", "key": "c21_s3_tower"}}, "do": "camera", "tile": "TBD", "ms": 600},
+    {"on": {"when": {"type": "flag", "key": "c21_s3_tower"}}, "do": "say", "speaker": "protagonist", "expr": "serious", "text": "북서쪽 먼지가 올라옵니다. 두 분께 같이 말씀드립니다."},
+    {"on": {"when": {"type": "flag", "key": "c21_s3_tower"}}, "do": "say", "speaker": "hero:npc_baidar", "expr": "neutral", "text": "들었습니다."},
+    {"on": {"when": {"type": "flag", "key": "c21_s3_tower"}}, "do": "say", "speaker": "hero:npc_kadan", "expr": "serious", "text": "나도 들었소. 한 번 더 두드리는 건 접겠소."}
+   ], "note": "flag c21_s3_tower 설정 방식(capture 2턴 달성 시 set_flag)은 임밸런/박백엔 확정. 후퇴 판단 자체는 post 대사에서 한다."},
+   {"id": "s3_p2_gate_sortie", "needs": "남쪽 성문 출격 부대 spawn(side b, 턴 4 가안), 성문 칸 좌표", "cues": [
+    {"on": {"turn": 4}, "do": "say", "speaker": "caption", "text": "성문이 열리고 수비병 한 무리가 나온다. 우리 등을 보려는 움직임이다."}
+   ], "note": "카단의 '등을 건드리지 못하게' 대사의 회수."},
+   {"id": "s3_p3_exit_lose", "needs": "퇴로 zone 좌표(in_zone side b 로 lose_conditions)", "cues": [], "note": "cue 가 아니라 rules.lose_conditions 항목. label: '퇴로 차단'. 대사 없음."}
+  ]
+ },
+ "notes": {
+  "ch21_s1": "cue 7개(판정 없음). 브워지미에시는 적에게도 이유가 있다는 한 줄(쫓지 않으면 다시 선다)과 마지막 hp 조건 한 줄. 바이다르의 호각 대사는 pre 의 복선 회수.",
+  "ch21_s2": "cue 7개. 미에슈코는 사료상 도하 중 공격한 사실에 맞춘 한 줄. 'Run' 일화는 쓰지 않음. 서기의 '마지막에 달린다'는 open 회수.",
+  "ch21_s3": "cue 5개. 핵심(먼지, 성문 출격, 퇴로)은 pending 으로 분리."
+ }
+}

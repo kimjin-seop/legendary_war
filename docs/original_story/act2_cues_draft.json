@@ -1,0 +1,90 @@
+{
+ "_note": "[초안 P6, 2026-11-03, 송서사] 오리지널 메인 2막(ch102_s1~s5) stages.rules.cues 초안. 출처: docs/original_story/act2_events.md 이벤트 표 중 '구현 가능' 행(좌표·유닛 id 없이 성립하는 say/sfx/shake/set_flag 부분만). 스키마·변환 원칙은 act1_cues_draft.json과 동일(docs/CUTSCENE_SPEC.md 1·6절). stages.<코드>.rules.cues 배열을 해당 스테이지 JSON rules.cues에 그대로 복사하면 된다. 좌표가 필요한 camera/move/fire/spawn/terrain_change, 퇴장 대상 유닛 id가 필요한 retreat는 cue에서 제외하고 requests에 모았다. 제외 기준: 제외된 행동(이동·증원·지형 변화)이 일어났다는 사실을 말하는 대사는 그 행동 없이는 거짓이 되므로 함께 제외하고 requests에 대사 초안을 보존했다. 효과음 키는 public/assets/audio/manifest.json에 존재하는 것만 사용: sfx_battle_tick, sfx_battle_rumble, sfx_battle_fall, sfx_aura_pulse, sfx_move_step, sfx_turn_enemy, sfx_battle_roar(7종 확인). act2_events.md가 언급한 sfx_fire는 manifest에 없어 사용하지 않았다(불 연출은 fire cue와 함께 requests). speaker: caption / hero:npc_jieum / hero:npc_bonggun / hero:npc_sagong / hero:npc_jimkkun / hero:npc_dol_ajumeoni / hero:npc_gyojeong / hero:147(허준) / protagonist. {protagonist_name} 토큰은 사용하지 않음. 전부 오리지널 가상, 대사는 창작 대사(invented). 동일 시점 cue는 배열 순서대로 발동. 스테이지별 cue 수: s1 5, s2 2, s3 4, s4 12, s5 13(총 36).",
+ "version": 1,
+ "status": "draft",
+ "act": 2,
+ "chapter": 102,
+ "stages": {
+  "ch102_s1": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "석축 위 불 구덩이에 불씨 한 점이 붉다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "caption", "text": "산길 아래로 약초 짐을 진 사람이 지나간다. 쑥 냄새가 올라온다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_bonggun", "expr": "neutral", "text": "바람이 돌았소. 연기가 저쪽으로 쏠리오."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "불 구덩이 칸을 기준으로 보십시오."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_bonggun", "expr": "neutral", "text": "올랐소. 건너편 봉우리 보시오."}
+  ]}},
+  "ch102_s2": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "안개 속에서 노 젓는 소리만 들린다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_sagong", "expr": "neutral", "text": "세 길! 두 길 반!"}
+  ]}},
+  "ch102_s3": {"rules": {"cues": [
+   {"on": {"turn": 2}, "do": "sfx", "key": "sfx_move_step"},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_jimkkun", "expr": "neutral", "text": "바퀴가 삐걱댑니다요. 진흙이 깊습니다요."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "척후 보고 없음. 골짜기 입구 정리를 먼저 하십시오."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "caption", "text": "짐 한쪽에서 약초 자루가 비에 젖지 않게 가마 위로 올려진다."}
+  ]}},
+  "ch102_s4": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "돌무더기 위로 돌 나르는 사람들의 발소리가 이어진다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "지휘 깃발 확인. 투석 기준은 돌무더기 높이입니다."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "caption", "text": "돌무더기가 성벽 위 총안까지 찼다."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "hero:npc_dol_ajumeoni", "expr": "neutral", "text": "던지시오! 지금이오!"},
+   {"on": {"turn": 5}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "신호 규정 위반입니다. 지휘 깃발이 아직 오르지 않았습니다."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "기준 충족입니다. 따르겠습니다."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "hero:npc_dol_ajumeoni", "expr": "serious", "text": "지금 아니면 못 막소!"},
+   {"on": {"turn": 5}, "do": "sfx", "key": "sfx_battle_roar"},
+   {"on": {"turn": 6}, "do": "shake", "power": 3, "ms": 400},
+   {"on": {"turn": 6}, "do": "sfx", "key": "sfx_battle_rumble"},
+   {"on": {"turn": 8}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "기록. 신호 전환은 주인공 책임으로 올립니다."}
+  ]}},
+  "ch102_s5": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:147", "expr": "neutral", "text": "아픈 분은 앞으로 모시지 마십시오. 뒤쪽 그늘이 낫소."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "caption", "text": "환자 하나가 이름을 묻는 소리에 대답하지 못한다."},
+   {"on": {"turn": 3}, "do": "sfx", "key": "sfx_aura_pulse"},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "제 통신선에 다른 목소리가 끼었습니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "순회원 여러분, 교정 담당입니다. 이름 없는 기록은 오류로 분류됩니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "오류가 남으면 책 전체가 읽히지 않습니다. 정리는 지우는 일이 아니라 책을 지키는 일입니다. 정리도 보존입니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "지워진 쪽의 사람들은 어떻게 됩니까."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "정리 상태로 보관됩니다. 불편을 드려 죄송합니다."},
+   {"on": {"turn": 4}, "do": "shake", "power": 2, "ms": 300},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "발신 층 표시는 7입니다. 직인과 같은 층입니다."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:147", "expr": "neutral", "text": "이 장부의 이름 없는 병자들도 내 환자였소."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:147", "expr": "serious", "text": "빈칸은 오류가 아니라 기록이오."},
+   {"on": {"turn": 8}, "do": "say", "speaker": "caption", "text": "쓰러진 공백병의 손에서 접힌 종이 한 장이 떨어진다."}
+  ]}}
+ },
+ "cue_notes": {
+  "ch102_s1": "e1-E1·E5 camera 제외(좌표). e1-E2 move(짐꾼 NPC)는 제외하고 caption만. e1-E3 fire 제외, 대사 2줄만(바람·연기 대사는 불 효과 없이도 성립). e1-E4(move 적A + 지음 대사)는 requests. e1-E5는 전투가 6턴 전에 끝나면 미발동, post 첫 줄이 대신한다. 승리조건(hold_zone 불 구덩이 + unit_survive 봉군)은 cue가 아니라 stages 목표에서 설정.",
+  "ch102_s2": "이 편의 핵심 이벤트 e2-E3(사공 이탈 move + 3줄 + set_flag a2e2_sagong_out)·e2-E5(flag 조건 대사)·e2-E4(move 적선B)는 모두 move 좌표/유닛 id가 필요하고 대사가 이동 사실을 전제해 requests로 보냈다. 사공 NPC 유닛·수로 좌표가 확정되면 e2-E3 + e2-E5 한 쌍으로 추가할 것(flag 없이 E5만 넣으면 이탈이 없던 판에도 발동). 승리조건은 unit_survive 사공 + 적 격파.",
+  "ch102_s3": "e3-E3(move 수레NPC + 짐꾼 대사)·e3-E4(spawn 매복, 2막 증원 1회)는 좌표·유닛 id 필요로 requests. e3-E5 camera 제외, caption만. 수레 줄 도달 판정은 박백엔 확인 필요(act2_events.md 3-3 승리조건).",
+  "ch102_s4": "e4-E3b(caption)와 e4-E3(4줄 + roar)는 turn 5에 순서대로 발동(caption -> 4줄 -> sfx_battle_roar). e4-E3 camera 제외. e4-E4 retreat·terrain_change는 좌표/유닛 id 필요, shake+rumble만 반영. e4-E5(turn 8)는 전투가 8턴 전에 끝나면 미발동. 승리조건은 unit_survive(지휘관) + 정해진 턴 버티기.",
+  "ch102_s5": "e5-E1 camera 제외, say만(허준 NPC 유닛이 없으면 hero:147 초상이 보유 영웅 기준으로 해석되는지 FE 확인, 안 되면 caption 대체). e5-E3 교정관 첫 음성은 5줄(act2_events.md 표는 '6줄'로 적혀 있으나 열거된 대사는 5줄, 원문 그대로). e5-E4의 '7' 숫자는 2막에서 이 한 곳만(a2e5_post·a2_end 재진술 금지). e5-E5 camera 제외. e5-E6 camera 제외, caption만. 지휘 개체 격파 시 주변 공백병 retreat는 requests."
+ },
+ "requests": {
+  "coordinates_needed": [
+   {"ref": "e1-E1", "do": "camera focus 불 구덩이 칸 600ms (battle_start, say 앞), say 뒤 restore", "needs": "맵 확정 후 불 구덩이 칸 [x,y] (맵디자이너)"},
+   {"ref": "e1-E2", "do": "move <짐꾼 NPC> -> 산길 칸 (turn 2, caption 앞)", "needs": "NPC 유닛 id, 산길 칸"},
+   {"ref": "e1-E3", "do": "fire tiles 연기 칸 turns 2 (turn 3, say 앞). 불은 시각 전용", "needs": "연기 칸 좌표. sfx_fire는 manifest에 없어 효과음 추가 요청(안아트) 또는 sfx_aura_pulse 대용"},
+   {"ref": "e1-E4", "do": "move <적A> -> 불 구덩이 인접 칸 + say 지음 '한 명이 구덩이로 접근합니다. 구덩이는 봉군이 올릴 자리입니다. 비우십시오.' (turn 4)", "needs": "적A 유닛 id, 불 구덩이 인접 칸"},
+   {"ref": "e1-E5", "do": "fire tiles 불 구덩이 칸 turns 3 + camera focus 건너 봉우리 -> restore (turn 6, say는 반영됨)", "needs": "불 구덩이 칸, 건너 봉우리 칸 좌표"},
+   {"ref": "e2-E3", "do": "move <사공 NPC> -> 앞쪽 수로 칸 + say 3줄 + set_flag a2e2_sagong_out (turn 4). 대사 초안: 사공 '앞길은 내가 아오!' / 지음 '사공이 앞선을 넘었습니다. 막으면 쪽의 행동이 바뀝니다.' / 주인공 '막지 않습니다. 앞길을 열겠습니다.'", "needs": "사공 NPC 유닛 id, 앞쪽 수로 칸"},
+   {"ref": "e2-E4", "do": "move <적선B> -> 사공 쪽 방향 수로 칸 + say 지음 '적선이 사공 앞쪽으로 들어옵니다.' (turn 5)", "needs": "적선B 유닛 id, 수로 칸"},
+   {"ref": "e2-E5", "do": "on {turn 6, when flag a2e2_sagong_out}: sfx sfx_move_step + say 사공 '두 길 반. 길 열렸소.' (e2-E3과 한 쌍으로만 추가)", "needs": "e2-E3 확정"},
+   {"ref": "e3-E3", "do": "move <수레 NPC> -> 후방 칸 + say 짐꾼 '뒤 수레가 늪에 빠졌습니다요! 저건 제가 가야 합니다요.' (turn 4)", "needs": "수레 NPC 유닛 id, 후방 칸"},
+   {"ref": "e3-E4", "do": "spawn side b unit_type 보병 tiles 골짜기 측면 tag a2e3_ambush ready false + say 지음 '측면 매복입니다. 수레 줄 측면을 막으십시오.' (turn 5, 2막 증원 spawn 1회)", "needs": "골짜기 측면 칸 좌표"},
+   {"ref": "e3-E5", "do": "camera focus 수레 줄 -> restore (turn 6, caption은 반영됨)", "needs": "수레 줄 칸 좌표"},
+   {"ref": "e4-E3", "do": "camera focus 돌무더기 -> sfx roar(반영됨) -> restore (turn 5)", "needs": "돌무더기 칸 좌표"},
+   {"ref": "e4-E4", "do": "retreat <적A·적B> 또는 terrain_change 성벽 아래 칸 -> 돌무더기 지형 (turn 6, shake·rumble은 반영됨)", "needs": "적 유닛 id(지휘관 제외) 또는 칸 좌표 + 지형 코드"},
+   {"ref": "e5-E1", "do": "camera focus 약 보따리 칸 -> restore (battle_start, say 앞뒤)", "needs": "약 보따리 칸 좌표"},
+   {"ref": "e5-E5", "do": "camera focus 허준 -> restore (turn 6)", "needs": "허준 NPC 유닛 칸"},
+   {"ref": "e5-E6", "do": "camera focus 공백병 지휘 개체 -> restore (turn 8) + 지휘 개체 격파 시 주변 공백병 retreat", "needs": "지휘 개체 유닛 id, 주변 공백병 유닛 id"}
+  ],
+  "unimplemented_or_deferred": [
+   "공백병 '글자 지워짐' 이펙트(s1)",
+   "수전 호위 AI, 사공 NPC 유닛(s2)",
+   "수레 도달 판정, 수레 무게·지체 판정, 약초 전용 연출(s3)",
+   "방어 거점 판정 확장, 치마 돌 날리는 스프라이트(s4)",
+   "환자 보호 판정, 정리 목록 종이 오브젝트, 합류 조건형 연출(s5)",
+   "불 효과음(sfx_fire)이 manifest에 없음: 불 연출용 효과음은 안아트 추가 또는 대용 키 결정 필요"
+  ]
+ }
+}

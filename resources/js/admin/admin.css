@@ -1,0 +1,61 @@
+/* 관리자 화면 공통 스타일(게임 톤: 다크 네이비 + 금색). .adm 루트 아래에만 적용 */
+.adm { --bg: #0b1020; --panel: #121a33; --panel2: #18234a; --line: #2a3766; --gold: #d8b25a; --gold-l: #f0d58c; --text: #e8ecf6; --muted: #9aa6c4; --danger: #e0645a; --ok: #6fcf97;
+    min-height: 100vh; background: var(--bg); color: var(--text); font: 14px/1.5 system-ui, 'Noto Sans KR', sans-serif; display: flex; }
+.adm a { color: var(--gold-l); }
+.adm h1, .adm h2, .adm h3 { color: var(--gold-l); margin: 0 0 12px; font-weight: 700; }
+.adm h1 { font-size: 22px; } .adm h2 { font-size: 18px; } .adm h3 { font-size: 15px; }
+.adm-side { width: 210px; flex: none; background: var(--panel); border-right: 1px solid var(--line); padding: 16px 10px; display: flex; flex-direction: column; gap: 4px; }
+.adm-side .brand { color: var(--gold-l); font-weight: 800; font-size: 16px; padding: 4px 10px 14px; }
+.adm-side a { display: block; padding: 9px 12px; border-radius: 6px; color: var(--text); text-decoration: none; }
+.adm-side a.router-link-active { background: var(--panel2); color: var(--gold-l); box-shadow: inset 3px 0 0 var(--gold); }
+.adm-side .who { margin-top: auto; color: var(--muted); font-size: 12px; padding: 10px; }
+.adm-main { flex: 1; min-width: 0; padding: 20px 24px 40px; }
+.adm-card { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; }
+.adm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+.adm-stat { font-size: 28px; font-weight: 800; color: var(--gold-l); }
+.adm-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.adm-row .grow { flex: 1; }
+.adm input, .adm select, .adm textarea { background: #0e1530; color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 7px 9px; font: inherit; }
+.adm textarea { width: 100%; min-height: 90px; font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+.adm input:focus, .adm select:focus, .adm textarea:focus { outline: 1px solid var(--gold); }
+.adm button { background: var(--panel2); color: var(--text); border: 1px solid var(--line); border-radius: 6px; padding: 7px 12px; font: inherit; cursor: pointer; }
+.adm button:hover:not(:disabled) { border-color: var(--gold); }
+.adm button:disabled { opacity: 0.45; cursor: not-allowed; }
+.adm button.primary { background: #6a5216; border-color: var(--gold); color: #fff3d0; }
+.adm button.danger { background: #5a1a17; border-color: var(--danger); color: #ffd9d4; }
+.adm button.sm { padding: 3px 8px; font-size: 12px; }
+.adm-table-wrap { overflow-x: auto; }
+.adm table { width: 100%; border-collapse: collapse; }
+.adm th, .adm td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.adm th { color: var(--muted); font-weight: 600; font-size: 12px; white-space: nowrap; }
+.adm tr:hover td { background: rgba(216, 178, 90, 0.05); }
+.adm tr.sel td { background: rgba(216, 178, 90, 0.12); }
+.adm .mono { font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+.adm pre { background: #0e1530; border: 1px solid var(--line); border-radius: 6px; padding: 8px; max-height: 360px; overflow: auto; font-size: 12px; margin: 0; white-space: pre-wrap; word-break: break-all; }
+.adm .muted { color: var(--muted); }
+.adm .err { background: #3a1513; border: 1px solid var(--danger); color: #ffd9d4; border-radius: 6px; padding: 8px 10px; margin-bottom: 12px; }
+.adm .okmsg { background: #12321f; border: 1px solid var(--ok); color: #d4f5e0; border-radius: 6px; padding: 8px 10px; margin-bottom: 12px; }
+.adm .tag { display: inline-block; padding: 1px 7px; border-radius: 10px; font-size: 11px; border: 1px solid var(--line); color: var(--muted); }
+.adm .tag.on { border-color: var(--gold); color: var(--gold-l); }
+.adm .tag.bad { border-color: var(--danger); color: #ffb3ab; }
+.adm .tabs { display: flex; gap: 4px; margin-bottom: 12px; }
+.adm .tabs button.on { border-color: var(--gold); color: var(--gold-l); }
+.adm-modal-bg { position: fixed; inset: 0; background: rgba(3, 6, 14, 0.72); display: flex; align-items: center; justify-content: center; z-index: 50; padding: 16px; }
+.adm-modal { background: var(--panel); border: 1px solid var(--gold); border-radius: 10px; padding: 18px; width: min(560px, 100%); max-height: 90vh; overflow: auto; }
+.adm-modal .actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 14px; }
+.adm label.f { display: block; margin: 8px 0 4px; color: var(--muted); font-size: 12px; }
+.adm .diff td.b { color: #ffb3ab; } .adm .diff td.a { color: #b8f0c8; }
+.adm-pager { display: flex; gap: 6px; align-items: center; margin-top: 10px; }
+.adm-login { margin: 0 auto; width: min(380px, 92vw); } /* 위 여백은 .adm-login-wrap padding-top(마진 상쇄로 흰 띠·세로 스크롤 생기던 문제, 강화면 gacha42 L1) */
+.adm-login-wrap { display: flow-root; box-sizing: border-box; padding-top: 10vh; }
+body:has(.adm) { margin: 0; } /* 관리자 화면: 브라우저 기본 body 여백(흰 띠) 제거 */
+.adm { box-sizing: border-box; }
+.adm-login input { width: 100%; box-sizing: border-box; margin-bottom: 10px; }
+@media (max-width: 760px) {
+    .adm { flex-direction: column; }
+    .adm-side { width: auto; flex-direction: row; flex-wrap: wrap; border-right: 0; border-bottom: 1px solid var(--line); padding: 8px; }
+    .adm-side .brand { width: 100%; padding: 4px 6px 6px; }
+    .adm-side a { padding: 6px 9px; font-size: 13px; }
+    .adm-side .who { margin-top: 0; width: 100%; padding: 4px 6px; }
+    .adm-main { padding: 14px 10px 30px; }
+}

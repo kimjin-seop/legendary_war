@@ -1,0 +1,3134 @@
+{
+ "_note": "오리지널 메인 1막(시간의 서고 실내) 맵 5개(맵디자이너 2026-11-03, 시작값). maps_imjin10.json 과 같은 items[] 형식. 생성 docker/maps/tilemap_v2/main_a1_gen.py -> tmv2.py all/apply. 좌표 0-based [x,y]. spawns[side] 첫 칸 = 지휘관. 임시 지형 코드: 벽·서가·카운터 W(전 병종 불가), 바닥 p, 카펫 r, 책상 f(엄폐), 카운터 안쪽 c, 문 p. meta.objective_points = capture points:\"map\" 대상(통행 칸), meta.protect_tiles = protect_tiles 보조 목표 후보(박백엔 엔진 추가 예정). tile_layer 는 tv2_static3(2200~, 실내 키트) 인덱스를 쓰므로 FE 가 구간 등록 전에는 지형 코드 기본 타일로 폴백된다.",
+ "items": [
+  {
+   "code": "main_a1_1_reading_room",
+   "name": "열람실",
+   "biome": "library",
+   "tiles": [
+    "WWWWWWWWWWWWWWWW",
+    "WWWWppWWWWWWppWW",
+    "WWWWppWWWWWWppWW",
+    "WppppppppppppppW",
+    "WppWWpffffpWWppW",
+    "WppWWpffffpWWppW",
+    "WppppppppppppppW",
+    "WpffppppppppffpW",
+    "WpffpprrrrppffpW",
+    "WppppprrrrppppWW",
+    "WpppppppppppppWW",
+    "WWWWWWWppWWWWWWW"
+   ],
+   "spawns": {
+    "a": [
+     [
+      6,
+      10
+     ],
+     [
+      7,
+      10
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      9,
+      10
+     ]
+    ],
+    "b": [
+     [
+      12,
+      2
+     ],
+     [
+      5,
+      2
+     ],
+     [
+      14,
+      5
+     ]
+    ]
+   },
+   "deploy_zones": {
+    "a": [
+     [
+      5,
+      9
+     ],
+     [
+      6,
+      9
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      9,
+      9
+     ],
+     [
+      10,
+      9
+     ],
+     [
+      5,
+      10
+     ],
+     [
+      6,
+      10
+     ],
+     [
+      7,
+      10
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      10,
+      10
+     ]
+    ],
+    "b": [
+     [
+      4,
+      1
+     ],
+     [
+      5,
+      1
+     ],
+     [
+      12,
+      1
+     ],
+     [
+      13,
+      1
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      5,
+      2
+     ],
+     [
+      12,
+      2
+     ],
+     [
+      13,
+      2
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      5,
+      3
+     ],
+     [
+      6,
+      3
+     ],
+     [
+      11,
+      3
+     ],
+     [
+      12,
+      3
+     ],
+     [
+      13,
+      3
+     ],
+     [
+      13,
+      4
+     ],
+     [
+      14,
+      4
+     ],
+     [
+      13,
+      5
+     ],
+     [
+      14,
+      5
+     ],
+     [
+      13,
+      6
+     ],
+     [
+      14,
+      6
+     ]
+    ]
+   },
+   "meta": {
+    "stage_code": "ch101_s1",
+    "ep": "1-1",
+    "theme": "시간의 서고 열람실: 북벽 서가 틈 2곳으로 공백병 진입, 열람 탁자 3곳의 책 칸 보호",
+    "kind": "interior",
+    "width": 16,
+    "height": 12,
+    "pvp_fair": false,
+    "pvp_listing": "excluded",
+    "campaign_ok": true,
+    "objective_points": [],
+    "protect_tiles": [
+     [
+      8,
+      4
+     ],
+     [
+      3,
+      7
+     ],
+     [
+      13,
+      7
+     ]
+    ],
+    "spawn_counts": {
+     "a": 4,
+     "b": 3
+    },
+    "terrain_counts": {
+     "W": 80,
+     "p": 88,
+     "f": 16,
+     "r": 8
+    },
+    "source_rows": [
+     "WWWWWWWWWWWWWWWW",
+     "WSSSppSSSSSSppSW",
+     "WSSSpeSSSSSSepSW",
+     "WppppppppppppppW",
+     "WppSSpffBfpSSppW",
+     "WppSSpffffpSSpeW",
+     "WppppppppppppppW",
+     "WpfBppppppppfBpW",
+     "WpffpprrrrppffpW",
+     "WppppprrrrppppSW",
+     "WpppppaaaappppSW",
+     "WWWWWWWDDWWWWWWW"
+    ],
+    "source_legend": "W 벽 G 닫힌 문(W) S 서가(W) R 붉은 줄 서가(W) K 카운터(W) / p 바닥 a 아군 e 적 H 거점 x 닫힐 통로 / D 문 O 목표 문(p) / r 카펫 / f 책상 B 책 책상(f) / c 카운터 안쪽 Q 그 안 아군",
+    "design": "docker/maps/tilemap_v2/main_a1_1_reading_room.design.json",
+    "designer": "맵디자이너 2026-11-03"
+   },
+   "tile_layer": {
+    "format": "names-v1",
+    "names": [
+     "int_carpet_BC",
+     "int_carpet_BL",
+     "int_carpet_BR",
+     "int_carpet_TC",
+     "int_carpet_TL",
+     "int_carpet_TR",
+     "int_shelf_BC",
+     "int_shelf_BL",
+     "int_shelf_BR",
+     "int_shelf_TC",
+     "int_shelf_TL",
+     "int_shelf_TR",
+     "int_threshold",
+     "int_wallface_bot_L",
+     "int_wallface_bot_R",
+     "int_walltop47_112",
+     "int_walltop47_124",
+     "int_walltop47_127",
+     "int_walltop47_199",
+     "int_walltop47_223",
+     "int_walltop47_241",
+     "int_walltop47_247",
+     "int_walltop47_253",
+     "int_walltop47_28",
+     "int_walltop47_31",
+     "woodfloor_a",
+     "woodfloor_b"
+    ],
+    "rows": [
+     "21 18 18 18 13 14 18 18 18 18 18 18 13 14 18 19",
+     "20 10 9 11 26 25 10 9 9 9 9 11 26 25 9 24",
+     "20 7 6 8 25 26 7 6 6 6 6 8 25 26 6 24",
+     "20 25 26 25 26 25 26 25 26 25 26 25 26 25 26 24",
+     "20 26 25 10 11 26 25 26 25 26 25 10 11 26 25 24",
+     "20 25 26 7 8 25 26 25 26 25 26 7 8 25 26 24",
+     "20 26 25 26 25 26 25 26 25 26 25 26 25 26 25 24",
+     "20 25 26 25 26 25 26 25 26 25 26 25 26 25 26 24",
+     "20 26 25 26 25 26 4 3 3 5 25 26 25 26 25 24",
+     "20 25 26 25 26 25 1 0 0 2 26 25 26 25 9 24",
+     "20 26 25 26 25 26 25 26 25 26 25 26 25 26 6 24",
+     "22 16 16 16 16 16 15 12 12 23 16 16 16 16 16 17"
+    ],
+    "index_map": {
+     "int_carpet_BC": 2229,
+     "int_carpet_BL": 2228,
+     "int_carpet_BR": 2230,
+     "int_carpet_TC": 2223,
+     "int_carpet_TL": 2222,
+     "int_carpet_TR": 2224,
+     "int_shelf_BC": 2207,
+     "int_shelf_BL": 2206,
+     "int_shelf_BR": 2208,
+     "int_shelf_TC": 2201,
+     "int_shelf_TL": 2200,
+     "int_shelf_TR": 2202,
+     "int_threshold": 2231,
+     "int_wallface_bot_L": 2213,
+     "int_wallface_bot_R": 2216,
+     "int_walltop47_112": 2326,
+     "int_walltop47_124": 2331,
+     "int_walltop47_127": 2333,
+     "int_walltop47_199": 2336,
+     "int_walltop47_223": 2341,
+     "int_walltop47_241": 2342,
+     "int_walltop47_247": 2344,
+     "int_walltop47_253": 2345,
+     "int_walltop47_28": 2310,
+     "int_walltop47_31": 2312,
+     "woodfloor_a": 1584,
+     "woodfloor_b": 1585
+    },
+    "rotations": {},
+    "overlay": [],
+    "unmapped": [],
+    "note": "맵디자이너 파일럿 2026-11-03: tile_layer.v2(layers-v1) ground 평탄화. tv2 이름(<fam>47_<mask> 등)은 tv2 인덱스(1000~), 레거시 이름(peak_full·reef_*)은 기존 인덱스. 원본 docker/maps/tilemap_v2/main_a1_1_reading_room.design.json, 되돌리기 tmv2.py revert main_a1_1_reading_room. 서버 판정은 tiles.",
+    "v2": {
+     "format": "layers-v1",
+     "tileset": "tv2(tv2_static/tv2_anim/tv2_anim2), cs:시트:id = chip_index 로 tv2 해소",
+     "tile_px": 32,
+     "size": [
+      16,
+      12
+     ],
+     "names": [
+      "int_walltop47_247",
+      "int_walltop47_199",
+      "int_wallface_bot_L",
+      "int_wallface_bot_R",
+      "int_walltop47_223",
+      "int_walltop47_241",
+      "int_shelf_TL",
+      "int_shelf_TC",
+      "int_shelf_TR",
+      "woodfloor_b",
+      "woodfloor_a",
+      "int_walltop47_31",
+      "int_shelf_BL",
+      "int_shelf_BC",
+      "int_shelf_BR",
+      "int_carpet_TL",
+      "int_carpet_TC",
+      "int_carpet_TR",
+      "int_carpet_BL",
+      "int_carpet_BC",
+      "int_carpet_BR",
+      "int_walltop47_253",
+      "int_walltop47_124",
+      "int_walltop47_112",
+      "int_threshold",
+      "int_walltop47_28",
+      "int_walltop47_127",
+      "cs:A:325",
+      "cs:A:326",
+      "cs:A:327",
+      "cs:A:328",
+      "cs:A:145",
+      "cs:A:175",
+      "cs:A:204",
+      "cs:A:114",
+      "cs:A:115",
+      "cs:A:268",
+      "cs:A:267"
+     ],
+     "index_map": {
+      "int_walltop47_247": 2344,
+      "int_walltop47_199": 2336,
+      "int_wallface_bot_L": 2213,
+      "int_wallface_bot_R": 2216,
+      "int_walltop47_223": 2341,
+      "int_walltop47_241": 2342,
+      "int_shelf_TL": 2200,
+      "int_shelf_TC": 2201,
+      "int_shelf_TR": 2202,
+      "woodfloor_b": 1585,
+      "woodfloor_a": 1584,
+      "int_walltop47_31": 2312,
+      "int_shelf_BL": 2206,
+      "int_shelf_BC": 2207,
+      "int_shelf_BR": 2208,
+      "int_carpet_TL": 2222,
+      "int_carpet_TC": 2223,
+      "int_carpet_TR": 2224,
+      "int_carpet_BL": 2228,
+      "int_carpet_BC": 2229,
+      "int_carpet_BR": 2230,
+      "int_walltop47_253": 2345,
+      "int_walltop47_124": 2331,
+      "int_walltop47_112": 2326,
+      "int_threshold": 2231,
+      "int_walltop47_28": 2310,
+      "int_walltop47_127": 2333,
+      "cs:A:325": 2257,
+      "cs:A:326": 2258,
+      "cs:A:327": 2259,
+      "cs:A:328": 2260,
+      "cs:A:145": 2237,
+      "cs:A:175": 2238,
+      "cs:A:204": 2241,
+      "cs:A:114": 2243,
+      "cs:A:115": 2244,
+      "cs:A:268": 2234,
+      "cs:A:267": 2233
+     },
+     "pending_bake": [],
+     "layers": {
+      "ground": [
+       "0 1 1 1 2 3 1 1 1 1 1 1 2 3 1 4",
+       "5 6 7 8 9 10 6 7 7 7 7 8 9 10 7 11",
+       "5 12 13 14 10 9 12 13 13 13 13 14 10 9 13 11",
+       "5 10 9 10 9 10 9 10 9 10 9 10 9 10 9 11",
+       "5 9 10 6 8 9 10 9 10 9 10 6 8 9 10 11",
+       "5 10 9 12 14 10 9 10 9 10 9 12 14 10 9 11",
+       "5 9 10 9 10 9 10 9 10 9 10 9 10 9 10 11",
+       "5 10 9 10 9 10 9 10 9 10 9 10 9 10 9 11",
+       "5 9 10 9 10 9 15 16 16 17 10 9 10 9 10 11",
+       "5 10 9 10 9 10 18 19 19 20 9 10 9 10 7 11",
+       "5 9 10 9 10 9 10 9 10 9 10 9 10 9 13 11",
+       "21 22 22 22 22 22 23 24 24 25 22 22 22 22 22 26"
+      ],
+      "building": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 27 28 29 30 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 27 28 29 30 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 27 30 -1 -1 -1 -1 -1 -1 -1 -1 27 30 -1 -1",
+       "-1 -1 27 30 -1 -1 -1 -1 -1 -1 -1 -1 27 30 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "object": [
+       "-1 -1 -1 -1 34 35 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 33 -1 31 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 31 37 -1 -1 -1 -1 -1 -1 36 -1 32 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "foreground": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ]
+     },
+     "paint": [
+      "################",
+      "#$$$KK$$$$$$KK$#",
+      "#$$$KK$$$$$$KK$#",
+      "#KKKKKKKKKKKKKK#",
+      "#KK$$KKKKKK$$KK#",
+      "#KK$$KKKKKK$$KK#",
+      "#KKKKKKKKKKKKKK#",
+      "#KKKKKKKKKKKKKK#",
+      "#KKKKKUUUUKKKKK#",
+      "#KKKKKUUUUKKKK$#",
+      "#KKKKKKKKKKKKK$#",
+      "#######TT#######"
+     ],
+     "structures": [],
+     "zones": [
+      {
+       "id": "hall",
+       "kind": "library",
+       "rect": [
+        1,
+        1,
+        14,
+        10
+       ],
+       "purpose": "열람실 전체(탁자 3·북벽 서가)",
+       "max_objects": 12
+      }
+     ],
+     "routes": [
+      {
+       "id": "west",
+       "kind": "lane",
+       "path": "북서 서가 틈(4~5,1~2) -> 서쪽 통로 x1~2 -> 남문",
+       "note": ""
+      },
+      {
+       "id": "east",
+       "kind": "lane",
+       "path": "북동 서가 틈(12~13,1~2) -> 동쪽 통로 x13~14 -> 남문",
+       "note": ""
+      },
+      {
+       "id": "center",
+       "kind": "lane",
+       "path": "중앙 탁자 좌우(x5, x10) -> 카펫(6~9,8~9) -> 남문(7~8,11)",
+       "note": ""
+      }
+     ],
+     "collision": "derived:tiles",
+     "tiles_sha": "7ad956555831",
+     "render_order": "ground -> building -> object -> (propLayer/overlay/cursor) -> unit -> foreground",
+     "generator": "docker/maps/tilemap_v2/tmv2.py",
+     "design": "docker/maps/tilemap_v2/main_a1_1_reading_room.design.json",
+     "built": "2026-11-03"
+    }
+   }
+  },
+  {
+   "code": "main_a1_2_scriptorium",
+   "name": "필사실",
+   "biome": "library",
+   "tiles": [
+    "WWWWWWWWWppWWWWWWWWW",
+    "WWWppppppppppppppWWW",
+    "WWWpfpfpfppppfpfpWWW",
+    "WWWppppppppppppppppW",
+    "WWWpfpfpfpprrpfpfppW",
+    "WWWpppppppprrppppppW",
+    "WpppppppppprrppppppW",
+    "WWWpppppppprrppppppW",
+    "WWWppppppprrrrpppppW",
+    "WWWppppppprrrrpppppW",
+    "WppppppppppppppppppW",
+    "WppppppppppppppppWWW",
+    "WWWppppppppppppppWWW",
+    "WWWWWWWWWppWWWWWWWWW"
+   ],
+   "spawns": {
+    "a": [
+     [
+      7,
+      11
+     ],
+     [
+      8,
+      11
+     ],
+     [
+      9,
+      11
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      11,
+      11
+     ],
+     [
+      12,
+      11
+     ],
+     [
+      13,
+      11
+     ],
+     [
+      9,
+      12
+     ],
+     [
+      10,
+      12
+     ],
+     [
+      11,
+      12
+     ]
+    ],
+    "b": [
+     [
+      9,
+      1
+     ],
+     [
+      10,
+      1
+     ],
+     [
+      15,
+      1
+     ],
+     [
+      18,
+      5
+     ],
+     [
+      18,
+      7
+     ]
+    ]
+   },
+   "deploy_zones": {
+    "a": [
+     [
+      6,
+      10
+     ],
+     [
+      7,
+      10
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      10,
+      10
+     ],
+     [
+      11,
+      10
+     ],
+     [
+      12,
+      10
+     ],
+     [
+      13,
+      10
+     ],
+     [
+      14,
+      10
+     ],
+     [
+      6,
+      11
+     ],
+     [
+      7,
+      11
+     ],
+     [
+      8,
+      11
+     ],
+     [
+      9,
+      11
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      11,
+      11
+     ],
+     [
+      12,
+      11
+     ],
+     [
+      13,
+      11
+     ],
+     [
+      14,
+      11
+     ],
+     [
+      6,
+      12
+     ],
+     [
+      7,
+      12
+     ],
+     [
+      8,
+      12
+     ],
+     [
+      9,
+      12
+     ],
+     [
+      10,
+      12
+     ],
+     [
+      11,
+      12
+     ],
+     [
+      12,
+      12
+     ],
+     [
+      13,
+      12
+     ],
+     [
+      14,
+      12
+     ]
+    ],
+    "b": [
+     [
+      8,
+      1
+     ],
+     [
+      9,
+      1
+     ],
+     [
+      10,
+      1
+     ],
+     [
+      11,
+      1
+     ],
+     [
+      14,
+      1
+     ],
+     [
+      15,
+      1
+     ],
+     [
+      16,
+      1
+     ],
+     [
+      9,
+      2
+     ],
+     [
+      10,
+      2
+     ],
+     [
+      11,
+      2
+     ],
+     [
+      14,
+      2
+     ],
+     [
+      16,
+      2
+     ],
+     [
+      17,
+      4
+     ],
+     [
+      18,
+      4
+     ],
+     [
+      17,
+      5
+     ],
+     [
+      18,
+      5
+     ],
+     [
+      17,
+      6
+     ],
+     [
+      18,
+      6
+     ],
+     [
+      17,
+      7
+     ],
+     [
+      18,
+      7
+     ],
+     [
+      17,
+      8
+     ],
+     [
+      18,
+      8
+     ]
+    ]
+   },
+   "meta": {
+    "stage_code": "ch101_s2",
+    "ep": "1-2",
+    "theme": "필사실: 책상 10(좌측 6 = 기우는 서가 쪽 위험 구간, 우측 4), 좌측 서가(1~2,1~5) 붉은 줄, 서쪽 벽 지도에 없는 문(연출, 통행 불가)",
+    "kind": "interior",
+    "width": 20,
+    "height": 14,
+    "pvp_fair": false,
+    "pvp_listing": "excluded",
+    "campaign_ok": true,
+    "objective_points": [],
+    "protect_tiles": [
+     [
+      4,
+      2
+     ],
+     [
+      6,
+      2
+     ],
+     [
+      8,
+      2
+     ],
+     [
+      13,
+      2
+     ],
+     [
+      15,
+      2
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      6,
+      4
+     ],
+     [
+      8,
+      4
+     ],
+     [
+      14,
+      4
+     ],
+     [
+      16,
+      4
+     ]
+    ],
+    "spawn_counts": {
+     "a": 10,
+     "b": 5
+    },
+    "terrain_counts": {
+     "W": 86,
+     "p": 168,
+     "f": 10,
+     "r": 16
+    },
+    "source_rows": [
+     "WWWWWWWWWDDWWWWWWWWW",
+     "WRRppppppeeppppepSSW",
+     "WRRpfpfpfppppfpfpSSW",
+     "WRRppppppppppppppppW",
+     "WRRpfpfpfpprrpfpfppW",
+     "WRRpppppppprrpppppeW",
+     "GpppppppppprrppppppW",
+     "WSSpppppppprrpppppeW",
+     "WSSppppppprrrrpppppW",
+     "WSSppppppprrrrpppppW",
+     "WppppppppppppppppppW",
+     "WppppppaaaaaaapppSSW",
+     "WSSppppppaaapppppSSW",
+     "WWWWWWWWWDDWWWWWWWWW"
+    ],
+    "source_legend": "W 벽 G 닫힌 문(W) S 서가(W) R 붉은 줄 서가(W) K 카운터(W) / p 바닥 a 아군 e 적 H 거점 x 닫힐 통로 / D 문 O 목표 문(p) / r 카펫 / f 책상 B 책 책상(f) / c 카운터 안쪽 Q 그 안 아군",
+    "design": "docker/maps/tilemap_v2/main_a1_2_scriptorium.design.json",
+    "designer": "맵디자이너 2026-11-03"
+   },
+   "tile_layer": {
+    "format": "names-v1",
+    "names": [
+     "int_carpet_BC",
+     "int_carpet_BL",
+     "int_carpet_BR",
+     "int_carpet_MC",
+     "int_carpet_ML",
+     "int_carpet_MR",
+     "int_carpet_TL",
+     "int_carpet_TR",
+     "int_shelf_BL",
+     "int_shelf_BR",
+     "int_shelf_ML",
+     "int_shelf_MR",
+     "int_shelf_TL",
+     "int_shelf_TR",
+     "int_shelfred_BL",
+     "int_shelfred_BR",
+     "int_shelfred_ML",
+     "int_shelfred_MR",
+     "int_shelfred_TL",
+     "int_shelfred_TR",
+     "int_threshold",
+     "int_wallface_bot_C1",
+     "int_wallface_bot_C2",
+     "int_wallface_bot_L",
+     "int_wallface_bot_R",
+     "int_walltop47_112",
+     "int_walltop47_124",
+     "int_walltop47_127",
+     "int_walltop47_199",
+     "int_walltop47_223",
+     "int_walltop47_241",
+     "int_walltop47_247",
+     "int_walltop47_253",
+     "int_walltop47_28",
+     "int_walltop47_31",
+     "woodfloor_a",
+     "woodfloor_b"
+    ],
+    "rows": [
+     "31 28 28 23 22 21 22 21 24 20 20 23 22 21 22 21 24 28 28 29",
+     "30 18 19 35 36 35 36 35 36 35 36 35 36 35 36 35 36 12 13 34",
+     "30 16 17 36 35 36 35 36 35 36 35 36 35 36 35 36 35 8 9 34",
+     "30 16 17 35 36 35 36 35 36 35 36 35 36 35 36 35 36 35 36 34",
+     "30 16 17 36 35 36 35 36 35 36 35 6 7 36 35 36 35 36 35 34",
+     "30 14 15 35 36 35 36 35 36 35 36 4 5 35 36 35 36 35 36 34",
+     "30 36 35 36 35 36 35 36 35 36 35 4 5 36 35 36 35 36 35 34",
+     "30 12 13 35 36 35 36 35 36 35 36 4 5 35 36 35 36 35 36 34",
+     "30 10 11 36 35 36 35 36 35 36 6 3 3 7 35 36 35 36 35 34",
+     "30 8 9 35 36 35 36 35 36 35 1 0 0 2 36 35 36 35 36 34",
+     "30 36 35 36 35 36 35 36 35 36 35 36 35 36 35 36 35 36 35 34",
+     "30 35 36 35 36 35 36 35 36 35 36 35 36 35 36 35 36 12 13 34",
+     "30 10 11 36 35 36 35 36 35 36 35 36 35 36 35 36 35 8 9 34",
+     "32 26 26 26 26 26 26 26 25 20 20 33 26 26 26 26 26 26 26 27"
+    ],
+    "index_map": {
+     "int_carpet_BC": 2229,
+     "int_carpet_BL": 2228,
+     "int_carpet_BR": 2230,
+     "int_carpet_MC": 2226,
+     "int_carpet_ML": 2225,
+     "int_carpet_MR": 2227,
+     "int_carpet_TL": 2222,
+     "int_carpet_TR": 2224,
+     "int_shelf_BL": 2206,
+     "int_shelf_BR": 2208,
+     "int_shelf_ML": 2203,
+     "int_shelf_MR": 2205,
+     "int_shelf_TL": 2200,
+     "int_shelf_TR": 2202,
+     "int_shelfred_BL": 2356,
+     "int_shelfred_BR": 2358,
+     "int_shelfred_ML": 2353,
+     "int_shelfred_MR": 2355,
+     "int_shelfred_TL": 2350,
+     "int_shelfred_TR": 2352,
+     "int_threshold": 2231,
+     "int_wallface_bot_C1": 2214,
+     "int_wallface_bot_C2": 2215,
+     "int_wallface_bot_L": 2213,
+     "int_wallface_bot_R": 2216,
+     "int_walltop47_112": 2326,
+     "int_walltop47_124": 2331,
+     "int_walltop47_127": 2333,
+     "int_walltop47_199": 2336,
+     "int_walltop47_223": 2341,
+     "int_walltop47_241": 2342,
+     "int_walltop47_247": 2344,
+     "int_walltop47_253": 2345,
+     "int_walltop47_28": 2310,
+     "int_walltop47_31": 2312,
+     "woodfloor_a": 1584,
+     "woodfloor_b": 1585
+    },
+    "rotations": {},
+    "overlay": [],
+    "unmapped": [],
+    "note": "맵디자이너 파일럿 2026-11-03: tile_layer.v2(layers-v1) ground 평탄화. tv2 이름(<fam>47_<mask> 등)은 tv2 인덱스(1000~), 레거시 이름(peak_full·reef_*)은 기존 인덱스. 원본 docker/maps/tilemap_v2/main_a1_2_scriptorium.design.json, 되돌리기 tmv2.py revert main_a1_2_scriptorium. 서버 판정은 tiles.",
+    "v2": {
+     "format": "layers-v1",
+     "tileset": "tv2(tv2_static/tv2_anim/tv2_anim2), cs:시트:id = chip_index 로 tv2 해소",
+     "tile_px": 32,
+     "size": [
+      20,
+      14
+     ],
+     "names": [
+      "int_walltop47_247",
+      "int_walltop47_199",
+      "int_wallface_bot_L",
+      "int_wallface_bot_C2",
+      "int_wallface_bot_C1",
+      "int_wallface_bot_R",
+      "int_threshold",
+      "int_walltop47_223",
+      "int_walltop47_241",
+      "int_shelfred_TL",
+      "int_shelfred_TR",
+      "woodfloor_a",
+      "woodfloor_b",
+      "int_shelf_TL",
+      "int_shelf_TR",
+      "int_walltop47_31",
+      "int_shelfred_ML",
+      "int_shelfred_MR",
+      "int_shelf_BL",
+      "int_shelf_BR",
+      "int_carpet_TL",
+      "int_carpet_TR",
+      "int_shelfred_BL",
+      "int_shelfred_BR",
+      "int_carpet_ML",
+      "int_carpet_MR",
+      "int_shelf_ML",
+      "int_shelf_MR",
+      "int_carpet_MC",
+      "int_carpet_BL",
+      "int_carpet_BC",
+      "int_carpet_BR",
+      "int_walltop47_253",
+      "int_walltop47_124",
+      "int_walltop47_112",
+      "int_walltop47_28",
+      "int_walltop47_127",
+      "cs:A:295",
+      "cs:A:297",
+      "cs:A:145",
+      "cs:A:206",
+      "cs:A:56",
+      "obj3_bleed_c"
+     ],
+     "index_map": {
+      "int_walltop47_247": 2344,
+      "int_walltop47_199": 2336,
+      "int_wallface_bot_L": 2213,
+      "int_wallface_bot_C2": 2215,
+      "int_wallface_bot_C1": 2214,
+      "int_wallface_bot_R": 2216,
+      "int_threshold": 2231,
+      "int_walltop47_223": 2341,
+      "int_walltop47_241": 2342,
+      "int_shelfred_TL": 2350,
+      "int_shelfred_TR": 2352,
+      "woodfloor_a": 1584,
+      "woodfloor_b": 1585,
+      "int_shelf_TL": 2200,
+      "int_shelf_TR": 2202,
+      "int_walltop47_31": 2312,
+      "int_shelfred_ML": 2353,
+      "int_shelfred_MR": 2355,
+      "int_shelf_BL": 2206,
+      "int_shelf_BR": 2208,
+      "int_carpet_TL": 2222,
+      "int_carpet_TR": 2224,
+      "int_shelfred_BL": 2356,
+      "int_shelfred_BR": 2358,
+      "int_carpet_ML": 2225,
+      "int_carpet_MR": 2227,
+      "int_shelf_ML": 2203,
+      "int_shelf_MR": 2205,
+      "int_carpet_MC": 2226,
+      "int_carpet_BL": 2228,
+      "int_carpet_BC": 2229,
+      "int_carpet_BR": 2230,
+      "int_walltop47_253": 2345,
+      "int_walltop47_124": 2331,
+      "int_walltop47_112": 2326,
+      "int_walltop47_28": 2310,
+      "int_walltop47_127": 2333,
+      "cs:A:295": 2232,
+      "cs:A:297": 2235,
+      "cs:A:145": 2237,
+      "cs:A:206": 2242,
+      "cs:A:56": 2247,
+      "obj3_bleed_c": 2362
+     },
+     "pending_bake": [],
+     "layers": {
+      "ground": [
+       "0 1 1 2 3 4 3 4 5 6 6 2 3 4 3 4 5 1 1 7",
+       "8 9 10 11 12 11 12 11 12 11 12 11 12 11 12 11 12 13 14 15",
+       "8 16 17 12 11 12 11 12 11 12 11 12 11 12 11 12 11 18 19 15",
+       "8 16 17 11 12 11 12 11 12 11 12 11 12 11 12 11 12 11 12 15",
+       "8 16 17 12 11 12 11 12 11 12 11 20 21 12 11 12 11 12 11 15",
+       "8 22 23 11 12 11 12 11 12 11 12 24 25 11 12 11 12 11 12 15",
+       "8 12 11 12 11 12 11 12 11 12 11 24 25 12 11 12 11 12 11 15",
+       "8 13 14 11 12 11 12 11 12 11 12 24 25 11 12 11 12 11 12 15",
+       "8 26 27 12 11 12 11 12 11 12 20 28 28 21 11 12 11 12 11 15",
+       "8 18 19 11 12 11 12 11 12 11 29 30 30 31 12 11 12 11 12 15",
+       "8 12 11 12 11 12 11 12 11 12 11 12 11 12 11 12 11 12 11 15",
+       "8 11 12 11 12 11 12 11 12 11 12 11 12 11 12 11 12 13 14 15",
+       "8 26 27 12 11 12 11 12 11 12 11 12 11 12 11 12 11 18 19 15",
+       "32 33 33 33 33 33 33 33 34 6 6 35 33 33 33 33 33 33 33 36"
+      ],
+      "building": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 37 -1 37 -1 37 -1 -1 -1 -1 37 -1 37 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 37 -1 37 -1 37 -1 -1 -1 -1 -1 37 -1 37 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "41 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "object": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 42 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 42 -1 -1 -1 -1 39 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 42 38 -1 38 -1 38 -1 -1 -1 -1 38 -1 38 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 40 -1 -1 -1",
+       "-1 -1 -1 -1 38 -1 38 -1 38 -1 -1 -1 -1 -1 38 -1 38 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "foreground": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ]
+     },
+     "paint": [
+      "#########TT#########",
+      "#%%KKKKKKKKKKKKKK$$#",
+      "#%%KKKKKKKKKKKKKK$$#",
+      "#%%KKKKKKKKKKKKKKKK#",
+      "#%%KKKKKKKKUUKKKKKK#",
+      "#%%KKKKKKKKUUKKKKKK#",
+      "#KKKKKKKKKKUUKKKKKK#",
+      "#$$KKKKKKKKUUKKKKKK#",
+      "#$$KKKKKKKUUUUKKKKK#",
+      "#$$KKKKKKKUUUUKKKKK#",
+      "#KKKKKKKKKKKKKKKKKK#",
+      "#KKKKKKKKKKKKKKKK$$#",
+      "#$$KKKKKKKKKKKKKK$$#",
+      "#########TT#########"
+     ],
+     "structures": [],
+     "zones": [
+      {
+       "id": "desks_w",
+       "kind": "library",
+       "rect": [
+        3,
+        1,
+        9,
+        9
+       ],
+       "purpose": "좌측 책상 6(위험 구간)",
+       "max_objects": 14
+      },
+      {
+       "id": "shelf_w",
+       "kind": "library",
+       "rect": [
+        1,
+        1,
+        3,
+        5
+       ],
+       "purpose": "붉은 줄 서가 앞(번짐 시작점)",
+       "max_objects": 3
+      },
+      {
+       "id": "desks_e",
+       "kind": "library",
+       "rect": [
+        10,
+        1,
+        18,
+        12
+       ],
+       "purpose": "우측 책상 4·카펫 통로",
+       "max_objects": 10
+      }
+     ],
+     "routes": [
+      {
+       "id": "carpet",
+       "kind": "lane",
+       "path": "북문(9~10,0) -> 카펫(11~12,4~9) -> 남문(9~10,13)",
+       "note": "주 동선"
+      },
+      {
+       "id": "west",
+       "kind": "lane",
+       "path": "좌측 책상 사이 통로(x3·5·7, y1~9)",
+       "note": "좌측 서가 기울기 위험 구간"
+      }
+     ],
+     "collision": "derived:tiles",
+     "tiles_sha": "db1fb4a00929",
+     "render_order": "ground -> building -> object -> (propLayer/overlay/cursor) -> unit -> foreground",
+     "generator": "docker/maps/tilemap_v2/tmv2.py",
+     "design": "docker/maps/tilemap_v2/main_a1_2_scriptorium.design.json",
+     "built": "2026-11-03"
+    }
+   }
+  },
+  {
+   "code": "main_a1_3_corridor",
+   "name": "지도에 없는 복도",
+   "biome": "library",
+   "tiles": [
+    "WWWWWWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWWWWWW",
+    "WWWWpWWWWpWWWWWWWWWWWWWW",
+    "ppprrrrrrrrrrrrrppWWWWWW",
+    "WpprrrrrrrrrrrrrrpWWWWWW",
+    "WWWWpWWWWWWpWWrrrpWWWWWW",
+    "WWWWpWWWWWWpWWrrrWWWWWWW",
+    "WWWWWWWWWWWWWWrrrWWWWWWW",
+    "WWWWWWWWWWWWWWrrrWWWWWWW",
+    "WWWWWWWWWWWWWprrrrrrrpWW",
+    "WWWWWWWWWWWWWprrrrrrrrrp",
+    "WWWWWWWWWWWWWprrrrrrrpWW",
+    "WWWWWWWWWWWWWWWWWWWWpWWW",
+    "WWWWWWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWWWWWW"
+   ],
+   "spawns": {
+    "a": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      2,
+      4
+     ]
+    ],
+    "b": [
+     [
+      17,
+      3
+     ],
+     [
+      13,
+      10
+     ],
+     [
+      20,
+      12
+     ],
+     [
+      11,
+      6
+     ],
+     [
+      4,
+      6
+     ]
+    ]
+   },
+   "deploy_zones": {
+    "a": [
+     [
+      1,
+      3
+     ],
+     [
+      2,
+      3
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      1,
+      4
+     ],
+     [
+      2,
+      4
+     ],
+     [
+      3,
+      4
+     ]
+    ],
+    "b": [
+     [
+      16,
+      3
+     ],
+     [
+      17,
+      3
+     ],
+     [
+      16,
+      4
+     ],
+     [
+      17,
+      4
+     ],
+     [
+      4,
+      5
+     ],
+     [
+      11,
+      5
+     ],
+     [
+      4,
+      6
+     ],
+     [
+      11,
+      6
+     ],
+     [
+      13,
+      9
+     ],
+     [
+      14,
+      9
+     ],
+     [
+      13,
+      10
+     ],
+     [
+      14,
+      10
+     ],
+     [
+      13,
+      11
+     ],
+     [
+      14,
+      11
+     ],
+     [
+      19,
+      11
+     ],
+     [
+      20,
+      11
+     ],
+     [
+      21,
+      11
+     ],
+     [
+      20,
+      12
+     ]
+    ]
+   },
+   "meta": {
+    "stage_code": "ch101_s3",
+    "ep": "1-3",
+    "theme": "좁은 ㄱ자 복도: 서문(필사실 쪽) 진입 -> 동쪽 끝 문(23,10) 도달. 벽 감실 2곳 후방 기습, 꺾임 3칸 폭 병목",
+    "kind": "interior",
+    "width": 24,
+    "height": 16,
+    "pvp_fair": false,
+    "pvp_listing": "excluded",
+    "campaign_ok": true,
+    "objective_points": [
+     [
+      23,
+      10
+     ]
+    ],
+    "protect_tiles": [],
+    "spawn_counts": {
+     "a": 4,
+     "b": 5
+    },
+    "terrain_counts": {
+     "W": 300,
+     "p": 22,
+     "r": 62
+    },
+    "source_rows": [
+     "WWWWWWWWWWWWWWWWWWWWWWWW",
+     "WWWWWWWWWWWWWWWWWWWWWWWW",
+     "WWSSpSSSSpSSSSSWWWWWWWWW",
+     "DaarrrrrrrrrrrrrpeWWWWWW",
+     "WaarrrrrrrrrrrrrrpWWWWWW",
+     "WWSSpSSSSSSpSSrrrpWWWWWW",
+     "WWWWeWWWWWWeWWrrrSWWWWWW",
+     "WWWWWWWWWWWWWSrrrSWWWWWW",
+     "WWWWWWWWWWWWWSrrrSSSSWWW",
+     "WWWWWWWWWWWWWprrrrrrrpWW",
+     "WWWWWWWWWWWWWerrrrrrrrrO",
+     "WWWWWWWWWWWWWprrrrrrrpWW",
+     "WWWWWWWWWWWWWSSSSSSSeSWW",
+     "WWWWWWWWWWWWWWWWWWWWWWWW",
+     "WWWWWWWWWWWWWWWWWWWWWWWW",
+     "WWWWWWWWWWWWWWWWWWWWWWWW"
+    ],
+    "source_legend": "W 벽 G 닫힌 문(W) S 서가(W) R 붉은 줄 서가(W) K 카운터(W) / p 바닥 a 아군 e 적 H 거점 x 닫힐 통로 / D 문 O 목표 문(p) / r 카펫 / f 책상 B 책 책상(f) / c 카운터 안쪽 Q 그 안 아군",
+    "design": "docker/maps/tilemap_v2/main_a1_3_corridor.design.json",
+    "designer": "맵디자이너 2026-11-03"
+   },
+   "tile_layer": {
+    "format": "names-v1",
+    "names": [
+     "int_carpet_BC",
+     "int_carpet_BL",
+     "int_carpet_BR",
+     "int_carpet_MC",
+     "int_carpet_ML",
+     "int_carpet_MR",
+     "int_carpet_TC",
+     "int_carpet_TL",
+     "int_carpet_TR",
+     "int_shelf_BC",
+     "int_shelf_BL",
+     "int_shelf_MC",
+     "int_shelf_ML",
+     "int_shelf_MR",
+     "int_shelf_TC",
+     "int_threshold",
+     "int_wallface_bot_C1",
+     "int_wallface_bot_C2",
+     "int_wallface_bot_L",
+     "int_wallface_bot_R",
+     "int_wallface_top_C1",
+     "int_wallface_top_C2",
+     "int_wallface_top_L",
+     "int_wallface_top_R",
+     "int_walltop47_112",
+     "int_walltop47_113",
+     "int_walltop47_124",
+     "int_walltop47_127",
+     "int_walltop47_199",
+     "int_walltop47_20",
+     "int_walltop47_223",
+     "int_walltop47_241",
+     "int_walltop47_253",
+     "int_walltop47_255",
+     "int_walltop47_28",
+     "int_walltop47_31",
+     "int_walltop47_64",
+     "int_walltop47_7",
+     "woodfloor_a",
+     "woodfloor_b"
+    ],
+    "rows": [
+     "33 33 33 33 21 33 33 33 33 20 33 33 33 33 33 33 33 33 33 33 33 33 33 33",
+     "22 23 28 28 17 28 28 28 28 16 28 28 28 28 28 22 21 23 33 33 33 33 33 33",
+     "18 19 12 13 38 12 11 11 13 39 12 11 11 11 13 18 17 19 30 33 33 33 33 33",
+     "15 38 39 7 6 6 6 6 6 6 6 6 6 6 6 8 39 38 35 33 33 33 33 33",
+     "24 39 38 1 0 0 0 0 0 0 0 0 0 0 3 3 8 39 35 33 33 33 33 33",
+     "32 24 12 13 39 12 11 11 11 11 13 38 12 13 4 3 5 38 35 33 33 33 33 33",
+     "33 32 26 24 38 34 26 26 26 26 24 39 29 36 4 3 5 14 35 33 33 33 33 33",
+     "33 33 33 32 26 27 33 33 33 33 32 26 25 14 4 3 5 11 37 28 28 20 33 33",
+     "33 33 33 33 33 33 33 33 33 33 33 33 31 9 4 3 5 10 11 11 13 16 22 23",
+     "33 33 33 33 33 33 33 33 33 33 33 33 31 38 4 3 3 6 6 6 8 38 18 19",
+     "33 33 33 33 33 33 33 33 33 33 33 33 31 39 4 3 3 3 3 3 3 3 5 15",
+     "33 33 33 33 33 33 33 33 33 33 33 33 31 38 1 0 0 0 0 0 2 38 34 26",
+     "33 33 33 33 33 33 33 33 33 33 33 33 31 12 11 11 11 11 11 13 38 11 35 33",
+     "33 33 33 33 33 33 33 33 33 33 33 33 32 26 26 26 26 26 26 26 26 26 27 33",
+     "33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33",
+     "33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33 33"
+    ],
+    "index_map": {
+     "int_carpet_BC": 2229,
+     "int_carpet_BL": 2228,
+     "int_carpet_BR": 2230,
+     "int_carpet_MC": 2226,
+     "int_carpet_ML": 2225,
+     "int_carpet_MR": 2227,
+     "int_carpet_TC": 2223,
+     "int_carpet_TL": 2222,
+     "int_carpet_TR": 2224,
+     "int_shelf_BC": 2207,
+     "int_shelf_BL": 2206,
+     "int_shelf_MC": 2204,
+     "int_shelf_ML": 2203,
+     "int_shelf_MR": 2205,
+     "int_shelf_TC": 2201,
+     "int_threshold": 2231,
+     "int_wallface_bot_C1": 2214,
+     "int_wallface_bot_C2": 2215,
+     "int_wallface_bot_L": 2213,
+     "int_wallface_bot_R": 2216,
+     "int_wallface_top_C1": 2210,
+     "int_wallface_top_C2": 2211,
+     "int_wallface_top_L": 2209,
+     "int_wallface_top_R": 2212,
+     "int_walltop47_112": 2326,
+     "int_walltop47_113": 2327,
+     "int_walltop47_124": 2331,
+     "int_walltop47_127": 2333,
+     "int_walltop47_199": 2336,
+     "int_walltop47_20": 2307,
+     "int_walltop47_223": 2341,
+     "int_walltop47_241": 2342,
+     "int_walltop47_253": 2345,
+     "int_walltop47_255": 2346,
+     "int_walltop47_28": 2310,
+     "int_walltop47_31": 2312,
+     "int_walltop47_64": 2313,
+     "int_walltop47_7": 2304,
+     "woodfloor_a": 1584,
+     "woodfloor_b": 1585
+    },
+    "rotations": {},
+    "overlay": [],
+    "unmapped": [],
+    "note": "맵디자이너 파일럿 2026-11-03: tile_layer.v2(layers-v1) ground 평탄화. tv2 이름(<fam>47_<mask> 등)은 tv2 인덱스(1000~), 레거시 이름(peak_full·reef_*)은 기존 인덱스. 원본 docker/maps/tilemap_v2/main_a1_3_corridor.design.json, 되돌리기 tmv2.py revert main_a1_3_corridor. 서버 판정은 tiles.",
+    "v2": {
+     "format": "layers-v1",
+     "tileset": "tv2(tv2_static/tv2_anim/tv2_anim2), cs:시트:id = chip_index 로 tv2 해소",
+     "tile_px": 32,
+     "size": [
+      24,
+      16
+     ],
+     "names": [
+      "int_walltop47_255",
+      "int_wallface_top_C2",
+      "int_wallface_top_C1",
+      "int_wallface_top_L",
+      "int_wallface_top_R",
+      "int_walltop47_199",
+      "int_wallface_bot_C2",
+      "int_wallface_bot_C1",
+      "int_wallface_bot_L",
+      "int_wallface_bot_R",
+      "int_shelf_ML",
+      "int_shelf_MR",
+      "woodfloor_a",
+      "int_shelf_MC",
+      "woodfloor_b",
+      "int_walltop47_223",
+      "int_threshold",
+      "int_carpet_TL",
+      "int_carpet_TC",
+      "int_carpet_TR",
+      "int_walltop47_31",
+      "int_walltop47_112",
+      "int_carpet_BL",
+      "int_carpet_BC",
+      "int_carpet_MC",
+      "int_walltop47_253",
+      "int_carpet_ML",
+      "int_carpet_MR",
+      "int_walltop47_124",
+      "int_walltop47_28",
+      "int_walltop47_20",
+      "int_walltop47_64",
+      "int_shelf_TC",
+      "int_walltop47_127",
+      "int_walltop47_113",
+      "int_walltop47_7",
+      "int_walltop47_241",
+      "int_shelf_BC",
+      "int_shelf_BL",
+      "int_carpet_BR",
+      "cs:A:56",
+      "cs:A:146",
+      "cs:A:206"
+     ],
+     "index_map": {
+      "int_walltop47_255": 2346,
+      "int_wallface_top_C2": 2211,
+      "int_wallface_top_C1": 2210,
+      "int_wallface_top_L": 2209,
+      "int_wallface_top_R": 2212,
+      "int_walltop47_199": 2336,
+      "int_wallface_bot_C2": 2215,
+      "int_wallface_bot_C1": 2214,
+      "int_wallface_bot_L": 2213,
+      "int_wallface_bot_R": 2216,
+      "int_shelf_ML": 2203,
+      "int_shelf_MR": 2205,
+      "woodfloor_a": 1584,
+      "int_shelf_MC": 2204,
+      "woodfloor_b": 1585,
+      "int_walltop47_223": 2341,
+      "int_threshold": 2231,
+      "int_carpet_TL": 2222,
+      "int_carpet_TC": 2223,
+      "int_carpet_TR": 2224,
+      "int_walltop47_31": 2312,
+      "int_walltop47_112": 2326,
+      "int_carpet_BL": 2228,
+      "int_carpet_BC": 2229,
+      "int_carpet_MC": 2226,
+      "int_walltop47_253": 2345,
+      "int_carpet_ML": 2225,
+      "int_carpet_MR": 2227,
+      "int_walltop47_124": 2331,
+      "int_walltop47_28": 2310,
+      "int_walltop47_20": 2307,
+      "int_walltop47_64": 2313,
+      "int_shelf_TC": 2201,
+      "int_walltop47_127": 2333,
+      "int_walltop47_113": 2327,
+      "int_walltop47_7": 2304,
+      "int_walltop47_241": 2342,
+      "int_shelf_BC": 2207,
+      "int_shelf_BL": 2206,
+      "int_carpet_BR": 2230,
+      "cs:A:56": 2247,
+      "cs:A:146": 2249,
+      "cs:A:206": 2242
+     },
+     "pending_bake": [],
+     "layers": {
+      "ground": [
+       "0 0 0 0 1 0 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+       "3 4 5 5 6 5 5 5 5 7 5 5 5 5 5 3 1 4 0 0 0 0 0 0",
+       "8 9 10 11 12 10 13 13 11 14 10 13 13 13 11 8 6 9 15 0 0 0 0 0",
+       "16 12 14 17 18 18 18 18 18 18 18 18 18 18 18 19 14 12 20 0 0 0 0 0",
+       "21 14 12 22 23 23 23 23 23 23 23 23 23 23 24 24 19 14 20 0 0 0 0 0",
+       "25 21 10 11 14 10 13 13 13 13 11 12 10 11 26 24 27 12 20 0 0 0 0 0",
+       "0 25 28 21 12 29 28 28 28 28 21 14 30 31 26 24 27 32 20 0 0 0 0 0",
+       "0 0 0 25 28 33 0 0 0 0 25 28 34 32 26 24 27 13 35 5 5 2 0 0",
+       "0 0 0 0 0 0 0 0 0 0 0 0 36 37 26 24 27 38 13 13 11 7 3 4",
+       "0 0 0 0 0 0 0 0 0 0 0 0 36 12 26 24 24 18 18 18 19 12 8 9",
+       "0 0 0 0 0 0 0 0 0 0 0 0 36 14 26 24 24 24 24 24 24 24 27 16",
+       "0 0 0 0 0 0 0 0 0 0 0 0 36 12 22 23 23 23 23 23 39 12 29 28",
+       "0 0 0 0 0 0 0 0 0 0 0 0 36 10 13 13 13 13 13 11 12 13 20 0",
+       "0 0 0 0 0 0 0 0 0 0 0 0 25 28 28 28 28 28 28 28 28 28 33 0",
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0",
+       "0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0"
+      ],
+      "building": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "40 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 41",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "object": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 42 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 42 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "foreground": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ]
+     },
+     "paint": [
+      "########################",
+      "########################",
+      "##$$K$$$$K$$$$$#########",
+      "TKKUUUUUUUUUUUUUKK######",
+      "#KKUUUUUUUUUUUUUUK######",
+      "##$$K$$$$$$K$$UUUK######",
+      "####K######K##UUU$######",
+      "#############$UUU$######",
+      "#############$UUU$$$$###",
+      "#############KUUUUUUUK##",
+      "#############KUUUUUUUUUT",
+      "#############KUUUUUUUK##",
+      "#############$$$$$$$K$##",
+      "########################",
+      "########################",
+      "########################"
+     ],
+     "structures": [],
+     "zones": [
+      {
+       "id": "hall_n",
+       "kind": "corridor",
+       "rect": [
+        1,
+        2,
+        17,
+        6
+       ],
+       "purpose": "북쪽 복도(서문~꺾임)",
+       "max_objects": 4
+      },
+      {
+       "id": "hall_s",
+       "kind": "corridor",
+       "rect": [
+        13,
+        7,
+        23,
+        12
+       ],
+       "purpose": "남쪽 복도(꺾임~목표 문)",
+       "max_objects": 4
+      }
+     ],
+     "routes": [
+      {
+       "id": "main",
+       "kind": "lane",
+       "path": "서문(0,3) -> 북 복도 y3~4 -> 꺾임(14~16,5~8) -> 남 복도 y9~11 -> 목표 문(23,10)",
+       "note": "유일 경로"
+      }
+     ],
+     "collision": "derived:tiles",
+     "tiles_sha": "782dc27b822f",
+     "render_order": "ground -> building -> object -> (propLayer/overlay/cursor) -> unit -> foreground",
+     "generator": "docker/maps/tilemap_v2/tmv2.py",
+     "design": "docker/maps/tilemap_v2/main_a1_3_corridor.design.json",
+     "built": "2026-11-03"
+    }
+   }
+  },
+  {
+   "code": "main_a1_4_counter",
+   "name": "대출 카운터",
+   "biome": "library",
+   "tiles": [
+    "WWWWWWWWWppWWWWWWWWW",
+    "WWWppppppppppppppWWW",
+    "WWWpppppprrpppppppWW",
+    "WpppppppprrppppppppW",
+    "WffpppppprrppppppffW",
+    "WpppppppprrppppppppW",
+    "WpppppppprrppppppppW",
+    "WppWWWWpprrppWWWWppW",
+    "WppccccpprrppccccppW",
+    "WppccccpprrppccccppW",
+    "WWWppppppppppppppWWW",
+    "WWWppffppppppffppWWW",
+    "WWWppppppppppppppWWW",
+    "WWWWWWWWWpWWWWWWWWWW"
+   ],
+   "spawns": {
+    "a": [
+     [
+      4,
+      9
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      14,
+      9
+     ],
+     [
+      15,
+      9
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      10,
+      10
+     ]
+    ],
+    "b": [
+     [
+      9,
+      1
+     ],
+     [
+      8,
+      1
+     ],
+     [
+      10,
+      1
+     ],
+     [
+      11,
+      1
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      15,
+      3
+     ],
+     [
+      18,
+      5
+     ]
+    ]
+   },
+   "deploy_zones": {
+    "a": [
+     [
+      3,
+      8
+     ],
+     [
+      4,
+      8
+     ],
+     [
+      5,
+      8
+     ],
+     [
+      6,
+      8
+     ],
+     [
+      13,
+      8
+     ],
+     [
+      14,
+      8
+     ],
+     [
+      15,
+      8
+     ],
+     [
+      16,
+      8
+     ],
+     [
+      3,
+      9
+     ],
+     [
+      4,
+      9
+     ],
+     [
+      5,
+      9
+     ],
+     [
+      6,
+      9
+     ],
+     [
+      8,
+      9
+     ],
+     [
+      9,
+      9
+     ],
+     [
+      10,
+      9
+     ],
+     [
+      11,
+      9
+     ],
+     [
+      13,
+      9
+     ],
+     [
+      14,
+      9
+     ],
+     [
+      15,
+      9
+     ],
+     [
+      16,
+      9
+     ],
+     [
+      3,
+      10
+     ],
+     [
+      4,
+      10
+     ],
+     [
+      5,
+      10
+     ],
+     [
+      6,
+      10
+     ],
+     [
+      8,
+      10
+     ],
+     [
+      9,
+      10
+     ],
+     [
+      10,
+      10
+     ],
+     [
+      11,
+      10
+     ],
+     [
+      13,
+      10
+     ],
+     [
+      14,
+      10
+     ],
+     [
+      15,
+      10
+     ],
+     [
+      16,
+      10
+     ],
+     [
+      8,
+      11
+     ],
+     [
+      9,
+      11
+     ],
+     [
+      10,
+      11
+     ],
+     [
+      11,
+      11
+     ]
+    ],
+    "b": [
+     [
+      7,
+      1
+     ],
+     [
+      8,
+      1
+     ],
+     [
+      9,
+      1
+     ],
+     [
+      10,
+      1
+     ],
+     [
+      11,
+      1
+     ],
+     [
+      12,
+      1
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      5,
+      2
+     ],
+     [
+      7,
+      2
+     ],
+     [
+      8,
+      2
+     ],
+     [
+      9,
+      2
+     ],
+     [
+      10,
+      2
+     ],
+     [
+      11,
+      2
+     ],
+     [
+      12,
+      2
+     ],
+     [
+      14,
+      2
+     ],
+     [
+      15,
+      2
+     ],
+     [
+      16,
+      2
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      4,
+      3
+     ],
+     [
+      5,
+      3
+     ],
+     [
+      14,
+      3
+     ],
+     [
+      15,
+      3
+     ],
+     [
+      16,
+      3
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      4,
+      4
+     ],
+     [
+      5,
+      4
+     ],
+     [
+      14,
+      4
+     ],
+     [
+      15,
+      4
+     ],
+     [
+      16,
+      4
+     ],
+     [
+      17,
+      5
+     ],
+     [
+      18,
+      5
+     ],
+     [
+      17,
+      6
+     ],
+     [
+      18,
+      6
+     ]
+    ]
+   },
+   "meta": {
+    "stage_code": "ch101_s4",
+    "ep": "1-4",
+    "theme": "대출 카운터 버티기: 북문 카펫 줄 -> 카운터 2(4칸씩) 사이 중앙 통로 2칸·양끝 우회로. 카운터 안쪽 c 8칸만 방어 보정",
+    "kind": "interior",
+    "width": 20,
+    "height": 14,
+    "pvp_fair": false,
+    "pvp_listing": "excluded",
+    "campaign_ok": true,
+    "objective_points": [],
+    "protect_tiles": [],
+    "spawn_counts": {
+     "a": 6,
+     "b": 7
+    },
+    "terrain_counts": {
+     "W": 88,
+     "p": 152,
+     "r": 16,
+     "f": 8,
+     "c": 16
+    },
+    "source_rows": [
+     "WWWWWWWWWDDWWWWWWWWW",
+     "WSSpppppeeeepppppSSW",
+     "WSSpppppprrpppppppSW",
+     "WpppepppprrppppepppW",
+     "WffpppppprrppppppffW",
+     "WpppppppprrpppppppeW",
+     "WpppppppprrppppppppW",
+     "WppKKKKpprrppKKKKppW",
+     "WppccccpprrppccccppW",
+     "WppcQQcpprrppcQQcppW",
+     "WSSppppppaappppppSSW",
+     "WSSppffppppppffppSSW",
+     "WSSppppppppppppppSSW",
+     "WWWWWWWWWDWWWWWWWWWW"
+    ],
+    "source_legend": "W 벽 G 닫힌 문(W) S 서가(W) R 붉은 줄 서가(W) K 카운터(W) / p 바닥 a 아군 e 적 H 거점 x 닫힐 통로 / D 문 O 목표 문(p) / r 카펫 / f 책상 B 책 책상(f) / c 카운터 안쪽 Q 그 안 아군",
+    "design": "docker/maps/tilemap_v2/main_a1_4_counter.design.json",
+    "designer": "맵디자이너 2026-11-03"
+   },
+   "tile_layer": {
+    "format": "names-v1",
+    "names": [
+     "int_carpet_BL",
+     "int_carpet_BR",
+     "int_carpet_ML",
+     "int_carpet_MR",
+     "int_carpet_TL",
+     "int_carpet_TR",
+     "int_counter_0",
+     "int_counter_1",
+     "int_counter_2",
+     "int_counter_3",
+     "int_shelf_BC",
+     "int_shelf_BL",
+     "int_shelf_BR",
+     "int_shelf_ML",
+     "int_shelf_MR",
+     "int_shelf_TL",
+     "int_shelf_TR",
+     "int_threshold",
+     "int_wallface_bot_C1",
+     "int_wallface_bot_C2",
+     "int_wallface_bot_L",
+     "int_wallface_bot_R",
+     "int_walltop47_112",
+     "int_walltop47_124",
+     "int_walltop47_127",
+     "int_walltop47_199",
+     "int_walltop47_223",
+     "int_walltop47_241",
+     "int_walltop47_247",
+     "int_walltop47_253",
+     "int_walltop47_28",
+     "int_walltop47_31",
+     "woodfloor_a",
+     "woodfloor_b"
+    ],
+    "rows": [
+     "28 25 25 20 19 18 19 18 21 17 17 20 19 18 19 18 21 25 25 26",
+     "27 15 16 32 33 32 33 32 33 32 33 32 33 32 33 32 33 13 16 31",
+     "27 11 12 33 32 33 32 33 32 4 5 33 32 33 32 33 32 33 10 31",
+     "27 32 33 32 33 32 33 32 33 2 3 32 33 32 33 32 33 32 33 31",
+     "27 33 32 33 32 33 32 33 32 2 3 33 32 33 32 33 32 33 32 31",
+     "27 32 33 32 33 32 33 32 33 2 3 32 33 32 33 32 33 32 33 31",
+     "27 33 32 33 32 33 32 33 32 2 3 33 32 33 32 33 32 33 32 31",
+     "27 32 33 6 7 8 9 32 33 2 3 32 33 6 7 8 9 32 33 31",
+     "27 33 32 17 17 17 17 33 32 2 3 33 32 17 17 17 17 33 32 31",
+     "27 32 33 17 17 17 17 32 33 0 1 32 33 17 17 17 17 32 33 31",
+     "27 15 16 33 32 33 32 33 32 33 32 33 32 33 32 33 32 15 16 31",
+     "27 13 14 32 33 32 33 32 33 32 33 32 33 32 33 32 33 13 14 31",
+     "27 11 12 33 32 33 32 33 32 33 32 33 32 33 32 33 32 11 12 31",
+     "29 23 23 23 23 23 23 23 22 17 30 23 23 23 23 23 23 23 23 24"
+    ],
+    "index_map": {
+     "int_carpet_BL": 2228,
+     "int_carpet_BR": 2230,
+     "int_carpet_ML": 2225,
+     "int_carpet_MR": 2227,
+     "int_carpet_TL": 2222,
+     "int_carpet_TR": 2224,
+     "int_counter_0": 2218,
+     "int_counter_1": 2219,
+     "int_counter_2": 2220,
+     "int_counter_3": 2221,
+     "int_shelf_BC": 2207,
+     "int_shelf_BL": 2206,
+     "int_shelf_BR": 2208,
+     "int_shelf_ML": 2203,
+     "int_shelf_MR": 2205,
+     "int_shelf_TL": 2200,
+     "int_shelf_TR": 2202,
+     "int_threshold": 2231,
+     "int_wallface_bot_C1": 2214,
+     "int_wallface_bot_C2": 2215,
+     "int_wallface_bot_L": 2213,
+     "int_wallface_bot_R": 2216,
+     "int_walltop47_112": 2326,
+     "int_walltop47_124": 2331,
+     "int_walltop47_127": 2333,
+     "int_walltop47_199": 2336,
+     "int_walltop47_223": 2341,
+     "int_walltop47_241": 2342,
+     "int_walltop47_247": 2344,
+     "int_walltop47_253": 2345,
+     "int_walltop47_28": 2310,
+     "int_walltop47_31": 2312,
+     "woodfloor_a": 1584,
+     "woodfloor_b": 1585
+    },
+    "rotations": {},
+    "overlay": [],
+    "unmapped": [],
+    "note": "맵디자이너 파일럿 2026-11-03: tile_layer.v2(layers-v1) ground 평탄화. tv2 이름(<fam>47_<mask> 등)은 tv2 인덱스(1000~), 레거시 이름(peak_full·reef_*)은 기존 인덱스. 원본 docker/maps/tilemap_v2/main_a1_4_counter.design.json, 되돌리기 tmv2.py revert main_a1_4_counter. 서버 판정은 tiles.",
+    "v2": {
+     "format": "layers-v1",
+     "tileset": "tv2(tv2_static/tv2_anim/tv2_anim2), cs:시트:id = chip_index 로 tv2 해소",
+     "tile_px": 32,
+     "size": [
+      20,
+      14
+     ],
+     "names": [
+      "int_walltop47_247",
+      "int_walltop47_199",
+      "int_wallface_bot_L",
+      "int_wallface_bot_C2",
+      "int_wallface_bot_C1",
+      "int_wallface_bot_R",
+      "int_threshold",
+      "int_walltop47_223",
+      "int_walltop47_241",
+      "int_shelf_TL",
+      "int_shelf_TR",
+      "woodfloor_a",
+      "woodfloor_b",
+      "int_shelf_ML",
+      "int_walltop47_31",
+      "int_shelf_BL",
+      "int_shelf_BR",
+      "int_carpet_TL",
+      "int_carpet_TR",
+      "int_shelf_BC",
+      "int_carpet_ML",
+      "int_carpet_MR",
+      "int_counter_0",
+      "int_counter_1",
+      "int_counter_2",
+      "int_counter_3",
+      "int_carpet_BL",
+      "int_carpet_BR",
+      "int_shelf_MR",
+      "int_walltop47_253",
+      "int_walltop47_124",
+      "int_walltop47_112",
+      "int_walltop47_28",
+      "int_walltop47_127",
+      "cs:A:325",
+      "cs:A:328",
+      "cs:A:295",
+      "cs:A:25",
+      "cs:A:175",
+      "cs:A:114",
+      "cs:A:115",
+      "cs:A:54",
+      "cs:A:56"
+     ],
+     "index_map": {
+      "int_walltop47_247": 2344,
+      "int_walltop47_199": 2336,
+      "int_wallface_bot_L": 2213,
+      "int_wallface_bot_C2": 2215,
+      "int_wallface_bot_C1": 2214,
+      "int_wallface_bot_R": 2216,
+      "int_threshold": 2231,
+      "int_walltop47_223": 2341,
+      "int_walltop47_241": 2342,
+      "int_shelf_TL": 2200,
+      "int_shelf_TR": 2202,
+      "woodfloor_a": 1584,
+      "woodfloor_b": 1585,
+      "int_shelf_ML": 2203,
+      "int_walltop47_31": 2312,
+      "int_shelf_BL": 2206,
+      "int_shelf_BR": 2208,
+      "int_carpet_TL": 2222,
+      "int_carpet_TR": 2224,
+      "int_shelf_BC": 2207,
+      "int_carpet_ML": 2225,
+      "int_carpet_MR": 2227,
+      "int_counter_0": 2218,
+      "int_counter_1": 2219,
+      "int_counter_2": 2220,
+      "int_counter_3": 2221,
+      "int_carpet_BL": 2228,
+      "int_carpet_BR": 2230,
+      "int_shelf_MR": 2205,
+      "int_walltop47_253": 2345,
+      "int_walltop47_124": 2331,
+      "int_walltop47_112": 2326,
+      "int_walltop47_28": 2310,
+      "int_walltop47_127": 2333,
+      "cs:A:325": 2257,
+      "cs:A:328": 2260,
+      "cs:A:295": 2232,
+      "cs:A:25": 2240,
+      "cs:A:175": 2238,
+      "cs:A:114": 2243,
+      "cs:A:115": 2244,
+      "cs:A:54": 2264,
+      "cs:A:56": 2247
+     },
+     "pending_bake": [],
+     "layers": {
+      "ground": [
+       "0 1 1 2 3 4 3 4 5 6 6 2 3 4 3 4 5 1 1 7",
+       "8 9 10 11 12 11 12 11 12 11 12 11 12 11 12 11 12 13 10 14",
+       "8 15 16 12 11 12 11 12 11 17 18 12 11 12 11 12 11 12 19 14",
+       "8 11 12 11 12 11 12 11 12 20 21 11 12 11 12 11 12 11 12 14",
+       "8 12 11 12 11 12 11 12 11 20 21 12 11 12 11 12 11 12 11 14",
+       "8 11 12 11 12 11 12 11 12 20 21 11 12 11 12 11 12 11 12 14",
+       "8 12 11 12 11 12 11 12 11 20 21 12 11 12 11 12 11 12 11 14",
+       "8 11 12 22 23 24 25 11 12 20 21 11 12 22 23 24 25 11 12 14",
+       "8 12 11 6 6 6 6 12 11 20 21 12 11 6 6 6 6 12 11 14",
+       "8 11 12 6 6 6 6 11 12 26 27 11 12 6 6 6 6 11 12 14",
+       "8 9 10 12 11 12 11 12 11 12 11 12 11 12 11 12 11 9 10 14",
+       "8 13 28 11 12 11 12 11 12 11 12 11 12 11 12 11 12 13 28 14",
+       "8 15 16 12 11 12 11 12 11 12 11 12 11 12 11 12 11 15 16 14",
+       "29 30 30 30 30 30 30 30 31 6 32 30 30 30 30 30 30 30 30 33"
+      ],
+      "building": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 34 35 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 34 35 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 36 36 -1 -1 -1 -1 -1 -1 36 36 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 42 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "object": [
+       "-1 -1 -1 -1 -1 39 40 -1 -1 -1 -1 -1 -1 -1 41 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 38 -1 -1 -1 -1 -1 -1 -1 37 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "foreground": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ]
+     },
+     "paint": [
+      "#########TT#########",
+      "#$$KKKKKKKKKKKKKK$$#",
+      "#$$KKKKKKUUKKKKKKK$#",
+      "#KKKKKKKKUUKKKKKKKK#",
+      "#KKKKKKKKUUKKKKKKKK#",
+      "#KKKKKKKKUUKKKKKKKK#",
+      "#KKKKKKKKUUKKKKKKKK#",
+      "#KK====KKUUKK====KK#",
+      "#KKTTTTKKUUKKTTTTKK#",
+      "#KKTTTTKKUUKKTTTTKK#",
+      "#$$KKKKKKKKKKKKKK$$#",
+      "#$$KKKKKKKKKKKKKK$$#",
+      "#$$KKKKKKKKKKKKKK$$#",
+      "#########T##########"
+     ],
+     "structures": [],
+     "zones": [
+      {
+       "id": "lobby",
+       "kind": "library",
+       "rect": [
+        1,
+        1,
+        18,
+        6
+       ],
+       "purpose": "대출 대기 홀(적 줄)",
+       "max_objects": 6
+      },
+      {
+       "id": "desk_area",
+       "kind": "library",
+       "rect": [
+        1,
+        7,
+        18,
+        12
+       ],
+       "purpose": "카운터 안쪽·직인함",
+       "max_objects": 8
+      }
+     ],
+     "routes": [
+      {
+       "id": "center",
+       "kind": "lane",
+       "path": "북문 -> 카펫 -> 카운터 사이(9~10,7) -> 안쪽",
+       "note": "정면 압박"
+      },
+      {
+       "id": "flank_w",
+       "kind": "lane",
+       "path": "서쪽 x1~2 -> 카운터 서단 우회",
+       "note": ""
+      },
+      {
+       "id": "flank_e",
+       "kind": "lane",
+       "path": "동쪽 x17~18 -> 카운터 동단 우회",
+       "note": ""
+      }
+     ],
+     "collision": "derived:tiles",
+     "tiles_sha": "ea6e16ac08d7",
+     "render_order": "ground -> building -> object -> (propLayer/overlay/cursor) -> unit -> foreground",
+     "generator": "docker/maps/tilemap_v2/tmv2.py",
+     "design": "docker/maps/tilemap_v2/main_a1_4_counter.design.json",
+     "built": "2026-11-03"
+    }
+   }
+  },
+  {
+   "code": "main_a1_5_empty_stacks",
+   "name": "빈 책 창고",
+   "biome": "library",
+   "tiles": [
+    "WWWWWWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWWWWWW",
+    "WppppppppppppppppppppppW",
+    "WWWWWWWpWWWWWWWpWWWWWppW",
+    "WppppppppppppppppppppppW",
+    "WWWWWpWWWWWWWWpWWWWpWWWW",
+    "pppppppppppppppppppppWWW",
+    "pppppppppppppppppppppWWW",
+    "WWWWWpWWWWWWWWpWWWWppWWW",
+    "WppppppppppppppppppppppW",
+    "WWWWWWWpWWWWWWWpWWWWWppW",
+    "WppppppppppppppppppppppW",
+    "WWWWWWWpWWWWWWWpWWWWWWWW",
+    "WppppppppppppppppppppppW",
+    "WWWWWWWWWWWWWWWWWWWWWWWW",
+    "WWWWWWWWWWWWWWWWWWWWWWWW"
+   ],
+   "spawns": {
+    "a": [
+     [
+      1,
+      6
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      2,
+      7
+     ]
+    ],
+    "b": [
+     [
+      22,
+      11
+     ],
+     [
+      17,
+      4
+     ],
+     [
+      17,
+      9
+     ],
+     [
+      22,
+      13
+     ],
+     [
+      22,
+      2
+     ],
+     [
+      17,
+      11
+     ],
+     [
+      12,
+      13
+     ],
+     [
+      12,
+      2
+     ]
+    ]
+   },
+   "deploy_zones": {
+    "a": [
+     [
+      1,
+      6
+     ],
+     [
+      2,
+      6
+     ],
+     [
+      3,
+      6
+     ],
+     [
+      1,
+      7
+     ],
+     [
+      2,
+      7
+     ],
+     [
+      3,
+      7
+     ]
+    ],
+    "b": [
+     [
+      11,
+      2
+     ],
+     [
+      12,
+      2
+     ],
+     [
+      13,
+      2
+     ],
+     [
+      21,
+      2
+     ],
+     [
+      22,
+      2
+     ],
+     [
+      21,
+      3
+     ],
+     [
+      22,
+      3
+     ],
+     [
+      16,
+      4
+     ],
+     [
+      17,
+      4
+     ],
+     [
+      18,
+      4
+     ],
+     [
+      16,
+      9
+     ],
+     [
+      17,
+      9
+     ],
+     [
+      18,
+      9
+     ],
+     [
+      21,
+      10
+     ],
+     [
+      22,
+      10
+     ],
+     [
+      16,
+      11
+     ],
+     [
+      17,
+      11
+     ],
+     [
+      18,
+      11
+     ],
+     [
+      21,
+      11
+     ],
+     [
+      22,
+      11
+     ],
+     [
+      11,
+      13
+     ],
+     [
+      12,
+      13
+     ],
+     [
+      13,
+      13
+     ],
+     [
+      21,
+      13
+     ],
+     [
+      22,
+      13
+     ]
+    ]
+   },
+   "meta": {
+    "stage_code": "ch101_s5",
+    "ep": "1-5",
+    "theme": "빈 책 창고 거점 확보: 동서 서가 열, 서쪽 입구 2칸은 시작 cue 로 닫힘, 동쪽 쪽이의 책 서가(21~22,6~8) 앞 거점 6칸, 3턴에 세로 통로 4칸 닫힘",
+    "kind": "interior",
+    "width": 24,
+    "height": 16,
+    "pvp_fair": false,
+    "pvp_listing": "excluded",
+    "campaign_ok": true,
+    "objective_points": [
+     [
+      19,
+      6
+     ],
+     [
+      20,
+      6
+     ],
+     [
+      19,
+      7
+     ],
+     [
+      20,
+      7
+     ],
+     [
+      19,
+      8
+     ],
+     [
+      20,
+      8
+     ]
+    ],
+    "protect_tiles": [],
+    "spawn_counts": {
+     "a": 4,
+     "b": 8
+    },
+    "terrain_counts": {
+     "W": 215,
+     "p": 169
+    },
+    "source_rows": [
+     "WWWWWWWWWWWWWWWWWWWWWWWW",
+     "WSSSSSSSSSSSSSSSRRRRRRRW",
+     "WpppppppppppepppppppppeW",
+     "WSSSSSSpSSSSSSSpSSSSSppW",
+     "WppppppppppppppppepppppW",
+     "WSSSSpSSSSSSSSxSSSSpSSSW",
+     "DaapppppppppppxppppHHSSW",
+     "DaapppppppppppxppppHHSSW",
+     "WSSSSpSSSSSSSSxSSSSHHSSW",
+     "WppppppppppppppppepppppW",
+     "WSSSSSSpSSSSSSSpSSSSSppW",
+     "WppppppppppppppppeppppeW",
+     "WSSSSSSpSSSSSSSpSSSSSSSW",
+     "WpppppppppppepppppppppeW",
+     "WSSSSSSSSSSSSSSSSSSSSSSW",
+     "WWWWWWWWWWWWWWWWWWWWWWWW"
+    ],
+    "source_legend": "W 벽 G 닫힌 문(W) S 서가(W) R 붉은 줄 서가(W) K 카운터(W) / p 바닥 a 아군 e 적 H 거점 x 닫힐 통로 / D 문 O 목표 문(p) / r 카펫 / f 책상 B 책 책상(f) / c 카운터 안쪽 Q 그 안 아군",
+    "design": "docker/maps/tilemap_v2/main_a1_5_empty_stacks.design.json",
+    "designer": "맵디자이너 2026-11-03",
+    "closing_tiles_t3": [
+     [
+      14,
+      5
+     ],
+     [
+      14,
+      6
+     ],
+     [
+      14,
+      7
+     ],
+     [
+      14,
+      8
+     ]
+    ],
+    "entrance_tiles": [
+     [
+      0,
+      6
+     ],
+     [
+      0,
+      7
+     ]
+    ]
+   },
+   "tile_layer": {
+    "format": "names-v1",
+    "names": [
+     "int_shelf_BL",
+     "int_shelf_BR",
+     "int_shelf_MC",
+     "int_shelf_ML",
+     "int_shelf_MR",
+     "int_shelf_TC",
+     "int_shelf_TR",
+     "int_shelfred_MC",
+     "int_shelfred_MR",
+     "int_threshold",
+     "int_wallface_bot_C2",
+     "int_wallface_top_C2",
+     "int_walltop47_112",
+     "int_walltop47_124",
+     "int_walltop47_127",
+     "int_walltop47_199",
+     "int_walltop47_223",
+     "int_walltop47_241",
+     "int_walltop47_247",
+     "int_walltop47_253",
+     "int_walltop47_31",
+     "woodfloor_a",
+     "woodfloor_b"
+    ],
+    "rows": [
+     "18 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 15 16",
+     "17 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 7 7 7 7 7 7 8 20",
+     "17 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 20",
+     "17 3 2 2 2 2 4 21 3 2 2 2 2 2 4 21 3 2 2 2 4 21 22 20",
+     "11 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 20",
+     "10 3 2 2 4 21 3 2 2 2 2 2 2 4 22 3 2 2 4 21 3 5 6 20",
+     "9 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 3 4 20",
+     "9 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 3 4 20",
+     "12 3 2 2 4 22 3 2 2 2 2 2 2 4 21 3 2 2 4 22 21 0 1 20",
+     "17 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 20",
+     "17 3 2 2 2 2 4 22 3 2 2 2 2 2 4 22 3 2 2 2 4 22 21 20",
+     "17 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 20",
+     "17 3 2 2 2 2 4 22 3 2 2 2 2 2 4 22 3 2 2 2 2 2 4 20",
+     "17 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 21 22 20",
+     "17 3 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 4 20",
+     "19 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 13 14"
+    ],
+    "index_map": {
+     "int_shelf_BL": 2206,
+     "int_shelf_BR": 2208,
+     "int_shelf_MC": 2204,
+     "int_shelf_ML": 2203,
+     "int_shelf_MR": 2205,
+     "int_shelf_TC": 2201,
+     "int_shelf_TR": 2202,
+     "int_shelfred_MC": 2354,
+     "int_shelfred_MR": 2355,
+     "int_threshold": 2231,
+     "int_wallface_bot_C2": 2215,
+     "int_wallface_top_C2": 2211,
+     "int_walltop47_112": 2326,
+     "int_walltop47_124": 2331,
+     "int_walltop47_127": 2333,
+     "int_walltop47_199": 2336,
+     "int_walltop47_223": 2341,
+     "int_walltop47_241": 2342,
+     "int_walltop47_247": 2344,
+     "int_walltop47_253": 2345,
+     "int_walltop47_31": 2312,
+     "woodfloor_a": 1584,
+     "woodfloor_b": 1585
+    },
+    "rotations": {},
+    "overlay": [],
+    "unmapped": [],
+    "note": "맵디자이너 파일럿 2026-11-03: tile_layer.v2(layers-v1) ground 평탄화. tv2 이름(<fam>47_<mask> 등)은 tv2 인덱스(1000~), 레거시 이름(peak_full·reef_*)은 기존 인덱스. 원본 docker/maps/tilemap_v2/main_a1_5_empty_stacks.design.json, 되돌리기 tmv2.py revert main_a1_5_empty_stacks. 서버 판정은 tiles.",
+    "v2": {
+     "format": "layers-v1",
+     "tileset": "tv2(tv2_static/tv2_anim/tv2_anim2), cs:시트:id = chip_index 로 tv2 해소",
+     "tile_px": 32,
+     "size": [
+      24,
+      16
+     ],
+     "names": [
+      "int_walltop47_247",
+      "int_walltop47_199",
+      "int_walltop47_223",
+      "int_walltop47_241",
+      "int_shelf_ML",
+      "int_shelf_MC",
+      "int_shelfred_MC",
+      "int_shelfred_MR",
+      "int_walltop47_31",
+      "woodfloor_b",
+      "woodfloor_a",
+      "int_shelf_MR",
+      "int_wallface_top_C2",
+      "int_wallface_bot_C2",
+      "int_shelf_TC",
+      "int_shelf_TR",
+      "int_threshold",
+      "int_walltop47_112",
+      "int_shelf_BL",
+      "int_shelf_BR",
+      "int_walltop47_253",
+      "int_walltop47_124",
+      "int_walltop47_127",
+      "cs:D:320",
+      "cs:A:145",
+      "cs:A:206",
+      "obj3_bleed_b",
+      "obj3_bleed_a"
+     ],
+     "index_map": {
+      "int_walltop47_247": 2344,
+      "int_walltop47_199": 2336,
+      "int_walltop47_223": 2341,
+      "int_walltop47_241": 2342,
+      "int_shelf_ML": 2203,
+      "int_shelf_MC": 2204,
+      "int_shelfred_MC": 2354,
+      "int_shelfred_MR": 2355,
+      "int_walltop47_31": 2312,
+      "woodfloor_b": 1585,
+      "woodfloor_a": 1584,
+      "int_shelf_MR": 2205,
+      "int_wallface_top_C2": 2211,
+      "int_wallface_bot_C2": 2215,
+      "int_shelf_TC": 2201,
+      "int_shelf_TR": 2202,
+      "int_threshold": 2231,
+      "int_walltop47_112": 2326,
+      "int_shelf_BL": 2206,
+      "int_shelf_BR": 2208,
+      "int_walltop47_253": 2345,
+      "int_walltop47_124": 2331,
+      "int_walltop47_127": 2333,
+      "cs:D:320": 1654,
+      "cs:A:145": 2237,
+      "cs:A:206": 2242,
+      "obj3_bleed_b": 2361,
+      "obj3_bleed_a": 2360
+     },
+     "pending_bake": [],
+     "layers": {
+      "ground": [
+       "0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2",
+       "3 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 6 6 6 6 6 6 7 8",
+       "3 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 8",
+       "3 4 5 5 5 5 11 10 4 5 5 5 5 5 11 10 4 5 5 5 11 10 9 8",
+       "12 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 8",
+       "13 4 5 5 11 10 4 5 5 5 5 5 5 11 9 4 5 5 11 10 4 14 15 8",
+       "16 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 4 11 8",
+       "16 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 4 11 8",
+       "17 4 5 5 11 9 4 5 5 5 5 5 5 11 10 4 5 5 11 9 10 18 19 8",
+       "3 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 8",
+       "3 4 5 5 5 5 11 9 4 5 5 5 5 5 11 9 4 5 5 5 11 9 10 8",
+       "3 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 8",
+       "3 4 5 5 5 5 11 9 4 5 5 5 5 5 11 9 4 5 5 5 5 5 11 8",
+       "3 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 10 9 8",
+       "3 4 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 11 8",
+       "20 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 21 22"
+      ],
+      "building": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "object": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 23 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 26 26 26 26 26 26 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 27 -1 -1 27 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 25 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 24 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ],
+      "foreground": [
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1",
+       "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      ]
+     },
+     "paint": [
+      "########################",
+      "#$$$$$$$$$$$$$$$%%%%%%%#",
+      "#KKKKKKKKKKKKKKKKKKKKKK#",
+      "#$$$$$$K$$$$$$$K$$$$$KK#",
+      "#KKKKKKKKKKKKKKKKKKKKKK#",
+      "#$$$$K$$$$$$$$K$$$$K$$$#",
+      "TKKKKKKKKKKKKKKKKKKKK$$#",
+      "TKKKKKKKKKKKKKKKKKKKK$$#",
+      "#$$$$K$$$$$$$$K$$$$KK$$#",
+      "#KKKKKKKKKKKKKKKKKKKKKK#",
+      "#$$$$$$K$$$$$$$K$$$$$KK#",
+      "#KKKKKKKKKKKKKKKKKKKKKK#",
+      "#$$$$$$K$$$$$$$K$$$$$$$#",
+      "#KKKKKKKKKKKKKKKKKKKKKK#",
+      "#$$$$$$$$$$$$$$$$$$$$$$#",
+      "########################"
+     ],
+     "structures": [],
+     "zones": [
+      {
+       "id": "stacks",
+       "kind": "library",
+       "rect": [
+        1,
+        1,
+        22,
+        14
+       ],
+       "purpose": "창고 서가 열(장식 최소)",
+       "max_objects": 4
+      },
+      {
+       "id": "bleed",
+       "kind": "effect",
+       "rect": [
+        16,
+        2,
+        21,
+        4
+       ],
+       "purpose": "붉은 줄 서가에서 번지는 종이 번짐(반투명)",
+       "max_objects": 3
+      }
+     ],
+     "routes": [
+      {
+       "id": "mid",
+       "kind": "lane",
+       "path": "서쪽 입구 -> 중앙 통로 y6~7 -> 거점(19~20,6~8)",
+       "note": "최단"
+      },
+      {
+       "id": "north",
+       "kind": "lane",
+       "path": "세로 틈(5,5)·(7,3)·(15,3) -> 북 통로 y2·y4 -> 동쪽 x21~22",
+       "note": ""
+      },
+      {
+       "id": "south",
+       "kind": "lane",
+       "path": "세로 틈(5,8)·(7,10)·(15,10) -> 남 통로 y9·y11·y13 -> 거점 남측(19,9)",
+       "note": ""
+      },
+      {
+       "id": "x_link",
+       "kind": "lane",
+       "path": "세로 통로 x14 y5~8",
+       "note": "e5-E3 에서 W 로 닫힘(terrain_change)"
+      }
+     ],
+     "collision": "derived:tiles",
+     "tiles_sha": "74147b8d2201",
+     "render_order": "ground -> building -> object -> (propLayer/overlay/cursor) -> unit -> foreground",
+     "generator": "docker/maps/tilemap_v2/tmv2.py",
+     "design": "docker/maps/tilemap_v2/main_a1_5_empty_stacks.design.json",
+     "built": "2026-11-03"
+    }
+   }
+  }
+ ]
+}

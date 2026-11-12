@@ -1,0 +1,1905 @@
+{
+    "_meta": {
+        "version": 1,
+        "doc": "시나리오 레지스트리: 시나리오(=stages.chapter) 1개당 항목 1개 -> game:gen-scenario-banners 가 gacha_banners.json 의 시나리오 배너를 생성, game:audit-scenario-banners 가 대응/하한/상한/art_key 를 점검. 문서: docs/GACHA_REQUIRED_PITY_20261108.md",
+        "fields": {
+            "key": "배너 key(sc_chN)",
+            "chapter": "stages.chapter 값",
+            "title/sub": "표시",
+            "art_key": "일러스트 별칭(gachaKeys.js THEME key). 없으면 기본 배경",
+            "status": "active|pending. pending=스테이지 미등록, 배너 생성/감사 대상 아님",
+            "appearance_sources": "기본 [required,stage_allies,stage_enemies]",
+            "include_enemies": "기본 true(적 지휘관 side=enemy)",
+            "exclude_title_pattern": "직함형 제외 정규식(기본 TITLE_PATTERN)",
+            "roster": "[code | {code,side}] 확정 참전자",
+            "include": "수동 추가 코드(side 기본 unspecified)",
+            "exclude": "수동 제외",
+            "sides": "code=>ally|enemy|unspecified 덮어쓰기",
+            "showcase": "쇼케이스 수동 지정(아군만, 최대 5)",
+            "required_extra": "추가 필수 영웅",
+            "cultures": "등급 하한 보충 우선 문화권",
+            "span": "[시작연,끝연] 참고용",
+            "min_counts": "기본 S1/A3/B8/C8"
+        },
+        "v1_succession": {
+            "imjin": "sc_ch1 (art_key imjin)",
+            "three_kingdoms": "sc_ch12 (art_key three_kingdoms)",
+            "sengoku": "sc_ch20 (art_key sengoku)",
+            "europe": "삭제, 일러스트는 sc_ch26 이 art_key europe 로 승계",
+            "conquest": "삭제(이미 제거). alexander -> sc_ch17, genghis_khan -> sc_ch18"
+        },
+        "exempt_note": "exempt_chapters: 뽑기 시나리오 배너를 두지 않는 챕터(코드=>사유). 시나리오 추가 시 배너는 자동 생성되지만, 메인 스토리처럼 영웅이 필수가 아닌 시나리오는 여기에 등록해 감사의 \"배너 없는 시나리오\" FAIL 에서 제외한다."
+    },
+    "defaults": {
+        "min_counts": {
+            "S": 1,
+            "A": 3,
+            "B": 8,
+            "C": 8
+        },
+        "max_pool_ratio": 0.5
+    },
+    "exempt_chapters": {
+        "999": "종장(필수 영웅 없음, 보상 영웅 풀 제외)",
+        "101": "메인 스토리: 영웅 필수 아님·영웅 풀 없음(뽑기 시나리오 배너 비대상)",
+        "102": "메인 스토리: 영웅 필수 아님·영웅 풀 없음(뽑기 시나리오 배너 비대상)",
+        "103": "메인 스토리: 영웅 필수 아님·영웅 풀 없음(뽑기 시나리오 배너 비대상)",
+        "104": "메인 스토리: 영웅 필수 아님·영웅 풀 없음(뽑기 시나리오 배너 비대상)"
+    },
+    "scenarios": [
+        {
+            "key": "sc_ch1",
+            "chapter": 1,
+            "title": "임진왜란",
+            "sub": "바다와 땅을 지킨 이름들",
+            "art_key": "imjin",
+            "status": "active",
+            "include": [
+                "heo_jun",
+                "tokugawa_ieyasu",
+                "toyotomi_hideyoshi",
+                "date_masamune",
+                "honda_tadakatsu",
+                "sanada_yukimura"
+            ],
+            "sides": {
+                "heo_jun": "ally",
+                "tokugawa_ieyasu": "enemy",
+                "toyotomi_hideyoshi": "enemy",
+                "date_masamune": "enemy",
+                "honda_tadakatsu": "enemy",
+                "sanada_yukimura": "enemy"
+            },
+            "showcase": [
+                "yi_sun_sin",
+                "npc_i_yeoseong",
+                "gwak_jae_u",
+                "gwon_yul",
+                "hyujeong"
+            ],
+            "roster": [
+                {
+                    "code": "yi_sun_sin",
+                    "side": "ally"
+                },
+                {
+                    "code": "gwak_jae_u",
+                    "side": "ally"
+                },
+                {
+                    "code": "gwon_yul",
+                    "side": "ally"
+                },
+                {
+                    "code": "hyujeong",
+                    "side": "ally"
+                },
+                {
+                    "code": "kim_si_min",
+                    "side": "ally"
+                },
+                {
+                    "code": "yujeong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_jin_rin",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_i_yeoseong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_jeong_un",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_won_gyun",
+                    "side": "ally"
+                },
+                {
+                    "code": "heo_jun",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_ryu_seongnyong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_seonjo",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kim_myeon",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_jeong_giryong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kim_myeongwon",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_i_eokgi",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_song_huirip",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_eo_yeongdam",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_i_unryong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_u_chijeok",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_i_yeongnam",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kim_eunghap",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_an_wi",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_cheoyeong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_jeong_inhong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_o_un",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_deng_zilong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_nak_sangji",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_konishi_yukinaga",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kato_kiyomasa",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kuroda_nagamasa",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_so_yoshitoshi",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_shimazu_yoshihiro",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_ukita_hideie",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_ishida_mitsunari",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kobayakawa_takakage",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kikkawa_hiroie",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_tachibana_muneshige",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_todo_takatora",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kuki_yoshitaka",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_wakizaka_yasuharu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kato_yoshiaki",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kurushima_michifusa",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_manabe_samanojo",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_watanabe_shichiemon",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_ankokuji_ekei",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hasegawa_hidekazu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hosokawa_tadaoki",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kimura_shigekore",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_matsura_shigenobu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_omura_yoshiaki",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_arima_harunobu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kan_michinaga",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_mori_takamasa",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_terazawa_hirotaka",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_mori_terumoto",
+                    "side": "enemy"
+                },
+                {
+                    "code": "date_masamune",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch11",
+            "chapter": 11,
+            "title": "고려-거란 전쟁",
+            "sub": "서희의 담판, 귀주의 승전",
+            "status": "active",
+            "include": [
+                "yi_seonggye",
+                "eulji_mundeok",
+                "kim_yusin",
+                "dae_jo_yeong"
+            ],
+            "sides": {
+                "yi_seonggye": "ally",
+                "eulji_mundeok": "ally",
+                "kim_yusin": "ally",
+                "dae_jo_yeong": "ally"
+            },
+            "showcase": [
+                "gang_gamchan",
+                "npc_gang_min_cheom",
+                "npc_yang_gyu",
+                "seo_hui",
+                "npc_kim_suk_heung"
+            ],
+            "roster": [
+                {
+                    "code": "seo_hui",
+                    "side": "ally"
+                },
+                {
+                    "code": "gang_gamchan",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_gang_min_cheom",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_yang_gyu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kim_suk_heung",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kim_jong_hyeon",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_goryeo_seongjong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_goryeo_hyeonjong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_yelu_longxu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_so_sonnyeong",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_so_baeap",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_yelu_seryang",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch12",
+            "chapter": 12,
+            "title": "천하삼분",
+            "sub": "난세를 가른 세 깃발(적벽)",
+            "art_key": "three_kingdoms",
+            "status": "active",
+            "include": [
+                "npc_huang_gai",
+                "sima_yi"
+            ],
+            "sides": [],
+            "showcase": [
+                "guan_yu",
+                "sun_quan",
+                "zhang_fei",
+                "zhuge_liang",
+                "liu_bei"
+            ],
+            "roster": [
+                {
+                    "code": "liu_bei",
+                    "side": "ally"
+                },
+                {
+                    "code": "guan_yu",
+                    "side": "ally"
+                },
+                {
+                    "code": "zhang_fei",
+                    "side": "ally"
+                },
+                {
+                    "code": "zhuge_liang",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_zhao_yun",
+                    "side": "ally"
+                },
+                {
+                    "code": "sun_quan",
+                    "side": "ally"
+                },
+                {
+                    "code": "zhou_yu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_lu_su",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_cheng_pu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_huang_gai",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_gan_ning",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_liu_qi",
+                    "side": "ally"
+                },
+                {
+                    "code": "cao_cao",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_cao_ren",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_cao_hong",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_cheng_yu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_xu_huang",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_yue_jin",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_li_tong",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_cai_mao",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_zhang_yun",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_man_chong",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_wen_pin",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_zhang_liao",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch13",
+            "chapter": 13,
+            "title": "황산벌",
+            "sub": "백제의 마지막 방벽",
+            "status": "active",
+            "include": [
+                "gwanggaeto",
+                "empress_jito",
+                "wu_zetian",
+                "npc_seongchung",
+                "seondeok",
+                "npc_kim_heumsun"
+            ],
+            "sides": [],
+            "showcase": [
+                "kim_yusin",
+                "npc_liu_rengui",
+                "npc_kim_pumil",
+                "npc_so_jeongbang",
+                "npc_beopmin"
+            ],
+            "roster": [
+                {
+                    "code": "kim_yusin",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kim_pumil",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kim_inmun",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_beopmin",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kim_heumsun",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_so_jeongbang",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_liu_rengui",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kim_chunchu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_gwanchang",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_banggul",
+                    "side": "ally"
+                },
+                {
+                    "code": "gyebaek",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_uija",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_buyeo_yung",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_buyeo_pung",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_heukchi_sangji",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_jisu_sin",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_seongchung",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_chungsang",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_dochim",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_heungsu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_sangyeong",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_ye_sikjin",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch14",
+            "chapter": 14,
+            "title": "살수",
+            "sub": "을지문덕의 일곱 번의 후퇴",
+            "status": "active",
+            "include": [
+                "gwanggaeto",
+                "kim_yusin",
+                "wu_zetian",
+                "gang_gamchan",
+                "gyebaek",
+                "seo_hui",
+                "seondeok",
+                "wang_geon",
+                "sima_yi",
+                "zhou_yu",
+                "npc_goguryeo_dam_keeper",
+                "npc_go_geonmu",
+                "npc_wuwenshu"
+            ],
+            "sides": {
+                "gwanggaeto": "ally",
+                "kim_yusin": "ally",
+                "wu_zetian": "enemy",
+                "gang_gamchan": "ally",
+                "gyebaek": "ally",
+                "seo_hui": "ally",
+                "seondeok": "ally",
+                "wang_geon": "ally",
+                "sima_yi": "enemy",
+                "zhou_yu": "enemy",
+                "npc_goguryeo_dam_keeper": "ally"
+            },
+            "showcase": [
+                "eulji_mundeok",
+                "npc_ondal",
+                "npc_goguryeo_dam_keeper",
+                "npc_yeon_jayu",
+                "npc_yeon_taejo"
+            ],
+            "roster": [
+                {
+                    "code": "eulji_mundeok",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_yeongyang",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_go_geonmu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_yangdi",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_wuwenshu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_yuzhongwen",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_cui_hongsheng",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_lai_huer",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_liu_shilong",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_xin_shixiong",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_xue_shixiong",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch15",
+            "chapter": 15,
+            "title": "포에니 전쟁",
+            "sub": "지중해의 두 패자",
+            "status": "active",
+            "include": [
+                "philip_ii",
+                "archimedes",
+                "npc_syphax",
+                "npc_eumenes",
+                "npc_hanno_bomilcar",
+                "npc_masinissa"
+            ],
+            "sides": [],
+            "showcase": [
+                "fabius_maximus",
+                "scipio_africanus",
+                "npc_publius_scipio",
+                "npc_aemilius_paullus",
+                "npc_gaius_terentius_varro"
+            ],
+            "roster": [
+                {
+                    "code": "fabius_maximus",
+                    "side": "ally"
+                },
+                {
+                    "code": "scipio_africanus",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_publius_scipio",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_aemilius_paullus",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_gaius_terentius_varro",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_laelius",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_marcellus",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_minucius_rufus",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_servilius_geminus",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_masinissa",
+                    "side": "ally"
+                },
+                {
+                    "code": "hannibal",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_maharbal",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hasdrubal_gisgo",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_gisgo",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hanno_bomilcar",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_syphax",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hasdrubal_barca",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hasdrubal_cannae",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_mago_barca",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch16",
+            "chapter": 16,
+            "title": "오를레앙",
+            "sub": "성녀가 든 깃발",
+            "status": "active",
+            "include": [
+                "elizabeth_i",
+                "maria_theresa",
+                "vauban",
+                "christine_de_pizan",
+                "npc_dunois",
+                "npc_jean_alencon",
+                "npc_richemont",
+                "constantine_xi",
+                "edward_iii",
+                "jan_zizka",
+                "kutuzov",
+                "npc_charles_vii"
+            ],
+            "sides": [],
+            "showcase": [
+                "joan_of_arc",
+                "npc_la_hire",
+                "npc_gilles_de_rais"
+            ],
+            "roster": [
+                {
+                    "code": "joan_of_arc",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_la_hire",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_gilles_de_rais",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_dunois",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_jean_alencon",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_richemont",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_charles_vii",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_xaintrailles",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_jean_daulon",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_gaucourt",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_salisbury",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_suffolk",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_talbot",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_fastolf",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_glasdale",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_scales",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_william_molyns",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_duke_bedford",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_philip_good",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_john_pole",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch17",
+            "chapter": 17,
+            "title": "가우가멜라",
+            "sub": "대왕의 원정",
+            "status": "active",
+            "include": [
+                "aristotle",
+                "fabius_maximus",
+                "npc_hephaestion",
+                "philip_ii",
+                "npc_memnon"
+            ],
+            "sides": {
+                "npc_memnon": "enemy"
+            },
+            "showcase": [
+                "alexander",
+                "npc_cleitus_black",
+                "npc_coenus",
+                "npc_craterus",
+                "npc_parmenion"
+            ],
+            "roster": [
+                {
+                    "code": "alexander",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_parmenion",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_philotas",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_craterus",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_coenus",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_perdiccas",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_ptolemy",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_seleucus",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_cleitus_black",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_hephaestion",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_darius_iii",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_bessus",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_mazaeus",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_barsaentes",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_atropates",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_ariobarzanes",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_mithraustes",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_nabarzanes",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_orontes",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_phrataphernes",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_satibarzanes",
+                    "side": "enemy"
+                },
+                {
+                    "code": "porus",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch18",
+            "chapter": 18,
+            "title": "몽골 제국",
+            "sub": "초원이 세계가 되다",
+            "status": "active",
+            "include": [
+                "kublai_khan",
+                "modu_chanyu",
+                "npc_jamukha",
+                "npc_tayang_khan",
+                "npc_boroldai",
+                "npc_boroqul",
+                "npc_fan_yi",
+                "npc_hoelun"
+            ],
+            "sides": {
+                "kublai_khan": "ally",
+                "modu_chanyu": "ally",
+                "npc_boroldai": "ally",
+                "npc_boroqul": "ally",
+                "npc_fan_yi": "ally",
+                "npc_hoelun": "ally"
+            },
+            "showcase": [
+                "genghis_khan",
+                "npc_subutai",
+                "npc_jebe",
+                "npc_boorchu",
+                "npc_muqali"
+            ],
+            "roster": [
+                {
+                    "code": "genghis_khan",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_subutai",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_jebe",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_boorchu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_muqali",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_boroldai",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_boroqul",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_hoelun",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_jochi",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_ogedei",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_jelme",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_qasar",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kuchlug",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_buyruq_khan",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_toqto_a_beki",
+                    "side": "enemy"
+                },
+                {
+                    "code": "jalal_ad_din",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_dayir_usun",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_kokse_u_sabraq",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_qudu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_qutuqa_beki",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_jamukha",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_tayang_khan",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_muhammad_ii_khwarazm",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_li_anquan",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch19",
+            "chapter": 19,
+            "title": "성지 예루살렘",
+            "sub": "하틴에서 다룸까지",
+            "status": "active",
+            "include": [
+                "ibn_khaldun",
+                "eleanor_aquitaine",
+                "hildegard",
+                "npc_eschiva_tiberias",
+                "npc_hugh_burgundy",
+                "npc_al_adil"
+            ],
+            "sides": {
+                "ibn_khaldun": "ally",
+                "eleanor_aquitaine": "enemy",
+                "hildegard": "enemy"
+            },
+            "showcase": [
+                "saladin",
+                "npc_gokbori",
+                "npc_qaraqush",
+                "baha_ad_din",
+                "npc_al_mashtub"
+            ],
+            "roster": [
+                {
+                    "code": "saladin",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_al_mashtub",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_gokbori",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_qaraqush",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_taqi_al_din",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_abul_haija",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_al_afdal",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_husam_lulu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_al_adil",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_balian_ibelin",
+                    "side": "ally"
+                },
+                {
+                    "code": "richard_i",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_gerard_ridefort",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_reynald_chatillon",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_conrad_montferrat",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_guy_lusignan",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_raymond_tripoli",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_eschiva_tiberias",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hugh_burgundy",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_sibylla",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_isabella_jerusalem",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_heraclius_patriarch",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_philip_augustus",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch20",
+            "chapter": 20,
+            "title": "전국의 패자",
+            "sub": "천하를 다툰 무장들(나가시노)",
+            "art_key": "sengoku",
+            "status": "active",
+            "include": [
+                "minamoto_yoshitsune",
+                "uesugi_kenshin",
+                "npc_amari_nobuyasu",
+                "takeda_shingen"
+            ],
+            "sides": [],
+            "showcase": [
+                "oda_nobunaga",
+                "toyotomi_hideyoshi",
+                "tokugawa_ieyasu",
+                "honda_tadakatsu",
+                "npc_maeda_toshiie"
+            ],
+            "roster": [
+                {
+                    "code": "oda_nobunaga",
+                    "side": "ally"
+                },
+                {
+                    "code": "tokugawa_ieyasu",
+                    "side": "ally"
+                },
+                {
+                    "code": "toyotomi_hideyoshi",
+                    "side": "ally"
+                },
+                {
+                    "code": "honda_tadakatsu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_maeda_toshiie",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_sassa_narimasa",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_okudaira_sadamasa",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_sakai_tadatsugu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_torii_suneemon",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_takeda_katsuyori",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_yamagata_masakage",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_baba_nobuharu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_naito_masatoyo",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hara_masatane",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_sanada_masateru",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_sanada_nobutsuna",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_tsuchiya_masatsugu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_takeda_nobukado",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch21",
+            "chapter": 21,
+            "title": "레그니차",
+            "sub": "몽골 서진의 그림자",
+            "status": "active",
+            "include": [
+                "npc_subutai",
+                "alexander_nevsky",
+                "constantine_xi",
+                "edward_iii",
+                "jan_zizka",
+                "kutuzov",
+                "npc_alan_rufus",
+                "npc_bela_iv"
+            ],
+            "sides": {
+                "alexander_nevsky": "enemy",
+                "constantine_xi": "enemy",
+                "edward_iii": "enemy",
+                "jan_zizka": "enemy",
+                "kutuzov": "enemy",
+                "npc_alan_rufus": "enemy",
+                "npc_bela_iv": "enemy"
+            },
+            "showcase": [
+                "npc_baidar",
+                "npc_batu",
+                "npc_kadan",
+                "npc_guyuk",
+                "npc_berke"
+            ],
+            "roster": [
+                {
+                    "code": "npc_batu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_subutai",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_baidar",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_kadan",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_berke",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_buri",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_guyuk",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_orda",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_shiban",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_boroldai",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_henry_ii_pious",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_mieszko_ii_opole",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_pakoslaw_sandomierz",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_wlodzimierz_krakow",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_wenceslas_i_bohemia",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_poppo_osternohe",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_ugrin_csak",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_coloman_hungary",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_sulislaw",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch22",
+            "chapter": 22,
+            "title": "파니파트",
+            "sub": "무굴의 첫 전장",
+            "status": "active",
+            "include": [
+                "genghis_khan",
+                "akbar",
+                "suleiman_i",
+                "aurangzeb",
+                "chanakya",
+                "npc_boroldai"
+            ],
+            "sides": [],
+            "showcase": [
+                "npc_babur",
+                "npc_humayun",
+                "npc_chin_timur_sultan",
+                "npc_dawlat_khan_lodi",
+                "npc_khalifa_nizam_ad_din"
+            ],
+            "roster": [
+                {
+                    "code": "npc_babur",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_humayun",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_chin_timur_sultan",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_dawlat_khan_lodi",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_khalifa_nizam_ad_din",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_khwaja_kalan",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_mustafa_rumi",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_ustad_ali_quli",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_hindu_beg",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_shah_mir_hussain",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_ibrahim_lodi",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_bihar_khan_lodi",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hamid_khan",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_hasan_khan_mewati",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_mahmud_lodi",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_vikramajit_gwalior",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_rana_sanga",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_mustafa_farmuli",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_tatar_khan_lodi",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch23",
+            "chapter": 23,
+            "title": "헤이스팅스",
+            "sub": "1066, 정복왕의 해",
+            "status": "active",
+            "include": [
+                "richard_i",
+                "hildegard",
+                "alexander_nevsky",
+                "el_cid",
+                "constantine_xi",
+                "jan_zizka",
+                "npc_edgar_atheling",
+                "npc_stigand"
+            ],
+            "sides": {
+                "npc_stigand": "enemy"
+            },
+            "showcase": [
+                "william_i",
+                "npc_odo_bayeux",
+                "npc_william_fitzosbern",
+                "npc_roger_montgomery",
+                "npc_william_de_warenne"
+            ],
+            "roster": [
+                {
+                    "code": "william_i",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_odo_bayeux",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_william_fitzosbern",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_roger_montgomery",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_william_de_warenne",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_alan_rufus",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_eustace_boulogne",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_robert_mortain",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_geoffrey_coutances",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_walter_giffard",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_harold_godwinson",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_harald_hardrada",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_tostig_godwinson",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_gyrth_godwinson",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_eystein_orre",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_erlend_thorfinnsson",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_olaf_haraldsson",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_ulf_ospaksson",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_edgar_atheling",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_paul_thorfinnsson",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_styrkar_marshal",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_thjodolf_arnorsson",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch24",
+            "chapter": 24,
+            "title": "투르",
+            "sub": "프랑크의 방패",
+            "status": "active",
+            "include": [
+                "ibn_sina",
+                "hildegard",
+                "harun_rashid",
+                "el_cid",
+                "william_i",
+                "alp_arslan",
+                "khalid_ibn_walid",
+                "constantine_xi",
+                "edward_iii",
+                "jan_zizka",
+                "kutuzov",
+                "npc_alan_rufus",
+                "nebuchadnezzar_ii",
+                "npc_abul_haija",
+                "npc_mauronte"
+            ],
+            "sides": {
+                "ibn_sina": "enemy",
+                "hildegard": "ally",
+                "harun_rashid": "enemy",
+                "el_cid": "ally",
+                "william_i": "ally",
+                "alp_arslan": "enemy",
+                "khalid_ibn_walid": "enemy",
+                "constantine_xi": "ally",
+                "edward_iii": "ally",
+                "jan_zizka": "ally",
+                "kutuzov": "ally",
+                "npc_alan_rufus": "ally",
+                "nebuchadnezzar_ii": "enemy",
+                "npc_abul_haija": "enemy",
+                "npc_mauronte": "enemy"
+            },
+            "showcase": [
+                "charles_martel",
+                "npc_eudes_aquitaine",
+                "npc_childebrand",
+                "npc_hunald_aquitaine"
+            ],
+            "roster": [
+                {
+                    "code": "charles_martel",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_eudes_aquitaine",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_hunald_aquitaine",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_childebrand",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_abd_al_rahman_ghafiqi",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch25",
+            "chapter": 25,
+            "title": "바익당강",
+            "sub": "대월의 세 번의 승리",
+            "status": "active",
+            "include": [
+                "genghis_khan",
+                "jose_rizal",
+                "le_loi",
+                "kublai_khan",
+                "diponegoro",
+                "npc_nguyen_khoai",
+                "npc_tran_quoc_toan"
+            ],
+            "sides": {
+                "genghis_khan": "enemy",
+                "jose_rizal": "ally",
+                "le_loi": "ally",
+                "kublai_khan": "enemy",
+                "diponegoro": "ally"
+            },
+            "showcase": [
+                "npc_pham_ngu_lao",
+                "npc_tran_khanh_du",
+                "npc_tran_nhat_duat",
+                "npc_tran_quang_khai",
+                "tran_hung_dao"
+            ],
+            "roster": [
+                {
+                    "code": "tran_hung_dao",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_pham_ngu_lao",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_tran_khanh_du",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_tran_nhat_duat",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_tran_quang_khai",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_da_tuong",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_yet_kieu",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_nguyen_khoai",
+                    "side": "ally"
+                },
+                {
+                    "code": "npc_toghan",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_omar",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_fan_yi",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_li_heng",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_zhang_wenhu",
+                    "side": "enemy"
+                },
+                {
+                    "code": "npc_sogetu",
+                    "side": "enemy"
+                }
+            ]
+        },
+        {
+            "key": "sc_ch26",
+            "chapter": 26,
+            "title": "카이사르, 루비콘",
+            "sub": "주사위는 던져졌다",
+            "art_key": "europe",
+            "status": "active",
+            "min_counts": {
+                "S": 1,
+                "A": 2,
+                "B": 4,
+                "C": 4
+            },
+            "cultures": [
+                "ancient_med",
+                "europe"
+            ],
+            "span": [
+                -58,
+                -44
+            ],
+            "include": [
+                "julius_caesar",
+                "npc_mark_antony",
+                "npc_labienus"
+            ],
+            "sides": {
+                "julius_caesar": "ally"
+            },
+            "showcase": [
+                "npc_mark_antony",
+                "julius_caesar",
+                "npc_labienus"
+            ],
+            "required_extra": [],
+            "appearance_sources": [
+                "required",
+                "stage_allies",
+                "stage_enemies"
+            ]
+        }
+    ]
+}

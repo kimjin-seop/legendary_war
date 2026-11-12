@@ -1,0 +1,2184 @@
+{
+ "_note": "[초안 v3 / 가정값] 비캠페인 stage_01~06 적 4~6부대 편성안. 총지휘관 = 기존 프리셋 영웅(enemy_preset p_*), 부장은 영웅 풀 또는 npc_* 로 구성. 스키마는 stages_ch1_enemy_v3.json 과 동일. 기존 stages.json 미수정.",
+ "version": 3,
+ "status": "draft",
+ "assumptions": {
+  "party_slots_by_user_level": {
+   "1-2": 2,
+   "3-4": 3,
+   "5-6": 4,
+   "7-8": 5,
+   "9+": 6
+  },
+  "troops_per_hero": "hero Lv 1~9 = 2, 10~19 = 3",
+  "note": "stage_05/06 은 영웅 Lv10 이상 가정(권장 Lv 11/14)이라 영웅당 부대 3 -> 4유닛. 슬롯 곡선이 도입되지 않으면 적 편성을 소형 버전(soldiers 1로 축소)으로 낮춰야 함"
+ },
+ "difficulty_curve": "difficulty 1~6 유지. 적 총 유닛 6/9/12/15/20/23, 아군 가정 6/9/12/15/20/24 -> 유닛 비율 1.0 전후, 난이도 차이는 enemy_level(1/2/3/3/9/13)·병종 조합·지형이 담당(적 Lv 는 기존 값 유지, 변수 1개만 변경)",
+ "items": [
+  {
+   "code": "stage_01",
+   "name": "첫 전초전",
+   "map": "su_tut_s01_abbey_outpost",
+   "enemy_preset": "p_hildegard",
+   "enemy_preset_v3": "e3_stage_01",
+   "commander_hero": "hildegard",
+   "recommended_level": 2,
+   "enemy_level": 1,
+   "enemy_level_offset": 0,
+   "effective_enemy_level": 1,
+   "difficulty": 1,
+   "recommended_party": {
+    "heroes": 2,
+    "player_units_assumed": 6,
+    "troops_per_hero_assumed": 2
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "hildegard",
+      "display_name_ko": "힐데가르트",
+      "evidence_level": "hero_db",
+      "troop_type": "sword",
+      "hp_mult": 0.8
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       6
+      ]
+     ],
+     "hold_until_turn": 3
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_volmar",
+      "display_name_ko": "폴마르",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       8
+      ]
+     ],
+     "hold_until_turn": 3
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_bernard_clairvaux",
+      "display_name_ko": "베르나르",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       3
+      ]
+     ],
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 3,
+   "unit_ratio_initial": 1.0,
+   "formation_note": "12세기 독일 수도원 방위. 수도원장 직속과 서기 폴마르, 클레르보 순례 수사, 수도원 사수",
+   "v1_enemy_units_legacy": 4,
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      17,
+      6
+     ],
+     "ref": "hildegard",
+     "kind": "hero",
+     "name": "힐데가르트"
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      16,
+      8
+     ],
+     "ref": "npc_volmar",
+     "kind": "npc",
+     "name": "폴마르"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      16,
+      3
+     ],
+     "ref": "npc_bernard_clairvaux",
+     "kind": "npc",
+     "name": "베르나르"
+    }
+   ],
+   "reward_current_unchanged": {
+    "user_exp": 30,
+    "exp": 60,
+    "gold": 100
+   },
+   "win_rate_band_target_pct": "85",
+   "enemy_units_peak": 3,
+   "balance_v3_2": {
+    "offset": 0,
+    "hp": {
+     "A": 0.8
+    },
+    "measured": {
+     "win_pct": 88.7,
+     "ci95": [
+      82.6,
+      92.8
+     ],
+     "n": 150,
+     "seeds": [
+      11
+     ],
+     "sim": "bal.php 하네스(봇vs봇, 아군=권장 구성/Lv, 플레이어 선공), 무승부 제외 승수",
+     "band": "85"
+    }
+   },
+   "design_notes": [
+    "[임밸런 2026-11-09] 튜토리얼 템포 완화: 적 6->3기(지휘관 단독+폴마르+베르나르 대장 단독), 전 분대 hold_until_turn 3, offset 2->0. --faithful --realistic 100% / 비faithful realistic 62.5%(48판). 시드: game:seed-imjin10 --enemy=stages_legacy6_enemy_v3.json(승인·박백엔 담당)."
+   ]
+  },
+  {
+   "code": "stage_02",
+   "name": "동방의 창",
+   "map": "su_tut_s02_goguryeo_field",
+   "enemy_preset": "p_gwanggaeto",
+   "enemy_preset_v3": "e3_stage_02",
+   "commander_hero": "gwanggaeto",
+   "recommended_level": 3,
+   "enemy_level": 2,
+   "enemy_level_offset": 1,
+   "effective_enemy_level": 2,
+   "difficulty": 2,
+   "recommended_party": {
+    "heroes": 3,
+    "player_units_assumed": 9,
+    "troops_per_hero_assumed": 2
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "gwanggaeto",
+      "display_name_ko": "광개토대왕",
+      "evidence_level": "hero_db",
+      "troop_type": "sword",
+      "hp_mult": 1.15
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       7
+      ],
+      [
+       16,
+       7
+      ],
+      [
+       17,
+       6
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "hero",
+      "ref": "jangsu",
+      "display_name_ko": "장수왕",
+      "evidence_level": "hero_db",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "hold_until_turn": 2,
+     "cells": [
+      [
+       17,
+       3
+      ],
+      [
+       16,
+       3
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_moduru",
+      "display_name_ko": "모두루",
+      "evidence_level": "verify",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "hold_until_turn": 2,
+     "cells": [
+      [
+       17,
+       10
+      ],
+      [
+       16,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "고구려 맥궁 부대 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "hold_range": 6,
+     "cells": [
+      [
+       18,
+       12
+      ],
+      [
+       17,
+       12
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 9,
+   "unit_ratio_initial": 1.0,
+   "formation_note": "고구려군: 중앙 광개토왕 중장 본대, 장수왕 기병 좌익, 모두루 창병, 맥궁 부대",
+   "v1_enemy_units_legacy": 4,
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      17,
+      7
+     ],
+     "ref": "gwanggaeto",
+     "kind": "hero",
+     "name": "광개토대왕"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      17,
+      3
+     ],
+     "ref": "jangsu",
+     "kind": "hero",
+     "name": "장수왕"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      3
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      17,
+      10
+     ],
+     "ref": "npc_moduru",
+     "kind": "npc",
+     "name": "모두루"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      18,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "고구려 맥궁 부대 대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      17,
+      12
+     ]
+    }
+   ],
+   "reward_current_unchanged": {
+    "user_exp": 45,
+    "exp": 90,
+    "gold": 150
+   },
+   "win_rate_band_target_pct": "75~80",
+   "enemy_units_peak": 9,
+   "balance_v3_2": {
+    "offset": 0,
+    "hp": {
+     "A": 1.3
+    },
+    "measured": {
+     "win_pct": 77.3,
+     "ci95": [
+      70.0,
+      83.3
+     ],
+     "n": 150,
+     "seeds": [
+      11
+     ],
+     "sim": "bal.php 하네스(봇vs봇, 아군=권장 구성/Lv, 플레이어 선공), 무승부 제외 승수",
+     "band": "75~80"
+    }
+   }
+  },
+  {
+   "code": "stage_03",
+   "name": "책사의 계략",
+   "map": "su_tut_s03_shu_forest",
+   "enemy_preset": "p_zhuge_liang",
+   "enemy_preset_v3": "e3_stage_03",
+   "commander_hero": "zhuge_liang",
+   "recommended_level": 5,
+   "enemy_level": 3,
+   "enemy_level_offset": 4,
+   "effective_enemy_level": 7,
+   "difficulty": 3,
+   "recommended_party": {
+    "heroes": 4,
+    "player_units_assumed": 12,
+    "troops_per_hero_assumed": 2
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "zhuge_liang",
+      "display_name_ko": "제갈량",
+      "evidence_level": "hero_db",
+      "troop_type": "archer",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       7
+      ],
+      [
+       16,
+       7
+      ],
+      [
+       17,
+       6
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_jiang_wei",
+      "display_name_ko": "강유",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       10
+      ],
+      [
+       15,
+       10
+      ],
+      [
+       16,
+       9
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_wei_yan",
+      "display_name_ko": "위연",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_ambush",
+     "hold_range": 5,
+     "cells": [
+      [
+       17,
+       2
+      ],
+      [
+       16,
+       2
+      ],
+      [
+       17,
+       1
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_fa_zheng",
+      "display_name_ko": "법정",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       12
+      ],
+      [
+       16,
+       12
+      ],
+      [
+       17,
+       11
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 12,
+   "unit_ratio_initial": 1.0,
+   "formation_note": "촉한 진영(각색): 제갈량 중군, 강유 창, 위연 기병 매복(숲), 법정 호위. 숲 매복과 책략",
+   "v1_enemy_units_legacy": 4,
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      17,
+      7
+     ],
+     "ref": "zhuge_liang",
+     "kind": "hero",
+     "name": "제갈량"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      16,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      17,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      16,
+      10
+     ],
+     "ref": "npc_jiang_wei",
+     "kind": "npc",
+     "name": "강유"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      15,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      17,
+      2
+     ],
+     "ref": "npc_wei_yan",
+     "kind": "npc",
+     "name": "위연"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      2
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      17,
+      1
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      17,
+      12
+     ],
+     "ref": "npc_fa_zheng",
+     "kind": "npc",
+     "name": "법정"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      11
+     ]
+    }
+   ],
+   "reward_current_unchanged": {
+    "user_exp": 65,
+    "exp": 130,
+    "gold": 200
+   },
+   "win_rate_band_target_pct": "65~70",
+   "enemy_units_peak": 12,
+   "balance_v3_2": {
+    "offset": 4,
+    "hp": {
+     "A": 1.3
+    },
+    "measured": {
+     "win_pct": 67.3,
+     "ci95": [
+      61.8,
+      72.4
+     ],
+     "n": 300,
+     "seeds": [
+      15,
+      16
+     ],
+     "sim": "bal.php 하네스(봇vs봇, 아군=권장 구성/Lv, 플레이어 선공), 무승부 제외 승수",
+     "band": "65~70"
+    }
+   }
+  },
+  {
+   "code": "stage_04",
+   "name": "코끼리 군단",
+   "map": "plain_01",
+   "enemy_preset": "p_hannibal",
+   "enemy_preset_v3": "e3_stage_04",
+   "commander_hero": "hannibal",
+   "recommended_level": 8,
+   "enemy_level": 3,
+   "enemy_level_offset": 1,
+   "effective_enemy_level": 8,
+   "difficulty": 4,
+   "recommended_party": {
+    "heroes": 5,
+    "player_units_assumed": 15,
+    "troops_per_hero_assumed": 2
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "hannibal",
+      "display_name_ko": "한니발",
+      "evidence_level": "hero_db",
+      "troop_type": "cavalry",
+      "hp_mult": 1.6
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       7
+      ],
+      [
+       16,
+       7
+      ],
+      [
+       17,
+       6
+      ],
+      [
+       17,
+       8
+      ],
+      [
+       18,
+       7
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_maharbal",
+      "display_name_ko": "마하르발",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       2
+      ],
+      [
+       15,
+       2
+      ],
+      [
+       16,
+       1
+      ],
+      [
+       16,
+       3
+      ],
+      [
+       17,
+       2
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hasdrubal_cannae",
+      "display_name_ko": "하스드루발",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       14,
+       7
+      ],
+      [
+       13,
+       7
+      ],
+      [
+       14,
+       6
+      ],
+      [
+       14,
+       8
+      ],
+      [
+       15,
+       7
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 코끼리 부대 사령관",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       10
+      ],
+      [
+       17,
+       10
+      ],
+      [
+       18,
+       9
+      ],
+      [
+       18,
+       11
+      ],
+      [
+       19,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "발레아레스 투석병 대장",
+      "evidence_level": "verify",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       12
+      ],
+      [
+       16,
+       12
+      ],
+      [
+       17,
+       11
+      ],
+      [
+       17,
+       13
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 24,
+   "unit_ratio_initial": 1.6,
+   "formation_note": "칸나이식 오목 진형: 중앙 이베리아·갈리아 보병이 앞, 양익 누미디아 기병, 후열 코끼리·투석",
+   "v1_enemy_units_legacy": 5,
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      17,
+      7
+     ],
+     "ref": "hannibal",
+     "kind": "hero",
+     "name": "한니발"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      17,
+      6
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      17,
+      8
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      18,
+      7
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      16,
+      2
+     ],
+     "ref": "npc_maharbal",
+     "kind": "npc",
+     "name": "마하르발"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      15,
+      2
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      1
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      3
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      17,
+      2
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      14,
+      7
+     ],
+     "ref": "npc_hasdrubal_cannae",
+     "kind": "npc",
+     "name": "하스드루발"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      13,
+      7
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      14,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      14,
+      8
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      7
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      18,
+      10
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "카르타고 코끼리 부대 사령관"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      18,
+      9
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      18,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      10
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      17,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "발레아레스 투석병 대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      16,
+      12
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      17,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      17,
+      13
+     ]
+    }
+   ],
+   "reward_current_unchanged": {
+    "user_exp": 90,
+    "exp": 180,
+    "gold": 280
+   },
+   "win_rate_band_target_pct": "60",
+   "enemy_units_peak": 24,
+   "balance_v3_2": {
+    "offset": 5,
+    "hp": {
+     "A": 1.6
+    },
+    "add": {
+     "A": 2,
+     "B": 2,
+     "C": 2,
+     "D": 2,
+     "E": 1
+    },
+    "measured": {
+     "win_pct": 60.3,
+     "ci95": [
+      54.7,
+      65.7
+     ],
+     "n": 300,
+     "seeds": [
+      15,
+      16
+     ],
+     "sim": "bal.php 하네스(봇vs봇, 아군=권장 구성/Lv, 플레이어 선공), 무승부 제외 승수",
+     "band": "60"
+    }
+   }
+  },
+  {
+   "code": "stage_05",
+   "name": "초원의 폭풍",
+   "map": "desert_01",
+   "enemy_preset": "p_genghis_khan",
+   "enemy_preset_v3": "e3_stage_05",
+   "commander_hero": "genghis_khan",
+   "recommended_level": 11,
+   "enemy_level": 9,
+   "enemy_level_offset": 3,
+   "effective_enemy_level": 16,
+   "difficulty": 5,
+   "recommended_party": {
+    "heroes": 5,
+    "player_units_assumed": 20,
+    "troops_per_hero_assumed": 3
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "genghis_khan",
+      "display_name_ko": "칭기즈 칸",
+      "evidence_level": "hero_db",
+      "troop_type": "cavalry",
+      "hp_mult": 1.7
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       8
+      ],
+      [
+       19,
+       8
+      ],
+      [
+       20,
+       7
+      ],
+      [
+       20,
+       9
+      ],
+      [
+       21,
+       8
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_jebe",
+      "display_name_ko": "제베",
+      "evidence_level": "confirmed",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       19,
+       2
+      ],
+      [
+       18,
+       2
+      ],
+      [
+       19,
+       1
+      ],
+      [
+       19,
+       3
+      ],
+      [
+       20,
+       2
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_subutai",
+      "display_name_ko": "수부타이",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       19,
+       14
+      ],
+      [
+       18,
+       14
+      ],
+      [
+       19,
+       13
+      ],
+      [
+       19,
+       15
+      ],
+      [
+       20,
+       14
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_muqali",
+      "display_name_ko": "무칼리",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       5
+      ],
+      [
+       20,
+       5
+      ],
+      [
+       21,
+       4
+      ],
+      [
+       21,
+       6
+      ],
+      [
+       22,
+       5
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_boorchu",
+      "display_name_ko": "보르추",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       20,
+       11
+      ],
+      [
+       21,
+       10
+      ],
+      [
+       21,
+       12
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 24,
+   "unit_ratio_initial": 1.2,
+   "formation_note": "몽골 부채꼴 포위: 중앙 칸 본대, 남북 날개 제베·수부타이, 무칼리 예비, 보르추 근위",
+   "v1_enemy_units_legacy": 4,
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      8
+     ],
+     "ref": "genghis_khan",
+     "kind": "hero",
+     "name": "칭기즈 칸"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      8
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      9
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      19,
+      2
+     ],
+     "ref": "npc_jebe",
+     "kind": "npc",
+     "name": "제베"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      18,
+      2
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      19,
+      1
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      19,
+      3
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      20,
+      2
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      19,
+      14
+     ],
+     "ref": "npc_subutai",
+     "kind": "npc",
+     "name": "수부타이"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      18,
+      14
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      21,
+      5
+     ],
+     "ref": "npc_muqali",
+     "kind": "npc",
+     "name": "무칼리"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      5
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      4
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      6
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      5
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      21,
+      11
+     ],
+     "ref": "npc_boorchu",
+     "kind": "npc",
+     "name": "보르추"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      10
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      12
+     ]
+    }
+   ],
+   "reward_current_unchanged": {
+    "user_exp": 125,
+    "exp": 250,
+    "gold": 380
+   },
+   "win_rate_band_target_pct": "55",
+   "enemy_units_peak": 24,
+   "reward_balance_v3_2": {
+    "user_exp": 145,
+    "exp": 290,
+    "gold": 440,
+    "before": {
+     "user_exp": 125,
+     "exp": 250,
+     "gold": 380
+    }
+   },
+   "balance_v3_2": {
+    "offset": 7,
+    "hp": {
+     "A": 1.7
+    },
+    "add": {
+     "A": 1,
+     "B": 1,
+     "C": 1,
+     "D": 1
+    },
+    "measured": {
+     "win_pct": 55.7,
+     "ci95": [
+      50.0,
+      61.2
+     ],
+     "n": 300,
+     "seeds": [
+      12,
+      13
+     ],
+     "sim": "bal.php 하네스(봇vs봇, 아군=권장 구성/Lv, 플레이어 선공), 무승부 제외 승수",
+     "band": "55"
+    }
+   }
+  },
+  {
+   "code": "stage_06",
+   "name": "대왕의 원정",
+   "map": "castle_01",
+   "enemy_preset": "p_alexander",
+   "enemy_preset_v3": "e3_stage_06",
+   "commander_hero": "alexander",
+   "recommended_level": 14,
+   "enemy_level": 13,
+   "enemy_level_offset": 3,
+   "effective_enemy_level": 16,
+   "difficulty": 6,
+   "recommended_party": {
+    "heroes": 6,
+    "player_units_assumed": 24,
+    "troops_per_hero_assumed": 3
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "alexander",
+      "display_name_ko": "알렉산드로스",
+      "evidence_level": "hero_db",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       8
+      ],
+      [
+       19,
+       8
+      ],
+      [
+       20,
+       7
+      ],
+      [
+       20,
+       9
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hephaestion",
+      "display_name_ko": "헤파이스티온",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       5
+      ],
+      [
+       17,
+       5
+      ],
+      [
+       18,
+       4
+      ],
+      [
+       18,
+       6
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_parmenion",
+      "display_name_ko": "파르메니온",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       11
+      ],
+      [
+       17,
+       11
+      ],
+      [
+       18,
+       10
+      ],
+      [
+       19,
+       11
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_craterus",
+      "display_name_ko": "크라테로스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_gate",
+     "hold_range": 4,
+     "cells": [
+      [
+       18,
+       8
+      ],
+      [
+       17,
+       8
+      ],
+      [
+       18,
+       7
+      ],
+      [
+       18,
+       9
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ptolemy",
+      "display_name_ko": "프톨레마이오스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       5
+      ],
+      [
+       20,
+       5
+      ],
+      [
+       21,
+       4
+      ],
+      [
+       21,
+       6
+      ]
+     ]
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "크레타 궁수 대장",
+      "evidence_level": "verify",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       20,
+       11
+      ],
+      [
+       21,
+       10
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 23,
+   "unit_ratio_initial": 0.96,
+   "formation_note": "마케도니아 방진: 성문 안쪽 우측 구역에 사리사 방진, 기병 헤파이스티온, 후위 궁병",
+   "v1_enemy_units_legacy": 4,
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      20,
+      8
+     ],
+     "ref": "alexander",
+     "kind": "hero",
+     "name": "알렉산드로스"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      19,
+      8
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      20,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      20,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      18,
+      5
+     ],
+     "ref": "npc_hephaestion",
+     "kind": "npc",
+     "name": "헤파이스티온"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      17,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      18,
+      4
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      18,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      18,
+      11
+     ],
+     "ref": "npc_parmenion",
+     "kind": "npc",
+     "name": "파르메니온"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      17,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      18,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      19,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      18,
+      8
+     ],
+     "ref": "npc_craterus",
+     "kind": "npc",
+     "name": "크라테로스"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      8
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      18,
+      7
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      18,
+      9
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      21,
+      5
+     ],
+     "ref": "npc_ptolemy",
+     "kind": "npc",
+     "name": "프톨레마이오스"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      5
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      4
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      6
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      21,
+      11
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "크레타 궁수 대장"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      20,
+      11
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      21,
+      10
+     ]
+    }
+   ],
+   "reward_current_unchanged": {
+    "user_exp": 175,
+    "exp": 350,
+    "gold": 500
+   },
+   "win_rate_band_target_pct": "50",
+   "enemy_units_peak": 23,
+   "reward_balance_v3_2": {
+    "user_exp": 262,
+    "exp": 525,
+    "gold": 750,
+    "before": {
+     "user_exp": 175,
+     "exp": 350,
+     "gold": 500
+    }
+   },
+   "balance_v3_2": {
+    "offset": 3,
+    "measured": {
+     "win_pct": 52.3,
+     "ci95": [
+      46.7,
+      57.9
+     ],
+     "n": 300,
+     "seeds": [
+      12,
+      13
+     ],
+     "sim": "bal.php 하네스(봇vs봇, 아군=권장 구성/Lv, 플레이어 선공), 무승부 제외 승수",
+     "band": "50"
+    }
+   }
+  }
+ ]
+}

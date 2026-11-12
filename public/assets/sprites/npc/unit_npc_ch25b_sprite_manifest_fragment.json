@@ -1,0 +1,1250 @@
+{
+ "note": "npc_ch25b: ch25 이름 있는 인물 전용 방향 시트 7(안아트 2026-11-08). 수군 6명(칸즈·옛끼에우·판제·오로치·장원호·오마르)은 배 오버레이 위 도보 시트(npc_jp_* 수군 장수와 같은 방식) + 쩐 타인똥(healer). 무기 1개 규칙·pal_mode unique. 신규 초상 5 = npc_ch25b_portrait_manifest_fragment.json",
+ "generated": "2026-11-08T11:45:15.426Z",
+ "keyRules": {
+  "npc_sprite": "unit.npc.<npc_code>.<ally|enemy>.64.sheet"
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "unit.npc.npc_tran_thanh_tong.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_tran_thanh_tong_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_tran_thanh_tong_ally_sheet.png"
+   },
+   "bytes": 8930,
+   "npc": "npc_tran_thanh_tong",
+   "name_ko": "쩐 타인똥",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "china",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.healer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_tran_thanh_tong",
+   "ref_portrait": "public/assets/portraits/npc/npc_tran_thanh_tong.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_tran_thanh_tong.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.99
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "37x63",
+     "left": "37x61",
+     "up": "41x60"
+    },
+    "outline": "#06032c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "쪽빛 포·검은 관·회색 수염·지팡이 1개 9칸 일관, 측면 좌향. clipped 0",
+    "contact": "contact_a.png"
+   },
+   "verify": true,
+   "verify_note": "상황(confirmed). 장면 등장 시 이름표만(대사 없음). 어복 색·관 형태 근거 약함 — 일반화(verify). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_tran_thanh_tong.png)",
+   "used_in": "ch25_open·end 컷신(이름표)"
+  },
+  {
+   "key": "unit.npc.npc_tran_thanh_tong.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_tran_thanh_tong_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_tran_thanh_tong_enemy_sheet.png"
+   },
+   "bytes": 8942,
+   "npc": "npc_tran_thanh_tong",
+   "name_ko": "쩐 타인똥",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "china",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.healer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_tran_thanh_tong",
+   "ref_portrait": "public/assets/portraits/npc/npc_tran_thanh_tong.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_tran_thanh_tong.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.99
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "37x63",
+     "left": "37x61",
+     "up": "41x60"
+    },
+    "outline": "#06032c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "쪽빛 포·검은 관·회색 수염·지팡이 1개 9칸 일관, 측면 좌향. clipped 0",
+    "contact": "contact_a.png"
+   },
+   "verify": true,
+   "verify_note": "상황(confirmed). 장면 등장 시 이름표만(대사 없음). 어복 색·관 형태 근거 약함 — 일반화(verify). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_tran_thanh_tong.png)",
+   "used_in": "ch25_open·end 컷신(이름표)"
+  },
+  {
+   "key": "unit.npc.npc_yet_kieu.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_yet_kieu_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_yet_kieu_ally_sheet.png"
+   },
+   "bytes": 8292,
+   "npc": "npc_yet_kieu",
+   "name_ko": "옛끼에우",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_yet_kieu",
+   "ref_portrait": "public/assets/portraits/npc/npc_yet_kieu.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_yet_kieu.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.17
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "35x63",
+     "left": "33x60",
+     "up": "36x63"
+    },
+    "outline": "#0a0820",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "맨 상투·청회 웃옷·흰 띠·작살 1개 9칸 일관, 배 오버레이 위 상체 식별 양호. clipped 0",
+    "contact": "contact_a.png"
+   },
+   "verify": true,
+   "verify_note": "후대 전승 비중 큰 인물 — 이름표 가신으로만 사용(verify). 잠수·작살 표현은 전승 기반 게임 표현. 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_yet_kieu.png)",
+   "used_in": "ch25_s9·s10 아군"
+  },
+  {
+   "key": "unit.npc.npc_yet_kieu.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_yet_kieu_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_yet_kieu_enemy_sheet.png"
+   },
+   "bytes": 8287,
+   "npc": "npc_yet_kieu",
+   "name_ko": "옛끼에우",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_yet_kieu",
+   "ref_portrait": "public/assets/portraits/npc/npc_yet_kieu.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_yet_kieu.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.17
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "35x63",
+     "left": "33x60",
+     "up": "36x63"
+    },
+    "outline": "#0a0820",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "맨 상투·청회 웃옷·흰 띠·작살 1개 9칸 일관, 배 오버레이 위 상체 식별 양호. clipped 0",
+    "contact": "contact_a.png"
+   },
+   "verify": true,
+   "verify_note": "후대 전승 비중 큰 인물 — 이름표 가신으로만 사용(verify). 잠수·작살 표현은 전승 기반 게임 표현. 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_yet_kieu.png)",
+   "used_in": "ch25_s9·s10 아군"
+  },
+  {
+   "key": "unit.npc.npc_tran_khanh_du.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_tran_khanh_du_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_tran_khanh_du_ally_sheet.png"
+   },
+   "bytes": 9813,
+   "npc": "npc_tran_khanh_du",
+   "name_ko": "쩐 칸즈",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_tran_khanh_du",
+   "ref_portrait": "public/assets/portraits/npc/npc_tran_khanh_du.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_tran_khanh_du.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.1
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x63",
+     "left": "37x62",
+     "up": "42x63"
+    },
+    "outline": "#0a071f",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "검은 두건 상투·청록 어깨 천·갈색 미늘·갈고리 장대 1개 9칸 일관, 배 위 갈고리 실루엣 뚜렷. clipped 0",
+    "contact": "contact_a.png"
+   },
+   "verify": true,
+   "verify_note": "수군 지휘(confirmed). 용모 근거 없음 — 나이·수염 제안값. 갈고리 장대는 수군 상징 제안(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_tran_khanh_du.png)",
+   "used_in": "ch25_s7·s9·s10 아군"
+  },
+  {
+   "key": "unit.npc.npc_tran_khanh_du.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_tran_khanh_du_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_tran_khanh_du_enemy_sheet.png"
+   },
+   "bytes": 9812,
+   "npc": "npc_tran_khanh_du",
+   "name_ko": "쩐 칸즈",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_tran_khanh_du",
+   "ref_portrait": "public/assets/portraits/npc/npc_tran_khanh_du.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_tran_khanh_du.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.1
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x63",
+     "left": "37x62",
+     "up": "42x63"
+    },
+    "outline": "#0a071f",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "검은 두건 상투·청록 어깨 천·갈색 미늘·갈고리 장대 1개 9칸 일관, 배 위 갈고리 실루엣 뚜렷. clipped 0",
+    "contact": "contact_a.png"
+   },
+   "verify": true,
+   "verify_note": "수군 지휘(confirmed). 용모 근거 없음 — 나이·수염 제안값. 갈고리 장대는 수군 상징 제안(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_tran_khanh_du.png)",
+   "used_in": "ch25_s7·s9·s10 아군"
+  },
+  {
+   "key": "unit.npc.npc_fan_yi.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_fan_yi_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_fan_yi_ally_sheet.png"
+   },
+   "bytes": 9276,
+   "npc": "npc_fan_yi",
+   "name_ko": "판제",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_fan_yi",
+   "ref_portrait": "public/assets/portraits/npc/npc_fan_yi.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_fan_yi.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.2
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x63",
+     "left": "34x63",
+     "up": "38x64"
+    },
+    "outline": "#0b0820",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "r0 는 투구가 채도 높은 파랑(초상과 불일치, 적 스왑 시 적갈 투구)·붉은 술 잘림(clipped 108)·전포 얼룩으로 탈락(try1 보존). r1 = 회색 강철 투구+붉은 술·검은 찰갑·회백 전포·창 1개, clipped 0",
+    "contact": "contact_d.png"
+   },
+   "verify": true,
+   "verify_note": "3차 수군 부장, 바익당에서 투신(accepted). 한인 출신은 이름(樊接) 기반 추정(verify). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_fan_yi.png)",
+   "used_in": "ch25_s9·s10 적"
+  },
+  {
+   "key": "unit.npc.npc_fan_yi.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_fan_yi_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_fan_yi_enemy_sheet.png"
+   },
+   "bytes": 9274,
+   "npc": "npc_fan_yi",
+   "name_ko": "판제",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_fan_yi",
+   "ref_portrait": "public/assets/portraits/npc/npc_fan_yi.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_fan_yi.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.2
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x63",
+     "left": "34x63",
+     "up": "38x64"
+    },
+    "outline": "#0b0820",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "r0 는 투구가 채도 높은 파랑(초상과 불일치, 적 스왑 시 적갈 투구)·붉은 술 잘림(clipped 108)·전포 얼룩으로 탈락(try1 보존). r1 = 회색 강철 투구+붉은 술·검은 찰갑·회백 전포·창 1개, clipped 0",
+    "contact": "contact_d.png"
+   },
+   "verify": true,
+   "verify_note": "3차 수군 부장, 바익당에서 투신(accepted). 한인 출신은 이름(樊接) 기반 추정(verify). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_fan_yi.png)",
+   "used_in": "ch25_s9·s10 적"
+  },
+  {
+   "key": "unit.npc.npc_aoluchi.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_aoluchi_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_aoluchi_ally_sheet.png"
+   },
+   "bytes": 10113,
+   "npc": "npc_aoluchi",
+   "name_ko": "오로치",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_aoluchi",
+   "ref_portrait": "public/assets/portraits/npc/npc_aoluchi.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_aoluchi.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.06
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x63",
+     "left": "42x63",
+     "up": "47x63"
+    },
+    "outline": "#0f022c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [
+     "뒷모습 walk1 칸만 도끼 각도가 낮음(같은 손)"
+    ],
+    "notes": "늑대털 모자·적주황 델·도끼 1개. 파랑 성분 적어 적 시트 색 거의 유지. clipped 0",
+    "contact": "contact_a.png"
+   },
+   "verify": true,
+   "verify_note": "3차 몽골 측 장수(verify, 바익당 최후 불확실 — 표현 안 함). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_aoluchi.png)",
+   "used_in": "ch25_s10 적"
+  },
+  {
+   "key": "unit.npc.npc_aoluchi.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_aoluchi_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_aoluchi_enemy_sheet.png"
+   },
+   "bytes": 10162,
+   "npc": "npc_aoluchi",
+   "name_ko": "오로치",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_aoluchi",
+   "ref_portrait": "public/assets/portraits/npc/npc_aoluchi.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_aoluchi.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.06
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x63",
+     "left": "42x63",
+     "up": "47x63"
+    },
+    "outline": "#0f022c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [
+     "뒷모습 walk1 칸만 도끼 각도가 낮음(같은 손)"
+    ],
+    "notes": "늑대털 모자·적주황 델·도끼 1개. 파랑 성분 적어 적 시트 색 거의 유지. clipped 0",
+    "contact": "contact_a.png"
+   },
+   "verify": true,
+   "verify_note": "3차 몽골 측 장수(verify, 바익당 최후 불확실 — 표현 안 함). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_aoluchi.png)",
+   "used_in": "ch25_s10 적"
+  },
+  {
+   "key": "unit.npc.npc_zhang_wenhu.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_zhang_wenhu_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_zhang_wenhu_ally_sheet.png"
+   },
+   "bytes": 7683,
+   "npc": "npc_zhang_wenhu",
+   "name_ko": "장원호",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_zhang_wenhu",
+   "ref_portrait": "public/assets/portraits/npc/npc_zhang_wenhu.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_zhang_wenhu.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.93
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x62",
+     "left": "28x62",
+     "up": "38x62"
+    },
+    "outline": "#0c071b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "r0 는 정면 칼집/측면·뒷면 뽑은 칼로 불일치·탈락(try1 보존). r1 = 검은 복두(뒤 날개)·올리브 전포·가죽 흉갑·칼집 칼 1개 9칸 일관, clipped 0",
+    "contact": "contact_d.png"
+   },
+   "verify": true,
+   "verify_note": "군량선단 지휘, 번돈 피해 후 퇴각(accepted). 한인 출신은 이름(張文虎) 기반 추정(verify). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_zhang_wenhu.png)",
+   "used_in": "ch25_s7 적"
+  },
+  {
+   "key": "unit.npc.npc_zhang_wenhu.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_zhang_wenhu_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_zhang_wenhu_enemy_sheet.png"
+   },
+   "bytes": 7680,
+   "npc": "npc_zhang_wenhu",
+   "name_ko": "장원호",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_zhang_wenhu",
+   "ref_portrait": "public/assets/portraits/npc/npc_zhang_wenhu.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_zhang_wenhu.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.93
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x62",
+     "left": "28x62",
+     "up": "38x62"
+    },
+    "outline": "#0c071b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "r0 는 정면 칼집/측면·뒷면 뽑은 칼로 불일치·탈락(try1 보존). r1 = 검은 복두(뒤 날개)·올리브 전포·가죽 흉갑·칼집 칼 1개 9칸 일관, clipped 0",
+    "contact": "contact_d.png"
+   },
+   "verify": true,
+   "verify_note": "군량선단 지휘, 번돈 피해 후 퇴각(accepted). 한인 출신은 이름(張文虎) 기반 추정(verify). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_zhang_wenhu.png)",
+   "used_in": "ch25_s7 적"
+  },
+  {
+   "key": "unit.npc.npc_omar.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_omar_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_omar_ally_sheet.png"
+   },
+   "bytes": 9233,
+   "npc": "npc_omar",
+   "name_ko": "오마르",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_omar",
+   "ref_portrait": "public/assets/portraits/npc/npc_omar.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_omar.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.36
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "48x64",
+     "left": "41x64",
+     "up": "48x64"
+    },
+    "outline": "#0b091e",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [
+     "투구 꼭지가 칸 위 가장자리에 닿음(clipped_px 48)"
+    ],
+    "notes": "r0 는 정면=칼집 칼/측면·뒷면=뽑은 칼+빈 칼집으로 무기 불일치·탈락(raw/npc_omar_try1.jpg 보존). r1 = 뽑은 휜 칼 1자루 9칸 일관, 흰 천 감은 쇠 투구·사프란 띠, 적 스왑 후에도 회색 투구 유지",
+    "contact": "contact_c.png"
+   },
+   "verify": true,
+   "verify_note": "수군 지휘관(confirmed). 서역계 출신 추정 — 용모·투구 위 천 감기는 제안값(verify). 최후 전승 단정 금지",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_omar.png)",
+   "used_in": "ch25_s2·s10 적 지휘"
+  },
+  {
+   "key": "unit.npc.npc_omar.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_omar_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_omar_enemy_sheet.png"
+   },
+   "bytes": 9235,
+   "npc": "npc_omar",
+   "name_ko": "오마르",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "default",
+   "troop": "naval",
+   "mounted": false,
+   "ship_overlay": "수군: 게임이 배 오버레이(back→유닛→front)를 겹침, 하반신 가려짐",
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.default.naval.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch25b_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch25b_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch25b/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch25b_style.mjs plan()#npc_omar",
+   "ref_portrait": "public/assets/portraits/npc/npc_omar.png",
+   "raw": "docker/gemini/npc_ch25b/raw/npc_omar.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.36
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "48x64",
+     "left": "41x64",
+     "up": "48x64"
+    },
+    "outline": "#0b091e",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·상체 색 식별(수군은 배 오버레이 위 상체 가독성)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [
+     "투구 꼭지가 칸 위 가장자리에 닿음(clipped_px 48)"
+    ],
+    "notes": "r0 는 정면=칼집 칼/측면·뒷면=뽑은 칼+빈 칼집으로 무기 불일치·탈락(raw/npc_omar_try1.jpg 보존). r1 = 뽑은 휜 칼 1자루 9칸 일관, 흰 천 감은 쇠 투구·사프란 띠, 적 스왑 후에도 회색 투구 유지",
+    "contact": "contact_c.png"
+   },
+   "verify": true,
+   "verify_note": "수군 지휘관(confirmed). 서역계 출신 추정 — 용모·투구 위 천 감기는 제안값(verify). 최후 전승 단정 금지",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_omar.png)",
+   "used_in": "ch25_s2·s10 적 지휘"
+  }
+ ]
+}

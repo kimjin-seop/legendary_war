@@ -1,0 +1,2542 @@
+{
+ "_note": "[임밸런 2호기 / 초안] ch19 서가 확장 스테이지(송서사 EXPAND 인계서 기준) 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 맵은 기존 서가/팩 맵 재활용(주제 불일치는 map_new_needed 참조). 신호 zone 좌표는 database/data/map_tile_tag_requests_ext2.json 병합 전에는 --with-ext 시드 시 battle_cues zone_ref 해석 오류로 중단될 수 있음.",
+ "version": 1,
+ "chapter": 19,
+ "shelf_code": "ch19",
+ "status": "draft",
+ "items": [
+  {
+   "code": "ch19_s5",
+   "name": "크레송 샘",
+   "year_label": "1187년 5월",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_pk16_cliff_valley_me",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      23,
+      12
+     ],
+     [
+      24,
+      12
+     ],
+     [
+      25,
+      12
+     ],
+     [
+      24,
+      13
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 12,
+   "difficulty": 6,
+   "culture": "middle_east",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_taqi_al_din"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 기사단 지휘관",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       29,
+       12
+      ],
+      [
+       30,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 기사단 지휘관 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 기사 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 기사 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 기사 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       35,
+       15
+      ],
+      [
+       35,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 기사 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 6,
+   "enemy_units_peak": 6,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      12
+     ],
+     "name": "십자군 기사단 지휘관"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      11
+     ],
+     "name": "십자군 기사 기병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      35,
+      15
+     ],
+     "name": "십자군 기사 기병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      35,
+      16
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1016,
+    "exp": 1474,
+    "gold": 1321,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 6 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1905,
+   "prerequisite": "ch19_s4",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군",
+     "enemy": "십자군"
+    },
+    "enemy_commander": {
+     "name": "십자군 기사단 지휘관",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          12
+         ],
+         [
+          18,
+          12
+         ],
+         [
+          19,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "spring_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "spring_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        10,
+        12
+       ],
+       [
+        11,
+        12
+       ],
+       [
+        12,
+        12
+       ],
+       [
+        11,
+        13
+       ]
+      ],
+      "tag": "spring",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 3
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_taqi_al_din",
+      "x": 8,
+      "y": 11,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "spring_signal": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ]
+     ]
+    },
+    "tile_tags": [
+     "spring_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 10기 {\"cavalry\":10}, 최대 10기. Lv17 offset -2(eff 15). 목표 유형 capture.",
+    "신호 플래그 -> 아군 증원 3기(archer) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 10->6기, 대장 hp_mult 1.4->1.2",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_taqi_al_din(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch19_s6",
+   "name": "티베리아스 포위",
+   "year_label": "1187년 7월",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_pk18_wall_breach_me",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      25,
+      10
+     ],
+     [
+      26,
+      10
+     ],
+     [
+      27,
+      10
+     ],
+     [
+      26,
+      11
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 15,
+   "difficulty": 7,
+   "culture": "middle_east",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_qaraqush",
+     "npc_husam_lulu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "티베리아스 수비대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       30,
+       12
+      ],
+      [
+       31,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "티베리아스 수비 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "티베리아스 수비 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "티베리아스 수비 보병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "티베리아스 수비 보병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       34,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "티베리아스 수비 보병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "티베리아스 수비 보병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "티베리아스 수비 보병 병사"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 5,
+   "enemy_units_peak": 9,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      30,
+      12
+     ],
+     "name": "티베리아스 수비대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      10
+     ],
+     "name": "티베리아스 수비 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      34,
+      12
+     ],
+     "name": "티베리아스 수비 보병대장 2"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      14
+     ],
+     "name": "티베리아스 수비 보병대장 3"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1096,
+    "exp": 1589,
+    "gold": 1425,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 7 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1906,
+   "prerequisite": "ch19_s5",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군",
+     "enemy": "십자군"
+    },
+    "enemy_commander": {
+     "name": "티베리아스 수비대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          11
+         ],
+         [
+          18,
+          11
+         ],
+         [
+          18,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "wall_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "wall_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        9,
+        12
+       ],
+       [
+        10,
+        12
+       ],
+       [
+        11,
+        12
+       ]
+      ],
+      "tag": "wall",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_sibylla",
+      "tiles": [
+       [
+        33,
+        12
+       ],
+       [
+        32,
+        11
+       ],
+       [
+        33,
+        11
+       ],
+       [
+        34,
+        11
+       ],
+       [
+        32,
+        12
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_heraclius_patriarch",
+      "tiles": [
+       [
+        33,
+        13
+       ],
+       [
+        32,
+        12
+       ],
+       [
+        33,
+        12
+       ],
+       [
+        32,
+        13
+       ],
+       [
+        34,
+        13
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_qaraqush",
+      "x": 6,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_husam_lulu",
+      "x": 5,
+      "y": 10,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "wall_signal": [
+      [
+       17,
+       11
+      ],
+      [
+       18,
+       11
+      ],
+      [
+       18,
+       12
+      ]
+     ]
+    },
+    "tile_tags": [
+     "wall_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 12기 {\"sword\":12}, 최대 12기. Lv18 offset -2(eff 16). 목표 유형 capture.",
+    "신호 플래그 -> 아군 증원 2기(sword) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 12->8기, 대장 hp_mult 1.3->1.1",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_qaraqush(ally_npcs), npc_husam_lulu(ally_npcs), npc_sibylla(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정1회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -5->-6, 일반 부대 병사/부대 1기 축소(초기 7->6), 증원 0기 감소, 대장 hp_mult 1.1->1.1. 시작값/needs tuning.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_heraclius_patriarch(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정6회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -6->-3, 일반 부대 병사/부대 0기 축소(초기 5->5), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.1->1.1. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch19_s7",
+   "name": "아크레 보급 호송",
+   "year_label": "1190년",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_pk13_crossroads_me",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 13,
+   "difficulty": 7,
+   "culture": "middle_east",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_al_mashtub",
+     "npc_abul_haija"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 순찰대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       12
+      ],
+      [
+       19,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 순찰 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 순찰 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       12
+      ],
+      [
+       34,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 순찰 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 순찰 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       14
+      ],
+      [
+       34,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 순찰 기병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 순찰 기병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       9
+      ],
+      [
+       32,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 순찰 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 8,
+   "enemy_units_peak": 8,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      12
+     ],
+     "name": "십자군 순찰대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      12
+     ],
+     "name": "십자군 순찰 기병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      35,
+      14
+     ],
+     "name": "십자군 순찰 기병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      31,
+      9
+     ],
+     "name": "십자군 순찰 기병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      9
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1096,
+    "exp": 1589,
+    "gold": 1425,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 7 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1907,
+   "prerequisite": "ch19_s6",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군",
+     "enemy": "십자군"
+    },
+    "enemy_commander": {
+     "name": "십자군 순찰대장",
+     "hero": null
+    },
+    "max_turns": 13,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          12
+         ],
+         [
+          18,
+          12
+         ],
+         [
+          19,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "coast_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "coast_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        10,
+        12
+       ],
+       [
+        11,
+        12
+       ],
+       [
+        12,
+        12
+       ]
+      ],
+      "tag": "coast",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 2
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "목표 구역에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         26,
+         12
+        ],
+        [
+         27,
+         12
+        ],
+        [
+         28,
+         12
+        ],
+        [
+         27,
+         13
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_al_mashtub",
+      "x": 8,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_abul_haija",
+      "x": 7,
+      "y": 10,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "coast_signal": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ]
+     ],
+     "exit_19_s7": [
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       28,
+       12
+      ],
+      [
+       27,
+       13
+      ]
+     ]
+    },
+    "tile_tags": [
+     "coast_signal",
+     "exit_19_s7"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 12기 {\"cavalry\":10,\"sword\":2}, 최대 12기. Lv18 offset -2(eff 16). 목표 유형 escort.",
+    "신호 플래그 -> 아군 증원 2기(archer) 효과(시작값)",
+    "호송/탈출: 호송 대상 유닛 없이 주인공 도달 조건으로 단순화(시작값, 사람 확인 필요)",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 12->8기, 대장 hp_mult 1.3->1.1",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_al_mashtub(ally_npcs), npc_abul_haija(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 호송류 main 위치 보정] 적 main 부대를 출구 [27,12] 인접([29,12])에서 약 7칸 떨어진 [20,12]로 이동(출구 봉쇄 방지). 시작값/needs tuning."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch19_s8",
+   "name": "아스칼론 퇴거",
+   "year_label": "1191년 9월",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_ch19_s2_jerusalem",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -9,
+   "effective_enemy_level": 10,
+   "difficulty": 7,
+   "culture": "middle_east",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "baha_ad_din"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 선발대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       27,
+       14
+      ],
+      [
+       28,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 선발 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       14
+      ],
+      [
+       29,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 2,
+   "enemy_units_initial": 4,
+   "enemy_units_peak": 4,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      27,
+      14
+     ],
+     "name": "십자군 선발대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      15
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      14
+     ],
+     "name": "십자군 선발 기병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      14
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1184,
+    "exp": 1717,
+    "gold": 1539,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 13
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 7 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1908,
+   "prerequisite": "ch19_s7",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군",
+     "enemy": "십자군"
+    },
+    "enemy_commander": {
+     "name": "십자군 선발대장",
+     "hero": null
+    },
+    "max_turns": 15,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          18,
+          13
+         ],
+         [
+          19,
+          13
+         ],
+         [
+          20,
+          13
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "gate_signal_up",
+      "value": true
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "목표 구역에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         18,
+         16
+        ],
+        [
+         19,
+         16
+        ],
+        [
+         20,
+         16
+        ],
+        [
+         19,
+         17
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "baha_ad_din",
+      "x": 16,
+      "y": 8,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "gate_signal": [
+      [
+       18,
+       13
+      ],
+      [
+       19,
+       13
+      ],
+      [
+       20,
+       13
+      ]
+     ],
+     "exit_19_s8": [
+      [
+       18,
+       16
+      ],
+      [
+       19,
+       16
+      ],
+      [
+       20,
+       16
+      ],
+      [
+       19,
+       17
+      ]
+     ]
+    },
+    "tile_tags": [
+     "gate_signal",
+     "exit_19_s8"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 10기 {\"cavalry\":10}, 최대 10기. Lv19 offset -2(eff 17). 목표 유형 escort.",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "호송/탈출: 호송 대상 유닛 없이 주인공 도달 조건으로 단순화(시작값, 사람 확인 필요)",
+    "[2026-11-04 완화] offset -2->-6, 초기 적 10->6기, 대장 hp_mult 1.3->1.1",
+    "[2026-11-04 2차 완화] offset -6->-8, 적 6->4기, max_turns 12->15",
+    "[2026-11-04 3차 완화] offset -8->-9, 적 4->4기(부대 2->2), 대장 hp_mult 1->1",
+    "[2026-11-04 4차] 원인 가설: 적 main(A) 초기 칸 [[20,17],[19,18]] 이 도달 목표 구역([[18,16],[19,16],[20,16],[19,17]]) 바로 옆이라 도달 전에 근접전 강제. 보정: A 칸을 [[27,14],[28,15]](목표 구역에서 6칸 이상)으로 이동",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: baha_ad_din(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 3차 완화(재측정 필요)"
+  },
+  {
+   "code": "ch19_s9",
+   "name": "베이트 누바",
+   "year_label": "1192년 1월",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_pk04_hill_claim_me",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 18,
+   "difficulty": 8,
+   "culture": "middle_east",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 선발대 지휘관",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.4
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       29,
+       12
+      ],
+      [
+       30,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발대 지휘관 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_conrad_montferrat",
+      "display_name_ko": "콘라도 드 몽페라",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발 보병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 선발 보병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       15
+      ],
+      [
+       35,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발 보병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 선발 보병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       6
+      ],
+      [
+       34,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발 보병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 선발 보병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       3
+      ],
+      [
+       26,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발 보병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 선발 보병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       21
+      ],
+      [
+       30,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발 보병 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 선발 창병대장 6",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       12
+      ],
+      [
+       29,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발 창병 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 선발 창병대장 7",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       11
+      ],
+      [
+       33,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 선발 창병 병사"
+    }
+   ],
+   "enemy_squads_count": 8,
+   "enemy_units_initial": 16,
+   "enemy_units_peak": 16,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      12
+     ],
+     "name": "십자군 선발대 지휘관"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      33,
+      11
+     ],
+     "ref": "npc_conrad_montferrat",
+     "kind": "npc",
+     "name": "콘라도 드 몽페라"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      34,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      35,
+      15
+     ],
+     "name": "십자군 선발 보병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      33,
+      6
+     ],
+     "name": "십자군 선발 보병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      34,
+      6
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      3
+     ],
+     "name": "십자군 선발 보병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      3
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      21
+     ],
+     "name": "십자군 선발 보병대장 5"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      21
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      28,
+      12
+     ],
+     "name": "십자군 선발 창병대장 6"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      29,
+      13
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      32,
+      11
+     ],
+     "name": "십자군 선발 창병대장 7"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      33,
+      12
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1845,
+    "gold": 1654,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 8 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 1909,
+   "prerequisite": "ch19_s8",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군",
+     "enemy": "십자군"
+    },
+    "enemy_commander": {
+     "name": "십자군 선발대 지휘관",
+     "hero": null
+    },
+    "max_turns": 11,
+    "commander_guard": null,
+    "cues": [],
+    "win_mode": null,
+    "win_conditions": null,
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "ridge_1": [
+      [
+       12,
+       11
+      ],
+      [
+       13,
+       11
+      ],
+      [
+       14,
+       11
+      ]
+     ],
+     "ridge_2": [
+      [
+       18,
+       11
+      ],
+      [
+       19,
+       11
+      ],
+      [
+       20,
+       11
+      ]
+     ]
+    },
+    "tile_tags": [
+     "ridge_1",
+     "ridge_2"
+    ]
+   },
+   "design_notes": [
+    "[2026-11-08 임밸런 미션 비중 전환] 방어(survive_turns 8) -> 지휘관 격파(defeat_commander), 방어형 win_mode/win_conditions 제거. 별 turn_within 10->10. max_turns 유지(측정 후 조정). 시작값, 사람 플레이 확인 필요.",
+    "[시작값] 초기 적 16기 {\"sword\":12,\"spear\":4}, 최대 16기. Lv20 offset -1(eff 19). 목표 유형 seq(survive:8).",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -1->-2, 초기 적 16->16기, 대장 hp_mult 1.4->1.4",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_conrad_montferrat(convert_B). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch19_s10",
+   "name": "다룸 철수",
+   "year_label": "1192년 5월",
+   "chapter": 19,
+   "shelf_code": "ch19",
+   "map": "su_pk06_fortress_siege",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -4,
+   "effective_enemy_level": 17,
+   "difficulty": 8,
+   "culture": "middle_east",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 공성부대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       23,
+       13
+      ],
+      [
+       24,
+       12
+      ],
+      [
+       22,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 공성부 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 공성 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 공성 보병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 공성 보병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       36,
+       13
+      ],
+      [
+       37,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 공성 보병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 공성 보병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       15
+      ],
+      [
+       35,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 공성 보병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 공성 보병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       12
+      ],
+      [
+       34,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 공성 보병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 공성 보병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 공성 보병 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "십자군 공성 보병대장 6",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       13
+      ],
+      [
+       36,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "십자군 공성 보병 병사"
+    }
+   ],
+   "enemy_squads_count": 7,
+   "enemy_units_initial": 14,
+   "enemy_units_peak": 16,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      23,
+      13
+     ],
+     "name": "십자군 공성부대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      34,
+      11
+     ],
+     "name": "십자군 공성 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      36,
+      13
+     ],
+     "name": "십자군 공성 보병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      37,
+      13
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      34,
+      15
+     ],
+     "name": "십자군 공성 보병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      15
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      12
+     ],
+     "name": "십자군 공성 보병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      34,
+      13
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      33,
+      11
+     ],
+     "name": "십자군 공성 보병대장 5"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      34,
+      12
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      35,
+      13
+     ],
+     "name": "십자군 공성 보병대장 6"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      36,
+      14
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1360,
+    "exp": 1972,
+    "gold": 1768,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 8 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 1910,
+   "prerequisite": "ch19_s9",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "아이유브 군",
+     "enemy": "십자군"
+    },
+    "enemy_commander": {
+     "name": "십자군 공성부대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          19,
+          13
+         ],
+         [
+          20,
+          13
+         ],
+         [
+          21,
+          13
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "back_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "back_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        11,
+        13
+       ],
+       [
+        12,
+        13
+       ],
+       [
+        13,
+        13
+       ]
+      ],
+      "tag": "back",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_hugh_burgundy",
+      "tiles": [
+       [
+        35,
+        12
+       ],
+       [
+        36,
+        12
+       ],
+       [
+        34,
+        14
+       ],
+       [
+        35,
+        14
+       ],
+       [
+        33,
+        10
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "목표 구역에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         29,
+         13
+        ],
+        [
+         30,
+         13
+        ],
+        [
+         31,
+         13
+        ],
+        [
+         30,
+         14
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "back_signal": [
+      [
+       19,
+       13
+      ],
+      [
+       20,
+       13
+      ],
+      [
+       21,
+       13
+      ]
+     ],
+     "exit_19_s10": [
+      [
+       29,
+       13
+      ],
+      [
+       30,
+       13
+      ],
+      [
+       31,
+       13
+      ],
+      [
+       30,
+       14
+      ]
+     ]
+    },
+    "tile_tags": [
+     "back_signal",
+     "exit_19_s10"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 20기 {\"sword\":17,\"spear\":3}, 최대 20기. Lv21 offset -1(eff 20). 목표 유형 escort.",
+    "신호 플래그 -> 아군 증원 2기(sword) 효과(시작값)",
+    "호송/탈출: 호송 대상 유닛 없이 주인공 도달 조건으로 단순화(시작값, 사람 확인 필요)",
+    "[2026-11-04 완화] offset -1->-4, 초기 적 20->15기, 대장 hp_mult 1.5->1.3",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_hugh_burgundy(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 호송류 main 위치 보정] 적 main 부대를 출구 [30,13] 인접([32,13])에서 약 7칸 떨어진 [23,13]로 이동(출구 봉쇄 방지). 시작값/needs tuning."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  }
+ ],
+ "npc_needed": {
+  "new_rows": [],
+  "note": "기존 roster 코드만 사용"
+ },
+ "engine_checks": [
+  "optional=true(숨은 종장 해금 필수 제외)",
+  "승리 조건은 기존 엔진 type(in_zone/defeat/capture/survive)만 사용"
+ ]
+}

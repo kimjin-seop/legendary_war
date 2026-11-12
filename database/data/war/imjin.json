@@ -1,0 +1,164 @@
+{
+  "scenario": {
+    "code": "imjin",
+    "name": "1592년 조선 시즌",
+    "shelf_code": "ch1",
+    "season_days": 28,
+    "map_view": {
+      "lon_min": 124,
+      "lon_max": 131.2,
+      "lat_min": 32.8,
+      "lat_max": 43
+    },
+    "note": "주 대립 2세력(조선 vs 일본)만 국가·영토를 가진다. 명은 영토 없는 조선 소속 원군(supporters). 한반도 전체와 제주, 쓰시마까지를 다루며 일본의 영토는 쓰시마와 상륙 거점 부산이다. 수도 표시는 kind=capital."
+  },
+  "countries": [
+    {
+      "code": "joseon",
+      "name": "조선",
+      "color": "#3F6FB5",
+      "allies": [],
+      "supporters": [
+        {
+          "code": "ming",
+          "name": "명",
+          "label": "원군"
+        }
+      ],
+      "ai_profile": {
+        "style": "defensive"
+      }
+    },
+    {
+      "code": "japan",
+      "name": "일본",
+      "color": "#C0504D",
+      "allies": [],
+      "ai_profile": {
+        "style": "aggressive"
+      }
+    }
+  ],
+  "territories": [
+    {
+      "code": "hanyang",
+      "name": "한양",
+      "kind": "capital",
+      "defense_level": 3,
+      "lon": 126.98,
+      "lat": 37.57,
+      "battle_map_code": "castle_01",
+      "start_country": "joseon"
+    },
+    {
+      "code": "pyeongyang",
+      "name": "평양",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 125.75,
+      "lat": 39.02,
+      "battle_map_code": "river_01",
+      "start_country": "joseon"
+    },
+    {
+      "code": "uiju",
+      "name": "의주",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 124.67,
+      "lat": 40.2,
+      "battle_map_code": "river_02",
+      "start_country": "joseon"
+    },
+    {
+      "code": "chungju",
+      "name": "충주",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 127.93,
+      "lat": 36.99,
+      "battle_map_code": "mountain_01",
+      "start_country": "joseon"
+    },
+    {
+      "code": "jeonju",
+      "name": "전주",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 127.15,
+      "lat": 35.82,
+      "battle_map_code": "plain_01",
+      "start_country": "joseon"
+    },
+    {
+      "code": "jinju",
+      "name": "진주",
+      "kind": "normal",
+      "defense_level": 3,
+      "lon": 128.11,
+      "lat": 35.18,
+      "battle_map_code": "river_02",
+      "start_country": "joseon"
+    },
+    {
+      "code": "jeju",
+      "name": "제주",
+      "kind": "normal",
+      "defense_level": 1,
+      "lon": 126.53,
+      "lat": 33.5,
+      "battle_map_code": "forest_01",
+      "start_country": "joseon"
+    },
+    {
+      "code": "daegu",
+      "name": "대구",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 128.6,
+      "lat": 35.87,
+      "battle_map_code": "plain_01",
+      "start_country": "japan"
+    },
+    {
+      "code": "busan",
+      "name": "부산",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 129.04,
+      "lat": 35.18,
+      "battle_map_code": "plain_01",
+      "start_country": "japan"
+    },
+    {
+      "code": "tsushima",
+      "name": "쓰시마",
+      "kind": "capital",
+      "defense_level": 3,
+      "lon": 129.29,
+      "lat": 34.2,
+      "battle_map_code": "forest_01",
+      "start_country": "japan"
+    }
+  ],
+  "retired_countries": [
+    {
+      "code": "ming",
+      "name": "명",
+      "color": "#C9A227"
+    }
+  ],
+  "links": [
+    ["busan", "tsushima"],
+    ["busan", "daegu"],
+    ["busan", "jinju"],
+    ["daegu", "chungju"],
+    ["daegu", "jinju"],
+    ["jinju", "jeonju"],
+    ["jeonju", "chungju"],
+    ["chungju", "hanyang"],
+    ["hanyang", "pyeongyang"],
+    ["pyeongyang", "uiju"],
+    ["jeonju", "jeju"]
+  ]
+}

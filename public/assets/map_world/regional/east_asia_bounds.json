@@ -1,0 +1,46 @@
+{
+ "region": "east_asia",
+ "desc": "동아시아(한반도·일본 열도·중국 동해안·황해·남해·동해)",
+ "geo": {
+  "lonMin": 115.0,
+  "lonMax": 150.0,
+  "latMin": 25.0,
+  "latMax": 45.0
+ },
+ "normalized": {
+  "x0": 0.8194444444444444,
+  "x1": 0.9166666666666666,
+  "y0": 0.25,
+  "y1": 0.3611111111111111,
+  "w": 0.09722222222222222,
+  "h": 0.1111111111111111
+ },
+ "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+ "desktop": {
+  "path": "assets/map_world/regional/east_asia_4200.webp",
+  "size": "4200x2400",
+  "ppd": 120,
+  "bytes": 572810,
+  "sharpnessVsWorld4096": 10.55
+ },
+ "mobile": {
+  "path": "assets/map_world/regional/east_asia_2100.webp",
+  "size": "2100x1200",
+  "ppd": 60.0,
+  "bytes": 129342,
+  "sharpnessVsWorld2048": 10.55
+ },
+ "placement": "세계판 이미지 위 정규화 사각형 [x0*Ww, y0*Hw, w*Ww, h*Hw] 에 그대로 늘려 덮으면 해안이 일치(가로·세로 같은 배율)",
+ "qa_metrics": {
+  "land_iou_vs_world4096_datamask": 0.9266,
+  "soft_centroid_offset_world4096_px": [
+   -2.312,
+   -1.183
+  ],
+  "land_area_ratio": 0.9504,
+  "soft_mask_mae": 0.0248,
+  "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+  "land_iou_vs_world4096_image_estimate": 0.8326,
+  "lowfreq_color_mae_0_255": 9.31
+ }
+}

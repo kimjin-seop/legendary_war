@@ -1,0 +1,8187 @@
+{
+ "_note": "제작용 데이터(화면 비표시 필드: _note, adapted_note, note, source, evidence_level, virtual, label_policy, preview_policy). 세계지도+리스트 캠페인 선택용 기록/스테이지 지도 메타 v0.3(당대 국가·세력명 반영, ch11~ch20 status:preview 미리보기 필드 추가). 좌표는 등장방형 정규화(x=(경도+180)/360, y=(90-위도)/180), 소수 4자리. zoom=360/표시 경도폭(도). 상세 규칙은 SHELF_MAP_META_SPEC.md 참조.",
+ "version": 1,
+ "schema": "shelf_map_meta.v1",
+ "label_policy": "지도 라벨은 해당 연도 시점의 당대 국가·세력명을 쓴다(현대 국가명은 쓰지 않음). 영토 분쟁·현대 정치 민감 표기(독도·동해·대만·크림 등 현대 분쟁 지명의 현대적 라벨)는 넣지 않는다. 세력 라벨은 국경선이 아니라 대략적 위치 표시이며, 연도 시점 국호와 이설은 factions[].note와 evidence_level로 표기한다. 지역·장소명도 as_of 연도 시점의 당대 행정구역·지명으로 쓰고, 현대 지리 용어(한반도·동아시아·서유럽·중앙아시아·메소포타미아·레반트 등)는 화면 표시 필드에 쓰지 않는다. 현대 지명은 개발 참고용 modern_ref 필드에만 보관하며 FE는 읽거나 화면에 노출하지 않는다.",
+ "preview_policy": "status:'preview' 기록은 지도·영토·국호 판·영웅 칩·요약을 active와 동일하게 보여 주고 출정/복습 버튼만 비활성+'준비 중' 라벨. 요약 3줄은 summary_lines, 영웅 칩은 heroes[](code+name_ko), 초상화 없는 인물은 heroes_pending[](칩 아님, FE 미사용 가능). SHELF_MAP_META_SPEC.md 7절 참조.",
+ "coord_system": {
+  "projection": "equirectangular",
+  "x": "(lon+180)/360",
+  "y": "(90-lat)/180",
+  "zoom": "360 / 화면에 보이는 경도폭(도). 1=세계 전체, 4=약 90도, 12=약 30도, 45=약 8도, 144=약 2.5도"
+ },
+ "locked_reveal_default": "name+silhouette",
+ "shelves": [
+  {
+   "shelf_code": "ch1",
+   "chapter": 1,
+   "status": "active",
+   "name_ko": "바다를 지킨 해",
+   "era_label": "1592~1598년",
+   "region_label": "조선 경상·전라·경기·평안도",
+   "modern_ref": "한반도 남해안·서해안 일대",
+   "summary": "1592년 옥포의 첫 승전에서 1598년 노량의 마지막 바다까지, 남해의 물길과 내륙의 성을 따라 이어진 전쟁의 기록이다. 이순신이 바다를 지켰다.",
+   "map": {
+    "focus": {
+     "x": 0.8561,
+     "y": 0.3071
+    },
+    "zoom": 45
+   },
+   "period": {
+    "as_of": "1592년",
+    "state_label": [
+     "조선",
+     "명",
+     "일본"
+    ],
+    "note": "세계 줌 후보 라벨. 일본은 도요토미 히데요시 정권 시기(accepted). 표기는 연도 시점 기준"
+   },
+   "factions": [
+    {
+     "id": "joseon",
+     "name_ko": "조선",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.8536,
+      "y": 0.2967
+     },
+     "evidence_level": "confirmed",
+     "note": "1392년 건국, 1592년 시점 국호 조선"
+    },
+    {
+     "id": "toyotomi_japan",
+     "name_ko": "일본(도요토미 정권)",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.8591,
+      "y": 0.3094
+     },
+     "evidence_level": "confirmed",
+     "note": "1592년 도요토미 히데요시 정권의 침공군. 위치는 남동쪽 바다 방향 표시"
+    },
+    {
+     "id": "ming",
+     "name_ko": "명",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.8472,
+      "y": 0.2806
+     },
+     "evidence_level": "confirmed",
+     "note": "1593년 평양성 탈환 등 원군 파견. 위치는 서북쪽 방향 표시"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "yi_sun_sin",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_ukita_hideie",
+     "name_ko": "우키타 히데이에",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "gwon_yul",
+     "role": "companion"
+    },
+    {
+     "code": "npc_i_yeoseong",
+     "name_ko": "이여송",
+     "role": "companion"
+    },
+    {
+     "code": "npc_konishi_yukinaga",
+     "name_ko": "고니시 유키나가",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_jp_konishi_yukinaga"
+    },
+    {
+     "code": "kim_si_min",
+     "role": "companion"
+    },
+    {
+     "code": "npc_kato_kiyomasa",
+     "name_ko": "가토 기요마사",
+     "role": "enemy"
+    },
+    {
+     "code": "gwak_jae_u",
+     "role": "companion"
+    },
+    {
+     "code": "npc_shimazu_yoshihiro",
+     "name_ko": "시마즈 요시히로",
+     "role": "enemy"
+    },
+    {
+     "code": "hyujeong",
+     "role": "companion"
+    },
+    {
+     "code": "npc_kuroda_nagamasa",
+     "name_ko": "구로다 나가마사",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_jin_rin",
+     "name_ko": "진린",
+     "role": "companion"
+    },
+    {
+     "code": "npc_wakizaka_yasuharu",
+     "name_ko": "와키자카 야스하루",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_jp_wakizaka_yasuharu"
+    },
+    {
+     "code": "npc_won_gyun",
+     "name_ko": "원균",
+     "role": "companion"
+    },
+    {
+     "code": "npc_kuki_yoshitaka",
+     "name_ko": "구키 요시타카",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_kuki_yoshitaka"
+    },
+    {
+     "code": "npc_jeong_un",
+     "name_ko": "정운",
+     "role": "companion"
+    },
+    {
+     "code": "npc_todo_takatora",
+     "name_ko": "도도 다카토라",
+     "role": "enemy"
+    },
+    {
+     "code": "yujeong",
+     "role": "companion"
+    },
+    {
+     "code": "npc_kato_yoshiaki",
+     "name_ko": "가토 요시아키",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kobayakawa_takakage",
+     "name_ko": "고바야카와 다카카게",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "yi_sun_sin",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_todo_takatora",
+     "name_ko": "도도 다카토라",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kato_yoshiaki",
+     "name_ko": "가토 요시아키",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_shimazu_yoshihiro",
+     "name_ko": "시마즈 요시히로",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kuroda_nagamasa",
+     "name_ko": "구로다 나가마사",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_ukita_hideie",
+     "name_ko": "우키타 히데이에",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kobayakawa_takakage",
+     "name_ko": "고바야카와 다카카게",
+     "role": "enemy"
+    },
+    {
+     "code": "gwak_jae_u",
+     "role": "companion"
+    },
+    {
+     "code": "kim_si_min",
+     "role": "companion"
+    },
+    {
+     "code": "hyujeong",
+     "role": "companion"
+    },
+    {
+     "code": "yujeong",
+     "role": "companion"
+    },
+    {
+     "code": "gwon_yul",
+     "role": "companion"
+    },
+    {
+     "code": "npc_i_yeoseong",
+     "name_ko": "이여송",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 명 제독, 평양 수복. 초상 없음"
+    },
+    {
+     "code": "npc_jin_rin",
+     "name_ko": "진린",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 명 수군 도독, 노량. 초상 없음"
+    },
+    {
+     "code": "npc_won_gyun",
+     "name_ko": "원균",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 경상우수사, 옥포·한산도 연합. 평가는 서술하지 않음. 초상 없음"
+    },
+    {
+     "code": "npc_jeong_un",
+     "name_ko": "정운",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 녹도만호, 옥포 참전·부산포 전사. 초상 없음"
+    },
+    {
+     "code": "npc_kuki_yoshitaka",
+     "name_ko": "구키 요시타카",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_kuki_yoshitaka",
+     "note": "npc_roster_v3_additions 등재(confirmed). 일본 수군 대장, 한산도 참전 confirmed·옥포는 verify"
+    },
+    {
+     "code": "npc_wakizaka_yasuharu",
+     "name_ko": "와키자카 야스하루",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_jp_wakizaka_yasuharu",
+     "note": "npc_roster_v3 등재. 한산도 일본 수군 지휘관(confirmed)"
+    },
+    {
+     "code": "npc_konishi_yukinaga",
+     "name_ko": "고니시 유키나가",
+     "role": "enemy",
+     "leader": true,
+     "portrait_key": "portrait.npc_jp_konishi_yukinaga",
+     "note": "npc_roster_v3 등재. 1592년 선봉 제1번대 지휘, 평양 방면(confirmed)"
+    },
+    {
+     "code": "npc_kato_kiyomasa",
+     "name_ko": "가토 기요마사",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions_shelf 신규(confirmed). 제2번대 지휘. 초상 없음"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "confirmed",
+   "note": "적 지휘관은 heroes.json 미등재(npc_jp_* 화자)라 enemy 영웅 코드 없음. 유정은 평양 참전 verify(outline)",
+   "source": "campaign_ch1_outline.json"
+  },
+  {
+   "shelf_code": "ch11",
+   "chapter": 11,
+   "status": "active",
+   "name_ko": "고려와 거란",
+   "name_provisional": true,
+   "era_label": "993~1019년",
+   "region_label": "고려 서북면, 압록강~귀주",
+   "modern_ref": "압록강 하류에서 귀주(평안북도 구성 일대 설)에 이르는 서북 지역",
+   "summary": "993년 서희의 담판에서 1019년 귀주의 승전까지, 압록강 일대를 사이에 둔 긴 대치의 기록이다.",
+   "summary_lines": [
+    "압록강 너머로 뻗은 대제국과 마주 선 고려의 서북 변경.",
+    "서희의 담판(993)과 귀주의 승전(1019), 두 장면이 한 기록에 이어진다.",
+    "강감찬과 서희, 두 이름이 기록의 문을 연다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.8459,
+     "y": 0.2767
+    },
+    "zoom": 30
+   },
+   "period": {
+    "as_of": "993~1019년",
+    "state_label": [
+     "고려",
+     "거란(요)"
+    ],
+    "note": "거란은 이 시기 국호 변동(대거란/요)이 있어 표기 verify"
+   },
+   "factions": [
+    {
+     "id": "goryeo",
+     "name_ko": "고려",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.8514,
+      "y": 0.2861
+     },
+     "evidence_level": "confirmed",
+     "note": ""
+    },
+    {
+     "id": "khitan",
+     "name_ko": "거란(요)",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.8431,
+      "y": 0.2678
+     },
+     "evidence_level": "verify",
+     "note": "당시 국호는 거란(대거란), '요'는 통칭. 연도별 국호 verify"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "gang_gamchan",
+     "name_ko": "강감찬",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_so_baeap",
+     "name_ko": "소배압",
+     "role": "enemy",
+     "leader": true,
+     "portrait_key": "portrait.npc_so_baeap"
+    },
+    {
+     "code": "seo_hui",
+     "name_ko": "서희",
+     "role": "companion"
+    },
+    {
+     "code": "npc_so_sonnyeong",
+     "name_ko": "소손녕",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_so_sonnyeong"
+    },
+    {
+     "code": "npc_gang_min_cheom",
+     "name_ko": "강민첨",
+     "role": "companion",
+     "portrait_key": "portrait.npc_gang_min_cheom"
+    },
+    {
+     "code": "npc_yelu_longxu",
+     "name_ko": "야율융서",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_goryeo_hyeonjong",
+     "name_ko": "고려 현종",
+     "role": "companion"
+    },
+    {
+     "code": "npc_han_derang",
+     "name_ko": "한덕양",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_goryeo_seongjong",
+     "name_ko": "고려 성종",
+     "role": "companion"
+    },
+    {
+     "code": "npc_yelu_pennu",
+     "name_ko": "야율분노",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_dae_dosu",
+     "name_ko": "대도수",
+     "role": "companion",
+     "portrait_key": "portrait.npc_dae_dosu"
+    },
+    {
+     "code": "npc_so_jeokryeol",
+     "name_ko": "소적렬",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yu_bang",
+     "name_ko": "유방",
+     "role": "companion",
+     "portrait_key": "portrait.npc_yu_bang"
+    },
+    {
+     "code": "npc_xiao_xulie",
+     "name_ko": "소굴열",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kim_jong_hyeon",
+     "name_ko": "김종현",
+     "role": "companion",
+     "portrait_key": "portrait.npc_kim_jong_hyeon"
+    },
+    {
+     "code": "npc_yelu_bage",
+     "name_ko": "야율팔가",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yang_gyu",
+     "name_ko": "양규",
+     "role": "companion"
+    },
+    {
+     "code": "npc_so_haptak",
+     "name_ko": "소합탁",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kim_suk_heung",
+     "name_ko": "김숙흥",
+     "role": "companion"
+    },
+    {
+     "code": "npc_yelu_seryang",
+     "name_ko": "야율세량",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "gang_gamchan",
+     "name_ko": "강감찬",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_yang_gyu",
+     "name_ko": "양규",
+     "role": "companion"
+    },
+    {
+     "code": "npc_kim_suk_heung",
+     "name_ko": "김숙흥",
+     "role": "companion"
+    },
+    {
+     "code": "seo_hui",
+     "name_ko": "서희",
+     "role": "companion"
+    },
+    {
+     "code": "npc_gang_min_cheom",
+     "name_ko": "강민첨",
+     "role": "companion",
+     "portrait_key": "portrait.npc_gang_min_cheom",
+     "note": "shelf_11_npcs 등재(accepted). 귀주 방면 고려 장수, 직함 verify"
+    },
+    {
+     "code": "npc_dae_dosu",
+     "name_ko": "대도수",
+     "role": "companion",
+     "portrait_key": "portrait.npc_dae_dosu",
+     "note": "shelf_11_npcs 등재(verify). 안융진 수비 장수, 사료 표기 확인 필요"
+    },
+    {
+     "code": "npc_yu_bang",
+     "name_ko": "유방",
+     "role": "companion",
+     "portrait_key": "portrait.npc_yu_bang",
+     "note": "shelf_11_npcs 등재(verify). 안융진 수비 장수, 사료 표기 확인 필요"
+    },
+    {
+     "code": "npc_kim_jong_hyeon",
+     "name_ko": "김종현",
+     "role": "companion",
+     "portrait_key": "portrait.npc_kim_jong_hyeon",
+     "note": "shelf_11_npcs 등재(verify). 귀주 방면 참전 거론, 사실 확인 전 칩 노출 재검토"
+    },
+    {
+     "code": "npc_goryeo_seongjong",
+     "name_ko": "고려 성종",
+     "role": "companion",
+     "note": "npc_roster_v3_additions_shelf 신규(confirmed). 993년 당시 고려 왕. 초상 없음"
+    },
+    {
+     "code": "npc_goryeo_hyeonjong",
+     "name_ko": "고려 현종",
+     "role": "companion",
+     "note": "npc_roster_v3_additions_shelf 신규(confirmed). 1019년 당시 고려 왕. 초상 없음"
+    },
+    {
+     "code": "npc_so_sonnyeong",
+     "name_ko": "소손녕",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_so_sonnyeong",
+     "note": "shelf_11_npcs 등재(accepted). 993년 거란군 지휘관, 소항덕과 동일 인물(verify)"
+    },
+    {
+     "code": "npc_so_baeap",
+     "name_ko": "소배압",
+     "role": "enemy",
+     "leader": true,
+     "portrait_key": "portrait.npc_so_baeap",
+     "note": "shelf_11_npcs 등재(accepted). 1018~19년 거란군 지휘관"
+    },
+    {
+     "code": "npc_yelu_longxu",
+     "name_ko": "야율융서",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yelu_pennu",
+     "name_ko": "야율분노",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_xiao_xulie",
+     "name_ko": "소굴열",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yelu_bage",
+     "name_ko": "야율팔가",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_han_derang",
+     "name_ko": "한덕양",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_so_jeokryeol",
+     "name_ko": "소적렬",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_so_haptak",
+     "name_ko": "소합탁",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yelu_seryang",
+     "name_ko": "야율세량",
+     "role": "enemy"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "accepted",
+   "note": "SHELF_11_GORYEO_KHITAN.md는 서희 key로 적혀 있어 기획표(강감찬 key)와 불일치. 문기획 확정 필요. 귀주 위치는 평안북도 구성 일대 설(accepted), 정확 좌표 verify. summary_lines는 확인된 사건(993 서희 담판, 1019 귀주 승전)만 사용"
+  },
+  {
+   "shelf_code": "ch12",
+   "chapter": 12,
+   "status": "active",
+   "name_ko": "적벽의 불길",
+   "name_provisional": true,
+   "era_label": "208년",
+   "region_label": "후한 형주 강하군, 장강",
+   "modern_ref": "장강 중류(후베이 일대, 적벽 위치는 두 설로 갈려 verify)",
+   "summary": "208년 겨울, 장강 위에서 맞붙은 대함대의 싸움. 손권과 유비의 연합이 조조의 남하를 막았다.",
+   "summary_lines": [
+    "208년 겨울, 장강 위에 늘어선 거대한 함대.",
+    "손권과 유비가 손을 잡고 조조의 남하에 맞선 한 번의 승부.",
+    "주유와 제갈량, 서로 다른 지략이 한 물길에서 만난다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.8153,
+     "y": 0.3333
+    },
+    "zoom": 25
+   },
+   "period": {
+    "as_of": "208년",
+    "state_label": [
+     "후한",
+     "조조 세력",
+     "손권 세력",
+     "유비 세력"
+    ],
+    "note": "208년 시점에 위(220)·촉(221)·오(229)는 아직 건국 전. 조조 세력은 위의 전신, 손권 세력은 훗날의 오"
+   },
+   "factions": [
+    {
+     "id": "cao_cao",
+     "name_ko": "조조 세력(위의 전신)",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.8139,
+      "y": 0.3139
+     },
+     "evidence_level": "confirmed",
+     "note": "후한 승상 조조. 위 건국은 220년"
+    },
+    {
+     "id": "sun_quan",
+     "name_ko": "손권 세력(훗날의 오)",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.8264,
+      "y": 0.325
+     },
+     "evidence_level": "confirmed",
+     "note": "오 건국은 229년"
+    },
+    {
+     "id": "liu_bei",
+     "name_ko": "유비 세력",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.8111,
+      "y": 0.3361
+     },
+     "evidence_level": "confirmed",
+     "note": "촉한 건국은 221년"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "zhou_yu",
+     "name_ko": "주유",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "cao_cao",
+     "name_ko": "조조",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "zhuge_liang",
+     "name_ko": "제갈량",
+     "role": "companion"
+    },
+    {
+     "code": "npc_cao_ren",
+     "name_ko": "조인",
+     "role": "enemy"
+    },
+    {
+     "code": "liu_bei",
+     "name_ko": "유비",
+     "role": "companion"
+    },
+    {
+     "code": "npc_zhang_liao",
+     "name_ko": "장료",
+     "role": "enemy"
+    },
+    {
+     "code": "sun_quan",
+     "name_ko": "손권",
+     "role": "companion"
+    },
+    {
+     "code": "npc_xu_huang",
+     "name_ko": "서황",
+     "role": "enemy"
+    },
+    {
+     "code": "guan_yu",
+     "name_ko": "관우",
+     "role": "companion"
+    },
+    {
+     "code": "npc_yue_jin",
+     "name_ko": "악진",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_zhao_yun",
+     "name_ko": "조운",
+     "role": "companion"
+    },
+    {
+     "code": "npc_wen_pin",
+     "name_ko": "문빙",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_huang_gai",
+     "name_ko": "황개",
+     "role": "companion"
+    },
+    {
+     "code": "npc_cheng_yu",
+     "name_ko": "정욱",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_cheng_pu",
+     "name_ko": "정보",
+     "role": "companion"
+    },
+    {
+     "code": "npc_li_tong",
+     "name_ko": "이통",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_lu_su",
+     "name_ko": "노숙",
+     "role": "companion"
+    },
+    {
+     "code": "npc_man_chong",
+     "name_ko": "만총",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_gan_ning",
+     "name_ko": "감녕",
+     "role": "companion"
+    },
+    {
+     "code": "npc_cai_mao",
+     "name_ko": "채모",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_zhang_yun",
+     "name_ko": "장윤",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "zhou_yu",
+     "name_ko": "주유",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_zhao_yun",
+     "name_ko": "조운",
+     "role": "companion"
+    },
+    {
+     "code": "npc_xu_huang",
+     "name_ko": "서황",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yue_jin",
+     "name_ko": "악진",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_li_tong",
+     "name_ko": "이통",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_man_chong",
+     "name_ko": "만총",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_wen_pin",
+     "name_ko": "문빙",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_cai_mao",
+     "name_ko": "채모",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_zhang_yun",
+     "name_ko": "장윤",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_cheng_yu",
+     "name_ko": "정욱",
+     "role": "enemy"
+    },
+    {
+     "code": "zhuge_liang",
+     "name_ko": "제갈량",
+     "role": "companion"
+    },
+    {
+     "code": "liu_bei",
+     "name_ko": "유비",
+     "role": "companion"
+    },
+    {
+     "code": "sun_quan",
+     "name_ko": "손권",
+     "role": "companion"
+    },
+    {
+     "code": "cao_cao",
+     "name_ko": "조조",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_huang_gai",
+     "name_ko": "황개",
+     "role": "companion",
+     "portrait_key": "portrait.npc_huang_gai",
+     "note": "shelf_12_npcs 등재(confirmed). 화공 건의, 연의의 고육계는 사용하지 않음"
+    },
+    {
+     "code": "npc_cheng_pu",
+     "name_ko": "정보",
+     "role": "companion",
+     "portrait_key": "portrait.npc_cheng_pu",
+     "note": "shelf_12_npcs 등재(accepted). 주유와 함께 수군 지휘, 직함 verify"
+    },
+    {
+     "code": "npc_lu_su",
+     "name_ko": "노숙",
+     "role": "companion",
+     "portrait_key": "portrait.npc_lu_su",
+     "note": "shelf_12_npcs 등재(accepted). 손권 측 참모"
+    },
+    {
+     "code": "guan_yu",
+     "name_ko": "관우",
+     "role": "companion",
+     "portrait_key": "portrait.guan_yu",
+     "note": "heroes.json 등재. 유비 측 별동 수군을 이끈 것으로 전함(accepted, 세부 verify)"
+    },
+    {
+     "code": "npc_gan_ning",
+     "name_ko": "감녕",
+     "role": "companion",
+     "note": "npc_roster_v3_additions_shelf 신규(verify). 적벽 직후 강릉 공략, 본전 참전 verify. 초상 없음"
+    },
+    {
+     "code": "npc_cao_ren",
+     "name_ko": "조인",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions_shelf 신규(accepted). 적벽 이후 강릉 수비, 후일담 성격(verify). 초상 없음"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "accepted",
+   "note": "적벽의 정확한 위치는 후베이 적벽시설과 황저우 적벽설이 갈려 verify. key는 문기획 확정 전 주유 가안. 제갈량의 적벽 전 외교 역할은 사서·연의 서술이 섞여 accepted"
+  },
+  {
+   "shelf_code": "ch13",
+   "chapter": 13,
+   "status": "active",
+   "name_ko": "황산벌",
+   "name_provisional": true,
+   "era_label": "660년",
+   "region_label": "백제 황산벌(사비 방면)",
+   "modern_ref": "한반도 중서부 내륙, 충남 논산 연산 일대 설(verify)",
+   "summary": "660년, 황산벌에서 신라군이 백제의 방어선을 넘어 삼국 통일의 길을 열었다.",
+   "summary_lines": [
+    "660년, 백제의 도읍 사비로 향하는 길목의 넓은 벌판.",
+    "신라와 백제, 갈림길에 선 두 나라의 마지막 대치.",
+    "김유신이 이끄는 신라군의 길을 따라간다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.8531,
+     "y": 0.2989
+    },
+    "zoom": 40
+   },
+   "period": {
+    "as_of": "660년",
+    "state_label": [
+     "신라",
+     "백제",
+     "당"
+    ],
+    "note": "나당 연합 대 백제"
+   },
+   "factions": [
+    {
+     "id": "silla",
+     "name_ko": "신라",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.8583,
+      "y": 0.3011
+     },
+     "evidence_level": "confirmed",
+     "note": ""
+    },
+    {
+     "id": "baekje",
+     "name_ko": "백제",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.8511,
+      "y": 0.2967
+     },
+     "evidence_level": "confirmed",
+     "note": ""
+    },
+    {
+     "id": "tang",
+     "name_ko": "당",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.8467,
+      "y": 0.2944
+     },
+     "evidence_level": "accepted",
+     "note": "소정방의 당군이 바다를 건너 온 방향 표시. 위치는 대략"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "kim_yusin",
+     "name_ko": "김유신",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "gyebaek",
+     "name_ko": "계백",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_kim_chunchu",
+     "name_ko": "김춘추",
+     "role": "companion"
+    },
+    {
+     "code": "npc_uija",
+     "name_ko": "의자왕",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_so_jeongbang",
+     "name_ko": "소정방",
+     "role": "companion"
+    },
+    {
+     "code": "npc_seongchung",
+     "name_ko": "성충",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kim_inmun",
+     "name_ko": "김인문",
+     "role": "companion"
+    },
+    {
+     "code": "npc_heungsu",
+     "name_ko": "흥수",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kim_heumsun",
+     "name_ko": "김흠순",
+     "role": "companion"
+    },
+    {
+     "code": "npc_buyeo_yung",
+     "name_ko": "부여융",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_beopmin",
+     "name_ko": "김법민",
+     "role": "companion"
+    },
+    {
+     "code": "npc_heukchi_sangji",
+     "name_ko": "흑치상지",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_gwanchang",
+     "name_ko": "관창",
+     "role": "companion"
+    },
+    {
+     "code": "npc_chungsang",
+     "name_ko": "충상",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_banggul",
+     "name_ko": "반굴",
+     "role": "companion"
+    },
+    {
+     "code": "npc_sangyeong",
+     "name_ko": "상영",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kim_pumil",
+     "name_ko": "김품일",
+     "role": "companion"
+    },
+    {
+     "code": "npc_ye_sikjin",
+     "name_ko": "예식진",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yunchung",
+     "name_ko": "윤충",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "kim_yusin",
+     "name_ko": "김유신",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_beopmin",
+     "name_ko": "김법민",
+     "role": "companion"
+    },
+    {
+     "code": "npc_heungsu",
+     "name_ko": "흥수",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_seongchung",
+     "name_ko": "성충",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_chungsang",
+     "name_ko": "충상",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_sangyeong",
+     "name_ko": "상영",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_buyeo_yung",
+     "name_ko": "부여융",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_ye_sikjin",
+     "name_ko": "예식진",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_heukchi_sangji",
+     "name_ko": "흑치상지",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yunchung",
+     "name_ko": "윤충",
+     "role": "enemy"
+    },
+    {
+     "code": "seondeok",
+     "name_ko": "선덕여왕",
+     "role": "companion"
+    },
+    {
+     "code": "npc_kim_chunchu",
+     "name_ko": "김춘추",
+     "role": "companion",
+     "note": "npc_roster_v3_additions_shelf 신규(confirmed). 660년 신라 왕"
+    },
+    {
+     "code": "npc_kim_heumsun",
+     "name_ko": "김흠순",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 김유신의 동생"
+    },
+    {
+     "code": "npc_kim_pumil",
+     "name_ko": "김품일",
+     "role": "companion",
+     "note": "additions_shelf 신규(accepted). 관창의 아버지"
+    },
+    {
+     "code": "npc_gwanchang",
+     "name_ko": "관창",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 황산벌의 화랑"
+    },
+    {
+     "code": "npc_banggul",
+     "name_ko": "반굴",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 김흠순의 아들"
+    },
+    {
+     "code": "npc_so_jeongbang",
+     "name_ko": "소정방",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 당군 대총관"
+    },
+    {
+     "code": "npc_kim_inmun",
+     "name_ko": "김인문",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 김춘추의 아들"
+    },
+    {
+     "code": "gyebaek",
+     "name_ko": "계백",
+     "role": "enemy",
+     "leader": true,
+     "note": "heroes.json 등재 영웅(confirmed). 황산벌의 백제 장수"
+    },
+    {
+     "code": "npc_uija",
+     "name_ko": "의자왕",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 백제의 마지막 왕"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "accepted",
+   "note": "선덕여왕은 647년 사망으로 660년 황산벌 시점에 없음. 기록 내 시대 분리 또는 동반 영웅 제외 여부 문기획 확인(verify). 황산벌=논산 연산 일대 설. 미리보기 칩에는 시대가 어긋나는 선덕여왕이 포함되어 있으니 문기획 결정 전 노출 여부 확인 필요"
+  },
+  {
+   "shelf_code": "ch14",
+   "chapter": 14,
+   "status": "active",
+   "name_ko": "살수의 물결",
+   "name_provisional": true,
+   "era_label": "612년",
+   "region_label": "고구려 요동·살수",
+   "modern_ref": "청천강 일대(살수=청천강 비정은 통설, 학설 있음 verify)",
+   "summary": "612년, 살수에서 을지문덕이 거대한 원정군을 물리친 것으로 전한다.",
+   "summary_lines": [
+    "612년, 요하를 건너 밀려온 거대한 원정군.",
+    "물길과 지략을 앞세운 고구려의 방어전.",
+    "을지문덕의 이름이 살수의 물결과 함께 전한다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.8421,
+     "y": 0.2707
+    },
+    "zoom": 30
+   },
+   "period": {
+    "as_of": "612년",
+    "state_label": [
+     "고구려",
+     "수"
+    ],
+    "note": ""
+   },
+   "factions": [
+    {
+     "id": "goguryeo",
+     "name_ko": "고구려",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.8514,
+      "y": 0.2778
+     },
+     "evidence_level": "confirmed",
+     "note": ""
+    },
+    {
+     "id": "sui",
+     "name_ko": "수",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.8347,
+      "y": 0.2722
+     },
+     "evidence_level": "confirmed",
+     "note": "수 양제의 요동 원정. 위치는 서쪽 방향 표시"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "eulji_mundeok",
+     "name_ko": "을지문덕",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_yangdi",
+     "name_ko": "수 양제",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_yeongyang",
+     "name_ko": "영양왕",
+     "role": "companion"
+    },
+    {
+     "code": "npc_yuzhongwen",
+     "name_ko": "우중문",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_go_geonmu",
+     "name_ko": "고건무",
+     "role": "companion"
+    },
+    {
+     "code": "npc_wuwenshu",
+     "name_ko": "우문술",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yeon_taejo",
+     "name_ko": "연태조",
+     "role": "companion"
+    },
+    {
+     "code": "npc_lai_huer",
+     "name_ko": "래호아",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yeon_jayu",
+     "name_ko": "연자유",
+     "role": "companion"
+    },
+    {
+     "code": "npc_xue_shixiong",
+     "name_ko": "설세웅",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_xing_yuanheng",
+     "name_ko": "형원항",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_wei_wensheng",
+     "name_ko": "위문승",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_goguryeo_pisa_captain",
+     "name_ko": "비사성 수비장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_goguryeo_yalu_ferry_captain",
+     "name_ko": "압록강 도하 감시장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_goguryeo_cavalry_captain",
+     "name_ko": "고구려 기병 장수",
+     "role": "companion"
+    },
+    {
+     "code": "npc_goguryeo_spear_captain",
+     "name_ko": "장창 부장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_goguryeo_pyongyang_guard",
+     "name_ko": "평양성 수성 장수",
+     "role": "companion"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "eulji_mundeok",
+     "name_ko": "을지문덕",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_yeon_taejo",
+     "name_ko": "연태조",
+     "role": "companion"
+    },
+    {
+     "code": "npc_yeon_jayu",
+     "name_ko": "연자유",
+     "role": "companion"
+    },
+    {
+     "code": "npc_goguryeo_pisa_captain",
+     "name_ko": "비사성 수비장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_goguryeo_yalu_ferry_captain",
+     "name_ko": "압록강 도하 감시장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_goguryeo_cavalry_captain",
+     "name_ko": "고구려 기병 장수",
+     "role": "companion"
+    },
+    {
+     "code": "npc_goguryeo_spear_captain",
+     "name_ko": "장창 부장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_goguryeo_pyongyang_guard",
+     "name_ko": "평양성 수성 장수",
+     "role": "companion"
+    },
+    {
+     "code": "npc_xin_shixiong",
+     "name_ko": "신세웅",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_liu_shilong",
+     "name_ko": "유사룡",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_cui_hongsheng",
+     "name_ko": "최홍승",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yeongyang",
+     "name_ko": "영양왕",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 고구려 왕"
+    },
+    {
+     "code": "npc_go_geonmu",
+     "name_ko": "고건무",
+     "role": "companion",
+     "note": "additions_shelf 신규(accepted). 612년 수군 격퇴 서술은 사서 간 차이"
+    },
+    {
+     "code": "npc_yangdi",
+     "name_ko": "수 양제",
+     "role": "enemy",
+     "leader": true,
+     "note": "additions_shelf 신규(confirmed). 원정을 직접 이끈 황제"
+    },
+    {
+     "code": "npc_wuwenshu",
+     "name_ko": "우문술",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 별동대 지휘"
+    },
+    {
+     "code": "npc_yuzhongwen",
+     "name_ko": "우중문",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 별동대 지휘"
+    },
+    {
+     "code": "npc_lai_huer",
+     "name_ko": "래호아",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 수군 지휘"
+    },
+    {
+     "code": "npc_xue_shixiong",
+     "name_ko": "설세웅",
+     "role": "enemy",
+     "note": "additions_shelf 신규(verify). 612년 담당 방면 확인 필요"
+    },
+    {
+     "code": "npc_xing_yuanheng",
+     "name_ko": "형원항",
+     "role": "enemy",
+     "note": "additions_shelf 신규(verify). 612년 담당 방면 확인 필요"
+    },
+    {
+     "code": "npc_wei_wensheng",
+     "name_ko": "위문승",
+     "role": "enemy",
+     "note": "additions_shelf 신규(verify). 612년 참여 여부 확인 필요, 확정 전 칩 노출 재검토"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "accepted",
+   "note": "살수=청천강 비정은 통설이나 학설 있음(verify)"
+  },
+  {
+   "shelf_code": "ch15",
+   "chapter": 15,
+   "status": "active",
+   "name_ko": "지중해의 두 장군",
+   "name_provisional": true,
+   "era_label": "기원전 218~202년",
+   "region_label": "이탈리아·카르타고·자마",
+   "modern_ref": "지중해 중부(이탈리아 반도, 북아프리카 튀니지 일대, 이베리아 반도=히스파니아). 자마 위치 verify",
+   "summary": "알프스를 넘은 한니발과 바다를 건너 되받은 스키피오. 지중해의 패권을 가른 긴 전쟁의 기록이다.",
+   "summary_lines": [
+    "알프스를 넘어 이탈리아로 들어선 한니발.",
+    "그리고 바다를 건너 되받아친 스키피오.",
+    "지중해의 패권을 가른 두 장군의 이야기."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.5347,
+     "y": 0.2917
+    },
+    "zoom": 12
+   },
+   "period": {
+    "as_of": "기원전 218~202년",
+    "state_label": [
+     "로마 공화정",
+     "카르타고"
+    ],
+    "note": ""
+   },
+   "factions": [
+    {
+     "id": "roman_republic",
+     "name_ko": "로마 공화정",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.5347,
+      "y": 0.2672
+     },
+     "evidence_level": "confirmed",
+     "note": "확정 시점: 플레이어는 서고 원정대이며 로마 공화정 측의 지원을 받아 카르타고군에 맞선다. 한니발은 카르타고 적 지휘관"
+    },
+    {
+     "id": "carthage",
+     "name_ko": "카르타고",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.5286,
+      "y": 0.2953
+     },
+     "evidence_level": "confirmed",
+     "note": ""
+    }
+   ],
+   "heroes": [
+    {
+     "code": "scipio_africanus",
+     "name_ko": "스키피오 아프리카누스",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "hannibal",
+     "name_ko": "한니발",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "fabius_maximus",
+     "name_ko": "파비우스 막시무스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_mago_barca",
+     "name_ko": "마고 바르카",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_masinissa",
+     "name_ko": "마시니사",
+     "role": "companion"
+    },
+    {
+     "code": "npc_maharbal",
+     "name_ko": "마하르발",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_maharbal"
+    },
+    {
+     "code": "npc_laelius",
+     "name_ko": "가이우스 라일리우스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_hasdrubal_barca",
+     "name_ko": "하스드루발 바르카",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_publius_scipio",
+     "name_ko": "푸블리우스 스키피오",
+     "role": "companion"
+    },
+    {
+     "code": "npc_hasdrubal_cannae",
+     "name_ko": "하스드루발",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_hasdrubal_cannae"
+    },
+    {
+     "code": "npc_marcellus",
+     "name_ko": "마르켈루스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_syphax",
+     "name_ko": "시팍스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_gaius_terentius_varro",
+     "name_ko": "가이우스 테렌티우스 바로",
+     "role": "companion"
+    },
+    {
+     "code": "npc_hasdrubal_gisgo",
+     "name_ko": "하스드루발 기스코",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_aemilius_paullus",
+     "name_ko": "루키우스 아이밀리우스 파울루스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_carthalo",
+     "name_ko": "카르탈로",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_minucius_rufus",
+     "name_ko": "미누키우스 루푸스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_gisgo",
+     "name_ko": "기스코",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_servilius_geminus",
+     "name_ko": "세르빌리우스 게미누스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_hanno_bomilcar",
+     "name_ko": "한노",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "scipio_africanus",
+     "name_ko": "스키피오 아프리카누스",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_publius_scipio",
+     "name_ko": "푸블리우스 스키피오",
+     "role": "companion"
+    },
+    {
+     "code": "npc_laelius",
+     "name_ko": "가이우스 라일리우스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_marcellus",
+     "name_ko": "마르켈루스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_minucius_rufus",
+     "name_ko": "미누키우스 루푸스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_servilius_geminus",
+     "name_ko": "세르빌리우스 게미누스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_hasdrubal_gisgo",
+     "name_ko": "하스드루발 기스코",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_syphax",
+     "name_ko": "시팍스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_hasdrubal_barca",
+     "name_ko": "하스드루발 바르카",
+     "role": "enemy"
+    },
+    {
+     "code": "fabius_maximus",
+     "name_ko": "파비우스 막시무스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_masinissa",
+     "name_ko": "마시니사",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 자마에서 스키피오와 함께한 누미디아 왕자"
+    },
+    {
+     "code": "npc_aemilius_paullus",
+     "name_ko": "루키우스 아이밀리우스 파울루스",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 칸나이(BC 216) 로마 집정관"
+    },
+    {
+     "code": "npc_gaius_terentius_varro",
+     "name_ko": "가이우스 테렌티우스 바로",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 칸나이 로마 집정관"
+    },
+    {
+     "code": "hannibal",
+     "name_ko": "한니발",
+     "role": "enemy",
+     "leader": true,
+     "note": "카르타고 군 총사령(confirmed). stages.json 코끼리 군단의 적 지휘관(enemy_commander)과 일치"
+    },
+    {
+     "code": "npc_mago_barca",
+     "name_ko": "마고 바르카",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(confirmed). 한니발의 동생"
+    },
+    {
+     "code": "npc_maharbal",
+     "name_ko": "마하르발",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_maharbal",
+     "note": "npc_roster_v3 등재(accepted). 누미디아 기병대장"
+    },
+    {
+     "code": "npc_hasdrubal_cannae",
+     "name_ko": "하스드루발",
+     "role": "enemy",
+     "portrait_key": "portrait.npc_hasdrubal_cannae",
+     "note": "npc_roster_v3 등재(accepted). 칸나이 보병 지휘"
+    },
+    {
+     "code": "npc_carthalo",
+     "name_ko": "카르탈로",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(accepted)"
+    },
+    {
+     "code": "npc_gisgo",
+     "name_ko": "기스코",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(accepted)"
+    },
+    {
+     "code": "npc_hanno_bomilcar",
+     "name_ko": "한노",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(verify)"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "confirmed",
+   "note": "확정 시점(서고 원정대, 로마 측 지원): 아군 key는 스키피오 아프리카누스, 한니발은 카르타고 적 지휘관(role enemy). 마시니사는 BC 206년 이후 로마 측으로 돌아선 인물이라 자마 시점 아군이며 칸나이 시점에는 카르타고 측 기병으로 싸웠다(accepted). 자마 정확 위치는 verify"
+  },
+  {
+   "shelf_code": "ch16",
+   "chapter": 16,
+   "status": "active",
+   "name_ko": "오를레앙의 봄",
+   "name_provisional": true,
+   "era_label": "1429년",
+   "region_label": "프랑스 왕국 오를레앙",
+   "modern_ref": "서유럽, 프랑스 루아르 강변",
+   "summary": "백년전쟁 중이던 1429년, 잔 다르크가 포위된 도시 오를레앙을 구하는 데 힘을 보탰다.",
+   "summary_lines": [
+    "1429년 봄, 포위된 도시 오를레앙.",
+    "백년전쟁의 흐름이 바뀌던 때, 한 소녀의 깃발이 앞장섰다.",
+    "잔 다르크와 함께 오를레앙의 봄을 맞는다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.5069,
+     "y": 0.2389
+    },
+    "zoom": 25
+   },
+   "period": {
+    "as_of": "1429년",
+    "state_label": [
+     "프랑스 왕국",
+     "잉글랜드 왕국"
+    ],
+    "note": ""
+   },
+   "factions": [
+    {
+     "id": "france",
+     "name_ko": "프랑스 왕국",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.5033,
+      "y": 0.2433
+     },
+     "evidence_level": "confirmed",
+     "note": "샤를 7세 측(대관식 1429년 7월)"
+    },
+    {
+     "id": "england",
+     "name_ko": "잉글랜드 왕국",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.4972,
+      "y": 0.2183
+     },
+     "evidence_level": "confirmed",
+     "note": "위치는 해협 건너 방향 표시"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "joan_of_arc",
+     "name_ko": "잔 다르크",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_suffolk",
+     "name_ko": "서퍽 백작 윌리엄 드 라 폴",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_dunois",
+     "name_ko": "장 드 뒤누아",
+     "role": "companion"
+    },
+    {
+     "code": "npc_talbot",
+     "name_ko": "존 탤벗",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_la_hire",
+     "name_ko": "라이르",
+     "role": "companion"
+    },
+    {
+     "code": "npc_salisbury",
+     "name_ko": "솔즈베리 백작 토머스 몬터규",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_jean_alencon",
+     "name_ko": "알랑송 공작 장 2세",
+     "role": "companion"
+    },
+    {
+     "code": "npc_fastolf",
+     "name_ko": "존 팔스톨프",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_charles_vii",
+     "name_ko": "샤를 7세",
+     "role": "companion"
+    },
+    {
+     "code": "npc_glasdale",
+     "name_ko": "윌리엄 글라스데일",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_gilles_de_rais",
+     "name_ko": "질 드 레",
+     "role": "companion"
+    },
+    {
+     "code": "npc_duke_bedford",
+     "name_ko": "베드퍼드 공작 존",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_richemont",
+     "name_ko": "아르튀르 드 리슈몽",
+     "role": "companion"
+    },
+    {
+     "code": "npc_scales",
+     "name_ko": "토머스 스케일스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_xaintrailles",
+     "name_ko": "포통 드 사인트라이유",
+     "role": "companion"
+    },
+    {
+     "code": "npc_thomas_gargrave",
+     "name_ko": "토머스 가그레이브",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_jean_daulon",
+     "name_ko": "장 도롱",
+     "role": "companion"
+    },
+    {
+     "code": "npc_john_pole",
+     "name_ko": "존 폴",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_gaucourt",
+     "name_ko": "라울 드 고쿠르",
+     "role": "companion"
+    },
+    {
+     "code": "npc_william_molyns",
+     "name_ko": "윌리엄 몰렝스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_cauchon",
+     "name_ko": "피에르 코숑",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "joan_of_arc",
+     "name_ko": "잔 다르크",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_duke_bedford",
+     "name_ko": "베드퍼드 공작 존",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_thomas_gargrave",
+     "name_ko": "토머스 가그레이브",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_john_pole",
+     "name_ko": "존 폴",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_william_molyns",
+     "name_ko": "윌리엄 몰렝스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_dunois",
+     "name_ko": "장 드 뒤누아",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 오를레앙 방어 지휘관"
+    },
+    {
+     "code": "npc_la_hire",
+     "name_ko": "라이르",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed)"
+    },
+    {
+     "code": "npc_xaintrailles",
+     "name_ko": "포통 드 사인트라이유",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed)"
+    },
+    {
+     "code": "npc_gilles_de_rais",
+     "name_ko": "질 드 레",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 1429년 잔의 동료 장군으로만 표기, 후일 재판 기록은 다루지 않음"
+    },
+    {
+     "code": "npc_jean_alencon",
+     "name_ko": "알랑송 공작 장 2세",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed)"
+    },
+    {
+     "code": "npc_jean_daulon",
+     "name_ko": "장 도롱",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 잔의 집사 기사"
+    },
+    {
+     "code": "npc_charles_vii",
+     "name_ko": "샤를 7세",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed)"
+    },
+    {
+     "code": "npc_gaucourt",
+     "name_ko": "라울 드 고쿠르",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(accepted). 직책 표기 verify"
+    },
+    {
+     "code": "npc_richemont",
+     "name_ko": "아르튀르 드 리슈몽",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 파테 전투 합류"
+    },
+    {
+     "code": "npc_suffolk",
+     "name_ko": "서퍽 백작 윌리엄 드 라 폴",
+     "role": "enemy",
+     "leader": true,
+     "note": "npc_roster_v3_additions 등재(confirmed). 포위군 지휘"
+    },
+    {
+     "code": "npc_glasdale",
+     "name_ko": "윌리엄 글라스데일",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(confirmed). 투렐 요새 수비"
+    },
+    {
+     "code": "npc_talbot",
+     "name_ko": "존 탤벗",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(confirmed). 오를레앙 참전 범위 verify"
+    },
+    {
+     "code": "npc_fastolf",
+     "name_ko": "존 팔스톨프",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(confirmed). 청어 전투 보급대"
+    },
+    {
+     "code": "npc_scales",
+     "name_ko": "토머스 스케일스",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(confirmed)"
+    },
+    {
+     "code": "npc_salisbury",
+     "name_ko": "솔즈베리 백작 토머스 몬터규",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(confirmed). 포위 초기 총지휘, 1428년 부상 사망"
+    },
+    {
+     "code": "npc_cauchon",
+     "name_ko": "피에르 코숑",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions 등재(confirmed). 후속 스테이지용, 재판 묘사 금지 방침 준수"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "confirmed",
+   "note": "현대 국가명 대신 1429년 시점의 당대 국호(프랑스 왕국 등)를 사용. 2026-11-03 사용자 지시로 부르고뉴 세력과 부르고뉴 소속 칩(장 드 룩상부르·필리프 선량공)을 제거해 프랑스·잉글랜드 2세력만 둔다. 두 인물은 부르고뉴 측이라 잉글랜드로 재배치하지 않고(동맹이었으나 소속이 다름) 칩에서만 뺐다. npc_cauchon 은 잉글랜드 지배하 재판을 주도한 인물로 enemy 유지(재판 묘사는 하지 않음)"
+  },
+  {
+   "shelf_code": "ch17",
+   "chapter": 17,
+   "status": "active",
+   "name_ko": "가우가멜라의 새벽",
+   "name_provisional": true,
+   "era_label": "기원전 331년",
+   "region_label": "페르시아 영내 가우가멜라 평원",
+   "modern_ref": "이라크 북부 모술 동쪽 텔 고멜 설(verify). 당대 아케메네스 제국의 아시리아 지방(속주 구분 verify)",
+   "summary": "기원전 331년, 가우가멜라 평원에서 알렉산드로스가 페르시아의 대군과 맞서 동방 원정의 길을 열었다.",
+   "summary_lines": [
+    "기원전 331년, 가우가멜라 평원의 새벽.",
+    "동쪽으로 나아가는 마케도니아의 젊은 왕과 페르시아의 대군.",
+    "알렉산드로스의 원정이 길을 여는 순간을 펼친다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.6203,
+     "y": 0.2978
+    },
+    "zoom": 20
+   },
+   "period": {
+    "as_of": "기원전 331년",
+    "state_label": [
+     "마케도니아",
+     "아케메네스 제국(페르시아)"
+    ],
+    "note": ""
+   },
+   "factions": [
+    {
+     "id": "macedon",
+     "name_ko": "마케도니아",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.6028,
+      "y": 0.3
+     },
+     "evidence_level": "confirmed",
+     "note": "알렉산드로스 군의 서쪽 진입 방향 표시"
+    },
+    {
+     "id": "achaemenid",
+     "name_ko": "아케메네스 제국(페르시아)",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.6306,
+      "y": 0.3111
+     },
+     "evidence_level": "confirmed",
+     "note": "다리우스 3세 치하"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "alexander",
+     "name_ko": "알렉산드로스 대왕",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_darius_iii",
+     "name_ko": "다리우스 3세",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_parmenion",
+     "name_ko": "파르메니온",
+     "role": "companion",
+     "portrait_key": "portrait.npc_parmenion"
+    },
+    {
+     "code": "npc_mazaeus",
+     "name_ko": "마자이오스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_hephaestion",
+     "name_ko": "헤파이스티온",
+     "role": "companion",
+     "portrait_key": "portrait.npc_hephaestion"
+    },
+    {
+     "code": "npc_bessus",
+     "name_ko": "베소스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_ptolemy",
+     "name_ko": "프톨레마이오스",
+     "role": "companion",
+     "portrait_key": "portrait.npc_ptolemy"
+    },
+    {
+     "code": "npc_barsaentes",
+     "name_ko": "바르사엔테스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_craterus",
+     "name_ko": "크라테로스",
+     "role": "companion",
+     "portrait_key": "portrait.npc_craterus"
+    },
+    {
+     "code": "npc_nabarzanes",
+     "name_ko": "나바르자네스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_seleucus",
+     "name_ko": "셀레우코스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_satibarzanes",
+     "name_ko": "사티바르자네스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_perdiccas",
+     "name_ko": "페르디카스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_atropates",
+     "name_ko": "아트로파테스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_cleitus_black",
+     "name_ko": "클레이토스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_phrataphernes",
+     "name_ko": "프라타페르네스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_philotas",
+     "name_ko": "필로타스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_mithraustes",
+     "name_ko": "미트라우스테스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_coenus",
+     "name_ko": "코이노스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_ariobarzanes",
+     "name_ko": "아리오바르자네스",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "alexander",
+     "name_ko": "알렉산드로스 대왕",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_seleucus",
+     "name_ko": "셀레우코스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_coenus",
+     "name_ko": "코이노스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_barsaentes",
+     "name_ko": "바르사엔테스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_nabarzanes",
+     "name_ko": "나바르자네스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_phrataphernes",
+     "name_ko": "프라타페르네스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_satibarzanes",
+     "name_ko": "사티바르자네스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_atropates",
+     "name_ko": "아트로파테스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_mithraustes",
+     "name_ko": "미트라우스테스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_ariobarzanes",
+     "name_ko": "아리오바르자네스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_parmenion",
+     "name_ko": "파르메니온",
+     "role": "companion",
+     "portrait_key": "portrait.npc_parmenion",
+     "note": "npc_roster_v3 등재(confirmed). 가우가멜라 좌익 지휘"
+    },
+    {
+     "code": "npc_hephaestion",
+     "name_ko": "헤파이스티온",
+     "role": "companion",
+     "portrait_key": "portrait.npc_hephaestion",
+     "note": "npc_roster_v3 등재(confirmed). 알렉산드로스의 친구이자 측근"
+    },
+    {
+     "code": "npc_craterus",
+     "name_ko": "크라테로스",
+     "role": "companion",
+     "portrait_key": "portrait.npc_craterus",
+     "note": "npc_roster_v3 등재(confirmed). 보병 지휘관"
+    },
+    {
+     "code": "npc_ptolemy",
+     "name_ko": "프톨레마이오스",
+     "role": "companion",
+     "portrait_key": "portrait.npc_ptolemy",
+     "note": "npc_roster_v3 등재(confirmed). 측근 장수"
+    },
+    {
+     "code": "npc_philotas",
+     "name_ko": "필로타스",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 동료 기병대 지휘"
+    },
+    {
+     "code": "npc_cleitus_black",
+     "name_ko": "클레이토스",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 왕실 기병 지휘"
+    },
+    {
+     "code": "npc_perdiccas",
+     "name_ko": "페르디카스",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 팔랑크스 부대 지휘"
+    },
+    {
+     "code": "npc_darius_iii",
+     "name_ko": "다리우스 3세",
+     "role": "enemy",
+     "leader": true,
+     "note": "additions_shelf 신규(confirmed). heroes.json 의 darius_i 와 다른 인물"
+    },
+    {
+     "code": "npc_mazaeus",
+     "name_ko": "마자이오스",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 페르시아 우익"
+    },
+    {
+     "code": "npc_bessus",
+     "name_ko": "베소스",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 박트리아 기병, 페르시아 좌익"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "accepted",
+   "note": "가우가멜라 위치는 텔 고멜(모술 동쪽) 비정이 통설이나 확정 아님(verify). 다리우스 3세는 heroes.json 미등재(darius_i는 다른 인물)"
+  },
+  {
+   "shelf_code": "ch18",
+   "chapter": 18,
+   "status": "active",
+   "name_ko": "칭기즈 칸과 몽골 제국",
+   "subtitle_ko": "초원의 서정",
+   "era_label": "1206~1227년",
+   "region_label": "오논·케룰렌 초원에서 호라즘까지",
+   "modern_ref": "몽골국 동북부 헨티 산지(오논·헤를렌 강 일대)에서 중앙아시아 시르다리야~아무다리야, 중국 북부(금·서하 영역)에 이르는 구역",
+   "summary": "초원의 부족을 하나로 묶은 한 사나이. 1206년 칭기즈 칸의 이름을 받은 그는 말머리를 서쪽으로 돌린다.",
+   "summary_lines": [
+    "초원의 부족을 하나로 묶은 한 사나이, 칭기즈 칸.",
+    "1206년 쿠릴타이에서 칭기즈 칸의 이름을 받고, 금과 서하를 지나 서쪽으로 말머리를 돌린다.",
+    "호라즘 원정(1219~1221)과 칼카강 전투(1223)로 이어지는 먼 길을 따라간다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.7111,
+     "y": 0.2667
+    },
+    "zoom": 3.5,
+    "origin_pin": {
+     "x": 0.8,
+     "y": 0.2333,
+     "label": "오논·케룰렌 강 일대",
+     "evidence_level": "accepted",
+     "note": "약 48N 108E, 일반 지식 근사(웹 대조 안 함). 칭기즈 칸의 출신 초원 상징 핀. 정확 지점이 아닌 지역 표시(verify)"
+    },
+    "focus_proposal": {
+     "x": 0.7111,
+     "y": 0.2667,
+     "zoom": 3.5,
+     "note": "2026-11-02 채택: 핀 s1~s8(약 35~115E)이 한 화면에 들어오는 시야(약 76E 42N, zoom 3.5). FE가 focus_proposal을 focus보다 우선 사용하므로 focus/zoom과 같은 값으로 맞춤. 이전안(x 0.7917, zoom 4)은 s4~s7이 잘려 폐기"
+    }
+   },
+   "period": {
+    "as_of": "1206~1227년",
+    "state_label": [
+     "몽골 제국",
+     "금",
+     "서하",
+     "호라즘 제국"
+    ],
+    "note": "1206년 쿠릴타이 즉위부터 칭기즈 칸 사망(1227)까지. 표시 윤곽은 1219~1223년 서정 시점. 화면 표기는 2026-11-03 사용자 결정으로 통칭 '몽골 제국' 사용(당대 국호 Yeke Mongγol Ulus). 카라키타이(서요)는 1218년 병합이라 윤곽에서 몽골 제국에 포함"
+   },
+   "factions": [
+    {
+     "id": "mongol_empire",
+     "name_ko": "몽골 제국",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.75,
+      "y": 0.2389
+     },
+     "evidence_level": "confirmed",
+     "note": "한문 표기 大蒙古國, 시점별 용례 verify"
+    },
+    {
+     "id": "jin",
+     "name_ko": "금",
+     "side": "neutral",
+     "label_pos": {
+      "x": 0.8139,
+      "y": 0.3028
+     },
+     "evidence_level": "confirmed",
+     "note": "1115~1234. 1215년 중도 함락 이후 영역 축소. 경계 low"
+    },
+    {
+     "id": "xixia",
+     "name_ko": "서하",
+     "side": "neutral",
+     "label_pos": {
+      "x": 0.7931,
+      "y": 0.2861
+     },
+     "evidence_level": "confirmed",
+     "note": "1038~1227. 자칭은 대하(大夏) 등, '서하'는 통칭. 1227년 멸망"
+    },
+    {
+     "id": "khwarazm",
+     "name_ko": "호라즘 제국",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.6722,
+      "y": 0.2778
+     },
+     "evidence_level": "confirmed",
+     "note": "구체 전장 미정(verify). 대량 사상 사건은 주제로 삼지 않음"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "genghis_khan",
+     "name_ko": "칭기즈 칸",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_muhammad_ii_khwarazm",
+     "name_ko": "무함마드 2세",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_subutai",
+     "name_ko": "수부타이",
+     "role": "companion",
+     "portrait_key": "portrait.subutai"
+    },
+    {
+     "code": "jalal_ad_din",
+     "name_ko": "잘랄 앗딘 밍부르누",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_jebe",
+     "name_ko": "제베",
+     "role": "companion",
+     "portrait_key": "portrait.jebe"
+    },
+    {
+     "code": "npc_jamukha",
+     "name_ko": "자무카",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_muqali",
+     "name_ko": "무칼리",
+     "role": "companion",
+     "portrait_key": "portrait.mukhali"
+    },
+    {
+     "code": "npc_tayang_khan",
+     "name_ko": "타양 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_jochi",
+     "name_ko": "주치",
+     "role": "companion",
+     "portrait_key": "portrait.npc_jochi"
+    },
+    {
+     "code": "npc_kuchlug",
+     "name_ko": "쿠츨루크",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_ogedei",
+     "name_ko": "오고타이",
+     "role": "companion"
+    },
+    {
+     "code": "npc_wanyan_xun",
+     "name_ko": "금 선종",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_boorchu",
+     "name_ko": "보르추",
+     "role": "companion",
+     "portrait_key": "portrait.borchu"
+    },
+    {
+     "code": "npc_li_anquan",
+     "name_ko": "서하 양종",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_jelme",
+     "name_ko": "젤메",
+     "role": "companion",
+     "portrait_key": "portrait.npc_jelme"
+    },
+    {
+     "code": "npc_toqto_a_beki",
+     "name_ko": "톡토아 베키",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_qasar",
+     "name_ko": "카사르",
+     "role": "companion",
+     "portrait_key": "portrait.npc_qasar"
+    },
+    {
+     "code": "npc_buyruq_khan",
+     "name_ko": "부이룩 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_boroqul",
+     "name_ko": "보로쿨",
+     "role": "companion",
+     "portrait_key": "portrait.npc_boroqul"
+    },
+    {
+     "code": "npc_hoelun",
+     "name_ko": "후엘룬",
+     "role": "companion"
+    },
+    {
+     "code": "npc_naiman_remnant_chief",
+     "name_ko": "나이만 잔당 지휘관",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "genghis_khan",
+     "name_ko": "칭기즈 칸",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_tayang_khan",
+     "name_ko": "타양 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kuchlug",
+     "name_ko": "쿠츨루크",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_buyruq_khan",
+     "name_ko": "부이룩 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_jamukha",
+     "name_ko": "자무카",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_toqto_a_beki",
+     "name_ko": "톡토아 베키",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_naiman_remnant_chief",
+     "name_ko": "나이만 잔당 지휘관",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_muqali",
+     "name_ko": "무칼리",
+     "role": "companion",
+     "portrait_key": "portrait.mukhali",
+     "note": "npc_roster_v3·heroes 테이블(campaign_only NPC 행) 등재. 초상화 manifest 병합 완료. 코드(npc_muqali)와 초상 키(mukhali) 철자가 달라 portrait_key 로 연결(FE 별칭 npc_muqali->mukhali 유지). 칭기즈 칸의 공신 장수(confirmed)"
+    },
+    {
+     "code": "npc_subutai",
+     "name_ko": "수부타이",
+     "role": "companion",
+     "portrait_key": "portrait.subutai",
+     "note": "npc_roster_v3·heroes 테이블 등재. 칭기즈 칸의 장수(confirmed)"
+    },
+    {
+     "code": "npc_jebe",
+     "name_ko": "제베",
+     "role": "companion",
+     "portrait_key": "portrait.jebe",
+     "note": "npc_roster_v3·heroes 테이블 등재. 명궁 장수(confirmed)"
+    },
+    {
+     "code": "npc_boorchu",
+     "name_ko": "보르추",
+     "role": "companion",
+     "portrait_key": "portrait.borchu",
+     "note": "npc_roster_v3·heroes 테이블 등재. 칭기즈 칸의 첫 동지(confirmed)"
+    },
+    {
+     "code": "npc_qasar",
+     "name_ko": "카사르",
+     "role": "companion",
+     "portrait_key": "portrait.npc_qasar",
+     "note": "npc_roster_v3_additions 등재(confirmed). 칭기즈 칸의 동생, 명궁으로 전함"
+    },
+    {
+     "code": "npc_jelme",
+     "name_ko": "젤메",
+     "role": "companion",
+     "portrait_key": "portrait.npc_jelme",
+     "note": "npc_roster_v3_additions 등재(confirmed). 초기 공신"
+    },
+    {
+     "code": "npc_jochi",
+     "name_ko": "주치",
+     "role": "companion",
+     "portrait_key": "portrait.npc_jochi",
+     "note": "npc_roster_v3_additions 등재(confirmed). 칭기즈 칸의 장남. 출생 관련 이설은 다루지 않음"
+    },
+    {
+     "code": "npc_boroqul",
+     "name_ko": "보로쿨",
+     "role": "companion",
+     "portrait_key": "portrait.npc_boroqul",
+     "note": "npc_roster_v3_additions 등재(confirmed). 후엘룬의 양자, 공신"
+    },
+    {
+     "code": "npc_ogedei",
+     "name_ko": "오고타이",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 칭기즈 칸의 셋째 아들, 후일 대칸. 초상 없음"
+    },
+    {
+     "code": "npc_hoelun",
+     "name_ko": "후엘룬",
+     "role": "companion",
+     "note": "npc_roster_v3_additions 등재(confirmed). 칭기즈 칸의 어머니(몽골비사). 초상 없음"
+    },
+    {
+     "code": "npc_muhammad_ii_khwarazm",
+     "name_ko": "무함마드 2세",
+     "role": "enemy",
+     "leader": true,
+     "note": "npc_roster_v3_additions_shelf 신규(confirmed). 도시 함락 사건은 주제로 삼지 않음. 초상 없음"
+    },
+    {
+     "code": "jalal_ad_din",
+     "name_ko": "잘랄 앗딘 밍부르누",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions_shelf 신규(confirmed). 파르완 승전(1221). 초상 없음"
+    },
+    {
+     "code": "npc_wanyan_xun",
+     "name_ko": "금 선종",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions_shelf 신규(confirmed). 1214년 화의 후 개봉 천도. 초상 없음"
+    },
+    {
+     "code": "npc_li_anquan",
+     "name_ko": "서하 양종",
+     "role": "enemy",
+     "note": "npc_roster_v3_additions_shelf 신규(accepted). 1209년 몽골 침입 후 강화(verify). 초상 없음"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "accepted",
+   "note": "v0.3: 기존 ch18 '초원의 서정'을 칭기즈 칸 기록으로 보강(새 기록 번호 추가 없음). name_ko는 사용자 결정으로 '칭기즈 칸'(heroes.json UI 표기와 통일)이며 괄호 병기를 제거했고, 2026-11-02 사용자 결정으로 summary·summary_lines의 본명 병행 표기도 제거해 화면 표기는 시기와 관계없이 '칭기즈 칸' 하나로 통일한다. 기간은 1206~1227년이며 대량 사상 사건(도시 함락)을 주제로 삼지 않는다. 구체 전장은 미정(verify). 원 focus(시르다리야 일대)는 변경하지 않았고 origin_pin·focus_proposal을 추가. 칼카강 전투(1223)는 제베·수부타이 지휘로 전하며 칭기즈 칸 본인 참전이 아님(confirmed). 2026-11-02 활성화: name_provisional 해제(기록명·부제는 문기획/사용자 확정, 연호·지명 재검수 완료), stages[] ch18_s1~s8 핀 추가(위치 근거는 stage map.evidence_level 참조). 기록 focus(zoom 6, 약 35E~95E)에는 s4~s7만 들어오고 s1·s2·s3·s8(약 102~115E)은 시야 밖이므로 기록 진입 시야는 focus_proposal 또는 더 넓은 시야(약 76E 42N, zoom 3.5)를 FE와 협의 필요"
+  },
+  {
+   "shelf_code": "ch19",
+   "chapter": 19,
+   "status": "active",
+   "name_ko": "성지를 둘러싼 해",
+   "name_provisional": true,
+   "era_label": "1187~1192년",
+   "region_label": "예루살렘 왕국 하틴·아크레",
+   "modern_ref": "레반트 지중해 동안",
+   "summary": "1187년 하틴의 전투 이후 예루살렘을 둘러싸고 살라딘과 리처드 1세가 맞선 시기의 기록이다.",
+   "summary_lines": [
+    "1187년 하틴 이후, 성지를 둘러싼 긴 공방이 시작된다.",
+    "살라딘과 리처드 1세, 서로를 높이 평가했다고 전하는 두 지도자.",
+    "1192년의 휴전 협정으로 이어지는 협상의 길을 따라간다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.5986,
+     "y": 0.3167
+    },
+    "zoom": 25
+   },
+   "period": {
+    "as_of": "1187~1192년",
+    "state_label": [
+     "아이유브 왕조",
+     "예루살렘 왕국(십자군 국가)"
+    ],
+    "note": "1187년 이후 예루살렘 왕국은 해안 도시(아크레 등) 중심으로 존속"
+   },
+   "factions": [
+    {
+     "id": "ayyubid",
+     "name_ko": "아이유브 왕조",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.6033,
+      "y": 0.3222
+     },
+     "evidence_level": "confirmed",
+     "note": "살라딘 창건"
+    },
+    {
+     "id": "crusader_states",
+     "name_ko": "예루살렘 왕국·십자군 국가",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.5964,
+      "y": 0.3194
+     },
+     "evidence_level": "confirmed",
+     "note": "제3차 십자군(리처드 1세 합류). side는 살라딘 key 가안"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "saladin",
+     "name_ko": "살라딘",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_guy_lusignan",
+     "name_ko": "기 드 뤼지냥",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_al_adil",
+     "name_ko": "알아딜",
+     "role": "companion"
+    },
+    {
+     "code": "richard_i",
+     "name_ko": "리처드 1세",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_al_afdal",
+     "name_ko": "알아프달",
+     "role": "companion"
+    },
+    {
+     "code": "npc_balian_ibelin",
+     "name_ko": "발리앙 디벨랭",
+     "role": "enemy"
+    },
+    {
+     "code": "baha_ad_din",
+     "name_ko": "바하 앗딘 이븐 샷다드",
+     "role": "companion"
+    },
+    {
+     "code": "npc_raymond_tripoli",
+     "name_ko": "트리폴리 백작 레몽 3세",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_taqi_al_din",
+     "name_ko": "타키 앗딘 우마르",
+     "role": "companion"
+    },
+    {
+     "code": "npc_conrad_montferrat",
+     "name_ko": "몬페라토의 콘라도",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_gokbori",
+     "name_ko": "무자파르 앗딘 쾨크뵈리",
+     "role": "companion"
+    },
+    {
+     "code": "npc_reynald_chatillon",
+     "name_ko": "르노 드 샤티용",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_qaraqush",
+     "name_ko": "카라쿠시",
+     "role": "companion"
+    },
+    {
+     "code": "npc_al_mashtub",
+     "name_ko": "세이프 앗딘 알마슈투브",
+     "role": "companion"
+    },
+    {
+     "code": "npc_philip_augustus",
+     "name_ko": "필리프 2세 오귀스트",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_abul_haija",
+     "name_ko": "아부 알하이자",
+     "role": "companion"
+    },
+    {
+     "code": "npc_gerard_ridefort",
+     "name_ko": "제라르 드 리드포르",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_husam_lulu",
+     "name_ko": "후삼 앗딘 룰루",
+     "role": "companion"
+    },
+    {
+     "code": "npc_isabella_jerusalem",
+     "name_ko": "이사벨 1세",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "saladin",
+     "name_ko": "살라딘",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_gokbori",
+     "name_ko": "무자파르 앗딘 쾨크뵈리",
+     "role": "companion"
+    },
+    {
+     "code": "npc_qaraqush",
+     "name_ko": "카라쿠시",
+     "role": "companion"
+    },
+    {
+     "code": "npc_taqi_al_din",
+     "name_ko": "타키 앗딘 우마르",
+     "role": "companion"
+    },
+    {
+     "code": "npc_al_mashtub",
+     "name_ko": "세이프 앗딘 알마슈투브",
+     "role": "companion"
+    },
+    {
+     "code": "npc_abul_haija",
+     "name_ko": "아부 알하이자",
+     "role": "companion"
+    },
+    {
+     "code": "npc_husam_lulu",
+     "name_ko": "후삼 앗딘 룰루",
+     "role": "companion"
+    },
+    {
+     "code": "npc_gerard_ridefort",
+     "name_ko": "제라르 드 리드포르",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_reynald_chatillon",
+     "name_ko": "르노 드 샤티용",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_baldwin_iv",
+     "name_ko": "발두앵 4세",
+     "role": "enemy"
+    },
+    {
+     "code": "richard_i",
+     "name_ko": "리처드 1세",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_al_adil",
+     "name_ko": "알아딜",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 살라딘의 동생, 협상 창구"
+    },
+    {
+     "code": "npc_al_afdal",
+     "name_ko": "알아프달",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 살라딘의 맏아들"
+    },
+    {
+     "code": "baha_ad_din",
+     "name_ko": "바하 앗딘 이븐 샷다드",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 살라딘의 법관이자 전기 작가"
+    },
+    {
+     "code": "npc_guy_lusignan",
+     "name_ko": "기 드 뤼지냥",
+     "role": "enemy",
+     "leader": true,
+     "note": "additions_shelf 신규(confirmed). 하틴 당시 예루살렘 왕"
+    },
+    {
+     "code": "npc_raymond_tripoli",
+     "name_ko": "트리폴리 백작 레몽 3세",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 하틴 참전, 직후 사망"
+    },
+    {
+     "code": "npc_balian_ibelin",
+     "name_ko": "발리앙 디벨랭",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 예루살렘 항복 협상, 1192년 관여는 accepted"
+    },
+    {
+     "code": "npc_conrad_montferrat",
+     "name_ko": "몬페라토의 콘라도",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 티레 방어"
+    },
+    {
+     "code": "npc_philip_augustus",
+     "name_ko": "필리프 2세 오귀스트",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 제3차 십자군 참여"
+    },
+    {
+     "code": "npc_isabella_jerusalem",
+     "name_ko": "이사벨 1세",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed). 왕위 계승권자"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "confirmed",
+   "note": "key 지정은 문기획 확정 필요. 두 인물은 대치와 휴전의 쌍이라 role은 시점 기준 가안. 1192년 휴전 협정의 명칭은 '야파 조약'보다 '라믈라 조약'으로 불리는 경우가 많아 명칭 verify(summary_lines에는 명칭 미사용). 상호 존중 서술은 전승(accepted)"
+  },
+  {
+   "shelf_code": "ch20",
+   "chapter": 20,
+   "status": "active",
+   "name_ko": "나가시노의 총성",
+   "name_provisional": true,
+   "era_label": "1575년",
+   "region_label": "미카와국 나가시노",
+   "modern_ref": "일본 아이치현 신시로 일대(동아시아 섬 열도 중부 내륙)",
+   "summary": "1575년, 나가시노에서 오다 노부나가와 도쿠가와 이에야스의 연합군이 다케다 군과 맞섰다.",
+   "summary_lines": [
+    "1575년, 나가시노 성 앞의 들판.",
+    "철포와 목책, 그리고 기마대의 돌격. 이 승부가 전국시대의 흐름을 바꿨다고 전한다.",
+    "오다 노부나가와 도쿠가와 이에야스가 함께 기록에 오른다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.8822,
+     "y": 0.3057
+    },
+    "zoom": 18
+   },
+   "period": {
+    "as_of": "1575년",
+    "state_label": [
+     "오다·도쿠가와 연합",
+     "다케다 가문"
+    ],
+    "note": "센고쿠 시대 다이묘 세력. 통일 국가 이전"
+   },
+   "factions": [
+    {
+     "id": "oda_tokugawa",
+     "name_ko": "오다·도쿠가와 연합",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.8794,
+      "y": 0.3056
+     },
+     "evidence_level": "confirmed",
+     "note": ""
+    },
+    {
+     "id": "takeda",
+     "name_ko": "다케다 가문",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.8847,
+      "y": 0.3006
+     },
+     "evidence_level": "confirmed",
+     "note": "1575년 당주는 다케다 가쓰요리"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "oda_nobunaga",
+     "name_ko": "오다 노부나가",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_takeda_katsuyori",
+     "name_ko": "다케다 가쓰요리",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "tokugawa_ieyasu",
+     "name_ko": "도쿠가와 이에야스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_yamagata_masakage",
+     "name_ko": "야마가타 마사카게",
+     "role": "enemy"
+    },
+    {
+     "code": "honda_tadakatsu",
+     "name_ko": "혼다 다다카쓰",
+     "role": "companion"
+    },
+    {
+     "code": "npc_baba_nobuharu",
+     "name_ko": "바바 노부하루",
+     "role": "enemy"
+    },
+    {
+     "code": "toyotomi_hideyoshi",
+     "name_ko": "도요토미 히데요시",
+     "role": "companion"
+    },
+    {
+     "code": "npc_naito_masatoyo",
+     "name_ko": "나이토 마사토요",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_sakai_tadatsugu",
+     "name_ko": "사카이 다다쓰구",
+     "role": "companion"
+    },
+    {
+     "code": "npc_sanada_nobutsuna",
+     "name_ko": "사나다 노부쓰나",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_maeda_toshiie",
+     "name_ko": "마에다 도시이에",
+     "role": "companion"
+    },
+    {
+     "code": "npc_sanada_masateru",
+     "name_ko": "사나다 마사테루",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_sassa_narimasa",
+     "name_ko": "삿사 나리마사",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tsuchiya_masatsugu",
+     "name_ko": "쓰치야 마사쓰구",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_shibata_katsuie",
+     "name_ko": "시바타 가쓰이에",
+     "role": "companion"
+    },
+    {
+     "code": "npc_hara_masatane",
+     "name_ko": "하라 마사타네",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_okudaira_sadamasa",
+     "name_ko": "오쿠다이라 사다마사",
+     "role": "companion"
+    },
+    {
+     "code": "npc_takeda_nobukado",
+     "name_ko": "다케다 노부카도",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_torii_suneemon",
+     "name_ko": "도리이 스네에몬",
+     "role": "companion"
+    },
+    {
+     "code": "npc_amari_nobuyasu",
+     "name_ko": "아마리 노부야스",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "oda_nobunaga",
+     "name_ko": "오다 노부나가",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "tokugawa_ieyasu",
+     "name_ko": "도쿠가와 이에야스",
+     "role": "companion"
+    },
+    {
+     "code": "honda_tadakatsu",
+     "name_ko": "혼다 다다카쓰",
+     "role": "companion",
+     "note": "heroes.json 등재 영웅. 나가시노 참전은 accepted"
+    },
+    {
+     "code": "toyotomi_hideyoshi",
+     "name_ko": "도요토미 히데요시",
+     "role": "companion",
+     "note": "heroes.json 등재 영웅. 오다 군 참전은 accepted(당시 하시바 히데요시)"
+    },
+    {
+     "code": "npc_maeda_toshiie",
+     "name_ko": "마에다 도시이에",
+     "role": "companion"
+    },
+    {
+     "code": "npc_sassa_narimasa",
+     "name_ko": "삿사 나리마사",
+     "role": "companion"
+    },
+    {
+     "code": "npc_shibata_katsuie",
+     "name_ko": "시바타 가쓰이에",
+     "role": "companion"
+    },
+    {
+     "code": "npc_sanada_nobutsuna",
+     "name_ko": "사나다 노부쓰나",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_sanada_masateru",
+     "name_ko": "사나다 마사테루",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_tsuchiya_masatsugu",
+     "name_ko": "쓰치야 마사쓰구",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_hara_masatane",
+     "name_ko": "하라 마사타네",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_amari_nobuyasu",
+     "name_ko": "아마리 노부야스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_takeda_nobukado",
+     "name_ko": "다케다 노부카도",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_sakai_tadatsugu",
+     "name_ko": "사카이 다다쓰구",
+     "role": "companion",
+     "note": "additions_shelf 신규(confirmed). 도쿠가와 필두 가신"
+    },
+    {
+     "code": "npc_okudaira_sadamasa",
+     "name_ko": "오쿠다이라 사다마사",
+     "role": "companion",
+     "note": "additions_shelf 신규(accepted). 나가시노 성 수비"
+    },
+    {
+     "code": "npc_torii_suneemon",
+     "name_ko": "도리이 스네에몬",
+     "role": "companion",
+     "note": "additions_shelf 신규(accepted). 구원 요청 사자"
+    },
+    {
+     "code": "npc_takeda_katsuyori",
+     "name_ko": "다케다 가쓰요리",
+     "role": "enemy",
+     "leader": true,
+     "note": "additions_shelf 신규(confirmed). 1575년 당시 당주"
+    },
+    {
+     "code": "npc_baba_nobuharu",
+     "name_ko": "바바 노부하루",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed)"
+    },
+    {
+     "code": "npc_yamagata_masakage",
+     "name_ko": "야마가타 마사카게",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed)"
+    },
+    {
+     "code": "npc_naito_masatoyo",
+     "name_ko": "나이토 마사토요",
+     "role": "enemy",
+     "note": "additions_shelf 신규(confirmed)"
+    }
+   ],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "confirmed",
+   "note": "다케다 신겐은 1573년 사망으로 나가시노(1575) 당시 상대는 아들 가쓰요리(별개 인물). 칩 목록에서 신겐 제거, 가쓰요리를 leader 로 지정(2026-11-04). 철포 대량 운용 서술은 통설이나 최근 학설에서 규모·전술 논쟁이 있어 '전한다'로 표현"
+  },
+  {
+   "shelf_code": "ch21",
+   "chapter": 21,
+   "status": "active",
+   "name_ko": "레그니차의 연기",
+   "name_provisional": true,
+   "era_label": "1241년",
+   "region_label": "실레지아 공국 레그니차 평원",
+   "modern_ref": "폴란드 남서부 레그니츠키에 폴레(약 51.15N 16.27E). 선택 스테이지 모히는 헝가리 북동부 사요강 일대(약 48N 21E)",
+   "summary": "1241년 4월, 레그니차 평원에서 몽골 군의 북쪽 갈래가 실레지아 공작 헨리크 2세의 군과 맞섰다.",
+   "summary_lines": [
+    "몽골의 서정은 1241년 봄 두 갈래로 나뉘어 한쪽은 헝가리로, 한쪽은 크라쿠프와 실레지아로 향한다.",
+    "북쪽 갈래의 임무는 승리가 아니라 시간이다. 헨리크 2세와 보헤미아 왕 바츨라프 1세가 합쳐지기 전에 끊어야 한다.",
+    "이 전투를 기록한 붓은 대부분 지는 쪽에 서 있었다. 이긴 쪽의 말은 서고에 거의 남아 있지 않다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.5667,
+     "y": 0.2222
+    },
+    "zoom": 10,
+    "origin_pin": {
+     "x": 0.545,
+     "y": 0.2156,
+     "label": "실레지아 공국 레그니차",
+     "evidence_level": "accepted",
+     "note": "약 51.2N 16.2E, 일반 지식 근사(웹 좌표 미확인). 기록 대표 핀이며 정확 지점이 아닌 지역 표시(verify). 선택 스테이지 모히(약 48N 21E)까지 한 화면에 들어오는 시야(약 24E 50N, zoom 10)는 FE 확인 필요"
+    }
+   },
+   "period": {
+    "as_of": "1241년",
+    "state_label": [
+     "몽골 제국",
+     "실레지아 공국",
+     "튜턴 기사단"
+    ],
+    "note": "몽골 서정(1236~1242) 중 폴란드·헝가리 원정. 화면 표기는 2026-11-03 사용자 결정으로 통칭 '몽골 제국'을 쓴다(당대 국호 Yeke Mongγol Ulus). 보헤미아 왕국·헝가리 왕국은 기록 영토 윤곽에 넣지 않고 요약·스테이지 라벨에만 등장"
+   },
+   "factions": [
+    {
+     "id": "mongol_ulus",
+     "name_ko": "몽골 제국",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.6056,
+      "y": 0.2278
+     },
+     "evidence_level": "confirmed",
+     "note": "서정군 폴란드 갈래(바이다르·카단)와 본대(바투·수부타이). 경계 low"
+    },
+    {
+     "id": "silesia",
+     "name_ko": "실레지아 공국",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.5458,
+      "y": 0.2167
+     },
+     "evidence_level": "confirmed",
+     "note": "1241년 당주는 헨리크 2세. 크라쿠프·오폴레 등 피아스트 가문 분열 영토 연합"
+    },
+    {
+     "id": "teutonic",
+     "name_ko": "튜턴 기사단",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.5561,
+      "y": 0.2011
+     },
+     "evidence_level": "verify",
+     "note": "분견대의 레그니차 참전은 verify. 영토 윤곽은 프로이센 방면 근사(low)"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "npc_baidar",
+     "name_ko": "바이다르",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_henry_ii_pious",
+     "name_ko": "헨리크 2세",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_batu",
+     "name_ko": "바투",
+     "role": "companion"
+    },
+    {
+     "code": "npc_wenceslas_i_bohemia",
+     "name_ko": "바츨라프 1세",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_subutai",
+     "name_ko": "수부타이",
+     "role": "companion"
+    },
+    {
+     "code": "npc_boleslaw_rogatka",
+     "name_ko": "볼레스와프 2세 대머리",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_kadan",
+     "name_ko": "카단",
+     "role": "companion"
+    },
+    {
+     "code": "npc_mieszko_ii_opole",
+     "name_ko": "미에슈코 2세 오폴스키",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_orda",
+     "name_ko": "오르다",
+     "role": "companion"
+    },
+    {
+     "code": "npc_wlodzimierz_krakow",
+     "name_ko": "브워지미에시",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_berke",
+     "name_ko": "베르케",
+     "role": "companion"
+    },
+    {
+     "code": "npc_pakoslaw_sandomierz",
+     "name_ko": "파코스와프",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_shiban",
+     "name_ko": "시반",
+     "role": "companion"
+    },
+    {
+     "code": "npc_poppo_osternohe",
+     "name_ko": "포포 폰 오스테르나",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_guyuk",
+     "name_ko": "구육",
+     "role": "companion"
+    },
+    {
+     "code": "npc_boleslaw_moravia",
+     "name_ko": "모라비아 변경백 볼레스와프",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_buri",
+     "name_ko": "부리",
+     "role": "companion"
+    },
+    {
+     "code": "npc_sulislaw",
+     "name_ko": "술리스와프",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_boroldai",
+     "name_ko": "보롤다이",
+     "role": "companion"
+    },
+    {
+     "code": "npc_ugrin_csak",
+     "name_ko": "우그린 차크",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "npc_subutai",
+     "name_ko": "수부타이",
+     "role": "companion",
+     "note": "ch21_s5 합류(accepted). ch18 계승"
+    },
+    {
+     "code": "npc_orda",
+     "name_ko": "오르다",
+     "role": "companion"
+    },
+    {
+     "code": "npc_shiban",
+     "name_ko": "시반",
+     "role": "companion"
+    },
+    {
+     "code": "npc_berke",
+     "name_ko": "베르케",
+     "role": "companion"
+    },
+    {
+     "code": "npc_buri",
+     "name_ko": "부리",
+     "role": "companion"
+    },
+    {
+     "code": "npc_guyuk",
+     "name_ko": "구육",
+     "role": "companion"
+    },
+    {
+     "code": "npc_boroldai",
+     "name_ko": "보롤다이",
+     "role": "companion"
+    },
+    {
+     "code": "npc_mieszko_ii_opole",
+     "name_ko": "미에슈코 2세 오폴스키",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_wlodzimierz_krakow",
+     "name_ko": "브워지미에시",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_poppo_osternohe",
+     "name_ko": "포포 폰 오스테르나",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_boleslaw_rogatka",
+     "name_ko": "볼레스와프 2세 대머리",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_boleslaw_moravia",
+     "name_ko": "모라비아 변경백 볼레스와프",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_sulislaw",
+     "name_ko": "술리스와프",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_baidar",
+     "name_ko": "바이다르",
+     "role": "key",
+     "leader": true,
+     "note": "npc_roster_shelf_ch21_22 신규(accepted). 초상 제작됨"
+    },
+    {
+     "code": "npc_kadan",
+     "name_ko": "카단",
+     "role": "companion",
+     "note": "npc_roster_shelf_ch21_22 신규(accepted). 초상 제작됨"
+    },
+    {
+     "code": "npc_batu",
+     "name_ko": "바투",
+     "role": "companion",
+     "note": "npc_roster_shelf_ch21_22 신규(confirmed). ch21_s5. 초상 제작됨"
+    },
+    {
+     "code": "npc_henry_ii_pious",
+     "name_ko": "헨리크 2세",
+     "role": "enemy",
+     "leader": true,
+     "note": "npc_roster_shelf_ch21_22 신규(confirmed). 최후는 연출하지 않음. 초상 제작됨"
+    },
+    {
+     "code": "npc_wenceslas_i_bohemia",
+     "name_ko": "바츨라프 1세",
+     "role": "enemy",
+     "note": "보헤미아 왕. 레그니차 당일 하루 거리까지 접근 후 후퇴(accepted, 하루/이틀 거리는 verify). 직접 교전 대사 없음, 이름 한글 표기 확정 전. 초상 제작됨"
+    },
+    {
+     "code": "npc_ugrin_csak",
+     "name_ko": "우그린 차크",
+     "role": "enemy",
+     "note": "칼로차 대주교, 사요 강 다리 방어(accepted, Mohi 문서). 군사 지휘 맥락만 서술, 최후 연출 없음. 한글 표기 verify. 초상 제작됨"
+    },
+    {
+     "code": "npc_pakoslaw_sandomierz",
+     "name_ko": "파코스와프",
+     "role": "enemy",
+     "note": "산도미에시 보이보다, 헤움니크 전투 지휘(accepted, Chmielnik 문서). 한글 표기 verify. 초상 제작됨"
+    }
+   ],
+   "heroes_pending": [],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "accepted",
+   "note": "2026-11-03 추가(preview). 기록명·부제는 문기획/사용자 확정 대기(가칭). 레그니차 1241-04-09 confirmed, 몽골 지휘관 바이다르·카단 accepted. 오르다 참전·튜턴 기사단 분견대 참전은 verify. 영웅 칩은 초상이 있는 npc_subutai만 heroes[]에 두고 나머지는 heroes_pending[](초상 제작 후 이동)"
+  },
+  {
+   "shelf_code": "ch22",
+   "chapter": 22,
+   "status": "active",
+   "name_ko": "파니파트의 수레벽",
+   "name_provisional": true,
+   "era_label": "1526년",
+   "region_label": "델리 술탄국 파니파트 평원",
+   "modern_ref": "인도 하리아나주 파니파트(약 29.39N 76.97E). 화면에는 현대 지명을 쓰지 않는다",
+   "summary": "1526년 4월, 파니파트 평원에서 카불의 바부르가 수레와 화기로 델리 술탄 이브라힘 로디의 대군을 맞았다.",
+   "summary_lines": [
+    "카불의 통치자 바부르는 티무르와 칭기즈 칸의 피를 이으면서도 고향 땅을 잃고 남쪽으로 눈을 돌린다.",
+    "그의 군은 1만 남짓, 맞선 델리 술탄 이브라힘 로디의 군은 그 몇 배라고 전한다. 바부르의 답은 수레와 화약이다.",
+    "승자는 직접 회고록을 남겼다. 서고는 이번에는 기록이 너무 많은 쪽의 말을 의심하며 읽는다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.6944,
+     "y": 0.3333
+    },
+    "zoom": 9,
+    "origin_pin": {
+     "x": 0.7139,
+     "y": 0.3367,
+     "label": "델리 술탄국 파니파트 평원",
+     "evidence_level": "accepted",
+     "note": "약 29.4N 77.0E, 일반 지식 근사(웹 좌표 미확인). 정확 지점이 아닌 지역 표시(verify). 시야(약 70E 30N, zoom 9)는 카불~델리 구간 근사, FE 확인 필요"
+    }
+   },
+   "period": {
+    "as_of": "1526년",
+    "state_label": [
+     "카불의 바부르 군",
+     "델리 술탄국"
+    ],
+    "note": "1526년 시점 국호. '무굴 제국'은 사후 통칭이라 화면 라벨에 쓰지 않는다(바부르 군). 로디 왕조 델리 술탄국 영역은 근사(low)"
+   },
+   "factions": [
+    {
+     "id": "babur",
+     "name_ko": "카불의 바부르 군",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.6917,
+      "y": 0.3167
+     },
+     "evidence_level": "confirmed",
+     "note": "카불 일대 거점. 영토 윤곽은 소규모 근사(low)"
+    },
+    {
+     "id": "lodi",
+     "name_ko": "델리 술탄국",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.7222,
+      "y": 0.3472
+     },
+     "evidence_level": "confirmed",
+     "note": "로디 왕조, 당주 이브라힘 로디. 경계 low"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "npc_babur",
+     "name_ko": "바부르",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_ibrahim_lodi",
+     "name_ko": "이브라힘 로디",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_humayun",
+     "name_ko": "후마윤",
+     "role": "companion"
+    },
+    {
+     "code": "npc_mahmud_lodi",
+     "name_ko": "마흐무드 로디",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_ustad_ali_quli",
+     "name_ko": "우스타드 알리 쿨리",
+     "role": "companion"
+    },
+    {
+     "code": "npc_vikramajit_gwalior",
+     "name_ko": "비크라마지트",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_mustafa_rumi",
+     "name_ko": "무스타파 루미",
+     "role": "companion"
+    },
+    {
+     "code": "npc_hamid_khan",
+     "name_ko": "하미드 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_dawlat_khan_lodi",
+     "name_ko": "다울라트 칸 로디",
+     "role": "companion"
+    },
+    {
+     "code": "npc_hasan_khan_mewati",
+     "name_ko": "하산 칸 메와티",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_khalifa_nizam_ad_din",
+     "name_ko": "니잠 앗딘 알리 칼리파",
+     "role": "companion"
+    },
+    {
+     "code": "npc_bihar_khan_lodi",
+     "name_ko": "비하르 칸 로디",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_khwaja_kalan",
+     "name_ko": "호자 칼란",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tatar_khan_lodi",
+     "name_ko": "타타르 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_chin_timur_sultan",
+     "name_ko": "친 티무르 술탄",
+     "role": "companion"
+    },
+    {
+     "code": "npc_mustafa_farmuli",
+     "name_ko": "무스타파 파르물리",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_shah_mir_hussain",
+     "name_ko": "샤 미르 후세인",
+     "role": "companion"
+    },
+    {
+     "code": "npc_fath_khan_hardu",
+     "name_ko": "파트 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_hindu_beg",
+     "name_ko": "힌두 베그",
+     "role": "companion"
+    },
+    {
+     "code": "npc_delhi_elephant_chief",
+     "name_ko": "코끼리 부대장",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "npc_mustafa_rumi",
+     "name_ko": "무스타파 루미",
+     "role": "companion"
+    },
+    {
+     "code": "npc_dawlat_khan_lodi",
+     "name_ko": "다울라트 칸 로디",
+     "role": "companion"
+    },
+    {
+     "code": "npc_khalifa_nizam_ad_din",
+     "name_ko": "니잠 앗딘 알리 칼리파",
+     "role": "companion"
+    },
+    {
+     "code": "npc_khwaja_kalan",
+     "name_ko": "호자 칼란",
+     "role": "companion"
+    },
+    {
+     "code": "npc_shah_mir_hussain",
+     "name_ko": "샤 미르 후세인",
+     "role": "companion"
+    },
+    {
+     "code": "npc_chin_timur_sultan",
+     "name_ko": "친 티무르 술탄",
+     "role": "companion"
+    },
+    {
+     "code": "npc_hindu_beg",
+     "name_ko": "힌두 베그",
+     "role": "companion"
+    },
+    {
+     "code": "npc_mahmud_lodi",
+     "name_ko": "마흐무드 로디",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_bihar_khan_lodi",
+     "name_ko": "비하르 칸 로디",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_hamid_khan",
+     "name_ko": "하미드 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_hasan_khan_mewati",
+     "name_ko": "하산 칸 메와티",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_vikramajit_gwalior",
+     "name_ko": "비크라마지트",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_tatar_khan_lodi",
+     "name_ko": "타타르 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_mustafa_farmuli",
+     "name_ko": "무스타파 파르물리",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_fath_khan_hardu",
+     "name_ko": "파트 칸",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_delhi_elephant_chief",
+     "name_ko": "코끼리 부대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_babur",
+     "name_ko": "바부르",
+     "role": "key",
+     "leader": true,
+     "note": "캠페인 전용 NPC 코드(heroes_candidates 377행 'babur' 후보와 별개 code). 초상 portrait.babur 있음"
+    },
+    {
+     "code": "npc_ustad_ali_quli",
+     "name_ko": "우스타드 알리 쿨리",
+     "role": "companion",
+     "note": "npc_roster_shelf_ch21_22 신규(accepted). 당일 역할 verify. 초상 제작됨"
+    },
+    {
+     "code": "npc_humayun",
+     "name_ko": "후마윤",
+     "role": "companion",
+     "note": "npc_roster_shelf_ch21_22 신규(accepted). 당일 역할 verify. 초상 제작됨"
+    },
+    {
+     "code": "npc_ibrahim_lodi",
+     "name_ko": "이브라힘 로디",
+     "role": "enemy",
+     "leader": true,
+     "note": "npc_roster_shelf_ch21_22 신규(confirmed). 초상 제작됨"
+    }
+   ],
+   "heroes_pending": [],
+   "locked_reveal": "name+silhouette",
+   "evidence_level": "accepted",
+   "note": "2026-11-03 추가(preview). 기록명·부제는 문기획/사용자 확정 대기(가칭). 파니파트 1526-04-21 confirmed. 수레 방벽·화기·툴루그마 세부는 accepted/verify. 사료 병력 수치는 게임 수치와 연결하지 않는다"
+  },
+  {
+   "shelf_code": "ch23",
+   "chapter": 23,
+   "status": "active",
+   "name_ko": "헤이스팅스의 방패벽",
+   "name_provisional": true,
+   "subtitle": "10월 14일의 능선",
+   "era_label": "1066년",
+   "region_label": "잉글랜드 왕국 서식스",
+   "summary": "1066년 10월 14일, 서식스의 능선에서 노르망디의 윌리엄 군과 잉글랜드 왕 해럴드의 방패벽이 맞섰다.",
+   "summary_lines": [
+    "노르망디 공작 윌리엄은 바다를 건너 잉글랜드 남쪽 해안에 상륙한다.",
+    "해럴드는 북쪽의 적을 막고 곧장 내려와 능선 위에 방패벽을 세운다.",
+    "서고는 승자의 기록과 패자의 침묵을 나란히 놓고 읽는다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.5014,
+     "y": 0.2172
+    },
+    "zoom": 14,
+    "origin_pin": {
+     "x": 0.5014,
+     "y": 0.2172,
+     "label": "잉글랜드 왕국 서식스"
+    }
+   },
+   "period": {
+    "as_of": "1066년",
+    "state_label": [
+     "노르망디 공국",
+     "브르타뉴 공국",
+     "프랑스 지원군",
+     "잉글랜드 왕국"
+    ]
+   },
+   "factions": [
+    {
+     "id": "normandy",
+     "name_ko": "노르망디 공국",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.5003,
+      "y": 0.2205
+     }
+    },
+    {
+     "id": "brittany",
+     "name_ko": "브르타뉴 공국",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.4972,
+      "y": 0.2218
+     }
+    },
+    {
+     "id": "france_aid",
+     "name_ko": "프랑스 지원군",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.5036,
+      "y": 0.2192
+     }
+    },
+    {
+     "id": "england",
+     "name_ko": "잉글랜드 왕국",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.4985,
+      "y": 0.215
+     }
+    }
+   ],
+   "heroes": [
+    {
+     "code": "william_i",
+     "name_ko": "윌리엄 1세",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_odo_bayeux",
+     "name_ko": "오도",
+     "role": "companion"
+    },
+    {
+     "code": "npc_william_fitzosbern",
+     "name_ko": "윌리엄 피츠오스번",
+     "role": "companion"
+    },
+    {
+     "code": "npc_robert_mortain",
+     "name_ko": "로베르 드 모르탱",
+     "role": "companion"
+    },
+    {
+     "code": "npc_eustace_boulogne",
+     "name_ko": "외스타슈 2세",
+     "role": "companion"
+    },
+    {
+     "code": "npc_roger_montgomery",
+     "name_ko": "로제 드 몽고메리",
+     "role": "companion"
+    },
+    {
+     "code": "npc_william_de_warenne",
+     "name_ko": "윌리엄 드 와렌",
+     "role": "companion"
+    },
+    {
+     "code": "npc_alan_rufus",
+     "name_ko": "알랭 루프스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_walter_giffard",
+     "name_ko": "월터 지파드",
+     "role": "companion"
+    },
+    {
+     "code": "npc_geoffrey_coutances",
+     "name_ko": "조프루아 드 몽브레",
+     "role": "companion"
+    },
+    {
+     "code": "npc_harald_hardrada",
+     "name_ko": "하랄 하르드라다",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_tostig_godwinson",
+     "name_ko": "토스티그 고드윈슨",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_olaf_haraldsson",
+     "name_ko": "올라프 하랄손",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_eystein_orre",
+     "name_ko": "에이스테인 오레",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_paul_thorfinnsson",
+     "name_ko": "파울 토르핀손",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_erlend_thorfinnsson",
+     "name_ko": "에를렌드 토르핀손",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_ulf_ospaksson",
+     "name_ko": "울프 오스팍손",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_styrkar_marshal",
+     "name_ko": "스튀르카르",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_thjodolf_arnorsson",
+     "name_ko": "티오돌프 아르노르손",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_hakon_ivarsson",
+     "name_ko": "하콘 이바르손",
+     "role": "enemy"
+    }
+   ],
+   "heroes_pending": [
+    {
+     "code": "npc_harold_godwinson",
+     "name_ko": "해럴드 고드윈슨",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_gyrth_godwinson",
+     "name_ko": "거스 고드윈슨",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_edgar_atheling",
+     "name_ko": "에드가 애설링",
+     "role": "companion"
+    }
+   ],
+   "locked_reveal": "name+silhouette"
+  },
+  {
+   "shelf_code": "ch24",
+   "chapter": 24,
+   "status": "active",
+   "name_ko": "투르와 푸아티에",
+   "name_provisional": true,
+   "subtitle": "움직이지 않은 대열",
+   "era_label": "732년",
+   "region_label": "프랑크 왕국과 아키텐 공국 사이",
+   "summary": "732년 가을, 두 강이 만나는 어디쯤에서 프랑크 궁재 카를 마르텔의 대열이 안달루스 총독의 군을 맞았다.",
+   "summary_lines": [
+    "아키텐 공 외드는 안달루스의 침입에 밀려 프랑크 궁재 카를에게 도움을 청한다.",
+    "카를은 왕이 아니라 궁재다. 그의 보병은 언덕 위에서 움직이지 않는 쪽을 택한다.",
+    "전투 장소는 점이 아니라 두 강이 만나는 어디쯤으로 기록된다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.5019,
+     "y": 0.2367
+    },
+    "zoom": 14,
+    "origin_pin": {
+     "x": 0.5019,
+     "y": 0.2367,
+     "label": "프랑크 왕국과 아키텐 공국 사이"
+    }
+   },
+   "period": {
+    "as_of": "732년",
+    "state_label": [
+     "프랑크 왕국",
+     "아키텐 공국",
+     "안달루스"
+    ]
+   },
+   "factions": [
+    {
+     "id": "franks",
+     "name_ko": "프랑크 왕국",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.5024,
+      "y": 0.233
+     }
+    },
+    {
+     "id": "aquitaine",
+     "name_ko": "아키텐 공국",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.499,
+      "y": 0.241
+     }
+    },
+    {
+     "id": "andalus",
+     "name_ko": "안달루스",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.496,
+      "y": 0.247
+     }
+    }
+   ],
+   "heroes": [
+    {
+     "code": "charles_martel",
+     "name_ko": "카를 마르텔",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_abd_al_rahman_ghafiqi",
+     "name_ko": "압드 알라흐만 알가피키",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_eudes_aquitaine",
+     "name_ko": "외드",
+     "role": "companion"
+    },
+    {
+     "code": "npc_abd_al_malik_ibn_qatan",
+     "name_ko": "압드 알말리크 이븐 카탄",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_hunald_aquitaine",
+     "name_ko": "훈왈드",
+     "role": "companion"
+    },
+    {
+     "code": "npc_childebrand",
+     "name_ko": "힐데브란트",
+     "role": "companion"
+    },
+    {
+     "code": "npc_frankish_vanguard",
+     "name_ko": "전위 대장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_andalus_vanguard_captain",
+     "name_ko": "안달루스 선봉장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_frankish_phalanx_captain",
+     "name_ko": "방진 보병 대장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_arab_guard_captain",
+     "name_ko": "총독 근위대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_aquitaine_cavalry_captain",
+     "name_ko": "아키텐 기병대장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_andalus_light_cavalry_captain",
+     "name_ko": "경기병 대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_frankish_archer_captain",
+     "name_ko": "프랑크 궁병대장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_berber_infantry_captain",
+     "name_ko": "베르베르 보병 대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_frankish_baggage_guard",
+     "name_ko": "보급 호위장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_andalus_archer_captain",
+     "name_ko": "안달루스 궁병대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_frankish_scout_captain",
+     "name_ko": "프랑크 척후장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_andalus_scout_captain",
+     "name_ko": "안달루스 척후장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_andalus_quartermaster",
+     "name_ko": "수송 책임자",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_andalus_rearguard_captain",
+     "name_ko": "후위장",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "charles_martel",
+     "name_ko": "카를 마르텔",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_hunald_aquitaine",
+     "name_ko": "훈왈드",
+     "role": "companion"
+    },
+    {
+     "code": "npc_childebrand",
+     "name_ko": "힐데브란트",
+     "role": "companion"
+    },
+    {
+     "code": "npc_frankish_vanguard",
+     "name_ko": "전위 대장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_frankish_phalanx_captain",
+     "name_ko": "방진 보병 대장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_aquitaine_cavalry_captain",
+     "name_ko": "아키텐 기병대장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_frankish_archer_captain",
+     "name_ko": "프랑크 궁병대장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_frankish_baggage_guard",
+     "name_ko": "보급 호위장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_frankish_scout_captain",
+     "name_ko": "프랑크 척후장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_abd_al_malik_ibn_qatan",
+     "name_ko": "압드 알말리크 이븐 카탄",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_andalus_light_cavalry_captain",
+     "name_ko": "경기병 대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_berber_infantry_captain",
+     "name_ko": "베르베르 보병 대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_andalus_archer_captain",
+     "name_ko": "안달루스 궁병대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_andalus_scout_captain",
+     "name_ko": "안달루스 척후장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_andalus_quartermaster",
+     "name_ko": "수송 책임자",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_andalus_vanguard_captain",
+     "name_ko": "안달루스 선봉장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_arab_guard_captain",
+     "name_ko": "총독 근위대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_andalus_rearguard_captain",
+     "name_ko": "후위장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_eudes_aquitaine",
+     "name_ko": "외드",
+     "role": "companion"
+    },
+    {
+     "code": "npc_abd_al_rahman_ghafiqi",
+     "name_ko": "압드 알라흐만 알가피키",
+     "role": "enemy",
+     "leader": true
+    }
+   ],
+   "heroes_pending": [],
+   "locked_reveal": "name+silhouette"
+  },
+  {
+   "shelf_code": "ch25",
+   "chapter": 25,
+   "status": "active",
+   "name_ko": "쩐 왕조 대 몽골·원",
+   "name_provisional": true,
+   "subtitle": "비워 둔 도성",
+   "era_label": "1285~1288년",
+   "region_label": "다이비엣 북부, 홍강 유역에서 바익당강까지",
+   "modern_ref": "베트남 북부 랑선~하노이~꽝닌(바익당강) 일대(약 21N 106E). 화면에는 현대 지명을 쓰지 않는다",
+   "summary": "1285년과 1288년, 쿠빌라이의 대군이 두 번 남쪽으로 내려왔다. 쩐 왕조는 도성의 곡식과 집을 비우고 물러난 뒤, 물이 빠질 때를 기다렸다.",
+   "summary_lines": [
+    "대원의 군은 두 번 다이비엣을 쳤고, 두 번 모두 빈 도성을 얻었다.",
+    "쩐흥다오는 물러나며 시간을 벌고, 보급선을 끊고, 강바닥에 말뚝을 박는다.",
+    "서고는 비워 둔 쪽이 무엇을 기다렸는지 따라간다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.795,
+     "y": 0.3822
+    },
+    "zoom": 60,
+    "origin_pin": {
+     "x": 0.7967,
+     "y": 0.3834,
+     "label": "다이비엣 북부 바익당강 일대",
+     "evidence_level": "accepted",
+     "note": "약 21.0N 106.8E, 일반 지식 근사(웹 좌표 미확인). 정확 지점이 아닌 지역 표시(verify). 시야(약 106E 21N, zoom 60)는 FE 확인 필요"
+    }
+   },
+   "period": {
+    "as_of": "1285~1288년",
+    "state_label": [
+     "쩐 왕조(다이비엣)",
+     "대원(몽골)"
+    ],
+    "note": "당대 국호 기준. '베트남'은 쓰지 않는다. 영역 윤곽은 근사(low)"
+   },
+   "factions": [
+    {
+     "id": "dai_viet",
+     "name_ko": "쩐 왕조(다이비엣)",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.7942,
+      "y": 0.3856
+     },
+     "evidence_level": "confirmed",
+     "note": "북부 홍강 유역 중심. 경계 low"
+    },
+    {
+     "id": "yuan",
+     "name_ko": "대원(몽골)",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.7917,
+      "y": 0.3711
+     },
+     "evidence_level": "confirmed",
+     "note": "쿠빌라이 치하. 북쪽에서 내려온 원정군. 경계 low"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "tran_hung_dao",
+     "name_ko": "쩐흥다오",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_toghan",
+     "name_ko": "토간",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_tran_nhan_tong",
+     "name_ko": "쩐 녓똥",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_thanh_tong",
+     "name_ko": "쩐 타인똥",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_quang_khai",
+     "name_ko": "쩐 꽝카이",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_nhat_duat",
+     "name_ko": "쩐 녓주엇",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_khanh_du",
+     "name_ko": "쩐 칸즈",
+     "role": "companion"
+    },
+    {
+     "code": "npc_pham_ngu_lao",
+     "name_ko": "팜 응우라오",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_quoc_toan",
+     "name_ko": "쩐 꾸옥 또안",
+     "role": "companion"
+    },
+    {
+     "code": "npc_nguyen_khoai",
+     "name_ko": "응우옌 코아이",
+     "role": "companion"
+    },
+    {
+     "code": "npc_yet_kieu",
+     "name_ko": "옛끼에우",
+     "role": "companion"
+    },
+    {
+     "code": "npc_da_tuong",
+     "name_ko": "자뜨엉",
+     "role": "companion"
+    },
+    {
+     "code": "npc_dai_viet_scout_captain",
+     "name_ko": "다이비엣 척후장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_dai_viet_boat_captain",
+     "name_ko": "나루 선장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_sogetu",
+     "name_ko": "소게투",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_omar",
+     "name_ko": "오마르",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_li_heng",
+     "name_ko": "리항",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_fan_yi",
+     "name_ko": "판제",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_aoluchi",
+     "name_ko": "오로치",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_zhang_wenhu",
+     "name_ko": "장원호",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yuan_vanguard_captain",
+     "name_ko": "몽골 선봉장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yuan_garrison_captain",
+     "name_ko": "도성 수비대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yuan_patrol_captain",
+     "name_ko": "척후선단장",
+     "role": "enemy"
+    },
+    {
+     "code": "kublai_khan",
+     "name_ko": "쿠빌라이 칸",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "tran_hung_dao",
+     "name_ko": "쩐흥다오",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "npc_toghan",
+     "name_ko": "토간",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_tran_nhan_tong",
+     "name_ko": "쩐 녓똥",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_thanh_tong",
+     "name_ko": "쩐 타인똥",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_quang_khai",
+     "name_ko": "쩐 꽝카이",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_nhat_duat",
+     "name_ko": "쩐 녓주엇",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_khanh_du",
+     "name_ko": "쩐 칸즈",
+     "role": "companion"
+    },
+    {
+     "code": "npc_pham_ngu_lao",
+     "name_ko": "팜 응우라오",
+     "role": "companion"
+    },
+    {
+     "code": "npc_tran_quoc_toan",
+     "name_ko": "쩐 꾸옥 또안",
+     "role": "companion"
+    },
+    {
+     "code": "npc_nguyen_khoai",
+     "name_ko": "응우옌 코아이",
+     "role": "companion"
+    },
+    {
+     "code": "npc_yet_kieu",
+     "name_ko": "옛끼에우",
+     "role": "companion"
+    },
+    {
+     "code": "npc_da_tuong",
+     "name_ko": "자뜨엉",
+     "role": "companion"
+    },
+    {
+     "code": "npc_dai_viet_scout_captain",
+     "name_ko": "다이비엣 척후장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_dai_viet_boat_captain",
+     "name_ko": "나루 선장",
+     "role": "companion"
+    },
+    {
+     "code": "npc_sogetu",
+     "name_ko": "소게투",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_omar",
+     "name_ko": "오마르",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_li_heng",
+     "name_ko": "리항",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_fan_yi",
+     "name_ko": "판제",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_aoluchi",
+     "name_ko": "오로치",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_zhang_wenhu",
+     "name_ko": "장원호",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yuan_vanguard_captain",
+     "name_ko": "몽골 선봉장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yuan_garrison_captain",
+     "name_ko": "도성 수비대장",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_yuan_patrol_captain",
+     "name_ko": "척후선단장",
+     "role": "enemy"
+    },
+    {
+     "code": "kublai_khan",
+     "name_ko": "쿠빌라이 칸",
+     "role": "enemy"
+    }
+   ],
+   "heroes_pending": [],
+   "locked_reveal": "name+silhouette"
+  },
+  {
+   "shelf_code": "ch26",
+   "chapter": 26,
+   "status": "active",
+   "name_ko": "카이사르, 루비콘",
+   "name_provisional": true,
+   "subtitle": "던져진 것",
+   "era_label": "기원전 58~44년",
+   "region_label": "갈리아에서 루비콘을 건너 로마까지",
+   "modern_ref": "프랑스·독일 라인강 일대~이탈리아 북부 루비콘강~로마, 그리스 테살리아·스페인 남부. 화면에는 현대 지명을 쓰지 않는다",
+   "summary": "갈리아에서 여덟 해를 싸운 총독에게 원로원은 군대를 두고 홀로 돌아오라고 했다. 그는 군단과 함께 작은 강 앞에 섰다.",
+   "summary_lines": [
+    "갈리아의 강과 성채를 지나 편지 한 통이 로마로 달린다.",
+    "돌아오라는 명령과 함께 건너지 말아야 할 강이 정해졌다.",
+    "서고는 강을 건넌 사람과 끝까지 곁에 남은 사람을 따라간다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.525,
+     "y": 0.2528
+    },
+    "zoom": 10,
+    "origin_pin": {
+     "x": 0.5344,
+     "y": 0.255,
+     "label": "루비콘강 하구",
+     "evidence_level": "accepted",
+     "note": "약 44.1N 12.4E, 일반 지식 근사. 지역 표시. 시야(약 9E 44.5N, zoom 10 = 갈리아~테살리아·히스파니아 남부)는 FE 확인 필요"
+    }
+   },
+   "period": {
+    "as_of": "기원전 58~44년",
+    "state_label": [
+     "로마 공화정",
+     "갈리아 부족 연합",
+     "원로원파"
+    ],
+    "note": "당대 세력명 기준. 영역 윤곽은 근사(low)"
+   },
+   "factions": [
+    {
+     "id": "rome_caesar",
+     "name_ko": "로마 공화정(카이사르군)",
+     "side": "ally",
+     "label_pos": {
+      "x": 0.535,
+      "y": 0.2633
+     },
+     "evidence_level": "confirmed",
+     "note": "이탈리아·나르보 갈리아. 경계 low"
+    },
+    {
+     "id": "gauls",
+     "name_ko": "갈리아 부족 연합",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.5069,
+      "y": 0.2378
+     },
+     "evidence_level": "confirmed",
+     "note": "장발 갈리아. 경계 low"
+    },
+    {
+     "id": "optimates",
+     "name_ko": "원로원파(폼페이우스)",
+     "side": "enemy",
+     "label_pos": {
+      "x": 0.5622,
+      "y": 0.2789
+     },
+     "evidence_level": "confirmed",
+     "note": "기원전 48년 테살리아, 45년 히스파니아. 경계 low"
+    }
+   ],
+   "heroes": [
+    {
+     "code": "julius_caesar",
+     "name_ko": "율리우스 카이사르",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "pompey_magnus",
+     "name_ko": "폼페이우스",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_mark_antony",
+     "name_ko": "마르쿠스 안토니우스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_labienus",
+     "name_ko": "라비에누스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_curio",
+     "name_ko": "쿠리오",
+     "role": "companion"
+    },
+    {
+     "code": "npc_asinius_pollio",
+     "name_ko": "아시니우스 폴리오",
+     "role": "companion"
+    },
+    {
+     "code": "npc_marcus_brutus",
+     "name_ko": "마르쿠스 브루투스",
+     "role": "enemy"
+    },
+    {
+     "code": "vercingetorix",
+     "name_ko": "베르킨게토릭스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_ariovistus",
+     "name_ko": "아리오비스투스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_domitius_ahenobarbus",
+     "name_ko": "도미티우스 아헤노바르부스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_metellus_scipio",
+     "name_ko": "메텔루스 스키피오",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_gnaeus_pompey_younger",
+     "name_ko": "그나이우스 폼페이우스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_cassius_longinus",
+     "name_ko": "가이우스 카시우스",
+     "role": "enemy"
+    }
+   ],
+   "heroes_archive": [
+    {
+     "code": "julius_caesar",
+     "name_ko": "율리우스 카이사르",
+     "role": "key",
+     "leader": true
+    },
+    {
+     "code": "pompey_magnus",
+     "name_ko": "폼페이우스",
+     "role": "enemy",
+     "leader": true
+    },
+    {
+     "code": "npc_mark_antony",
+     "name_ko": "마르쿠스 안토니우스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_labienus",
+     "name_ko": "라비에누스",
+     "role": "companion"
+    },
+    {
+     "code": "npc_curio",
+     "name_ko": "쿠리오",
+     "role": "companion"
+    },
+    {
+     "code": "npc_asinius_pollio",
+     "name_ko": "아시니우스 폴리오",
+     "role": "companion"
+    },
+    {
+     "code": "npc_marcus_brutus",
+     "name_ko": "마르쿠스 브루투스",
+     "role": "enemy"
+    },
+    {
+     "code": "vercingetorix",
+     "name_ko": "베르킨게토릭스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_ariovistus",
+     "name_ko": "아리오비스투스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_domitius_ahenobarbus",
+     "name_ko": "도미티우스 아헤노바르부스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_metellus_scipio",
+     "name_ko": "메텔루스 스키피오",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_gnaeus_pompey_younger",
+     "name_ko": "그나이우스 폼페이우스",
+     "role": "enemy"
+    },
+    {
+     "code": "npc_cassius_longinus",
+     "name_ko": "가이우스 카시우스",
+     "role": "enemy"
+    }
+   ],
+   "heroes_pending": [],
+   "locked_reveal": "name+silhouette"
+  }
+ ],
+ "stages": [
+  {
+   "stage_code": "ch1_s1",
+   "shelf_code": "ch1",
+   "title": "옥포의 첫 승전",
+   "year_label": "1592년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "옥포 해전은 사실. 곽재우 참전은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8575,
+     "y": 0.3061
+    },
+    "place_label": "조선 경상도 거제 옥포",
+    "modern_ref": "경남 거제시 옥포만",
+    "radius": 0.0003,
+    "evidence_level": "confirmed",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_Okpo (34.8942N 128.6885E)"
+   }
+  },
+  {
+   "stage_code": "ch1_s2",
+   "shelf_code": "ch1",
+   "title": "정암진 나루",
+   "year_label": "1592년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "정암진 전투는 accepted. 이순신 참전은 각색, 맵 도하점 3곳은 연출",
+   "map": {
+    "pin": {
+     "x": 0.8563,
+     "y": 0.3037
+    },
+    "place_label": "조선 경상도 의령 정암진",
+    "modern_ref": "경남 의령군 정암리 일대, 남강·낙동강 합류부 부근(verify)",
+    "radius": 0.001,
+    "evidence_level": "verify",
+    "source": "https://en.wikipedia.org/wiki/Uiryeong_County (군 전체 35.3192N 128.2611E만 확인). 핀은 의령 정암리 일대 추정 35.33N 128.28E, 정확 지점 미확인"
+   }
+  },
+  {
+   "stage_code": "ch1_s3",
+   "shelf_code": "ch1",
+   "title": "한산도, 학의 날개",
+   "year_label": "1592년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "한산도 대첩은 사실. 곽재우 참전은 각색. 전투 해역은 한산도 앞바다(견내량 유인)",
+   "map": {
+    "pin": {
+     "x": 0.857,
+     "y": 0.3069
+    },
+    "place_label": "조선 경상도 한산도 해역",
+    "modern_ref": "경남 통영 한산도 앞바다(견내량 유인). 통제영은 1593년 설치라 1592년 표기에서 제외",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_Hansan_Island (34.7622N 128.5025E, 한산도 동쪽 해안). 유인 출발지 견내량은 북쪽 약 수 km"
+   }
+  },
+  {
+   "stage_code": "ch1_s4",
+   "shelf_code": "ch1",
+   "title": "진주성의 엿새",
+   "year_label": "1592년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "진주성 전투는 사실. 이순신 참전은 각색, 엿새를 8턴으로 압축",
+   "map": {
+    "pin": {
+     "x": 0.8558,
+     "y": 0.3045
+    },
+    "place_label": "조선 경상도 진주목 진주성",
+    "modern_ref": "경남 진주시 진주성",
+    "radius": 0.0003,
+    "evidence_level": "confirmed",
+    "source": "https://en.wikipedia.org/wiki/Siege_of_Jinju_(1592) (35.189N 128.077E)"
+   }
+  },
+  {
+   "stage_code": "ch1_s5",
+   "shelf_code": "ch1",
+   "title": "평양성 탈환",
+   "year_label": "1593년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "평양성 전투는 사실. 이순신·곽재우 참전은 각색, 유정 참전 verify",
+   "map": {
+    "pin": {
+     "x": 0.8493,
+     "y": 0.2832
+    },
+    "place_label": "조선 평안도 평양부 평양성",
+    "modern_ref": "대동강변 평양시(조선·명 연합군 대 일본군)",
+    "radius": 0.0008,
+    "evidence_level": "verify",
+    "source": "위키 해당 문서에 좌표 없음. 도시 중심 39.02N 125.74E는 일반 지식 기반이라 지도 자료로 재확인 필요. 성곽 위치 자체는 대동강변 평양성"
+   }
+  },
+  {
+   "stage_code": "ch1_s6",
+   "shelf_code": "ch1",
+   "title": "행주산성",
+   "year_label": "1593년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "행주대첩은 사실. 이순신·곽재우 참전은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8523,
+     "y": 0.2911
+    },
+    "place_label": "조선 경기 고양 행주산성",
+    "modern_ref": "경기도 고양시 덕양구 한강변 행주산성",
+    "radius": 0.0003,
+    "evidence_level": "confirmed",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_Haengju (37.5956N 126.8289E)"
+   }
+  },
+  {
+   "stage_code": "ch1_s7",
+   "shelf_code": "ch1",
+   "title": "노량, 마지막 바다",
+   "year_label": "1598년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "노량 해전은 사실. 곽재우 참전은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8552,
+     "y": 0.3059
+    },
+    "place_label": "조선 경상도 노량 해협",
+    "modern_ref": "경남 남해도 북쪽 노량 해협(조선·명 수군 연합)",
+    "radius": 0.0004,
+    "evidence_level": "confirmed",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_Noryang (34.9453N 127.8764E)"
+   }
+  },
+  {
+   "stage_code": "ch1_s8",
+   "shelf_code": "ch1",
+   "title": "번진 기록",
+   "year_label": null,
+   "virtual": true,
+   "adapted": true,
+   "adapted_note": "전부 허구 장면. 실존 사건 없음",
+   "map": {
+    "pin": null,
+    "place_label": "시간의 서고",
+    "radius": null,
+    "evidence_level": "invented",
+    "source": "campaign_ch1_outline.json fiction_note. 지도에는 서고 허브 아이콘 또는 직전 스테이지(s7) 핀에서 서고 연결선으로 표시"
+   }
+  },
+  {
+   "stage_code": "ch1_s9",
+   "shelf_code": "ch1",
+   "title": "1597, 물살 앞에서",
+   "year_label": "1597년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "명량 해전은 사실. 곽재우·주인공 참전은 각색. 서고 속 순서는 노량 뒤",
+   "map": {
+    "pin": {
+     "x": 0.8509,
+     "y": 0.308
+    },
+    "place_label": "조선 전라도 명량(울돌목)",
+    "modern_ref": "전남 진도 북쪽 명량 해협(1597년)",
+    "radius": 0.0003,
+    "evidence_level": "confirmed",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_Myeongnyang (34.5683N 126.3078E)"
+   }
+  },
+  {
+   "stage_code": "ch1_s10",
+   "shelf_code": "ch1",
+   "title": "마지막 기록",
+   "year_label": null,
+   "virtual": true,
+   "adapted": true,
+   "adapted_note": "전부 허구 결말. 실존 사건 없음",
+   "map": {
+    "pin": null,
+    "place_label": "시간의 서고",
+    "radius": null,
+    "evidence_level": "invented",
+    "source": "campaign_ch1_outline.json fiction_note. s8과 동일하게 서고 허브 표시"
+   }
+  },
+  {
+   "stage_code": "ch18_s1",
+   "shelf_code": "ch18",
+   "title": "오논 강가의 쿠릴타이",
+   "year_label": "1206년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "1206년 봄 오논 강 쿠릴타이와 칭기즈 칸 칭호는 사실. 쿠릴타이를 앞둔 잔당 습격 전투는 각색(invented)",
+   "map": {
+    "pin": {
+     "x": 0.8,
+     "y": 0.2333
+    },
+    "place_label": "몽골 제국 오논 강 상류",
+    "modern_ref": "몽골국 동북부 헨티 산지 오논 강 상류(약 48N 108E)",
+    "radius": 0.003,
+    "evidence_level": "accepted",
+    "source": "SHELF_MAP_META_SPEC.md 부록 A(1206 오논 강 쿠릴타이, 웹 대조 일치). 좌표는 기록 origin_pin과 같은 일반 지식 근사(웹 좌표 미확인)라 정확 지점이 아닌 지역 표시. 반경을 넓게 둠(약 100km)"
+   }
+  },
+  {
+   "stage_code": "ch18_s2",
+   "shelf_code": "ch18",
+   "title": "하서의 문",
+   "year_label": "1209~1210년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "서하 원정(1209 침공, 1210년 1월 서하 황제 항복)은 개요 사실. 전투 지점·서하 지휘관·제베 참전은 각색/verify. 맵은 산악 통로 연출",
+   "map": {
+    "pin": {
+     "x": 0.7951,
+     "y": 0.2862
+    },
+    "place_label": "서하 수도 부근 황하 상류 평원",
+    "modern_ref": "닝샤 인촨(옛 서하 수도 일대) 약 38.5N 106.2E. 오라해(Wulahai, 우하이 부근) 관문 약 39.7N 106.8E는 전 단계 접전지",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "https://en.wikipedia.org/wiki/Mongol_conquest_of_Western_Xia (2026-11-02 열람: 1209 오라해 격파 후 수도 인촨 일대 도달, 1210년 1월 항복). 핀은 수도 일대 도시 좌표(일반 지식 약 38.49N 106.23E)로 스테이지 접전지를 특정하지 않음. 서하 수도 당대 명칭(흥경부/중흥부)은 verify"
+   }
+  },
+  {
+   "stage_code": "ch18_s3",
+   "shelf_code": "ch18",
+   "title": "야호령의 바람",
+   "year_label": "1211년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "야호령 전투 연도 1211/1212 이설(1212년설 verify, 표시 연도는 1211년). 참전 지휘관(칭기즈 칸·무칼리) verify. 금 지휘관 실명 비표기",
+   "map": {
+    "pin": {
+     "x": 0.8187,
+     "y": 0.2716
+    },
+    "place_label": "금 북변 야호령 부근",
+    "modern_ref": "허베이성 장자커우시 완취안구 북서쪽(약 41.10N 114.72E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_Yehuling (infobox 41.1037N 114.717E, 2026-11-02 열람). 전투 정확 지점은 학설 있어 accepted, 연도 1211년(infobox) vs 1211~1212 서술은 verify"
+   }
+  },
+  {
+   "stage_code": "ch18_s4",
+   "shelf_code": "ch18",
+   "title": "서요를 넘어",
+   "year_label": "1218년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "제베의 카라키타이 원정(1218)은 사실, 칭기즈 칸은 불참. 시작 시점 이설(1216년설 verify, 표시 연도는 1218년). 쿠출루크의 최후는 서술하지 않음",
+   "map": {
+    "pin": {
+     "x": 0.7111,
+     "y": 0.2807
+    },
+    "place_label": "서요 서부 카슈가르 방면",
+    "modern_ref": "신장 카슈가르 일대(약 39.5N 76.0E). 서요 옛 중심 발라사군(키르기스스탄 부라나 일대, 약 42.8N 75.3E)과 사이 지역",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "https://en.wikipedia.org/wiki/Jebe (2026-11-02 열람: 1218 카라키타이 정복·쿠출루크 추격은 확인되나 구체 지명은 해당 문서에 없음). 카슈가르 핀은 일반 지식 근사이며 전투 지점이 아닌 작전 지역 표시. 반경 약 150km"
+   }
+  },
+  {
+   "stage_code": "ch18_s5",
+   "shelf_code": "ch18",
+   "title": "시르다리야",
+   "year_label": "1219~1220년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "호라즘 원정 개시(1219)와 시르다리야 방면 진군은 개요 사실. 구체 전장·도하 지점은 verify, 도시 함락은 주제 아님. 병종 구성은 각색",
+   "map": {
+    "pin": {
+     "x": 0.6897,
+     "y": 0.2619
+    },
+    "place_label": "호라즘 제국 동북 변경 시르다리야 중류",
+    "modern_ref": "카자흐스탄 남부 시르다리야 중류(오트라르 부근, 약 42.85N 68.3E)",
+    "radius": 0.005,
+    "evidence_level": "verify",
+    "source": "https://en.wikipedia.org/wiki/Mongol_invasion_of_Khwarazmia (2026-11-02 열람: 1219년 침공, 차가타이·오고타이 부대가 오트라르 방면으로 진군, 칭기즈 칸 본대는 시르다리야 도시들을 우회). 핀은 시르다리야 중류 일대 대략 위치(일반 지식 근사), 도하 지점은 문헌 미확인. 반경 약 180km"
+   }
+  },
+  {
+   "stage_code": "ch18_s6",
+   "shelf_code": "ch18",
+   "title": "인더스 강가",
+   "year_label": "1221년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "인더스 강 전투(1221년 11월 24일로 전함)는 개요 사실. 잘랄 앗딘의 강 도하 탈출 세부는 verify, 사망을 단정하지 않음",
+   "map": {
+    "pin": {
+     "x": 0.7005,
+     "y": 0.3124
+    },
+    "place_label": "인더스 강 상류 연안",
+    "modern_ref": "파키스탄 북부 인더스 강 상류, 아톡 부근(약 33.77N 72.18E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_the_Indus (infobox 33.77N 72.18E, 1221-11-24, 2026-11-02 열람). 정확 도하 지점은 문서에 특정되지 않아 accepted. 당대 이 지역 정치 단위는 단순 표기 곤란해 국가 라벨 생략"
+   }
+  },
+  {
+   "stage_code": "ch18_s7",
+   "shelf_code": "ch18",
+   "title": "칼카 강의 초원",
+   "year_label": "1223년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "칼카 강 전투(1223년 5월 31일로 전함, 제베·수부타이 지휘, 칭기즈 칸 불참)는 사실. 루스 후속 공후대 증원은 각색",
+   "map": {
+    "pin": {
+     "x": 0.6042,
+     "y": 0.2375
+    },
+    "place_label": "킵차크 초원 칼카 강",
+    "modern_ref": "우크라이나 도네츠크주 칼카(칼미우스) 강 일대(약 47.25N 37.50E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_the_Kalka_River (infobox 47.2508N 37.4956E, 1223-05-31, 2026-11-02 열람). 전투 정확 지점과 강 비정은 학설 차가 있어 accepted"
+   }
+  },
+  {
+   "stage_code": "ch18_s8",
+   "shelf_code": "ch18",
+   "title": "마지막 원정길",
+   "year_label": "1226~1227년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "서하 최종 원정(1225~1227)은 사실. 사망 경위는 이설이라 단정하지 않고 '1227년 원정 중 사망'까지만 서술. 서하 지휘관 실명 비표기",
+   "map": {
+    "pin": {
+     "x": 0.7851,
+     "y": 0.2893
+    },
+    "place_label": "서하 하서 양주 일대",
+    "modern_ref": "간쑤성 우웨이(옛 양주, 약 37.9N 102.6E) 일대. 하서 회랑",
+    "radius": 0.003,
+    "evidence_level": "accepted",
+    "source": "https://en.wikipedia.org/wiki/Mongol_conquest_of_Western_Xia (2026-11-02 열람: 1225~1227 2차 원정에서 카라호토·숙주·감주·양주(량저우)·영무 등을 거침). 핀은 하서 회랑 양주 일대 작전 지역 표시(일반 지식 좌표 근사)이며 칭기즈 칸의 사망지를 가리키지 않음(사망지는 이설, verify). 반경 약 110km"
+   }
+  },
+  {
+   "stage_code": "ch21_s4",
+   "shelf_code": "ch21",
+   "title": "레그니차의 연기",
+   "year_label": "1241년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "레그니차 1241-04-09(confirmed), 바이다르·카단 참전 accepted. 중장기병(기사단)=heavy, 폴란드·크라쿠프 기사=cavalry, 석궁=archer로 각색. 연막은 시야 제한 없는 연출. 튜턴 기사단 분견대 참전은 verify라 지휘관 익명",
+   "map": {
+    "pin": {
+     "x": 0.545,
+     "y": 0.2156
+    },
+    "place_label": "실레지아 공국 레그니차 평원",
+    "modern_ref": "폴란드 남서부 레그니츠키에 폴레(약 51.15N 16.27E). 기록 핀은 51.2N 16.2E",
+    "radius": 0.003,
+    "evidence_level": "accepted",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_Legnica (일자 1241-04-09 confirmed). 핀 좌표(51.2N 16.2E)는 일반 지식 근사이며 웹 좌표 미확인(verify). 정확 전장 지점이 아닌 지역 표시"
+   }
+  },
+  {
+   "stage_code": "ch21_s5",
+   "shelf_code": "ch21",
+   "title": "사요강의 새벽",
+   "year_label": "1241년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "모히 1241-04-11과 다리 돌파·상류 우회 도하 accepted(전개 세부 verify). 투석기 사용 verify. 벨러 4세 이름 미사용(일반 지휘관). 수부타이 합류는 cue spawn 각색",
+   "map": {
+    "pin": {
+     "x": 0.5583,
+     "y": 0.2333
+    },
+    "place_label": "헝가리 왕국 사요강 하류 모히 평원",
+    "modern_ref": "헝가리 북동부 사요강 일대(약 48N 21E, verify)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "https://en.wikipedia.org/wiki/Battle_of_Mohi (일자 1241-04-11). 핀 좌표(약 48N 21E)는 근사이며 웹 대조 필요(verify). 선택 스테이지"
+   }
+  },
+  {
+   "stage_code": "ch22_s5",
+   "shelf_code": "ch22",
+   "title": "파니파트의 수레벽",
+   "year_label": "1526년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "파니파트 1526-04-21 confirmed. 수레 방벽·총병·기병 출격 틈·툴루그마 accepted(세부 verify). 화기=archer, 코끼리=heavy 병종 각색. 로디 최후는 연출하지 않음. 진영 표기는 바부르 군",
+   "map": {
+    "pin": {
+     "x": 0.7139,
+     "y": 0.3367
+    },
+    "place_label": "델리 술탄국 파니파트 평원",
+    "modern_ref": "인도 하리아나주 파니파트(약 29.39N 76.97E)",
+    "radius": 0.003,
+    "evidence_level": "accepted",
+    "source": "https://en.wikipedia.org/wiki/First_Battle_of_Panipat (일자 1526-04-21 confirmed). 핀 좌표(29.4N 77.0E)는 일반 지식 근사이며 웹 좌표 미확인(verify). 정확 전장 지점이 아닌 지역 표시"
+   }
+  },
+  {
+   "stage_code": "ch11_s1",
+   "shelf_code": "ch11",
+   "title": "담판 길",
+   "year_label": "993년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "993년 소손녕 침입과 서희 담판은 사실. 수행 사자(주인공)·호송 전투는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8485,
+     "y": 0.2786
+    },
+    "place_label": "고려 서북계 봉산군 일대",
+    "modern_ref": "평안북도 청천강 북안(약 39.85N 125.45E). 소손녕 진영 봉산군 정확 위치 미확정",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "서희 담판(993)이 소손녕 진영에서 열린 것은 사실이나 진영 정확 지점은 학설 차. 청천강 이북 통설 지역으로 표시(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch11_s2",
+   "shelf_code": "ch11",
+   "title": "안융진",
+   "year_label": "993년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "안융진 방어(993, 중랑장 대도수 등)는 사실. 전투 편성은 각색",
+   "map": {
+    "pin": {
+     "x": 0.849,
+     "y": 0.2799
+    },
+    "place_label": "고려 서북계 안융진",
+    "modern_ref": "평안남도 안주 일대(약 39.62N 125.65E)",
+    "radius": 0.0012,
+    "evidence_level": "accepted",
+    "source": "안융진=청천강 하류 안주 부근이 통설. 일반 지식 근사, 웹 좌표 미확인"
+   }
+  },
+  {
+   "stage_code": "ch11_s3",
+   "shelf_code": "ch11",
+   "title": "흥화진",
+   "year_label": "1018년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "1018년 12월 흥화진 방어(강조 등)와 소배압 군 압록강 도하는 사실. 쇠가죽 둑(수공) 서술은 1019년 첫 침입 일화와 겹쳐 연출 가능성 verify",
+   "map": {
+    "pin": {
+     "x": 0.8459,
+     "y": 0.2767
+    },
+    "place_label": "고려 서북계 흥화진",
+    "modern_ref": "평안북도 의주 일대 압록강 남안(약 40.20N 124.54E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "흥화진=의주 일대 통설. 서가 ch11 원점 핀과 동일(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch11_s4",
+   "shelf_code": "ch11",
+   "title": "귀주",
+   "year_label": "1019년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "귀주대첩(1019년 2월)은 사실. 고려군 편성과 바람 연출은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8479,
+     "y": 0.2776
+    },
+    "place_label": "고려 서북계 귀주",
+    "modern_ref": "평안북도 구성시(약 40.03N 125.25E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "귀주=구성 일대가 통설. 정확 전장은 귀주성 인근 평야로 전함(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch11_s5",
+   "shelf_code": "ch11",
+   "title": "통주 방어",
+   "year_label": "1010년 11월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "1010년 거란 2차 침입 중 양규의 통주 전투는 사실(일자 verify). 전투 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8469,
+     "y": 0.2789
+    },
+    "place_label": "고려 서북계 통주",
+    "modern_ref": "평안북도 선천 일대(약 39.80N 124.90E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "통주=선천 일대 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch11_s6",
+   "shelf_code": "ch11",
+   "title": "곽주 탈환",
+   "year_label": "1011년 1월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "양규의 곽주 탈환(1011년 1월 초)은 사실. 전투 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8475,
+     "y": 0.2783
+    },
+    "place_label": "고려 서북계 곽주",
+    "modern_ref": "평안북도 곽산 일대(약 39.90N 125.10E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "곽주=곽산 일대 통설. 좌표는 일반 지식 근사로 소폭 오차 가능"
+   }
+  },
+  {
+   "stage_code": "ch11_s7",
+   "shelf_code": "ch11",
+   "title": "무로대 포로 구출",
+   "year_label": "1011년 1월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "양규의 무로대 전투(포로 수천을 구출했다고 전함)는 사실. 수치·세부는 verify",
+   "map": {
+    "pin": {
+     "x": 0.8482,
+     "y": 0.2792
+    },
+    "place_label": "고려 서북계 무로대",
+    "modern_ref": "청천강 이북 평안북도 일대(약 39.75N 125.35E). 무로대 정확 위치 미확정",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "무로대(無老代) 위치는 학설 불명. 곽주~청천강 사이 통설 지역으로 표시"
+   }
+  },
+  {
+   "stage_code": "ch11_s8",
+   "shelf_code": "ch11",
+   "title": "이수 퇴로 습격",
+   "year_label": "1011년 1월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "양규의 이수·석령 등 퇴로 습격은 사실. 지명 비정은 verify",
+   "map": {
+    "pin": {
+     "x": 0.8481,
+     "y": 0.2772
+    },
+    "place_label": "고려 서북계 이수 일대",
+    "modern_ref": "압록강 이남 평안북도 북부(약 40.10N 125.30E). 이수 정확 위치 미확정",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "이수(梨樹) 위치 학설 불명. 압록강 방면 퇴로 통설 지역으로 표시"
+   }
+  },
+  {
+   "stage_code": "ch11_s9",
+   "shelf_code": "ch11",
+   "title": "자주 전투",
+   "year_label": "1019년 2월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "귀주 직전 자주(내구산) 전투는 사실. 병력·세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8493,
+     "y": 0.2803
+    },
+    "place_label": "고려 서북계 자주",
+    "modern_ref": "평안남도 자산 일대(약 39.55N 125.75E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "자주=자산 일대 통설. 일반 지식 근사, 소폭 오차 가능"
+   }
+  },
+  {
+   "stage_code": "ch11_s10",
+   "shelf_code": "ch11",
+   "title": "마탄 도하 추격",
+   "year_label": "1019년 2월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "마탄(馬灘)에서 퇴각하는 거란군을 추격한 일은 사실. 도하 연출은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8501,
+     "y": 0.2797
+    },
+    "place_label": "고려 서북계 마탄",
+    "modern_ref": "평안남도 청천강 중하류(약 39.65N 126.05E). 마탄 정확 위치 미확정",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "마탄 위치는 청천강 연안 비정이 통설이나 확정 불가"
+   }
+  },
+  {
+   "stage_code": "ch12_s1",
+   "shelf_code": "ch12",
+   "title": "하구 합류",
+   "year_label": "208년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "유비가 장판파 패전 후 하구(유기)에서 합류한 일은 사실. 편성은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8174,
+     "y": 0.3301
+    },
+    "place_label": "후한 형주 강하군 하구",
+    "modern_ref": "후베이성 우한 한커우 일대(약 30.58N 114.28E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "하구(夏口)=한수 입구 한커우 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch12_s2",
+   "shelf_code": "ch12",
+   "title": "장강 첫 교전",
+   "year_label": "208년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "적벽에서 조조 선봉과 주유 수군의 첫 교전은 사실(삼국지 오서). 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8166,
+     "y": 0.3346
+    },
+    "place_label": "후한 형주 장강 적벽",
+    "modern_ref": "후베이성 츠비시 일대(약 29.78N 113.98E). 적벽 위치 이설 있음",
+    "radius": 0.001,
+    "evidence_level": "verify",
+    "source": "적벽 위치는 푸치(츠비) 설을 통설로 채택, 황저우·우한 설은 이설. 일반 지식 근사"
+   }
+  },
+  {
+   "stage_code": "ch12_s3",
+   "shelf_code": "ch12",
+   "title": "화공",
+   "year_label": "208년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "황개의 화공과 적벽대전은 사실. 연환계·동남풍은 연의 요소",
+   "map": {
+    "pin": {
+     "x": 0.8163,
+     "y": 0.3349
+    },
+    "place_label": "후한 형주 장강 적벽",
+    "modern_ref": "후베이성 츠비시 적벽산 일대(약 29.72N 113.85E)",
+    "radius": 0.001,
+    "evidence_level": "verify",
+    "source": "적벽 통설 위치(츠비 설). 이설 있음, 일반 지식 근사"
+   }
+  },
+  {
+   "stage_code": "ch12_s4",
+   "shelf_code": "ch12",
+   "title": "이릉 포위 해소",
+   "year_label": "208년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "감녕의 이릉 고립과 주유의 구원은 사실이나 연도는 209년으로 전함(표시 연도 208년과 차이, verify)",
+   "map": {
+    "pin": {
+     "x": 0.8092,
+     "y": 0.3294
+    },
+    "place_label": "후한 형주 남군 이릉",
+    "modern_ref": "후베이성 이창시(약 30.7N 111.3E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "이릉=이창 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch12_s5",
+   "shelf_code": "ch12",
+   "title": "장판파 호위",
+   "year_label": "208년 가을",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "장판파 전투(조운·장비의 유비 일행 호위)는 사실. 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8105,
+     "y": 0.3287
+    },
+    "place_label": "후한 형주 남군 당양 장판",
+    "modern_ref": "후베이성 당양시(약 30.83N 111.78E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "장판=당양 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch12_s6",
+   "shelf_code": "ch12",
+   "title": "강하 구원",
+   "year_label": "208년 겨울",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "적벽 이후 강하군 방면 공방은 사실 골격. 구체 교전은 각색/verify",
+   "map": {
+    "pin": {
+     "x": 0.8177,
+     "y": 0.3308
+    },
+    "place_label": "후한 형주 강하군 사현",
+    "modern_ref": "후베이성 우한 우창 일대(약 30.45N 114.38E)",
+    "radius": 0.001,
+    "evidence_level": "verify",
+    "source": "강하군 치소(사현) 비정은 우창 일대 통설이나 시기별로 이동. 일반 지식 근사"
+   }
+  },
+  {
+   "stage_code": "ch12_s7",
+   "shelf_code": "ch12",
+   "title": "오림 추격",
+   "year_label": "208년 겨울",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "조조군이 오림 방면으로 퇴각하며 손유 연합이 추격한 일은 사실. 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8153,
+     "y": 0.3339
+    },
+    "place_label": "후한 형주 오림",
+    "modern_ref": "후베이성 훙후시 오림진 일대(약 29.90N 113.50E)",
+    "radius": 0.0012,
+    "evidence_level": "verify",
+    "source": "오림 위치는 장강 북안, 홍호 일대 통설. 이설 있음"
+   }
+  },
+  {
+   "stage_code": "ch12_s8",
+   "shelf_code": "ch12",
+   "title": "화용도 퇴로",
+   "year_label": "208년 겨울",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "조조가 화용 길 진창을 건너 퇴각했다는 기록은 있으나 관우의 길목 대치는 연의 요소",
+   "map": {
+    "pin": {
+     "x": 0.8133,
+     "y": 0.3322
+    },
+    "place_label": "후한 형주 남군 화용",
+    "modern_ref": "후베이성 첸장·젠리 일대(약 30.2N 112.8E). 화용현 정확 위치 verify",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "삼국지 무제기 주(산양공재기) 화용 길 퇴각 기록. 한대 화용현 위치는 학설 차"
+   }
+  },
+  {
+   "stage_code": "ch12_s9",
+   "shelf_code": "ch12",
+   "title": "남군 쟁탈",
+   "year_label": "209년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "주유와 조인의 강릉(남군) 공방(208~209)은 사실. 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8117,
+     "y": 0.3314
+    },
+    "place_label": "후한 형주 남군 강릉",
+    "modern_ref": "후베이성 징저우 강릉(약 30.35N 112.2E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "남군 치소 강릉=징저우 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch12_s10",
+   "shelf_code": "ch12",
+   "title": "유수구",
+   "year_label": "213년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "213년 조조와 손권의 유수구 대치는 사실. 편성은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8276,
+     "y": 0.3243
+    },
+    "place_label": "후한 양주 유수구",
+    "modern_ref": "안후이성 차오후 인근 한산·우웨이 일대(약 31.62N 117.95E)",
+    "radius": 0.0012,
+    "evidence_level": "accepted",
+    "source": "유수구=소호 하구 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch13_s1",
+   "shelf_code": "ch13",
+   "title": "탄현 행군",
+   "year_label": "660년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "신라군이 탄현을 넘어 백제로 진군한 일은 사실. 편성은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8542,
+     "y": 0.2989
+    },
+    "place_label": "백제 탄현",
+    "modern_ref": "충청 대전~금산 사이 고개(약 36.20N 127.50E). 탄현 정확 위치 미확정",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "탄현 비정은 대전 마도령·금산 등 설이 갈림. 중간 지점 통설 지역으로 표시"
+   }
+  },
+  {
+   "stage_code": "ch13_s2",
+   "shelf_code": "ch13",
+   "title": "황산벌",
+   "year_label": "660년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "황산벌 전투(계백과 김유신)는 사실. 편성은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8531,
+     "y": 0.2989
+    },
+    "place_label": "백제 황산벌",
+    "modern_ref": "충청남도 논산시 연산면 일대(약 36.20N 127.10E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "황산벌=논산 연산 일대 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch13_s3",
+   "shelf_code": "ch13",
+   "title": "사비성",
+   "year_label": "660년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사비성 함락 전후 전투(660년 7월)는 사실. 학살 묘사는 주제로 삼지 않음",
+   "map": {
+    "pin": {
+     "x": 0.8525,
+     "y": 0.2984
+    },
+    "place_label": "백제 사비성",
+    "modern_ref": "충청남도 부여(약 36.28N 126.91E)",
+    "radius": 0.0008,
+    "evidence_level": "confirmed",
+    "source": "사비성=부여 부소산성 일대(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch13_s4",
+   "shelf_code": "ch13",
+   "title": "기벌포 상륙",
+   "year_label": "660년 7월 초",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "소정방의 당 수군 기벌포 상륙·백제군 격파는 사실",
+   "map": {
+    "pin": {
+     "x": 0.8521,
+     "y": 0.3
+    },
+    "place_label": "백제 기벌포",
+    "modern_ref": "금강 하구 장항·서천 일대(약 36.00N 126.75E)",
+    "radius": 0.0012,
+    "evidence_level": "accepted",
+    "source": "기벌포=금강 하구 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch13_s5",
+   "shelf_code": "ch13",
+   "title": "황산벌 전초전",
+   "year_label": "660년 7월 초",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "황산벌 접근 단계 교전(계백의 세 진영)은 전승. 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8529,
+     "y": 0.2991
+    },
+    "place_label": "백제 황산벌 외곽",
+    "modern_ref": "충청남도 논산시 연산면 일대(약 36.17N 127.05E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "황산벌 통설 지역 내 소폭 오프셋"
+   }
+  },
+  {
+   "stage_code": "ch13_s6",
+   "shelf_code": "ch13",
+   "title": "웅진성 포위",
+   "year_label": "660년 7월 13일",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "의자왕의 웅진성 피신과 항복(7월 18일)은 사실. 포위전 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8531,
+     "y": 0.2974
+    },
+    "place_label": "백제 웅진성",
+    "modern_ref": "충청남도 공주 공산성(약 36.46N 127.12E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "웅진성=공주 공산성(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch13_s7",
+   "shelf_code": "ch13",
+   "title": "임존성 공방",
+   "year_label": "661년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "흑치상지·지수신의 임존성 부흥군과 당·신라군 공방은 사실. 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8522,
+     "y": 0.2966
+    },
+    "place_label": "백제 임존성",
+    "modern_ref": "충청남도 예산군 대흥면 봉수산성(약 36.62N 126.78E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "임존성=예산 봉수산성 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch13_s8",
+   "shelf_code": "ch13",
+   "title": "두량윤성",
+   "year_label": "661년 봄",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "661년 봄 두량윤성 전투(신라군 패배 후 승리 전승)는 사실 골격. 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8524,
+     "y": 0.3024
+    },
+    "place_label": "백제 두량윤성",
+    "modern_ref": "전라북도 정읍 일대 추정(약 35.57N 126.86E). 정확 위치 미확정",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "두량윤성 위치는 정읍 설 등 학설 갈림. 통설 지역으로 표시"
+   }
+  },
+  {
+   "stage_code": "ch13_s9",
+   "shelf_code": "ch13",
+   "title": "주류성 포위",
+   "year_label": "663년 8월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "663년 백제 부흥군의 주류성 포위·함락 전후는 사실. 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8522,
+     "y": 0.2996
+    },
+    "place_label": "백제 주류성",
+    "modern_ref": "충청남도 서천 한산 건지산성 추정(약 36.08N 126.80E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "주류성 위치는 한산 건지산성 설과 부안 위금암산성 설이 갈림. 한산 설 채택"
+   }
+  },
+  {
+   "stage_code": "ch13_s10",
+   "shelf_code": "ch13",
+   "title": "백강 해전",
+   "year_label": "663년 8월 27일",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "백강 전투(당 수군 대 왜·백제 연합)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.8515,
+     "y": 0.3001
+    },
+    "place_label": "백제 백강 하구",
+    "modern_ref": "금강 하구 일대(약 35.98N 126.55E)",
+    "radius": 0.0015,
+    "evidence_level": "accepted",
+    "source": "백강(백촌강)=금강 하류 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch14_s1",
+   "shelf_code": "ch14",
+   "title": "청야",
+   "year_label": "612년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "고구려의 청야 전술과 수군의 요하 도하는 사실 골격. 구체 전투는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8399,
+     "y": 0.2692
+    },
+    "place_label": "고구려 요수 도하 지점",
+    "modern_ref": "요하 중류 서안(약 41.55N 122.35E). 도하 정확 지점 미확정",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "수군의 요수 도하·요동성 포위(612)는 사실이나 도하 지점 학설 차. 요하 통설 구간으로 표시"
+   }
+  },
+  {
+   "stage_code": "ch14_s2",
+   "shelf_code": "ch14",
+   "title": "적진 정탐",
+   "year_label": "612년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "을지문덕이 거짓 항복으로 수군 진영을 정탐한 일은 사실(삼국사기). 위치는 압록강 서안 일대로 전함",
+   "map": {
+    "pin": {
+     "x": 0.8446,
+     "y": 0.2753
+    },
+    "place_label": "고구려 오골성 방면 압록강 서안",
+    "modern_ref": "랴오닝성 단둥·펑청 일대(약 40.45N 124.05E)",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "수군 진영의 정확 위치는 문헌에 없음. 압록강 서안 통설 지역으로 표시"
+   }
+  },
+  {
+   "stage_code": "ch14_s3",
+   "shelf_code": "ch14",
+   "title": "평양 가는 길",
+   "year_label": "612년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "우중문·우문술 군이 평양 30리 부근까지 진군한 일은 사실",
+   "map": {
+    "pin": {
+     "x": 0.8493,
+     "y": 0.2825
+    },
+    "place_label": "고구려 평양성 외곽",
+    "modern_ref": "평양시 북방 대동강 일대(약 39.15N 125.75E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "평양성(당시 장안성 이전, 현 평양 일대) 외곽 진군. 정확 도달 지점은 불명"
+   }
+  },
+  {
+   "stage_code": "ch14_s4",
+   "shelf_code": "ch14",
+   "title": "살수",
+   "year_label": "612년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "살수대첩(을지문덕)은 사실. 물막이 수공은 전승이라 verify",
+   "map": {
+    "pin": {
+     "x": 0.8494,
+     "y": 0.2797
+    },
+    "place_label": "고구려 살수(청천강)",
+    "modern_ref": "청천강 중하류(약 39.65N 125.80E). 살수=청천강 비정",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "살수=청천강 비정이 통설이나 도하 지점은 학설 차"
+   }
+  },
+  {
+   "stage_code": "ch14_s5",
+   "shelf_code": "ch14",
+   "title": "요동성 방어",
+   "year_label": "612년 여름",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "수군의 요동성 포위와 고구려의 방어(612)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.8421,
+     "y": 0.2707
+    },
+    "place_label": "고구려 요동성",
+    "modern_ref": "랴오닝성 랴오양(약 41.27N 123.17E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "요동성=랴오양 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch14_s6",
+   "shelf_code": "ch14",
+   "title": "신성 방어",
+   "year_label": "612년 여름",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "수군의 신성 공격과 고구려의 방어는 사실 골격",
+   "map": {
+    "pin": {
+     "x": 0.8443,
+     "y": 0.2673
+    },
+    "place_label": "고구려 신성",
+    "modern_ref": "랴오닝성 푸순 고이산성 일대(약 41.88N 123.95E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "신성=푸순 고이산성 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch14_s7",
+   "shelf_code": "ch14",
+   "title": "평양 수군 매복",
+   "year_label": "612년 여름",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "내호아 수군의 평양 진격과 고구려군의 격퇴는 사실(삼국사기·수서). 매복 연출은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8488,
+     "y": 0.2839
+    },
+    "place_label": "고구려 패수(대동강) 평양 외성",
+    "modern_ref": "대동강 하류 평양 부근(약 38.90N 125.55E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "수군이 패수를 거슬러 평양 60리 지점에서 싸웠다고 전함. 정확 지점 불명"
+   }
+  },
+  {
+   "stage_code": "ch14_s8",
+   "shelf_code": "ch14",
+   "title": "압록강 군량 차단",
+   "year_label": "612년 가을",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "수군 보급 곤란(군량 부족)은 사실. 차단 작전 자체는 각색",
+   "map": {
+    "pin": {
+     "x": 0.8456,
+     "y": 0.2772
+    },
+    "place_label": "고구려 압록강 하류",
+    "modern_ref": "압록강 하류 단둥·의주 사이(약 40.10N 124.40E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "수군 압록강 도하(612)는 사실이나 지점 학설 차. 통설 구간 표시"
+   }
+  },
+  {
+   "stage_code": "ch14_s9",
+   "shelf_code": "ch14",
+   "title": "일곱 번째 후퇴",
+   "year_label": "612년 7월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "을지문덕이 하루 일곱 번 싸워 일곱 번 지는 척했다는 삼국사기 서술은 전승(verify)",
+   "map": {
+    "pin": {
+     "x": 0.8486,
+     "y": 0.2781
+    },
+    "place_label": "고구려 압록강~살수 진군로",
+    "modern_ref": "평안북도 청천강 북방 구간(약 39.95N 125.50E)",
+    "radius": 0.005,
+    "evidence_level": "verify",
+    "source": "압록강에서 살수까지 진군 중의 사건이라 구체 지점 없음. 진군로 통설 구간 표시"
+   }
+  },
+  {
+   "stage_code": "ch14_s10",
+   "shelf_code": "ch14",
+   "title": "퇴각로 추격",
+   "year_label": "612년 7월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "살수 패전 후 수군이 하루 만에 압록강으로 퇴각한 일은 사실 골격",
+   "map": {
+    "pin": {
+     "x": 0.8472,
+     "y": 0.2778
+    },
+    "place_label": "고구려 살수~압록강 퇴각로",
+    "modern_ref": "평안북도 청천강~압록강 사이(약 40.00N 125.00E)",
+    "radius": 0.005,
+    "evidence_level": "verify",
+    "source": "퇴각로 중간 구간 표시. 구체 지점 불명"
+   }
+  },
+  {
+   "stage_code": "ch15_s1",
+   "shelf_code": "ch15",
+   "title": "지연전",
+   "year_label": "BC 216~",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "파비우스의 지연 전략(BC 217~)은 사실. 칸나이 이후 시점 표기는 verify",
+   "map": {
+    "pin": {
+     "x": 0.5394,
+     "y": 0.2711
+    },
+    "place_label": "로마 공화정 캄파니아 팔레르눔 평원",
+    "modern_ref": "이탈리아 캄파니아 팔레르눔 평원 일대(약 41.2N 14.2E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "파비우스가 한니발을 팔레르눔 평원에서 막은 일화(BC 217). 일반 지식 근사"
+   }
+  },
+  {
+   "stage_code": "ch15_s2",
+   "shelf_code": "ch15",
+   "title": "신카르타고",
+   "year_label": "BC 209",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "스키피오의 신카르타고 공략(BC 209)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.4973,
+     "y": 0.2911
+    },
+    "place_label": "카르타고 히스파니아 신카르타고",
+    "modern_ref": "스페인 카르타헤나(약 37.6N 0.98W)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "신카르타고=카르타헤나(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch15_s3",
+   "shelf_code": "ch15",
+   "title": "아프리카 상륙",
+   "year_label": "BC 204",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "스키피오의 아프리카 상륙(BC 204)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5279,
+     "y": 0.2941
+    },
+    "place_label": "카르타고 령 우티카 부근",
+    "modern_ref": "튀니지 우티카 일대(약 37.06N 10.06E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "스키피오의 상륙지는 우티카 인근 곶(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch15_s4",
+   "shelf_code": "ch15",
+   "title": "자마",
+   "year_label": "BC 202",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "자마 전투(BC 202)는 사실. 정확 전장은 학설 차",
+   "map": {
+    "pin": {
+     "x": 0.526,
+     "y": 0.2996
+    },
+    "place_label": "카르타고 령 자마 평원",
+    "modern_ref": "튀니지 중북부 실리아나 일대 추정(약 36.08N 9.37E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "자마 정확 위치는 실리아나 설 등 학설 갈림. 통설 지역으로 표시"
+   }
+  },
+  {
+   "stage_code": "ch15_s5",
+   "shelf_code": "ch15",
+   "title": "티키누스 구출",
+   "year_label": "BC 218",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "티키누스 강 전투(BC 218)에서 스키피오가 부상하고 아들이 구했다는 서술은 사실 골격",
+   "map": {
+    "pin": {
+     "x": 0.5253,
+     "y": 0.2489
+    },
+    "place_label": "로마 공화정 티키누스 강 연안",
+    "modern_ref": "이탈리아 파비아 인근 티치노 강(약 45.2N 9.1E)",
+    "radius": 0.003,
+    "evidence_level": "accepted",
+    "source": "티키누스 강 전투지는 파비아 서쪽 통설. 정확 지점 불명"
+   }
+  },
+  {
+   "stage_code": "ch15_s6",
+   "shelf_code": "ch15",
+   "title": "칸나이 탈출",
+   "year_label": "BC 216",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "칸나이 전투(BC 216)와 생존자 탈출은 사실. 학살은 주제로 삼지 않음",
+   "map": {
+    "pin": {
+     "x": 0.5448,
+     "y": 0.2706
+    },
+    "place_label": "로마 공화정 칸나이",
+    "modern_ref": "이탈리아 풀리아 칸나이(약 41.30N 16.13E)",
+    "radius": 0.001,
+    "evidence_level": "confirmed",
+    "source": "칸나이 위치(아우피두스 강변)는 통설. 일반 지식 근사"
+   }
+  },
+  {
+   "stage_code": "ch15_s7",
+   "shelf_code": "ch15",
+   "title": "바이쿨라",
+   "year_label": "BC 208",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "바이쿨라 전투(BC 208)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.4914,
+     "y": 0.2886
+    },
+    "place_label": "카르타고 히스파니아 바이쿨라",
+    "modern_ref": "스페인 하엔 인근(약 38.05N 3.10W)",
+    "radius": 0.003,
+    "evidence_level": "accepted",
+    "source": "바이쿨라 위치는 하엔 인근 통설이나 정확 지점은 학설 차"
+   }
+  },
+  {
+   "stage_code": "ch15_s8",
+   "shelf_code": "ch15",
+   "title": "일리파",
+   "year_label": "BC 206",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "일리파 전투(BC 206)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.4834,
+     "y": 0.2917
+    },
+    "place_label": "카르타고 히스파니아 일리파",
+    "modern_ref": "스페인 세비야 인근 알칼라 델 리오(약 37.5N 5.98W)",
+    "radius": 0.0015,
+    "evidence_level": "accepted",
+    "source": "일리파=알칼라 델 리오 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch15_s9",
+   "shelf_code": "ch15",
+   "title": "야영지 야습",
+   "year_label": "BC 203",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "스키피오의 카르타고·누미디아 야영지 야습(BC 203)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5278,
+     "y": 0.2936
+    },
+    "place_label": "카르타고 령 우티카 부근 야영지",
+    "modern_ref": "튀니지 우티카 인근(약 37.15N 10.00E)",
+    "radius": 0.0015,
+    "evidence_level": "accepted",
+    "source": "우티카 포위 중 인근 야영지. 정확 지점 불명"
+   }
+  },
+  {
+   "stage_code": "ch15_s10",
+   "shelf_code": "ch15",
+   "title": "대평원",
+   "year_label": "BC 203",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "대평원 전투(BC 203)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5247,
+     "y": 0.2978
+    },
+    "place_label": "카르타고 령 바그라다스 대평원",
+    "modern_ref": "튀니지 바그라다스(메제르다) 계곡 상류(약 36.3N 8.9E)",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "대평원(Campi Magni) 위치는 바그라다스 계곡 통설이나 정확 지점은 불명"
+   }
+  },
+  {
+   "stage_code": "ch16_s1",
+   "shelf_code": "ch16",
+   "title": "보급 호송",
+   "year_label": "1429년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "잔 다르크의 오를레앙 입성(1429-04-29, 보급 호송 포함)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5058,
+     "y": 0.2341
+    },
+    "place_label": "프랑스 왕국 오를레앙 동쪽 슈시",
+    "modern_ref": "프랑스 루아레주 슈시 인근(약 47.86N 2.10E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "잔과 호송대가 오를레앙 동쪽에서 입성했다고 전함(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch16_s2",
+   "shelf_code": "ch16",
+   "title": "생루",
+   "year_label": "1429년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "생루 보루 공략(1429-05-04)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5055,
+     "y": 0.2338
+    },
+    "place_label": "프랑스 왕국 오를레앙 생루 보루",
+    "modern_ref": "프랑스 오를레앙 동부 생루(약 47.91N 1.98E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "생루 보루는 오를레앙 동쪽 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch16_s3",
+   "shelf_code": "ch16",
+   "title": "오귀스탱",
+   "year_label": "1429년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "오귀스탱 보루 공략(1429-05-06)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5054,
+     "y": 0.234
+    },
+    "place_label": "프랑스 왕국 오를레앙 오귀스탱 보루",
+    "modern_ref": "프랑스 오를레앙 루아르 강 남안(약 47.875N 1.93E)",
+    "radius": 0.0005,
+    "evidence_level": "accepted",
+    "source": "오귀스탱 보루는 남안 투렐 동쪽. 소폭 오프셋"
+   }
+  },
+  {
+   "stage_code": "ch16_s4",
+   "shelf_code": "ch16",
+   "title": "투렐",
+   "year_label": "1429년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "투렐 요새 공략(1429-05-07, 잔의 부상)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5053,
+     "y": 0.2339
+    },
+    "place_label": "프랑스 왕국 오를레앙 투렐 요새",
+    "modern_ref": "프랑스 오를레앙 루아르 강 다리 남단(약 47.895N 1.903E)",
+    "radius": 0.0004,
+    "evidence_level": "confirmed",
+    "source": "투렐=오를레앙 다리 남단 요새(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch16_s5",
+   "shelf_code": "ch16",
+   "title": "파테",
+   "year_label": "1429년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "파테 전투(1429-06-18)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5047,
+     "y": 0.2331
+    },
+    "place_label": "프랑스 왕국 파테",
+    "modern_ref": "프랑스 루아레주 파테(약 48.04N 1.70E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "파테 마을 인근 전장(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch16_s6",
+   "shelf_code": "ch16",
+   "title": "쥐르포 공성",
+   "year_label": "1429년 6월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "쥐르포 공략(1429-06-12)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5059,
+     "y": 0.2341
+    },
+    "place_label": "프랑스 왕국 쥐르포",
+    "modern_ref": "프랑스 루아레주 쥐르포(약 47.86N 2.11E)",
+    "radius": 0.0005,
+    "evidence_level": "confirmed",
+    "source": "쥐르포=루아르 강변 도시(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch16_s7",
+   "shelf_code": "ch16",
+   "title": "묑 다리",
+   "year_label": "1429년 6월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "묑쉬르루아르 다리 공략(1429-06-15)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5047,
+     "y": 0.2343
+    },
+    "place_label": "프랑스 왕국 묑 다리",
+    "modern_ref": "프랑스 묑쉬르루아르(약 47.83N 1.69E)",
+    "radius": 0.0005,
+    "evidence_level": "confirmed",
+    "source": "묑쉬르루아르 다리(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch16_s8",
+   "shelf_code": "ch16",
+   "title": "보장시",
+   "year_label": "1429년 6월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "보장시 공략(1429-06-17)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5045,
+     "y": 0.2346
+    },
+    "place_label": "프랑스 왕국 보장시",
+    "modern_ref": "프랑스 보장시(약 47.78N 1.63E)",
+    "radius": 0.0005,
+    "evidence_level": "confirmed",
+    "source": "보장시=루아르 강변 도시(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch16_s9",
+   "shelf_code": "ch16",
+   "title": "랭스 행군 호위",
+   "year_label": "1429년 7월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "샤를 7세의 랭스 행군과 대관식(1429-07-17)은 사실. 호위 교전은 각색",
+   "map": {
+    "pin": {
+     "x": 0.5112,
+     "y": 0.2263
+    },
+    "place_label": "프랑스 왕국 랭스",
+    "modern_ref": "프랑스 랭스(약 49.26N 4.03E)",
+    "radius": 0.0008,
+    "evidence_level": "confirmed",
+    "source": "랭스 대성당(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch16_s10",
+   "shelf_code": "ch16",
+   "title": "파리 성문 앞 철수",
+   "year_label": "1429년 9월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "파리 공격(1429-09-08, 잔 부상)과 철수는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5065,
+     "y": 0.2286
+    },
+    "place_label": "잉글랜드 측 파리 생토노레 성문",
+    "modern_ref": "프랑스 파리 생토노레 성문 부근(약 48.86N 2.35E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "파리 생토노레 성문 공격(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch17_s1",
+   "shelf_code": "ch17",
+   "title": "티그리스 도하",
+   "year_label": "BC 331",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "알렉산드로스의 티그리스 도하(BC 331)는 사실. 도하 지점은 학설 차",
+   "map": {
+    "pin": {
+     "x": 0.6186,
+     "y": 0.295
+    },
+    "place_label": "아케메네스 제국 티그리스 강 상류",
+    "modern_ref": "이라크 모술 북방 티그리스 강(약 36.9N 42.7E)",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "아리아노스: 모술 북방 도하. 정확 지점은 학설 차"
+   }
+  },
+  {
+   "stage_code": "ch17_s2",
+   "shelf_code": "ch17",
+   "title": "야영과 정찰",
+   "year_label": "BC 331",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "전투 전 4일간 야영과 정찰(아리아노스)은 사실 골격",
+   "map": {
+    "pin": {
+     "x": 0.6194,
+     "y": 0.2967
+    },
+    "place_label": "아케메네스 제국 가우가멜라 부근",
+    "modern_ref": "이라크 모술 동방 평원(약 36.6N 43.0E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "야영지 정확 위치는 문헌에 없음. 전장 서쪽 통설 지역"
+   }
+  },
+  {
+   "stage_code": "ch17_s3",
+   "shelf_code": "ch17",
+   "title": "가우가멜라 본전",
+   "year_label": "BC 331",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "가우가멜라 전투(BC 331-10-01)는 사실. 전장 위치는 학설 차",
+   "map": {
+    "pin": {
+     "x": 0.6203,
+     "y": 0.2976
+    },
+    "place_label": "아케메네스 제국 가우가멜라",
+    "modern_ref": "이라크 모술 동방 텔 고멜 일대(약 36.43N 43.3E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "가우가멜라 위치는 텔 고멜 설을 통설로 채택. 서가 원점과 일치"
+   }
+  },
+  {
+   "stage_code": "ch17_s4",
+   "shelf_code": "ch17",
+   "title": "추격",
+   "year_label": "BC 331",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "알렉산드로스가 다리우스를 아르벨라 방면으로 추격한 일은 사실",
+   "map": {
+    "pin": {
+     "x": 0.6223,
+     "y": 0.2989
+    },
+    "place_label": "아케메네스 제국 아르벨라",
+    "modern_ref": "이라크 에르빌(약 36.19N 44.01E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "아르벨라=에르빌 통설(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch17_s5",
+   "shelf_code": "ch17",
+   "title": "그라니코스 도하",
+   "year_label": "BC 334",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "그라니코스 강 전투(BC 334)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5758,
+     "y": 0.2767
+    },
+    "place_label": "아케메네스 제국 프리기아 그라니코스 강",
+    "modern_ref": "튀르키예 비가 인근 코자바시 강(약 40.2N 27.3E)",
+    "radius": 0.0015,
+    "evidence_level": "accepted",
+    "source": "그라니코스 강 위치는 코자바시 강 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch17_s6",
+   "shelf_code": "ch17",
+   "title": "이소스",
+   "year_label": "BC 333",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "이소스 전투(BC 333)는 사실. 정확 전장은 학설 차",
+   "map": {
+    "pin": {
+     "x": 0.6006,
+     "y": 0.2956
+    },
+    "place_label": "아케메네스 제국 킬리키아 이소스",
+    "modern_ref": "튀르키예 이스켄데룬 만 동안(약 36.8N 36.2E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "피나로스 강 위치 학설 차. 만 동안 통설 지역"
+   }
+  },
+  {
+   "stage_code": "ch17_s7",
+   "shelf_code": "ch17",
+   "title": "티레 방파제",
+   "year_label": "BC 332",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "티레 포위와 방파제 건설(BC 332)은 사실. 학살은 주제로 삼지 않음",
+   "map": {
+    "pin": {
+     "x": 0.5978,
+     "y": 0.3152
+    },
+    "place_label": "아케메네스 제국 페니키아 티레",
+    "modern_ref": "레바논 수르(약 33.27N 35.2E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "티레 섬 도시와 방파제(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch17_s8",
+   "shelf_code": "ch17",
+   "title": "가자 포위",
+   "year_label": "BC 332",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "가자 포위(BC 332)는 사실. 도시 함락 후 사건은 주제 아님",
+   "map": {
+    "pin": {
+     "x": 0.5957,
+     "y": 0.325
+    },
+    "place_label": "아케메네스 제국 가자",
+    "modern_ref": "팔레스타인 가자 지구(약 31.5N 34.46E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "가자 텔(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch17_s9",
+   "shelf_code": "ch17",
+   "title": "페르시아 관문",
+   "year_label": "BC 330",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "아리오바르자네스의 페르시아 관문 방어(BC 330)는 사실. 정확 협곡은 학설 차",
+   "map": {
+    "pin": {
+     "x": 0.6425,
+     "y": 0.3294
+    },
+    "place_label": "아케메네스 제국 페르시아 관문",
+    "modern_ref": "이란 자그로스 산맥 야수즈 인근(약 30.7N 51.3E)",
+    "radius": 0.004,
+    "evidence_level": "verify",
+    "source": "페르시아 관문 위치는 학설 차(야수즈 설 통설)"
+   }
+  },
+  {
+   "stage_code": "ch17_s10",
+   "shelf_code": "ch17",
+   "title": "히다스페스 도하",
+   "year_label": "BC 326",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "히다스페스 강 전투(BC 326, 포로스)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.7047,
+     "y": 0.3172
+    },
+    "place_label": "포로스 왕국 히다스페스 강",
+    "modern_ref": "파키스탄 젤룸 강 인근(약 32.9N 73.7E)",
+    "radius": 0.003,
+    "evidence_level": "accepted",
+    "source": "히다스페스=젤룸 강 통설. 정확 도하 지점 불명"
+   }
+  },
+  {
+   "stage_code": "ch18_s9",
+   "shelf_code": "ch18",
+   "title": "오트라르 서문",
+   "year_label": "1219년 겨울",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "오트라르 공성(1219~1220)은 사실. 도시 함락 후 사건은 주제 아님, 서문 전투는 각색",
+   "map": {
+    "pin": {
+     "x": 0.6897,
+     "y": 0.2619
+    },
+    "place_label": "호라즘 제국 동북 변경 오트라르",
+    "modern_ref": "카자흐스탄 남부 오트라르 유적(약 42.85N 68.3E)",
+    "radius": 0.0008,
+    "evidence_level": "confirmed",
+    "source": "오트라르 유적 좌표(일반 지식). ch18_s5와 동일 지점이라 서가 내 겹침 허용"
+   }
+  },
+  {
+   "stage_code": "ch18_s10",
+   "shelf_code": "ch18",
+   "title": "파르완 계곡",
+   "year_label": "1221년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "파르완 전투(1221, 잘랄 앗딘 승)는 사실. 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.6922,
+     "y": 0.3056
+    },
+    "place_label": "호라즘 제국 파르완 계곡",
+    "modern_ref": "아프가니스탄 파르완 주(약 35.0N 69.2E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "파르완 전투 위치(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch19_s1",
+   "shelf_code": "ch19",
+   "title": "하틴",
+   "year_label": "1187년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "하틴 전투(1187-07-04)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5985,
+     "y": 0.3177
+    },
+    "place_label": "예루살렘 왕국 하틴의 뿔",
+    "modern_ref": "이스라엘 갈릴리 티베리아스 서쪽(약 32.81N 35.45E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "Battle of Hattin infobox 좌표(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch19_s2",
+   "shelf_code": "ch19",
+   "title": "예루살렘 퇴거",
+   "year_label": "1187년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "예루살렘 항복과 퇴거 협상(1187-10)은 사실. 학살은 주제 아님",
+   "map": {
+    "pin": {
+     "x": 0.5978,
+     "y": 0.3234
+    },
+    "place_label": "예루살렘 왕국 예루살렘",
+    "modern_ref": "예루살렘(약 31.78N 35.22E)",
+    "radius": 0.0004,
+    "evidence_level": "confirmed",
+    "source": "예루살렘 구시가(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch19_s3",
+   "shelf_code": "ch19",
+   "title": "아르수프",
+   "year_label": "1191년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "아르수프 전투(1191-09-07)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5968,
+     "y": 0.3211
+    },
+    "place_label": "예루살렘 왕국 아르수프",
+    "modern_ref": "이스라엘 헤르츨리야 인근(약 32.2N 34.83E)",
+    "radius": 0.0008,
+    "evidence_level": "confirmed",
+    "source": "아르수프 유적(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch19_s4",
+   "shelf_code": "ch19",
+   "title": "야파",
+   "year_label": "1192년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "야파 전투(1192-08)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5965,
+     "y": 0.3219
+    },
+    "place_label": "예루살렘 왕국 야파",
+    "modern_ref": "이스라엘 텔아비브 야포(약 32.05N 34.75E)",
+    "radius": 0.0005,
+    "evidence_level": "confirmed",
+    "source": "야파 항구(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch19_s5",
+   "shelf_code": "ch19",
+   "title": "크레송 샘",
+   "year_label": "1187년 5월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "크레송 샘 전투(1187-05-01)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.598,
+     "y": 0.3181
+    },
+    "place_label": "예루살렘 왕국 크레송 샘",
+    "modern_ref": "이스라엘 나사렛 인근(약 32.75N 35.28E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "크레송 샘 위치는 나사렛 인근 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch19_s6",
+   "shelf_code": "ch19",
+   "title": "티베리아스 포위",
+   "year_label": "1187년 7월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "살라딘의 티베리아스 공격(1187-07-02)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5987,
+     "y": 0.3178
+    },
+    "place_label": "예루살렘 왕국 티베리아스",
+    "modern_ref": "이스라엘 티베리아스(약 32.79N 35.53E)",
+    "radius": 0.0005,
+    "evidence_level": "confirmed",
+    "source": "티베리아스 성(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch19_s7",
+   "shelf_code": "ch19",
+   "title": "아크레 보급 호송",
+   "year_label": "1190년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "아크레 공성전(1189~1191)은 사실. 보급 호송 교전은 각색",
+   "map": {
+    "pin": {
+     "x": 0.5974,
+     "y": 0.3171
+    },
+    "place_label": "예루살렘 왕국 아크레",
+    "modern_ref": "이스라엘 아코(약 32.93N 35.08E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "아크레 구시가(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch19_s8",
+   "shelf_code": "ch19",
+   "title": "아스칼론 퇴거",
+   "year_label": "1191년 9월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "살라딘의 아스칼론 철거(1191-09)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.596,
+     "y": 0.3241
+    },
+    "place_label": "아이유브 왕조 아스칼론",
+    "modern_ref": "이스라엘 아슈켈론(약 31.66N 34.55E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "아스칼론 유적(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch19_s9",
+   "shelf_code": "ch19",
+   "title": "베이트 누바",
+   "year_label": "1192년 1월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "리처드 군의 베이트 누바 진출과 철수(1192-01)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5972,
+     "y": 0.3231
+    },
+    "place_label": "예루살렘 왕국 베이트 누바",
+    "modern_ref": "이스라엘 라트룬 인근(약 31.84N 34.99E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "베이트 누바 위치 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch19_s10",
+   "shelf_code": "ch19",
+   "title": "다룸 철수",
+   "year_label": "1192년 5월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "리처드의 다룸 점령(1192-05)은 사실. 철수 장면은 각색",
+   "map": {
+    "pin": {
+     "x": 0.5954,
+     "y": 0.3254
+    },
+    "place_label": "아이유브 왕조 다룸",
+    "modern_ref": "가자 지구 데이르 알발라(약 31.42N 34.35E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "다룸 성채 위치 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch20_s1",
+   "shelf_code": "ch20",
+   "title": "사자 호송",
+   "year_label": "1575년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "도리이 스네에몬이 나가시노성에서 오카자키로 구원을 청하러 간 일은 사실. 호송 교전은 각색",
+   "map": {
+    "pin": {
+     "x": 0.881,
+     "y": 0.3058
+    },
+    "place_label": "미카와국 오카자키",
+    "modern_ref": "아이치현 오카자키성(약 34.955N 137.16E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "오카자키성(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch20_s2",
+   "shelf_code": "ch20",
+   "title": "별동대",
+   "year_label": "1575년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사카이 다다쓰구의 도비가스야마 기습(1575-05-21 새벽)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.8821,
+     "y": 0.306
+    },
+    "place_label": "미카와국 도비가스야마",
+    "modern_ref": "아이치현 신시로시 도비가스야마(약 34.92N 137.55E)",
+    "radius": 0.0005,
+    "evidence_level": "accepted",
+    "source": "도비가스야마 위치(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch20_s3",
+   "shelf_code": "ch20",
+   "title": "설락원",
+   "year_label": "1575년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "시타라가하라 결전(1575-05-21)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.882,
+     "y": 0.3058
+    },
+    "place_label": "미카와국 시타라가하라",
+    "modern_ref": "아이치현 신시로시 시타라가하라(약 34.95N 137.52E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "시타라가하라 고전장 기념 공원(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch20_s4",
+   "shelf_code": "ch20",
+   "title": "나가시노성 농성",
+   "year_label": "1575년 5월 초",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "오쿠다이라 노부마사 등의 나가시노성 농성(1575-05)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.8821,
+     "y": 0.3058
+    },
+    "place_label": "미카와국 나가시노성",
+    "modern_ref": "아이치현 신시로시 나가시노성 터(약 34.95N 137.57E)",
+    "radius": 0.0004,
+    "evidence_level": "confirmed",
+    "source": "나가시노성 터(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch20_s5",
+   "shelf_code": "ch20",
+   "title": "구원 사자 재출발",
+   "year_label": "1575년 5월 16일",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "도리이 스네에몬의 재탈출 시도와 포획은 사실 골격(일자 5월 14~16일 학설 차)",
+   "map": {
+    "pin": {
+     "x": 0.8814,
+     "y": 0.3058
+    },
+    "place_label": "미카와국 오카자키 가도",
+    "modern_ref": "나가시노~오카자키 사이 가도(약 34.95N 137.30E)",
+    "radius": 0.0012,
+    "evidence_level": "verify",
+    "source": "정확 지점은 문헌에 없어 두 지점 사이 가도로 표시"
+   }
+  },
+  {
+   "stage_code": "ch20_s6",
+   "shelf_code": "ch20",
+   "title": "방책 구축 호위",
+   "year_label": "1575년 5월 19일",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "오다·도쿠가와 연합의 시타라가하라 마방책 구축은 사실",
+   "map": {
+    "pin": {
+     "x": 0.882,
+     "y": 0.306
+    },
+    "place_label": "미카와국 시타라가하라 방책",
+    "modern_ref": "아이치현 신시로시 렌고 강 서안(약 34.92N 137.51E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "마방책은 렌고 강 서안 언덕에 쌓았다고 전함(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch20_s7",
+   "shelf_code": "ch20",
+   "title": "야마가타 돌격 방어",
+   "year_label": "1575년 5월 21일",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "야마가타 마사카게 부대의 돌격은 사실",
+   "map": {
+    "pin": {
+     "x": 0.8821,
+     "y": 0.3059
+    },
+    "place_label": "미카와국 시타라가하라 전장",
+    "modern_ref": "시타라가하라 전장 일대(약 34.945N 137.54E)",
+    "radius": 0.0005,
+    "evidence_level": "accepted",
+    "source": "시타라가하라 전장 안 소폭 오프셋"
+   }
+  },
+  {
+   "stage_code": "ch20_s8",
+   "shelf_code": "ch20",
+   "title": "나이토 돌격",
+   "year_label": "1575년 5월 21일",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "나이토 마사토요 부대의 돌격은 사실",
+   "map": {
+    "pin": {
+     "x": 0.8821,
+     "y": 0.3059
+    },
+    "place_label": "미카와국 시타라가하라 전장",
+    "modern_ref": "시타라가하라 전장 일대(약 34.935N 137.56E)",
+    "radius": 0.0005,
+    "evidence_level": "accepted",
+    "source": "시타라가하라 전장 안 소폭 오프셋"
+   }
+  },
+  {
+   "stage_code": "ch20_s9",
+   "shelf_code": "ch20",
+   "title": "바바 후위전",
+   "year_label": "1575년 5월 21일",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "바바 노부하루의 후위 분전과 전사(전함)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.8819,
+     "y": 0.3056
+    },
+    "place_label": "미카와국 시타라가하라 북방",
+    "modern_ref": "시타라가하라 북방 퇴각로(약 35.0N 137.50E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "후위전 정확 지점은 전승. 퇴각로 방향 통설"
+   }
+  },
+  {
+   "stage_code": "ch20_s10",
+   "shelf_code": "ch20",
+   "title": "가쓰요리 퇴각 추격",
+   "year_label": "1575년 5월 21일 이후",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "다케다 가쓰요리의 퇴각은 사실. 추격 교전은 각색",
+   "map": {
+    "pin": {
+     "x": 0.8822,
+     "y": 0.3053
+    },
+    "place_label": "미카와국 신슈 가도",
+    "modern_ref": "시타라가하라 북동 퇴각로(약 35.05N 137.60E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "퇴각로 정확 지점 불명. 신슈 방면 통설 방향"
+   }
+  },
+  {
+   "stage_code": "ch21_s1",
+   "shelf_code": "ch21",
+   "title": "헤움니크의 첫 후퇴",
+   "year_label": "1241년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "슈미엘니크(Chmielnik) 전투(1241-03-18)는 사실. 바이다르 거짓 후퇴 연출은 각색",
+   "map": {
+    "pin": {
+     "x": 0.5576,
+     "y": 0.2188
+    },
+    "place_label": "크라쿠프 공국 슈미엘니크",
+    "modern_ref": "폴란드 슈미엘니크(약 50.62N 20.73E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "슈미엘니크 마을 인근 전투(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch21_s2",
+   "shelf_code": "ch21",
+   "title": "오데르 강 라치보르",
+   "year_label": "1241년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "몽골군의 오데르 강변 라치보르 방면 교전은 단일 출처(verify). 각색 비중 큼",
+   "map": {
+    "pin": {
+     "x": 0.5506,
+     "y": 0.2217
+    },
+    "place_label": "실레지아 공국 라치보르",
+    "modern_ref": "폴란드 라치부시(약 50.09N 18.22E)",
+    "radius": 0.0008,
+    "evidence_level": "verify",
+    "source": "라치보르 전투는 단일 출처. 일반 지식 근사"
+   }
+  },
+  {
+   "stage_code": "ch21_s3",
+   "shelf_code": "ch21",
+   "title": "브로츠와프 앞의 망루",
+   "year_label": "1241년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "브로츠와프 방어와 몽골의 포위 중단은 accepted, 세부 verify",
+   "map": {
+    "pin": {
+     "x": 0.5473,
+     "y": 0.2161
+    },
+    "place_label": "실레지아 공국 브로츠와프",
+    "modern_ref": "폴란드 브로츠와프(약 51.11N 17.03E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "브로츠와프(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch21_s6",
+   "shelf_code": "ch21",
+   "title": "얼어붙은 도나우, 에스테르곰",
+   "year_label": "1241~1242년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "몽골의 에스테르곰 공격(1241 말~1242 초)과 성채 버팀은 accepted, 세부 verify",
+   "map": {
+    "pin": {
+     "x": 0.5521,
+     "y": 0.2345
+    },
+    "place_label": "헝가리 왕국 에스테르곰",
+    "modern_ref": "헝가리 에스테르곰(약 47.79N 18.74E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "에스테르곰 성채(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch21_s7",
+   "shelf_code": "ch21",
+   "title": "아드리아 해안의 추격",
+   "year_label": "1242년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "몽골군의 벨러 4세 추격(트로기르·스플리트·클리스 방면, 1242)은 accepted, 세부 verify",
+   "map": {
+    "pin": {
+     "x": 0.5451,
+     "y": 0.2582
+    },
+    "place_label": "헝가리 왕국 달마티아 트로기르",
+    "modern_ref": "크로아티아 트로기르(약 43.52N 16.25E)",
+    "radius": 0.0015,
+    "evidence_level": "accepted",
+    "source": "벨러 4세가 트로기르로 피신했다고 전함(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch21_s8",
+   "shelf_code": "ch21",
+   "title": "돌아가는 길의 후미",
+   "year_label": "1242년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "몽골군의 1242년 철수는 accepted. 후미 교전은 invented. VIRTUAL에 준하는 각색 비중이 큼",
+   "map": {
+    "pin": {
+     "x": 0.5611,
+     "y": 0.2556
+    },
+    "place_label": "헝가리 왕국 남부 철수로",
+    "modern_ref": "세르비아 북동부 도나우 연안(약 44.0N 22.0E)",
+    "radius": 0.008,
+    "evidence_level": "verify",
+    "source": "철수 경로(세르비아·불가리아 방면) 통설. 교전 지점은 문헌에 없음"
+   }
+  },
+  {
+   "stage_code": "ch21_s9",
+   "shelf_code": "ch21",
+   "title": "베레츠케 관문",
+   "year_label": "1241년 3월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "몽골군의 베레츠케 고개 돌파(1241-03-12)와 헝가리 방어군 격파는 사실",
+   "map": {
+    "pin": {
+     "x": 0.564,
+     "y": 0.2289
+    },
+    "place_label": "헝가리 왕국 베레츠케 고개",
+    "modern_ref": "우크라이나 카르파티아 베레츠키 고개(약 48.8N 23.04E)",
+    "radius": 0.001,
+    "evidence_level": "confirmed",
+    "source": "베레츠케 고개(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch21_s10",
+   "shelf_code": "ch21",
+   "title": "모라비아 연락 호송",
+   "year_label": "1241년 4월 말",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "몽골군의 모라비아 진출(올로모우츠 일대, 1241)은 accepted. 연락 호송은 각색",
+   "map": {
+    "pin": {
+     "x": 0.5479,
+     "y": 0.2244
+    },
+    "place_label": "보헤미아 왕국 모라비아 올로모우츠",
+    "modern_ref": "체코 올로모우츠(약 49.6N 17.25E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "올로모우츠 일대 방향. 정확 지점은 학설 차"
+   }
+  },
+  {
+   "stage_code": "ch22_s1",
+   "shelf_code": "ch22",
+   "title": "카불의 성문",
+   "year_label": "1504년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "바부르의 카불 점령(1504)은 사실(단일 출처 verify). 성문 전투 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.6921,
+     "y": 0.3082
+    },
+    "place_label": "카불",
+    "modern_ref": "아프가니스탄 카불(약 34.53N 69.17E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "카불 구시가(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch22_s2",
+   "shelf_code": "ch22",
+   "title": "바자우르의 첫 총성",
+   "year_label": "1519년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "바부르의 바자우르 공략(1519-01, 화승총 사용)은 사실. 전투 후 서술 금지",
+   "map": {
+    "pin": {
+     "x": 0.6986,
+     "y": 0.3072
+    },
+    "place_label": "바자우르 요새",
+    "modern_ref": "파키스탄 바자우르(약 34.7N 71.5E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "바자우르 요새(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch22_s3",
+   "shelf_code": "ch22",
+   "title": "라호르의 초대",
+   "year_label": "1524년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "다울라트 칸 로디의 초청으로 바부르가 라호르에 진출(1524-01)은 사실 골격",
+   "map": {
+    "pin": {
+     "x": 0.7065,
+     "y": 0.3247
+    },
+    "place_label": "델리 술탄국 라호르",
+    "modern_ref": "파키스탄 라호르(약 31.55N 74.34E)",
+    "radius": 0.0008,
+    "evidence_level": "confirmed",
+    "source": "라호르 성채(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch22_s4",
+   "shelf_code": "ch22",
+   "title": "히사르 피로자",
+   "year_label": "1526년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "후마윤의 히사르 피로자 점령(1526-02)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.7103,
+     "y": 0.3381
+    },
+    "place_label": "델리 술탄국 히사르 피로자",
+    "modern_ref": "인도 하리아나 히사르(약 29.15N 75.72E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "히사르 피로자 성(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch22_s6",
+   "shelf_code": "ch22",
+   "title": "아그라로 가는 보급로",
+   "year_label": "1526년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "파니파트 승리 후 아그라 진출은 사실. 호송 교전은 invented",
+   "map": {
+    "pin": {
+     "x": 0.7167,
+     "y": 0.349
+    },
+    "place_label": "델리 술탄국 아그라",
+    "modern_ref": "인도 아그라(약 27.18N 78.02E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "아그라 성채(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch22_s7",
+   "shelf_code": "ch22",
+   "title": "칸와의 수레와 틈",
+   "year_label": "1527년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "칸와 전투(1527-03-16, 라나 상가)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.7143,
+     "y": 0.3497
+    },
+    "place_label": "델리 술탄국 칸와",
+    "modern_ref": "인도 라자스탄 바라트푸르 인근 칸와(약 27.05N 77.15E)",
+    "radius": 0.001,
+    "evidence_level": "accepted",
+    "source": "칸와 마을 인근(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch22_s8",
+   "shelf_code": "ch22",
+   "title": "고그라 강의 여울",
+   "year_label": "1529년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "고그라 강 전투(1529-05-06)는 사실. 정확 도하 지점은 학설 차",
+   "map": {
+    "pin": {
+     "x": 0.7347,
+     "y": 0.3564
+    },
+    "place_label": "고그라 강 연안",
+    "modern_ref": "인도 비하르·우타르프라데시 경계 고그라 강 하류(약 25.85N 84.5E)",
+    "radius": 0.006,
+    "evidence_level": "verify",
+    "source": "고그라 강 하류 갠지스 합류부 부근 통설. 정확 지점 불명"
+   }
+  },
+  {
+   "stage_code": "ch22_s9",
+   "shelf_code": "ch22",
+   "title": "시알코트 도개교",
+   "year_label": "1520년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "바부르의 시알코트 점령(1520)은 사실 골격. 도개교 전투 세부는 각색",
+   "map": {
+    "pin": {
+     "x": 0.707,
+     "y": 0.3194
+    },
+    "place_label": "펀자브 시알코트",
+    "modern_ref": "파키스탄 시알코트(약 32.5N 74.53E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "시알코트 성채(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch22_s10",
+   "shelf_code": "ch22",
+   "title": "델리 성문 광장",
+   "year_label": "1526년 4월 말",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "파니파트 승리 후 바부르의 델리 입성(1526-04)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.7145,
+     "y": 0.3408
+    },
+    "place_label": "델리 술탄국 델리",
+    "modern_ref": "인도 델리(약 28.65N 77.23E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "델리 성(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch23_s1",
+   "shelf_code": "ch23",
+   "title": "생발레리의 출항",
+   "year_label": "1066년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "윌리엄의 생발레리 출항(1066-09-27)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5045,
+     "y": 0.2212
+    },
+    "place_label": "노르망디 공국 생발레리",
+    "modern_ref": "프랑스 솜 만 생발레리쉬르솜(약 50.18N 1.63E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "생발레리쉬르솜(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch23_s2",
+   "shelf_code": "ch23",
+   "title": "페븐시의 로마 성벽",
+   "year_label": "1066년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "노르만군의 페븐시 상륙(1066-09-28)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5009,
+     "y": 0.2177
+    },
+    "place_label": "잉글랜드 왕국 페븐시",
+    "modern_ref": "영국 이스트서식스 페븐시 성(약 50.82N 0.34E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "페븐시 성(로마 성벽 유적, 일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch23_s3",
+   "shelf_code": "ch23",
+   "title": "방패벽 앞의 언덕",
+   "year_label": "1066년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "헤이스팅스 전투 직전 능선 대치(1066-10-14)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5014,
+     "y": 0.2171
+    },
+    "place_label": "잉글랜드 왕국 센락 언덕",
+    "modern_ref": "영국 이스트서식스 배틀 센락 힐(약 50.915N 0.50E)",
+    "radius": 0.0004,
+    "evidence_level": "confirmed",
+    "source": "배틀 수도원 인근 전장(일반 지식). 서가 원점과 일치, 소폭 오프셋"
+   }
+  },
+  {
+   "stage_code": "ch23_s4",
+   "shelf_code": "ch23",
+   "title": "헤이스팅스",
+   "year_label": "1066년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "헤이스팅스 전투(1066-10-14)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5014,
+     "y": 0.2172
+    },
+    "place_label": "잉글랜드 왕국 헤이스팅스 전장",
+    "modern_ref": "영국 이스트서식스 배틀(약 50.91N 0.487E)",
+    "radius": 0.0004,
+    "evidence_level": "confirmed",
+    "source": "배틀 수도원 인근 전장(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch23_s5",
+   "shelf_code": "ch23",
+   "title": "사우스워크의 다리 어귀",
+   "year_label": "1066년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "윌리엄군의 사우스워크 공격(1066 말)은 사실 골격",
+   "map": {
+    "pin": {
+     "x": 0.4998,
+     "y": 0.2139
+    },
+    "place_label": "잉글랜드 왕국 사우스워크",
+    "modern_ref": "영국 런던 사우스워크(약 51.50N 0.09W)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "런던교 남단 사우스워크(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch23_s6",
+   "shelf_code": "ch23",
+   "title": "헤이스팅스 곡식 호송",
+   "year_label": "1066년 10월 초",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "노르만군의 헤이스팅스 진영 보급은 사실 골격. 호송 교전은 각색",
+   "map": {
+    "pin": {
+     "x": 0.5016,
+     "y": 0.2174
+    },
+    "place_label": "잉글랜드 왕국 헤이스팅스",
+    "modern_ref": "영국 이스트서식스 헤이스팅스 성(약 50.86N 0.59E)",
+    "radius": 0.0006,
+    "evidence_level": "accepted",
+    "source": "헤이스팅스 성(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch23_s7",
+   "shelf_code": "ch23",
+   "title": "도버 성",
+   "year_label": "1066년 10월 하순",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "윌리엄의 도버 성 점령(1066-10)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5036,
+     "y": 0.2159
+    },
+    "place_label": "잉글랜드 왕국 도버",
+    "modern_ref": "영국 켄트 도버 성(약 51.13N 1.31E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "도버 성(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch23_s8",
+   "shelf_code": "ch23",
+   "title": "캔터베리 사절 호송",
+   "year_label": "1066년 11월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "캔터베리의 윌리엄 복속(1066-11)은 사실 골격. 사절 호송은 각색",
+   "map": {
+    "pin": {
+     "x": 0.503,
+     "y": 0.2151
+    },
+    "place_label": "잉글랜드 왕국 캔터베리",
+    "modern_ref": "영국 켄트 캔터베리(약 51.28N 1.08E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "캔터베리 대성당(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch23_s9",
+   "shelf_code": "ch23",
+   "title": "월링퍼드 도하",
+   "year_label": "1066년 12월",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "윌리엄군의 월링퍼드 템스 강 도하와 스티건드 복속(1066-12)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.4969,
+     "y": 0.2133
+    },
+    "place_label": "잉글랜드 왕국 월링퍼드",
+    "modern_ref": "영국 옥스퍼드셔 월링퍼드(약 51.60N 1.12W)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "월링퍼드 템스 강 도하지(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch23_s10",
+   "shelf_code": "ch23",
+   "title": "대관식 소요 방지",
+   "year_label": "1066년 12월 25일",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "윌리엄 대관식(1066-12-25, 웨스트민스터 사원)은 사실. 소요 진압은 사실 골격이나 세부 각색",
+   "map": {
+    "pin": {
+     "x": 0.4996,
+     "y": 0.2139
+    },
+    "place_label": "잉글랜드 왕국 웨스트민스터",
+    "modern_ref": "영국 런던 웨스트민스터 사원(약 51.50N 0.13W)",
+    "radius": 0.0004,
+    "evidence_level": "confirmed",
+    "source": "웨스트민스터 사원(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch24_s1",
+   "shelf_code": "ch24",
+   "title": "외드 패전 후 방어",
+   "year_label": "732년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "외드의 가론 강 패전(732) 후 아키텐 방어는 사실 골격(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.4992,
+     "y": 0.25
+    },
+    "place_label": "아키텐 공국 도르도뉴 강 부근",
+    "modern_ref": "프랑스 아키텐 도르도뉴 강 일대(약 45.0N 0.3W)",
+    "radius": 0.005,
+    "evidence_level": "verify",
+    "source": "패전 후 퇴각로 정확 지점은 문헌에 없음. 통설 방향"
+   }
+  },
+  {
+   "stage_code": "ch24_s2",
+   "shelf_code": "ch24",
+   "title": "숲길 진군",
+   "year_label": "732년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "카를 마르텔의 루아르 강 도하 후 진군(732)은 사실 골격. 숲길 연출은 각색",
+   "map": {
+    "pin": {
+     "x": 0.5028,
+     "y": 0.2367
+    },
+    "place_label": "프랑크 왕국 루아르 강 진군로",
+    "modern_ref": "프랑스 루아르 강 중류 투르 동쪽(약 47.4N 1.0E)",
+    "radius": 0.006,
+    "evidence_level": "verify",
+    "source": "진군 정확 경로는 문헌에 없음. 루아르 강~투르 통설 방향"
+   }
+  },
+  {
+   "stage_code": "ch24_s3",
+   "shelf_code": "ch24",
+   "title": "푸아티에 방어선",
+   "year_label": "732년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "안달루스군의 푸아티에 방면 진출(732)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5009,
+     "y": 0.2412
+    },
+    "place_label": "아키텐 공국 푸아티에",
+    "modern_ref": "프랑스 푸아티에(약 46.58N 0.34E)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "푸아티에(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch24_s4",
+   "shelf_code": "ch24",
+   "title": "투르 결전",
+   "year_label": "732년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "투르·푸아티에 전투(732년 10월)는 사실. 정확 전장은 학설 차",
+   "map": {
+    "pin": {
+     "x": 0.5017,
+     "y": 0.2392
+    },
+    "place_label": "프랑크 왕국·아키텐 공국 경계",
+    "modern_ref": "프랑스 푸아티에와 투르 사이 비엔 강변 일대(약 46.95N 0.60E)",
+    "radius": 0.0012,
+    "evidence_level": "verify",
+    "source": "전장 정확 위치는 학설 차(비엔·클랑 강 합류부 인근 통설). 서가 원점은 투르"
+   }
+  },
+  {
+   "stage_code": "ch24_s5",
+   "shelf_code": "ch24",
+   "title": "가론 강",
+   "year_label": "732년 여름",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "가론 강 전투(732, 외드 패배)는 사실 골격(일자·지점 verify)",
+   "map": {
+    "pin": {
+     "x": 0.4988,
+     "y": 0.2519
+    },
+    "place_label": "아키텐 공국 가론 강",
+    "modern_ref": "프랑스 가론 강 보르도 남방(약 44.65N 0.45W)",
+    "radius": 0.005,
+    "evidence_level": "verify",
+    "source": "가론 강 전투지 정확 위치는 문헌에 없음. 보르도 인근 통설"
+   }
+  },
+  {
+   "stage_code": "ch24_s6",
+   "shelf_code": "ch24",
+   "title": "보르도 피난",
+   "year_label": "732년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "안달루스군의 보르도 약탈과 피난(732)은 사실 골격",
+   "map": {
+    "pin": {
+     "x": 0.4984,
+     "y": 0.2509
+    },
+    "place_label": "아키텐 공국 보르도",
+    "modern_ref": "프랑스 보르도(약 44.84N 0.58W)",
+    "radius": 0.0008,
+    "evidence_level": "accepted",
+    "source": "보르도(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch24_s7",
+   "shelf_code": "ch24",
+   "title": "외드와 카를의 회견 길",
+   "year_label": "732년 가을",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "외드가 카를에게 도움을 청한 일은 사실. 회견 장소는 문헌에 없음(verify)",
+   "map": {
+    "pin": {
+     "x": 0.5044,
+     "y": 0.2356
+    },
+    "place_label": "프랑크 왕국 루아르 강변",
+    "modern_ref": "프랑스 루아르 강 중류(약 47.6N 1.6E). 회견 장소 미확정",
+    "radius": 0.008,
+    "evidence_level": "verify",
+    "source": "회견지는 사료에 없음. 루아르 강 통설 구간"
+   }
+  },
+  {
+   "stage_code": "ch24_s8",
+   "shelf_code": "ch24",
+   "title": "아비뇽 탈환",
+   "year_label": "737년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "카를 마르텔의 아비뇽 탈환(737)은 사실",
+   "map": {
+    "pin": {
+     "x": 0.5134,
+     "y": 0.2558
+    },
+    "place_label": "프랑크 왕국 아비뇽",
+    "modern_ref": "프랑스 아비뇽(약 43.95N 4.81E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "아비뇽(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch24_s9",
+   "shelf_code": "ch24",
+   "title": "나르본 포위",
+   "year_label": "737년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "카를 마르텔의 나르본 포위(737)는 사실",
+   "map": {
+    "pin": {
+     "x": 0.5083,
+     "y": 0.2601
+    },
+    "place_label": "안달루스 셉티마니아 나르본",
+    "modern_ref": "프랑스 나르본(약 43.18N 3.0E)",
+    "radius": 0.0006,
+    "evidence_level": "confirmed",
+    "source": "나르본(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch24_s10",
+   "shelf_code": "ch24",
+   "title": "베르 강",
+   "year_label": "737년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "베르 강 전투(737)는 사실. 정확 지점은 학설 차",
+   "map": {
+    "pin": {
+     "x": 0.5081,
+     "y": 0.2611
+    },
+    "place_label": "안달루스 셉티마니아 베르 강",
+    "modern_ref": "프랑스 시장 인근 베르 강(약 43.0N 2.9E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "베르 강 전투지는 나르본 남서 통설(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch999_s1",
+   "shelf_code": "ch999",
+   "title": "겹쳐진 복도",
+   "year_label": null,
+   "virtual": true,
+   "adapted": true,
+   "adapted_note": "VIRTUAL. 전부 허구 장면",
+   "map": {
+    "pin": null,
+    "place_label": "시간의 서고",
+    "radius": null,
+    "evidence_level": "invented",
+    "source": "ch999_finale.json. 서고 허브 표시"
+   }
+  },
+  {
+   "stage_code": "ch999_s2",
+   "shelf_code": "ch999",
+   "title": "신호의 방",
+   "year_label": null,
+   "virtual": true,
+   "adapted": true,
+   "adapted_note": "VIRTUAL. 전부 허구 장면",
+   "map": {
+    "pin": null,
+    "place_label": "시간의 서고",
+    "radius": null,
+    "evidence_level": "invented",
+    "source": "ch999_finale.json. 서고 허브 표시"
+   }
+  },
+  {
+   "stage_code": "ch999_s3",
+   "shelf_code": "ch999",
+   "title": "이름 없는 칸",
+   "year_label": null,
+   "virtual": true,
+   "adapted": true,
+   "adapted_note": "VIRTUAL. 전부 허구 장면",
+   "map": {
+    "pin": null,
+    "place_label": "시간의 서고",
+    "radius": null,
+    "evidence_level": "invented",
+    "source": "ch999_finale.json. 서고 허브 표시"
+   }
+  },
+  {
+   "stage_code": "ch999_s4",
+   "shelf_code": "ch999",
+   "title": "마지막 장",
+   "year_label": null,
+   "virtual": true,
+   "adapted": true,
+   "adapted_note": "VIRTUAL. 전부 허구 장면",
+   "map": {
+    "pin": null,
+    "place_label": "시간의 서고",
+    "radius": null,
+    "evidence_level": "invented",
+    "source": "ch999_finale.json. 서고 허브 표시"
+   }
+  },
+  {
+   "stage_code": "ch25_s1",
+   "shelf_code": "ch25",
+   "title": "랑선 길목",
+   "year_label": "1285년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.7964,
+     "y": 0.3786
+    },
+    "place_label": "다이비엣 북쪽 국경 산길",
+    "modern_ref": "베트남 랑선 일대(약 21.85N 106.7E)",
+    "radius": 0.002,
+    "evidence_level": "verify",
+    "source": "국경 방어 지점은 문헌에서 지명이 갈림. 통설 방향"
+   }
+  },
+  {
+   "stage_code": "ch25_s2",
+   "shelf_code": "ch25",
+   "title": "함뜨 나루",
+   "year_label": "1285년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.7944,
+     "y": 0.3842
+    },
+    "place_label": "홍강 하류 함뜨 나루",
+    "modern_ref": "베트남 흥옌 호이 일대(약 20.85N 105.97E)",
+    "radius": 0.0012,
+    "evidence_level": "accepted",
+    "source": "함뜨 전투(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch25_s3",
+   "shelf_code": "ch25",
+   "title": "쯔엉즈엉 나루",
+   "year_label": "1285년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.7941,
+     "y": 0.3841
+    },
+    "place_label": "홍강 쯔엉즈엉 나루",
+    "modern_ref": "베트남 하노이 남쪽 쯔엉즈엉(약 20.87N 105.88E)",
+    "radius": 0.0012,
+    "evidence_level": "accepted",
+    "source": "쯔엉즈엉 전투(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch25_s4",
+   "shelf_code": "ch25",
+   "title": "탕롱 탈환",
+   "year_label": "1285년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.794,
+     "y": 0.3832
+    },
+    "place_label": "다이비엣 도성 탕롱",
+    "modern_ref": "베트남 하노이 구시가(약 21.03N 105.85E)",
+    "radius": 0.001,
+    "evidence_level": "confirmed",
+    "source": "탕롱 도성(일반 지식)"
+   }
+  },
+  {
+   "stage_code": "ch25_s5",
+   "shelf_code": "ch25",
+   "title": "퇴로 습격",
+   "year_label": "1285년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.795,
+     "y": 0.3811
+    },
+    "place_label": "북쪽으로 이어지는 퇴각로",
+    "modern_ref": "베트남 박장~랑선 사이 산길 근사(약 21.4N 106.2E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "퇴각로 정확 지점은 문헌에 없음. 통설 방향"
+   }
+  },
+  {
+   "stage_code": "ch25_s6",
+   "shelf_code": "ch25",
+   "title": "반끼엡 야영지",
+   "year_label": "1285년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.7956,
+     "y": 0.3827
+    },
+    "place_label": "반끼엡 몽골 야영지",
+    "modern_ref": "베트남 하이즈엉 찌린 일대(약 21.12N 106.4E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "반끼엡(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch25_s7",
+   "shelf_code": "ch25",
+   "title": "번돈 군량선",
+   "year_label": "1288년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.7985,
+     "y": 0.3831
+    },
+    "place_label": "번돈 해역",
+    "modern_ref": "베트남 꽝닌 번돈 일대(약 21.05N 107.45E)",
+    "radius": 0.003,
+    "evidence_level": "accepted",
+    "source": "번돈 전투(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch25_s8",
+   "shelf_code": "ch25",
+   "title": "반격로",
+   "year_label": "1288년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.7953,
+     "y": 0.3822
+    },
+    "place_label": "탕롱에서 바익당으로 이어지는 반격로",
+    "modern_ref": "베트남 북부 육로 근사(약 21.2N 106.3E)",
+    "radius": 0.003,
+    "evidence_level": "verify",
+    "source": "철수 중인 몽골군의 경로는 통설 방향"
+   }
+  },
+  {
+   "stage_code": "ch25_s9",
+   "shelf_code": "ch25",
+   "title": "말뚝 매복",
+   "year_label": "1288년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.7966,
+     "y": 0.3836
+    },
+    "place_label": "바익당강 말뚝 매복 지점",
+    "modern_ref": "베트남 꽝닌~하이퐁 바익당강 하구 일대(약 20.95N 106.78E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "바익당강(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch25_s10",
+   "shelf_code": "ch25",
+   "title": "바익당강",
+   "year_label": "1288년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.7967,
+     "y": 0.3834
+    },
+    "place_label": "바익당강 하구",
+    "modern_ref": "베트남 꽝닌~하이퐁 바익당강 하구(약 20.98N 106.82E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "바익당강 전투(일반 지식 근사)"
+   }
+  },
+  {
+   "stage_code": "ch26_s1",
+   "shelf_code": "ch26",
+   "title": "보게사이 평원",
+   "year_label": "기원전 58년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.5203,
+     "y": 0.2344
+    },
+    "place_label": "라인강 서쪽 평원",
+    "modern_ref": "프랑스 알자스 일대(약 47.8N 7.3E)",
+    "radius": 0.002,
+    "evidence_level": "verify",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  },
+  {
+   "stage_code": "ch26_s2",
+   "shelf_code": "ch26",
+   "title": "라인 다리",
+   "year_label": "기원전 55년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.5207,
+     "y": 0.2198
+    },
+    "place_label": "라인강 나무다리",
+    "modern_ref": "독일 코블렌츠~노이비트 부근(약 50.4N 7.5E)",
+    "radius": 0.002,
+    "evidence_level": "verify",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  },
+  {
+   "stage_code": "ch26_s3",
+   "shelf_code": "ch26",
+   "title": "알레시아",
+   "year_label": "기원전 52년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.5125,
+     "y": 0.2359
+    },
+    "place_label": "알레시아 성채",
+    "modern_ref": "프랑스 알리즈생트렌(약 47.5N 4.5E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  },
+  {
+   "stage_code": "ch26_s4",
+   "shelf_code": "ch26",
+   "title": "로마 탈출",
+   "year_label": "기원전 49년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.5347,
+     "y": 0.2672
+    },
+    "place_label": "로마 원로원 회의장",
+    "modern_ref": "이탈리아 로마(약 41.9N 12.5E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  },
+  {
+   "stage_code": "ch26_s5",
+   "shelf_code": "ch26",
+   "title": "루비콘",
+   "year_label": "기원전 49년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.5344,
+     "y": 0.255
+    },
+    "place_label": "루비콘강 강변",
+    "modern_ref": "이탈리아 북부 루비콘강 하구(약 44.1N 12.4E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  },
+  {
+   "stage_code": "ch26_s6",
+   "shelf_code": "ch26",
+   "title": "코르피니움",
+   "year_label": "기원전 49년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.5384,
+     "y": 0.2663
+    },
+    "place_label": "코르피니움 성읍",
+    "modern_ref": "이탈리아 코르피니오(약 42.1N 13.8E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  },
+  {
+   "stage_code": "ch26_s7",
+   "shelf_code": "ch26",
+   "title": "로마 입성",
+   "year_label": "기원전 49년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.5347,
+     "y": 0.2673
+    },
+    "place_label": "로마 사투르누스 신전",
+    "modern_ref": "이탈리아 로마 포룸(약 41.9N 12.5E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  },
+  {
+   "stage_code": "ch26_s8",
+   "shelf_code": "ch26",
+   "title": "파르살루스",
+   "year_label": "기원전 48년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.5622,
+     "y": 0.2817
+    },
+    "place_label": "테살리아 평원",
+    "modern_ref": "그리스 파르살라 일대(약 39.3N 22.4E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  },
+  {
+   "stage_code": "ch26_s9",
+   "shelf_code": "ch26",
+   "title": "문다 평원",
+   "year_label": "기원전 45년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.4864,
+     "y": 0.2928
+    },
+    "place_label": "히스파니아 남부 문다",
+    "modern_ref": "스페인 안달루시아(위치 이설, 약 37.3N 4.9W)",
+    "radius": 0.002,
+    "evidence_level": "verify",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  },
+  {
+   "stage_code": "ch26_s10",
+   "shelf_code": "ch26",
+   "title": "3월 15일",
+   "year_label": "기원전 44년",
+   "virtual": false,
+   "adapted": true,
+   "adapted_note": "사실 골격에 주인공 시점을 더한 각색(세부 각색)",
+   "map": {
+    "pin": {
+     "x": 0.5346,
+     "y": 0.2672
+    },
+    "place_label": "폼페이우스 극장 회랑",
+    "modern_ref": "이탈리아 로마 라르고 디 토레 아르젠티나(약 41.9N 12.5E)",
+    "radius": 0.002,
+    "evidence_level": "accepted",
+    "source": "일반 지식 근사(웹 좌표 미확인)"
+   }
+  }
+ ]
+}

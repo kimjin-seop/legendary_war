@@ -1,0 +1,3994 @@
+{
+  "schema_version": "proposal-0.1",
+  "schema_note": "문기획 '전투 이벤트 시스템 기획' 스키마 문서를 이번 세션에서 찾지 못해, 요청서의 최상위 키(trigger/policy/priority/requires/cast/scene/effects/choice/end/next)에 맞춰 합리적 스키마를 제안한다. 필드명과 op 이름은 문기획/박백엔 확정 시 변경될 수 있다. policy는 policy_default와 병합하며 이벤트의 policy는 덮어쓸 항목만 둔다. 수치는 모두 'TBD(임밸런)'. 엔진 지원 여부는 확인하지 못했다(requires.engine_support는 구현 난이도 분류). 대사는 {speaker,text,expr,is_invented[,only_if]} 줄 단위이며 is_invented=false는 시오리의 사실 서술과 사실 캡션이다. 일본/적 화자는 허용하지 않는다. only_if는 편성·플래그 조건 문자열이며 불충족 줄은 생략한다. 본 파일은 BATTLE_EVENTS_CH6-10.md와 같은 내용을 수기로 옮긴 것이며 python -I 파싱 검증은 실행 도구 부재로 수행하지 못했다.",
+  "generated": "2026-11-01",
+  "author": "송서사",
+  "scope": "ch1_s6~ch1_s10 (1~5장은 BATTLE_EVENTS_CH1-5)",
+  "policy_default": {
+    "once": true,
+    "skippable": true,
+    "pause_input": true,
+    "max_sec": 20,
+    "replay": "short_after_first_clear",
+    "effects_apply_on_skip": true,
+    "multiplayer": false,
+    "enabled": true
+  },
+  "trigger_vocab": {
+    "turn_start": "{phase: player|enemy, turn: N}",
+    "hp_threshold": "{unit|units, lte_tenths, first_time, after: action, count_min?}",
+    "unit_enter_zone": "{unit, zone, first_time, after}",
+    "unit_adjacent": "{unit, fallback_unit?, target, first_time, after}",
+    "unit_distance": "{a, b, lte, first_time, after}",
+    "pair_near_target": "{pair, target, adjacent, lte, first_time, after}",
+    "stage_victory": "{} 승리 판정 직후"
+  },
+  "engine_support_legend": {
+    "기본(확인 필요)": "턴/HP/구역 조건과 대사. 엔진 지원 여부 미확인",
+    "확장 필요": "AI 패턴 변경, 버프/회복 등 기존 규칙의 확장",
+    "신규 필요": "tile_patch, 날씨, 조명 프리셋, 선택 UI, 플레이어 조작 증원, 컷신, 보스 페이즈 등 새 기능"
+  },
+  "stages": [
+    {
+      "stage_id": "ch1_s6",
+      "chapter": 6,
+      "title": "행주산성",
+      "map": "im_06_haengju",
+      "goal": "survive_turns 10",
+      "classification": "사실 기반 각색",
+      "boss": false,
+      "events": [
+        {
+          "id": "ch1_s6_e01",
+          "name": "같은 성, 다른 아침",
+          "types": [
+            "A"
+          ],
+          "section": "3",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 1
+          },
+          "when_text": "1턴째 아군 페이즈 시작 시(전투 시작 직후)",
+          "policy": {},
+          "priority": 90,
+          "requires": {
+            "engine_support": "기본(확인 필요)"
+          },
+          "cast": [
+            "shiori",
+            "gwon_yul",
+            "yi_sun_sin",
+            "gwak_jae_u",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "1593년 음력 2월 12일, 한강가 행주산성.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "지휘관님, 이번 성은 산성입니다. 가운데 고지를 성벽이 에워싸고 문은 남쪽에 하나뿐입니다. 진주성과는 짜임이 다릅니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwon_yul",
+                "text": "성은 낮고 병력은 적소. 해가 질 때까지만 버티면 되오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "성을 지키는 방식은 장군께 배우겠소.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "성벽 위에서 보니 하늘이 바다보다 낮구려.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "protagonist",
+                "text": "열 턴을 버티면 되는 거죠? 어느 쪽이 먼저 뚫릴 것 같으세요?",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwon_yul",
+                "text": "남쪽 성문이오. 첫 물결은 거기서 올 것이오.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "10턴을 버텨 내면 승리입니다. 화면의 목표 표시를 확인해 주십시오.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 성 밖 전경 -> 남문 -> 성루 위 권율 버스트업(3초) -> 전체. 이펙트: 아침 안개. 사운드: bgm_haengju_dawn, sfx_gate_creak",
+            "short": "행주산성: 10턴을 버텨라. 첫 물결은 남문."
+          },
+          "effects": [
+            {
+              "op": "show_objective",
+              "type": "survive_turns",
+              "value": 10
+            },
+            {
+              "op": "show_marker",
+              "zone": "south_gate",
+              "kind": "danger"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 또는 스킵 시 아군 조작 가능",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s6_e02"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "confirmed",
+            "fact_refs": [
+              "행주 전투 일자(음력 2월 12일): campaign_ch1_outline.json"
+            ],
+            "engine_support": "기본(확인 필요)"
+          }
+        },
+        {
+          "id": "ch1_s6_e02",
+          "name": "첫 번째 물결",
+          "types": [
+            "A"
+          ],
+          "section": "4",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 2
+          },
+          "when_text": "2턴째 적군 페이즈 시작 시",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "확장 필요(AI 패턴)"
+          },
+          "cast": [
+            "gwon_yul",
+            "shiori"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "일본군 선봉이 남쪽 성문 앞에 닿습니다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "gwon_yul",
+                "text": "물러서지 마라. 첫 물결만 넘기면 되오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "적이 성문 쪽으로 몰립니다. 성문 앞 부대를 확인해 주십시오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_jp_ukita_hideie",
+                "text": "산성이라 한들 작은 성이다. 남쪽 문 앞에 병력을 모아 한 번에 밀어라.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 북문 팬 1.5초, 적 대형 변경, 공격 방향 화살표 3개. 사운드: sfx_war_drum_low",
+            "short": "2턴: 첫 번째 물결이 남문에 집중된다."
+          },
+          "effects": [
+            {
+              "op": "ai_pattern",
+              "side": "enemy",
+              "pattern": "assault_zone",
+              "zone": "south_gate",
+              "turns": 2
+            },
+            {
+              "op": "show_marker",
+              "zone": "south_gate",
+              "kind": "target"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "시오리 대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s6_e03"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "확장 필요(AI 패턴)"
+          }
+        },
+        {
+          "id": "ch1_s6_e03",
+          "name": "화살이 빗발치다",
+          "types": [
+            "A"
+          ],
+          "section": "4",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 4
+          },
+          "when_text": "4턴째 적군 페이즈 시작 시",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "확장 필요(AI 패턴)"
+          },
+          "cast": [
+            "shiori",
+            "protagonist",
+            "gwon_yul"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "성문 위로 화살이 쏟아집니다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "화살이 성문 앞에 집중됩니다. 앞줄을 교대시키는 편이 좋겠습니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "앞줄을 교대시키겠습니다. 뒷줄의 궁병은 사거리 안에 두고요.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwon_yul",
+                "text": "교대할 때 틈을 보이지 마라.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 적 후열 -> 성문 위 화살 궤적 팬 2초. 이펙트: 화살 비, 약한 흔들림 0.1초. 사운드: sfx_arrow_volley",
+            "short": "4턴: 화살이 성문 앞에 집중된다. 앞줄을 교대시켜라."
+          },
+          "effects": [
+            {
+              "op": "ai_pattern",
+              "side": "enemy",
+              "pattern": "focus_fire",
+              "target": "gate_defenders",
+              "turns": 2
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s6_e04"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "확장 필요(AI 패턴)"
+          }
+        },
+        {
+          "id": "ch1_s6_e04",
+          "name": "성 한 채가 사라지오",
+          "types": [
+            "B"
+          ],
+          "section": "5",
+          "trigger": {
+            "type": "hp_threshold",
+            "units": "allies",
+            "count_min": 2,
+            "lte_tenths": 3,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "아군 유닛 2개 이상이 병력 3/10 이하가 되는 최초의 순간(행동 직후)",
+          "policy": {},
+          "priority": 80,
+          "requires": {
+            "engine_support": "기본(HP 조건) + 확장 필요(오라 버프)"
+          },
+          "cast": [
+            "gwon_yul",
+            "protagonist",
+            "yi_sun_sin",
+            "gwak_jae_u"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "gwon_yul",
+                "text": "한 걸음 물러서면 성 한 채가 사라지오. 지휘관, 성문을 채우시오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "다친 부대는 뒤로 돌리고, 가까운 부대로 성문을 채우겠습니다. 맞을까요?",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "맞소. 성은 한 줄이 아니라 겹으로 지키는 것이오.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "겹이 얇으면 내가 한 겹이 되겠소.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              }
+            ],
+            "direction": "카메라: 위기 유닛 전체 -> 권율 클로즈업 줌인 0.6초 -> 성문 전경. 이펙트: 성문 붉은 경고, 권율 오라(황색). 사운드: sfx_horn_short",
+            "short": "방어선 위기: 성문을 겹으로 채워라."
+          },
+          "effects": [
+            {
+              "op": "buff",
+              "target": "allies_on_zone:inner_fort",
+              "stat": "def",
+              "value": "TBD(임밸런)",
+              "turns": 2
+            },
+            {
+              "op": "show_marker",
+              "zone": "retreat_cells",
+              "kind": "path"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 시 조작 재개(행동 중이던 유닛은 행동 완료 유지)",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s6_e05"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색(인물 반응은 창작)",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "기본(HP 조건) + 확장 필요(오라 버프)"
+          }
+        },
+        {
+          "id": "ch1_s6_e05",
+          "name": "강 쪽에서 온 화살",
+          "types": [
+            "C"
+          ],
+          "section": "6",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 6
+          },
+          "when_text": "6턴째 아군 페이즈 시작 시",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "확장 필요(회복/버프)"
+          },
+          "cast": [
+            "gwon_yul",
+            "shiori",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "이 무렵 화살이 거의 떨어졌고, 강 쪽에서 보급이 닿았다고 전합니다.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "gwon_yul",
+                "text": "화살을 나누어라. 한 대도 허투루 쏘지 마라.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "화살이 귀해지는 때입니다. 남은 화살부터 세어 두시지요.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "화살을 아껴 쓰면 되겠네요. 궁병부터 챙기겠습니다.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 성 뒤쪽 후방(화면 밖) -> 성 안 궁병 부대 팬 2초. 이펙트: 궁병 위 녹색 회복 아이콘. 사운드: sfx_supply_arrive. 맵에 강 타일은 없다(보급 경로는 사실 서술만)",
+            "short": "6턴: 강 쪽으로 화살이 닿았다."
+          },
+          "effects": [
+            {
+              "op": "heal",
+              "target": "allies:archer",
+              "amount_tenths": 1,
+              "once": true
+            },
+            {
+              "op": "buff",
+              "target": "allies:archer",
+              "stat": "atk",
+              "value": "TBD(임밸런)",
+              "turns": 2
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 시 아군 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s6_e06"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "accepted",
+            "fact_refs": [
+              "행주 전투 중 화살 고갈과 강 보급: en.wikipedia Battle_of_Haengju(출처 1종, 세부 verify)"
+            ],
+            "engine_support": "확장 필요(회복/버프)"
+          }
+        },
+        {
+          "id": "ch1_s6_e06",
+          "name": "마지막 물결",
+          "types": [
+            "A",
+            "E"
+          ],
+          "section": "8",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 8
+          },
+          "when_text": "8턴째 적군 페이즈 시작 시",
+          "policy": {},
+          "priority": 70,
+          "requires": {
+            "engine_support": "확장 필요(AI 패턴) + 신규 필요(조명 프리셋)"
+          },
+          "cast": [
+            "gwon_yul",
+            "yi_sun_sin",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "성 밖의 일본군이 마지막 공세를 위해 깃발 아래 다시 모입니다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "gwon_yul",
+                "text": "해는 아직 남았소. 마지막이다. 지켜라.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "끝이 보일 때가 가장 길게 느껴지는 법이오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "남은 건 한 턴입니다. 한 번만 더 버티죠.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_jp_ukita_hideie",
+                "text": "해가 기울기 전에 끝낸다. 모두 나가라!",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 적 후방 와이드 -> 적 지휘 깃발 클로즈업(깃발 색만) -> 성문. 이펙트: 석양 색조 시작 3초. 사운드: bgm_haengju_final",
+            "short": "8턴: 마지막 물결. 해가 지기 전에 지켜라."
+          },
+          "effects": [
+            {
+              "op": "ai_pattern",
+              "side": "enemy",
+              "pattern": "all_in",
+              "zone": "south_gate",
+              "turns": 1
+            },
+            {
+              "op": "lighting",
+              "preset": "sunset_begin",
+              "blend_sec": 3
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s6_e07"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "verify",
+            "fact_refs": [
+              "적 지휘관/총대장 자료별 상이(verify): 이름 비표기"
+            ],
+            "engine_support": "확장 필요(AI 패턴) + 신규 필요(조명 프리셋)"
+          }
+        },
+        {
+          "id": "ch1_s6_e07",
+          "name": "해 질 무렵",
+          "types": [
+            "A"
+          ],
+          "section": "10",
+          "trigger": {
+            "type": "stage_victory"
+          },
+          "when_text": "10턴 종료로 생존 승리가 확정되는 즉시",
+          "policy": {},
+          "priority": 100,
+          "requires": {
+            "engine_support": "기본(확인 필요)"
+          },
+          "cast": [
+            "gwon_yul",
+            "gwak_jae_u",
+            "shiori",
+            "protagonist",
+            "yi_sun_sin"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "해 질 무렵, 일본군이 물러납니다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "npc_jp_ukita_hideie",
+                "text": "성은 아직 서 있다. 군을 물려라, 오늘은 여기까지다.",
+                "expr": "regret",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwon_yul",
+                "text": "물러가는 것은 저들이오. 성은 서 있소.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "해가 지니 성이 붉게 보이는구려. 붉은 것이 내 옷만은 아니었소.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "shiori",
+                "text": "10턴을 버텨 냈습니다. 행주대첩은 임진왜란 3대첩 중 하나로 꼽힙니다.",
+                "expr": "cheer",
+                "is_invented": false
+              },
+              {
+                "speaker": "shiori",
+                "text": "{protagonist_name} 님, 4장과는 다른 얼굴의 성이었습니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "높은 곳에서 버티니 4장과는 느낌이 달랐어요. 성이 지켜 준 게 아니라 사람들이 서 있었던 거겠죠.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "지키는 싸움은 이기고도 조용하구려.",
+                "expr": "neutral",
+                "is_invented": true,
+                "only_if": "yi_sun_sin 편성"
+              }
+            ],
+            "direction": "카메라: 성문 전경 -> 후퇴하는 적 대형(맵 밖으로 이동 후 페이드) -> 성루 위 영웅들. 이펙트: 석양 정점. 사운드: bgm_victory_quiet",
+            "short": "10턴 생존 성공. 행주대첩."
+          },
+          "effects": [
+            {
+              "op": "end_battle",
+              "result": "victory"
+            },
+            {
+              "op": "set_flag",
+              "key": "ch1_s6_cleared",
+              "value": true
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 후 결과 화면",
+            "resume": "result_screen"
+          },
+          "next": [
+            "ch1_s6_post"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "confirmed",
+            "fact_refs": [
+              "행주대첩=임진왜란 3대첩: campaign_ch1_outline.json"
+            ],
+            "engine_support": "기본(확인 필요)"
+          }
+        }
+      ],
+      "pairs": [
+        {
+          "pair": "권율 x 이순신 (rel_0014, rel_0017)",
+          "events": [
+            "e01",
+            "e07"
+          ],
+          "note": "육전 지휘관과 수군 지휘관이 서로의 방식을 배우는 구도. 키 pair:learns_from 으로 11장 이후 재사용"
+        },
+        {
+          "pair": "권율 x 주인공(직책 호칭 지휘관)",
+          "events": [
+            "e04"
+          ],
+          "note": "NPC 동행의 직책 호칭 규칙 확인"
+        },
+        {
+          "pair": "곽재우 x 이순신",
+          "events": [
+            "e04",
+            "e07"
+          ],
+          "note": "1~3장 콜백. 곽재우 미편성 시 생략"
+        }
+      ]
+    },
+    {
+      "stage_id": "ch1_s7",
+      "chapter": 7,
+      "title": "노량, 마지막 바다",
+      "map": "im_07_noryang",
+      "goal": "defeat_commander(보스)",
+      "classification": "사실 기반 각색",
+      "boss": true,
+      "events": [
+        {
+          "id": "ch1_s7_e01",
+          "name": "야간 개전",
+          "types": [
+            "A"
+          ],
+          "section": "3",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 1,
+            "after_cutscene": "CS-07-01"
+          },
+          "when_text": "컷신 CS-07-01 종료 직후, 1턴째 아군 페이즈 시작 시",
+          "policy": {},
+          "priority": 90,
+          "requires": {
+            "engine_support": "기본(확인 필요) + 신규 필요(조명 프리셋)",
+            "cutscene": "CS-07-01"
+          },
+          "cast": [
+            "shiori",
+            "yi_sun_sin",
+            "gwak_jae_u",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "1598년 음력 11월 19일, 노량입니다. 철수하려는 일본군을 조선과 명의 연합 함대가 바다에서 막았습니다.",
+                "expr": "serious",
+                "is_invented": false
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "바다는 넓어도 길은 암초 사이에 있소. 대열을 흩지 마시오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "어둠 속에서는 붉은 옷도 소용이 없겠구려.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "protagonist",
+                "text": "보이지 않는 쪽이 어디로 올지부터 생각해 보겠습니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "그것이 첫걸음이오.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_jp_shimazu_yoshihiro",
+                "text": "물러나는 동료의 길을 열러 왔다. 어둠이 걷히기 전에 대열을 갖추어라.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 컷신 와이드 -> 아군 시작 구역 -> 해협 서쪽 입구 마커. 이펙트: 등불 글로우, 야간 조명. 사운드: bgm_noryang_night, sfx_wave_loop",
+            "short": "노량: 야간 해협. 대열을 흩지 마라."
+          },
+          "effects": [
+            {
+              "op": "show_objective",
+              "type": "defeat_commander"
+            },
+            {
+              "op": "show_marker",
+              "zone": "strait_west",
+              "kind": "watch"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 또는 스킵 시 아군 조작 가능",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s7_e02"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색(곽재우 참전은 각색, 고지는 s7_pre 담당)",
+            "evidence_level": "confirmed",
+            "fact_refs": [
+              "노량 1598년 음력 11월 19일, 철수 일본군 차단: campaign_ch1_outline.json"
+            ],
+            "engine_support": "기본(확인 필요) + 신규 필요(조명 프리셋)"
+          }
+        },
+        {
+          "id": "ch1_s7_e02",
+          "name": "해협 어귀",
+          "types": [
+            "A"
+          ],
+          "section": "4",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 2
+          },
+          "when_text": "2턴째 적군 페이즈 시작 시",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "확장 필요(연출용 이동)"
+          },
+          "cast": [
+            "shiori",
+            "yi_sun_sin"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "철수를 돕기 위해 온 일본 함대가 해협으로 들어섭니다.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "적선이 해협 안으로 들어옵니다. 지금부터는 한 수 한 수가 전부입니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "깃발을 보시오. 서두르는 쪽이 먼저 흔들리오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_jp_shimazu_yoshihiro",
+                "text": "해협이다. 암초를 피해 한 줄로 들어가라.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 동쪽 입구 팬 -> 적 유닛 다수 동시 이동 1.5초. 이펙트: 적 측은 불빛과 항적만(형체 없음). 사운드: sfx_war_drum_low",
+            "short": "2턴: 적 함대가 해협으로 들어온다."
+          },
+          "effects": [
+            {
+              "op": "mass_move",
+              "side": "enemy",
+              "to": "strait_center"
+            },
+            {
+              "op": "show_marker",
+              "zone": "enemy_flagship",
+              "kind": "target"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s7_e03"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "confirmed",
+            "fact_refs": [
+              "시마즈 요시히로 구원 함대: campaign_ch1_outline.json, en.wikipedia Battle_of_Noryang"
+            ],
+            "engine_support": "확장 필요(연출용 이동)"
+          }
+        },
+        {
+          "id": "ch1_s7_e03",
+          "name": "연합 수군 후속대",
+          "types": [
+            "A"
+          ],
+          "section": "4",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 3
+          },
+          "when_text": "3턴째 아군 페이즈 시작 시",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "신규 필요(플레이어 조작 증원)"
+          },
+          "cast": [
+            "jin_rin",
+            "yi_sun_sin",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "연합 수군 후속대가 전열에 합류합니다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "jin_rin",
+                "text": "조선과 명의 배가 한 물길에 있소. 앞서지도 뒤서지도 맙시다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "든든하오, 도독.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "후속대는 제가 직접 움직이겠습니다. 어디에 세울까요?",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 후방 구역 -> 후속대 등장 지점 줌인. 이펙트: 합류 구역 청색 링. 사운드: sfx_horn_allied. 진린은 NPC 컷인 초상만",
+            "short": "3턴: 연합 수군 후속대 합류. 직접 움직여라."
+          },
+          "effects": [
+            {
+              "op": "spawn_units",
+              "controller": "player",
+              "template": "ally_fleet_sword",
+              "count": 2,
+              "zone": "ally_rear",
+              "acts_on_spawn_turn": "move_only"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 아군 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s7_e04"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색(진린 참전 confirmed, 후속대 합류 시점·대사는 각색/창작)",
+            "evidence_level": "confirmed",
+            "fact_refs": [
+              "진린 노량 참전: en.wikipedia Battle_of_Noryang. 호칭 도독 verify"
+            ],
+            "engine_support": "신규 필요(플레이어 조작 증원)"
+          }
+        },
+        {
+          "id": "ch1_s7_e04",
+          "name": "암초목을 아오",
+          "types": [
+            "B"
+          ],
+          "section": "5",
+          "trigger": {
+            "type": "unit_enter_zone",
+            "unit": "gwak_jae_u",
+            "zone": "reef_belt_sw",
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "곽재우 유닛이 남서 암초 지대에 처음 진입한 행동 직후",
+          "policy": {},
+          "priority": 50,
+          "requires": {
+            "engine_support": "기본(구역 진입) + 확장 필요(버프)",
+            "units_present": [
+              "gwak_jae_u"
+            ]
+          },
+          "cast": [
+            "gwak_jae_u",
+            "protagonist",
+            "yi_sun_sin"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "gwak_jae_u",
+                "text": "물은 몰라도 암초 사이 길목은 아오. 이 자리는 내가 맡겠소.",
+                "expr": "smile",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "암초를 낀 자리를 잡으면 적이 지나는 길이 한눈에 보이네요.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "그렇소. 암초는 물 위의 성벽이오.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 곽재우 클로즈업 0.8초 -> 암초 지대 와이드. 이펙트: 암초 타일 황색 점등. 사운드: sfx_flag_plant",
+            "short": "곽재우가 암초 지대를 잡았다."
+          },
+          "effects": [
+            {
+              "op": "buff",
+              "target": "allies_on_zone:reef_belt_sw",
+              "stat": "def",
+              "value": "TBD(임밸런)",
+              "turns": 2,
+              "once": true
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s7_e05"
+          ],
+          "meta": {
+            "classification": "각색(곽재우 참전 사료 근거 없음)",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "기본(구역 진입) + 확장 필요(버프)"
+          }
+        },
+        {
+          "id": "ch1_s7_e05",
+          "name": "화약 연기",
+          "types": [
+            "C"
+          ],
+          "section": "6",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 5
+          },
+          "when_text": "5턴째 적군 페이즈 시작 시",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "신규 필요(날씨/구역 디버프)"
+          },
+          "cast": [
+            "shiori",
+            "yi_sun_sin"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "화약 연기가 수면을 덮습니다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "연기가 수면을 덮었습니다. 보이는 것만 믿지 마십시오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "깃발을 보시오. 깃발은 흔들려도 자리는 바뀌지 않소.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 해협 중앙 와이드 2초. 이펙트: 반투명 연기 오버레이. 사운드: sfx_cannon_distant, bgm intensity 3",
+            "short": "5턴: 화약 연기. 깃발을 보고 움직여라."
+          },
+          "effects": [
+            {
+              "op": "weather",
+              "type": "smoke",
+              "zone": "sea_center",
+              "turns": 2,
+              "stat": "ranged_accuracy",
+              "value": "TBD(임밸런)",
+              "applies_to": "all"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s7_e06"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색(해전 일반 연출, 특정 사실 주장 아님)",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "신규 필요(날씨/구역 디버프)"
+          }
+        },
+        {
+          "id": "ch1_s7_e06",
+          "name": "해협의 대치",
+          "types": [
+            "E"
+          ],
+          "section": "8",
+          "trigger": {
+            "type": "unit_distance",
+            "a": "yi_sun_sin",
+            "b": "enemy_commander",
+            "lte": 3,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "이순신 유닛과 적 지휘관 유닛 사이 거리가 3칸 이내가 되는 최초의 행동 직후",
+          "policy": {},
+          "priority": 70,
+          "requires": {
+            "engine_support": "기본(거리 조건) + 확인 필요(힌트 UI)"
+          },
+          "cast": [
+            "yi_sun_sin",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "적 지휘관은 시마즈 요시히로. 일본 구원 함대를 이끈 장수입니다.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "yi_sun_sin",
+                "text": "저 지휘선이오. 곁의 배부터 쳐내시오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "지휘관만 쓰러뜨리면 되는데, 주변이 너무 많군요.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "그래서 순서가 필요하오.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_jp_shimazu_yoshihiro",
+                "text": "저 지휘선이 상대의 중심이다. 정면으로 간다.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 이순신 부대와 적 지휘선 스플릿 와이드 2.5초. 이펙트: 지휘 깃발만, 적 지휘선 타겟 링. 사운드: sfx_drum_beat",
+            "short": "적 지휘선 포착. 호위선부터 정리하라."
+          },
+          "effects": [
+            {
+              "op": "show_marker",
+              "unit": "enemy_commander",
+              "kind": "target"
+            },
+            {
+              "op": "hint",
+              "text": "호위선을 먼저 정리하십시오."
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s7_e07"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "confirmed",
+            "fact_refs": [
+              "시마즈 요시히로 구원 함대 지휘: en.wikipedia Battle_of_Noryang, campaign_ch1_outline.json"
+            ],
+            "engine_support": "기본(거리 조건) + 확인 필요(힌트 UI)"
+          }
+        },
+        {
+          "id": "ch1_s7_e07",
+          "name": "지휘선이 흔들리다",
+          "types": [
+            "B"
+          ],
+          "section": "9",
+          "trigger": {
+            "type": "hp_threshold",
+            "unit": "enemy_commander",
+            "lte_tenths": 5,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "적 지휘관 병력이 5/10 이하가 되는 최초의 행동 직후",
+          "policy": {},
+          "priority": 80,
+          "requires": {
+            "engine_support": "기본(HP 조건) + 확장 필요(버프)"
+          },
+          "cast": [
+            "yi_sun_sin",
+            "gwak_jae_u",
+            "protagonist",
+            "shiori"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "yi_sun_sin",
+                "text": "지금이오. 모든 배는 지휘선을 향하시오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "한 번에 몰아붙입시다. 틈이 열렸소.",
+                "expr": "serious",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "protagonist",
+                "text": "호위부터 정리하고 지휘선을 칩니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "지휘선의 움직임이 둔해졌습니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_jp_shimazu_yoshihiro",
+                "text": "지휘선이 흔들린다. 그래도 길을 열어야 한다, 물러서지 마라.",
+                "expr": "regret",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 적 지휘선 줌인 -> 아군 전열 와이드. 이펙트: 지휘선 틸트, 아군 황색 오라. 사운드: sfx_drum_roll, bgm intensity 4",
+            "short": "적 지휘선이 흔들린다. 지금이 기회."
+          },
+          "effects": [
+            {
+              "op": "buff",
+              "target": "allies",
+              "stat": "atk_vs_commander",
+              "value": "TBD(임밸런)",
+              "turns": 2
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s7_e08"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색(대사 창작)",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "기본(HP 조건) + 확장 필요(버프)"
+          }
+        },
+        {
+          "id": "ch1_s7_e08",
+          "name": "동틀 녘",
+          "types": [
+            "C"
+          ],
+          "section": "6",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 8
+          },
+          "when_text": "8턴째 아군 페이즈 시작 시",
+          "policy": {},
+          "priority": 50,
+          "requires": {
+            "engine_support": "신규 필요(조명 프리셋)"
+          },
+          "cast": [
+            "gwak_jae_u",
+            "shiori"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "날이 밝아 옵니다. 전투는 새벽을 지나 이어졌다고 전합니다.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "gwak_jae_u",
+                "text": "날이 밝는구려. 이제 저쪽도 우리를 볼 수 있겠소.",
+                "expr": "serious",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "shiori",
+                "text": "……이 뒤의 기록은 제가 한 줄씩 읽겠습니다. 지금은 눈앞의 바다를 보십시오.",
+                "expr": "regret",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 수평선 -> 해협 와이드 3초. 이펙트: night_strait -> dawn_gray, 등불 페이드아웃. 사운드: 북소리 한 박 감소",
+            "short": "8턴: 날이 밝아 온다."
+          },
+          "effects": [
+            {
+              "op": "lighting",
+              "preset": "dawn_gray",
+              "blend_sec": 3
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s7_e09"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "accepted",
+            "fact_refs": [
+              "전투가 새벽을 지나 이어짐: en.wikipedia Battle_of_Noryang(시각 세부 verify)"
+            ],
+            "engine_support": "신규 필요(조명 프리셋)"
+          }
+        },
+        {
+          "id": "ch1_s7_e09",
+          "name": "북소리가 멎다",
+          "types": [
+            "A"
+          ],
+          "section": "10",
+          "trigger": {
+            "type": "stage_victory"
+          },
+          "when_text": "적 지휘관 격파로 승리가 확정되는 즉시",
+          "policy": {},
+          "priority": 100,
+          "requires": {
+            "engine_support": "기본(승리 후 직결) + 확인 필요(결과 화면 생략 옵션)",
+            "constraint": "이순신 초상·모션·대사·병력 표시 사용 금지, 이순신 유닛 사망 처리 금지"
+          },
+          "cast": [
+            "shiori",
+            "gwak_jae_u",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "1598년 음력 11월 19일, 노량. 조선·명 연합 수군의 승리로 기록됩니다.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "npc_jp_shimazu_yoshihiro",
+                "text": "남은 배를 모아 물러난다. 이 바다는 오래 기억될 것이다.",
+                "expr": "regret",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "……승리입니다.",
+                "expr": "regret",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "{protagonist_name} 님. 마지막 쪽은 함께 읽어 주십시오.",
+                "expr": "regret",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "이 자리에서는 웃음을 거두겠소.",
+                "expr": "serious",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "protagonist",
+                "text": "……네. 읽겠습니다.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 전장 전체 -> 아군 깃발 한 폭 클로즈업(인물 없음) -> 암전. 모션: 모든 유닛 idle 정지. 사운드: 북소리 간격이 길어지다 사라짐(상징) -> 파도 소리만",
+            "short": "노량 승리. 마지막 쪽을 읽으러 간다."
+          },
+          "effects": [
+            {
+              "op": "end_battle",
+              "result": "victory",
+              "skip_result_screen": true
+            },
+            {
+              "op": "set_flag",
+              "key": "ch1_s7_cleared",
+              "value": true
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "암전 완료 후 ch1_s7_post 시작",
+            "resume": "next_scene"
+          },
+          "next": [
+            "ch1_s7_post"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색(전사는 직접 연출 금지, 서술·상징)",
+            "evidence_level": "confirmed",
+            "fact_refs": [
+              "노량 연합군 승리: campaign_ch1_outline.json, en.wikipedia Battle_of_Noryang"
+            ],
+            "engine_support": "기본(승리 후 직결) + 확인 필요(결과 화면 생략 옵션)"
+          }
+        }
+      ],
+      "pairs": [
+        {
+          "pair": "이순신 x 진린(NPC)",
+          "events": [
+            "e03"
+          ],
+          "note": "동맹 지휘관 조합. 호칭 도독 verify. 11장 이후 연합군 영웅 쌍 템플릿"
+        },
+        {
+          "pair": "이순신 x 주인공",
+          "events": [
+            "e01",
+            "e06"
+          ],
+          "note": "1장 e01 첫걸음 콜백"
+        },
+        {
+          "pair": "곽재우 x 이순신",
+          "events": [
+            "e04"
+          ],
+          "note": "역할 분담 변주. 곽재우 미편성 시 생략"
+        }
+      ]
+    },
+    {
+      "stage_id": "ch1_s8",
+      "chapter": 8,
+      "title": "번진 서가",
+      "map": "im_08_seoga_collapse",
+      "goal": "defeat_commander(그림자 핵)",
+      "classification": "허구",
+      "boss": false,
+      "zones": [
+        "ink_pool_a",
+        "ink_pool_b",
+        "ink_pool_c",
+        "ink_front_1",
+        "ink_front_2",
+        "center_corridor",
+        "side_stack_path",
+        "east_block",
+        "core"
+      ],
+      "events": [
+        {
+          "id": "ch1_s8_e01",
+          "name": "먹물의 첫 방울",
+          "types": [
+            "A"
+          ],
+          "section": "3",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 1
+          },
+          "when_text": "1턴째 아군 페이즈 시작 시(전투 시작 직후)",
+          "policy": {},
+          "priority": 90,
+          "requires": {
+            "engine_support": "신규 필요(적 연출 출현, 예고선)"
+          },
+          "cast": [
+            "shiori",
+            "protagonist",
+            "yi_sun_sin",
+            "gwak_jae_u"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "먹물이 번진 자리에는 어느 시대의 이름도 남아 있지 않다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "지휘관님, 노량의 마지막 장이 덮이지 않았습니다. 번진 기록이 전장이 되었습니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "저건… 사람은 아니죠?",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "사람처럼 서 있을 뿐입니다. 저는 그림자라고 부르겠습니다. 책장을 찢지는 않습니다. 번지게 할 뿐입니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "적이라 하기에는 소리가 없소.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "소리 없는 적이라 마음이 편하다 하려다… 편치는 않구려.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "npc_ink_shadow_s8",
+                "text": "……적다 만 자리……",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 잉크 한 방울 클로즈업 -> 웅덩이 3곳 순차 컷 -> 솟는 형체 slow zoom 3초. 이펙트: 먹물 번짐, 2턴째 확산 예고선. 사운드: sfx_ink_drop, bgm_silence 후 낮은 드론. 그림자는 비인간 형체, 대사 없음",
+            "short": "번진 서가: 먹물에서 그림자가 일어난다."
+          },
+          "effects": [
+            {
+              "op": "spawn_units",
+              "controller": "enemy",
+              "template": "shadow_basic",
+              "count": 3,
+              "zones": [
+                "ink_pool_a",
+                "ink_pool_b",
+                "ink_pool_c"
+              ],
+              "fx": "rise_from_ink"
+            },
+            {
+              "op": "show_objective",
+              "type": "defeat_commander"
+            },
+            {
+              "op": "telegraph_patch",
+              "patch_id": "ink_front_1",
+              "visible_until_turn": 2
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 또는 스킵 시 아군 조작 가능",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s8_e02"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "그림자 외형·행동 규칙: SCENARIO_01_BIBLE 2-3-10"
+            ],
+            "engine_support": "신규 필요(적 연출 출현, 예고선)"
+          }
+        },
+        {
+          "id": "ch1_s8_e02",
+          "name": "번지는 먹물",
+          "types": [
+            "C"
+          ],
+          "section": "4",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 2
+          },
+          "when_text": "2턴째 적군 페이즈 시작 시",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "신규 필요(tile_patch, 예고선)"
+          },
+          "cast": [
+            "shiori"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "먹물이 번집니다. 닿는 자리는 읽을 수 없게 됩니다. 길을 잃기 전에 움직여 주십시오.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 확산 구역 와이드 2초. 이펙트: 타일 단위 0.2초 간격 확산(skin ink). 사운드: sfx_ink_spread",
+            "short": "2턴: 먹물이 번져 길이 끊긴다."
+          },
+          "effects": [
+            {
+              "op": "tile_patch",
+              "patch_id": "ink_front_1",
+              "zone": "ink_front_1",
+              "from": "plain",
+              "to": "water",
+              "skin": "ink",
+              "telegraphed": true
+            },
+            {
+              "op": "schedule_patch",
+              "patch_id": "ink_front_2",
+              "turn": 5,
+              "phase": "enemy",
+              "telegraph_turn": 4
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s8_e03"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "신규 필요(tile_patch, 예고선)"
+          }
+        },
+        {
+          "id": "ch1_s8_e03",
+          "name": "닦을 것인가, 돌아갈 것인가",
+          "types": [
+            "D"
+          ],
+          "section": "6",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 4
+          },
+          "when_text": "4턴째 아군 페이즈 시작 시",
+          "policy": {
+            "max_sec": 30
+          },
+          "priority": 75,
+          "requires": {
+            "engine_support": "신규 필요(선택 UI, tile_patch, 행동 소모, 플래그)"
+          },
+          "cast": [
+            "shiori",
+            "protagonist",
+            "gwak_jae_u"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "먹물이 중앙 발판 쪽으로 번졌습니다. 닦아 내면 발판이 단단해지지만 손이 젖습니다. 샛길로 돌아가면 시간이 더 듭니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "벗이 정하시오. 나는 어느 길이든 먼저 서겠소.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              }
+            ],
+            "direction": "카메라: 막힌 통로 -> 책더미 샛길 -> 주인공 각 1초. 이펙트: 두 경로 하이라이트 교차 점멸, 선택지 UI. 사운드: sfx_choice_open",
+            "short": "4턴: 먹물이 길을 막았다. 닦거나 돌아가라."
+          },
+          "effects": [],
+          "choice": {
+            "prompt": "중앙 통로를 막은 먹물을 어떻게 하시겠습니까?",
+            "default": "A",
+            "timeout_sec": null,
+            "note": "허구 전장 한정, 역사 사실 영향 없음. 스킵 시 A",
+            "options": [
+              {
+                "id": "A",
+                "label": "닦아 낸다",
+                "lines": [
+                  {
+                    "speaker": "protagonist",
+                    "text": "닦아 보겠습니다. 닦아 낸 자리에 무엇이 있었는지도 보고 싶습니다.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  },
+                  {
+                    "speaker": "shiori",
+                    "text": "닦는 쪽도 손이 젖습니다. ……그래도 사서의 일입니다.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  }
+                ],
+                "captions": [
+                  {
+                    "text": "닦인 자리에 책의 마지막 한 줄만 남아 있습니다. '……라고만 전한다.'",
+                    "is_invented": true
+                  }
+                ],
+                "effects": [
+                  {
+                    "op": "cosmetic_overlay",
+                    "patch_id": "clean_center",
+                    "zone": "center_corridor",
+                    "skin": "ink",
+                    "revert": true
+                  },
+                  {
+                    "op": "consume_action",
+                    "unit": "selected_unit",
+                    "turns": 1
+                  },
+                  {
+                    "op": "reward",
+                    "item": "record_fragment",
+                    "count": 1,
+                    "value": "TBD(임밸런)"
+                  },
+                  {
+                    "op": "set_flag",
+                    "key": "ch8_cleaned",
+                    "value": true
+                  }
+                ]
+              },
+              {
+                "id": "B",
+                "label": "샛길로 돌아간다",
+                "lines": [
+                  {
+                    "speaker": "protagonist",
+                    "text": "돌아가겠습니다. 시간을 더 쓰면 번짐이 더 넓어질 것 같아요.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  },
+                  {
+                    "speaker": "gwak_jae_u",
+                    "text": "길은 많을수록 좋소. 서가 사이라 더욱 그렇소.",
+                    "expr": "smile",
+                    "is_invented": true,
+                    "only_if": "gwak_jae_u 편성"
+                  }
+                ],
+                "captions": [],
+                "effects": [
+                  {
+                    "op": "hint",
+                    "text": "샛길로 돌아가 번짐 속도를 늦추지 못합니다. 번짐 예고가 한 턴 앞당겨집니다."
+                  },
+                  {
+                    "op": "reschedule_patch",
+                    "patch_id": "ink_front_2",
+                    "turn": 4,
+                    "phase": "enemy"
+                  },
+                  {
+                    "op": "set_flag",
+                    "key": "ch8_cleaned",
+                    "value": false
+                  }
+                ]
+              }
+            ]
+          },
+          "end": {
+            "condition": "선택 확정 후 선택별 대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s8_e04"
+          ],
+          "meta": {
+            "classification": "허구(역사 사실 영향 없음)",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "F4-4(한 줄 요약 표식) 복선"
+            ],
+            "engine_support": "신규 필요(선택 UI, tile_patch, 행동 소모, 플래그)"
+          }
+        },
+        {
+          "id": "ch1_s8_e04",
+          "name": "따라오는 먹물",
+          "types": [
+            "B"
+          ],
+          "section": "5",
+          "trigger": {
+            "type": "unit_adjacent",
+            "unit": "gwak_jae_u",
+            "fallback_unit": "yi_sun_sin",
+            "target": "enemy_shadow",
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "곽재우 유닛이 그림자 유닛과 인접하게 되는 최초의 행동 직후(곽재우 미편성 시 이순신 유닛으로 대체)",
+          "policy": {},
+          "priority": 50,
+          "requires": {
+            "engine_support": "확장 필요(AI 패턴)"
+          },
+          "cast": [
+            "gwak_jae_u",
+            "yi_sun_sin",
+            "shiori",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "gwak_jae_u",
+                "text": "내가 가는 쪽으로 번져 오는 듯하오. 따라온다기보다… 읽고 있소.",
+                "expr": "serious",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "움직임을 따라 형태를 바꾸고 있소.",
+                "expr": "serious",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 미편성"
+              },
+              {
+                "speaker": "shiori",
+                "text": "기록해 두겠습니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "먼저 움직이는 쪽으로 따라온다면, 미끼를 써 볼 수 있겠네요.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 영웅 이동 경로 trail -> 그림자 형태 변화 클로즈업 2초. 이펙트: 잉크 궤적 라인. 사운드: sfx_ink_follow",
+            "short": "그림자는 영웅의 발자국을 따라 번진다."
+          },
+          "effects": [
+            {
+              "op": "ai_pattern",
+              "side": "enemy",
+              "pattern": "follow_hero_path",
+              "turns": 3
+            },
+            {
+              "op": "hint",
+              "text": "그림자는 영웅의 이동 경로를 따라갑니다."
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s8_e05"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "F3-2"
+            ],
+            "engine_support": "확장 필요(AI 패턴)"
+          }
+        },
+        {
+          "id": "ch1_s8_e05",
+          "name": "책장이 넘어가다",
+          "types": [
+            "C"
+          ],
+          "section": "6",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 6
+          },
+          "when_text": "6턴째 적군 페이즈 시작 시(5턴째 아군 페이즈 시작 시 변경 구역 예고)",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "신규 필요(tile_patch, 예고, 유닛 재배치)"
+          },
+          "cast": [
+            "shiori",
+            "yi_sun_sin"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "쪽이 넘어갑니다. 서가가 흔들립니다. 발판 위에서 자리를 잃지 않게 하십시오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "발판이 흔들려도 깃발은 그대로 두시오.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 맵 전체 -> 책장 넘김 트랜지션 0.8초 -> 변형 구역 클로즈업. 이펙트: 페이지 플립 타일 변환. 사운드: sfx_page_turn_big",
+            "short": "6턴: 쪽이 넘어가며 서가가 흔들린다."
+          },
+          "effects": [
+            {
+              "op": "telegraph_patch",
+              "patch_id": "page_turn_east",
+              "turn": 5,
+              "phase": "player"
+            },
+            {
+              "op": "cosmetic_overlay",
+              "patch_id": "page_turn_east",
+              "zone": "east_block",
+              "skin": "page_flip"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s8_e06"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "신규 필요(tile_patch, 예고, 유닛 재배치)"
+          }
+        },
+        {
+          "id": "ch1_s8_e06",
+          "name": "뒤로 돌리시오",
+          "types": [
+            "B"
+          ],
+          "section": "5",
+          "trigger": {
+            "type": "hp_threshold",
+            "units": [
+              "yi_sun_sin",
+              "gwak_jae_u"
+            ],
+            "lte_tenths": 3,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "아군 영웅(이순신 또는 곽재우)의 병력이 3/10 이하가 되는 최초의 행동 직후",
+          "policy": {},
+          "priority": 80,
+          "requires": {
+            "engine_support": "기본(HP 조건) + 확장 필요(버프)"
+          },
+          "cast": [
+            "yi_sun_sin",
+            "gwak_jae_u",
+            "shiori"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "gwak_jae_u",
+                "text": "장군, 물러서시오. 이 먹은 내가 받겠소.",
+                "expr": "serious",
+                "is_invented": true,
+                "only_if": "위기 영웅=이순신, 곽재우 편성"
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "곽 장군, 물러나시오. 쓰러지는 것을 보려고 온 것이 아니오.",
+                "expr": "serious",
+                "is_invented": true,
+                "only_if": "위기 영웅=곽재우"
+              },
+              {
+                "speaker": "shiori",
+                "text": "……후퇴로를 열겠습니다.",
+                "expr": "regret",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "사서의 말수가 줄었구려.",
+                "expr": "neutral",
+                "is_invented": true,
+                "only_if": "위기 영웅=이순신, 곽재우 편성"
+              }
+            ],
+            "direction": "카메라: 위기 영웅 클로즈업 0.8초 -> 후퇴로 하이라이트. 이펙트: 후퇴 가능 칸 청색. 사운드: sfx_heartbeat_low",
+            "short": "영웅이 위기다. 후퇴로를 열어라."
+          },
+          "effects": [
+            {
+              "op": "buff",
+              "target": "crisis_unit",
+              "stat": "move",
+              "value": 1,
+              "turns": 1
+            },
+            {
+              "op": "show_marker",
+              "zone": "retreat_cells",
+              "kind": "path"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s8_e07"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "F6-4 복선"
+            ],
+            "engine_support": "기본(HP 조건) + 확장 필요(버프)"
+          }
+        },
+        {
+          "id": "ch1_s8_e07",
+          "name": "그림자의 중심",
+          "types": [
+            "E"
+          ],
+          "section": "8",
+          "trigger": {
+            "type": "unit_distance",
+            "a": "any_ally",
+            "b": "enemy_commander",
+            "lte": 3,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "아군 유닛이 적 지휘관(그림자 핵)과 3칸 이내가 되는 최초의 행동 직후",
+          "policy": {},
+          "priority": 70,
+          "requires": {
+            "engine_support": "기본(거리 조건)"
+          },
+          "cast": [
+            "protagonist",
+            "shiori"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "형체 없는 먹물이 일어선다. 들리는 것은 잉크 방울 소리와 책장 소리뿐이다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "protagonist",
+                "text": "저 가운데가 비어 있어요. 마치 한 줄이 통째로 빠진 것처럼.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "핵입니다. 쓰러뜨리면 번짐이 멈춥니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_ink_shadow_s8",
+                "text": "……이름이……번져……지워지기 전에……",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 핵 줌인 2초 -> 아군 전열. 이펙트: 핵 맥동, 타겟 링. 사운드: sfx_ink_drop 느리게 반복",
+            "short": "그림자의 중심은 비어 있다."
+          },
+          "effects": [
+            {
+              "op": "show_marker",
+              "unit": "enemy_commander",
+              "kind": "target"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s8_e08"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "그림자 대사 없음 규칙: SCENARIO_01_BIBLE 3-10"
+            ],
+            "engine_support": "기본(거리 조건)"
+          }
+        },
+        {
+          "id": "ch1_s8_e08",
+          "name": "숨을 돌리는 자리",
+          "types": [
+            "A"
+          ],
+          "section": "10",
+          "trigger": {
+            "type": "stage_victory"
+          },
+          "when_text": "그림자 핵 격파로 승리가 확정되는 즉시",
+          "policy": {},
+          "priority": 100,
+          "requires": {
+            "engine_support": "신규 필요(패치 일괄 복구, 플래그 분기)"
+          },
+          "cast": [
+            "shiori",
+            "protagonist",
+            "gwak_jae_u"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "닦인 자리에서 종이 냄새가 돌아옵니다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "npc_ink_shadow_s8",
+                "text": "……다시……쓰이기를……",
+                "expr": "regret",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "정리되었습니다. 닦인 자리가 숨을 돌립니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "닦아 낸 자리에 무엇이 있었는지 확인하고 싶습니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "……한 줄이 보이셨지요. 그 줄은 제가 읽어 두겠습니다.",
+                "expr": "neutral",
+                "is_invented": true,
+                "only_if": "flag ch8_cleaned=true"
+              },
+              {
+                "speaker": "shiori",
+                "text": "……확인은 제가 하겠습니다. 지휘관님은 쉬십시오.",
+                "expr": "neutral",
+                "is_invented": true,
+                "only_if": "flag ch8_cleaned=false"
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "사서가 대신 읽는다니, 오늘은 책이 두 번 읽히겠구려.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              }
+            ],
+            "direction": "카메라: 핵 소멸 지점 -> 서가 복도 와이드 -> 주인공. 이펙트: 먹물 skin 소거, 종이 색 복귀. 사운드: sfx_ink_dry, bgm_shelf_calm",
+            "short": "그림자의 중심을 닦아 냈다."
+          },
+          "effects": [
+            {
+              "op": "tile_patch_revert_all",
+              "skin": "ink"
+            },
+            {
+              "op": "end_battle",
+              "result": "victory"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 후 결과 화면",
+            "resume": "result_screen"
+          },
+          "next": [
+            "ch1_s8_post"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "F4-4, 닦기 위화감 복선(SCENARIO_02 부록 D)"
+            ],
+            "engine_support": "신규 필요(패치 일괄 복구, 플래그 분기)"
+          }
+        }
+      ],
+      "pairs": [
+        {
+          "pair": "곽재우 x 이순신",
+          "events": [
+            "e01",
+            "e04",
+            "e06"
+          ],
+          "note": "위기 시 서로를 뒤로 물리는 반응 구조(only_if 변형)"
+        },
+        {
+          "pair": "곽재우 x 시오리",
+          "events": [
+            "e06"
+          ],
+          "note": "F6-4: 곽재우가 시오리의 변화를 먼저 눈치챔"
+        },
+        {
+          "pair": "주인공 x 시오리",
+          "events": [
+            "e01",
+            "e03",
+            "e08"
+          ],
+          "note": "닦기 위화감. 시오리는 거짓 없이 화제 전환"
+        }
+      ]
+    },
+    {
+      "stage_id": "ch1_s9",
+      "chapter": 9,
+      "title": "1597, 물살 앞에서",
+      "map": "im_09_myeongnyang",
+      "goal": "survive_turns 8 제안 또는 defeat_commander(임밸런 확정)",
+      "classification": "사실 기반 각색",
+      "boss": false,
+      "zones": [
+        "strait_narrow",
+        "strait_water",
+        "engage_cells",
+        "retreat_one_cell",
+        "enemy_wait_zone"
+      ],
+      "events": [
+        {
+          "id": "ch1_s9_e01",
+          "name": "열 배의 바다",
+          "types": [
+            "A"
+          ],
+          "section": "3",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 1
+          },
+          "when_text": "1턴째 아군 페이즈 시작 시(전투 시작 직후)",
+          "policy": {},
+          "priority": 90,
+          "requires": {
+            "engine_support": "기본(확인 필요)"
+          },
+          "cast": [
+            "shiori",
+            "yi_sun_sin",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "1597년 양력 10월 26일, 명량 해협. 일본 수군이 물길 앞에 모입니다.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "npc_jp_kurushima_michifusa",
+                "text": "물길이 좁다 한들 저쪽은 열세 척이다. 앞장서서 밀고 들어간다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_jp_todo_takatora",
+                "text": "선봉이 길을 트면 뒤를 잇겠다. 물살부터 읽어라.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "조선 전선은 열세 척으로 전해집니다. 일본 수군은 그 열 배가 넘었다고 합니다.",
+                "expr": "serious",
+                "is_invented": false
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "양쪽이 바위벽이오. 좁다는 것은 우리에게 쓸모가 있소.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "수는 저쪽이 훨씬 많은데, 길이 좁으면 한꺼번에 오지 못하겠네요.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "길을 읽었다면 싸울 준비가 된 것이오.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 아군 소수 -> 적 대기 구역 느린 팬 4초 -> 길목 클로즈업. 이펙트: 적 유닛 줄줄이 입장, 군기 색 점. 사운드: bgm_myeongnyang, sfx_current_loop",
+            "short": "명량: 열 배의 적. 좁은 길목을 읽어라."
+          },
+          "effects": [
+            {
+              "op": "show_objective",
+              "type": "TBD(survive_turns|defeat_commander)"
+            },
+            {
+              "op": "show_marker",
+              "zone": "strait_narrow",
+              "kind": "watch"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 또는 스킵 시 조작 가능",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s9_e02"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "confirmed",
+            "fact_refs": [
+              "명량 13척, 일본 최소 10:1: en.wikipedia Battle_of_Myeongnyang(수치 verify)"
+            ],
+            "engine_support": "기본(확인 필요)"
+          }
+        },
+        {
+          "id": "ch1_s9_e02",
+          "name": "좁은 문",
+          "types": [
+            "A"
+          ],
+          "section": "4",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 2
+          },
+          "when_text": "2턴째 적군 페이즈 시작 시",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "확장 필요(AI 패턴, 맵 폭 설계)"
+          },
+          "cast": [
+            "yi_sun_sin",
+            "shiori"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "해협의 가장 좁은 구간. 물살이 매우 빠른 곳으로 전합니다.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "yi_sun_sin",
+                "text": "앞의 한두 척만 상대하면 되오. 뒤는 길이 막아 줄 것이오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "교전 가능한 칸이 표시되었습니다.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 길목 입구 -> 늘어난 적 종대 팬 2초. 이펙트: 교전 가능 칸 하이라이트. 사운드: sfx_current_strong",
+            "short": "2턴: 적이 좁은 길에 늘어선다."
+          },
+          "effects": [
+            {
+              "op": "ai_pattern",
+              "side": "enemy",
+              "pattern": "column_advance",
+              "zone": "strait_narrow",
+              "turns": 3
+            },
+            {
+              "op": "show_marker",
+              "zone": "engage_cells",
+              "kind": "highlight"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s9_e03"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "accepted",
+            "fact_refs": [
+              "명량 해협의 빠른 조류와 좁은 해협: en.wikipedia Battle_of_Myeongnyang"
+            ],
+            "engine_support": "확장 필요(AI 패턴, 맵 폭 설계)"
+          }
+        },
+        {
+          "id": "ch1_s9_e03",
+          "name": "낯선 물살",
+          "types": [
+            "B"
+          ],
+          "section": "5",
+          "trigger": {
+            "type": "unit_enter_zone",
+            "unit": "gwak_jae_u",
+            "zone": "strait_narrow",
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "곽재우 유닛이 길목 구역에 처음 진입한 행동 직후",
+          "policy": {},
+          "priority": 50,
+          "requires": {
+            "engine_support": "기본(구역 진입) + 확장 필요(버프)",
+            "units_present": [
+              "gwak_jae_u"
+            ]
+          },
+          "cast": [
+            "gwak_jae_u",
+            "yi_sun_sin"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "gwak_jae_u",
+                "text": "물살이 뭍의 말보다 사납소. 이런 길목은 처음이오.",
+                "expr": "smile",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "길목이라면 곽 장군이 아시오. 이 자리를 맡아 주시오.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "맡겠소.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 곽재우 클로즈업 0.8초 -> 길목 와이드. 이펙트: 길목 타일 황색 링. 사운드: sfx_current_strong 감쇠",
+            "short": "곽재우가 길목을 맡았다."
+          },
+          "effects": [
+            {
+              "op": "buff",
+              "target": "gwak_jae_u",
+              "stat": "def",
+              "value": "TBD(임밸런)",
+              "turns": 3,
+              "once": true
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s9_e04"
+          ],
+          "meta": {
+            "classification": "각색(곽재우 명량 참전 사료상 확인 안 됨)",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "곽재우 명량 참전 미확인: campaign_ch1_outline.json"
+            ],
+            "engine_support": "기본(구역 진입) + 확장 필요(버프)"
+          }
+        },
+        {
+          "id": "ch1_s9_e04",
+          "name": "한 칸의 물러섬",
+          "types": [
+            "B"
+          ],
+          "section": "5",
+          "trigger": {
+            "type": "hp_threshold",
+            "units": "allies",
+            "count_min": 1,
+            "lte_tenths": 3,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "아군 유닛 하나의 병력이 3/10 이하가 되는 최초의 순간(행동 직후)",
+          "policy": {},
+          "priority": 80,
+          "requires": {
+            "engine_support": "기본(HP 조건) + 확장 필요(버프)"
+          },
+          "cast": [
+            "yi_sun_sin",
+            "protagonist",
+            "shiori"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "yi_sun_sin",
+                "text": "물러서면 길이 열리오. 이 자리를 내주지 마시오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "그래도… 앞 부대를 한 칸만 빼도 될까요?",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "……후퇴 칸은 한 칸입니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "한 칸이면 되오. 두 칸은 안 되오.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 위기 유닛 클로즈업 0.8초 -> 후퇴 1칸 하이라이트. 이펙트: 후퇴 가능 칸 1개만 청색. 사운드: sfx_heartbeat_low",
+            "short": "전열이 흔들린다. 한 칸만 물러서라."
+          },
+          "effects": [
+            {
+              "op": "show_marker",
+              "zone": "retreat_one_cell",
+              "kind": "path"
+            },
+            {
+              "op": "buff",
+              "target": "crisis_unit",
+              "stat": "def",
+              "value": "TBD(임밸런)",
+              "turns": 1
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s9_e05"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색(대사 창작)",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "기본(HP 조건) + 확장 필요(버프)"
+          }
+        },
+        {
+          "id": "ch1_s9_e05",
+          "name": "물살이 돌아서다",
+          "types": [
+            "C"
+          ],
+          "section": "6",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 5
+          },
+          "when_text": "5턴째 적군 페이즈 시작 시",
+          "policy": {},
+          "priority": 85,
+          "requires": {
+            "engine_support": "확장 필요(전장 전체 버프, AI 후퇴). 흐름 방향 타일은 불필요"
+          },
+          "cast": [
+            "yi_sun_sin",
+            "protagonist",
+            "gwak_jae_u"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "조류의 방향이 바뀌며 일본 함대의 움직임이 흐트러졌다고 전합니다.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "yi_sun_sin",
+                "text": "때가 되었소. 물이 돌아서고 있소.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "물이 저쪽으로 흘러요. 지금이 반격할 때인가요?",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "그렇소. 이제 숫자가 아니라 자리가 싸우오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "물도 편을 가리는구려.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "npc_jp_todo_takatora",
+                "text": "물살이 우리를 거스른다! 배를 붙들어라!",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 이순신 부대 -> 적 선단이 밀려나는 와이드 3초 -> 적 대열. 이펙트: 항적(wake) 방향 반전, 물보라, 적 혼란 아이콘. 물 타일 화살표 없음. 사운드: sfx_tide_shift, bgm 클라이맥스",
+            "short": "5턴: 물살이 돌아서며 전세가 뒤집힌다."
+          },
+          "effects": [
+            {
+              "op": "buff",
+              "target": "enemies",
+              "stat": "move",
+              "value": -1,
+              "turns": 3,
+              "dev_note": "조류 전환 연출용 전장 전체 버프. 타일 변경 없음. 수치 TBD(임밸런)"
+            },
+            {
+              "op": "buff",
+              "target": "allies",
+              "stat": "move",
+              "value": 1,
+              "turns": 3,
+              "dev_note": "수치 TBD(임밸런)"
+            },
+            {
+              "op": "ai_pattern",
+              "side": "enemy",
+              "pattern": "partial_retreat",
+              "turns": 3
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s9_e06"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "accepted",
+            "fact_refs": [
+              "조류 전환이 전세에 영향: en.wikipedia Battle_of_Myeongnyang(전환 시각 verify)"
+            ],
+            "engine_support": "확장 필요(전장 전체 버프, AI 후퇴). 흐름 방향 타일은 불필요"
+          }
+        },
+        {
+          "id": "ch1_s9_e06",
+          "name": "정면의 지휘선",
+          "types": [
+            "E"
+          ],
+          "section": "8",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 6
+          },
+          "when_text": "6턴째 아군 페이즈 시작 시",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "기본(확인 필요)"
+          },
+          "cast": [
+            "protagonist",
+            "yi_sun_sin"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "일본 수군 지휘관은 도도 다카토라. 정면의 지휘선에서 군기가 오릅니다.",
+                "is_invented": false
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "protagonist",
+                "text": "지휘선이 앞으로 나왔어요. 이제 정면이네요.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "정면이 가장 좁은 곳이오. 오래 보아 둔 자리요.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_jp_todo_takatora",
+                "text": "저 앞이 상대의 대장선인가. 물러서지 마라.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 적 지휘선 줌인 2초 -> 이순신 부대와 2샷. 이펙트: 타겟 링. 사운드: sfx_drum_beat",
+            "short": "6턴: 적 지휘선이 정면으로 나온다."
+          },
+          "effects": [
+            {
+              "op": "show_marker",
+              "unit": "enemy_commander",
+              "kind": "target"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s9_e07"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "accepted",
+            "fact_refs": [
+              "도도 다카토라 명량 참전(대표 표기): en.wikipedia Battle_of_Myeongnyang"
+            ],
+            "engine_support": "기본(확인 필요)"
+          }
+        },
+        {
+          "id": "ch1_s9_e07",
+          "name": "자리를 가려서",
+          "types": [
+            "A"
+          ],
+          "section": "10",
+          "trigger": {
+            "type": "stage_victory"
+          },
+          "when_text": "스테이지 승리(목표 달성)가 확정되는 즉시",
+          "policy": {},
+          "priority": 100,
+          "requires": {
+            "engine_support": "기본(확인 필요)"
+          },
+          "cast": [
+            "shiori",
+            "yi_sun_sin",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "npc_jp_todo_takatora",
+                "text": "수가 많다고 이기는 바다가 아니었다. 물러난다.",
+                "expr": "regret",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "승리입니다. 명량 해전, 1597년 양력 10월 26일의 일입니다.",
+                "expr": "neutral",
+                "is_invented": false
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "자리를 가려서 싸운 것이오. 숫자로 싸운 것이 아니오.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "자리를 가린다… 노량에서도 그러셨던 거죠?",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "……그랬소.",
+                "expr": "neutral",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 물살 와이드 -> 이순신 부대 -> 서가 표지 1597 닫힘 클로즈업. 사운드: bgm_victory_quiet, 책 덮는 소리",
+            "short": "명량 승리. 자리가 숫자를 이겼다."
+          },
+          "effects": [
+            {
+              "op": "end_battle",
+              "result": "victory"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 후 결과 화면",
+            "resume": "result_screen"
+          },
+          "next": [
+            "ch1_s9_post"
+          ],
+          "meta": {
+            "classification": "사실 기반 각색",
+            "evidence_level": "confirmed",
+            "fact_refs": [
+              "명량 양력 1597-10-26: campaign_ch1_outline.json, en.wikipedia Battle_of_Myeongnyang"
+            ],
+            "engine_support": "기본(확인 필요)"
+          }
+        }
+      ],
+      "pairs": [
+        {
+          "pair": "이순신 x 주인공",
+          "events": [
+            "e01",
+            "e04",
+            "e07"
+          ],
+          "note": "자리·길목 판단 문답. 7장 e01 첫걸음 콜백, e07 노량 회상"
+        },
+        {
+          "pair": "곽재우 x 이순신",
+          "events": [
+            "e03",
+            "e05"
+          ],
+          "note": "길목은 곽 장군이 안다는 역할 분담. 곽재우 미편성 시 생략"
+        },
+        {
+          "pair": "시오리(침묵 단계)",
+          "events": [
+            "e02",
+            "e04"
+          ],
+          "note": "설명 최소, 표시·확인 위주"
+        }
+      ]
+    },
+    {
+      "stage_id": "ch1_s10",
+      "chapter": 10,
+      "title": "마지막 서가",
+      "map": "im_10_last_seoga",
+      "goal": "defeat_commander(보스 마지막 그림자)",
+      "classification": "허구",
+      "boss": true,
+      "zones": [
+        "collapse_ring",
+        "center_corridor",
+        "core",
+        "core_3x3"
+      ],
+      "events": [
+        {
+          "id": "ch1_s10_e01",
+          "name": "무너지는 서가",
+          "types": [
+            "A",
+            "C"
+          ],
+          "section": "3",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 1
+          },
+          "when_text": "1턴째 아군 페이즈 시작 시(전투 시작 직후)",
+          "policy": {},
+          "priority": 90,
+          "requires": {
+            "engine_support": "신규 필요(주기 tile_patch, 예고)"
+          },
+          "cast": [
+            "shiori",
+            "protagonist",
+            "yi_sun_sin",
+            "gwak_jae_u"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "가장 깊은 서가. 아무도 쓰지 않은 쪽이 먹물에 잠겨 간다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "서가가 가장자리부터 비어 갑니다. 중앙으로 모여 주십시오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "여기가 마지막 서가군요. 책이 한 권도 꽂혀 있지 않은 칸이 많아요.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "비어 있는 것이 많소. 채울 것도 많다는 뜻이오.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "마지막이라 하니 마음이 가볍지는 않구려. 그래도 가 봅시다.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              }
+            ],
+            "direction": "카메라: 서가 천장 -> 가장자리 서가 비어 가는 모습 -> 배경 빈 의자 1초 -> 아군 구역. 이펙트: 가장자리 균열, 붕괴 1턴 전 점선. 사운드: bgm_last_shelf, sfx_shelf_creak",
+            "short": "마지막 서가: 가장자리부터 무너진다. 중앙으로."
+          },
+          "effects": [
+            {
+              "op": "show_objective",
+              "type": "defeat_commander"
+            },
+            {
+              "op": "schedule_patch",
+              "patch_id": "collapse_ring",
+              "mode": "ring_inward",
+              "start_turn": 2,
+              "phase": "enemy",
+              "interval_turns": 2,
+              "telegraph_turns": 1,
+              "cosmetic": true,
+              "skin": "ink"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 또는 스킵 시 아군 조작 가능",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s10_e02"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "F5-1 마지막 서가, F5-4 빈 의자"
+            ],
+            "engine_support": "신규 필요(주기 tile_patch, 예고)"
+          }
+        },
+        {
+          "id": "ch1_s10_e02",
+          "name": "붙들 것인가, 곧장 갈 것인가",
+          "types": [
+            "D"
+          ],
+          "section": "6",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "player",
+            "turn": 2
+          },
+          "when_text": "2턴째 아군 페이즈 시작 시",
+          "policy": {
+            "max_sec": 30
+          },
+          "priority": 75,
+          "requires": {
+            "engine_support": "신규 필요(선택 UI, 스케줄 수정, 보상)"
+          },
+          "cast": [
+            "shiori",
+            "protagonist",
+            "yi_sun_sin",
+            "gwak_jae_u"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "무너지는 서가를 붙들면 안전하지만 시간이 듭니다. 곧장 중앙으로 가면 빠르지만 등 뒤가 비게 됩니다.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 맵 전체 -> 무너진 서가 구역 -> 중앙 직통 통로 각 1초. 이펙트: 두 경로 하이라이트, 선택지 UI. 사운드: sfx_choice_open",
+            "short": "2턴: 서가를 붙들지, 중앙으로 갈지 정하라."
+          },
+          "effects": [],
+          "choice": {
+            "prompt": "어느 쪽을 택하시겠습니까?",
+            "default": "A",
+            "timeout_sec": null,
+            "note": "결말 분기 없음(안 A 고정). 전투 난이도·보상·연출 대사에만 영향. 스킵 시 A",
+            "options": [
+              {
+                "id": "A",
+                "label": "서가를 먼저 붙든다",
+                "lines": [
+                  {
+                    "speaker": "protagonist",
+                    "text": "먼저 서가를 붙들어 두죠. 무너지는 자리에서 싸우고 싶지 않습니다.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  },
+                  {
+                    "speaker": "shiori",
+                    "text": "받아들이겠습니다. 이 자리는 제가 붙들어 두지요.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  }
+                ],
+                "captions": [],
+                "effects": [
+                  {
+                    "op": "consume_action",
+                    "unit": "selected_unit",
+                    "turns": 1
+                  },
+                  {
+                    "op": "reward",
+                    "item": "record_fragment",
+                    "count": 1,
+                    "value": "TBD(임밸런)"
+                  },
+                  {
+                    "op": "set_flag",
+                    "key": "ch10_route",
+                    "value": "hold"
+                  }
+                ]
+              },
+              {
+                "id": "B",
+                "label": "곧장 중앙으로 간다",
+                "lines": [
+                  {
+                    "speaker": "protagonist",
+                    "text": "시간을 더 주면 더 번질 것 같아요. 곧장 가겠습니다.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  },
+                  {
+                    "speaker": "yi_sun_sin",
+                    "text": "빠른 길이 안전한 길은 아니오. 그래도 방향은 맞소.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  },
+                  {
+                    "speaker": "gwak_jae_u",
+                    "text": "빠른 길은 내 취향이오.",
+                    "expr": "smile",
+                    "is_invented": true,
+                    "only_if": "gwak_jae_u 편성"
+                  }
+                ],
+                "captions": [],
+                "effects": [
+                  {
+                    "op": "hint",
+                    "text": "중앙 평지로 곧장 이동합니다."
+                  },
+                  {
+                    "op": "set_flag",
+                    "key": "ch10_route",
+                    "value": "rush"
+                  }
+                ]
+              }
+            ],
+            "dev_note": "tile_patch open_center_bridge 삭제(중앙은 이미 평지). 두 선택의 난이도 차이는 임밸런이 수치로 재정의"
+          },
+          "end": {
+            "condition": "선택 확정 후 선택별 대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s10_e03"
+          ],
+          "meta": {
+            "classification": "허구(결말 분기 없음)",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "신규 필요(선택 UI, 스케줄 수정, 보상)"
+          }
+        },
+        {
+          "id": "ch1_s10_e03",
+          "name": "마지막 그림자의 등장",
+          "types": [
+            "E"
+          ],
+          "section": "9",
+          "trigger": {
+            "type": "turn_start",
+            "phase": "enemy",
+            "turn": 3
+          },
+          "when_text": "3턴째 적군 페이즈 시작 시",
+          "policy": {},
+          "priority": 85,
+          "requires": {
+            "engine_support": "신규 필요(보스 출현 연출)"
+          },
+          "cast": [
+            "npc_ink_shadow_final",
+            "yi_sun_sin",
+            "protagonist",
+            "shiori"
+          ],
+          "scene": {
+            "captions": [
+              {
+                "text": "번진 기록들이 하나로 모인다. 사람의 모양을 하지 않은 그림자가 서가 위로 솟는다.",
+                "is_invented": true
+              }
+            ],
+            "lines": [
+              {
+                "speaker": "npc_ink_shadow_final",
+                "text": "…다 적지 못한…",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "저것이 마지막이오.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "말을 하려는 것 같아요.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "끊긴 문장입니다. 끝까지 적히지 못한 쪽의 소리입니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_ink_shadow_final",
+                "text": "……한 줄로……접힌……모든 이름이……",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 중앙 빈 페이지 줌인 2초 -> 보스 전신(얼굴 없음) -> 아군 전열. 이펙트: 글자 흘러내림(판독 불가 도형). 사운드: sfx_page_unfold_big. 보스 대사는 음성 없이 텍스트와 책장 속삭임",
+            "short": "3턴: 마지막 그림자가 펼쳐진다. 끊긴 문장."
+          },
+          "effects": [
+            {
+              "op": "spawn_units",
+              "controller": "enemy",
+              "template": "last_shadow_boss",
+              "count": 1,
+              "zone": "core",
+              "fx": "page_unfold",
+              "is_commander": true
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 적군 페이즈 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s10_e04"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "마지막 그림자: SCENARIO_01_BIBLE 2-3-11, 3-10, F3-3"
+            ],
+            "engine_support": "신규 필요(보스 출현 연출)"
+          }
+        },
+        {
+          "id": "ch1_s10_e04",
+          "name": "바다와 뭍, 이번엔 서가",
+          "types": [
+            "E"
+          ],
+          "section": "7",
+          "trigger": {
+            "type": "pair_near_target",
+            "pair": [
+              "yi_sun_sin",
+              "gwak_jae_u"
+            ],
+            "target": "enemy_commander",
+            "adjacent": true,
+            "lte": 3,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "이순신·곽재우 유닛이 서로 인접한 채 보스와 3칸 이내가 되는 최초의 행동 직후(두 영웅 모두 편성 시에만)",
+          "policy": {},
+          "priority": 60,
+          "requires": {
+            "engine_support": "기본(인접 조건) + 확장 필요(쌍 버프)",
+            "units_present": [
+              "yi_sun_sin",
+              "gwak_jae_u"
+            ]
+          },
+          "cast": [
+            "gwak_jae_u",
+            "yi_sun_sin"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "gwak_jae_u",
+                "text": "장군, 물은 장군께 맡기고…",
+                "expr": "smile",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "뭍은 곽 장군이 맡는다 하였소.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "이번엔 물도 뭍도 없는 곳이오만.",
+                "expr": "smile",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "그러니 서로 맡을 것이 더 많소.",
+                "expr": "smile",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 두 영웅 2샷 1.5초 -> 보스 방향. 이펙트: 두 영웅 사이 황색 연결선. 사운드: sfx_link_chime",
+            "short": "바다와 뭍의 두 영웅이 나란히 선다."
+          },
+          "effects": [
+            {
+              "op": "buff",
+              "target": "pair:yi_sun_sin+gwak_jae_u",
+              "stat": "atk",
+              "value": "TBD(임밸런)",
+              "turns": 3,
+              "once": true,
+              "condition": "adjacent"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s10_e05"
+          ],
+          "meta": {
+            "classification": "허구(1장 대사 콜백, 창작 대사)",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "기본(인접 조건) + 확장 필요(쌍 버프)"
+          }
+        },
+        {
+          "id": "ch1_s10_e05",
+          "name": "비어 있는 쪽이 열린다",
+          "types": [
+            "B",
+            "C"
+          ],
+          "section": "9",
+          "trigger": {
+            "type": "hp_threshold",
+            "unit": "enemy_commander",
+            "lte_tenths": 5,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "적 지휘관(마지막 그림자) 병력이 5/10 이하가 되는 최초의 행동 직후",
+          "policy": {
+            "max_sec": 8,
+            "replay": "first_clear_only"
+          },
+          "priority": 95,
+          "requires": {
+            "engine_support": "신규 필요(컷신, 보스 페이즈, tile_patch)",
+            "cutscene": "CS-10-01"
+          },
+          "cast": [
+            "npc_ink_shadow_final",
+            "shiori",
+            "yi_sun_sin",
+            "protagonist"
+          ],
+          "scene": {
+            "cutscene": "CS-10-01",
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "npc_ink_shadow_final",
+                "text": "…이름이…",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "형체가 커집니다. 빈 곳이 더 넓어지고 있습니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "물러서지 마시오. 저것도 기록의 일부요.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "이름이라고 했어요. 저건 공격이라기보다 부르는 소리 같습니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "부르는 소리라 해도 길을 막는다면 막아야 하오. 듣는 것은 그 뒤에 할 수 있소.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 컷신 6.5초 후 맵 전체 복귀. 이펙트: 보스 스케일 1.0->1.6, 중앙부 먹물 확대, 종이색 비네팅. 사운드: bgm_last_shelf_phase2, sfx_page_unfold_big",
+            "short": "보스 각성: 비어 있는 쪽이 넓어진다."
+          },
+          "effects": [
+            {
+              "op": "play_cutscene",
+              "id": "CS-10-01"
+            },
+            {
+              "op": "boss_phase",
+              "unit": "enemy_commander",
+              "phase": 2,
+              "skill": "spreading_blank",
+              "value": "TBD(임밸런)"
+            },
+            {
+              "op": "tile_patch",
+              "patch_id": "core_expand",
+              "zone": "core_3x3",
+              "from": "plain",
+              "to": "water",
+              "skin": "ink"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s10_e06"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "F3-3 끊긴 문장"
+            ],
+            "engine_support": "신규 필요(컷신, 보스 페이즈, tile_patch)"
+          }
+        },
+        {
+          "id": "ch1_s10_e06",
+          "name": "이름을 부르는 순간",
+          "types": [
+            "B"
+          ],
+          "section": "5",
+          "trigger": {
+            "type": "hp_threshold",
+            "unit": "commander",
+            "lte_tenths": 3,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "주인공(아군 지휘관) 병력이 3/10 이하가 되는 최초의 행동 직후",
+          "policy": {},
+          "priority": 90,
+          "requires": {
+            "engine_support": "기본(HP 조건) + 확장 필요(회복/버프)"
+          },
+          "cast": [
+            "shiori",
+            "gwak_jae_u",
+            "yi_sun_sin",
+            "protagonist"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "shiori",
+                "text": "{protagonist_name} 님!",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "벗! 물러서시오!",
+                "expr": "serious",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "지휘관을 지켜라. 대열 가운데로 모이시오.",
+                "expr": "serious",
+                "is_invented": true,
+                "only_if": "yi_sun_sin 편성"
+              },
+              {
+                "speaker": "protagonist",
+                "text": "괜찮아요. 아직 서 있습니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_ink_shadow_final",
+                "text": "……불러 보라……무엇을……적었느냐……",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 주인공 -> 시오리 클로즈업(regret) 1초 -> 책갈피 빛. 이펙트: 녹색 회복 링. 사운드: sfx_bookmark_glow, bgm 한 박 정지",
+            "short": "지휘관 위기: 시오리의 책갈피가 빛난다."
+          },
+          "effects": [
+            {
+              "op": "heal",
+              "target": "commander",
+              "amount_tenths": 2,
+              "once": true
+            },
+            {
+              "op": "buff",
+              "target": "heroes_adjacent_to_commander",
+              "stat": "def",
+              "value": "TBD(임밸런)",
+              "turns": 1
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "대사 종료 시 조작 재개(지휘관 사망=패배 규칙 유지)",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s10_e07"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "기본(HP 조건) + 확장 필요(회복/버프)"
+          }
+        },
+        {
+          "id": "ch1_s10_e07",
+          "name": "잠잠해지다",
+          "types": [
+            "A"
+          ],
+          "section": "10",
+          "trigger": {
+            "type": "stage_victory"
+          },
+          "when_text": "적 지휘관(마지막 그림자) 격파로 승리가 확정되는 즉시",
+          "policy": {},
+          "priority": 100,
+          "requires": {
+            "engine_support": "신규 필요(패치 일괄 복구)"
+          },
+          "cast": [
+            "npc_ink_shadow_final",
+            "shiori",
+            "protagonist",
+            "yi_sun_sin",
+            "gwak_jae_u"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "npc_ink_shadow_final",
+                "text": "……비어 있어도……된다……",
+                "expr": "regret",
+                "is_invented": true
+              },
+              {
+                "speaker": "npc_ink_shadow_final",
+                "text": "…읽어…",
+                "expr": "neutral",
+                "is_invented": true,
+                "variant_note": "e08 선택 B(ch10_listened=true) 시 '…읽어 주어…'"
+              },
+              {
+                "speaker": "shiori",
+                "text": "사라진 것이 아닙니다. 잠잠해졌습니다.",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "protagonist",
+                "text": "또 번질 수 있다는 건가요?",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "그 질문은 서랍에 넣어 두겠습니다.",
+                "expr": "serious",
+                "is_invented": true
+              },
+              {
+                "speaker": "yi_sun_sin",
+                "text": "비어 있던 칸이 조금 줄었소.",
+                "expr": "neutral",
+                "is_invented": true,
+                "only_if": "yi_sun_sin 편성"
+              },
+              {
+                "speaker": "gwak_jae_u",
+                "text": "빈 칸이 줄었다니, 사서 일이 늘었겠구려.",
+                "expr": "smile",
+                "is_invented": true,
+                "only_if": "gwak_jae_u 편성"
+              }
+            ],
+            "direction": "카메라: 보스 전신 -> 글자가 멈추는 클로즈업 -> 서가 복구 와이드 -> 배경 빈 의자 1.5초. 모션: 빈 페이지가 접히듯 닫힘(소멸 연출 금지). 사운드: bgm_last_shelf_end, 책 덮는 소리",
+            "short": "마지막 그림자가 잠잠해졌다."
+          },
+          "effects": [
+            {
+              "op": "tile_patch_revert_all",
+              "skin": "ink"
+            },
+            {
+              "op": "end_battle",
+              "result": "victory"
+            }
+          ],
+          "choice": null,
+          "end": {
+            "condition": "마지막 대사 종료 후 결과 화면",
+            "resume": "result_screen"
+          },
+          "next": [
+            "ch1_s10_post"
+          ],
+          "meta": {
+            "classification": "허구",
+            "evidence_level": "invented",
+            "fact_refs": [
+              "F3-3, F3-5"
+            ],
+            "engine_support": "신규 필요(패치 일괄 복구)",
+            "note": "시오리 서랍 컷(F3-4)은 ch1_end 담당, 사용자 승인 시에만"
+          }
+        },
+        {
+          "id": "ch1_s10_e08",
+          "name": "마지막 한 줄 (선택 후보)",
+          "types": [
+            "D"
+          ],
+          "section": "9",
+          "trigger": {
+            "type": "hp_threshold",
+            "unit": "enemy_commander",
+            "lte_tenths": 1,
+            "first_time": true,
+            "after": "action"
+          },
+          "when_text": "적 지휘관(마지막 그림자) 병력이 1/10 이하가 되는 최초의 행동 직후 [후보, 기본 비활성]",
+          "policy": {
+            "enabled": false,
+            "max_sec": 30
+          },
+          "priority": 88,
+          "requires": {
+            "engine_support": "신규 필요(선택 UI, 플래그, 보스 대기)"
+          },
+          "cast": [
+            "npc_ink_shadow_final",
+            "protagonist",
+            "shiori"
+          ],
+          "scene": {
+            "captions": [],
+            "lines": [
+              {
+                "speaker": "npc_ink_shadow_final",
+                "text": "…한 줄이면…",
+                "expr": "neutral",
+                "is_invented": true
+              },
+              {
+                "speaker": "shiori",
+                "text": "지휘관님, 마지막 판단입니다.",
+                "expr": "serious",
+                "is_invented": true
+              }
+            ],
+            "direction": "카메라: 보스 클로즈업 -> 주인공. 이펙트: 선택지 UI. 사운드: bgm 한 박 정지",
+            "short": "마지막 한 줄: 끝내거나 끝까지 듣는다."
+          },
+          "effects": [],
+          "choice": {
+            "prompt": "어떻게 마무리하시겠습니까?",
+            "default": "A",
+            "timeout_sec": null,
+            "note": "결말 분기 없음. 연출 대사와 보스 마지막 단편만 변경",
+            "options": [
+              {
+                "id": "A",
+                "label": "일격을 가한다",
+                "lines": [
+                  {
+                    "speaker": "protagonist",
+                    "text": "여기서 끝내겠습니다.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  },
+                  {
+                    "speaker": "shiori",
+                    "text": "……그렇게 하겠습니다.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  }
+                ],
+                "captions": [],
+                "effects": [
+                  {
+                    "op": "set_flag",
+                    "key": "ch10_listened",
+                    "value": false
+                  }
+                ]
+              },
+              {
+                "id": "B",
+                "label": "한 문장을 끝까지 듣는다",
+                "lines": [
+                  {
+                    "speaker": "protagonist",
+                    "text": "한 문장만, 끝까지 들어 보겠습니다.",
+                    "expr": "neutral",
+                    "is_invented": true
+                  },
+                  {
+                    "speaker": "npc_ink_shadow_final",
+                    "text": "…한 줄이면…, …되었을…",
+                    "expr": "neutral",
+                    "is_invented": true
+                  }
+                ],
+                "captions": [],
+                "effects": [
+                  {
+                    "op": "boss_idle",
+                    "turns": 1
+                  },
+                  {
+                    "op": "set_flag",
+                    "key": "ch10_listened",
+                    "value": true
+                  }
+                ]
+              }
+            ]
+          },
+          "end": {
+            "condition": "선택 확정 후 대사 종료 시 조작 재개",
+            "resume": "player_control"
+          },
+          "next": [
+            "ch1_s10_e07"
+          ],
+          "meta": {
+            "classification": "허구(결말 분기 없음)",
+            "evidence_level": "invented",
+            "fact_refs": [],
+            "engine_support": "신규 필요(선택 UI, 플래그, 보스 대기)"
+          }
+        }
+      ],
+      "pairs": [
+        {
+          "pair": "이순신 x 곽재우",
+          "events": [
+            "e04"
+          ],
+          "note": "1장 콜백. 쌍 전용 키 pair:yi_sun_sin+gwak_jae_u 로 11장 이후 재사용"
+        },
+        {
+          "pair": "시오리 x 주인공",
+          "events": [
+            "e06"
+          ],
+          "note": "큰 목소리의 이름 호칭, 대사당 1회 규칙"
+        },
+        {
+          "pair": "주인공 x 마지막 그림자",
+          "events": [
+            "e05",
+            "e07",
+            "e08"
+          ],
+          "note": "그림자는 끊긴 문장만, 주인공 해석은 질문·관찰 형태"
+        }
+      ]
+    }
+  ],
+  "cutscenes": [
+    {
+      "id": "CS-07-01",
+      "stage_id": "ch1_s7",
+      "name": "어둠 속의 해협",
+      "trigger": {
+        "type": "stage_start",
+        "before": "ch1_s7_e01"
+      },
+      "max_sec": 8,
+      "skippable": true,
+      "replay": "after_first_clear: 캡션만 1.5초",
+      "multiplayer": false,
+      "classification": "사실 기반 각색(연출)",
+      "evidence_level": "invented",
+      "frames": [
+        {
+          "t": "0.0-1.5",
+          "desc": "암전, 파도 소리, 북소리 한 박",
+          "asset": "코드"
+        },
+        {
+          "t": "1.5-4.0",
+          "desc": "등불 한 점 점등 후 아군 시작 구역에 차례로 점등(유닛 형체 없이 불빛만)",
+          "asset": "코드(lantern_glow)"
+        },
+        {
+          "t": "4.0-6.5",
+          "desc": "pk_10 해협 와이드 서->동 패닝, 수평선 쪽 불빛 몇 점(형체 없음)",
+          "asset": "기존 맵 렌더+어둠 오버레이"
+        },
+        {
+          "t": "6.5-8.0",
+          "desc": "캡션 1598년 음력 11월 19일 한밤, 노량 해협. 페이드 후 전장 전환",
+          "asset": "UI 텍스트"
+        }
+      ],
+      "art_note": "이미지 생성 호출 0회. 이순신 초상·인물 형체·일본 측 형체 사용 금지. IL-03은 s7_post에서 사용"
+    },
+    {
+      "id": "CS-10-01",
+      "stage_id": "ch1_s10",
+      "name": "비어 있는 쪽이 열린다",
+      "trigger": {
+        "type": "event",
+        "event": "ch1_s10_e05"
+      },
+      "max_sec": 6.5,
+      "skippable": true,
+      "replay": "first_clear_only(이후 1초 플래시+short)",
+      "multiplayer": false,
+      "classification": "허구",
+      "evidence_level": "invented",
+      "frames": [
+        {
+          "t": "0.0-1.0",
+          "desc": "종이색 플래시, 책장 소리",
+          "asset": "코드"
+        },
+        {
+          "t": "1.0-3.0",
+          "desc": "보스 형체 1.0->1.6배 팽창, 글자 흘러내림(판독 불가 도형), 얼굴 없음",
+          "asset": "IL-04 색조 반전 재사용+코드 오버레이(IL-05 승인 시 대체)"
+        },
+        {
+          "t": "3.0-5.0",
+          "desc": "맵 중앙부 먹물 영역 확산, 영웅 3인 실루엣이 작게 보임",
+          "asset": "코드+기존 초상화 실루엣 마스크"
+        },
+        {
+          "t": "5.0-6.5",
+          "desc": "보스 단편 '…이름이…' 텍스트 표시 후 전장 복귀",
+          "asset": "UI 텍스트"
+        }
+      ],
+      "art_note": "기본안 IL-04 재사용(호출 0). 예산 증액 시 IL-05 1회 추가 권장(거대한 빈 페이지 형상, 글자·사람 형상 금지)"
+    }
+  ],
+  "art_summary": [
+    {
+      "asset": "IL-03(기존 예약)",
+      "usage": "7장 종료 후 s7_post",
+      "note": "해협 새벽, 깃발과 덮인 책 상징. 인물·유혈 금지",
+      "calls": "1(기존 계획 내)"
+    },
+    {
+      "asset": "IL-04(기존 예약)",
+      "usage": "8장 전투 전, 10장 CS-10-01 재사용",
+      "note": "먹물 번지는 서가 길, 작은 뒷모습. 10장은 색조 반전+코드 오버레이",
+      "calls": "0(재사용)"
+    },
+    {
+      "asset": "IL-05(예산 초과 후보)",
+      "usage": "10장 CS-10-01 대체안",
+      "note": "거대한 빈 페이지 형상. 사람 형상·글자 금지",
+      "calls": "승인 시 +1"
+    },
+    {
+      "asset": "lantern_glow",
+      "usage": "7장 CS-07-01, e01",
+      "note": "원형 등불 글로우 1종(코드 가능)",
+      "calls": "0"
+    },
+    {
+      "asset": "shadow_basic x3",
+      "usage": "8장 그림자 유닛",
+      "note": "비인간 먹물 형체. 사람·일본군·실존 인물 형상 금지",
+      "calls": "안아트 확인"
+    },
+    {
+      "asset": "last_shadow_boss",
+      "usage": "10장 보스",
+      "note": "거대한 빈 페이지 형상, 얼굴 없음, 2페이즈 변형",
+      "calls": "안아트 확인"
+    },
+    {
+      "asset": "ink 타일 skin",
+      "usage": "8~10장 tile_patch",
+      "note": "물 타일 대용 먹물 skin",
+      "calls": "코드/타일셋"
+    },
+    {
+      "asset": "page_turn 트랜지션",
+      "usage": "8장 e05",
+      "note": "종이 넘김 와이프",
+      "calls": "코드"
+    },
+    {
+      "asset": "tide_arrow 오버레이",
+      "usage": "9장 e05",
+      "note": "물 타일 흐름 화살표 반전",
+      "calls": "코드"
+    },
+    {
+      "asset": "smoke 오버레이",
+      "usage": "7장 e05",
+      "note": "반투명 연기 구역",
+      "calls": "코드"
+    },
+    {
+      "asset": "NPC 초상: 진린",
+      "usage": "7장 e03",
+      "note": "미등재. 없으면 이름표+실루엣 폴백",
+      "calls": "안아트 확인(고증 verify)"
+    }
+  ]
+}

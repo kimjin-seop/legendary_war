@@ -1,0 +1,120 @@
+{
+ "_note": "임진왜란 10맵 서사-지형 정정 패치 v6 (송서사, 2026-11-01). v5 에서 게임 안에 노출될 수 있던 제작 메모성 문구(기록에 따르면·조류 규칙 없음·확인 중 등)를 인 월드 문장으로 바꾼 정리본이며 v5 를 대체한다(v5 는 보존). 원본 campaign_ch1_scenes.json(v4)·campaign_ch1_outline.json(v2)은 수정하지 않았다. 병합 순서: 원본 -> scenario/meta_lines_fix.patch.json -> 이 파일. 병합 규칙: scenes[]는 id로 찾아 set_bg(교체), replace_lines(원본 lines 0-based index의 줄을 교체), insert_after(원본 index 뒤에 삽입, 여러 개면 원본 index 기준 내림차순으로 적용), 순서로 적용. outline.stages[]는 stage id로 찾아 존재하는 필드만 교체. 줄 형식은 원본과 같다(speaker, expr, text, is_invented, verify). 영웅·주인공 대사는 모두 창작(is_invented=true). 시오리의 'rule' 안내 문구는 게임 안내(is_invented=false). outline 의 'adaptation'·'_note' 는 제작용 필드이며 화면에 표시하지 않는다. 근거 상세는 scenario/IMJIN10_NARRATIVE_FIXES.md. 실행 도구가 없어 JSON 파서 검증은 하지 못했고 육안으로 두 번 검토했다(병합 전 파서 검증 필요).",
+ "version": 6,
+ "supersedes": "campaign_ch1_scenes_outline.patch_v5.json",
+ "target_scenes_version": 5,
+ "target_outline_version": 3,
+ "scenes": [
+  {
+   "id": "ch1_open",
+   "replace_lines": [
+    { "index": 8, "line": { "speaker": "shiori", "expr": "neutral", "text": "든든합니다. 이번 기록에는 바다 전장이 있습니다. 병사들은 모두 배에 올라 물 위를 움직이되 멀리 가지는 못합니다.", "is_invented": false, "verify": false } },
+    { "index": 9, "line": { "speaker": "hero:144", "expr": "smile", "text": "물은 장군께 맡기고, 나는 배 위에서 길목을 지키겠소.", "is_invented": true, "verify": false } },
+    { "index": 11, "line": { "speaker": "shiori", "expr": "smile", "text": "해전 기록에서는 서고가 수군을 빌려 드립니다. 이순신 장군의 수군이 중심이고, 수군 장수는 물 위에서 특히 강하십니다. 뭍의 전장은 뭍의 전투로 따로 치르겠습니다.", "is_invented": false, "verify": false } },
+    { "index": 12, "line": { "speaker": "hero:yi_sun_sin", "expr": "neutral", "text": "바다라면 내가 가장 자신 있소. 가십시다.", "is_invented": true, "verify": false } }
+   ]
+  },
+  {
+   "id": "ch1_s1_pre",
+   "set_bg": "옥포 앞바다. 서쪽 해안에 항구가 있고, 바다 한가운데 암초가 보인다",
+   "replace_lines": [
+    { "index": 3, "line": { "speaker": "shiori", "expr": "neutral", "text": "일본 선박들이 옥포 포구에 정박해 있었고, 조선 수군이 포구 앞바다로 들어가 공격했습니다.", "is_invented": false, "verify": false } },
+    { "index": 6, "line": { "speaker": "shiori", "expr": "neutral", "text": "적 지휘관을 쓰러뜨리면 승리입니다. 이번에는 이순신 장군의 수군이 중심이며, 수군 장수는 물 위에서 특히 강하십니다.", "is_invented": false, "verify": false } }
+   ],
+   "insert_after": [
+    { "index": 3, "lines": [ { "speaker": "shiori", "expr": "neutral", "text": "오늘은 서쪽 항구에서 배를 내어 바다 위에서 겨루겠습니다. 바다 한가운데 암초는 지나기 어려우니 돌아가는 길을 보아 두시지요.", "is_invented": false, "verify": false } ] }
+   ]
+  },
+  {
+   "id": "ch1_s1_post",
+   "set_bg": "전투가 끝난 옥포 앞바다. 서쪽 해안의 항구가 멀리 보인다"
+  },
+  {
+   "id": "ch1_s2_pre",
+   "set_bg": "의령 정암진. 숲으로 둘러싸인 남강과 모래톱, 강 양쪽에 마주 선 두 진영",
+   "replace_lines": [
+    { "index": 6, "line": { "speaker": "shiori", "expr": "neutral", "text": "강은 얕아서 걸어서 건널 수 있지만 발이 늦습니다. 모래톱 세 곳은 빨리 건널 수 있으니, 어디를 맡을지 정해 두시지요.", "is_invented": false, "verify": false } }
+   ]
+  },
+  {
+   "id": "ch1_s2_post",
+   "set_bg": "도하가 멈춘 강가의 모래톱"
+  },
+  {
+   "id": "ch1_s3_pre",
+   "set_bg": "한산도 앞바다. 가운데 작은 섬과 암초를 두고 넓은 바다가 펼쳐진다",
+   "replace_lines": [
+    { "index": 4, "line": { "speaker": "shiori", "expr": "serious", "text": "학익진은 넓은 바다에서 펼치는 진형입니다. 바다 한가운데 목표 지점으로 적을 끌어낸 뒤 날개로 감싸십시오.", "is_invented": false, "verify": false } },
+    { "index": 9, "line": { "speaker": "shiori", "expr": "neutral", "text": "적을 넓은 바다로 끌어낸 뒤 둘러싸 지휘관을 노리십시오. 둘러싸는 쪽도, 둘러싸이는 쪽도 등을 보이게 됩니다.", "is_invented": false, "verify": false } }
+   ]
+  },
+  {
+   "id": "ch1_s3_post",
+   "set_bg": "포위가 끝난 한산도 앞바다"
+  },
+  {
+   "id": "ch1_s4_pre",
+   "set_bg": "진주성. 사각 성벽과 남쪽 성문 하나, 성 안의 건물과 망루, 성 동쪽으로 강이 흐른다",
+   "insert_after": [
+    { "index": 10, "lines": [ { "speaker": "shiori", "expr": "neutral", "text": "성문은 남쪽에 하나뿐입니다. 문을 지키는 자리부터 정하시지요.", "is_invented": false, "verify": false } ] }
+   ]
+  },
+  {
+   "id": "ch1_s5_pre",
+   "set_bg": "한겨울의 평양성. 넓은 성곽과 내부 건물, 남쪽 성벽의 성문 두 곳",
+   "insert_after": [
+    { "index": 8, "lines": [ { "speaker": "shiori", "expr": "neutral", "text": "성곽이 넓고 성문은 남쪽 성벽에 두 곳입니다. 가까운 서쪽 문과 먼 동쪽 문, 어디로 들어가실지 정해 두시지요.", "is_invented": false, "verify": false } ] }
+   ]
+  },
+  {
+   "id": "ch1_s6_pre",
+   "set_bg": "행주산성. 가운데 고지를 성벽이 둘러싸고 남쪽에 성문이 하나, 좌우로 숲과 언덕이 이어진다",
+   "replace_lines": [
+    { "index": 7, "line": { "speaker": "shiori", "expr": "smile", "text": "이번 성은 산성입니다. 가운데 고지를 성벽이 에워싸고, 문은 남쪽에 하나뿐입니다. 진주성과는 짜임이 다르니 자리부터 다시 살피시지요.", "is_invented": false, "verify": false } }
+   ],
+   "optional_insert_after": [
+    { "index": 7, "dev_note": "F1-2(서고 공간 유한) 복선 대체 제안. 사람이 채택할 때만 삽입", "lines": [ { "speaker": "shiori", "expr": "neutral", "text": "서고의 선반은 한정되어 있어서, 사서는 서랍을 아껴 씁니다.", "is_invented": true, "verify": false } ] }
+   ]
+  },
+  {
+   "id": "ch1_s7_pre",
+   "set_bg": "깊은 밤의 노량 앞바다. 암초가 흩어진 넓은 바다에서 아군과 적선의 불빛이 마주 선다",
+   "insert_after": [
+    { "index": 3, "lines": [ { "speaker": "shiori", "expr": "neutral", "text": "전투는 한밤에 시작해 날이 밝은 뒤까지 이어졌다고 전합니다.", "is_invented": false, "verify": true } ] }
+   ]
+  },
+  {
+   "id": "ch1_s8_pre",
+   "set_bg": "노량 뒤의 서고. 먹물이 번져 검은 공허가 열리고, 떨어져 나간 방과 통로, 불안정한 발판만 남았다"
+  },
+  {
+   "id": "ch1_s9_pre",
+   "set_bg": "1597년의 기록. 양쪽에 암벽처럼 암초 띠가 늘어선 좁은 항로에 아군이 적은 수로 서 있다",
+   "replace_lines": [
+    { "index": 3, "line": { "speaker": "hero:yi_sun_sin", "expr": "serious", "text": "이 물길은 좁고 물살이 거세오. 자리를 가려 서라.", "is_invented": true, "verify": false } }
+   ],
+   "insert_after": [
+    { "index": 2, "lines": [ { "speaker": "shiori", "expr": "neutral", "text": "명량은 물살이 거세기로 이름난 바다입니다. 오늘은 양쪽 암벽 사이의 좁은 항로가 그 물살의 몫을 대신합니다.", "is_invented": false, "verify": false } ] }
+   ]
+  },
+  {
+   "id": "ch1_s10_pre",
+   "set_bg": "서고 가장 깊은 곳. 중앙 평지와 언덕 위의 부서진 플랫폼, 탑 두 기. 가장자리는 공허로 끊겨 있고, 번진 먹물이 모여 하나의 그림자가 된다"
+  }
+ ],
+ "outline": {
+  "_note": "싱글 캠페인 1챕터(임진왜란) 스테이지 개요(제작용 필드, 화면 비표시). 날짜는 음력(양력 병기). 해전 4종(옥포·한산도·노량·명량)은 실제 해상 맵(바다·암초·항구)에서 치르며 모든 병종이 배를 타고 이동한다(이동거리 제한, 배 스프라이트). 수병 이순신은 수상에서 매우 강하고, 해전 4종은 수군 대여 고정 편성 예정. 맵은 maps_imjin10 기준(im_01_okpo ~ im_10_last_seoga, 지형은 사용자 원본 고정). 이순신이 육상 전투(정암진·진주·평양·행주)에 등장하는 것은 시간의 서고 설정에 따른 '만약에(what_if)' 각색. 일본 측 지휘관은 CSV 미등재이며 npc_jp_* 화자로 짧은 대사를 가진다(scenario/enemy_lines_draft.json, 중립 묘사). player_side_heroes는 CSV id(시드는 heroes.json code 병기)",
+  "stages": [
+   { "id": "ch1_s1", "map_code": "im_01_okpo", "map_theme": "해상(해안 항구·암초·바다)", "adaptation": "서쪽 해안 항구에서 출진하는 해전. 모든 병종이 배에 올라 이동(이동거리 제한), 이순신은 수병으로 수상에서 강함. 사료상 일본 선박은 옥포 포구에 정박해 있었으나 맵은 양 진영이 바다에서 마주 선 배치(연출)" },
+   { "id": "ch1_s2", "map_code": "im_02_jeongamjin", "map_theme": "숲으로 둘러싸인 강과 모래톱 도하점 3곳", "adaptation": "다리 없음. 얕은 강과 모래톱 3곳을 도하점으로, 숲이 양안을 둘러쌈. 도하점이 3곳이었다는 사료 근거는 없고 맵 연출. 이순신의 참전은 각색" },
+   { "id": "ch1_s3", "map_code": "im_03_hansando", "map_theme": "넓은 바다·가운데 섬·암초", "adaptation": "넓은 바다로 적을 유인해 날개 진형으로 감싸는 학익진을 바다 위 진형으로 표현. 가운데 섬은 한산도를 상징하는 맵 연출. 호수·순환로·다리 없음" },
+   { "id": "ch1_s4", "map_code": "im_04_jinju", "map_theme": "성벽·남쪽 성문·성 안 건물과 망루·동쪽 강", "adaptation": "6일간의 공방을 8턴 생존으로 압축. 맵의 동쪽 강은 연출(현실의 남강은 성 북쪽에 접함, verify). 이순신의 참전은 각색. 김시민 부상·사망은 전투 연출 없이 사후 서술로만 처리" },
+   { "id": "ch1_s5", "map_code": "im_05_pyeongyang", "map_theme": "대규모 성곽·성 안 건물·성문 2곳(해자 없음)", "adaptation": "공성전을 성 안 지휘관 격파로 표현. 해자 없음(사료상 일본군 퇴각 경로는 대동강). 이순신 참전은 각색. 유정의 평양 전투 참전은 출처가 약해 verify" },
+   { "id": "ch1_s6", "map_code": "im_06_haengju", "map_theme": "산성(중앙 고지·성벽·남쪽 성문 1곳·좌우 숲과 언덕)", "adaptation": "행주산성 전용 지형. 하루의 공방을 10턴으로 압축. 이순신 참전은 각색('행주치마' 등 민간 전승은 사용하지 않음)" },
+   { "id": "ch1_s7", "map_code": "im_07_noryang", "map_theme": "야간 해상·암초 군집(섬 없음)", "adaptation": "섬·다리·여울 없는 순수 해상. 암초 지대가 항로를 가름. 이순신의 전사는 전투 중 연출하지 않고 서술로만" },
+   { "id": "ch1_s8", "map_code": "im_08_seoga_collapse", "map_theme": "공허 속에 분리된 방과 통로·불안정한 서가 발판", "adaptation": "전부 허구. 주인공 성장 호의 '정리' 단계. 지형 고정(먹물 연출은 시각 효과)" },
+   { "id": "ch1_s9", "map_code": "im_09_myeongnyang", "map_theme": "좁은 항로·양쪽 암벽(암초 띠)·물살 타일 없음", "adaptation": "서고가 노량 뒤에 앞 장(1597)을 다시 펼치는 비선형 구성. 조류는 서술로만 전하고 게임 규칙은 없음. 곽재우·주인공의 참전은 각색. 음력 날짜는 단정하지 않음(verify)" },
+   { "id": "ch1_s10", "map_code": "im_10_last_seoga", "map_theme": "중앙 평지·언덕 위 플랫폼·탑 2기·가장자리 공허", "adaptation": "전부 허구. 주인공 성장 호의 '결말' 단계" }
+  ]
+ }
+}

@@ -1,0 +1,234 @@
+{
+ "_note": "안아트 수상 전투 컷신 배경(bg.battle.sea/reef/harbor/river) + 항적 fx.cut_wake (2026-11-03). merge_fragments.mjs 로만 병합",
+ "items": [
+  {
+   "key": "bg.battle.sea.a",
+   "path": "assets/bg/battle_sea_a.png",
+   "type": "image",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/gen.mjs + style_guide.mjs (JOBS.bgbattle_sea) → pp_bg.mjs (RAW=public/assets/raw/bgbattle_sea)"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "verify": false,
+   "size": "960x300",
+   "dots": "320x100(1도트=3px)",
+   "displayScale": "정수 2배 표시 기본(1920x600), x2 확대본 제공",
+   "alpha": false,
+   "horizonRatio": 0.38,
+   "groundLineRatio": 0.78,
+   "groundBand": "없음(수면). 배·병사 영역 0.55~0.90 은 잔잔한 물결만",
+   "light": "top-left",
+   "layers": "단일 이미지(레이어 분리 PNG 미제공)",
+   "water": true,
+   "load_hint": "scope battle(bg.battle 규칙). 텍스처 키 bg_battle_<terrain>_<v>, 컷신 drawBackdrop 의 cover 크롭 그대로 사용 가능(분할 칸은 가로 가운데 1/2 이 보임)",
+   "prompt_ref": "style_guide.mjs JOBS.bgbattle_sea[sea] (21:9 생성 → pp_bg.mjs 3.2:1 크롭 CROP_Y.sea, 320x100 도트, 48색, 최근접 x3)",
+   "raw": "assets/raw/bgbattle_sea/sea.jpg",
+   "variants": {
+    "x2": "assets/bg/x2/battle_sea_a.png"
+   },
+   "terrain": "sea",
+   "description": "먼바다(맑음): 좌우 끝 낮은 섬, 가운데 탁 트인 수평선",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "21:9 생성 2회(1차 raw/bgbattle_sea/sea_v1.jpg 기각: 높이 0.68~0.80 에 흰 파도 머리 줄이 진해 배·병사 영역이 산만), 2차 채택",
+     "수평선 0.38(측정 0.38~0.40), 48색, 잔여 마젠타 0, 중앙 1/3 비어 있음",
+     "주의: 높이 약 0.70 아래가 한 단 짙은 띠(가로 경계가 유닛 발 근처에 보임) — 실화면에서 거슬리면 sea.b 우선 사용 권장"
+    ]
+   }
+  },
+  {
+   "key": "bg.battle.sea.b",
+   "path": "assets/bg/battle_sea_b.png",
+   "type": "image",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/gen.mjs + style_guide.mjs (JOBS.bgbattle_sea) → pp_bg.mjs (RAW=public/assets/raw/bgbattle_sea)"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "verify": false,
+   "size": "960x300",
+   "dots": "320x100(1도트=3px)",
+   "displayScale": "정수 2배 표시 기본(1920x600), x2 확대본 제공",
+   "alpha": false,
+   "horizonRatio": 0.38,
+   "groundLineRatio": 0.78,
+   "groundBand": "없음(수면). 배·병사 영역 0.55~0.90 은 잔잔한 물결만",
+   "light": "top-left",
+   "layers": "단일 이미지(레이어 분리 PNG 미제공)",
+   "water": true,
+   "load_hint": "scope battle(bg.battle 규칙). 텍스처 키 bg_battle_<terrain>_<v>, 컷신 drawBackdrop 의 cover 크롭 그대로 사용 가능(분할 칸은 가로 가운데 1/2 이 보임)",
+   "prompt_ref": "style_guide.mjs JOBS.bgbattle_sea[sea_b] (21:9 생성 → pp_bg.mjs 3.2:1 크롭 CROP_Y.sea_b, 320x100 도트, 48색, 최근접 x3)",
+   "raw": "assets/raw/bgbattle_sea/sea_b.jpg",
+   "variants": {
+    "x2": "assets/bg/x2/battle_sea_b.png"
+   },
+   "terrain": "sea",
+   "description": "먼바다(흐림·바람): 좌측 긴 섬 능선, 우측 작은 바위섬",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "21:9 1회 생성, 수평선 0.38, 수평선 바로 아래(0.40~0.48)에만 작은 반짝임, 유닛 영역 표준편차 11(가장 단조로움), 48색, 잔여 마젠타 0"
+    ]
+   }
+  },
+  {
+   "key": "bg.battle.reef.a",
+   "path": "assets/bg/battle_reef_a.png",
+   "type": "image",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/gen.mjs + style_guide.mjs (JOBS.bgbattle_sea) → pp_bg.mjs (RAW=public/assets/raw/bgbattle_sea)"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "verify": false,
+   "size": "960x300",
+   "dots": "320x100(1도트=3px)",
+   "displayScale": "정수 2배 표시 기본(1920x600), x2 확대본 제공",
+   "alpha": false,
+   "horizonRatio": 0.38,
+   "groundLineRatio": 0.78,
+   "groundBand": "없음(수면). 배·병사 영역 0.55~0.90 은 잔잔한 물결만",
+   "light": "top-left",
+   "layers": "단일 이미지(레이어 분리 PNG 미제공)",
+   "water": true,
+   "load_hint": "scope battle(bg.battle 규칙). 텍스처 키 bg_battle_<terrain>_<v>, 컷신 drawBackdrop 의 cover 크롭 그대로 사용 가능(분할 칸은 가로 가운데 1/2 이 보임)",
+   "prompt_ref": "style_guide.mjs JOBS.bgbattle_sea[reef] (21:9 생성 → pp_bg.mjs 3.2:1 크롭 CROP_Y.reef, 320x100 도트, 48색, 최근접 x3)",
+   "raw": "assets/raw/bgbattle_sea/reef.jpg",
+   "variants": {
+    "x2": "assets/bg/x2/battle_reef_a.png"
+   },
+   "terrain": "reef",
+   "description": "암초 해역: 수평선~높이 0.62 띠에 가로 전체로 흩어진 낮은 바위 머리와 흰 포말",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "21:9 생성 2회(1차 raw/bgbattle_sea/reef_v1.jpg 기각: 바위·포말이 좌우 가장자리 0.5~0.8 까지 내려와 유닛 바깥 열과 겹치고, 분할 칸(가운데 1/2 크롭)에서는 암초가 전부 잘려 보이지 않음), 2차 채택",
+     "바위가 가운데 쪽에도 있어 분할 칸에서도 암초로 읽힘. 높이 0.62 아래는 바위·포말 없음, 수평선 0.38, 48색, 잔여 마젠타 0",
+     "바위 띠(0.40~0.62)가 뒷열 유닛 상단과 약간 겹칠 수 있음(원경 요소라 가독성 문제는 작음)"
+    ]
+   }
+  },
+  {
+   "key": "bg.battle.harbor.a",
+   "path": "assets/bg/battle_harbor_a.png",
+   "type": "image",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/gen.mjs + style_guide.mjs (JOBS.bgbattle_sea) → pp_bg.mjs (RAW=public/assets/raw/bgbattle_sea)"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "verify": false,
+   "size": "960x300",
+   "dots": "320x100(1도트=3px)",
+   "displayScale": "정수 2배 표시 기본(1920x600), x2 확대본 제공",
+   "alpha": false,
+   "horizonRatio": 0.38,
+   "groundLineRatio": 0.78,
+   "groundBand": "없음(수면). 배·병사 영역 0.55~0.90 은 잔잔한 물결만",
+   "light": "top-left",
+   "layers": "단일 이미지(레이어 분리 PNG 미제공)",
+   "water": true,
+   "load_hint": "scope battle(bg.battle 규칙). 텍스처 키 bg_battle_<terrain>_<v>, 컷신 drawBackdrop 의 cover 크롭 그대로 사용 가능(분할 칸은 가로 가운데 1/2 이 보임)",
+   "prompt_ref": "style_guide.mjs JOBS.bgbattle_sea[harbor] (21:9 생성 → pp_bg.mjs 3.2:1 크롭 CROP_Y.harbor, 320x100 도트, 48색, 최근접 x3)",
+   "raw": "assets/raw/bgbattle_sea/harbor.jpg",
+   "variants": {
+    "x2": "assets/bg/x2/battle_harbor_a.png"
+   },
+   "terrain": "harbor",
+   "description": "항구: 수평선 높이 낮은 나무 부두(말뚝), 좌우 끝 기와·초가 창고와 먼 산",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "21:9 1회 생성, 부두 상판 0.33~0.37, 말뚝 아래 수면선 약 0.42(코드 수평선 0.38 보다 약 12px 아래 — 크롭을 더 올리면 좌측 지붕이 잘려 유지), 부두 앞 수면 잔잔, 정박한 배 없음, 48색, 잔여 마젠타 0",
+     "verify: 창고 지붕 양식은 특정 시대·지역 고증 없음(동아시아 일반 항구 느낌)"
+    ]
+   }
+  },
+  {
+   "key": "bg.battle.river.a",
+   "path": "assets/bg/battle_river_a.png",
+   "type": "image",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/gen.mjs + style_guide.mjs (JOBS.bgbattle_sea) → pp_bg.mjs (RAW=public/assets/raw/bgbattle_sea)"
+   },
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "verify": false,
+   "size": "960x300",
+   "dots": "320x100(1도트=3px)",
+   "displayScale": "정수 2배 표시 기본(1920x600), x2 확대본 제공",
+   "alpha": false,
+   "horizonRatio": 0.38,
+   "groundLineRatio": 0.78,
+   "groundBand": "없음(수면). 배·병사 영역 0.55~0.90 은 잔잔한 물결만",
+   "light": "top-left",
+   "layers": "단일 이미지(레이어 분리 PNG 미제공)",
+   "water": true,
+   "load_hint": "scope battle(bg.battle 규칙). 텍스처 키 bg_battle_<terrain>_<v>, 컷신 drawBackdrop 의 cover 크롭 그대로 사용 가능(분할 칸은 가로 가운데 1/2 이 보임)",
+   "prompt_ref": "style_guide.mjs JOBS.bgbattle_sea[river] (21:9 생성 → pp_bg.mjs 3.2:1 크롭 CROP_Y.river, 320x100 도트, 48색, 최근접 x3)",
+   "raw": "assets/raw/bgbattle_sea/river.jpg",
+   "variants": {
+    "x2": "assets/bg/x2/battle_river_a.png"
+   },
+   "terrain": "river",
+   "description": "큰 강 한가운데: 수평선 높이 건너편 기슭(버드나무·먼 산), 좌우 끝 갈대 조금, 아래쪽 기슭 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "21:9 1회 생성, 기슭선 0.38, 수면 잔잔(유닛 영역 표준편차 16), 좌우 하단 모서리 갈대만, 48색, 잔여 마젠타 0"
+    ]
+   }
+  },
+  {
+   "key": "fx.cut_wake",
+   "path": "assets/effects/cut/cut_wake.png",
+   "type": "spritesheet",
+   "frameWidth": 32,
+   "frameHeight": 16,
+   "frames": 4,
+   "size": "128x16",
+   "alpha": true,
+   "fps_hint": 8,
+   "loop": true,
+   "anchor": "origin(0.5~1.0, 11/16): 수면선 = 프레임 위에서 11px. 뱃머리 물보라가 오른쪽(x 23~31), 항적이 왼쪽으로 흐름 — 배가 왼쪽을 향하면 flipX",
+   "displayScale": "정수 배율(x2~x3) 권장, NEAREST 필터",
+   "variants": {
+    "x3": "assets/effects/cut/x3/cut_wake.png"
+   },
+   "generator": {
+    "model": "none(절차 생성)",
+    "script": "docker/gemini/fx_cut_wake_build.py (Pillow)"
+   },
+   "prompt_ref": "없음(코드 손도트: 포말 흰색 4단 + 반투명 물그늘)",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "4프레임 루프: 항적 끊김이 프레임마다 2px 왼쪽으로 흐르고 물보라 높이 3→5→6→4",
+     "x8 미리보기로 실루엣 확인(public/assets/effects/cut/preview_cut_wake.png). 반투명 물그늘(alpha 150~200)은 어두운 배경에서 약하게 보임",
+     "화면 속 움직임 타이밍(fps)은 실화면 확인 필요"
+    ]
+   },
+   "verify": false,
+   "load_hint": "scope battle(fx 규칙). Phaser spritesheet frameWidth 32 frameHeight 16"
+  }
+ ]
+}

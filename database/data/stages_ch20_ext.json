@@ -1,0 +1,3870 @@
+{
+ "_note": "[임밸런 / 초안] ch20 나가시노 확장 파일럿(송서사 EXPAND_ch13_ch20.md s4~s10) 스테이지 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 좌표 채움 완료(2026-11-03, maps_ch20_ext.json): cells/x/y/tiles/waypoints 채움, zone_ref 는 tiles/rect 로 치환(엔진 규칙), spawn 후보 칸 <=12. map_requirements 의 zone_ref 문구는 설명용. 시드 미적재.",
+ "version": 1,
+ "chapter": 20,
+ "shelf_code": "ch20",
+ "status": "map_filled",
+ "items": [
+  {
+   "code": "ch20_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "오다·도쿠가와 연합군",
+     "enemy": "다케다 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_okudaira_sadamasa",
+      "x": 20,
+      "y": 12,
+      "must_survive": true
+     },
+     {
+      "hero": "toyotomi_hideyoshi",
+      "x": 19,
+      "y": 11,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "다케다 공성 보병대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          26,
+          8
+         ],
+         [
+          26,
+          9
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "store_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 6,
+       "when": {
+        "not": {
+         "type": "flag",
+         "key": "store_signal_up"
+        }
+       }
+      },
+      "do": "spawn",
+      "side": "b",
+      "tiles": [
+       [
+        17,
+        7
+       ],
+       [
+        17,
+        8
+       ],
+       [
+        18,
+        8
+       ]
+      ],
+      "tag": "tunnel",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 3
+     },
+     {
+      "on": {
+       "turn": 6,
+       "when": {
+        "not": {
+         "type": "flag",
+         "key": "store_signal_up"
+        }
+       }
+      },
+      "do": "spawn",
+      "side": "b",
+      "tiles": [
+       [
+        24,
+        7
+       ]
+      ],
+      "tag": "tunnel",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 1
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "okudaira",
+      "type": "unit_survive",
+      "unit": "hero:npc_okudaira_sadamasa",
+      "label": "오쿠다이라 사다마사를 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "10턴 버틴다",
+      "latch": false,
+      "when": {
+       "type": "turn_gte",
+       "value": 10
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "store_lost",
+      "label": "식량 창고가 적에게 닿음",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "tiles": [
+        [
+         20,
+         7
+        ],
+        [
+         21,
+         7
+        ],
+        [
+         22,
+         7
+        ]
+       ]
+      }
+     },
+     {
+      "id": "okudaira_down",
+      "label": "오쿠다이라 사다마사가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:npc_okudaira_sadamasa"
+      }
+     }
+    ],
+    "optional": true
+   },
+   "name": "나가시노성 농성",
+   "year_label": "1575년 5월 초",
+   "chapter": 20,
+   "shelf_code": "ch20",
+   "map": "su_ch20_s4_nagashino_castle",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 10
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -4,
+   "effective_enemy_level": 13,
+   "difficulty": 6,
+   "culture": "japan",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_okudaira_sadamasa",
+     "toyotomi_hideyoshi"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 공성 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       7,
+       10
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       7,
+       11
+      ],
+      [
+       8,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 공성 보병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       19,
+       1
+      ],
+      [
+       19,
+       0
+      ],
+      [
+       18,
+       1
+      ],
+      [
+       20,
+       1
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 궁병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       8,
+       3
+      ],
+      [
+       8,
+       4
+      ],
+      [
+       8,
+       2
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 창병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 후속 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       7,
+       16
+      ],
+      [
+       8,
+       16
+      ],
+      [
+       7,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 후속 보병",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 14,
+   "enemy_units_peak": 14,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      7,
+      10
+     ],
+     "name": "다케다 공성 보병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      8,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      7,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      8,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      19,
+      1
+     ],
+     "name": "다케다 궁병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      19,
+      0
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      18,
+      1
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      20,
+      1
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      8,
+      3
+     ],
+     "name": "다케다 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      8,
+      4
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      8,
+      2
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      7,
+      16
+     ],
+     "name": "다케다 후속 보병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      8,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      7,
+      17
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1016,
+    "exp": 1474,
+    "gold": 1321,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값) / 선택 스테이지 0.8배(서가 확장 파일럿, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "okudaira"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "68~82 (신호 달성 기준 중앙 약 76)",
+   "sort_order": 2004,
+   "prerequisite": "ch20_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "store_signal": "창고 경비 신호 1~2칸",
+     "store_zone": "식량 창고 보호 구역 2~4칸(성 본곡륜)",
+     "tunnel_exit": "갱부 땅굴 출구 칸 3",
+     "tunnel_exit_a": "갱부 궁병 출구 1칸",
+     "enemy_deploy": "성 밖 3면"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "store_signal",
+     "store_zone"
+    ]
+   },
+   "design_notes": [
+    "[확정 수치] 초기 적 14기 {'sword': 7, 'archer': 4, 'spear': 3}, 최대(증원 포함) 14기. Lv17 offset -2(eff 15).  + 신호 미달성 시 T6 갱부 땅굴 4기. 성 본곡륜 방어, 식량 창고(store_zone)에 적이 닿으면 패배(= protect_tiles 대용). 철포는 성 내 궁병(조총)으로 표현. store_signal 달성 = 화재 방지 -> 땅굴 증원 없음.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: toyotomi_hideyoshi(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정4회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->-4, 일반 부대 병사/부대 0기 축소(초기 14->14), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1->1. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch20_s5",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "오다·도쿠가와 연합군",
+     "enemy": "다케다 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_torii_suneemon",
+      "x": 9,
+      "y": 12,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         17,
+         12
+        ],
+        [
+         20,
+         12
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 4
+      }
+     }
+    ],
+    "enemy_commander": {
+     "name": "강변 초소 창병대장",
+     "hero": null
+    },
+    "max_turns": 11,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          13,
+          11
+         ],
+         [
+          13,
+          13
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "ford_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "ford_signal_up"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        14,
+        9
+       ],
+       [
+        15,
+        9
+       ],
+       [
+        16,
+        9
+       ],
+       [
+        17,
+        9
+       ],
+       [
+        14,
+        10
+       ],
+       [
+        15,
+        10
+       ],
+       [
+        16,
+        10
+       ],
+       [
+        17,
+        10
+       ],
+       [
+        14,
+        11
+       ],
+       [
+        15,
+        11
+       ],
+       [
+        16,
+        11
+       ],
+       [
+        17,
+        11
+       ],
+       [
+        14,
+        12
+       ],
+       [
+        15,
+        12
+       ],
+       [
+        16,
+        12
+       ],
+       [
+        17,
+        12
+       ],
+       [
+        14,
+        13
+       ],
+       [
+        15,
+        13
+       ],
+       [
+        16,
+        13
+       ],
+       [
+        17,
+        13
+       ],
+       [
+        14,
+        14
+       ],
+       [
+        15,
+        14
+       ],
+       [
+        16,
+        14
+       ],
+       [
+        17,
+        14
+       ]
+      ],
+      "to": "sand"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "torii",
+      "type": "unit_survive",
+      "unit": "hero:npc_torii_suneemon",
+      "label": "도리이 스네에몬을 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "내가 건너편 구역에 선다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         20,
+         11
+        ],
+        [
+         21,
+         11
+        ],
+        [
+         20,
+         12
+        ],
+        [
+         21,
+         12
+        ],
+        [
+         20,
+         13
+        ],
+        [
+         21,
+         13
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "torii_down",
+      "label": "도리이 스네에몬이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:npc_torii_suneemon"
+      }
+     }
+    ],
+    "optional": true
+   },
+   "name": "구원 사자 재출발",
+   "year_label": "1575년 5월 16일",
+   "chapter": 20,
+   "shelf_code": "ch20",
+   "map": "su_ch20_s5_messenger_ford",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 16,
+   "difficulty": 6,
+   "culture": "japan",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_torii_suneemon"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "강변 초소 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       21,
+       4
+      ],
+      [
+       22,
+       4
+      ],
+      [
+       21,
+       3
+      ],
+      [
+       22,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "강변 초소 창병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "강변 초소 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       21,
+       19
+      ],
+      [
+       22,
+       19
+      ],
+      [
+       21,
+       18
+      ],
+      [
+       22,
+       18
+      ]
+     ],
+     "soldier_display_name_ko": "강변 초소 궁병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "순찰 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       11
+      ],
+      [
+       29,
+       12
+      ],
+      [
+       29,
+       10
+      ],
+      [
+       28,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "순찰 보병",
+     "hold_until_turn": 4
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      21,
+      4
+     ],
+     "name": "강변 초소 창병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      4
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      3
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      3
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      21,
+      19
+     ],
+     "name": "강변 초소 궁병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      22,
+      19
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      21,
+      18
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      22,
+      18
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      11
+     ],
+     "name": "순찰 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      11
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1096,
+    "exp": 1589,
+    "gold": 1425,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값) / 선택 스테이지 0.8배(서가 확장 파일럿, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "torii"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "62~76 (신호 달성 기준 중앙 약 70)",
+   "sort_order": 2005,
+   "prerequisite": "ch20_s4",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "ford_signal": "강가 신호 1~2칸",
+     "fog_ford": "안개 낀 여울 칸 <=40",
+     "far_bank": "건너편 도달 구역 4~6칸",
+     "torii_start": "도리이 시작",
+     "enemy_deploy": "초소 2 + 순찰 1"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "ford_signal",
+     "far_bank"
+    ],
+    "path_cost": "torii_start -> far_bank <= 20"
+   },
+   "design_notes": [
+    "[확정 수치] 초기 적 12기 {'spear': 4, 'archer': 4, 'sword': 4}, 최대(증원 포함) 12기. Lv18 offset -2(eff 16). . 호위+도하: 도리이 route 턴2 출발 move_cap 4, 안개 낀 강가를 건넘. ford_signal 달성 시 fog_ford 가 shallows 로 바뀌어 건너기 쉬움(야간 이동 보정 대용)."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch20_s6",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "오다·도쿠가와 연합군",
+     "enemy": "다케다 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_cart_1",
+      "x": 6,
+      "y": 14,
+      "unit_type": "sword",
+      "route": {
+       "waypoints": [
+        [
+         13,
+         13
+        ],
+        [
+         21,
+         13
+        ],
+        [
+         28,
+         13
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 4
+      }
+     },
+     {
+      "hero": "npc_cart_2",
+      "x": 7,
+      "y": 14,
+      "unit_type": "sword",
+      "route": {
+       "waypoints": [
+        [
+         14,
+         13
+        ],
+        [
+         22,
+         13
+        ],
+        [
+         28,
+         13
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 4
+      }
+     },
+     {
+      "hero": "npc_cart_front",
+      "x": 8,
+      "y": 14,
+      "unit_type": "sword",
+      "route": {
+       "waypoints": [
+        [
+         15,
+         13
+        ],
+        [
+         23,
+         13
+        ],
+        [
+         28,
+         13
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 4
+      }
+     },
+     {
+      "hero": "npc_shibata_katsuie",
+      "x": 1,
+      "y": 11
+     },
+     {
+      "hero": "honda_tadakatsu",
+      "x": 0,
+      "y": 10
+     }
+    ],
+    "enemy_commander": {
+     "name": "다케다 척후 기병대장",
+     "hero": null
+    },
+    "max_turns": 13,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          18,
+          13
+         ],
+         [
+          19,
+          13
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "cart_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "cart_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        17,
+        12
+       ],
+       [
+        17,
+        14
+       ]
+      ],
+      "tag": "cartguard",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "cart_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        16,
+        12
+       ]
+      ],
+      "tag": "cartguard",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 1
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "player_hero_any",
+        "tiles": [
+         [
+          28,
+          9
+         ],
+         [
+          29,
+          9
+         ],
+         [
+          28,
+          10
+         ],
+         [
+          29,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        28,
+        9
+       ],
+       [
+        29,
+        9
+       ],
+       [
+        28,
+        10
+       ],
+       [
+        29,
+        10
+       ]
+      ],
+      "turns": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "player_hero_any",
+        "tiles": [
+         [
+          28,
+          12
+         ],
+         [
+          29,
+          12
+         ],
+         [
+          28,
+          13
+         ],
+         [
+          29,
+          13
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        28,
+        12
+       ],
+       [
+        29,
+        12
+       ],
+       [
+        28,
+        13
+       ],
+       [
+        29,
+        13
+       ]
+      ],
+      "turns": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "player_hero_any",
+        "tiles": [
+         [
+          28,
+          16
+         ],
+         [
+          29,
+          16
+         ],
+         [
+          28,
+          17
+         ],
+         [
+          29,
+          17
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        28,
+        16
+       ],
+       [
+        29,
+        16
+       ],
+       [
+        28,
+        17
+       ],
+       [
+        29,
+        17
+       ]
+      ],
+      "turns": 2
+     }
+    ],
+    "sub_objectives": [],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "방책 터 북쪽 구축",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "player_hero_any",
+       "tiles": [
+        [
+         28,
+         9
+        ],
+        [
+         29,
+         9
+        ],
+        [
+         28,
+         10
+        ],
+        [
+         29,
+         10
+        ]
+       ]
+      }
+     },
+     {
+      "label": "방책 터 중앙 구축",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "player_hero_any",
+       "tiles": [
+        [
+         28,
+         12
+        ],
+        [
+         29,
+         12
+        ],
+        [
+         28,
+         13
+        ],
+        [
+         29,
+         13
+        ]
+       ]
+      }
+     },
+     {
+      "label": "방책 터 남쪽 구축",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "player_hero_any",
+       "tiles": [
+        [
+         28,
+         16
+        ],
+        [
+         29,
+         16
+        ],
+        [
+         28,
+         17
+        ],
+        [
+         29,
+         17
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": null,
+    "optional": true
+   },
+   "name": "방책 구축 호위",
+   "year_label": "1575년 5월 19일",
+   "chapter": 20,
+   "shelf_code": "ch20",
+   "map": "su_ch20_s6_fence_carts",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -6,
+   "effective_enemy_level": 13,
+   "difficulty": 7,
+   "culture": "japan",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_cart_1",
+     "npc_cart_2",
+     "npc_cart_front",
+     "npc_shibata_katsuie",
+     "honda_tadakatsu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 척후 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       4
+      ],
+      [
+       30,
+       5
+      ],
+      [
+       29,
+       6
+      ],
+      [
+       29,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 척후 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 척후 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       14,
+       8
+      ],
+      [
+       15,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 척후 보병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_sanada_masateru",
+      "display_name_ko": "사나다 마사테루",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       33,
+       22
+      ],
+      [
+       32,
+       23
+      ],
+      [
+       33,
+       23
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 기병 2진",
+     "hold_until_turn": 4
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 9,
+   "enemy_units_peak": 9,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      4
+     ],
+     "name": "다케다 척후 기병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      5
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      6
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      3
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      14,
+      8
+     ],
+     "name": "다케다 척후 보병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      8
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      22
+     ],
+     "ref": "npc_sanada_masateru",
+     "kind": "npc",
+     "name": "사나다 마사테루"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      23
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      33,
+      23
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1184,
+    "exp": 1717,
+    "gold": 1539,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값) / 선택 스테이지 0.8배(서가 확장 파일럿, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    }
+   ],
+   "win_rate_band_target_pct": "58~72 (신호 달성 기준 중앙 약 66)",
+   "sort_order": 2006,
+   "prerequisite": "ch20_s5",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "cart_signal": "호위 신호 1~2칸(숲길 중간)",
+     "fence_site": "방책 터 도달 구역 6칸",
+     "guard_s": "호위 창 2칸",
+     "guard_a": "호위 궁 1칸",
+     "cart_start": "수레 3대 시작",
+     "enemy_deploy": "들판 척후 2 + 후위 1"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "cart_signal",
+     "fence_site"
+    ],
+    "path_cost": "cart_start -> fence_site <= 24"
+   },
+   "design_notes": [
+    "[2026-11-08 임밸런 미션 비중 전환] 호위(수레 3대 방책 터 도착) -> 기타(방책 터 3곳 구축: 출전 영웅 in_zone latch 3개, win_mode only). 수레는 route 연출만 유지, must_survive/lose cart*_down 제거. 시작값.",
+    "[확정 수치] 초기 적 11기 {'cavalry': 7, 'sword': 4}, 최대(증원 포함) 11기. Lv19 offset -2(eff 17). . 수레 3대(cart_1, cart_2, cart_front) route 턴2 출발 move_cap 3, 숲길~들판. 한 대라도 잃으면 패배. cart_signal 달성 시 호위 창2+궁1 합류(기병 대 창 상성 활용). 척후 기병은 들판에서 위협 -> 숲길로 가면 기병 이동 3 불리.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_shibata_katsuie(ally_npcs), npc_sanada_masateru(convert_C). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: honda_tadakatsu(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정4회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->-6, 일반 부대 병사/부대 2기 축소(초기 11->9), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1->1. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch20_s7",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "오다·도쿠가와 연합군",
+     "enemy": "다케다 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_sassa_narimasa",
+      "x": 15,
+      "y": 13,
+      "must_survive": true,
+      "unit_type": "archer"
+     },
+     {
+      "hero": "oda_nobunaga",
+      "x": 3,
+      "y": 13,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "야마가타 마사카게",
+     "hero": "npc_yamagata_masakage"
+    },
+    "max_turns": 11,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          18,
+          11
+         ],
+         [
+          18,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "fire_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "fire_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        18,
+        4
+       ],
+       [
+        18,
+        9
+       ],
+       [
+        18,
+        16
+       ],
+       [
+        18,
+        19
+       ]
+      ],
+      "tag": "gun",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 4
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_amari_nobuyasu",
+      "tiles": [
+       [
+        31,
+        12
+       ],
+       [
+        33,
+        12
+       ],
+       [
+        31,
+        14
+       ],
+       [
+        32,
+        14
+       ],
+       [
+        33,
+        14
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "sub_objectives": [],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "9턴 버틴다",
+      "latch": false,
+      "when": {
+       "type": "turn_gte",
+       "value": 9
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "fences_down",
+      "label": "방책 2곳 이상이 무너짐",
+      "when": {
+       "any": [
+        {
+         "all": [
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             19,
+             6
+            ],
+            [
+             18,
+             6
+            ],
+            [
+             17,
+             6
+            ]
+           ]
+          },
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             19,
+             13
+            ],
+            [
+             18,
+             13
+            ],
+            [
+             17,
+             13
+            ]
+           ]
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             19,
+             6
+            ],
+            [
+             18,
+             6
+            ],
+            [
+             17,
+             6
+            ]
+           ]
+          },
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             19,
+             21
+            ],
+            [
+             18,
+             21
+            ],
+            [
+             17,
+             21
+            ]
+           ]
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             19,
+             13
+            ],
+            [
+             18,
+             13
+            ],
+            [
+             17,
+             13
+            ]
+           ]
+          },
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             19,
+             21
+            ],
+            [
+             18,
+             21
+            ],
+            [
+             17,
+             21
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "id": "sassa_down",
+      "label": "삿사 나리마사가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:npc_sassa_narimasa"
+      }
+     }
+    ],
+    "optional": true
+   },
+   "name": "야마가타 돌격 방어",
+   "year_label": "1575년 5월 21일",
+   "chapter": 20,
+   "shelf_code": "ch20",
+   "map": "su_ch20_s7_yamagata",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 9
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -10,
+   "effective_enemy_level": 10,
+   "difficulty": 8,
+   "culture": "japan",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_sassa_narimasa",
+     "oda_nobunaga"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yamagata_masakage",
+      "display_name_ko": "야마가타 마사카게",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 2
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       13
+      ],
+      [
+       32,
+       12
+      ],
+      [
+       31,
+       13
+      ],
+      [
+       33,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "야마가타 기마대"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_tsuchiya_masatsugu",
+      "display_name_ko": "쓰치야 마사쓰구",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 기마",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hara_masatane",
+      "display_name_ko": "하라 마사타네",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       27,
+       13
+      ],
+      [
+       27,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 창병",
+     "hold_until_turn": 4
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 7,
+   "enemy_units_peak": 9,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      32,
+      13
+     ],
+     "ref": "npc_yamagata_masakage",
+     "kind": "npc",
+     "name": "야마가타 마사카게"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      31,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      33,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      7
+     ],
+     "ref": "npc_tsuchiya_masatsugu",
+     "kind": "npc",
+     "name": "쓰치야 마사쓰구"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      27,
+      13
+     ],
+     "ref": "npc_hara_masatane",
+     "kind": "npc",
+     "name": "하라 마사타네"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      27,
+      14
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1845,
+    "gold": 1654,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값) / 선택 스테이지 0.8배(서가 확장 파일럿, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "55~70 (신호 달성 기준 중앙 약 62, 미달성 약 40)",
+   "sort_order": 2007,
+   "prerequisite": "ch20_s6",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "fire_signal": "방책 뒤 신호 1~2칸",
+     "gun_line": "철포대 합류 칸 4(방책 뒤)",
+     "fence_a": "방책 구역 a 2~3칸",
+     "fence_b": "방책 구역 b",
+     "fence_c": "방책 구역 c",
+     "enemy_deploy": "개활지 전방 기마"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "fire_signal",
+     "fence_a",
+     "fence_b",
+     "fence_c"
+    ]
+   },
+   "design_notes": [
+    "[확정 수치] 초기 적 14기 {'cavalry': 11, 'spear': 3}, 최대(증원 포함) 14기. Lv20 offset -2(eff 18). . 핵심: 철포(archer) 일제 사격은 fire_signal 달성 후에만 gun_line 에 아군 궁병 4기 합류(철포대 = 신호 후 spawn). 방책(fence_a~c)에 적이 2곳 이상 들어가면 패배. 기병 대 창 상성(아군 창은 방책 뒤), 기병 대 궁(철포) 상성 -> 신호 미달성이면 기병 돌격을 막기 어려움(극단 상성: 신호 달성/미달성 격차가 크게 나야 함, 평준화 금지).",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_tsuchiya_masatsugu(convert_B), npc_hara_masatane(convert_D), npc_amari_nobuyasu(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정1회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->-4, 일반 부대 병사/부대 3기 축소(초기 13->10), 증원 0기 감소, 대장 hp_mult 2->2. 시작값/needs tuning.",
+    "[2026-11-04 보정2회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -4->-7, 일반 부대 병사/부대 2기 축소(초기 10->8), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 2->2. 시작값/needs tuning.",
+    "[2026-11-04 보정3회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -7->-10, 일반 부대 병사/부대 1기 축소(초기 8->7), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 2->2. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch20_s8",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "오다·도쿠가와 연합군",
+     "enemy": "다케다 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_maeda_toshiie",
+      "x": 14,
+      "y": 14,
+      "must_survive": true,
+      "unit_type": "spear"
+     }
+    ],
+    "enemy_commander": {
+     "name": "나이토 마사토요",
+     "hero": "npc_naito_masatoyo"
+    },
+    "max_turns": 11,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          13,
+          5
+         ],
+         [
+          13,
+          6
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "rotate_a_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "rotate_a_up"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            13,
+            21
+           ],
+           [
+            13,
+            22
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "rotate_b_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "rotate_a_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        15,
+        6
+       ],
+       [
+        15,
+        8
+       ]
+      ],
+      "tag": "guna",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "rotate_b_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        15,
+        19
+       ],
+       [
+        15,
+        21
+       ]
+      ],
+      "tag": "gunb",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "maeda",
+      "type": "unit_survive",
+      "unit": "hero:npc_maeda_toshiie",
+      "label": "마에다 도시이에를 지켜라"
+     }
+    ],
+    "win_mode": null,
+    "win_conditions": null,
+    "lose_conditions": [
+     {
+      "id": "gaps_down",
+      "label": "방책 틈 2곳 이상이 뚫림",
+      "when": {
+       "any": [
+        {
+         "all": [
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             17,
+             7
+            ],
+            [
+             16,
+             7
+            ]
+           ]
+          },
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             17,
+             14
+            ],
+            [
+             16,
+             14
+            ]
+           ]
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             17,
+             7
+            ],
+            [
+             16,
+             7
+            ]
+           ]
+          },
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             17,
+             20
+            ],
+            [
+             16,
+             20
+            ]
+           ]
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             17,
+             14
+            ],
+            [
+             16,
+             14
+            ]
+           ]
+          },
+          {
+           "type": "in_zone",
+           "side": "b",
+           "tiles": [
+            [
+             17,
+             20
+            ],
+            [
+             16,
+             20
+            ]
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "id": "maeda_down",
+      "label": "마에다 도시이에가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:npc_maeda_toshiie"
+      }
+     }
+    ],
+    "optional": true
+   },
+   "name": "나이토 돌격",
+   "year_label": "1575년 5월 21일",
+   "chapter": 20,
+   "shelf_code": "ch20",
+   "map": "su_ch20_s8_naito",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -6,
+   "effective_enemy_level": 14,
+   "difficulty": 8,
+   "culture": "japan",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_maeda_toshiie"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_naito_masatoyo",
+      "display_name_ko": "나이토 마사토요",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.6
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       14
+      ],
+      [
+       31,
+       14
+      ],
+      [
+       32,
+       15
+      ],
+      [
+       31,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "나이토 하마 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_sanada_nobutsuna",
+      "display_name_ko": "사나다 노부쓰나",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1.6
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       10
+      ],
+      [
+       28,
+       11
+      ],
+      [
+       28,
+       9
+      ],
+      [
+       27,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "사나다 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       16
+      ],
+      [
+       28,
+       17
+      ],
+      [
+       28,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 창병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       36,
+       5
+      ],
+      [
+       37,
+       5
+      ],
+      [
+       36,
+       4
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 보병",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 14,
+   "enemy_units_peak": 14,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      14
+     ],
+     "ref": "npc_naito_masatoyo",
+     "kind": "npc",
+     "name": "나이토 마사토요"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      14
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      32,
+      15
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      28,
+      10
+     ],
+     "ref": "npc_sanada_nobutsuna",
+     "kind": "npc",
+     "name": "사나다 노부쓰나"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      28,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      28,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      27,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      28,
+      16
+     ],
+     "name": "다케다 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      28,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      28,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      36,
+      5
+     ],
+     "name": "다케다 보병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      37,
+      5
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      36,
+      4
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1845,
+    "gold": 1654,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값) / 선택 스테이지 0.8배(서가 확장 파일럿, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "maeda"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "55~70 (신호 달성 기준 중앙 약 64)",
+   "sort_order": 2008,
+   "prerequisite": "ch20_s7",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "rotate_a": "교대 신호 a 1~2칸",
+     "rotate_b": "교대 신호 b 1~2칸",
+     "gun_a": "교대 사격조 a 합류 2칸",
+     "gun_b": "교대 사격조 b 합류 2칸",
+     "gap_1": "방책 틈1 2~3칸",
+     "gap_2": "틈2",
+     "gap_3": "틈3",
+     "ditch": "도랑 shallows",
+     "enemy_deploy": "도랑 건너 개활지"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "rotate_a",
+     "rotate_b",
+     "gap_1",
+     "gap_2",
+     "gap_3"
+    ]
+   },
+   "design_notes": [
+    "[2026-11-08 임밸런 미션 비중 전환] 방어(survive_turns 9) -> 지휘관 격파(defeat_commander), 방어형 win_mode/win_conditions 제거. 별 turn_within 9->10. max_turns 유지(측정 후 조정). 시작값, 사람 플레이 확인 필요.",
+    "[확정 수치] 초기 적 14기 {'sword': 7, 'spear': 7}, 최대(증원 포함) 14기. Lv20 offset -2(eff 18). . 하마 보병이 도랑을 건너 방책 틈 3곳을 공격. rotate_a -> rotate_b 순서 도달 시 교대 사격조 2+2 합류(철포 교대 = 신호 순서). 창 상성: 틈 방어는 아군 창(마에다)이 보병 상대, 적 창(사나다)은 아군 기병 상대(아군 기병 없음 -> 보병 위주 압박). 도랑(shallows)이 이동 저하.",
+    "[2026-11-04 보정5회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->-4, 일반 부대 병사/부대 0기 축소(초기 14->14), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.6->1.6. 시작값/needs tuning.",
+    "[2026-11-04 보정5회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -4->-6, 일반 부대 병사/부대 0기 축소(초기 14->14), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.6->1.6. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch20_s9",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "오다·도쿠가와 연합군",
+     "enemy": "다케다 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "oda_nobunaga",
+      "x": 2,
+      "y": 12,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "바바 노부하루",
+     "hero": "npc_baba_nobuharu"
+    },
+    "max_turns": 13,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          14,
+          7
+         ],
+         [
+          15,
+          7
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "slope_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "slope_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        16,
+        8
+       ],
+       [
+        17,
+        7
+       ]
+      ],
+      "tag": "slope_l",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "slope_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        16,
+        16
+       ],
+       [
+        17,
+        17
+       ]
+      ],
+      "tag": "slope_r",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_takeda_nobukado",
+      "tiles": [
+       [
+        22,
+        12
+       ],
+       [
+        21,
+        11
+       ],
+       [
+        22,
+        11
+       ],
+       [
+        23,
+        11
+       ],
+       [
+        21,
+        12
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "sub_objectives": [],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "적 지휘관 격파",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     }
+    ],
+    "lose_conditions": [],
+    "optional": true
+   },
+   "name": "바바 후위전",
+   "year_label": "1575년 5월 21일",
+   "chapter": 20,
+   "shelf_code": "ch20",
+   "map": "su_ch20_s9_baba_rearguard",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 16,
+   "difficulty": 8,
+   "culture": "japan",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "oda_nobunaga"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_baba_nobuharu",
+      "display_name_ko": "바바 노부하루",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_point",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       26,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "바바 후위 보병",
+     "point": [
+      22,
+      11
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 후위 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       19,
+       8
+      ],
+      [
+       20,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 후위 창병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 후위 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       19,
+       15
+      ],
+      [
+       20,
+       15
+      ],
+      [
+       19,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 후위 보병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 후위 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       29,
+       14
+      ],
+      [
+       30,
+       14
+      ],
+      [
+       29,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 후위 궁병"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 14,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      12
+     ],
+     "ref": "npc_baba_nobuharu",
+     "kind": "npc",
+     "name": "바바 노부하루"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      19,
+      8
+     ],
+     "name": "다케다 후위 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      20,
+      8
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      19,
+      15
+     ],
+     "name": "다케다 후위 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      29,
+      14
+     ],
+     "name": "다케다 후위 궁병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      30,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      29,
+      9
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1360,
+    "exp": 1972,
+    "gold": 1768,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값) / 선택 스테이지 0.8배(서가 확장 파일럿, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    }
+   ],
+   "win_rate_band_target_pct": "55~70 (신호 달성 기준 중앙 약 64)",
+   "sort_order": 2009,
+   "prerequisite": "ch20_s8",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "slope_signal": "비탈 신호 1~2칸",
+     "pass_mouth": "산길 어귀 점령 구역 2~4칸",
+     "slope_l": "왼쪽 비탈 기병 투입 2칸",
+     "slope_r": "오른쪽 비탈 기병 투입 2칸",
+     "enemy_deploy": "좁은 산길 어귀 앞 3구역"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "slope_signal",
+     "pass_mouth"
+    ]
+   },
+   "design_notes": [
+    "[확정 수치] 초기 적 14기 {'sword': 7, 'spear': 4, 'archer': 3}, 최대(증원 포함) 14기. Lv21 offset -2(eff 19). . 좁은 산길 어귀를 바바가 막음(정면은 비좁아 소수만 교전, 창병이 길목). 신호(slope_signal) 달성 시 양쪽 비탈에 아군 기병 2+2 투입 = 측면/후면 공격(측면 1.15/후면 1.30). 어귀 점령(hold 2). 기병은 비탈(hill)에서 이동 불리하지만 신호 위치가 비탈 위에 가까우면 가능.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_takeda_nobukado(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정5회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->-6, 일반 부대 병사/부대 1기 축소(초기 13->12), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.2->1.2. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch20_s10",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "오다·도쿠가와 연합군",
+     "enemy": "다케다 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "oda_nobunaga",
+      "x": 2,
+      "y": 13,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "다케다 가쓰요리",
+     "hero": "npc_takeda_katsuyori"
+    },
+    "max_turns": 13,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          15,
+          13
+         ],
+         [
+          15,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "cross_1_done",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "cross_1_done"
+         },
+         {
+          "type": "in_zone",
+          "unit": "@protagonist",
+          "tiles": [
+           [
+            21,
+            13
+           ],
+           [
+            21,
+            12
+           ]
+          ]
+         }
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "cross_2_done",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "cross_1_done"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        12,
+        11
+       ],
+       [
+        13,
+        11
+       ],
+       [
+        14,
+        11
+       ],
+       [
+        12,
+        12
+       ],
+       [
+        13,
+        12
+       ],
+       [
+        14,
+        12
+       ],
+       [
+        12,
+        13
+       ],
+       [
+        13,
+        13
+       ],
+       [
+        14,
+        13
+       ],
+       [
+        12,
+        14
+       ],
+       [
+        13,
+        14
+       ],
+       [
+        14,
+        14
+       ],
+       [
+        12,
+        15
+       ],
+       [
+        13,
+        15
+       ],
+       [
+        14,
+        15
+       ]
+      ],
+      "to": "sand"
+     }
+    ],
+    "sub_objectives": [],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "첫 번째 여울을 건넌다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         15,
+         13
+        ],
+        [
+         15,
+         12
+        ]
+       ]
+      }
+     },
+     {
+      "label": "두 번째 여울을 건넌다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         21,
+         13
+        ],
+        [
+         21,
+         12
+        ]
+       ]
+      }
+     },
+     {
+      "label": "가쓰요리를 쓰러뜨린다",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     }
+    ],
+    "lose_conditions": [],
+    "optional": true
+   },
+   "name": "가쓰요리 퇴각 추격",
+   "year_label": "1575년 5월 21일 이후",
+   "chapter": 20,
+   "shelf_code": "ch20",
+   "map": "su_ch20_s10_katsuyori",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -7,
+   "effective_enemy_level": 15,
+   "difficulty": 9,
+   "culture": "japan",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "oda_nobunaga"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_takeda_katsuyori",
+      "display_name_ko": "다케다 가쓰요리",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       36,
+       13
+      ],
+      [
+       36,
+       14
+      ],
+      [
+       36,
+       12
+      ],
+      [
+       35,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "가쓰요리 친위 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 후미 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       33,
+       6
+      ],
+      [
+       34,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 후미 기병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 후미 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       23,
+       13
+      ],
+      [
+       24,
+       13
+      ],
+      [
+       23,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 후미 창병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다케다 후미 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       26,
+       20
+      ],
+      [
+       26,
+       21
+      ],
+      [
+       26,
+       19
+      ]
+     ],
+     "soldier_display_name_ko": "다케다 후미 궁병"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      36,
+      13
+     ],
+     "ref": "npc_takeda_katsuyori",
+     "kind": "npc",
+     "name": "다케다 가쓰요리"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      36,
+      14
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      36,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      6
+     ],
+     "name": "다케다 후미 기병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      23,
+      13
+     ],
+     "name": "다케다 후미 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      20
+     ],
+     "name": "다케다 후미 궁병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      21
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      19
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값) / 선택 스테이지 0.8배(서가 확장 파일럿, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "50~66 (도하 보정 달성 기준 중앙 약 58)",
+   "sort_order": 2010,
+   "prerequisite": "ch20_s9",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "cross_1": "첫 여울 신호 1~2칸",
+     "cross_2": "둘째 여울(깊음) 신호 1~2칸",
+     "ford_1_bed": "얕아지는 여울 칸 <=40",
+     "enemy_deploy": "강 건너 후미 3구역 + 가쓰요리 본대"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "cross_1",
+     "cross_2"
+    ],
+    "path_cost": "protagonist_start -> cross_1 <= 10, cross_1 -> cross_2 <= 12"
+   },
+   "design_notes": [
+    "[확정 수치] 초기 적 14기 {'sword': 4, 'cavalry': 4, 'spear': 3, 'archer': 3}, 최대(증원 포함) 14기. Lv22 offset -2(eff 20). . 도하 2단계: cross_1 달성 시 ford_1_bed 가 shallows(얕아짐), cross_2 는 깊은 곳(수심 깊음 = 기병 이동 불가, 지형 그대로). 후미 기병이 도하 중인 아군을 노림(기병>검). 궁병이 대안 안전지대에서 사격.",
+    "[2026-11-04 보정5회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->-7, 일반 부대 병사/부대 2기 축소(초기 14->12), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.3->1.3. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  }
+ ],
+ "npc_needed": {
+  "new_rows": [],
+  "proposal_file": "npc_roster_shelf_ch13_20_ext_stats.json"
+ },
+ "engine_checks": [
+  "optional=true(숨은 종장 해금 필수 제외)",
+  "시즌: ch13_s7 큰 책 = 공격 불가 지형 태그(맵디자이너)"
+ ]
+}

@@ -1,0 +1,1840 @@
+{
+ "note": "뽑기(소집) 화면 에셋 조각(안아트-2, 2026-11-03). 스펙 = public/assets/gacha_ui/gacha_ui_spec.json. scope gacha_ui(뽑기 메인) / gacha_fx(소환 연출). 기존 scope gacha(atlas.uiskin_gacha·bg.screen.gacha)와 별개",
+ "base_path": "assets/gacha_ui/",
+ "raw_generated": [
+  "seal",
+  "pull_buttons",
+  "scroll_tag",
+  "war_banners",
+  "book"
+ ],
+ "assets": [
+  {
+   "key": "gacha.circle.outer",
+   "path": "assets/gacha_ui/circle/circle_outer.png",
+   "type": "image",
+   "size": [
+    1024,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    512,
+    512
+   ],
+   "note": "소환진 바깥 고리(흰 선). FE: setTint(등급 색), 느리게 시계방향 회전, 바닥 원근은 scaleY 0.34",
+   "qa": "pass",
+   "verify": false,
+   "tintable": true,
+   "bytes": 98113,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.circle.inner",
+   "path": "assets/gacha_ui/circle/circle_inner.png",
+   "type": "image",
+   "size": [
+    1024,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    512,
+    512
+   ],
+   "note": "소환진 안쪽 별·별자리(흰 선). 바깥과 반대 방향 회전",
+   "qa": "pass",
+   "verify": false,
+   "tintable": true,
+   "bytes": 89246,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.circle.glow",
+   "path": "assets/gacha_ui/circle/circle_glow.png",
+   "type": "image",
+   "size": [
+    1024,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    512,
+    512
+   ],
+   "note": "소환진 번짐(가산). 점등 시 alpha 0->1",
+   "qa": "pass",
+   "verify": false,
+   "tintable": true,
+   "bytes": 210744,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.beam.c",
+   "path": "assets/gacha_ui/fx/beam_c.png",
+   "type": "spritesheet",
+   "size": [
+    1536,
+    768
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    96,
+    384
+   ],
+   "note": "등급 C 빛줄기(소환진 중심에서 위로). 프레임 192x768 x8, 12fps 반복. origin(0.5,1) 을 소환진 중심에",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 192,
+   "frameHeight": 768,
+   "frames": 8,
+   "fps": 12,
+   "loop": true,
+   "bytes": 211844,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.beam.b",
+   "path": "assets/gacha_ui/fx/beam_b.png",
+   "type": "spritesheet",
+   "size": [
+    1536,
+    768
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    96,
+    384
+   ],
+   "note": "등급 B 빛줄기(소환진 중심에서 위로). 프레임 192x768 x8, 12fps 반복. origin(0.5,1) 을 소환진 중심에",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 192,
+   "frameHeight": 768,
+   "frames": 8,
+   "fps": 12,
+   "loop": true,
+   "bytes": 216685,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.beam.a",
+   "path": "assets/gacha_ui/fx/beam_a.png",
+   "type": "spritesheet",
+   "size": [
+    1536,
+    768
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    96,
+    384
+   ],
+   "note": "등급 A 빛줄기(소환진 중심에서 위로). 프레임 192x768 x8, 12fps 반복. origin(0.5,1) 을 소환진 중심에",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 192,
+   "frameHeight": 768,
+   "frames": 8,
+   "fps": 12,
+   "loop": true,
+   "bytes": 209328,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.beam.s",
+   "path": "assets/gacha_ui/fx/beam_s.png",
+   "type": "spritesheet",
+   "size": [
+    1536,
+    768
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    96,
+    384
+   ],
+   "note": "등급 S 빛줄기(소환진 중심에서 위로). 프레임 192x768 x8, 12fps 반복. origin(0.5,1) 을 소환진 중심에",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 192,
+   "frameHeight": 768,
+   "frames": 8,
+   "fps": 12,
+   "loop": true,
+   "bytes": 213321,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.aura.c",
+   "path": "assets/gacha_ui/fx/aura_c.png",
+   "type": "spritesheet",
+   "size": [
+    1536,
+    768
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    384,
+    192
+   ],
+   "note": "등급 C 리빌 오라(카드 뒤). 프레임 384x384 4열x2행=8, 16fps 1회 재생 후 마지막 2프레임 반복 또는 페이드",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 384,
+   "frameHeight": 384,
+   "frames": 8,
+   "fps": 16,
+   "loop": false,
+   "bytes": 401362,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.aura.b",
+   "path": "assets/gacha_ui/fx/aura_b.png",
+   "type": "spritesheet",
+   "size": [
+    1536,
+    768
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    384,
+    192
+   ],
+   "note": "등급 B 리빌 오라(카드 뒤). 프레임 384x384 4열x2행=8, 16fps 1회 재생 후 마지막 2프레임 반복 또는 페이드",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 384,
+   "frameHeight": 384,
+   "frames": 8,
+   "fps": 16,
+   "loop": false,
+   "bytes": 453307,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.aura.a",
+   "path": "assets/gacha_ui/fx/aura_a.png",
+   "type": "spritesheet",
+   "size": [
+    1536,
+    768
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    384,
+    192
+   ],
+   "note": "등급 A 리빌 오라(카드 뒤). 프레임 384x384 4열x2행=8, 16fps 1회 재생 후 마지막 2프레임 반복 또는 페이드",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 384,
+   "frameHeight": 384,
+   "frames": 8,
+   "fps": 16,
+   "loop": false,
+   "bytes": 459988,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.aura.s",
+   "path": "assets/gacha_ui/fx/aura_s.png",
+   "type": "spritesheet",
+   "size": [
+    1536,
+    768
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    384,
+    192
+   ],
+   "note": "등급 S 리빌 오라(카드 뒤). 프레임 384x384 4열x2행=8, 16fps 1회 재생 후 마지막 2프레임 반복 또는 페이드",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 384,
+   "frameHeight": 384,
+   "frames": 8,
+   "fps": 16,
+   "loop": false,
+   "bytes": 504060,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.cardglow.c",
+   "path": "assets/gacha_ui/card/cardglow_c.png",
+   "type": "image",
+   "size": [
+    592,
+    744
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    296,
+    372
+   ],
+   "note": "등급 C 카드 외곽 글로우. 카드(224x300 표시) 중심에 같은 중심으로, 표시 296x372. S/A 는 alpha 0.7~1 맥동",
+   "qa": "pass",
+   "verify": false,
+   "cardInset": 36,
+   "bytes": 21820,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.cardglow.b",
+   "path": "assets/gacha_ui/card/cardglow_b.png",
+   "type": "image",
+   "size": [
+    592,
+    744
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    296,
+    372
+   ],
+   "note": "등급 B 카드 외곽 글로우. 카드(224x300 표시) 중심에 같은 중심으로, 표시 296x372. S/A 는 alpha 0.7~1 맥동",
+   "qa": "pass",
+   "verify": false,
+   "cardInset": 36,
+   "bytes": 24132,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.cardglow.a",
+   "path": "assets/gacha_ui/card/cardglow_a.png",
+   "type": "image",
+   "size": [
+    592,
+    744
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    296,
+    372
+   ],
+   "note": "등급 A 카드 외곽 글로우. 카드(224x300 표시) 중심에 같은 중심으로, 표시 296x372. S/A 는 alpha 0.7~1 맥동",
+   "qa": "pass",
+   "verify": false,
+   "cardInset": 36,
+   "bytes": 25864,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.cardglow.s",
+   "path": "assets/gacha_ui/card/cardglow_s.png",
+   "type": "image",
+   "size": [
+    592,
+    744
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    296,
+    372
+   ],
+   "note": "등급 S 카드 외곽 글로우. 카드(224x300 표시) 중심에 같은 중심으로, 표시 296x372. S/A 는 alpha 0.7~1 맥동",
+   "qa": "pass",
+   "verify": false,
+   "cardInset": 36,
+   "bytes": 27818,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.particle",
+   "path": "assets/gacha_ui/fx/particles.png",
+   "type": "spritesheet",
+   "size": [
+    512,
+    64
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    256,
+    32
+   ],
+   "note": "흰 파티클 8종(FE 틴트). 프레임 순서: 0=spark4, 1=spark8, 2=dot, 3=ember, 4=ring, 5=streak, 6=petal, 7=diamond",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frames": 8,
+   "frameNames": [
+    "spark4",
+    "spark8",
+    "dot",
+    "ember",
+    "ring",
+    "streak",
+    "petal",
+    "diamond"
+   ],
+   "tintable": true,
+   "bytes": 10648,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.flash",
+   "path": "assets/gacha_ui/fx/flash.png",
+   "type": "image",
+   "size": [
+    512,
+    512
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    256,
+    256
+   ],
+   "note": "리빌 순간 화면 섬광(흰, 틴트 가능). 0.08s 에 scale 0.5->4, alpha 1->0",
+   "qa": "pass",
+   "verify": false,
+   "tintable": true,
+   "bytes": 26458,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.rays",
+   "path": "assets/gacha_ui/fx/rays.png",
+   "type": "image",
+   "size": [
+    512,
+    512
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    256,
+    256
+   ],
+   "note": "최고 등급 카드 뒤 회전 광선(흰, 틴트). 회전 20s/바퀴",
+   "qa": "pass",
+   "verify": false,
+   "tintable": true,
+   "bytes": 60297,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.banner.bg.s",
+   "path": "assets/gacha_ui/banner/banner_bg_s.jpg",
+   "type": "image",
+   "size": [
+    1280,
+    560
+   ],
+   "scope": "gacha_ui",
+   "alpha": false,
+   "scale": "@2x",
+   "display": [
+    640,
+    280
+   ],
+   "note": "피처드 배너 배경(등급 S 빛 중심이 오른쪽 62%: 영웅 초상 자리). 둥근 마스크는 FE",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 52938,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.banner.bg.a",
+   "path": "assets/gacha_ui/banner/banner_bg_a.jpg",
+   "type": "image",
+   "size": [
+    1280,
+    560
+   ],
+   "scope": "gacha_ui",
+   "alpha": false,
+   "scale": "@2x",
+   "display": [
+    640,
+    280
+   ],
+   "note": "피처드 배너 배경(등급 A 빛 중심이 오른쪽 62%: 영웅 초상 자리). 둥근 마스크는 FE",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 49923,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.banner.bg.b",
+   "path": "assets/gacha_ui/banner/banner_bg_b.jpg",
+   "type": "image",
+   "size": [
+    1280,
+    560
+   ],
+   "scope": "gacha_ui",
+   "alpha": false,
+   "scale": "@2x",
+   "display": [
+    640,
+    280
+   ],
+   "note": "피처드 배너 배경(등급 B 빛 중심이 오른쪽 62%: 영웅 초상 자리). 둥근 마스크는 FE",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 50969,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.badge.new",
+   "path": "assets/gacha_ui/ui/badge_new.png",
+   "type": "image",
+   "size": [
+    160,
+    160
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    80,
+    80
+   ],
+   "note": "신규 획득 배지(진홍 톱니 원 + 금 테). 글자 \"NEW\"/\"신규\"는 FE 텍스트(흰, 외곽선 #5A1A17)",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 10728,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.list.frame",
+   "path": "assets/gacha_ui/ui/list_frame.png",
+   "type": "image",
+   "size": [
+    560,
+    240
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    280,
+    120
+   ],
+   "note": "배너 목록 항목 테두리(안쪽 투명 + 아래 이름 띠 그라데이션 포함). 초상 크롭을 같은 둥근 사각(반경 13px 표시)으로 마스크해 아래에 깔고 이 테두리를 위에",
+   "qa": "pass",
+   "verify": false,
+   "radius": 13,
+   "inner": [
+    3,
+    3,
+    277,
+    117
+   ],
+   "bytes": 5002,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.list.frame.selected",
+   "path": "assets/gacha_ui/ui/list_frame_selected.png",
+   "type": "image",
+   "size": [
+    596,
+    276
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    298,
+    138
+   ],
+   "note": "선택된 배너 테두리(+바깥 금 글로우 9px 표시). 일반 프레임보다 사방 9px 큼 -> 같은 중심에 배치, 선택 항목은 scale 1.08",
+   "qa": "pass",
+   "verify": false,
+   "glowPad": 9,
+   "bytes": 14174,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.chip.frame",
+   "path": "assets/gacha_ui/ui/chip_frame.png",
+   "type": "image",
+   "size": [
+    304,
+    128
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    152,
+    64
+   ],
+   "note": "모바일 세로: 상단 가로 스크롤 배너 칩 테두리(초상 얼굴 크롭 + 이름)",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 2976,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.chip.frame.selected",
+   "path": "assets/gacha_ui/ui/chip_frame_selected.png",
+   "type": "image",
+   "size": [
+    340,
+    164
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    170,
+    82
+   ],
+   "note": "모바일 칩 선택 상태(+글로우 9px)",
+   "qa": "pass",
+   "verify": false,
+   "glowPad": 9,
+   "bytes": 9961,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.ribbon.new",
+   "path": "assets/gacha_ui/ui/ribbon_new.png",
+   "type": "image",
+   "size": [
+    160,
+    160
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    80,
+    80
+   ],
+   "note": "신규 배너 모서리 리본(항목 왼쪽 위에 맞춤). 글자 \"NEW\"는 FE: 회전 -45deg, 중심 (29,29) 표시 px, 흰 12px 굵게",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 939,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.tag.rateup",
+   "path": "assets/gacha_ui/ui/tag_rateup.png",
+   "type": "image",
+   "size": [
+    360,
+    72
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    180,
+    36
+   ],
+   "note": "피처드 영웅 이름 위 \"확률 UP\" 태그. 글자 FE: 흰 20px 굵게, 외곽선 #6A3208 3px, 왼쪽 12px 여백",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 787,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.mask.feature",
+   "path": "assets/gacha_ui/ui/mask_feature.png",
+   "type": "image",
+   "size": [
+    896,
+    1200
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@1x(초상과 1:1)",
+   "display": [
+    896,
+    1200
+   ],
+   "note": "피처드 초상(portrait.* 896x1200)과 같은 크기의 알파 마스크: 왼쪽·아래를 부드럽게 지워 배경에 녹임. Phaser BitmapMask 또는 캔버스 합성(1회 합성 후 RenderTexture 캐시 권장)",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 11685,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.glyph",
+   "path": "assets/gacha_ui/fx/glyphs.png",
+   "type": "spritesheet",
+   "size": [
+    512,
+    128
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    256,
+    64
+   ],
+   "note": "책에서 솟는 글자 조각(실제 문자 아닌 붓획 추상 도형). 0~7 = 먹색(normal 블렌드), 8~15 = 금(가산, 등급 색 틴트 가능). 위로 떠오르며 회전·페이드",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frames": 16,
+   "bytes": 14627,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.pop.c",
+   "path": "assets/gacha_ui/fx/pop_c.png",
+   "type": "spritesheet",
+   "size": [
+    2048,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    1024,
+    512
+   ],
+   "note": "등급 C 팝 인 충격파(초상이 책에서 튀어나오는 순간, 초상 중심). 프레임 512x512 4x2=8, 30fps 1회",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 512,
+   "frameHeight": 512,
+   "frames": 8,
+   "fps": 30,
+   "loop": false,
+   "bytes": 768495,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.pop.b",
+   "path": "assets/gacha_ui/fx/pop_b.png",
+   "type": "spritesheet",
+   "size": [
+    2048,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    1024,
+    512
+   ],
+   "note": "등급 B 팝 인 충격파(초상이 책에서 튀어나오는 순간, 초상 중심). 프레임 512x512 4x2=8, 30fps 1회",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 512,
+   "frameHeight": 512,
+   "frames": 8,
+   "fps": 30,
+   "loop": false,
+   "bytes": 774093,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.pop.a",
+   "path": "assets/gacha_ui/fx/pop_a.png",
+   "type": "spritesheet",
+   "size": [
+    2048,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    1024,
+    512
+   ],
+   "note": "등급 A 팝 인 충격파(초상이 책에서 튀어나오는 순간, 초상 중심). 프레임 512x512 4x2=8, 30fps 1회",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 512,
+   "frameHeight": 512,
+   "frames": 8,
+   "fps": 30,
+   "loop": false,
+   "bytes": 702056,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.pop.s",
+   "path": "assets/gacha_ui/fx/pop_s.png",
+   "type": "spritesheet",
+   "size": [
+    2048,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    1024,
+    512
+   ],
+   "note": "등급 S 팝 인 충격파(초상이 책에서 튀어나오는 순간, 초상 중심). 프레임 512x512 4x2=8, 30fps 1회",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 512,
+   "frameHeight": 512,
+   "frames": 8,
+   "fps": 30,
+   "loop": false,
+   "bytes": 707698,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.halo.c",
+   "path": "assets/gacha_ui/fx/halo_c.png",
+   "type": "image",
+   "size": [
+    1024,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    512,
+    512
+   ],
+   "note": "등급 C 초상 후광(가운데 큰 초상 뒤, 회전 30s/바퀴, 맥동 alpha 0.8~1). 표시 지름 = 초상 표시 높이의 1.1배",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 249236,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.halo.b",
+   "path": "assets/gacha_ui/fx/halo_b.png",
+   "type": "image",
+   "size": [
+    1024,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    512,
+    512
+   ],
+   "note": "등급 B 초상 후광(가운데 큰 초상 뒤, 회전 30s/바퀴, 맥동 alpha 0.8~1). 표시 지름 = 초상 표시 높이의 1.1배",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 273101,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.halo.a",
+   "path": "assets/gacha_ui/fx/halo_a.png",
+   "type": "image",
+   "size": [
+    1024,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    512,
+    512
+   ],
+   "note": "등급 A 초상 후광(가운데 큰 초상 뒤, 회전 30s/바퀴, 맥동 alpha 0.8~1). 표시 지름 = 초상 표시 높이의 1.1배",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 272115,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.halo.s",
+   "path": "assets/gacha_ui/fx/halo_s.png",
+   "type": "image",
+   "size": [
+    1024,
+    1024
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    512,
+    512
+   ],
+   "note": "등급 S 초상 후광(가운데 큰 초상 뒤, 회전 30s/바퀴, 맥동 alpha 0.8~1). 표시 지름 = 초상 표시 높이의 1.1배",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 279566,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.mask.emerge",
+   "path": "assets/gacha_ui/ui/mask_emerge.png",
+   "type": "image",
+   "size": [
+    896,
+    1200
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@1x(초상과 1:1)",
+   "display": [
+    896,
+    1200
+   ],
+   "note": "리빌 초상 마스크: 초상 아래쪽을 펼친 페이지 면(layout.page 아래 1/3 지점)에서 녹아 나오게. 팝 인 동안 마스크는 초상과 함께 이동",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 6180,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.seal",
+   "path": "assets/gacha_ui/seal/seal.png",
+   "type": "image",
+   "size": [
+    320,
+    320
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    160,
+    160
+   ],
+   "note": "카드 앞을 봉한 밀랍 인장(봉인 상태). 리빌: 흔들림 -> 금(gacha.seal.crack) -> 파편(gacha.seal.shard.*) 비산",
+   "qa": "pass",
+   "verify": false,
+   "edge": {
+    "opaque_px": 77596,
+    "magenta_px": 0
+   },
+   "bytes": 142413,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.seal.crack",
+   "path": "assets/gacha_ui/seal/seal_crack.png",
+   "type": "image",
+   "size": [
+    320,
+    320
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    160,
+    160
+   ],
+   "note": "인장 위에 겹치는 균열선(같은 크기·같은 위치). S/A 리빌에서 금빛 틈 = 가산 섬광과 함께",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 3564,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.seal.shard.0",
+   "path": "assets/gacha_ui/seal/seal_shard_0.png",
+   "type": "image",
+   "size": [
+    160,
+    167
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    80,
+    83
+   ],
+   "note": "인장 파편. 배치 = 인장 왼쪽 위 기준 offset(표시 px), 비산 방향 = dir(라디안)",
+   "qa": "pass",
+   "verify": false,
+   "offset": [
+    80,
+    65
+   ],
+   "dir": 0.426,
+   "bytes": 43117,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.seal.shard.1",
+   "path": "assets/gacha_ui/seal/seal_shard_1.png",
+   "type": "image",
+   "size": [
+    163,
+    160
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    81,
+    80
+   ],
+   "note": "인장 파편. 배치 = 인장 왼쪽 위 기준 offset(표시 px), 비산 방향 = dir(라디안)",
+   "qa": "pass",
+   "verify": false,
+   "offset": [
+    38,
+    80
+   ],
+   "dir": 1.597,
+   "bytes": 43517,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.seal.shard.2",
+   "path": "assets/gacha_ui/seal/seal_shard_2.png",
+   "type": "image",
+   "size": [
+    155,
+    129
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    77,
+    64
+   ],
+   "note": "인장 파편. 배치 = 인장 왼쪽 위 기준 offset(표시 px), 비산 방향 = dir(라디안)",
+   "qa": "pass",
+   "verify": false,
+   "offset": [
+    3,
+    80
+   ],
+   "dir": 2.521,
+   "bytes": 33032,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.seal.shard.3",
+   "path": "assets/gacha_ui/seal/seal_shard_3.png",
+   "type": "image",
+   "size": [
+    161,
+    159
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    80,
+    79
+   ],
+   "note": "인장 파편. 배치 = 인장 왼쪽 위 기준 offset(표시 px), 비산 방향 = dir(라디안)",
+   "qa": "pass",
+   "verify": false,
+   "offset": [
+    0,
+    20
+   ],
+   "dir": 3.45,
+   "bytes": 44103,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.seal.shard.4",
+   "path": "assets/gacha_ui/seal/seal_shard_4.png",
+   "type": "image",
+   "size": [
+    213,
+    161
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    106,
+    80
+   ],
+   "note": "인장 파편. 배치 = 인장 왼쪽 위 기준 offset(표시 px), 비산 방향 = dir(라디안)",
+   "qa": "pass",
+   "verify": false,
+   "offset": [
+    28,
+    0
+   ],
+   "dir": 4.732,
+   "bytes": 57805,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.seal.shard.5",
+   "path": "assets/gacha_ui/seal/seal_shard_5.png",
+   "type": "image",
+   "size": [
+    149,
+    119
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    74,
+    59
+   ],
+   "note": "인장 파편. 배치 = 인장 왼쪽 위 기준 offset(표시 px), 비산 방향 = dir(라디안)",
+   "qa": "pass",
+   "verify": false,
+   "offset": [
+    80,
+    21
+   ],
+   "dir": 5.774,
+   "bytes": 30606,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.btn.pull.single",
+   "path": "assets/gacha_ui/ui/btn_pull_single.png",
+   "type": "image",
+   "size": [
+    600,
+    172
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    300,
+    86
+   ],
+   "note": "1회 뽑기 버튼(남색 칠기). 고정 비율 이미지(9-slice 아님). 눌림=scale 0.96+밝기 0.85, 비활성=채도 0·alpha 0.6(FE)",
+   "qa": "pass",
+   "verify": false,
+   "edge": {
+    "opaque_px": 99884,
+    "magenta_px": 0
+   },
+   "bytes": 101532,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.btn.pull.ten",
+   "path": "assets/gacha_ui/ui/btn_pull_ten.png",
+   "type": "image",
+   "size": [
+    600,
+    178
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    300,
+    89
+   ],
+   "note": "10연 뽑기 버튼(진홍·금, 주 버튼). 고정 비율 이미지(9-slice 아님). 눌림=scale 0.96+밝기 0.85, 비활성=채도 0·alpha 0.6(FE)",
+   "qa": "pass",
+   "verify": false,
+   "edge": {
+    "opaque_px": 100815,
+    "magenta_px": 0
+   },
+   "bytes": 119740,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.scroll",
+   "path": "assets/gacha_ui/ui/scroll.png",
+   "type": "image",
+   "size": [
+    960,
+    391
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    480,
+    195
+   ],
+   "note": "두루마리 명판(배너 이름·영웅 이름). 글자 색 #3A2A10, 종이 안쪽 가로 70% 안전 영역",
+   "qa": "pass",
+   "verify": false,
+   "edge": {
+    "opaque_px": 285637,
+    "magenta_px": 0
+   },
+   "bytes": 292033,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.tag.discount",
+   "path": "assets/gacha_ui/ui/tag_discount.png",
+   "type": "image",
+   "size": [
+    280,
+    71
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    140,
+    35
+   ],
+   "note": "할인 꼬리표 리본(10연 버튼 오른쪽 위). 글자 \"10% 할인\"은 FE(흰, 외곽선 #5A1A17)",
+   "qa": "pass",
+   "verify": false,
+   "edge": {
+    "opaque_px": 16327,
+    "magenta_px": 0
+   },
+   "bytes": 22616,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.warbanner.l",
+   "path": "assets/gacha_ui/deco/warbanner_l.png",
+   "type": "image",
+   "size": [
+    504,
+    900
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    252,
+    450
+   ],
+   "note": "소환진 좌우 군기 장식. 바람 흔들림은 FE(skew/sin 0.5deg)",
+   "qa": "pass",
+   "verify": false,
+   "edge": {
+    "opaque_px": 246392,
+    "magenta_px": 0
+   },
+   "bytes": 331604,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.warbanner.r",
+   "path": "assets/gacha_ui/deco/warbanner_r.png",
+   "type": "image",
+   "size": [
+    505,
+    900
+   ],
+   "scope": "gacha_ui",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    252,
+    450
+   ],
+   "note": "소환진 좌우 군기 장식. 바람 흔들림은 FE(skew/sin 0.5deg)",
+   "qa": "pass",
+   "verify": false,
+   "edge": {
+    "opaque_px": 245833,
+    "magenta_px": 0
+   },
+   "bytes": 331383,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.book.open",
+   "path": "assets/gacha_ui/book/book_open.png",
+   "type": "image",
+   "size": [
+    1200,
+    715
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    600,
+    357
+   ],
+   "note": "펼친 역사책(정면, 빈 페이지). 등(접힘) x = layout.spineX, 페이지 영역 = layout.page(표시 px). 빛·문양·글자는 위에 겹침",
+   "qa": "pass",
+   "verify": false,
+   "layout": {
+    "spineX": 299,
+    "page": [
+     51,
+     6,
+     547,
+     295
+    ]
+   },
+   "edge": {
+    "opaque_px": 812993,
+    "magenta_px": 0
+   },
+   "bytes": 940255,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.book.cover",
+   "path": "assets/gacha_ui/book/book_cover.png",
+   "type": "image",
+   "size": [
+    576,
+    701
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    288,
+    350
+   ],
+   "note": "닫힌 역사책 앞표지(정면). 가운데 남색 원판 = gacha.seal 자리(layout.sealCenter, 지름 sealD 표시 px). 열림 연출 축 = 표지 왼쪽 끝(책등)",
+   "qa": "pass",
+   "verify": false,
+   "layout": {
+    "sealCenter": [
+     135,
+     166
+    ],
+    "sealD": 103
+   },
+   "edge": {
+    "opaque_px": 395466,
+    "magenta_px": 0
+   },
+   "bytes": 537111,
+   "generator": {
+    "model": "gemini-nano-banana-2.1 (2K JPEG) + gacha_pp.py",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_style.mjs JOBS.gacha"
+  },
+  {
+   "key": "gacha.book.cover_inner",
+   "path": "assets/gacha_ui/book/book_cover_inner.png",
+   "type": "image",
+   "size": [
+    576,
+    701
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@2x",
+   "display": [
+    288,
+    350
+   ],
+   "note": "넘어간 표지의 안쪽 면(좌우 반전 완료). origin(1,0.5) 을 spineX 에 두고 scaleX 0->1",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 113839,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.book.pageflip",
+   "path": "assets/gacha_ui/book/pageflip.png",
+   "type": "spritesheet",
+   "size": [
+    1800,
+    714
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "normal",
+   "scale": "@1x(표시 크기)",
+   "display": [
+    1800,
+    714
+   ],
+   "note": "페이지 넘김 6프레임(오른쪽 -> 왼쪽). 프레임 600x357 = gacha.book.open 표시 크기와 1:1, 같은 위치에 겹침. 24fps(0.25s/장), 10연은 영웅마다 1~2회 반복",
+   "qa": "pass",
+   "verify": false,
+   "frameWidth": 600,
+   "frameHeight": 357,
+   "frames": 6,
+   "fps": 24,
+   "loop": false,
+   "bytes": 365999,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.book.pageglow.c",
+   "path": "assets/gacha_ui/book/pageglow_c.png",
+   "type": "image",
+   "size": [
+    1200,
+    715
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    600,
+    357
+   ],
+   "note": "등급 C 페이지 빛(gacha.book.open 위에 같은 크기·위치, 가산). 페이지 넘김 중 alpha 0->1, 리빌 직전 최대",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 202825,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.book.pageglow.b",
+   "path": "assets/gacha_ui/book/pageglow_b.png",
+   "type": "image",
+   "size": [
+    1200,
+    715
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    600,
+    357
+   ],
+   "note": "등급 B 페이지 빛(gacha.book.open 위에 같은 크기·위치, 가산). 페이지 넘김 중 alpha 0->1, 리빌 직전 최대",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 220976,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.book.pageglow.a",
+   "path": "assets/gacha_ui/book/pageglow_a.png",
+   "type": "image",
+   "size": [
+    1200,
+    715
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    600,
+    357
+   ],
+   "note": "등급 A 페이지 빛(gacha.book.open 위에 같은 크기·위치, 가산). 페이지 넘김 중 alpha 0->1, 리빌 직전 최대",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 230152,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  },
+  {
+   "key": "gacha.book.pageglow.s",
+   "path": "assets/gacha_ui/book/pageglow_s.png",
+   "type": "image",
+   "size": [
+    1200,
+    715
+   ],
+   "scope": "gacha_fx",
+   "alpha": true,
+   "blend": "add",
+   "scale": "@2x",
+   "display": [
+    600,
+    357
+   ],
+   "note": "등급 S 페이지 빛(gacha.book.open 위에 같은 크기·위치, 가산). 페이지 넘김 중 alpha 0->1, 리빌 직전 최대",
+   "qa": "pass",
+   "verify": false,
+   "bytes": 245767,
+   "generator": {
+    "model": "procedural (gacha_pp.py, 모델 호출 없음)",
+    "script": "docker/gemini/gacha_gen.mjs + gacha_style.mjs / docker/gemini/gacha_pp.py"
+   },
+   "license": "자체 생성(이미지 모델 출력 + 절차 생성), 제3자 소스 없음. 모델 출력물 상업 이용 약관은 사람 확인",
+   "prompt_ref": "gacha_pp.py(절차)"
+  }
+ ],
+ "total_bytes": 11976273
+}

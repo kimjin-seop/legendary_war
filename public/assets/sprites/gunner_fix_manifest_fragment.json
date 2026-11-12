@@ -1,0 +1,346 @@
+{
+ "_note": "총병 무기 교정(2026-11-07, 안아트): 사용자 지시 \"총병인데 활 든 것 전부 교체\". 중국 총병 신규 + default 총병 안전망 별칭. 김시민은 같은 키·경로 파일 교체(kim_simin_replacement 기록만, items 아님)",
+ "items": [
+  {
+   "key": "unit.china.gunner.ally.64.sheet",
+   "path": "assets/sprites/64/china_gunner_ally_sheet.png",
+   "type": "spritesheet",
+   "bytes": 18488,
+   "verify": true,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "culture": "china",
+   "unit_type": "gunner",
+   "display_name_hint": "조총병",
+   "side": "ally",
+   "mirror_baked": "right",
+   "team_mark": "발밑 팀색 받침 마커(#3E8EF7, A안). 의상은 원색",
+   "pixel_pipeline": "hero_dir_pp_v4.mjs(도트 격자 직접 샘플, 32색, 외곽선 1px)",
+   "variants": {
+    "x2": "assets/sprites/64_x2/china_gunner_ally_sheet.png"
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "fallback": "unit.china.archer.ally.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/gunner_fix_gen.mjs -> hero_dir_pp_v4.mjs(HERO_FACE=docker/gemini/gunner_fix/facing.json) -> gunner_fix_publish.py"
+   },
+   "prompt_ref": "docker/gemini/gunner_fix_gen.mjs JOBS.gunner_china",
+   "raw": "docker/gemini/gunner_fix/raw/gunner_china.jpg",
+   "ref": "public/assets/raw/dir64_china/archer.jpg(같은 병사 궁병 시트, 무기만 화승총으로)",
+   "calls": 1,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "측면 정지 칸에 총 누락 -> 걷기1 칸으로 대체(정지 프레임이 걷기 자세, 유럽 총병과 같은 처리)",
+     "명대 조총병 복식 일반화(verify)"
+    ],
+    "notes": "남색 머릿수건·갈색 가죽 조끼·남색 옷(기존 중국 궁병과 같은 병사), 쇠뇌·화살통 제거, 긴 화승총·허리 화약통. 4방향 모두 총"
+   },
+   "verify_note": "명대 조총병 복식 일반화(verify)",
+   "source_fragment": "assets/sprites/gunner_fix_manifest_fragment.json"
+  },
+  {
+   "key": "unit.china.gunner.enemy.64.sheet",
+   "path": "assets/sprites/64/china_gunner_enemy_sheet.png",
+   "type": "spritesheet",
+   "bytes": 18558,
+   "verify": true,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "culture": "china",
+   "unit_type": "gunner",
+   "display_name_hint": "조총병",
+   "side": "enemy",
+   "mirror_baked": "right",
+   "team_mark": "발밑 팀색 받침 마커(#E04A4A) + 팔레트 스왑(파랑 계열만 빨강 계열)",
+   "pixel_pipeline": "hero_dir_pp_v4.mjs(도트 격자 직접 샘플, 32색, 외곽선 1px)",
+   "variants": {
+    "x2": "assets/sprites/64_x2/china_gunner_enemy_sheet.png"
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "fallback": "unit.china.archer.enemy.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/gunner_fix_gen.mjs -> hero_dir_pp_v4.mjs(HERO_FACE=docker/gemini/gunner_fix/facing.json) -> gunner_fix_publish.py"
+   },
+   "prompt_ref": "docker/gemini/gunner_fix_gen.mjs JOBS.gunner_china",
+   "raw": "docker/gemini/gunner_fix/raw/gunner_china.jpg",
+   "ref": "public/assets/raw/dir64_china/archer.jpg(같은 병사 궁병 시트, 무기만 화승총으로)",
+   "calls": 1,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "측면 정지 칸에 총 누락 -> 걷기1 칸으로 대체(정지 프레임이 걷기 자세, 유럽 총병과 같은 처리)",
+     "명대 조총병 복식 일반화(verify)"
+    ],
+    "notes": "남색 머릿수건·갈색 가죽 조끼·남색 옷(기존 중국 궁병과 같은 병사), 쇠뇌·화살통 제거, 긴 화승총·허리 화약통. 4방향 모두 총"
+   },
+   "verify_note": "명대 조총병 복식 일반화(verify)",
+   "source_fragment": "assets/sprites/gunner_fix_manifest_fragment.json"
+  },
+  {
+   "key": "unit.default.gunner.ally.64.sheet",
+   "path": "assets/sprites/64/europe_gunner_ally_sheet.png",
+   "type": "spritesheet",
+   "bytes": 16491,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "culture": "default",
+   "unit_type": "gunner",
+   "side": "ally",
+   "alias_of": "unit.europe.gunner.ally.64.sheet",
+   "variants": {
+    "x2": "assets/sprites/64_x2/europe_gunner_ally_sheet.png"
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "note": "안전망 별칭(새 파일 없음): 전용 총병 시트가 없는 문화권이 궁병(활) 시트로 폴백되지 않게 default 총병 = 유럽 머스킷병",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": []
+   },
+   "source_fragment": "assets/sprites/gunner_fix_manifest_fragment.json"
+  },
+  {
+   "key": "unit.default.gunner.enemy.64.sheet",
+   "path": "assets/sprites/64/europe_gunner_enemy_sheet.png",
+   "type": "spritesheet",
+   "bytes": 16319,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "culture": "default",
+   "unit_type": "gunner",
+   "side": "enemy",
+   "alias_of": "unit.europe.gunner.enemy.64.sheet",
+   "variants": {
+    "x2": "assets/sprites/64_x2/europe_gunner_enemy_sheet.png"
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "note": "안전망 별칭(새 파일 없음): 전용 총병 시트가 없는 문화권이 궁병(활) 시트로 폴백되지 않게 default 총병 = 유럽 머스킷병",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": []
+   },
+   "source_fragment": "assets/sprites/gunner_fix_manifest_fragment.json"
+  }
+ ],
+ "kim_simin_replacement": {
+  "replaced_files": [
+   "assets/sprites/64/hero_kim_simin_{ally,enemy}_sheet.webp",
+   "assets/sprites/64/hero_kim_simin_{ally,enemy}.webp",
+   "assets/sprites/64_x2/hero_kim_simin_{ally,enemy}_sheet.png",
+   "assets/sprites/64_x2/hero_kim_simin_{ally,enemy}.png"
+  ],
+  "keys_unchanged": [
+   "unit.hero.kim_simin.{ally,enemy}.64.sheet",
+   "unit.hero.kim_simin.{ally,enemy}.64"
+  ],
+  "backup": "docker/gemini/gunner_fix/backup/",
+  "raw": "docker/gemini/gunner_fix/raw/kim_simin.jpg",
+  "ref": "docker/gemini/hero_dir_raw/kim_simin.jpg(기존 방향 시트 raw, 무기만 승자총통형 총통으로)",
+  "generator": {
+   "model": "gemini-nano-banana-2.1",
+   "api": "Interactions API",
+   "size": "2K",
+   "script": "docker/gemini/gunner_fix_gen.mjs -> hero_dir_pp_v4.mjs(HERO_FACE=docker/gemini/gunner_fix/facing.json) -> gunner_fix_publish.py"
+  },
+  "prompt_ref": "docker/gemini/gunner_fix_gen.mjs JOBS.kim_simin",
+  "calls": 1,
+  "qa": {
+   "checked": true,
+   "verdict": "pass",
+   "issues": [
+    "뒷모습 걷기 칸은 총통이 짧게(손 옆 총구만) 보이고 정지 칸은 어깨 위 대각선 — 64px 1배 영향 작음",
+    "총통 형태(승자총통형) 일반화(verify)"
+   ],
+   "notes": "붉은 상모 투구·남색 두정갑·수염·체형 기존 시트와 일치, 활·화살통 완전 제거. 9칸 모두 총통 보유, 측면 수평 겨눔"
+  },
+  "verify_note": "조선 승자총통 형태 일반화(verify)",
+  "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+  "stale_fields": "manifest 의 bytes·qa_note(화살통 식별)는 이전 시트 기준 값 — 다음 정식 병합 때 갱신"
+ },
+ "hero_gun_replacement_p4": {
+  "note": "팀장 승인 4순위 + 사용자 정정(총병=도보+총): 키·경로 불변, 파일만 교체(manifest items 수정 없음). 기승 제거 = gustavus_adolphus, suleiman_i",
+  "backup": "docker/gemini/gunner_fix/backup/",
+  "script": "docker/gemini/gunner_fix_gen.mjs -> hero_dir_pp_v4.mjs(HERO_FACE=docker/gemini/gunner_fix/facing.json) -> docker/gemini/gunner_fix_publish_p4.py",
+  "heroes": {
+   "wellington": {
+    "keys": "unit.hero.wellington.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/wellington.jpg",
+    "qa": {
+     "verdict": "pass",
+     "issues": [
+      "측면 정지 칸 = 걷기1, 걷기2 = 같은 행 3번째 칸 좌우 반전(원본 칸이 오른쪽을 봄)"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "mehmed_ii": {
+    "keys": "unit.hero.mehmed_ii.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/mehmed_ii.jpg",
+    "qa": {
+     "verdict": "pass",
+     "issues": [
+      "측면 걷기1·정지 칸은 오른쪽을 본 원본을 좌우 반전",
+      "15세기 초기 화승총 형태 일반화(verify)"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "gustavus_adolphus": {
+    "keys": "unit.hero.gustavus_adolphus.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/gustavus_adolphus.jpg",
+    "qa": {
+     "verdict": "minor",
+     "issues": [
+      "기승 제거(도보)·말 없는 하체는 모델 생성(초상 기준 갈색 장화·바지)",
+      "측면 정지 = 걷기1, 걷기2 = 반전 칸"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "frederick_great_v4": {
+    "keys": "unit.hero.frederick_great_v4.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/frederick_great_v4.jpg",
+    "qa": {
+     "verdict": "pass",
+     "issues": [],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "oda_nobunaga": {
+    "keys": "unit.hero.oda_nobunaga.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/oda_nobunaga.jpg",
+    "qa": {
+     "verdict": "minor",
+     "issues": [
+      "측면 행은 오른쪽을 본 원본 3칸을 좌우 반전",
+      "측면에서 겉옷 금색 테두리가 정면보다 약하게 보임(64px 영향 작음)"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "suleiman_i": {
+    "keys": "unit.hero.suleiman_i.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/suleiman_i.jpg",
+    "qa": {
+     "verdict": "minor",
+     "issues": [
+      "기승 제거(도보)·카프탄 하체는 모델 생성",
+      "측면 정지 = 걷기1, 걷기2 = 반전 칸, 뒷모습 정지 = 걷기1(정지 칸 총 누락)"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "napoleon_v4": {
+    "keys": "unit.hero.napoleon_v4.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/napoleon_v4.jpg",
+    "qa": {
+     "verdict": "pass",
+     "issues": [],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "kutuzov": {
+    "keys": "unit.hero.kutuzov.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/kutuzov.jpg",
+    "qa": {
+     "verdict": "pass",
+     "issues": [
+      "측면에서 총을 비스듬히 메고 걸음(수평 겨눔 아님) — 64px 에서 총 실루엣은 식별"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "qi_jiguang": {
+    "keys": "unit.hero.qi_jiguang.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/qi_jiguang.jpg",
+    "qa": {
+     "verdict": "pass",
+     "issues": [
+      "2차 생성(1차 뒷모습 총 두 자루 -> 재생성)"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "npc_jp_shimazu_yoshihiro": {
+    "keys": "unit.npc.npc_jp_shimazu_yoshihiro.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/npc_jp_shimazu_yoshihiro.jpg",
+    "qa": {
+     "verdict": "pass",
+     "issues": [
+      "ch1_s7 적 NPC(naval 출전)도 같은 시트라 총 든 모습으로 보임 — 일본 수군 조총 운용과 어긋나지 않음"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   }
+  },
+  "stale_fields": "manifest 의 bytes·qa(이전 무기 기준)는 다음 정식 병합 때 갱신"
+ },
+ "hero_gun_replacement_p5": {
+  "note": "부대 병종 gunner(hero_troop_types.json) 영웅 중 시트에 총 없음 3명. 키·경로 불변, 파일만 교체. 영웅 unit_type 은 mage/cavalry/sword 그대로(데이터 미변경)",
+  "backup": "docker/gemini/gunner_fix/backup/",
+  "heroes": {
+   "leonardo_da_vinci": {
+    "keys": "unit.hero.leonardo_da_vinci.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/leonardo_da_vinci.jpg",
+    "qa": {
+     "verdict": "pass",
+     "issues": [
+      "공책·깃펜 대신 아르케부스(게임 각색). 뒷모습 정지 칸에서 총이 반대쪽 어깨(64px 영향 작음)"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "date_masamune": {
+    "keys": "unit.hero.date_masamune.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/date_masamune.jpg",
+    "qa": {
+     "verdict": "pass",
+     "issues": [
+      "오른쪽 눈 안대 유지, 도보(원래 시트도 도보)"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   },
+   "sakamoto_ryoma": {
+    "keys": "unit.hero.sakamoto_ryoma.{ally,enemy}.64.sheet (+ .64 단일)",
+    "raw": "docker/gemini/gunner_fix/raw/sakamoto_ryoma.jpg",
+    "qa": {
+     "verdict": "minor",
+     "issues": [
+      "측면 정지 칸 = 걷기1(원본 정지 칸은 총을 허리 아래로 내림)",
+      "막말 서양식 소총 일반화"
+     ],
+     "notes": "영웅 복장·얼굴·색 유지, 무기만 총(4방향 아군·적 확인)"
+    }
+   }
+  }
+ }
+}

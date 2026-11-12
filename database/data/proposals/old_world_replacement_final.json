@@ -1,0 +1,261 @@
+{
+ "_note": "구대륙 교체 확정 20슬롯 최종 표(송서사, 2026-11-04). 팀장 승인 반영: 슬롯 10·18은 차선 후보 사용, 슬롯 17 등급 B 확정, 슬롯 3·14·7은 제안 등급 유지(임밸런 재판정은 아침 결정 대기), 겹침은 교체 슬롯 우선. 임시 코드(v1 제안)는 이미 영문 snake 정식 코드와 같아 변경 없음(temp_code==code). 기존 파일은 수정하지 않았고 적용은 박백엔·안아트. evidence_level 은 제작용 필드이며 화면 문구에는 표기하지 않는다. 구 코드 데이터는 id 안정 정책상 삭제하지 말고 비활성·보관 권고. 스탯은 슬롯 값 승계(hp_bonus 10 고정은 공통), 최종 수치는 hero_stat_patch_v6·임밸런 확인.",
+ "version": 1,
+ "slot_policy": {"keep_hp_bonus": 10, "keep_growth_hp_pct": 3, "growth_inherit": "구 영웅 growth_atk_pct/def_pct 승계(등급 변경 슬롯은 새 등급 기준 재산정)"},
+ "slots": [
+  {
+   "slot": 1,
+   "old": {"code": "ezana", "name_ko": "에자나", "rarity": "B", "unit_type": "sword", "troop_type": "sword"},
+   "new": {"code": "theseus", "temp_code": "theseus", "name_ko": "테세우스", "name_en": "Theseus", "title": "아테나이의", "short_name": "테세우스", "region": "west", "culture": "greek", "era": "고대(신화 시대)", "born": null, "died": null, "rarity": "B", "unit_type": "sword", "troop_type": "sword", "evidence_level": "myth", "fame": "상"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "방어 패시브 + 공방 혼합, 기본 칼 액티브"},
+   "skill_rename": [{"old_code": "rd_ezana_p1", "old_name": "악숨의 비문", "new_name": "미궁을 나선 걸음", "new_flavor": "되짚어 온 길을 믿고 공방이 고르게 선다."}],
+   "relations": {"remove": [{"pair": ["ezana", "tewodros_ii"], "type": "(기존 내부 관계)"}], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 2,
+   "old": {"code": "sundiata_keita", "name_ko": "순디아타 케이타", "rarity": "A", "unit_type": "archer", "troop_type": "archer"},
+   "new": {"code": "odysseus", "temp_code": "odysseus", "name_ko": "오디세우스", "name_en": "Odysseus", "title": "이타카의", "short_name": "오디세우스", "region": "west", "culture": "greek", "era": "고대(신화 시대)", "born": null, "died": null, "rarity": "A", "unit_type": "archer", "troop_type": "archer", "evidence_level": "myth", "fame": "상"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 1, "aura": "aura_atk", "skills_summary": "공격 패시브 + 진형, 범위 액티브 + 공격 버프"},
+   "skill_rename": [
+    {"old_code": "rd_sundiata_keita_p1", "old_name": "만딩고의 연합", "new_name": "함께 돌아온 대열", "new_flavor": "고난을 함께한 이들이 서로를 받친다."},
+    {"old_code": "rd_sundiata_keita_a2", "old_name": "이야기꾼의 노래", "new_name": "꾀 많은 설계", "new_flavor": "교묘하게 짠 계획이 대열의 마음을 다잡는다."},
+    {"old_code": "rd_sundiata_keita_a1", "old_name": "화살비", "new_name": "(유지)", "new_flavor": "지역 고유 표현 없음, 유지"}
+   ],
+   "relations": {"remove": [{"pair": ["sundiata_keita", "mansa_musa"], "type": "(기존 내부 관계)"}], "add": [{"to": "achilles", "type": "ally", "reason": "일리아스에서 같은 원정군의 장수.", "evidence_level": "myth"}]},
+   "portrait_needed": true
+  },
+  {
+   "slot": 3,
+   "old": {"code": "mansa_musa", "name_ko": "만사 무사", "rarity": "B", "unit_type": "sword", "troop_type": "sword"},
+   "new": {"code": "shah_jahan", "temp_code": "shah_jahan", "name_ko": "샤 자한", "name_en": "Shah Jahan", "title": "타지마할의", "short_name": "샤 자한", "region": "west", "culture": "south_asia", "era": "근세", "born": 1592, "died": 1666, "rarity": "B", "unit_type": "sword", "troop_type": "cavalry", "evidence_level": "confirmed", "fame": "상"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "방어 패시브 + 진형, 기본 칼 액티브"},
+   "skill_rename": [{"old_code": "rd_mansa_musa_p1", "old_name": "황금 행렬", "new_name": "대리석의 위용", "new_flavor": "단단히 쌓은 질서 속에 행렬이 길게 이어진다."}],
+   "relations": {"remove": [{"pair": ["mansa_musa", "sundiata_keita"], "type": "(기존 내부 관계)"}, {"pair": ["mansa_musa", "sonni_ali"], "type": "(기존 내부 관계)"}], "add": [{"to": "akbar", "type": "kin", "reason": "아크바르의 손자.", "evidence_level": "confirmed"}]},
+   "portrait_needed": true
+  },
+  {
+   "slot": 4,
+   "old": {"code": "sonni_ali", "name_ko": "소니 알리", "rarity": "B", "unit_type": "cavalry", "troop_type": "cavalry"},
+   "new": {"code": "attila", "temp_code": "attila", "name_ko": "아틸라", "name_en": "Attila", "title": "훈족 대왕의", "short_name": "아틸라", "region": "west", "culture": "steppe", "era": "고대", "born": 406, "died": 453, "rarity": "B", "unit_type": "cavalry", "troop_type": "cavalry", "evidence_level": "confirmed", "fame": "상", "controversial": true},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "공격 패시브 + 선제, 돌격 액티브"},
+   "skill_rename": [{"old_code": "rd_sonni_ali_p1", "old_name": "강 위의 선제", "new_name": "초원의 선제", "new_flavor": "말을 몰아 먼저 닿아 먼저 친다."}],
+   "relations": {"remove": [{"pair": ["sonni_ali", "mansa_musa"], "type": "(기존 내부 관계)"}], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 5,
+   "old": {"code": "nzinga_mbande", "name_ko": "은징가 음반디", "rarity": "B", "unit_type": "spear", "troop_type": "spear"},
+   "new": {"code": "boudicca", "temp_code": "boudicca", "name_ko": "보우디카", "name_en": "Boudicca", "title": "이케니의", "short_name": "보우디카", "region": "west", "culture": "celtic", "era": "고대", "born": null, "died": 61, "rarity": "B", "unit_type": "spear", "troop_type": "spear", "evidence_level": "confirmed", "fame": "중", "controversial": true},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "공방 혼합 + 방어 보조, 기본 창 액티브"},
+   "skill_rename": [{"old_code": "rd_nzinga_mbande_p1", "old_name": "말의 방패", "new_name": "봉기의 방진", "new_flavor": "함께 일어난 이들이 몸을 붙여 방어를 굳힌다."}],
+   "relations": {"remove": [], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 6,
+   "old": {"code": "amina_of_zazzau", "name_ko": "아미나", "rarity": "B", "unit_type": "cavalry", "troop_type": "cavalry"},
+   "new": {"code": "zenobia", "temp_code": "zenobia", "name_ko": "제노비아", "name_en": "Zenobia", "title": "팔미라의", "short_name": "제노비아", "region": "west", "culture": "middle_east", "era": "고대", "born": 240, "died": 274, "rarity": "B", "unit_type": "cavalry", "troop_type": "cavalry", "evidence_level": "confirmed", "fame": "중"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "공격 패시브 + 선제, 돌격 액티브"},
+   "skill_rename": [{"old_code": "rd_amina_of_zazzau_p1", "old_name": "흙성벽의 선제", "new_name": "사막 성채의 선제", "new_flavor": "오아시스 성채를 등지고 먼저 기세를 잡는다."}],
+   "relations": {"remove": [], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 7,
+   "old": {"code": "shaka_zulu", "name_ko": "샤카 줄루", "rarity": "S", "unit_type": "spear", "troop_type": "spear"},
+   "new": {"code": "achilles", "temp_code": "achilles", "name_ko": "아킬레우스", "name_en": "Achilles", "title": "프티아의", "short_name": "아킬레우스", "region": "west", "culture": "greek", "era": "고대(신화 시대)", "born": null, "died": null, "rarity": "S", "unit_type": "spear", "troop_type": "spear", "evidence_level": "myth", "fame": "상", "grade_note": "S 유지. 영향력 근거(일리아스 이후 문화적 영향)로 임밸런 재판정은 아침 결정 대기"},
+   "inherit": {"atk_bonus": 5, "def_bonus": 3, "aura": "aura_atk", "skills_summary": "최후의 분전 strong + 공격 strong + 선제 mid, 기본 창 액티브 + 자세 전환 S, 자세 보조 3종"},
+   "skill_rename": [
+    {"old_code": "rd_shaka_zulu_p2", "old_name": "큰 방패의 버팀", "new_name": "불패의 방패", "new_flavor": "신이 빚은 방패 뒤에서 좀처럼 무너지지 않는다."},
+    {"old_code": "rd_shaka_zulu_p3", "old_name": "짧은 창의 선제", "new_name": "선두의 창끝", "new_flavor": "바싹 다가가 먼저 찌른다."},
+    {"old_code": "rd_shaka_zulu_a1", "old_name": "방패 두드리기", "new_name": "함성의 선봉", "new_flavor": "터져 나오는 함성이 대열의 기세를 돋운다."},
+    {"old_code": "rd_shaka_zulu_a2", "old_name": "뿔의 일격", "new_name": "분노의 일격", "new_flavor": "한 번에 몰아붙이는 창끝이 앞줄을 쓸어낸다."},
+    {"old_code": "rd_shaka_zulu_as", "old_name": "큰 방패의 태세", "new_name": "굳건한 태세", "new_flavor": "창끝을 세우고 밀려드는 적을 받아낸다."},
+    {"old_code": "rd_shaka_zulu_a3", "old_name": "뿔 진형 태세", "new_name": "날개 진형 태세", "new_flavor": "양쪽으로 펼친 대열이 달려드는 적을 되받는다."},
+    {"old_code": "rd_shaka_zulu_p1", "old_name": "무너지지 않는 대열", "new_name": "(유지)", "new_flavor": "지역 고유 표현 없음, 유지"}
+   ],
+   "relations": {"remove": [{"pair": ["shaka_zulu", "moshoeshoe_i"], "type": "(기존 내부 관계)"}], "add": [{"to": "alexander", "type": "lineage", "reason": "알렉산드로스는 어머니 쪽으로 아킬레우스의 후손이라 자처했다.", "evidence_level": "accepted", "source": "플루타르코스 『알렉산드로스전』"}, {"to": "odysseus", "type": "ally", "reason": "일리아스에서 같은 원정군의 장수.", "evidence_level": "myth"}]},
+   "portrait_needed": true
+  },
+  {
+   "slot": 8,
+   "old": {"code": "moshoeshoe_i", "name_ko": "모쇼에쇼에 1세", "rarity": "C", "unit_type": "spear", "troop_type": "spear"},
+   "new": {"code": "jan_zizka", "temp_code": "jan_zizka", "name_ko": "얀 지슈카", "name_en": "Jan Žižka", "title": "타보르의", "short_name": "지슈카", "region": "west", "culture": "slavic", "era": "중세", "born": 1360, "died": 1424, "rarity": "C", "unit_type": "spear", "troop_type": "spear", "evidence_level": "confirmed", "fame": "중", "grade_note": "인지도 중, C 유지 시 약함. B 상향은 임밸런 판단"},
+   "inherit": {"atk_bonus": 3, "def_bonus": 2, "aura": null, "skills_summary": "방어 패시브(약), 기본 창 액티브"},
+   "skill_rename": [],
+   "relations": {"remove": [{"pair": ["moshoeshoe_i", "shaka_zulu"], "type": "(기존 내부 관계)"}], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 9,
+   "old": {"code": "tewodros_ii", "name_ko": "테워드로스 2세", "rarity": "C", "unit_type": "sword", "troop_type": "sword"},
+   "new": {"code": "rostam", "temp_code": "rostam", "name_ko": "로스탐", "name_en": "Rostam", "title": "시스탄의", "short_name": "로스탐", "region": "west", "culture": "persian", "era": "고대(전승 시대)", "born": null, "died": null, "rarity": "C", "unit_type": "sword", "troop_type": "sword", "evidence_level": "legend", "fame": "중"},
+   "inherit": {"atk_bonus": 3, "def_bonus": 2, "aura": null, "skills_summary": "공방 혼합(약), 기본 칼 액티브"},
+   "skill_rename": [],
+   "relations": {"remove": [{"pair": ["tewodros_ii", "ezana"], "type": "(기존 내부 관계)"}], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 10,
+   "old": {"code": "pachacuti", "name_ko": "파차쿠티", "rarity": "A", "unit_type": "spear", "troop_type": "spear"},
+   "new": {"code": "epaminondas", "temp_code": "epaminondas", "name_ko": "에파미논다스", "name_en": "Epaminondas", "title": "테베의", "short_name": "에파미논다스", "region": "west", "culture": "greek", "era": "고대", "born": -418, "died": -362, "rarity": "A", "unit_type": "spear", "troop_type": "spear", "evidence_level": "confirmed", "fame": "중", "note": "슬롯 10은 차선(승인 기준)"},
+   "inherit": {"atk_bonus": 5, "def_bonus": 3, "aura": "aura_both", "skills_summary": "공방 혼합 strong + 최후의 분전 mid, 기본 창 액티브 + 일격"},
+   "skill_rename": [
+    {"old_code": "rd_pachacuti_p1", "old_name": "쿠스코의 수호", "new_name": "신성대의 버팀", "new_flavor": "곁의 동료와 함께 선 대열이 마지막까지 버틴다."},
+    {"old_code": "rd_pachacuti_a1", "old_name": "잉카의 길", "new_name": "사선 진형", "new_flavor": "한쪽 날개를 두껍게 세운 대열이 흐트러짐 없이 선다."},
+    {"old_code": "rd_pachacuti_a2", "old_name": "돌팔매 일격", "new_name": "측면 집중 돌격", "new_flavor": "두껍게 모은 창끝이 적의 한쪽을 무너뜨린다."}
+   ],
+   "relations": {"remove": [{"pair": ["pachacuti", "tupac_amaru_ii"], "type": "(기존 내부 관계)"}], "add": [{"to": "philip_ii", "type": "mentor", "reason": "필리포스 2세가 젊은 시절 테베에 볼모로 머물며 그의 군사 운용을 가까이서 보았다고 전한다.", "evidence_level": "verify", "source": "플루타르코스·디오도로스 계열, 사제 관계 단정 금지"}]},
+   "portrait_needed": true
+  },
+  {
+   "slot": 11,
+   "old": {"code": "cuauhtemoc", "name_ko": "쿠아우테목", "rarity": "B", "unit_type": "spear", "troop_type": "spear"},
+   "new": {"code": "vercingetorix", "temp_code": "vercingetorix", "name_ko": "베르킨게토릭스", "name_en": "Vercingetorix", "title": "아르웨르니의", "short_name": "베르킨게토릭스", "region": "west", "culture": "celtic", "era": "고대", "born": -82, "died": -46, "rarity": "B", "unit_type": "spear", "troop_type": "spear", "evidence_level": "confirmed", "fame": "중"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "방어 패시브 + 공방 혼합, 기본 창 액티브"},
+   "skill_rename": [{"old_code": "rd_cuauhtemoc_p1", "old_name": "호수 위 도시의 방비", "new_name": "알레시아의 방비", "new_flavor": "성채에 둘린 진영에서 공방이 함께 단단해진다."}],
+   "relations": {"remove": [], "add": [{"to": "julius_caesar", "type": "rival", "reason": "기원전 52년 알레시아에서 카이사르와 맞섰다.", "evidence_level": "confirmed", "source": "카이사르 『갈리아 전기』"}]},
+   "portrait_needed": true
+  },
+  {
+   "slot": 12,
+   "old": {"code": "lautaro", "name_ko": "라우타로", "rarity": "B", "unit_type": "spear", "troop_type": "spear"},
+   "new": {"code": "rana_pratap", "temp_code": "rana_pratap", "name_ko": "라나 프라탑", "name_en": "Rana Pratap", "title": "메와르의", "short_name": "프라탑", "region": "west", "culture": "south_asia", "era": "근세", "born": 1540, "died": 1597, "rarity": "B", "unit_type": "spear", "troop_type": "cavalry", "evidence_level": "confirmed", "fame": "중", "note": "NPC npc_rana_sanga(라나 상가)와 다른 인물"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "공격 패시브(약) + 반격, 기본 창 액티브"},
+   "skill_rename": [{"old_code": "rd_lautaro_p1", "old_name": "교대 반격", "new_name": "골짜기의 반격", "new_flavor": "좁은 골짜기에서 받아쳐 되돌려 준다."}],
+   "relations": {"remove": [], "add": [{"to": "akbar", "type": "rival", "reason": "1576년 할디가티 전투에서 아크바르 휘하 무굴군과 맞붙었다.", "evidence_level": "confirmed"}]},
+   "portrait_needed": true
+  },
+  {
+   "slot": 13,
+   "old": {"code": "tupac_amaru_ii", "name_ko": "투팍 아마루 2세", "rarity": "B", "unit_type": "sword", "troop_type": "sword"},
+   "new": {"code": "tipu_sultan", "temp_code": "tipu_sultan", "name_ko": "티푸 술탄", "name_en": "Tipu Sultan", "title": "마이소르의", "short_name": "티푸", "region": "west", "culture": "south_asia", "era": "근대초", "born": 1751, "died": 1799, "rarity": "B", "unit_type": "sword", "troop_type": "gunner", "evidence_level": "confirmed", "fame": "중"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "공방 혼합 + 방어 보조, 기본 칼 액티브"},
+   "skill_rename": [{"old_code": "rd_tupac_amaru_ii_p1", "old_name": "안데스의 결속", "new_name": "마이소르의 결속", "new_flavor": "함께 선 이들이 서로를 지켜 방어가 단단해진다."}],
+   "relations": {"remove": [{"pair": ["tupac_amaru_ii", "pachacuti"], "type": "(기존 내부 관계)"}], "add": [{"to": "wellington", "type": "same_event", "reason": "1799년 세링가파탐 포위전에 훗날의 웰링턴 공작 아서 웰즐리도 영국군 쪽에 참가했다.", "evidence_level": "confirmed"}]},
+   "portrait_needed": true
+  },
+  {
+   "slot": 14,
+   "old": {"code": "tecumseh", "name_ko": "테쿰세", "rarity": "B", "unit_type": "cavalry", "troop_type": "cavalry"},
+   "new": {"code": "akbar", "temp_code": "akbar", "name_ko": "아크바르", "name_en": "Akbar", "title": "무굴의", "short_name": "아크바르", "region": "west", "culture": "south_asia", "era": "근세", "born": 1542, "died": 1605, "rarity": "A", "unit_type": "cavalry", "troop_type": "cavalry", "evidence_level": "confirmed", "fame": "상", "grade_note": "B 슬롯→A, 제안 등급 유지. 스탯 5/3 재산정과 임밸런 재판정은 아침 결정 대기"},
+   "inherit": {"atk_bonus": 5, "def_bonus": 3, "aura": null, "skills_summary": "공격 패시브 + 반격, 돌격 액티브(등급 A 슬롯 스킬 구성은 임밸런 재산정)"},
+   "skill_rename": [{"old_code": "rd_tecumseh_p1", "old_name": "숲속의 반격", "new_name": "연합의 반격", "new_flavor": "여러 세력을 묶은 대열이 되받아친다."}],
+   "relations": {"remove": [], "add": [{"to": "shah_jahan", "type": "kin", "reason": "샤 자한의 할아버지.", "evidence_level": "confirmed"}, {"to": "npc_babur", "type": "kin", "reason": "바부르의 손자.", "evidence_level": "confirmed"}, {"to": "rana_pratap", "type": "rival", "reason": "1576년 할디가티 전투에서 휘하 무굴군이 맞붙었다.", "evidence_level": "confirmed"}]},
+   "portrait_needed": true
+  },
+  {
+   "slot": 15,
+   "old": {"code": "crazy_horse", "name_ko": "크레이지 호스", "rarity": "B", "unit_type": "cavalry", "troop_type": "cavalry"},
+   "new": {"code": "tariq_ibn_ziyad", "temp_code": "tariq_ibn_ziyad", "name_ko": "타리크 이븐 지야드", "name_en": "Tariq ibn Ziyad", "title": "지브롤터의", "short_name": "타리크", "region": "west", "culture": "middle_east", "era": "중세", "born": null, "died": 720, "rarity": "B", "unit_type": "cavalry", "troop_type": "cavalry", "evidence_level": "accepted", "fame": "중"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "공격 패시브(약) + 공방 혼합, 돌격 액티브"},
+   "skill_rename": [{"old_code": "rd_crazy_horse_p1", "old_name": "평원의 전사", "new_name": "해협 너머의 돌격", "new_flavor": "탁 트인 땅으로 밀고 나가 공방이 고르게 날카로워진다."}],
+   "relations": {"remove": [], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 16,
+   "old": {"code": "simon_bolivar", "name_ko": "시몬 볼리바르", "rarity": "A", "unit_type": "cavalry", "troop_type": "cavalry"},
+   "new": {"code": "garibaldi", "temp_code": "garibaldi", "name_ko": "주세페 가리발디", "name_en": "Giuseppe Garibaldi", "title": "붉은 셔츠의", "short_name": "가리발디", "region": "west", "culture": "european", "era": "근대초", "born": 1807, "died": 1882, "rarity": "A", "unit_type": "cavalry", "troop_type": "sword", "evidence_level": "confirmed", "fame": "상"},
+   "inherit": {"atk_bonus": 5, "def_bonus": 2, "aura": "aura_atk", "skills_summary": "공격 strong + 공방 혼합 mid, 돌격 액티브 + 일격"},
+   "skill_rename": [
+    {"old_code": "rd_simon_bolivar_p1", "old_name": "해방의 기세", "new_name": "붉은 셔츠의 기세", "new_flavor": "향하는 목표가 뚜렷할수록 공격에 힘이 실린다."},
+    {"old_code": "rd_simon_bolivar_p2", "old_name": "대륙의 연합", "new_name": "의용군의 결속", "new_flavor": "여러 부대가 하나로 엮여 공방이 함께 오른다."},
+    {"old_code": "rd_simon_bolivar_a1", "old_name": "안데스 행군", "new_name": "마르살라 상륙", "new_flavor": "물가를 넘어 불쑥 나타난다."},
+    {"old_code": "rd_simon_bolivar_a2", "old_name": "고지의 일격", "new_name": "시칠리아의 일격", "new_flavor": "험한 길 끝에서 내리꽂는 한 방이다."}
+   ],
+   "relations": {"remove": [{"pair": ["simon_bolivar", "san_martin"], "type": "ally(기존, 과야킬 회담)"}], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 17,
+   "old": {"code": "zumbi_dos_palmares", "name_ko": "줌비 두스 팔마리스", "rarity": "C", "unit_type": "spear", "troop_type": "spear"},
+   "new": {"code": "spartacus", "temp_code": "spartacus", "name_ko": "스파르타쿠스", "name_en": "Spartacus", "title": "트라키아의", "short_name": "스파르타쿠스", "region": "west", "culture": "roman", "era": "고대", "born": null, "died": -71, "rarity": "B", "unit_type": "spear", "troop_type": "sword", "evidence_level": "confirmed", "fame": "상", "grade_note": "C 슬롯→B 확정(팀장 승인). 스탯 4/2 재산정"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "공방 혼합 + 기본 창 액티브(B 슬롯 구성으로 임밸런 재산정)"},
+   "skill_rename": [],
+   "relations": {"remove": [], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 18,
+   "old": {"code": "toussaint_louverture", "name_ko": "투생 루베르튀르", "rarity": "B", "unit_type": "sword", "troop_type": "sword"},
+   "new": {"code": "wat_tyler", "temp_code": "wat_tyler", "name_ko": "와트 타일러", "name_en": "Wat Tyler", "title": "켄트의", "short_name": "타일러", "region": "west", "culture": "european", "era": "중세", "born": null, "died": 1381, "rarity": "B", "unit_type": "sword", "troop_type": "sword", "evidence_level": "confirmed", "fame": "하", "note": "슬롯 18은 차선(승인 기준). 인지도 낮음"},
+   "inherit": {"atk_bonus": 4, "def_bonus": 2, "aura": null, "skills_summary": "공방 혼합 + 진형 + 선제(약), 기본 칼 액티브"},
+   "skill_rename": [{"old_code": "tl_hyb_mid", "old_name": "혁명군의 지휘", "new_name": "봉기군의 지휘", "new_flavor": "공수가 고르게 오른다."}],
+   "relations": {"remove": [{"pair": ["napoleon", "toussaint_louverture"], "type": "rival(기존, napoleon 쪽 relations 포함)"}], "add": []},
+   "portrait_needed": true
+  },
+  {
+   "slot": 19,
+   "old": {"code": "san_martin", "name_ko": "호세 데 산마르틴", "rarity": "A", "unit_type": "mage", "troop_type": "cavalry"},
+   "new": {"code": "themistocles", "temp_code": "themistocles", "name_ko": "테미스토클레스", "name_en": "Themistocles", "title": "살라미스의", "short_name": "테미스토클레스", "region": "west", "culture": "greek", "era": "고대", "born": -524, "died": -459, "rarity": "A", "unit_type": "mage", "troop_type": "sword", "evidence_level": "confirmed", "fame": "중"},
+   "inherit": {"atk_bonus": 5, "def_bonus": 1, "aura": "aura_atk", "skills_summary": "공격 mid + 진형 mid, 이동 보조 액티브(반경1) + 돌진 전환"},
+   "skill_rename": [
+    {"old_code": "sm_atk_mid", "old_name": "해방군의 공세", "new_name": "함대의 공세", "new_flavor": "공격력이 오른다."},
+    {"old_code": "sm_move_mid", "old_name": "안데스 횡단", "new_name": "살라미스의 물길", "new_flavor": "이동력 +1. 좁은 물길도 부대를 이끌고 단숨에 건넌다."},
+    {"old_code": "sm_column_move", "old_name": "(현 이름 확인 필요)", "new_name": "삼단노선의 기동", "new_flavor": "아군 대열이 종렬로 빠르게 움직인다."},
+    {"old_code": "sm_form_mid", "old_name": "원정군의 통솔", "new_name": "(유지)", "new_flavor": "지역 고유 표현 없음, 유지"}
+   ],
+   "relations": {"remove": [{"pair": ["san_martin", "simon_bolivar"], "type": "ally(기존)"}], "add": [{"to": "leonidas", "type": "same_event", "reason": "기원전 480년 테르모필라이와 같은 시기 아르테미시온에서 그리스 연합군이 페르시아와 맞섰다.", "evidence_level": "accepted", "source": "헤로도토스 『역사』"}, {"to": "artemisia_i", "type": "rival", "reason": "살라미스 해전에서 그리스 함대와 페르시아 쪽 함대로 마주했다.", "evidence_level": "confirmed", "source": "헤로도토스 『역사』"}]},
+   "portrait_needed": true
+  },
+  {
+   "slot": 20,
+   "old": {"code": "amanirenas", "name_ko": "아만니레나스", "rarity": "C", "unit_type": "archer", "troop_type": "archer"},
+   "new": {"code": "tomyris", "temp_code": "tomyris", "name_ko": "토미리스", "name_en": "Tomyris", "title": "마사게타이의", "short_name": "토미리스", "region": "west", "culture": "steppe", "era": "고대", "born": null, "died": null, "rarity": "C", "unit_type": "archer", "troop_type": "archer", "evidence_level": "likely", "fame": "중"},
+   "inherit": {"atk_bonus": 2, "def_bonus": 1, "aura": null, "skills_summary": "선제(약), 범위 액티브 B 등급 보정"},
+   "skill_rename": [{"old_code": "am_fs_weak", "old_name": "(현재 이름 확인 필요)", "new_name": "초원의 선제 사격", "new_flavor": "먼저 쏘아 올려 온전한 적의 기세를 꺾는다."}],
+   "relations": {"remove": [], "add": [{"to": "cyrus_ii", "type": "rival", "reason": "헤로도토스에 따르면 키루스 2세의 원정에 맞섰다.", "evidence_level": "likely", "source": "헤로도토스 『역사』 1권"}]},
+   "portrait_needed": true
+  }
+ ],
+ "relations_change_list": {
+  "remove_or_deactivate": [
+   {"pair": ["ezana", "tewodros_ii"], "where": "hero_expansion_narrative.json 각 영웅 history.relations"},
+   {"pair": ["sundiata_keita", "mansa_musa"], "where": "hero_expansion_narrative.json"},
+   {"pair": ["mansa_musa", "sonni_ali"], "where": "hero_expansion_narrative.json"},
+   {"pair": ["shaka_zulu", "moshoeshoe_i"], "where": "hero_expansion_narrative.json"},
+   {"pair": ["pachacuti", "tupac_amaru_ii"], "where": "hero_expansion_narrative.json"},
+   {"pair": ["simon_bolivar", "san_martin"], "where": "hero_expansion_narrative.json(simon_bolivar relations 835~841행 부근, san_martin 쪽은 hero_history_part1.json relations 빈 배열)"},
+   {"pair": ["napoleon", "toussaint_louverture"], "where": "hero_history_part4.json 329행 부근 napoleon relations(rival)"}
+  ],
+  "note": "toussaint_louverture 의 자체 relation(hero_history_part1.json 348행 napoleon rival) 도 함께 제거. 위 쌍은 모두 교체로 상대가 사라지므로 삭제. 삭제 대신 비활성 보관 권고.",
+  "add": [
+   {"from": "achilles", "to": "alexander", "type": "lineage", "evidence_level": "accepted"},
+   {"from": "achilles", "to": "odysseus", "type": "ally", "evidence_level": "myth"},
+   {"from": "vercingetorix", "to": "julius_caesar", "type": "rival", "evidence_level": "confirmed"},
+   {"from": "epaminondas", "to": "philip_ii", "type": "mentor", "evidence_level": "verify"},
+   {"from": "themistocles", "to": "leonidas", "type": "same_event", "evidence_level": "accepted"},
+   {"from": "themistocles", "to": "artemisia_i", "type": "rival", "evidence_level": "confirmed"},
+   {"from": "tomyris", "to": "cyrus_ii", "type": "rival", "evidence_level": "likely"},
+   {"from": "akbar", "to": "shah_jahan", "type": "kin", "evidence_level": "confirmed"},
+   {"from": "akbar", "to": "npc_babur", "type": "kin", "evidence_level": "confirmed"},
+   {"from": "akbar", "to": "rana_pratap", "type": "rival", "evidence_level": "confirmed"},
+   {"from": "tipu_sultan", "to": "wellington", "type": "same_event", "evidence_level": "confirmed"}
+  ],
+  "mirror_rule": "각 쌍은 양쪽 영웅의 relations에 모두 기록(상대 쪽 relations/인연 데이터에 추가). 상대 영웅(alexander, julius_caesar, philip_ii, leonidas, artemisia_i, cyrus_ii, wellington, npc_babur)의 hero_history_part*.json relations 갱신은 박백엔 적용 단계."
+ },
+ "dialogue_reference_cleanup": {
+  "searched": "database/data 의 stages_*, ch*_roster, 서가 npc_roster_*, encounter, cutscene, dialogue, bond 계열 파일을 코드 20+3개로 검색",
+  "result": "직접 참조 0건(박백엔 로그의 '스테이지 미사용'과 일치). 대사·조우 문구 교체 필요 없음",
+  "files_still_to_update": [
+   "database/data/hero_expansion_stats.json (17명 항목 교체)",
+   "database/data/hero_expansion_narrative.json (17명 항목·title·relations 교체)",
+   "database/data/heroes.json (toussaint_louverture, san_martin, amanirenas 항목 교체)",
+   "database/data/hero_history_part1.json·part2.json·part4.json (3명 항목, napoleon relations)",
+   "database/data/hero_titles.json, hero_titles_v2_proposal.json, hero_native_names.json, hero_fact_checks.json, hero_profiles.json, hero_unit_basis.json, hero_troop_types*.json",
+   "database/data/hero_rarity_redistribution.json, hero_rarity_proposal.json, gacha_pool.json, hero_pool100.json",
+   "database/data/hero_skill_assignments.json, hero_skill_redistribution.json, active_skill_assignments.json, new_skill_names.json (skill_rename 반영)",
+   "database/data/proposals/hero_final_table_v5.csv, hero_final_skills_v5*.json, skill_grade_target_draft.*, hero_stat_patch_v6.json, archer_ratio_candidates_v1.json",
+   "database/data/hero_expansion_hold.json (이력 문구에 '17명 보류'→교체로 갱신)",
+   "database/data/scenario/INFLUENCE_GRADE_REJUDGE.*, LEGEND_S_HERO_CANDIDATES.*, HERO_SKILL_HISTORY_AUDIT.* (샤카 줄루·아프리카·아메리카 언급)",
+   "public/assets/manifest.json, webp_map.json, portraits/*, skill_icons/skill_icon_map.json, docker/gemini/hero_exp1* (안아트·윤프론)",
+   "tests/Feature/NewHeroesTest.php 기대 코드 (박백엔)"
+  ]
+ },
+ "portrait_request_for_art": {
+  "count": 20,
+  "note": "교체 영웅 20명 전원 신규 초상 필요. 신화·영웅담 인물(테세우스·오디세우스·아킬레우스·로스탐)은 양식 합의 필요(그리스 청동기 갑주 / 페르시아 서사시 복식 등). 논쟁 인물(아틸라·보우디카)은 위압감 중심, 참상 묘사 금지. 기존 17+3 초상 파일은 삭제 말고 보관."
+ }
+}

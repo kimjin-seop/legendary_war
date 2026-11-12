@@ -1,0 +1,232 @@
+{
+  "version": 1,
+  "description": "전투 음성(함성·비명·영웅 사망 외침) 재생 규칙 데이터. 슬롯은 audio manifest(sfx_bv_*). 사람 청취 UNVERIFIED. FE 적용은 윤프론 담당.",
+  "volumeRule": "최종 gain = manifest slot.volume x event.volMul x settings.sfxVolume x (voiceVolume, 있으면). sfxMuted/muted 또는 voiceMuted 면 재생 안 함. (cutscene_sfx_cues.json 의 vol=최종 gain 규칙과 다름에 주의)",
+  "pools": {
+    "shout_s": [
+      "sfx_bv_shout_s_1",
+      "sfx_bv_shout_s_2",
+      "sfx_bv_shout_s_3"
+    ],
+    "shout_m": [
+      "sfx_bv_shout_m_1",
+      "sfx_bv_shout_m_2",
+      "sfx_bv_shout_m_3"
+    ],
+    "shout_l": [
+      "sfx_bv_shout_l_1",
+      "sfx_bv_shout_l_2"
+    ],
+    "die": [
+      "sfx_bv_die_v2_1",
+      "sfx_bv_die_v2_2",
+      "sfx_bv_die_v2_3",
+      "sfx_bv_die_v2_4",
+      "sfx_bv_die_v2_5"
+    ],
+    "hurt": [
+      "sfx_bv_hurt_1",
+      "sfx_bv_hurt_2",
+      "sfx_bv_hurt_3",
+      "sfx_bv_hurt_4"
+    ],
+    "rout": [
+      "sfx_bv_rout_1",
+      "sfx_bv_rout_2"
+    ],
+    "hero_m": [
+      "sfx_bv_hero_fall_m_v2_1",
+      "sfx_bv_hero_fall_m_v2_2",
+      "sfx_bv_hero_fall_m_v2_3"
+    ],
+    "hero_f": [
+      "sfx_bv_hero_fall_f_v2_1",
+      "sfx_bv_hero_fall_f_v2_2",
+      "sfx_bv_hero_fall_f_v2_3"
+    ],
+    "victory": [
+      "sfx_bv_victory_cheer"
+    ]
+  },
+  "pick": {
+    "method": "shuffle-bag",
+    "noRepeatLast": 2,
+    "note": "풀마다 섞은 순서로 소진 후 재셔플. 직전 2개와 같은 키는 다음 것으로 넘김(풀 크기 3 미만이면 직전 1개만)"
+  },
+  "rate": {
+    "shout": [
+      0.95,
+      1.05
+    ],
+    "die": [
+      0.92,
+      1.08
+    ],
+    "hurt": [
+      0.9,
+      1.1
+    ],
+    "rout": [
+      0.97,
+      1.03
+    ],
+    "hero": [
+      0.98,
+      1.02
+    ],
+    "victory": [
+      0.97,
+      1.03
+    ]
+  },
+  "priority": {
+    "hero": 3,
+    "rout": 2,
+    "shout": 1,
+    "die": 1,
+    "victory": 1,
+    "hurt": 0
+  },
+  "concurrency": {
+    "maxVoices": 3,
+    "perCategory": {
+      "shout": 2,
+      "die": 2,
+      "hurt": 1,
+      "rout": 1,
+      "hero": 1
+    },
+    "steal": "한도 초과 시 우선순위 낮은 것 -> 같으면 가장 오래된 것을 60ms 페이드아웃 후 정지. 새 소리 우선순위가 가장 낮으면 새 소리를 버림"
+  },
+  "events": {
+    "cut_start": {
+      "trigger": "교전 컷(BattleCutscene / attack.micro MicroCutscene) 시작 t=0 (기존 sfx_battle_roar 와 같은 시각)",
+      "attacker": {
+        "t": 0,
+        "pan": -0.4,
+        "poolBy": "scale",
+        "volMul": {
+          "melee": 1,
+          "cavalry": 1,
+          "flyer": 0.9,
+          "archer": 0.6,
+          "gunner": 0.6,
+          "mage": 0.55
+        }
+      },
+      "defender": {
+        "t": 0.22,
+        "pan": 0.4,
+        "volMul": 0.7,
+        "when": "방어측 반격 가능(noCounter 아님) 이고 방어측 잔존 비율 >= 0.4",
+        "poolBy": "scale(방어측)"
+      },
+      "scale": {
+        "shout_s": "잔존 병력 비율 < 0.4",
+        "shout_l": "보스/적 지휘관 부대 또는 (영웅 지휘 부대 && 잔존 비율 >= 0.9)",
+        "shout_m": "그 외"
+      },
+      "counterCut": "반격 컷은 attacker/defender 역할을 뒤집고 pan 부호 반전",
+      "withRoar": "함성 재생 시 기존 sfx_battle_roar 는 vol x0.5 로 낮춰 바닥 웅성으로 유지",
+      "cavalry": "말 울음 슬롯 없음(합성 실패, 공개 제외). 기병은 shout_m/l + 기존 sfx_battle_gallop 큐 그대로"
+    },
+    "unit_death_in_cut": {
+      "trigger": "MicroCutscene 개체 사망 시각(cs.micro.deaths[].ms 도달, deadAt 설정 순간)",
+      "pool": "die",
+      "volMul": 0.9,
+      "pan": "사망 개체 진영(공격측 -0.4 / 방어측 +0.4)",
+      "minIntervalMs": 90,
+      "clusterMs": 60,
+      "clusterRule": "60ms 안에 여러 명 사망하면 1회만 재생",
+      "maxPerCut": 4,
+      "afterMax": "이후 사망은 음성 없이 기존 타격/틱 소리만"
+    },
+    "unit_hurt_in_cut": {
+      "trigger": "MicroCutscene 비치명 타격(hits, hpAfter > 0)",
+      "pool": "hurt",
+      "volMul": 0.8,
+      "chance": 0.25,
+      "minIntervalMs": 150,
+      "maxPerCut": 3,
+      "skipIfDieWithinMs": 120
+    },
+    "troop_wiped": {
+      "trigger": "컷 안에서 한 부대의 마지막 개체가 쓰러진 순간(부대 전멸) +0.05s",
+      "pool": "rout",
+      "volMul": 1,
+      "pan": "전멸 부대 진영",
+      "afterRule": "이 컷의 남은 die/hurt 음성은 재생 안 함",
+      "outsideCut": "컷 없이(연출 끄기 등) 격파되면 재생 안 함, 기존 kill -> sfx_unit_down 만"
+    },
+    "hero_death": {
+      "trigger": "영웅/지휘관 사망: unit_removed reason 'death'(Battle.retreatFx death 분기) 시작 시, 또는 영웅 유닛(kind !== 'troop') 격파 쓰러짐 시작 시",
+      "pool": "hero_m | hero_f (영웅 성별 데이터 기준, 없으면 hero_m)",
+      "volMul": 1,
+      "pan": 0,
+      "bgmDuck": {
+        "mul": 0.5,
+        "ms": 1200
+      },
+      "cooldownMs": 1500,
+      "durationNote": "2026-11-08 사망음 0.63~0.82s 로 단축 -> 덕킹 1200ms(소리 + 꼬리 여유), 쿨다운 1500ms(덕킹보다 길게, 연속 사망 외침 겹침 방지)",
+      "preempt": "재생 중 die/hurt/shout 음성을 60ms 페이드아웃",
+      "instant": "연출 끄기(isInstant)여도 재생(맵 레벨 사건)",
+      "retreat": "reason 'retreat'(퇴각)에는 재생 안 함"
+    },
+    "victory": {
+      "priority": "후순위(선택)",
+      "trigger": "전투 승리(Battle.js audio.play('win')) 후 0.35s",
+      "pool": "victory",
+      "volMul": 0.85,
+      "defeat": "패배는 음성 없음(sfx_defeat 유지)"
+    },
+    "stage_start": {
+      "priority": "후순위(선택)",
+      "trigger": "배치 종료 후 첫 아군 턴 시작",
+      "pool": "shout_l",
+      "volMul": 0.6
+    }
+  },
+  "fatigue": {
+    "shoutCooldownMs": 2500,
+    "consecutiveCut": "직전 컷 종료 후 8초 안에 시작한 컷: 함성 volMul x0.75. 3번째 연속부터 x0.6 + shout_l/m 을 한 단계 아래 풀로",
+    "defenderShoutEveryCut": false,
+    "defenderShoutRule": "방어측 함성은 연속 컷에서는 2컷에 1번만"
+  },
+  "speedSkip": {
+    "speed1": "전 규칙 적용",
+    "speed2": "함성은 한 단계 아래 풀(l->m, m->s), 방어측 함성 없음, hurt 끔, die maxPerCut 2",
+    "speed3plus_or_shortCut": "축약 컷(scale<1) 또는 3배속 이상: 공격측 함성만, die maxPerCut 1, rout 유지",
+    "skip": "컷 스킵/종료/씬 종료 시 CutsceneSfx.stop() 과 함께 컷 안 음성 즉시 정지(60ms 페이드). hero_death 는 컷 소속이 아니므로 정지 대상 아님",
+    "instantMode": "연출 끄기: 함성·die·hurt·rout 재생 안 함. hero_death 만 재생"
+  },
+  "loading": {
+    "totalBytes": 1143190,
+    "hint": "assets.queueAudio 가 manifest 의 모든 sfx 를 부팅에 받으므로 이대로면 부팅 +1.09MB(sfx_bv_*.wav 37개 합계, 2026-11-09 v2 11키 추가·v1 슬롯 유지). 권장: category 'battle_voice.*' 슬롯은 전투 씬 진입 시(또는 로비 대기 중 prefetch) 로드. 미로드 상태면 무음(에러 없음)."
+  },
+  "settingsUi": {
+    "existing": "설정 > 소리 > 효과음(sfxVolume/sfxMuted)이 전투 음성에도 곱해진다",
+    "add": "같은 소리 묶음에 '전투 음성' 켬/끔(+선택: 볼륨) 항목. 저장 키 제안 voiceMuted(기본 false)/voiceVolume(기본 1). 효과음이 0/음소거면 전투 음성도 무음",
+    "reason": "비명·외침은 취향 차가 커서 효과음과 분리해 끌 수 있어야 함"
+  },
+  "v2_note": "2026-11-09 pools.die/hero_m/hero_f 를 v2(sfx_bv_die_v2_*·sfx_bv_hero_fall_{m,f}_v2_*)로 교체. v1 슬롯(sfx_bv_die_1~8·hero_fall_m1/m2/f1)은 audio manifest 에 유지(되돌리기: 아래 pools_v1 로 복원)",
+  "pools_v1": {
+    "die": [
+      "sfx_bv_die_1",
+      "sfx_bv_die_2",
+      "sfx_bv_die_3",
+      "sfx_bv_die_4",
+      "sfx_bv_die_5",
+      "sfx_bv_die_6",
+      "sfx_bv_die_7",
+      "sfx_bv_die_8"
+    ],
+    "hero_m": [
+      "sfx_bv_hero_fall_m1",
+      "sfx_bv_hero_fall_m2"
+    ],
+    "hero_f": [
+      "sfx_bv_hero_fall_f1"
+    ]
+  }
+}

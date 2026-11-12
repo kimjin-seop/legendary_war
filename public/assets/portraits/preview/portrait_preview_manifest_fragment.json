@@ -1,0 +1,798 @@
+{
+ "note": "준비 중 캠페인 인물 초상화 manifest 조각(안아트 2026-11-02). 미병합 — manifest.json 직접 수정 안 함(병합은 윤프론, items 배열 + item.thumb 내장 형식은 npc_naval 조각과 동일). 모두 deferred(해당 서가 진입 시 지연 로드).",
+ "generated": "2026-11-01T15:39:01.086Z",
+ "keyRules": {
+  "portrait": "portrait.<code> (+ .thumb). 표정 neutral 1종",
+  "codes": "몽골 인물 코드는 heroes.json 미등록 상태의 제안 코드(영문). 표기(칭기스/칭기즈 등)는 사용자 결정 대기 — 파일명·키는 영문 코드로만"
+ },
+ "ch18_keys": {
+  "reuse": [
+   "portrait.genghis_khan"
+  ],
+  "new": [
+   "portrait.mukhali",
+   "portrait.subutai",
+   "portrait.jebe",
+   "portrait.borchu"
+  ],
+  "proposed_codes": {
+   "mukhali": "무칼리(Muqali)",
+   "subutai": "수부타이(Subutai)",
+   "jebe": "제베(Jebe)",
+   "borchu": "보르추(Bo'orchu)"
+  },
+  "note": "heroes.json 등록 시 code 를 이 값으로 맞추면 키가 그대로 연결됨. 다른 코드로 정하면 파일명만 바꾸면 됨"
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "portrait.npc_huang_gai",
+   "path": "assets/portraits/preview/npc_huang_gai.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1192742,
+   "code": "npc_huang_gai",
+   "name_ko": "황개",
+   "shelf": "ch12",
+   "side": "ally",
+   "era": "후한 말 208",
+   "culture": "china(han)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_huang_gai.thumb",
+    "path": "assets/portraits/preview/thumb/npc_huang_gai.webp",
+    "size": "256x343",
+    "bytes": 24186
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_huang_gai",
+   "style_ref": "assets/portraits/sun_quan.png",
+   "calls": 3,
+   "calls_ok": 3,
+   "qa": {
+    "verdict": "pass",
+    "issues": [],
+    "note": "1차 일본도형 칼 → 2차 강감찬 참조의 관·흰 수염이 새어 정보와 쌍둥이 → 3차(최종) 손권 참조로 해결. 갈색 두건·암적색 어깨 덮개·고리 자루 칼·부싯돌 주머니",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 3,
+    "ok": 3,
+    "regenerations": 2
+   },
+   "verify": true,
+   "verify_note": "용모 일반화(나이 외 근거 없음). 화공 관련 소품은 부싯돌 주머니로만",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_cheng_pu",
+   "path": "assets/portraits/preview/npc_cheng_pu.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1215131,
+   "code": "npc_cheng_pu",
+   "name_ko": "정보",
+   "shelf": "ch12",
+   "side": "ally",
+   "era": "후한 말 208",
+   "culture": "china(han)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_cheng_pu.thumb",
+    "path": "assets/portraits/preview/thumb/npc_cheng_pu.webp",
+    "size": "256x343",
+    "bytes": 26190
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_cheng_pu",
+   "style_ref": "assets/portraits/sun_quan.png",
+   "calls": 3,
+   "calls_ok": 3,
+   "qa": {
+    "verdict": "pass",
+    "issues": [],
+    "note": "1차 일본도형 칼 → 2차 황개와 쌍둥이 → 3차(최종) 회색 상투·비녀·청동빛 찰갑",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 3,
+    "ok": 3,
+    "regenerations": 2
+   },
+   "verify": true,
+   "verify_note": "직함·용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_lu_su",
+   "path": "assets/portraits/preview/npc_lu_su.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 999536,
+   "code": "npc_lu_su",
+   "name_ko": "노숙",
+   "shelf": "ch12",
+   "side": "ally",
+   "era": "후한 말 208~209",
+   "culture": "china(han)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_lu_su.thumb",
+    "path": "assets/portraits/preview/thumb/npc_lu_su.webp",
+    "size": "256x343",
+    "bytes": 19326
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_lu_su",
+   "style_ref": "assets/portraits/gang_gamchan.png",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "verdict": "pass",
+    "issues": [
+     "검은 관 형태가 후대(당·명) 복두에 가까워 보일 수 있음 — 복식 고증 verify"
+    ],
+    "note": "두루마리(글자 없음)·녹색 인장 끈·가죽 흉갑",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 1,
+    "ok": 1,
+    "regenerations": 0
+   },
+   "verify": true,
+   "verify_note": "복식 일반화(관 형태는 후한 문관관 일반화)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "framing": {
+    "scale": 1.0313,
+    "by": "docker/gemini/portrait_framing.py fix",
+    "backup": "assets/portraits/_orig_framing/preview/npc_lu_su.png"
+   }
+  },
+  {
+   "key": "portrait.npc_wei_vanguard_captain",
+   "path": "assets/portraits/preview/npc_wei_vanguard_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1035838,
+   "code": "npc_wei_vanguard_captain",
+   "name_ko": "조조군 선봉 수군장",
+   "shelf": "ch12",
+   "side": "enemy",
+   "era": "후한 말 208",
+   "culture": "china(han)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_wei_vanguard_captain.thumb",
+    "path": "assets/portraits/preview/thumb/npc_wei_vanguard_captain.webp",
+    "size": "256x343",
+    "bytes": 24554
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_wei_vanguard_captain",
+   "style_ref": "assets/portraits/gang_gamchan.png",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "verdict": "pass",
+    "issues": [],
+    "note": "1차 극+일본도 중복 → 2차 극만, 붉은 머리띠",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 2,
+    "ok": 2,
+    "regenerations": 1
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_wei_jing_marine_chief",
+   "path": "assets/portraits/preview/npc_wei_jing_marine_chief.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1117587,
+   "code": "npc_wei_jing_marine_chief",
+   "name_ko": "형주 출신 수군 지휘관",
+   "shelf": "ch12",
+   "side": "enemy",
+   "era": "후한 말 208",
+   "culture": "china(han)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_wei_jing_marine_chief.thumb",
+    "path": "assets/portraits/preview/thumb/npc_wei_jing_marine_chief.webp",
+    "size": "256x343",
+    "bytes": 26762
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_wei_jing_marine_chief",
+   "style_ref": "assets/portraits/gang_gamchan.png",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "verdict": "pass",
+    "issues": [],
+    "note": "1차 허리 일본도 → 2차 제거, 그물 어깨끈·갈고리 삿대",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 2,
+    "ok": 2,
+    "regenerations": 1
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_wei_archer_captain",
+   "path": "assets/portraits/preview/npc_wei_archer_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1124274,
+   "code": "npc_wei_archer_captain",
+   "name_ko": "조조군 궁병 선단장",
+   "shelf": "ch12",
+   "side": "enemy",
+   "era": "후한 말 208",
+   "culture": "china(han)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_wei_archer_captain.thumb",
+    "path": "assets/portraits/preview/thumb/npc_wei_archer_captain.webp",
+    "size": "256x343",
+    "bytes": 27428
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_wei_archer_captain",
+   "style_ref": "assets/portraits/gang_gamchan.png",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "verdict": "pass",
+    "issues": [],
+    "note": "1차 일본도 → 2차 제거, 털 장식 북방 투구·긴 활",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 2,
+    "ok": 2,
+    "regenerations": 1
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_wei_chain_captain",
+   "path": "assets/portraits/preview/npc_wei_chain_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1167601,
+   "code": "npc_wei_chain_captain",
+   "name_ko": "연환 선단 지휘관",
+   "shelf": "ch12",
+   "side": "enemy",
+   "era": "후한 말 208",
+   "culture": "china(han)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_wei_chain_captain.thumb",
+    "path": "assets/portraits/preview/thumb/npc_wei_chain_captain.webp",
+    "size": "256x343",
+    "bytes": 24664
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_wei_chain_captain",
+   "style_ref": "assets/portraits/gang_gamchan.png",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "verdict": "pass",
+    "issues": [],
+    "note": "1차 일본도 → 2차 고리 자루 칼, 팔뚝 쇠사슬",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 2,
+    "ok": 2,
+    "regenerations": 1
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "framing": {
+    "scale": 1.0416,
+    "by": "docker/gemini/portrait_framing.py fix",
+    "backup": "assets/portraits/_orig_framing/preview/npc_wei_chain_captain.png"
+   }
+  },
+  {
+   "key": "portrait.npc_wei_rearguard_chief",
+   "path": "assets/portraits/preview/npc_wei_rearguard_chief.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1275233,
+   "code": "npc_wei_rearguard_chief",
+   "name_ko": "조조군 후위 지휘관",
+   "shelf": "ch12",
+   "side": "enemy",
+   "era": "후한 말 208",
+   "culture": "china(han)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_wei_rearguard_chief.thumb",
+    "path": "assets/portraits/preview/thumb/npc_wei_rearguard_chief.webp",
+    "size": "256x343",
+    "bytes": 26824
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_wei_rearguard_chief",
+   "style_ref": "assets/portraits/gang_gamchan.png",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "verdict": "pass",
+    "issues": [],
+    "note": "1차 일본도 → 2차 제거, 붉은 망토·창",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 2,
+    "ok": 2,
+    "regenerations": 1
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "framing": {
+    "scale": 1.0564,
+    "by": "docker/gemini/portrait_framing.py fix",
+    "backup": "assets/portraits/_orig_framing/preview/npc_wei_rearguard_chief.png"
+   }
+  },
+  {
+   "key": "portrait.npc_ink_overwrite",
+   "path": "assets/portraits/preview/npc_ink_overwrite.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 646225,
+   "code": "npc_ink_overwrite",
+   "name_ko": "덧쓰인 쪽의 그림자",
+   "shelf": "ch12",
+   "side": "shadow",
+   "era": "허구",
+   "culture": "none",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_ink_overwrite.thumb",
+    "path": "assets/portraits/preview/thumb/npc_ink_overwrite.webp",
+    "size": "256x343",
+    "bytes": 28530
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_ink_overwrite",
+   "style_ref": null,
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "verdict": "pass",
+    "issues": [
+     "시나리오 설명의 해서체·흘림 글자는 글자 금지 규칙으로 표현하지 않음(빈 종잇조각·먹물 띠로 대체)",
+     "불투명 마젠타 잔여 10px 은 먹물색으로 치환"
+    ],
+    "note": "1차 가장자리 분홍 광채(크로마키 위험) → 2차 광채 제거",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 2,
+    "ok": 2,
+    "regenerations": 1
+   },
+   "verify": true,
+   "verify_note": "설명의 \"해서체·흘림 글자\"는 글자 금지 규칙에 따라 읽을 수 없는 붓 획 조각으로 대체",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_yelu_bage",
+   "path": "assets/portraits/preview/npc_yelu_bage.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1040510,
+   "code": "npc_yelu_bage",
+   "name_ko": "야율팔가",
+   "shelf": "ch11",
+   "side": "enemy",
+   "era": "요 성종 대 1018~1019",
+   "culture": "khitan",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_yelu_bage.thumb",
+    "path": "assets/portraits/preview/thumb/npc_yelu_bage.webp",
+    "size": "256x343",
+    "bytes": 22696
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_yelu_bage",
+   "style_ref": "assets/portraits/gang_gamchan.png",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "verdict": "pass",
+    "issues": [
+     "인물 실존 확인 전(시나리오 evidence verify) — 확인 안 되면 무명 거란 부장으로 재사용"
+    ],
+    "note": "붉은 술 투구·모피 깃·가죽 찰갑·창",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 1,
+    "ok": 1,
+    "regenerations": 0
+   },
+   "verify": true,
+   "verify_note": "인물 실존·이름 확인 전(시나리오 evidence verify) — 확인되지 않으면 무명 부장 초상으로 재사용. 거란 복식 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_shadow_summary",
+   "path": "assets/portraits/preview/npc_shadow_summary.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 767488,
+   "code": "npc_shadow_summary",
+   "name_ko": "요약된 담판의 그림자",
+   "shelf": "ch11",
+   "side": "shadow",
+   "era": "허구",
+   "culture": "none",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_shadow_summary.thumb",
+    "path": "assets/portraits/preview/thumb/npc_shadow_summary.webp",
+    "size": "256x343",
+    "bytes": 18738
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.npc_shadow_summary",
+   "style_ref": null,
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "verdict": "pass",
+    "issues": [
+     "문장 조각은 표현하지 않고 말풍선형 공백·붓 띠로 대체"
+    ],
+    "note": "사람 형상 없음",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 1,
+    "ok": 1,
+    "regenerations": 0
+   },
+   "verify": true,
+   "verify_note": "설명의 \"문장 조각\"은 글자 금지 규칙에 따라 읽을 수 없는 붓 획·괄호 곡선으로 대체",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.mukhali",
+   "path": "assets/portraits/preview/mukhali.png",
+   "type": "portrait",
+   "subtype": "hero_preview",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1222582,
+   "code": "mukhali",
+   "name_ko": "무칼리",
+   "shelf": "ch18",
+   "side": "ally",
+   "era": "13세기 초(1170경~1223)",
+   "culture": "steppe(mongol)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.mukhali.thumb",
+    "path": "assets/portraits/preview/thumb/mukhali.webp",
+    "size": "256x343",
+    "bytes": 26446
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.mukhali",
+   "style_ref": "assets/portraits/genghis_khan.png",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "verdict": "pass",
+    "issues": [],
+    "note": "털 없는 원추형 쇠 투구·청록 델·쇠 찰갑·휜 칼. 칭기스 칸(털 테두리 투구)과 실루엣 구분",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 1,
+    "ok": 1,
+    "regenerations": 0
+   },
+   "verify": true,
+   "verify_note": "용모는 나이·수염만 일반화(초상 근거 없음). 투구 형태는 13세기 몽골 일반형",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.subutai",
+   "path": "assets/portraits/preview/subutai.png",
+   "type": "portrait",
+   "subtype": "hero_preview",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1405979,
+   "code": "subutai",
+   "name_ko": "수부타이",
+   "shelf": "ch18",
+   "side": "ally",
+   "era": "13세기(1175경~1248)",
+   "culture": "steppe(mongol)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.subutai.thumb",
+    "path": "assets/portraits/preview/thumb/subutai.webp",
+    "size": "256x343",
+    "bytes": 31016
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.subutai",
+   "style_ref": "assets/portraits/genghis_khan.png",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "verdict": "pass",
+    "issues": [
+     "설명에 없던 활·화살통을 등에 멤(무해, 유지)"
+    ],
+    "note": "챙 펠트 모자·적갈 가죽 찰갑·겨자색 소매",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 1,
+    "ok": 1,
+    "regenerations": 0
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 장수의 지략 이미지는 표정으로만",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "framing": {
+    "scale": 1.0429,
+    "by": "docker/gemini/portrait_framing.py fix",
+    "backup": "assets/portraits/_orig_framing/preview/subutai.png"
+   }
+  },
+  {
+   "key": "portrait.jebe",
+   "path": "assets/portraits/preview/jebe.png",
+   "type": "portrait",
+   "subtype": "hero_preview",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1181213,
+   "code": "jebe",
+   "name_ko": "제베",
+   "shelf": "ch18",
+   "side": "ally",
+   "era": "13세기 초(?~1223경)",
+   "culture": "steppe(mongol)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.jebe.thumb",
+    "path": "assets/portraits/preview/thumb/jebe.webp",
+    "size": "256x343",
+    "bytes": 27308
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.jebe",
+   "style_ref": "assets/portraits/genghis_khan.png",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "verdict": "pass",
+    "issues": [
+     "활을 손이 아니라 등에 멤(2차에서도 동일) — 궁수 정체성은 활·허리 화살통으로 읽힘"
+    ],
+    "note": "1차는 수부타이와 실루엣 중복 → 2차에서 몽골식 맨머리(깎은 정수리·앞머리·땋은 고리)로 구분",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 2,
+    "ok": 2,
+    "regenerations": 1
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 활(궁수 이미지)은 이름 뜻·전승 기반 게임 표현",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.borchu",
+   "path": "assets/portraits/preview/borchu.png",
+   "type": "portrait",
+   "subtype": "hero_preview",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1246749,
+   "code": "borchu",
+   "name_ko": "보르추",
+   "shelf": "ch18",
+   "side": "ally",
+   "era": "12~13세기(1162경~1227경)",
+   "culture": "steppe(mongol)",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.borchu.thumb",
+    "path": "assets/portraits/preview/thumb/borchu.webp",
+    "size": "256x343",
+    "bytes": 28848
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/portrait_campaign_gen.mjs(portrait_campaign_gen.sh) + portrait_campaign_style.mjs → portrait_campaign_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/portrait_campaign_style.mjs P.borchu",
+   "style_ref": "assets/portraits/genghis_khan.png",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "verdict": "pass",
+    "issues": [],
+    "note": "말총 술 투구·회색 땋은 머리·갈고리 창, 노장 인상",
+    "checks": "896x1200 RGBA, 썸네일 256x343, 마젠타 잔여 0, 어두운/밝은 배경 가장자리 헤일로 없음, 글자·문장·종교 상징 없음",
+    "calls": 1,
+    "ok": 1,
+    "regenerations": 0
+   },
+   "verify": true,
+   "verify_note": "생몰·용모 근거 약함 — 나이·수염만 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  }
+ ],
+ "framing_note": "2026-11-02 구도 정렬(얼굴 중심 y≈0.217) 적용분은 item.framing 참조. portrait_campaign_publish.mjs 를 다시 실행하면 out/ 의 보정 전 이미지로 덮어쓰므로 재실행 후 portrait_framing.py fix 를 다시 돌릴 것"
+}

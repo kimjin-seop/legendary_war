@@ -1,0 +1,93 @@
+{
+ "_note": "[임밸런 초안 / needs tuning] ch21(레그니차·모히)·ch22(파니파트) 스테이지 데이터가 참조하는 NPC 로스터 제안. 송서사의 docs/original_story/ch21_ch22_research.md 명단이 확정되면 코드명을 맞춘다(현재 SCENARIO_CH21_CH22_DESIGN.md 3절 코드 제안과 일치). 능력치는 npc_roster_v3.json 의 등급x병종 틀(같은 등급·병종 기존 NPC 값)을 그대로 따른 시작값이며 hero_stat_rules 자동 계산값으로 교체 가능. 이 파일은 시드되지 않는다(박백엔: heroes 행 시드 + npc_roster 병합 필요). template_hero 는 임밸런 시뮬 하네스 전용 필드(기존 NPC 행의 액티브/오라 복제용)이며 시드에서는 무시한다.",
+ "version": 1,
+ "status": "draft",
+ "culture_note": "EnemyV3Adapter::CULTURE_MAP 에 south_asia/middle_east 가 없어 npc_ibrahim_lodi, npc_babur 등의 culture 는 스테이지 culture(south_asia, 세트 default_fallback)로 폴백한다. 요청 R-2 참고.",
+ "items": [
+  {
+   "code": "npc_baidar", "name_ko": "바이다르", "short_name": "바이다르", "hanja": "Baidar",
+   "culture": "mongol", "era": "생몰년 미상(verify)", "faction": "대몽골 울루스", "troop_type": "cavalry", "unit_type": "cavalry",
+   "rarity": "A", "skill": "cavalry_charge", "aura": "aura_atk", "evidence_level": "accepted",
+   "appearance": "붉은 델과 가죽 흉갑, 털모자, 복합궁과 곡도", "note": "차가타이의 아들, 1241 폴란드 갈래 지휘관 중 하나(참전 accepted, 성격은 가설). 임무 우선형 말투.",
+   "used_in": ["ch21_s1"], "role": "ally_npc",
+   "hp_bonus": 18, "atk_bonus": 4, "def_bonus": 2, "growth_hp_pct": 3.8, "growth_atk_pct": 4.2, "growth_def_pct": 3.8, "cost": 4,
+   "flags": {"npc": true, "campaign_only": true, "obtainable": false, "gacha": false}, "is_invented": false, "is_hero_row": true,
+   "template_hero": "npc_subutai", "stat_basis": "A 기병 (npc_subutai 와 동일 틀)"
+  },
+  {
+   "code": "npc_kadan", "name_ko": "카단", "short_name": "카단", "hanja": "Qadan",
+   "culture": "mongol", "era": "생몰년 미상(verify)", "faction": "대몽골 울루스", "troop_type": "archer", "unit_type": "archer",
+   "rarity": "A", "skill": "horde_arrows", "aura": "aura_atk", "evidence_level": "accepted",
+   "appearance": "푸른 델 위 가죽 갑옷, 복합궁, 어깨 장식", "note": "오고타이의 아들, 폴란드 갈래 지휘관(참전 accepted, 카이두와 혼동 주의). 승부 우선형 말투. 기마궁수를 archer 병종으로 각색.",
+   "used_in": ["ch21_s1"], "role": "ally_npc",
+   "hp_bonus": 16, "atk_bonus": 4, "def_bonus": 1, "growth_hp_pct": 3.6, "growth_atk_pct": 4.1, "growth_def_pct": 3.7, "cost": 4,
+   "flags": {"npc": true, "campaign_only": true, "obtainable": false, "gacha": false}, "is_invented": false, "is_hero_row": true,
+   "template_hero": "npc_jebe", "stat_basis": "A 궁병 (npc_jebe 와 동일 틀)"
+  },
+  {
+   "code": "npc_batu", "name_ko": "바투", "short_name": "바투", "hanja": "Batu",
+   "culture": "mongol", "era": "1207경~1255(verify)", "faction": "대몽골 울루스", "troop_type": "cavalry", "unit_type": "cavalry",
+   "rarity": "A", "skill": "cavalry_charge", "aura": "aura_both", "evidence_level": "confirmed",
+   "appearance": "금실 장식 델, 철 투구, 곡도", "note": "서정군 총사령(confirmed). ch21_s2 아군 NPC. 레그니차 s1에는 언급만.",
+   "used_in": ["ch21_s2"], "role": "ally_npc",
+   "hp_bonus": 18, "atk_bonus": 4, "def_bonus": 2, "growth_hp_pct": 3.8, "growth_atk_pct": 4.2, "growth_def_pct": 3.8, "cost": 4,
+   "flags": {"npc": true, "campaign_only": true, "obtainable": false, "gacha": false}, "is_invented": false, "is_hero_row": true,
+   "template_hero": "npc_subutai", "stat_basis": "A 기병"
+  },
+  {
+   "code": "npc_henry_ii_pious", "name_ko": "헨리크 2세(경건공)", "short_name": "헨리크 2세", "hanja": "Henryk II Pobozny",
+   "culture": "hre", "era": "1190년대경(1191/1196/1207설 verify)~1241", "faction": "실레지아·폴란드 연합군", "troop_type": "heavy", "unit_type": "heavy",
+   "rarity": "B", "skill": null, "aura": "aura_def", "evidence_level": "confirmed", "appearance": "백색 외투 위 흑독수리 문장, 철 투구, 중기병 갑옷",
+   "note": "레그니차 연합군 지휘관, 전사(confirmed). 최후(효수 일화)는 연출 금지. 적 지휘관 유닛 - 능력치는 스테이지 hp_mult 로 조정하므로 로스터 능력치는 표시용.",
+   "used_in": ["ch21_s1"], "role": "enemy_commander",
+   "hp_bonus": 19, "atk_bonus": 3, "def_bonus": 2, "growth_hp_pct": 3.6, "growth_atk_pct": 3.3, "growth_def_pct": 3.6, "cost": 3,
+   "flags": {"npc": true, "campaign_only": true, "obtainable": false, "gacha": false}, "is_invented": false, "is_hero_row": true,
+   "template_hero": "npc_boorchu", "stat_basis": "B 중장 (npc_boorchu 와 동일 틀)"
+  },
+  {
+   "code": "npc_babur", "name_ko": "바부르", "short_name": "바부르", "hanja": "Babur",
+   "culture": "south_asia", "era": "1483~1530", "faction": "바부르 군(카불)", "troop_type": "archer", "unit_type": "archer",
+   "rarity": "A", "skill": "horde_arrows", "aura": "aura_both", "evidence_level": "confirmed", "appearance": "청색 외투와 가죽 갑옷, 기마궁수 활, 단검",
+   "note": "ch22 아군 NPC. heroes_candidates.csv 377행에 babur 후보가 있으나 DB 미등재. 가챠 영웅 babur 로 승격 계획이 있으면 이 NPC 코드와 충돌하므로 박백엔/문기획 확인 필요(현재 npc_babur 제안). 지휘관 오라 보유 A급 궁병.",
+   "used_in": ["ch22_s1"], "role": "ally_npc",
+   "hp_bonus": 16, "atk_bonus": 4, "def_bonus": 1, "growth_hp_pct": 3.6, "growth_atk_pct": 4.1, "growth_def_pct": 3.7, "cost": 4,
+   "flags": {"npc": true, "campaign_only": true, "obtainable": false, "gacha": false}, "is_invented": false, "is_hero_row": true,
+   "template_hero": "npc_jebe", "stat_basis": "A 궁병"
+  },
+  {
+   "code": "npc_ustad_ali_quli", "name_ko": "우스타드 알리 쿨리", "short_name": "알리 쿨리", "hanja": "Ustad Ali Quli",
+   "culture": "middle_east", "era": "생몰년 미상(verify)", "faction": "바부르 군(카불)", "troop_type": "archer", "unit_type": "archer",
+   "rarity": "B", "skill": null, "aura": null, "evidence_level": "accepted", "appearance": "터번과 가죽 앞치마, 화승 장비",
+   "note": "오스만 출신 포병 대장(파견 1513, accepted). 당일 역할 verify. 화기를 archer 병종으로 각색(화약 병종 없음).",
+   "used_in": ["ch22_s1"], "role": "ally_npc",
+   "hp_bonus": 13, "atk_bonus": 3, "def_bonus": 1, "growth_hp_pct": 3.2, "growth_atk_pct": 3.5, "growth_def_pct": 3.3, "cost": 3,
+   "flags": {"npc": true, "campaign_only": true, "obtainable": false, "gacha": false}, "is_invented": false, "is_hero_row": true,
+   "template_hero": "npc_jebe", "stat_basis": "B 궁병 (npc_kimura_shigekore 틀)"
+  },
+  {
+   "code": "npc_humayun", "name_ko": "후마윤", "short_name": "후마윤", "hanja": "Humayun",
+   "culture": "south_asia", "era": "1508~1556", "faction": "바부르 군(카불)", "troop_type": "cavalry", "unit_type": "cavalry",
+   "rarity": "B", "skill": null, "aura": "aura_atk", "evidence_level": "confirmed", "appearance": "붉은 외투, 가벼운 철 투구, 곡도",
+   "note": "바부르의 아들(confirmed). 파니파트 당일 역할 verify. ch22 cue spawn(turn 5)으로 합류하는 우회 기병대 지휘관(툴루그마 각색).",
+   "used_in": ["ch22_s1"], "role": "ally_npc_spawn",
+   "hp_bonus": 14, "atk_bonus": 4, "def_bonus": 2, "growth_hp_pct": 3.3, "growth_atk_pct": 3.6, "growth_def_pct": 3.3, "cost": 3,
+   "flags": {"npc": true, "campaign_only": true, "obtainable": false, "gacha": false}, "is_invented": false, "is_hero_row": true,
+   "template_hero": "npc_wei_yan", "stat_basis": "B 기병 (npc_wei_yan 틀)"
+  },
+  {
+   "code": "npc_ibrahim_lodi", "name_ko": "이브라힘 로디", "short_name": "이브라힘 로디", "hanja": "Ibrahim Lodi",
+   "culture": "south_asia", "era": "1480경(verify)~1526", "faction": "델리 술탄국", "troop_type": "cavalry", "unit_type": "cavalry",
+   "rarity": "B", "skill": null, "aura": "aura_def", "evidence_level": "confirmed", "appearance": "금빛 터번과 화려한 외투, 코끼리 위 호위",
+   "note": "델리 술탄, 파니파트 전사(confirmed). 적 지휘관 유닛 - 능력치는 스테이지 hp_mult 로 조정. 최후 연출 금지(생존 목표 승리 시 전장 붕괴로 처리).",
+   "used_in": ["ch22_s1"], "role": "enemy_commander",
+   "hp_bonus": 14, "atk_bonus": 4, "def_bonus": 2, "growth_hp_pct": 3.3, "growth_atk_pct": 3.6, "growth_def_pct": 3.3, "cost": 3,
+   "flags": {"npc": true, "campaign_only": true, "obtainable": false, "gacha": false}, "is_invented": false, "is_hero_row": true,
+   "template_hero": "npc_wei_yan", "stat_basis": "B 기병"
+  }
+ ],
+ "not_created": [
+  "벨러 4세(모히, 탈출했다고 전해지므로 이름 미사용·일반 지휘관 표기)",
+  "튜턴 기사단 분견대장(익명 generic, 포포 폰 오스터나 사용 금지)",
+  "오르다, 바츨라프 1세, 미에슈코 2세(오폴레), 다울라트 칸 로디, 비크라마지트: 언급 또는 미사용"
+ ]
+}

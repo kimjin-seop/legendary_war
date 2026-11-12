@@ -1,0 +1,270 @@
+{
+ "_note": "종장(ch999) '서고의 마지막 장'(가칭) 장면 대사. 원본(database/data) -> resources/js/game/data/dialogue 동기화 대상(두 파일 동일 유지). [v2 2026-11-08 P0 재설계, 송서사] 인과: a4_ending 에서 지음이 '별도 서가'(낱장이 처음부터 없는 서가 둘, 처리 담당 미정)로 분류해 둔 두 곳이 접수 기한을 맞는다 -> 쪽이 없는 자리에는 백지가 모여 인접 책장의 '누가 전했는가' 줄부터 비운다(정리 집행의 지워진 줄과는 다른 현상) -> 신호를 이어 올린 기록이 있는 인물만 이 복도에 설 수 있다(합류 이유) -> s1 지워진 줄(집행 잔재) 정리와 번호 표지(어긋난 번호 둘 = 별도 서가 둘), s2 신호 순서(이름 줄 연결), s3 호칭 낭독(쪽이=불씨가 남의 쪽에 호칭으로만 남은 사람들을 불러 칸을 채움; 서가 열여섯 칸은 읽히나 별도 서가 둘의 칸은 부를 호칭이 없어 남음), s4 백지: 쓰러뜨려도 다시 비므로 '지나간 자리에 있었다' 한 줄 기재(a1_open 의 보고 형식 '형용사 없음' 회수). 연출: 장면 대사는 Dialogue 씬 구조라 걷기·퇴장은 caption(지문) 줄로 표기했다. 신규 이동 연출 요청 목록은 보고서 참조(docs/CUTSCENE_ACTOR_WALK_20261108.md 설계 기준, 미구현). 서고 장면은 ch999_open / ch999_end 뿐이며 시오리 줄은 open 4줄·end 5줄, 스테이지 장면에는 시오리 0줄. 모든 서가(ch1, ch11~ch24)의 key 영웅과 메인 4막 인물이 조연으로 등장하며 각 서가 본편과 인과로 이어지지 않는 서고 안의 가공 장면이다. 이 장은 영웅 획득을 암시하지 않는다(영웅은 뽑기로만): unlock_hero 는 전 장면 null 이고 바하 앗딘 등 합류형 인물은 등장시키지 않는다. 교정관이 end 에서 밝히는 이름 '정오'는 신규 창작이며 변경 가능. 쪽이는 a4 에서 스스로 정한 이름 '불씨'를 대사에서 쓰되 화자 코드는 hero:npc_jjogi 를 유지한다(장면 줄의 실제 화자 코드는 hero:npc_bulssi). 유닛 id·좌표가 필요한 cue 는 맵 확정 후 채운다. [2026-11-09 전면 재집필: 장면 id·화자 코드·cue/camera 구조 유지, ch999_s4_post 의 unlock_hero 를 null 로, 바하 앗딘 줄 삭제]",
+ "version": 2,
+ "protagonist_rule": "주인공 호칭은 항상 '{protagonist_name} 님' 형태만 쓴다(이름 뒤 직접 조사 금지). 시오리는 서고 안에서 '{protagonist_name} 님', 전장 안내에서 '지휘관님'으로 부른다(같은 사람의 두 직함, a1_open 에서 설명).",
+ "speaker_profile": {
+  "protagonist": { "name": "{protagonist_name}", "note": "서고 순회원이자 서가에서 신호를 이어 올려 본 사람. 간결한 합쇼체, 숫자와 위치로 말한다" },
+  "shiori": { "name": "시오리" },
+  "hero:yi_sun_sin": { "name": "이순신", "note": "담담한 단문 하오체" },
+  "hero:heo_jun": { "name": "허준", "note": "부드럽고 차분한 말투, 몸의 상태를 먼저 본다" },
+  "hero:gang_gamchan": { "name": "강감찬", "note": "느린 하오체, 농담처럼 핵심을 말한다" },
+  "hero:zhou_yu": { "name": "주유", "note": "여유 있는 하오체, 칭찬이 한 박자 늦다" },
+  "hero:kim_yusin": { "name": "김유신", "note": "낮고 느린 하오체, 결정을 먼저 말한다" },
+  "hero:eulji_mundeok": { "name": "을지문덕", "note": "질문으로 말하는 하오체" },
+  "hero:scipio_africanus": { "name": "스키피오", "note": "낙천적인 하오체, 질문이 많다" },
+  "hero:joan_of_arc": { "name": "잔 다르크", "note": "짧고 곧은 문장, 돌려 말하지 않는다" },
+  "hero:alexander": { "name": "알렉산드로스", "note": "빠른 단문, 결정이 먼저다" },
+  "hero:genghis_khan": { "name": "칭기즈 칸", "note": "짧은 명령형, 군더더기가 없다" },
+  "hero:saladin": { "name": "살라딘", "note": "정중하고 차분한 하오체" },
+  "hero:oda_nobunaga": { "name": "오다 노부나가", "note": "건조하고 차가운 단문" },
+  "hero:npc_baidar": { "name": "바이다르", "note": "젊은 장수의 또렷한 합쇼체" },
+  "hero:npc_babur": { "name": "바부르", "note": "기록을 즐기는 말투, 풍경과 사람을 같이 말한다" },
+  "hero:william_i": { "name": "노르망디의 윌리엄", "note": "무거운 단언 하오체" },
+  "hero:charles_martel": { "name": "카를 마르텔", "note": "소박하고 투박한 하오체" },
+  "hero:npc_jieum": { "name": "지음", "note": "서고 지도관. 정확한 합쇼체, 숫자로 보고한다" },
+  "hero:npc_jjogi": { "name": "쪽이", "note": "4막에서 스스로 이름 '불씨'를 정한 인물(화자 코드는 유지). 짧고 담백한 평어" },
+  "hero:npc_gyojeong": { "name": "교정관", "note": "규정을 인용하는 정중한 합쇼체. 4막 이후 서고장 부재 중 직무 대행으로 남아 협조한다. 음성 전용" }
+ },
+ "arc": {
+  "chapter_question": "전한 말은 어디에 남는가",
+  "answer": "전한 말은 전한 사람의 줄에 남는다(ch999_end)",
+  "table": [
+   { "phase": "기", "scene": "ch999_open", "what": "별도 서가 둘의 접수 기한. 백지의 정체와 위협(전한 사람의 줄부터 빈다), 동행의 이유" },
+   { "phase": "기", "scene": "ch999_s1", "what": "겹쳐진 복도. 집행이 남긴 지워진 줄 정리, 어긋난 번호 둘 = 별도 서가 둘" },
+   { "phase": "승", "scene": "ch999_s2", "what": "신호의 방. 서가마다 다른 신호를 올린 순서 그대로 이름 줄을 잇는다" },
+   { "phase": "전", "scene": "ch999_s3", "what": "이름 없는 칸. 불씨가 남의 쪽에 호칭으로만 남은 사람들을 불러 칸을 채운다. 별도 서가 둘의 칸만 남는다" },
+   { "phase": "결", "scene": "ch999_s4", "what": "마지막 장. 쓰러뜨려도 다시 비는 백지에 '지나간 자리에 있었다' 한 줄을 적는다" },
+   { "phase": "결", "scene": "ch999_end", "what": "처리 기재, 교정관의 이름, 동행의 퇴장, 질문의 답" }
+  ]
+ },
+ "intervention_scene_ids": [],
+ "chapter": 999,
+ "scenes": [
+  {
+   "id": "ch999_open",
+   "stage_code": null,
+   "timing": "chapter_start",
+   "bg": "시간의 서고 가장 깊은 복도. 모든 책장의 등이 한 줄로 이어져 있고, 끝에 아직 아무것도 꽂히지 않은 칸이 하나 열려 있다",
+   "lines": [
+    { "speaker": "caption", "text": "서고 가장 깊은 복도. 마지막 책장 앞 접수대에 서류가 펼쳐져 있고, 담당 칸에 번진 흰 얼룩이 눈에 보일 만큼 천천히 넓어지고 있다." },
+    { "speaker": "shiori", "expr": "serious", "text": "정리 목록은 폐기됐고 집행도 끝났습니다. 그런데 이 복도만은 아직 치워지지 않았습니다." },
+    { "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "서식은 거둘 수 있어도 그어 둔 줄은 거둘 수 없습니다. 거둘 만큼은 거두었습니다. 이 얼룩은 제 서식에 항목이 없습니다." },
+    { "speaker": "hero:npc_jieum", "expr": "serious", "text": "별도 서가 둘입니다. 낱장이 처음부터 없고, 처리 담당 미정, 접수 기한은 오늘입니다. 기한을 넘기면 말소 대기로 넘어갑니다." },
+    { "speaker": "hero:npc_bulssi", "expr": "neutral", "text": "말소 대기면 어때서. 어차피 아무도 안 찾는 칸이잖아." },
+    { "speaker": "hero:npc_jieum", "expr": "neutral", "text": "찾는 사람이 없는 자리에는 다른 것이 모입니다. 백지입니다. 오늘 아침에는 일곱 번째 책장 등까지 번졌습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "번지면 무엇이 비게 됩니까." },
+    { "speaker": "hero:npc_jieum", "expr": "neutral", "text": "이웃 책장의 '누가 전했는가' 줄부터입니다. 기록은 남고 전한 사람이 사라집니다." },
+    { "speaker": "hero:npc_bulssi", "expr": "neutral", "text": "...봉화는 남고, 올린 놈만 지워진다는 소리네." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그 줄에는 제 이름도 있습니다. 마지막에 신호를 이어 올린 사람이 저였으니까요." },
+    { "speaker": "shiori", "expr": "neutral", "text": "그래서 이 복도에는 신호를 이어 올린 기록이 있는 분들만 모셨습니다. 책장마다 {protagonist_name} 님과 같은 줄에 서 있던 분들입니다." },
+    { "speaker": "caption", "text": "복도 저편에서 서로 다른 시대의 군기와 천막이 한 줄로 이어지고, 사람들이 한 명씩 걸어 들어와 접수대 앞에 선다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "책장마다 제가 서 있던 자리가 있었습니다. 그 자리를 다시 지나가는 길이군요." },
+    { "speaker": "hero:npc_jieum", "expr": "neutral", "text": "담당 칸이 비어 있습니다. 기재할 이름을 말씀해 주십시오." },
+    { "speaker": "hero:npc_bulssi", "expr": "neutral", "text": "부담스러우면 지금 말해. 나중엔 못 물려." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "제 이름으로 적어 주십시오. 기한 안에 처리하겠습니다." },
+    { "speaker": "hero:npc_jieum", "expr": "neutral", "text": "접수합니다. 직함이 하나 더 늘었습니다." },
+    { "speaker": "caption", "text": "일행이 복도 안쪽으로 걸음을 옮긴다. 이순신이 맨 앞에서 높은 책장 쪽을 가리킨다." },
+    { "speaker": "shiori", "expr": "smile", "text": "끝 칸이 왜 비어 있는지는 가는 길에 아시게 될 겁니다. 동행은 넉넉합니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch999_s1_pre",
+   "stage_code": "ch999_s1",
+   "timing": "before_battle",
+   "bg": "겹쳐진 복도. 서로 다른 시대의 군기와 천막이 한 줄로 이어지고, 바닥 곳곳에 붉은 줄이 그어진 쪽지가 흩어져 있다",
+   "lines": [
+    { "speaker": "caption", "text": "서고의 마지막 복도. 지워진 줄들이 먹그림자로 일어나 책장 사이를 막고 있다." },
+    { "speaker": "hero:npc_jieum", "expr": "serious", "text": "정리 집행이 남긴 지워진 줄이 이 복도에 몰려 있습니다. 책장 번호 표지 셋을 순서대로 읽어야 길이 열립니다. 표지가 가리키는 끝이 별도 서가 둘의 자리입니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "표지는 제가 읽겠습니다. 읽는 동안은 움직일 수 없으니 옆을 지켜 주실 분이 필요합니다." },
+    { "speaker": "caption", "text": "이순신이 높은 책장 아래로 걸어가 등을 돌리고 선다." },
+    { "speaker": "hero:yi_sun_sin", "expr": "neutral", "text": "등 뒤는 내가 보겠소. 봉수는 누가 올렸는지 적히지 않는 일이 많았소. 그 줄이 먼저 비는 거라면 내가 올 이유는 충분하오." },
+    { "speaker": "hero:heo_jun", "expr": "neutral", "text": "다친 쪽이 있으면 먼저 부르시오. 저 먹그림자도 낱장이 앓는 것일 뿐이오. 오래 앓은 자리가 더 거칠게 구는 법이고." },
+    { "speaker": "hero:npc_bulssi", "expr": "neutral", "text": "그림자가 줄 쪽으로 몰려와. 지워진 걸 아쉬워하는 건지 화내는 건지는 나도 몰라." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "첫 표지는 서쪽 책장 아래입니다. 읽는 데 한 라운드가 걸립니다. 그동안 대열을 흩뜨리지 마십시오." },
+    { "speaker": "caption", "text": "목표: 책장 번호 표지 세 곳을 순서대로 읽고 길을 연다. 지워진 줄을 정리하고 합류 구역에 도달한다. 주인공이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch999_s1_post",
+   "stage_code": "ch999_s1",
+   "timing": "after_clear",
+   "bg": "열린 복도. 먹그림자가 걷힌 자리에 낱장 몇 장이 가지런히 놓여 있다",
+   "lines": [
+    { "speaker": "hero:npc_jieum", "expr": "neutral", "text": "표지 셋 모두 일치했습니다. 어긋난 번호는 둘이었습니다. 별도 서가 둘의 번호와 같습니다. 칸이 비어 있어서 어긋난 것입니다." },
+    { "speaker": "hero:npc_bulssi", "expr": "neutral", "text": "저 끝 칸, 벌써 하얘지고 있어. 아까보다 한 뼘은 더." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "어긋난 칸은 장부에 따로 적어 두었습니다. 마지막 장에서 다시 맞춰 보겠습니다. 다음은 신호의 방이지요." },
+    { "speaker": "hero:yi_sun_sin", "expr": "neutral", "text": "가시오. 불은 서로 이어져야 먼 곳에 닿소." },
+    { "speaker": "caption", "text": "일행이 열린 복도를 따라 신호의 방 쪽으로 걸음을 옮긴다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch999_s2_pre",
+   "stage_code": "ch999_s2",
+   "timing": "before_battle",
+   "bg": "신호의 방. 높은 천장 아래 봉수대, 횃불 걸이, 깃대, 북, 호각이 놓인 탁자가 원을 이루고 있다",
+   "lines": [
+    { "speaker": "caption", "text": "신호의 방. 서가마다 쓰인 신호 도구가 원을 이루어 놓여 있다. 순서대로 올려야 닫힌 문이 열린다." },
+    { "speaker": "hero:npc_jieum", "expr": "neutral", "text": "신호 다섯은 서가마다 올린 순서 그대로여야 이름 줄이 이어집니다. 순서가 틀리면 줄이 끊깁니다." },
+    { "speaker": "hero:alexander", "expr": "neutral", "text": "깃발부터 올려라. 먼지가 걷히기 전에 알려야 한다." },
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "젊은 임금은 늘 깃발이 먼저군. 늙은이가 보기엔 순서가 도구보다 중요하오. 방이 닫히면 문 여는 값은 누가 치르겠소." },
+    { "speaker": "hero:alexander", "expr": "neutral", "text": "...서쪽부터 하겠다. 말하는 동안 깃발이 시들겠다." },
+    { "speaker": "hero:zhou_yu", "expr": "neutral", "text": "횃불은 바람이 바뀌는 때를 알아야 하오. 이 방에도 바람이 있소. 느껴 보시오, 천장 쪽에서 내려오고 있소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "각 신호 타일에 도구가 하나씩 있습니다. 서쪽부터 봉수, 횃불, 깃발, 북, 호각 순서입니다. 제가 하나씩 올리겠습니다." },
+    { "speaker": "hero:genghis_khan", "expr": "neutral", "text": "북은 마지막이다. 올리면 모두 움직인다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그러면 북을 올리기 전에 모두 제자리에 서 주십시오. 지워진 줄이 들어오는 틈은 제가 막겠습니다." },
+    { "speaker": "caption", "text": "목표: 신호 타일 다섯 곳을 순서대로 점화한다. 지워진 줄이 신호 타일을 차지하지 못하게 막는다. 주인공이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch999_s2_post",
+   "stage_code": "ch999_s2",
+   "timing": "after_clear",
+   "bg": "신호의 방. 다섯 신호가 한꺼번에 올라 천장 아래 불빛이 겹치고, 안쪽 문이 천천히 열린다",
+   "lines": [
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "서로 다른 신호가 같은 문을 열었소. 같은 문장을 두 번 쓰는 일과 닮았소." },
+    { "speaker": "hero:oda_nobunaga", "expr": "neutral", "text": "거리를 재고 올린 신호다. 늦지도 이르지도 않았다." },
+    { "speaker": "hero:scipio_africanus", "expr": "neutral", "text": "느린 자와 빠른 자가 같은 방에 있었구려. 그래서 누가 이긴 것이오?" },
+    { "speaker": "protagonist", "expr": "neutral", "text": "이긴 것은 순서입니다. 장부에 순서를 적어 두겠습니다." },
+    { "speaker": "hero:eulji_mundeok", "expr": "neutral", "text": "그 장부를 읽을 이는 누구요? 안쪽 문 너머에서 기다리는 건 이름 없는 칸이오." },
+    { "speaker": "caption", "text": "안쪽 문이 완전히 열리고, 일행이 문턱을 한 명씩 넘어 이름 없는 칸으로 들어선다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch999_s3_pre",
+   "stage_code": "ch999_s3",
+   "timing": "before_battle",
+   "bg": "이름 없는 칸의 서고. 낮은 책장 가득 이름이 지워진 쪽지가 꽂혀 있고, 가운데 탁자에 두꺼운 장부가 펼쳐져 있다",
+   "lines": [
+    { "speaker": "caption", "text": "이름 없는 칸. 서가마다 맨 뒤에 남은, 이름 없이 자리만 적힌 칸들이 모여 있다." },
+    { "speaker": "hero:kim_yusin", "expr": "neutral", "text": "전하지 못한 말이 이곳에 모였군. 어디서 멈췄는지 아는 사람이 읽어야 하오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "길 위에서 이름을 얻지 못한 사람이 많습니다. 그들을 불러야 합니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "장부 세 곳에 낭독 자리가 있습니다. 한 곳에서 두 라운드씩 읽으면 칸의 이름이 돌아옵니다. 읽는 동안 지워진 줄이 몰려올 것입니다." },
+    { "speaker": "hero:npc_bulssi", "expr": "neutral", "text": "읽는 건 네가 해. 나는 칸에 맞는 호칭을 불러 줄게. 외우는 건 내 일이야." },
+    { "speaker": "hero:npc_baidar", "expr": "neutral", "text": "낭독 자리 옆은 제가 맡겠습니다. 서쪽 책장 길목을 막겠습니다." },
+    { "speaker": "hero:npc_babur", "expr": "neutral", "text": "나는 북쪽 창가에서 빛이 드는 쪽을 보겠소. 읽는 이의 눈이 부시면 글자가 달아나오." },
+    { "speaker": "hero:william_i", "expr": "neutral", "text": "문은 내가 닫겠소. 한 번 닫으면 열리지 않게." },
+    { "speaker": "hero:charles_martel", "expr": "neutral", "text": "나는 방패 쪽이오. 읽는 사람 앞이 비면 안 되오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그렇게 서 주십시오. 낭독 자리에서 제가 움직이지 않는 동안이 가장 위험합니다." },
+    { "speaker": "caption", "text": "목표: 낭독 자리 세 곳을 각 두 라운드씩 확보한다. 지워진 줄이 낭독 자리를 점거하면 그 라운드는 무효가 된다. 주인공이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch999_s3_post",
+   "stage_code": "ch999_s3",
+   "timing": "after_clear",
+   "bg": "이름 없는 칸의 서고. 지워졌던 쪽지에 얇은 글씨가 하나씩 돌아오고, 책장 사이로 빛이 한 줄 들어온다",
+   "lines": [
+    { "speaker": "caption", "text": "지워졌던 쪽지마다 이름 칸 옆에 호칭이 한 줄씩 돌아온다. 쪽이가 책장을 따라 걸으며 손끝으로 칸을 하나씩 짚는다." },
+    { "speaker": "hero:npc_bulssi", "expr": "neutral", "text": "내가 외운 것 중에 이 자리 호칭이 있었어. 봉군, 사공, 마부, 양초지기, 길잡이. 이름은 아니야. 그래도 칸이 받아 줬어." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "불씨 님이 부른 호칭이 칸에 맞았습니다. 자리가 있으면 누가 와서 채울 수 있습니다." },
+    { "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "규정상 빈칸은 기록자가 채웁니다. 호칭만으로 접수되는 칸은 처음입니다. 오늘 이 칸들의 기록자가 정해졌습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "읽은 칸은 모두 열여섯입니다. 서가 수와 같습니다. 칸마다 서 있던 자리를 하나씩 적었습니다." },
+    { "speaker": "hero:npc_jieum", "expr": "serious", "text": "열여섯 칸이 읽혔습니다. 별도 서가 둘의 칸은 그 안에 없습니다. 부를 호칭이 어느 쪽에도 없기 때문입니다. 마지막 장으로 가는 문이 열렸습니다. 이 앞에는 백지가 있습니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch999_s4_pre",
+   "stage_code": "ch999_s4",
+   "timing": "before_battle",
+   "bg": "마지막 장의 방. 천장도 바닥도 흰 종이처럼 비어 있고, 가운데에 아직 아무것도 적히지 않은 큰 쪽이 서 있다",
+   "lines": [
+    { "speaker": "caption", "text": "마지막 장. 아무것도 적히지 않은 백지가 모든 글자를 지우려 한다. 그 앞에 마지막 칸이 열려 있다." },
+    { "speaker": "hero:npc_jieum", "expr": "serious", "text": "백지는 지워진 줄과 다릅니다. 처음부터 적히지 않은 자리입니다. 쓰러뜨려도 칸이 채워지지 않으면 다시 비어 갑니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그러면 두 가지가 필요하겠군요. 백지를 약하게 만들고, 마지막 칸에 닿아 한 줄을 쓰는 일입니다." },
+    { "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "별도 서가는 제 서식 밖이었습니다. 쓸 문장이 있다면 접수 형식은 제가 맞추겠습니다." },
+    { "speaker": "caption", "text": "이순신이 일행의 앞으로 걸어 나가 백지와 마주 선다." },
+    { "speaker": "hero:yi_sun_sin", "expr": "neutral", "text": "백지의 힘이 절반으로 꺾이면 길이 열리오. 그때까지 내가 앞을 맡겠소." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "서두르지 마십시오. 한 줄을 쓰는 사람이 서 있을 자리부터 만드는 게 먼저입니다." },
+    { "speaker": "hero:heo_jun", "expr": "neutral", "text": "쓰는 손이 떨리면 안 되오. 숨부터 고르시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "마지막 칸까지의 길은 제가 이미 헤아렸습니다. 움직이기 전에 대열을 두 겹으로 세워 주십시오." },
+    { "speaker": "caption", "text": "목표: 백지의 힘을 절반 이하로 꺾고 마지막 칸 타일에 닿아 한 줄을 적는다. 백지를 쓰러뜨린다. 주인공이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch999_s4_post",
+   "stage_code": "ch999_s4",
+   "timing": "after_clear",
+   "bg": "마지막 장의 방. 백지 가운데에 가는 글씨가 한 줄 번지고, 흰 벽이 천천히 책장 모양으로 돌아온다",
+   "lines": [
+    { "speaker": "caption", "text": "마지막 칸에 한 줄이 적혔다. 백지는 쪽지 하나로 접혀 책장 사이에 꽂혔다." },
+    { "speaker": "hero:npc_jieum", "expr": "neutral", "text": "마지막 칸이 일치했습니다. 별도 서가 둘의 담당 칸에 기재가 들어갔습니다. 이 책은 제본 가능한 상태입니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "제가 쓴 문장은 짧았습니다. 지나간 자리에 있었다, 그뿐입니다." },
+    { "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "형용사가 없군요. ...한 줄이 이렇게 무거운 건 처음 봅니다. 접수하겠습니다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "증인 없이도 서는 문장이오. 읽는 사람만 있으면." },
+    { "speaker": "hero:npc_bulssi", "expr": "neutral", "text": "이 칸은 이제 비어 있지 않네. 내 칸도 그랬어. 그래서 알아." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch999_end",
+   "stage_code": null,
+   "timing": "chapter_end",
+   "bg": "시간의 서고. 가장 깊은 복도 끝 칸에 책 한 권이 꽂혀 있고, 모든 책장의 등이 같은 높이로 맞아 있다",
+   "lines": [
+    { "speaker": "caption", "text": "복도 끝 칸에 책 한 권이 꽂힌다. 등에는 제목 대신 줄 하나가 적혀 있다." },
+    { "speaker": "shiori", "expr": "neutral", "text": "마지막 칸이 채워졌습니다. 이 서고의 책은 이제 한 줄로 이어졌습니다." },
+    { "speaker": "hero:npc_jieum", "expr": "neutral", "text": "별도 서가 둘, 담당 칸 기재 완료. 처리 기한 내 접수입니다. 처리 방식은 한 줄 기재, '지나간 자리에 있었다'." },
+    { "speaker": "caption", "text": "접수대 위에서 서식 한 장이 스스로 펼쳐진다. 맨 아래 이름 칸에 먹이 마르고 있다." },
+    { "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "서식에 이름을 적었습니다. 정오입니다. 틀린 글자를 바로잡는다는 정오(正誤)의 그 정오입니다." },
+    { "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "지금까지는 그 뜻으로만 일했습니다. 바로잡을 글자보다 읽을 사람을 먼저 세어야 했다는 것을 이번에 알았습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "정오 님. 읽히는 이름입니다." },
+    { "speaker": "hero:npc_bulssi", "expr": "neutral", "text": "정오. 외웠어." },
+    { "speaker": "hero:heo_jun", "expr": "neutral", "text": "환자 명단에 의원 이름도 있어야 하는 법이오. 이제 서고 장부에도 있소." },
+    { "speaker": "shiori", "expr": "neutral", "text": "모셨던 분들은 각자의 책장으로 돌아가십니다. 신호가 이어진 자리까지만 오실 수 있는 분들이었습니다." },
+    { "speaker": "caption", "text": "동행했던 이들이 한 명씩 복도를 거슬러 걸어가 각자의 책장 앞에서 걸음을 멈춘다. 이순신이 마지막으로 돌아서서 짧게 목례한다." },
+    { "speaker": "hero:yi_sun_sin", "expr": "neutral", "text": "신호는 받았소. 불 올리던 이름 없는 사람들에게 안부를 전해 주시오. ...돌아가겠소." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "나도 내 책장으로 가오. 이 서고의 기록은 이제 서고 사람들 몫이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "한 줄 보고 올리겠습니다. 본 것, 백지 하나와 별도 서가 둘. 한 일, 호칭 낭독과 한 줄 기재. 남은 것, 읽는 사람." },
+    { "speaker": "hero:npc_jieum", "expr": "neutral", "text": "접수. 형용사 없음. 반려 항목 없음. 제 구분 칸은 임시 그대로 둡니다. 다만 이번 지도는 제 서명으로 확정합니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "직함이 셋이 되었습니다. 지휘관, 순회원, 담당자." },
+    { "speaker": "shiori", "expr": "smile", "text": "서고는 늘 사람이 모자랍니다. 한 분이 여러 자리를 맡으시지요." },
+    { "speaker": "shiori", "expr": "neutral", "text": "전한 말은 전한 사람의 줄에 남습니다. 그 줄을 읽는 분이 계신 한 서고는 닫히지 않습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "채운 것은 제 한 줄이지만, 읽는 사람이 있어야 남겠지요." },
+    { "speaker": "shiori", "expr": "smile", "text": "읽는 분은 늘 오십니다. 그때까지 책장을 지키겠습니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  }
+ ],
+ "battle_cues": {
+  "ch999_s1": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "서로 다른 시대의 먼지 냄새가 한 복도에 겹쳐 있다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "page_marker_1", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 번째 표지를 읽었습니다. 일치합니다." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "marker_3_read" } }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "복도가 열립니다." }
+  ],
+  "ch999_s2": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "천장 아래 다섯 신호 도구가 숨을 죽인 듯 서 있다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal_1", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "봉수를 올렸습니다. 다음은 횃불입니다." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "signal_5_up" } }, "do": "sfx", "key": "sfx_battle_roar" }
+  ],
+  "ch999_s3": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "펼쳐진 장부 위로 먹물 냄새가 낮게 번진다." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "reading_1_done" } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 번째 칸을 읽었습니다. 이름이 돌아옵니다." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "reading_3_done" } }, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "세 칸 모두 접수되었습니다." }
+  ],
+  "ch999_s4": [
+   { "on": { "battle_start": true }, "do": "camera", "mode": "overview", "ms": 900 },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "흰 방 한가운데에서 아무 소리도 나지 않는다. 그 침묵이 천천히 번져 온다." },
+   { "on": { "turn": 1, "when": { "type": "hp_pct_lte", "unit": "boss", "pct": 50 } }, "do": "say", "speaker": "hero:yi_sun_sin", "expr": "serious", "text": "힘이 꺾였소. 지금이오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "last_line", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "마지막 칸입니다. 한 줄을 씁니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "last_line", "tiles": [] } }, "do": "sfx", "key": "sfx_page_turn" }
+  ]
+ }
+}

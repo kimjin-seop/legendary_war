@@ -1,0 +1,820 @@
+{
+ "note": "퀘스트 화면 UI + 상단 로고 변형(안아트 2026-11-04, 호출 0, 재가공만). 키 ui.quest.*, ui.logo.{topbar,emblem,plaque}",
+ "assets": [
+  {
+   "key": "ui.quest.card.normal",
+   "path": "assets/ui/quest/card_normal@2x.png",
+   "type": "image",
+   "size": [
+    68,
+    68
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 5988,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "slice_mode": "9",
+   "slice_px_at_2x": {
+    "l": 30,
+    "r": 30,
+    "t": 30,
+    "b": 30
+   },
+   "variants": {
+    "x1": "assets/ui/quest/card_normal.png"
+   },
+   "note": "퀘스트 카드(진행 중·기본)",
+   "src": "atlas.uiskin#panel.sub"
+  },
+  {
+   "key": "ui.quest.card.claimable",
+   "path": "assets/ui/quest/card_claimable@2x.png",
+   "type": "image",
+   "size": [
+    84,
+    84
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 8933,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "slice_mode": "9",
+   "slice_px_at_2x": {
+    "l": 38,
+    "r": 38,
+    "t": 38,
+    "b": 38
+   },
+   "variants": {
+    "x1": "assets/ui/quest/card_claimable.png"
+   },
+   "note": "수령 가능 카드(밝은 금 테두리 + 바깥 금빛 글로우, 바깥 패딩 8px@2x 포함 — 배치 시 카드 영역보다 8px 크게)",
+   "src": "atlas.uiskin#panel.sub"
+  },
+  {
+   "key": "ui.quest.card.done",
+   "path": "assets/ui/quest/card_done@2x.png",
+   "type": "image",
+   "size": [
+    68,
+    68
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 5498,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "slice_mode": "9",
+   "slice_px_at_2x": {
+    "l": 30,
+    "r": 30,
+    "t": 30,
+    "b": 30
+   },
+   "variants": {
+    "x1": "assets/ui/quest/card_done.png"
+   },
+   "note": "수령 완료 카드(채도·밝기 낮춤)",
+   "src": "atlas.uiskin#panel.sub"
+  },
+  {
+   "key": "ui.quest.banner",
+   "path": "assets/ui/quest/banner_top@2x.webp",
+   "type": "image",
+   "size": [
+    1100,
+    330
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 37698,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "variants": {
+    "x1": "assets/ui/quest/banner_top.webp"
+   },
+   "src": "bg.archive.hall(크롭 + 왼쪽·아래 알파 페이드)",
+   "note": "퀘스트 화면 우상단 장면 배너(오른쪽 위 정렬, 왼쪽으로 패널에 녹아듦). 회원 가입 버튼은 atlas.uiskin btn.primary 를 위에 얹음"
+  },
+  {
+   "key": "ui.quest.thumb.legnica_castle_plain",
+   "path": "assets/ui/quest/thumb/legnica_castle_plain.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 5338,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.legnica.castle_plain",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.imjin_fleet_dawn",
+   "path": "assets/ui/quest/thumb/imjin_fleet_dawn.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 4136,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.imjin.fleet_dawn",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.archive_ink",
+   "path": "assets/ui/quest/thumb/archive_ink.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 12636,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.archive.ink",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.panipat_dry_plain",
+   "path": "assets/ui/quest/thumb/panipat_dry_plain.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 6990,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.panipat.dry_plain",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.mongol_winter_steppe",
+   "path": "assets/ui/quest/thumb/mongol_winter_steppe.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 5986,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.mongol.winter_steppe",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.gaugamela_plain",
+   "path": "assets/ui/quest/thumb/gaugamela_plain.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 5674,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.gaugamela.plain",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.imjin_river",
+   "path": "assets/ui/quest/thumb/imjin_river.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 13538,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.imjin.river",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.imjin_fortress",
+   "path": "assets/ui/quest/thumb/imjin_fortress.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 8690,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.imjin.fortress",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.imjin_pyongyang_winter",
+   "path": "assets/ui/quest/thumb/imjin_pyongyang_winter.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 9038,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.imjin.pyongyang_winter",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.imjin_haengju_sunset",
+   "path": "assets/ui/quest/thumb/imjin_haengju_sunset.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 9558,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.imjin.haengju_sunset",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.imjin_night_sea",
+   "path": "assets/ui/quest/thumb/imjin_night_sea.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 3814,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.imjin.night_sea",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.battle_plain_a",
+   "path": "assets/ui/quest/thumb/battle_plain_a.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 6244,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.battle.plain.a",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.screen_gacha",
+   "path": "assets/ui/quest/thumb/screen_gacha.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 23042,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.screen.gacha",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.battle_castle_a",
+   "path": "assets/ui/quest/thumb/battle_castle_a.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 11862,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.battle.castle.a",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.orleans_patay_field",
+   "path": "assets/ui/quest/thumb/orleans_patay_field.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 10630,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.orleans.patay_field",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.hastings_ridge",
+   "path": "assets/ui/quest/thumb/hastings_ridge.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 6090,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.hastings.ridge",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.archive_hall",
+   "path": "assets/ui/quest/thumb/archive_hall.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 13516,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.archive.hall",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.quest.thumb.archive_deep",
+   "path": "assets/ui/quest/thumb/archive_deep.webp",
+   "type": "image",
+   "size": [
+    320,
+    192
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 12528,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    96
+   ],
+   "src": "bg.archive.deep",
+   "note": "퀘스트 카드 왼쪽 장면 썸네일(5:3, 표시 160x96). 카드 왼쪽 모서리는 FE 가 둥근 마스크 또는 카드 프레임 아래 배치",
+   "corner_radius": {
+    "x1": 4,
+    "x2": 8
+   },
+   "tone": "장면별 자동 밝기(평균 0.46 목표, 감마+밝기) · 대비 1.12 · 채도 1.35 · 따뜻한 톤(R×1.06 G×1.02 B×0.92) — FE 가산 혼합 보정 제거 가능",
+   "revision": "r2(2026-11-04)"
+  },
+  {
+   "key": "ui.logo.topbar",
+   "path": "assets/ui/logo_topbar@2x.webp",
+   "type": "image",
+   "size": [
+    432,
+    144
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 24372,
+   "scope": "boot",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    216,
+    72
+   ],
+   "variants": {
+    "x1": "assets/ui/logo_topbar.webp"
+   },
+   "src": "ui.logo.header@2x(사용자 제공)",
+   "note": "로비 상단 바용 로고(문장 + 현판 + 글자 일체형, 표시 높이 72)"
+  },
+  {
+   "key": "ui.logo.emblem",
+   "path": "assets/ui/logo_emblem@2x.webp",
+   "type": "image",
+   "size": [
+    134,
+    144
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 12552,
+   "scope": "boot",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    67,
+    72
+   ],
+   "variants": {
+    "x1": "assets/ui/logo_emblem.webp"
+   },
+   "src": "ui.logo.header@2x 왼쪽 문장",
+   "note": "문장(방패·왕관·교차 검·리본)만. 좁은 화면·접힌 상단 바용"
+  },
+  {
+   "key": "ui.logo.plaque",
+   "path": "assets/ui/logo_plaque@2x.webp",
+   "type": "image",
+   "size": [
+    432,
+    144
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 19676,
+   "scope": "boot",
+   "generator": {
+    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    216,
+    72
+   ],
+   "variants": {
+    "x1": "assets/ui/logo_plaque.webp"
+   },
+   "src": "ui.logo.header@2x(글자 영역만 지움)",
+   "text_box_at_1x": {
+    "x": 59,
+    "y": 19,
+    "w": 115,
+    "h": 29
+   },
+   "note": "문장 + 글자 없는 현판(글자는 FE 렌더: 금색 #F2C45A~#B8862E 세로 그라데이션, 짙은 갈색 외곽선 2px, 굵은 세리프풍 한글). 아래 백합 장식선은 유지"
+  },
+  {
+   "key": "ui.quest.btn.progress",
+   "path": "assets/ui/quest/btn_progress@2x.png",
+   "type": "image",
+   "size": [
+    300,
+    88
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 3273,
+   "scope": "lazy",
+   "scale": "@2x",
+   "display": [
+    150,
+    44
+   ],
+   "variants": {
+    "x1": "assets/ui/quest/btn_progress.png"
+   },
+   "slice_mode": "3h",
+   "slice_px_at_2x": {
+    "l": 26,
+    "r": 26,
+    "t": 0,
+    "b": 0
+   },
+   "slice_px_at_1x": {
+    "l": 13,
+    "r": 13,
+    "t": 0,
+    "b": 0
+   },
+   "note": "퀘스트 '진행 중' 상태 버튼(진한 남색 + 얇은 금테, 아래 4px@2x 그림자 포함). 글자 #E6D8B0 + '›'. 수령 가능 = ui.quest.btn.claim(= atlas.uiskin#btn.primary.normal 재사용)",
+   "generator": {
+    "script": "docker/gemini/quest_fix_pp.py(벡터 드로잉)",
+    "calls": 0
+   },
+   "license": "자체 제작"
+  },
+  {
+   "key": "ui.quest.btn.claim",
+   "alias_of": "atlas.uiskin#btn.primary.normal",
+   "path": "assets/ui_skin/atlas/ui_skin@3x.png",
+   "type": "atlas_frame_alias",
+   "atlas": "atlas.uiskin",
+   "frame": "btn.primary.normal",
+   "glow_frame": "btn.glow",
+   "note": "수령 가능 버튼 = 아틀라스 프레임 재사용(파일 추가 없음). 상자 아이콘 result.ico.chest.sm"
+  }
+ ]
+}

@@ -1,0 +1,5138 @@
+{
+ "_note": "[임밸런 / 초안] ch22 신규 스테이지 7개(s1,s2,s3,s4,s6,s7,s8). 파니파트는 stages_ch22_panipat.json(박백엔이 ch22_s5로 재코딩). 수치는 시작값(needs tuning). 시드 미적재. cues 대사 본문은 임시 초안(cue_text_status=draft, 송서사가 교체), 판정 필드(on/do/tile/unit/spawn/retreat/win_*/lose_*)는 확정. 설계 근거: docs/original_story/ch21_ch22_8stage_outline.md. npc_* 중 draft2 로스터(docs/original_story/ch21_ch22_npc_roster_draft2.json)에만 있는 코드는 박백엔 등록 후 사용 가능(시뮬은 template_hero 합성 행으로 측정).",
+ "version": 1,
+ "chapter": 22,
+ "shelf_code": "ch22",
+ "status": "draft",
+ "schema": "stages_ch22_panipat.json / stages_ch18_mongol.json 과 같은 구조(stages 행 필드 + enemy_squads/triggers/units_flat_initial + rules{factions,ally_npcs,enemy_commander,cues,sub_objectives,win_mode,win_conditions,lose_conditions,max_turns}). EnemyV3Adapter::convert 입력.",
+ "maps_used": {
+  "pk_04_hill_claim": {
+   "id_dev": 154,
+   "size": [
+    24,
+    16
+   ]
+  },
+  "pk_18_wall_breach": {
+   "id_dev": 170,
+   "size": [
+    28,
+    20
+   ]
+  },
+  "pk_13_crossroads": {
+   "id_dev": 160,
+   "size": [
+    24,
+    16
+   ]
+  },
+  "pk_09_swamp_detour": {
+   "id_dev": 158,
+   "size": [
+    24,
+    16
+   ]
+  },
+  "pk_07_oasis": {
+   "id_dev": 156,
+   "size": [
+    24,
+    16
+   ]
+  },
+  "pk_20_grand_mixed": {
+   "id_dev": 168,
+   "size": [
+    28,
+    20
+   ]
+  },
+  "pk_14_twin_rivers": {
+   "id_dev": 166,
+   "size": [
+    28,
+    20
+   ]
+  }
+ },
+ "verify_events": [
+  "카불 1504 수비대장 이름(무킴/압둘 베그 표기 상충)",
+  "바자우르 일자(1/4~7)와 '최초 화기' 표현",
+  "라호르 승패 서술 상충·다울라트 칸 이탈 시점",
+  "히사르 피로자 선발 100~150·후마윤 나이",
+  "칸와 상가 선접촉 여부·후송 시점",
+  "고그라 상류 도하대 지휘(아스카리)와 후마윤 현장 존재, 셰르 샤 이탈"
+ ],
+ "items": [
+  {
+   "code": "ch22_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "바부르 군",
+     "enemy": "카불 수비대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_babur",
+      "x": 9,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_khwaja_kalan",
+      "x": 8,
+      "y": 11,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "카불 수비대장",
+     "hero": null
+    },
+    "max_turns": 18,
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1504년 10월, 카불. 눈이 오기 전에 고개를 넘어 온 사람들이 성채 앞에 섰다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "고향은 잃었지만 길은 얻었네. 저 안 사람들과는 칼보다 말을 오래 섞고 싶군.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "성채 구역 두 칸을 이틀 쥐고 있으면 문이 열린다지요. 그 칸부터 보겠습니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       24,
+       12
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "성채 구역은 낮은 담으로 둘러싸였다. 담 뒤에서 궁수들이 자리를 잡는다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "성 안에서 전갈을 든 사람이 나왔다. 외곽 창병 둘이 성채 쪽으로 물러선다."
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "retreat",
+      "unit": "UNIT@22,15"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "retreat",
+      "unit": "UNIT@23,15"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "말하러 나온 사람이 있으면 문은 반쯤 열린 걸세. 서두르면 도로 닫히네.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "turn": 8
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "기록에는 '터를 얻었다' 한 줄이겠지요. 이 칸에 선 사람들은 그 한 줄이 얼마짜리인지 압니다.",
+      "expr": "neutral"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "babur",
+      "type": "unit_survive",
+      "unit": "hero:npc_babur",
+      "label": "바부르를 지켜라"
+     }
+    ]
+   },
+   "name": "카불의 성문",
+   "year_label": "1504년",
+   "chapter": 22,
+   "shelf_code": "ch22",
+   "map": "su_pk04_hill_claim_ind",
+   "map_id_dev": 154,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      24,
+      12
+     ],
+     [
+      25,
+      12
+     ],
+     [
+      24,
+      13
+     ],
+     [
+      25,
+      13
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 15,
+   "enemy_level": 15,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 10,
+   "difficulty": 7,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_babur",
+     "npc_khwaja_kalan"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(아군 NPC, rules.ally_npcs). 측정은 파티 3영웅(주인공+일반 영웅 2) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_babur"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카불 수비대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 2.6
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       26,
+       13
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       27,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "카불 수비 창병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "성채 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       24,
+       11
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       24,
+       14
+      ],
+      [
+       25,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "카불 수비 보병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "성채 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       26,
+       10
+      ],
+      [
+       27,
+       10
+      ],
+      [
+       26,
+       15
+      ],
+      [
+       27,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "카불 수비 궁병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수비대 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       17
+      ],
+      [
+       28,
+       17
+      ],
+      [
+       27,
+       18
+      ],
+      [
+       28,
+       18
+      ]
+     ],
+     "hold_until_turn": 3,
+     "soldier_display_name_ko": "카불 수비 기병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수비대 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       22,
+       10
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       22,
+       15
+      ],
+      [
+       23,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "카불 외곽 창병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 20,
+   "enemy_units_peak": 20,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      26,
+      13
+     ],
+     "name": "카불 수비대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      27,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      24,
+      11
+     ],
+     "name": "성채 보병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      14
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      10
+     ],
+     "name": "성채 궁병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      27,
+      17
+     ],
+     "name": "수비대 기병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      17
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      18
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      18
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      22,
+      10
+     ],
+     "name": "수비대 창병대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      10
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      15
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      15
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1060,
+    "exp": 1537,
+    "gold": 1378,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "75~85 (목표 중앙 약 80)",
+   "sort_order": 2201,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "카불 장악 1504-10은 accepted(단일 출처 verify). 아르군 무킴 이름 표기가 위키 안에서 상충(verify) -> 수비대장 익명. 몽골계 병사 귀순은 citation needed라 사용하지 않음.",
+    "협상으로 일부 수비병이 물러난 연출(turn 5 retreat)은 각색. 힌두쿠시 눈 풍경은 일반 서술(verify, 날씨 미구현이라 대사로만)."
+   ],
+   "cue_text_status": "final (송서사가 say/caption 본문 교체 완료 2026-11-03. on/do/tile/unit/spawn/retreat/terrain_change 등 판정 필드는 확정)",
+   "adapted_note": "화기 없음. 성채=pk_04 마을 타일 4칸 점령(수비대 보병·궁병이 지킴). 협상=turn 5 cue retreat(외곽 창병 2기 이탈, 사망 아님).",
+   "engine_requests": [
+    "D-22-1 눈 덮인 고개/협상 분기 선택지(미구현). 협상은 retreat cue로 근사"
+   ],
+   "measured": {
+    "win_pct": 68,
+    "ci95": [
+     61.2,
+     74.1
+    ],
+    "n": 200,
+    "seeds": [
+     81,
+     82
+    ],
+    "avg_rounds_win": 9,
+    "turn_limit_pct": 0,
+    "sim": "rsim2 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning) / LANE/NOFE/GOTO 환경값은 스테이지별 기존 설정 유지, ch22_s5는 NOFE=1",
+    "note": "commander_guard 켬. 승리 106/200이 점령 목표. guard 끄면 66%(n100) TL2%, 점령 승리 5건뿐"
+   },
+   "design_notes": [
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_khwaja_kalan(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ]
+  },
+  {
+   "code": "ch22_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "바부르 군",
+     "enemy": "바자우르 수비대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_ustad_ali_quli",
+      "x": 8,
+      "y": 12,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         15,
+         10
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 2
+      }
+     },
+     {
+      "hero": "npc_babur",
+      "x": 7,
+      "y": 14,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "바자우르 수비대장",
+     "hero": null
+    },
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "사격 지점에 화승총 진지를 세운다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "player_hero_any",
+       "tiles": [
+        [
+         15,
+         9
+        ],
+        [
+         15,
+         10
+        ],
+        [
+         16,
+         9
+        ],
+        [
+         16,
+         10
+        ]
+       ]
+      }
+     },
+     {
+      "label": "성문 수비병 12기 이하",
+      "latch": false,
+      "when": {
+       "type": "alive_count",
+       "side": "b",
+       "op": "lte",
+       "value": 12,
+       "kind": "any"
+      }
+     }
+    ],
+    "max_turns": 14,
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1519년 1월, 바자우르. 성문은 닫혀 있고, 그 앞 마른 땅에 쇠 총신을 실은 수레가 멈췄다. 바퀴 소리가 그치자 바람 소리만 남는다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_ustad_ali_quli",
+      "text": "사거리가 짧습니다. 문에서 두 칸 안까지만 데려다 주십시오. 그 안이면 맞힙니다. 폐하, 그 안까지만.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "이 소리가 사람들에게 무슨 짓을 할지는 나도 모르네. 쏴 보면 알겠지.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "알리 쿨리 님 가실 길은 제가 비우겠습니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "sfx",
+      "key": "sfx_battle_rumble"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "shake",
+      "power": 3,
+      "ms": 400
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "hero:npc_ustad_ali_quli",
+      "text": "장전에 열 호흡입니다. 첫 발이 빗나가도 소리 값은 합니다. 버텨 주십시오.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 5,
+       "when": {
+        "type": "in_zone",
+        "unit": "hero:npc_ustad_ali_quli",
+        "tiles": [
+         [
+          15,
+          9
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          9
+         ],
+         [
+          16,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "sfx",
+      "key": "sfx_battle_roar"
+     },
+     {
+      "on": {
+       "turn": 5,
+       "when": {
+        "type": "in_zone",
+        "unit": "hero:npc_ustad_ali_quli",
+        "tiles": [
+         [
+          15,
+          9
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          9
+         ],
+         [
+          16,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "shake",
+      "power": 5,
+      "ms": 500
+     },
+     {
+      "on": {
+       "turn": 5,
+       "when": {
+        "type": "in_zone",
+        "unit": "hero:npc_ustad_ali_quli",
+        "tiles": [
+         [
+          15,
+          9
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          9
+         ],
+         [
+          16,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "첫 총성에 문 위 수비병들이 움찔한다. 몇몇은 담 뒤로 몸을 숨긴다."
+     },
+     {
+      "on": {
+       "turn": 5,
+       "when": {
+        "type": "in_zone",
+        "unit": "hero:npc_ustad_ali_quli",
+        "tiles": [
+         [
+          15,
+          9
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          9
+         ],
+         [
+          16,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "retreat",
+      "unit": "UNIT@24,11"
+     },
+     {
+      "on": {
+       "turn": 5,
+       "when": {
+        "type": "in_zone",
+        "unit": "hero:npc_ustad_ali_quli",
+        "tiles": [
+         [
+          15,
+          9
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          9
+         ],
+         [
+          16,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "retreat",
+      "unit": "UNIT@25,11"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "ali",
+      "type": "unit_survive",
+      "unit": "hero:npc_ustad_ali_quli",
+      "label": "알리 쿨리를 지켜라"
+     }
+    ]
+   },
+   "name": "바자우르의 첫 총성",
+   "year_label": "1519년",
+   "chapter": 22,
+   "shelf_code": "ch22",
+   "map": "su_pk18_wall_breach_ind",
+   "map_id_dev": 170,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 16,
+   "enemy_level": 16,
+   "enemy_level_offset": -4,
+   "effective_enemy_level": 12,
+   "difficulty": 8,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_ustad_ali_quli",
+     "npc_babur"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(아군 NPC, rules.ally_npcs). 측정은 파티 3영웅(주인공+일반 영웅 2) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_ustad_ali_quli"
+    },
+    {
+     "hero_code": "npc_babur"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "바자우르 수비대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 3.8
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       26,
+       12
+      ],
+      [
+       26,
+       13
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "바자우르 수비 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "성벽 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       24,
+       11
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       24,
+       12
+      ],
+      [
+       25,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "성벽 궁병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "북문 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       22,
+       9
+      ],
+      [
+       22,
+       10
+      ],
+      [
+       23,
+       9
+      ],
+      [
+       23,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "북문 창병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "남문 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       22,
+       15
+      ],
+      [
+       22,
+       16
+      ],
+      [
+       23,
+       15
+      ],
+      [
+       23,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "남문 창병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수비대 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       8
+      ],
+      [
+       28,
+       8
+      ],
+      [
+       28,
+       7
+      ],
+      [
+       29,
+       8
+      ]
+     ],
+     "hold_until_turn": 6,
+     "soldier_display_name_ko": "수비대 기병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 20,
+   "enemy_units_peak": 20,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      26,
+      12
+     ],
+     "name": "바자우르 수비대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      24,
+      11
+     ],
+     "name": "성벽 궁병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      24,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      22,
+      9
+     ],
+     "name": "북문 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      22,
+      15
+     ],
+     "name": "남문 창병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      16
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      27,
+      8
+     ],
+     "name": "수비대 기병대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      8
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      7
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      8
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1160,
+    "exp": 1682,
+    "gold": 1508,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "ali"
+    },
+    {
+     "type": "turn_within",
+     "value": 8
+    }
+   ],
+   "win_rate_band_target_pct": "65~80 (목표 중앙 약 72)",
+   "sort_order": 2202,
+   "prerequisite": "ch22_s1",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "바자우르 1519-01 일자는 자료별로 1월 4~7일(accepted). '최초 화기 사용'은 자료별 상이라 '초기 사용'으로만 서술. 알리 쿨리 파견 1513경 accepted.",
+    "민감 소재: 이 서가는 성문 공방까지만 다룬다. 전투 후 주민 처우는 서술하지 않는다(사료상 금지). 『바부르나마』의 종교적 적대 호칭 인용 금지. 사람 검수 필수.",
+    "승리 조건이 알리 쿨리 도착과 수비병 수 감소이므로 승리 연출에서 수비대 지휘관의 최후를 그리지 않는다."
+   ],
+   "cue_text_status": "final (송서사가 say/caption 본문 교체 완료 2026-11-03. on/do/tile/unit/spawn/retreat/terrain_change 등 판정 필드는 확정)",
+   "adapted_note": "화기=archer 병종 각색(알리 쿨리 archer NPC, 소음/화약 병종 없음). 총성=sfx 연출, 수비병 동요=turn 5 cue retreat(알리 쿨리 도착 시 when). 성문 공방=pk_18 해자+성벽의 두 성문.",
+   "engine_requests": [
+    "win_mode only 사용(알리 쿨리 route + 수비병 수). E-5 'hold 2턴 후 성문 열림'은 hold 카운트를 승리 조건에 쓸 수 없어 alive_count로 근사 -> 요청 E-8: win_conditions용 'in_zone N턴 유지' 조건 타입"
+   ],
+   "measured": {
+    "win_pct": 71.2,
+    "ci95": [
+     66.6,
+     75.5
+    ],
+    "n": 400,
+    "seeds": [
+     81,
+     82,
+     83,
+     84
+    ],
+    "avg_rounds_win": 7.2,
+    "turn_limit_pct": 0.5,
+    "sim": "rsim2 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning) / LANE/NOFE/GOTO 환경값은 스테이지별 기존 설정 유지, ch22_s5는 NOFE=1",
+    "note": "최종 재측정: 보병·궁병·창병(B,C,D) hold_until_turn 3 추가 + 지휘관 hp_mult 2.8->3.8 (44% -> 68.5%, 시드 83/84 합산 n=400 71%). 알리 쿨리 능력치 변경은 효과 미미(<=4%p)."
+   }
+  },
+  {
+   "code": "ch22_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "바부르 군",
+     "enemy": "델리 술탄국 로디군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_babur",
+      "x": 10,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_dawlat_khan_lodi",
+      "x": 10,
+      "y": 14,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_khalifa_nizam_ad_din",
+      "x": 9,
+      "y": 11,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "비하르 칸 로디",
+     "hero": "npc_bihar_khan_lodi"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1524년 1월, 라호르 외곽. 초청장을 보낸 사람이 같은 편에 서 있다. 아직은."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_dawlat_khan_lodi",
+      "text": "초대한 쪽이 길을 안내하는 게 도리요. 오른쪽 길목은 내 부하들이 쥐고 있소.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "고맙소. 다만 문 열쇠는 내 눈으로 보고 싶소.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "초대하신 분이 어디 서 계신지 계속 보겠습니다. 문은 서 있는 사람 쪽으로 열리니까요.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       10,
+       14
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "다울라트 칸의 부대가 대열에서 빠져 서쪽으로 돌아선다. 측면이 휑하게 비었다. 말발굽 소리가 서쪽으로 멀어진다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "retreat",
+      "unit": "hero:npc_dawlat_khan_lodi"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "sfx",
+      "key": "sfx_battle_roar"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "이 땅은 아직 열쇠를 안 내주네. 오늘은 길만 봐 두고 가세. 다음엔 어느 길이 열릴지 보이지 않나.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "북쪽에서 적 기병이 돌아옵니다! 빠진 자리는 제가 메우겠습니다.",
+      "expr": "serious"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "babur",
+      "type": "unit_survive",
+      "unit": "hero:npc_babur",
+      "label": "바부르를 지켜라"
+     }
+    ]
+   },
+   "name": "라호르의 초대",
+   "year_label": "1524년",
+   "chapter": 22,
+   "shelf_code": "ch22",
+   "map": "su_pk13_crossroads_ind",
+   "map_id_dev": 160,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": 0,
+   "effective_enemy_level": 17,
+   "difficulty": 8,
+   "culture": "south_asia",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_babur",
+     "npc_dawlat_khan_lodi",
+     "npc_khalifa_nizam_ad_din"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(아군 NPC, rules.ally_npcs). 측정은 파티 3영웅(주인공+일반 영웅 2) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_babur"
+    },
+    {
+     "hero_code": "npc_dawlat_khan_lodi"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_bihar_khan_lodi",
+      "display_name_ko": "비하르 칸 로디",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 2.5
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       28,
+       12
+      ],
+      [
+       28,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "로디군 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "로디군 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       23,
+       9
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       24,
+       9
+      ],
+      [
+       24,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "로디군 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "로디군 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       26,
+       10
+      ],
+      [
+       26,
+       11
+      ],
+      [
+       27,
+       10
+      ],
+      [
+       27,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "로디군 궁병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "로디군 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       23,
+       15
+      ],
+      [
+       23,
+       16
+      ],
+      [
+       24,
+       15
+      ],
+      [
+       24,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "로디군 보병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "로디군 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       18
+      ],
+      [
+       27,
+       18
+      ],
+      [
+       26,
+       19
+      ],
+      [
+       27,
+       19
+      ]
+     ],
+     "hold_until_turn": 4,
+     "soldier_display_name_ko": "로디군 기병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 20,
+   "enemy_units_peak": 24,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 4
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "로디군 측면 기병대장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "spawn_cell": [
+       20,
+       6
+      ],
+      "soldier_display_name_ko": "로디군 측면 기병"
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      27,
+      12
+     ],
+     "ref": "npc_bihar_khan_lodi",
+     "kind": "npc",
+     "name": "비하르 칸 로디"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      23,
+      9
+     ],
+     "name": "로디군 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      10
+     ],
+     "name": "로디군 궁병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      23,
+      15
+     ],
+     "name": "로디군 보병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      16
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      26,
+      18
+     ],
+     "name": "로디군 기병대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      18
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      19
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      19
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1270,
+    "exp": 1842,
+    "gold": 1651,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "65~80 (목표 중앙 약 72)",
+   "sort_order": 2203,
+   "prerequisite": "ch22_s1",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "라호르 초청·알람 칸 지지·다울라트 칸의 이탈은 accepted. 라호르 전투 결과(바부르 승 vs 로디군 후퇴)는 자료별 상이(verify). 비하르 칸 철자 변이(Bihar/Behar/Bahar) verify.",
+    "디팔푸르 함락 시 수비대 처형 서술이 있으나 사용하지 않는다(사료상 금지). 라호르 약탈 서술도 주제로 삼지 않는다.",
+    "다울라트 칸 이탈은 아군 NPC retreat cue로 대체(적으로 돌아서는 연출은 엔진 불가)."
+   ],
+   "cue_text_status": "final (송서사가 say/caption 본문 교체 완료 2026-11-03. on/do/tile/unit/spawn/retreat/terrain_change 등 판정 필드는 확정)",
+   "adapted_note": "다울라트 칸=아군 NPC 기병, turn 3 retreat로 이탈(사망 아님). 이탈로 열린 측면=turn 4 trigger spawn(적 기병 4, 북쪽 14,1).",
+   "engine_requests": [
+    "D-22 아군 NPC가 적으로 돌아서는 연출은 불가 -> 이탈(retreat)로 대체"
+   ],
+   "measured": {
+    "win_pct": 62.7,
+    "ci95": [
+     57.9,
+     67.3
+    ],
+    "n": 400,
+    "seeds": [
+     81,
+     82,
+     83,
+     84
+    ],
+    "avg_rounds_win": 5.2,
+    "turn_limit_pct": 0.2,
+    "sim": "rsim2 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning) / LANE/NOFE/GOTO 환경값은 스테이지별 기존 설정 유지, ch22_s5는 NOFE=1",
+    "note": "최종 재측정: commander_guard=false 제거(기본 켜짐) + 지휘관 hp_mult 3.0->2.5 (guard 켬 52% -> 62%). 다울라트 칸 사망 100%(승패 무관, must_survive 아님)."
+   },
+   "design_notes": [
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_khalifa_nizam_ad_din(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ]
+  },
+  {
+   "code": "ch22_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "바부르 군 선발",
+     "enemy": "로디군 선발"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_humayun",
+      "x": 10,
+      "y": 12,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         9,
+         13
+        ]
+       ],
+       "from_turn": 1,
+       "move_cap": 2
+      }
+     }
+    ],
+    "enemy_commander": {
+     "name": "하미드 칸",
+     "hero": "npc_hamid_khan"
+    },
+    "max_turns": 18,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1526년 2월 26일, 히사르 피로자 부근. 파니파트로 가는 길에서 후마윤이 처음으로 부대를 맡았다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_humayun",
+      "text": "아버님이 이 일을 내게 맡기셨소. 미끼가 먼저 나가고 본대가 뒤따라 치오. 그 순서는 지키겠소.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "전하, 제가 앞에 서겠습니다. 미끼가 늪길 어귀에서 물러서거든 그때 옆을 치십시오.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       8,
+       12
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "본대 보병이 도착한다. 바부르 본인은 오지 않고 서한만 보냈다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "sword",
+      "tiles": [
+       [
+        7,
+        12
+       ]
+      ],
+      "tag": "main_body",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "spear",
+      "tiles": [
+       [
+        7,
+        13
+       ]
+      ],
+      "tag": "main_body",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "sword",
+      "tiles": [
+       [
+        8,
+        13
+       ]
+      ],
+      "tag": "main_body",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "sfx",
+      "key": "sfx_battle_roar"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "say",
+      "speaker": "hero:npc_humayun",
+      "text": "내 말이 맞았소. 이건 적어 두시오. ……아버님께 가기 전에, 한 번 더 확인하겠소.",
+      "expr": "serious"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "humayun",
+      "type": "unit_survive",
+      "unit": "hero:npc_humayun",
+      "label": "후마윤을 지켜라"
+     }
+    ]
+   },
+   "name": "히사르 피로자",
+   "year_label": "1526년",
+   "chapter": 22,
+   "shelf_code": "ch22",
+   "map": "su_pk09_swamp_detour_ind",
+   "map_id_dev": 158,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 13,
+   "difficulty": 9,
+   "culture": "south_asia",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_humayun"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(아군 NPC, rules.ally_npcs). 측정은 파티 3영웅(주인공+일반 영웅 2) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_humayun"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hamid_khan",
+      "display_name_ko": "하미드 칸",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 2
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       12
+      ],
+      [
+       28,
+       13
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ]
+     ],
+     "hold_until_turn": 4,
+     "soldier_display_name_ko": "로디군 선발 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "북로 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       23,
+       6
+      ],
+      [
+       24,
+       6
+      ],
+      [
+       23,
+       7
+      ],
+      [
+       24,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "로디군 북로 보병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "중앙 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       10
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       26,
+       10
+      ],
+      [
+       26,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "로디군 궁병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "남로 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       23,
+       19
+      ],
+      [
+       24,
+       19
+      ],
+      [
+       23,
+       18
+      ],
+      [
+       24,
+       18
+      ]
+     ],
+     "soldier_display_name_ko": "로디군 남로 창병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "코끼리 선발대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       14
+      ],
+      [
+       26,
+       15
+      ],
+      [
+       27,
+       14
+      ],
+      [
+       27,
+       15
+      ]
+     ],
+     "hold_until_turn": 3,
+     "soldier_display_name_ko": "선발 코끼리"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 20,
+   "enemy_units_peak": 20,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      12
+     ],
+     "name": "하미드 칸"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      23,
+      6
+     ],
+     "name": "북로 보병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      7
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      7
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      25,
+      10
+     ],
+     "name": "중앙 궁병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      23,
+      19
+     ],
+     "name": "남로 창병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      19
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      18
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      18
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      26,
+      14
+     ],
+     "name": "코끼리 선발대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      15
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      14
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      15
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1370,
+    "exp": 1986,
+    "gold": 1781,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "humayun"
+    },
+    {
+     "type": "turn_within",
+     "value": 8
+    }
+   ],
+   "win_rate_band_target_pct": "65~80 (목표 중앙 약 72)",
+   "sort_order": 2204,
+   "prerequisite": "ch22_s3",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "히사르 피로자 1526-02-26 후마윤 첫 지휘·하미드 칸 선발군 격파는 accepted(위키+historyofwar 2차). 선발 100~150 서술은 verify.",
+    "코끼리 포획 수치와 포로 처우(참수) 서술은 사용하지 않는다(사료상 금지). 후마윤 나이·성격은 가설.",
+    "바부르는 현장에 없고 서한으로 지시(각색): 이후 파니파트(s5)에서 후마윤이 합류 spawn되는 이유를 마련."
+   ],
+   "cue_text_status": "final (송서사가 say/caption 본문 교체 완료 2026-11-03. on/do/tile/unit/spawn/retreat/terrain_change 등 판정 필드는 확정)",
+   "adapted_note": "코끼리=heavy 각색. 본대 합류=turn 3 cue spawn(아군 보병 3기, 플레이어 조작). 후마윤=아군 NPC 기병(must_survive).",
+   "engine_requests": [
+    "없음 (적이 속아 추격하는 AI는 D-21-1 공통 미구현, 늪 우회로+hold_until_turn으로 근사)"
+   ],
+   "measured": {
+    "win_pct": 64,
+    "ci95": [
+     59.2,
+     68.6
+    ],
+    "n": 400,
+    "seeds": [
+     81,
+     82,
+     83,
+     84
+    ],
+    "avg_rounds_win": 10.2,
+    "turn_limit_pct": 10.2,
+    "sim": "rsim2 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning) / LANE/NOFE/GOTO 환경값은 스테이지별 기존 설정 유지, ch22_s5는 NOFE=1",
+    "note": "최종 재측정: commander_guard=false 제거 + max_turns 14->18. 시간초과 12%(봇 교착: 적 지휘관 도주/대치 인공물, guard 꺼도 13.5%로 동일)."
+   }
+  },
+  {
+   "code": "ch22_s6",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "바부르 군 보급대",
+     "enemy": "약탈대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_cart_1",
+      "x": 8,
+      "y": 13,
+      "unit_type": "sword",
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         26,
+         13
+        ]
+       ],
+       "from_turn": 3,
+       "move_cap": 3
+      }
+     },
+     {
+      "hero": "npc_cart_2",
+      "x": 8,
+      "y": 12,
+      "unit_type": "sword",
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         26,
+         12
+        ]
+       ],
+       "from_turn": 3,
+       "move_cap": 3
+      }
+     }
+    ],
+    "enemy_commander": {
+     "name": "약탈대 우두머리",
+     "hero": null
+    },
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "첫 번째 수레가 아그라 성문에 도착",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_cart_1",
+       "tiles": [
+        [
+         25,
+         12
+        ],
+        [
+         25,
+         13
+        ],
+        [
+         26,
+         12
+        ],
+        [
+         26,
+         13
+        ],
+        [
+         27,
+         12
+        ],
+        [
+         27,
+         13
+        ]
+       ]
+      }
+     },
+     {
+      "label": "두 번째 수레가 아그라 성문에 도착",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_cart_2",
+       "tiles": [
+        [
+         25,
+         12
+        ],
+        [
+         25,
+         13
+        ],
+        [
+         26,
+         12
+        ],
+        [
+         26,
+         13
+        ],
+        [
+         27,
+         12
+        ],
+        [
+         27,
+         13
+        ]
+       ]
+      }
+     }
+    ],
+    "max_turns": 18,
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1526년 늦봄에서 여름. 이긴 군은 더위 속에서 아그라로 보급을 옮긴다. 병사들 사이에서 카불로 돌아가자는 말이 돈다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "수레 둘이 성문까지 가야 합니다. 길은 제가 열겠습니다.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "호송병 둘이 카불로 돌아갈 이야기를 꺼낸다. 이들이 남았는지 떠났는지는 기록에 없다."
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "능선에서 깃발 없는 약탈대가 내려온다. 어느 편인지는 알 수 없다."
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       26,
+       12
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "카불로 돌아갈 사람은 막지 않겠네. 남는 사람에게는 이 땅의 곡식을 몫으로 주겠네.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 8
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "수레 바퀴가 마지막 모래 구간을 지난다. 성문이 보인다."
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "cart1",
+      "type": "unit_survive",
+      "unit": "hero:npc_cart_1",
+      "label": "수레 1을 지켜라"
+     },
+     {
+      "id": "cart2",
+      "type": "unit_survive",
+      "unit": "hero:npc_cart_2",
+      "label": "수레 2를 지켜라"
+     }
+    ]
+   },
+   "name": "아그라로 가는 보급로",
+   "year_label": "1526년",
+   "chapter": 22,
+   "shelf_code": "ch22",
+   "map": "su_pk07_oasis",
+   "map_id_dev": 156,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 17,
+   "difficulty": 10,
+   "culture": "south_asia",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "npc_cart_1",
+     "npc_cart_2"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 16,
+    "note": "Lv20~ party_slots 4(user_level_costs). 측정은 파티 4영웅(주인공+일반 영웅 3) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_cart_1"
+    },
+    {
+     "hero_code": "npc_cart_2"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "약탈대 우두머리",
+      "evidence_level": "invented",
+      "troop_type": "cavalry",
+      "hp_mult": 3
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       23,
+       7
+      ],
+      [
+       23,
+       6
+      ],
+      [
+       24,
+       7
+      ],
+      [
+       24,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "약탈대 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "북 능선 궁병대장",
+      "evidence_level": "invented",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       21,
+       8
+      ],
+      [
+       22,
+       8
+      ],
+      [
+       21,
+       9
+      ],
+      [
+       22,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "약탈대 궁병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "남 능선 창병대장",
+      "evidence_level": "invented",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       21,
+       16
+      ],
+      [
+       22,
+       16
+      ],
+      [
+       21,
+       17
+      ],
+      [
+       22,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "약탈대 창병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_mustafa_farmuli",
+      "display_name_ko": "무스타파 파르물리",
+      "evidence_level": "verify",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       18
+      ],
+      [
+       26,
+       18
+      ],
+      [
+       25,
+       19
+      ],
+      [
+       26,
+       19
+      ]
+     ],
+     "hold_until_turn": 4,
+     "soldier_display_name_ko": "약탈대 기병"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 16,
+   "enemy_units_peak": 16,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      23,
+      7
+     ],
+     "name": "약탈대 우두머리"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      23,
+      6
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      21,
+      8
+     ],
+     "name": "북 능선 궁병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      22,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      21,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      22,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      21,
+      16
+     ],
+     "name": "남 능선 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      17
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      18
+     ],
+     "ref": "npc_mustafa_farmuli",
+     "kind": "npc",
+     "name": "무스타파 파르물리"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      18
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      19
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      19
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1590,
+    "exp": 2306,
+    "gold": 2067,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "cart1"
+    },
+    {
+     "type": "sub_objective",
+     "id": "cart2"
+    }
+   ],
+   "win_rate_band_target_pct": "65~80 (목표 중앙 약 70)",
+   "sort_order": 2206,
+   "prerequisite": "ch22_s5",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "파니파트 이후 델리·아그라 확보와 병사들의 카불 귀환 요구, 바부르의 설득은 accepted(Babur 문서). 호송 교전과 약탈대는 invented(각색).",
+    "독살 시도 서술은 위키 Babur 문서에 없어 verify -> 사용 금지. 지명은 아그라/델리만 사용(현대 지리어 금지).",
+    "병사 이탈 연출은 대화 분기 엔진 지원이 없어 고정 대사로만 처리."
+   ],
+   "cue_text_status": "final (송서사가 say/caption 본문 교체 완료 2026-11-03. on/do/tile/unit/spawn/retreat/terrain_change 등 판정 필드는 확정)",
+   "adapted_note": "수레=아군 NPC heavy(npc_cart_1/2, route). 약탈대=익명(민족 표기 금지). 오아시스 맵의 모래(n)=snow_desert 타일로 열기 대체.",
+   "engine_requests": [
+    "D-22-2 병사 선택 분기 미구현. D-22 열기 효과 미구현"
+   ],
+   "measured": {
+    "win_pct": 62.5,
+    "ci95": [
+     55.6,
+     68.9
+    ],
+    "n": 200,
+    "seeds": [
+     81,
+     82
+    ],
+    "avg_rounds_win": 14.8,
+    "turn_limit_pct": 2,
+    "sim": "rsim2 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning) / LANE/NOFE/GOTO 환경값은 스테이지별 기존 설정 유지, ch22_s5는 NOFE=1",
+    "note": ""
+   },
+   "design_notes": [
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_mustafa_farmuli(convert_E). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ]
+  },
+  {
+   "code": "ch22_s7",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "바부르 군",
+     "enemy": "라지푸트 연합"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_babur",
+      "x": 10,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_ustad_ali_quli",
+      "x": 13,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_mustafa_rumi",
+      "x": 13,
+      "y": 14,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_humayun",
+      "x": 11,
+      "y": 16,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_hindu_beg",
+      "x": 9,
+      "y": 11,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "하산 칸 메와티",
+     "hero": "npc_hasan_khan_mewati"
+    },
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "수레 진지 안에 적이 없다",
+      "latch": false,
+      "when": {
+       "not": {
+        "type": "in_zone",
+        "side": "b",
+        "tiles": [
+         [
+          14,
+          10
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          14,
+          11
+         ],
+         [
+          15,
+          11
+         ],
+         [
+          14,
+          14
+         ],
+         [
+          15,
+          14
+         ],
+         [
+          14,
+          15
+         ],
+         [
+          15,
+          15
+         ]
+        ]
+       }
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "gap_breach",
+      "label": "수레벽 틈 뒤쪽까지 적이 돌파",
+      "when": {
+       "all": [
+        {
+         "type": "turn_gte",
+         "value": 4
+        },
+        {
+         "type": "in_zone",
+         "side": "b",
+         "tiles": [
+          [
+           12,
+           12
+          ],
+          [
+           13,
+           12
+          ],
+          [
+           12,
+           13
+          ],
+          [
+           13,
+           13
+          ]
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "max_turns": 20,
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1527년 3월 16일, 칸와. 바야나의 패보가 군영에 퍼졌다. 술잔은 비워졌고, 수레는 쇠사슬로 이어졌다. 군영 어디서나 쇠 소리가 난다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "수레 사이에 기병이 나갈 틈을 터 두었네. 언제 닫고 언제 열지는 자네가 보고 정하게.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_ustad_ali_quli",
+      "text": "포는 저쪽 군기 쪽에 맞췄습니다. 첫 줄이 서는 순간부터 쏩니다.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "틈은 제가 보겠습니다. 중앙 군기에 닿으면 저쪽 대열이 갈라집니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       18,
+       12
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "라지푸트 기병이 여울 쪽으로 내려온다. 만만치 않은 상대다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "sfx",
+      "key": "sfx_battle_rumble"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "shake",
+      "power": 4,
+      "ms": 500
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "바부르 군 좌우 기병이 돌아 나온다."
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        15,
+        5
+       ]
+      ],
+      "tag": "tulughma",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        14,
+        5
+       ]
+      ],
+      "tag": "tulughma",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        15,
+        20
+       ]
+      ],
+      "tag": "tulughma",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        14,
+        20
+       ]
+      ],
+      "tag": "tulughma",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 9,
+       "when": {
+        "type": "hp_pct_lte",
+        "unit": "hero:npc_rana_sanga",
+        "pct": 40
+       }
+      },
+      "do": "retreat",
+      "unit": "UNIT@25,9"
+     },
+     {
+      "on": {
+       "turn": 12
+      },
+      "do": "retreat",
+      "unit": "UNIT@25,9"
+     },
+     {
+      "on": {
+       "turn": 9,
+       "when": {
+        "type": "hp_pct_lte",
+        "unit": "hero:npc_rana_sanga",
+        "pct": 40
+       }
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "라나 상가가 부상을 입고 전장에서 실려 나간다."
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "wall",
+      "type": "protect_tiles",
+      "tiles": [
+       [
+        14,
+        10
+       ],
+       [
+        15,
+        10
+       ],
+       [
+        14,
+        11
+       ],
+       [
+        15,
+        11
+       ],
+       [
+        14,
+        14
+       ],
+       [
+        15,
+        14
+       ],
+       [
+        14,
+        15
+       ],
+       [
+        15,
+        15
+       ]
+      ],
+      "max_breach": 5,
+      "label": "수레 진지를 지켜라"
+     },
+     {
+      "id": "babur",
+      "type": "unit_survive",
+      "unit": "hero:npc_babur",
+      "label": "바부르를 지켜라"
+     }
+    ]
+   },
+   "name": "칸와의 수레와 틈",
+   "year_label": "1527년",
+   "chapter": 22,
+   "shelf_code": "ch22",
+   "map": "su_pk20_grand_mixed_ind",
+   "map_id_dev": 168,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      20,
+      12
+     ],
+     [
+      21,
+      12
+     ],
+     [
+      20,
+      13
+     ],
+     [
+      21,
+      13
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": 1,
+   "effective_enemy_level": 22,
+   "difficulty": 10,
+   "culture": "south_asia",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "npc_babur",
+     "npc_ustad_ali_quli",
+     "npc_mustafa_rumi",
+     "npc_humayun",
+     "npc_hindu_beg"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 16,
+    "note": "Lv20~ party_slots 4(user_level_costs). 측정은 파티 4영웅(주인공+일반 영웅 3) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_babur"
+    },
+    {
+     "hero_code": "npc_ustad_ali_quli"
+    },
+    {
+     "hero_code": "npc_mustafa_rumi"
+    },
+    {
+     "hero_code": "npc_humayun"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hasan_khan_mewati",
+      "display_name_ko": "하산 칸 메와티",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 3
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       26,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "메와티 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_rana_sanga",
+      "display_name_ko": "라나 상가",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 2.5
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       9
+      ],
+      [
+       25,
+       8
+      ],
+      [
+       26,
+       9
+      ],
+      [
+       26,
+       8
+      ]
+     ],
+     "hold_until_turn": 3,
+     "soldier_display_name_ko": "라지푸트 기병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_fath_khan_hardu",
+      "display_name_ko": "파트 칸",
+      "evidence_level": "verify",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       22,
+       12
+      ],
+      [
+       22,
+       13
+      ],
+      [
+       23,
+       12
+      ],
+      [
+       23,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "라지푸트 창병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_mahmud_lodi",
+      "display_name_ko": "마흐무드 로디",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.5
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       22,
+       15
+      ],
+      [
+       22,
+       16
+      ],
+      [
+       23,
+       15
+      ],
+      [
+       23,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "로디 잔여 보병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "코끼리 부대장",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       22,
+       9
+      ],
+      [
+       22,
+       8
+      ],
+      [
+       23,
+       9
+      ],
+      [
+       23,
+       8
+      ]
+     ],
+     "hold_until_turn": 4,
+     "soldier_display_name_ko": "전투 코끼리"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "라지푸트 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       24,
+       11
+      ],
+      [
+       24,
+       14
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "라지푸트 궁병"
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 24,
+   "enemy_units_peak": 24,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      27,
+      12
+     ],
+     "ref": "npc_hasan_khan_mewati",
+     "kind": "npc",
+     "name": "하산 칸 메와티"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      9
+     ],
+     "ref": "npc_rana_sanga",
+     "kind": "npc",
+     "name": "라나 상가"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      8
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      22,
+      12
+     ],
+     "ref": "npc_fath_khan_hardu",
+     "kind": "npc",
+     "name": "파트 칸"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      13
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      22,
+      15
+     ],
+     "ref": "npc_mahmud_lodi",
+     "kind": "npc",
+     "name": "마흐무드 로디"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      16
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      22,
+      9
+     ],
+     "name": "코끼리 부대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      8
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      9
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      8
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      24,
+      11
+     ],
+     "name": "라지푸트 궁병대장"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      24,
+      14
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      14
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1700,
+    "exp": 2465,
+    "gold": 2210,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "wall"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "55~70 (목표 중앙 약 62)",
+   "sort_order": 2207,
+   "prerequisite": "ch22_s6",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "칸와 1527-03-16 대결·수레 방벽·서약·상가 부상 후송은 accepted(Khanwa, Bayana 문서). 병력 수치 폭이 커 게임 수치와 연결하지 않는다. 상가가 먼저 접촉했는지는 양측 기록 충돌(verify).",
+    "해골탑(전투 후), 실하디 이탈(후대 창작 가능), 상가 독살 사망설은 사용하지 않는다(사료상 금지/verify). 라나 상가는 격파 목표가 아니며 실제로 생존(1528 사망).",
+    "라나 상가는 적 '지휘관 슬롯'에 두지 않았다(엔진상 지휘관 사망=승리 후보). 부대장으로 편성하고 HP 40% 이하 또는 12턴에 부대째 후송(retreat)."
+   ],
+   "cue_text_status": "final (송서사가 say/caption 본문 교체 완료 2026-11-03. on/do/tile/unit/spawn/retreat/terrain_change 등 판정 필드는 확정)",
+   "adapted_note": "코끼리=heavy 각색. 화기=archer 각색(알리 쿨리·무스타파 루미). 수레벽=pk_20 아군측 성채 8칸(protect_tiles), 틈=여울과 이어지는 중앙 8~11,9~10 구간. 중앙 군기=적측 여울 출구 4칸 점령. 맵은 pk_20 임시(평원+도랑 신규 맵이 이상적).",
+   "engine_requests": [
+    "E-6 코끼리·말 충격 혼란 상태 미구현(retreat 근사 없음)",
+    "E-7 수레벽 전용 타일(성채 타일 대체)",
+    "신규 맵 후보: 평원+도랑(칸와 지형) 28x20 - 맵디자이너 판단"
+   ],
+   "measured": {
+    "win_pct": 67,
+    "ci95": [
+     60.2,
+     73.1
+    ],
+    "n": 200,
+    "seeds": [
+     81,
+     82
+    ],
+    "avg_rounds_win": 13.1,
+    "turn_limit_pct": 4,
+    "sim": "rsim2 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning) / LANE/NOFE/GOTO 환경값은 스테이지별 기존 설정 유지, ch22_s5는 NOFE=1",
+    "note": "NPC 아군 사망 많음(알리 189/200). 시간초과 14% 높음"
+   },
+   "design_notes": [
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_hindu_beg(ally_npcs), npc_fath_khan_hardu(convert_C). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ]
+  },
+  {
+   "code": "ch22_s8",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "바부르 군",
+     "enemy": "아프간 연합·벵골 술탄국"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_humayun",
+      "x": 6,
+      "y": 6,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         12,
+         6
+        ],
+        [
+         16,
+         6
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 4
+      }
+     },
+     {
+      "hero": "npc_babur",
+      "x": 8,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_ustad_ali_quli",
+      "x": 9,
+      "y": 13,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_mustafa_rumi",
+      "x": 9,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_chin_timur_sultan",
+      "x": 7,
+      "y": 11,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "마흐무드 로디",
+     "hero": "npc_mahmud_lodi"
+    },
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "상류 도하대가 서안 북쪽 여울을 건넘",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_humayun",
+       "tiles": [
+        [
+         15,
+         6
+        ],
+        [
+         16,
+         6
+        ],
+        [
+         15,
+         7
+        ],
+        [
+         16,
+         7
+        ]
+       ]
+      }
+     },
+     {
+      "label": "본대가 적 야영지에 도달",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "side": "a",
+       "tiles": [
+        [
+         27,
+         11
+        ],
+        [
+         28,
+         11
+        ],
+        [
+         27,
+         12
+        ],
+        [
+         28,
+         12
+        ],
+        [
+         27,
+         13
+        ],
+        [
+         28,
+         13
+        ],
+        [
+         27,
+         14
+        ],
+        [
+         28,
+         14
+        ]
+       ]
+      }
+     }
+    ],
+    "max_turns": 20,
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1529년 5월 6일, 고그라 강. 강은 두 줄기로 흐르고, 건너편에는 연합군이 있다. 바부르가 치른 마지막 큰 싸움이다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "상류로 한 갈래를 먼저 건너보내겠네. 적이 그쪽을 보는 동안 우리는 포 아래로 건너가네.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_ustad_ali_quli",
+      "text": "포성이 시작되면 신호는 묻힙니다. 상류 대열이 움직이는 것을 눈으로 보십시오.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "나팔 말고 대열을 보고 움직이겠습니다. 여울 위치부터 확인합니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       12,
+       6
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "상류 도하대가 북쪽 다리로 출발한다. 동안의 적 일부가 그쪽으로 시선을 돌린다."
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "sfx",
+      "key": "sfx_battle_rumble"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "hero:npc_humayun",
+        "tiles": [
+         [
+          15,
+          6
+         ],
+         [
+          16,
+          6
+         ],
+         [
+          15,
+          7
+         ],
+         [
+          16,
+          7
+         ]
+        ]
+       }
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "상류 도하대가 서안 북쪽 여울을 건넜다. 적의 시선이 쏠린 사이 본대는 갈대밭으로 물러선다. 갈대 스치는 소리가 총성에 묻힌다."
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "hero:npc_humayun",
+        "tiles": [
+         [
+          15,
+          6
+         ],
+         [
+          16,
+          6
+         ],
+         [
+          15,
+          7
+         ],
+         [
+          16,
+          7
+         ]
+        ]
+       }
+      },
+      "do": "retreat",
+      "unit": "hero:npc_humayun"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "shake",
+      "power": 4,
+      "ms": 500
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "hero:npc_mustafa_rumi",
+      "text": "포 두 문이 강을 쓸어 갑니다. 건너편 배는 저희에게 맡기십시오.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 8
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "동안의 대열이 갈라지기 시작한다. 연합군 일부가 투항의 뜻을 전해 온다."
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_delhi_elephant_chief",
+      "tiles": [
+       [
+        22,
+        13
+       ],
+       [
+        23,
+        13
+       ],
+       [
+        24,
+        13
+       ],
+       [
+        25,
+        11
+       ],
+       [
+        26,
+        11
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "upstream",
+      "type": "unit_survive",
+      "unit": "hero:npc_humayun",
+      "label": "상류 도하대를 지켜라"
+     }
+    ]
+   },
+   "name": "고그라 강의 여울",
+   "year_label": "1529년",
+   "chapter": 22,
+   "shelf_code": "ch22",
+   "map": "su_pk14_twin_rivers_ind",
+   "map_id_dev": 166,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 19,
+   "difficulty": 11,
+   "culture": "south_asia",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "npc_humayun",
+     "npc_babur",
+     "npc_ustad_ali_quli",
+     "npc_mustafa_rumi",
+     "npc_chin_timur_sultan"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 16,
+    "note": "Lv20~ party_slots 4(user_level_costs). 측정은 파티 4영웅(주인공+일반 영웅 3) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_humayun"
+    },
+    {
+     "hero_code": "npc_babur"
+    },
+    {
+     "hero_code": "npc_ustad_ali_quli"
+    },
+    {
+     "hero_code": "npc_mustafa_rumi"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_mahmud_lodi",
+      "display_name_ko": "마흐무드 로디",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 3
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       29,
+       12
+      ],
+      [
+       29,
+       13
+      ],
+      [
+       28,
+       12
+      ],
+      [
+       28,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "아프간 연합 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "동안 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       25,
+       13
+      ],
+      [
+       26,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "연합 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "동안 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       16
+      ],
+      [
+       26,
+       16
+      ],
+      [
+       25,
+       17
+      ],
+      [
+       26,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "연합 궁병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "벵골 선단 지휘",
+      "evidence_level": "generic",
+      "troop_type": "naval",
+      "hp_mult": 1
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       23,
+       14
+      ],
+      [
+       23,
+       15
+      ],
+      [
+       23,
+       16
+      ],
+      [
+       22,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "벵골 선단 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "연합 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       20,
+       12
+      ],
+      [
+       20,
+       13
+      ],
+      [
+       19,
+       12
+      ],
+      [
+       19,
+       13
+      ]
+     ],
+     "hold_until_turn": 3,
+     "soldier_display_name_ko": "연합 보병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 19,
+   "enemy_units_peak": 21,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      12
+     ],
+     "ref": "npc_mahmud_lodi",
+     "kind": "npc",
+     "name": "마흐무드 로디"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      25,
+      12
+     ],
+     "name": "동안 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      25,
+      16
+     ],
+     "name": "동안 궁병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      17
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      23,
+      14
+     ],
+     "name": "벵골 선단 지휘"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      23,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      23,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      22,
+      15
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      20,
+      12
+     ],
+     "name": "연합 보병대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      13
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      12
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      13
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1820,
+    "exp": 2639,
+    "gold": 2366,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "upstream"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "55~70 (목표 중앙 약 62)",
+   "sort_order": 2208,
+   "prerequisite": "ch22_s7",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "고그라 1529-05-06: 상류 도하대로 적을 나누고 본대는 포 엄호 아래 도하했다는 구도는 accepted(Ghaghra 문서는 인용 없음 태그). 아프간 연합 지도자는 마흐무드 로디. 병력 수치 단일 출처라 사용하지 않음.",
+    "셰르 샤 현장 이탈 서술 상충(verify, 이름 사용 안 함). 아스카리의 연령 미확인. 상류 도하대 지휘는 아스카리 서술이 있으나 NPC 코드를 만들지 않고 후마윤 NPC로 번안(각색, 현장 존재 verify).",
+    "아프간·벵골은 정치 세력으로만 서술한다(민족/종교 단죄 금지). 바부르 사망(1530)은 ch22_end에서 서술."
+   ],
+   "cue_text_status": "final (송서사가 say/caption 본문 교체 완료 2026-11-03. on/do/tile/unit/spawn/retreat/terrain_change 등 판정 필드는 확정)",
+   "adapted_note": "상류 도하대=후마윤 NPC route(북쪽 두 다리). 벵골 배=naval 병종 적(강 칸에 배치). 포대=archer NPC(알리 쿨리·무스타파 루미). 도하=기존 다리/여울 타일 이동.",
+   "engine_requests": [
+    "D-22-4 강 건너는 이동 연출(뗏목) 미구현",
+    "신규 NPC 아스카리(npc_askari)가 필요하면 draft2 추가 요청(현재 후마윤 번안)"
+   ],
+   "measured": {
+    "win_pct": 65.2,
+    "ci95": [
+     60.5,
+     69.8
+    ],
+    "n": 400,
+    "seeds": [
+     81,
+     82,
+     83,
+     84
+    ],
+    "avg_rounds_win": 11.5,
+    "turn_limit_pct": 8,
+    "sim": "rsim2 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning) / LANE/NOFE/GOTO 환경값은 스테이지별 기존 설정 유지, ch22_s5는 NOFE=1",
+    "note": "최종 재측정: 오프셋 -4 -> -3 (74.5% -> 69%). 시간초과 6.5%."
+   },
+   "design_notes": [
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_chin_timur_sultan(ally_npcs), npc_delhi_elephant_chief(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ]
+  }
+ ]
+}

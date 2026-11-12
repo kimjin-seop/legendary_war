@@ -1,0 +1,383 @@
+{
+ "version": 1,
+ "generated": "2026-11-04T08:45:20.386Z",
+ "_note": "안아트 2026-11-03. generic 지휘관(npc 코드·영웅 코드 없음)의 초상 조회표. 키 = portrait.captain.<group>.<troop>. available 에 없는 조합은 troop_fallback 순서로, 그래도 없으면 다음 단계",
+ "key_format": "portrait.captain.<group>.<troop>",
+ "order": [
+  "1 고유 portrait.<npc 코드>(기존 portraitCode 규칙)",
+  "2 overrides[display_name_ko] (키 그대로)",
+  "3 name_rules(정규식, display_name_ko) -> group 또는 key",
+  "4 stage_group(스테이지 코드 접두, 가장 긴 접두 우선)",
+  "5 culture_group[culture]",
+  "6 기존 portrait.troop.<culture>.<troop>"
+ ],
+ "troop_alias": {
+  "heavy": "sword",
+  "infantry": "sword",
+  "mage": "sword",
+  "healer": "sword",
+  "gun": "archer",
+  "bow": "archer",
+  "lance": "spear",
+  "gunner": "archer"
+ },
+ "troop_fallback": {
+  "naval": [
+   "naval",
+   "sword"
+  ],
+  "mage": [
+   "sword"
+  ],
+  "healer": [
+   "sword"
+  ],
+  "heavy": [
+   "sword"
+  ],
+  "spear": [
+   "spear",
+   "sword"
+  ],
+  "archer": [
+   "archer",
+   "sword"
+  ],
+  "cavalry": [
+   "cavalry",
+   "sword"
+  ],
+  "sword": [
+   "sword",
+   "spear"
+  ]
+ },
+ "overrides": {},
+ "name_rules": [
+  {
+   "match": "^(서하|금 )",
+   "group": "jin13"
+  },
+  {
+   "match": "먹그림자",
+   "key": "portrait.npc_ink_shadow_s8"
+  },
+  {
+   "match": "^(고구려)",
+   "group": "korea7"
+  },
+  {
+   "match": "^(카르타고|발레아레스|크레타)",
+   "group": "carthage3"
+  },
+  {
+   "match": "^수도원",
+   "group": "euro11"
+  },
+  {
+   "match": "^붉은 펜의 사자$",
+   "key": "portrait.npc_red_pen",
+   "note": "2026-11-04 감사 A안"
+  },
+  {
+   "match": "^(공백병|회수조)",
+   "group": "blank",
+   "note": "2026-11-04 감사 A안"
+  },
+  {
+   "match": "^(일본|왜)",
+   "group": "jp16",
+   "note": "2026-11-04 감사 A안(X 직속 은 FE 가 X 본인 초상으로 먼저 처리)"
+  },
+  {
+   "match": "^거란",
+   "group": "khitan11",
+   "note": "2026-11-04 감사 A안"
+  }
+ ],
+ "stage_group": {
+  "e_ch1_": "jp16",
+  "ch1_": "jp16",
+  "ch11_": "khitan11",
+  "ch12_": "han3",
+  "ch13_": "korea7",
+  "ch14_": "sui7",
+  "ch15_": "carthage3",
+  "ch16_": "eng15",
+  "ch17_": "persia4",
+  "ch18_": "steppe13",
+  "ch19_": "levant12",
+  "ch20_": "jp16",
+  "ch21_": "euro13",
+  "ch22_": "delhi16",
+  "ch23_": "euro11",
+  "ch24_": "tours8",
+  "ch101_": "blank",
+  "e_ch101_": "blank",
+  "ch102_": "blank",
+  "e_ch102_": "blank",
+  "ch103_": "blank",
+  "e_ch103_": "blank",
+  "ch104_": "blank",
+  "e_ch104_": "blank"
+ },
+ "culture_group": {
+  "japan": "jp16",
+  "korea": "korea7",
+  "china": "han3",
+  "ancient_med": "carthage3",
+  "europe": "euro13",
+  "middle_east": "persia4",
+  "steppe": "steppe13",
+  "south_asia": "delhi16",
+  "hre": "euro13",
+  "carthage": "carthage3",
+  "macedon": "carthage3"
+ },
+ "groups": {
+  "jp16": {
+   "label": "16세기 일본 무장(임진·나가시노)",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry",
+    "naval"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry",
+    "naval"
+   ]
+  },
+  "blank": {
+   "label": "메인 스토리 공백병(먹·종이 기록 병사, 얼굴 가림)",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry",
+    "naval"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry",
+    "naval"
+   ]
+  },
+  "khitan11": {
+   "label": "11세기 거란(요) 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "han3": {
+   "label": "후한 말(208) 조조군 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "korea7": {
+   "label": "7세기 백제 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "sui7": {
+   "label": "7세기 수나라 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "carthage3": {
+   "label": "기원전 3세기 카르타고·지중해 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "eng15": {
+   "label": "15세기 잉글랜드 부장(백년전쟁)",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "persia4": {
+   "label": "기원전 4세기 페르시아 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "steppe13": {
+   "label": "13세기 초원(몽골·나이만·서요) 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "jin13": {
+   "label": "13세기 금·서하 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "levant12": {
+   "label": "12세기 십자군 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "euro13": {
+   "label": "13세기 중부유럽 기사(폴란드·헝가리·보헤미아) 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "euro11": {
+   "label": "11세기 노르만·앵글로색슨 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "tours8": {
+   "label": "8세기 안달루스(우마이야) 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  },
+  "delhi16": {
+   "label": "16세기 델리 술탄국(로디) 부장",
+   "planned": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ],
+   "available": [
+    "sword",
+    "spear",
+    "archer",
+    "cavalry"
+   ]
+  }
+ }
+}

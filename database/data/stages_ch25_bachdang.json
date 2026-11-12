@@ -1,0 +1,7735 @@
+{
+ "_note": "[임밸런/밸런스 디자이너] ch25 쩐 왕조 대 몽골·원(1285~1288) 10스테이지 배치 초안(2026-11-07). 모든 수치는 시작값(needs tuning), 시뮬레이션 미측정(박백엔 개선 시뮬레이터 완료 후 배치 측정). optional 챕터(필수 해금 제외), 호위형 0, 지형 mud/stakes 는 엔진에 없어 swamp 사용. 구역 좌표는 maps_ch25_bachdang.json meta.zone_refs 에서 채움(zone_ref 병기). say/camera 본문은 송서사가 ch25_bachdang.json battle_cues 에 작성(요청 목록=각 item.battle_cue_requests, 시드는 이 필드를 읽지 않음). 형식은 stages_ch24_tours.json(EnemyV3Adapter::convert 입력). 근거: docs/original_story/ch25_bachdang_outline.md, database/data/ch25_roster_proposal.json. 시드 미실행.",
+ "version": 1,
+ "chapter": 25,
+ "shelf_code": "ch25",
+ "status": "draft_map_filled",
+ "placeholder_fields": [],
+ "items": [
+  {
+   "code": "ch25_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "tran_hung_dao",
+      "x": 6,
+      "y": 10,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_pham_ngu_lao",
+      "x": 13,
+      "y": 13,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_dai_viet_scout_captain",
+      "x": 6,
+      "y": 13,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "몽골 선봉장",
+     "hero": "npc_yuan_vanguard_captain"
+    },
+    "max_turns": 10,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "set_flag",
+      "key": "withdraw_ok",
+      "value": true
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "hold",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        13,
+        10
+       ],
+       [
+        14,
+        10
+       ],
+       [
+        15,
+        10
+       ],
+       [
+        16,
+        10
+       ],
+       [
+        17,
+        10
+       ],
+       [
+        13,
+        11
+       ],
+       [
+        14,
+        11
+       ],
+       [
+        15,
+        11
+       ],
+       [
+        16,
+        11
+       ],
+       [
+        17,
+        11
+       ],
+       [
+        13,
+        12
+       ],
+       [
+        14,
+        12
+       ],
+       [
+        15,
+        12
+       ],
+       [
+        16,
+        12
+       ],
+       [
+        17,
+        12
+       ],
+       [
+        13,
+        13
+       ],
+       [
+        14,
+        13
+       ],
+       [
+        15,
+        13
+       ],
+       [
+        16,
+        13
+       ],
+       [
+        17,
+        13
+       ]
+      ],
+      "zone_ref": "hold_pass",
+      "label": "길목을 지켜라",
+      "turns": 5
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "pass_broken",
+      "label": "적이 후퇴로 쪽으로 넘어감",
+      "when": {
+       "any": [
+        {
+         "type": "in_zone",
+         "side": "b",
+         "zone_ref": "south_exit",
+         "tiles": [
+          [
+           0,
+           6
+          ],
+          [
+           1,
+           6
+          ],
+          [
+           0,
+           7
+          ],
+          [
+           1,
+           7
+          ],
+          [
+           0,
+           8
+          ],
+          [
+           1,
+           8
+          ],
+          [
+           0,
+           9
+          ],
+          [
+           1,
+           9
+          ],
+          [
+           0,
+           10
+          ],
+          [
+           1,
+           10
+          ],
+          [
+           0,
+           11
+          ],
+          [
+           1,
+           11
+          ],
+          [
+           0,
+           12
+          ],
+          [
+           1,
+           12
+          ],
+          [
+           0,
+           13
+          ],
+          [
+           1,
+           13
+          ],
+          [
+           0,
+           14
+          ],
+          [
+           1,
+           14
+          ],
+          [
+           0,
+           15
+          ],
+          [
+           1,
+           15
+          ],
+          [
+           0,
+           16
+          ],
+          [
+           1,
+           16
+          ],
+          [
+           0,
+           17
+          ],
+          [
+           1,
+           17
+          ]
+         ]
+        },
+        {
+         "type": "in_zone",
+         "side": "b",
+         "zone_ref": "withdraw_road",
+         "tiles": [
+          [
+           0,
+           10
+          ],
+          [
+           1,
+           10
+          ],
+          [
+           2,
+           10
+          ],
+          [
+           0,
+           11
+          ],
+          [
+           1,
+           11
+          ],
+          [
+           2,
+           11
+          ],
+          [
+           0,
+           12
+          ],
+          [
+           1,
+           12
+          ],
+          [
+           2,
+           12
+          ],
+          [
+           0,
+           13
+          ],
+          [
+           1,
+           13
+          ],
+          [
+           2,
+           13
+          ]
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "name": "랑선 길목",
+   "year_label": "1285년",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s1_lang_son_pass",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 7
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -6,
+   "effective_enemy_level": 14,
+   "difficulty": 6,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "tran_hung_dao",
+     "npc_pham_ngu_lao",
+     "npc_dai_viet_scout_captain"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yuan_vanguard_captain",
+      "display_name_ko": "몽골 선봉장",
+      "evidence_level": "invented",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       11
+      ],
+      [
+       28,
+       10
+      ],
+      [
+       28,
+       12
+      ],
+      [
+       30,
+       10
+      ],
+      [
+       30,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 선봉 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "몽골 궁기병장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       9
+      ],
+      [
+       26,
+       13
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       27,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 궁기병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "중갑 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       3
+      ],
+      [
+       30,
+       4
+      ],
+      [
+       28,
+       4
+      ],
+      [
+       31,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 중갑 보병",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 13,
+   "enemy_units_peak": 18,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 3
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "몽골 우회 기병장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 1,
+      "units_total": 2,
+      "ai": "advance",
+      "soldier_display_name_ko": "몽골 우회 기병",
+      "spawn_cell": [
+       31,
+       2
+      ]
+     }
+    },
+    {
+     "id": "t_R2",
+     "on": {
+      "turn": 5
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R2",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "몽골 후속 궁기병장",
+       "evidence_level": "generic",
+       "troop_type": "archer",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "archer",
+      "soldiers": 2,
+      "units_total": 3,
+      "ai": "advance",
+      "soldier_display_name_ko": "몽골 후속 궁기병",
+      "spawn_cell": [
+       31,
+       10
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      11
+     ],
+     "ref": "npc_yuan_vanguard_captain",
+     "kind": "npc",
+     "name": "몽골 선봉장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      9
+     ],
+     "name": "몽골 궁기병장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      3
+     ],
+     "name": "중갑 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      4
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      4
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      3
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1844,
+    "gold": 1654,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "hold"
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 55~75 (미측정; 목표 +0 40~60 수렴)",
+   "sort_order": 2501,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s1_e1_dust",
+     "on": {
+      "turn": 2
+     },
+     "do": "say",
+     "speaker": "hero:npc_pham_ngu_lao",
+     "purpose": "북쪽 길 먼지 경보(턴3 우회 기병 예고)"
+    },
+    {
+     "id": "ch25_s1_e1_order",
+     "on": {
+      "turn": 2
+     },
+     "do": "say",
+     "speaker": "hero:tran_hung_dao",
+     "purpose": "기병부터 길을 좁히라는 지시"
+    },
+    {
+     "id": "ch25_s1_e2_ask",
+     "on": {
+      "turn": 6,
+      "when": {
+       "type": "flag",
+       "key": "withdraw_ok"
+      }
+     },
+     "do": "say",
+     "speaker": "protagonist",
+     "purpose": "비워도 되느냐는 질문"
+    },
+    {
+     "id": "ch25_s1_e2_answer",
+     "on": {
+      "turn": 6,
+      "when": {
+       "type": "flag",
+       "key": "withdraw_ok"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:tran_hung_dao",
+     "purpose": "길이 길어지면 곡식이 먼저 닳는다는 답"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s1_pre",
+    "ch25_s1_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s1_lang_son_pass",
+    "zones": {
+     "hold_pass": "24칸",
+     "south_exit": "24칸",
+     "withdraw_road": "12칸",
+     "reinforce_e1_flank": "4칸",
+     "enemy_entry_north_road": "16칸"
+    },
+    "deploy_zone_count": 36,
+    "tile_tags": [
+     "enemy_entry_north_road",
+     "hold_pass",
+     "reinforce_e1_flank",
+     "south_exit",
+     "withdraw_road"
+    ]
+   },
+   "design_notes": [
+    "방어형(survive_turns 7). 협곡(13~18,10~13) 4칸 길목에서 7라운드를 버틴다. 기병은 협곡 말고는 산을 못 넘음(지형 상성). 선공은 기병 A 5기, 궁기병 B(턴2 해제), 중갑 C(턴3 해제)+우회 기병 턴3(북동 언덕)+후속 궁기병 턴5.",
+    "패배 = 흥다오 격파(must_survive) 또는 적이 후퇴로/남쪽 출구 구역에 멈춤(경유는 못 잡음 -> 구역 폭 2칸+도로 3칸 병기). max_turns 10 은 survive 7 에 여유 3.",
+    "withdraw_ok 플래그는 턴6 후퇴 신호 대사 트리거용(판정 영향 없음).",
+    "hold_zone 서브 목표(길목 5라운드 연속, tiles 20칸 상한 때문에 x13~17만)는 별 조건."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "tran_hung_dao": 2,
+     "npc_pham_ngu_lao": 2,
+     "npc_dai_viet_scout_captain": 2
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  },
+  {
+   "code": "ch25_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_tran_nhat_duat",
+      "x": 4,
+      "y": 7,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_dai_viet_boat_captain",
+      "x": 14,
+      "y": 9,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "동안 나루 수비대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          13,
+          11
+         ],
+         [
+          14,
+          11
+         ],
+         [
+          15,
+          11
+         ],
+         [
+          13,
+          12
+         ],
+         [
+          14,
+          12
+         ],
+         [
+          15,
+          12
+         ],
+         [
+          13,
+          13
+         ],
+         [
+          14,
+          13
+         ],
+         [
+          15,
+          13
+         ]
+        ]
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_nguyen_khoai",
+      "tiles": [
+       [
+        17,
+        15
+       ],
+       [
+        18,
+        15
+       ],
+       [
+        17,
+        16
+       ],
+       [
+        18,
+        16
+       ]
+      ],
+      "tag": "khoai",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "type": "hp_pct_lte",
+        "unit": "hero:npc_omar",
+        "pct": 50
+       }
+      },
+      "do": "retreat",
+      "unit": "hero:npc_omar"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "duat",
+      "type": "unit_survive",
+      "unit": "hero:npc_tran_nhat_duat",
+      "label": "녓주엇을 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "함뜨 건너편 나루에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "zone_ref": "far_ferry",
+       "tiles": [
+        [
+         24,
+         11
+        ],
+        [
+         25,
+         11
+        ],
+        [
+         24,
+         12
+        ],
+        [
+         25,
+         12
+        ],
+        [
+         24,
+         13
+        ],
+        [
+         25,
+         13
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "함뜨 나루",
+   "year_label": "1285년",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s2_ham_tu_ford",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 15,
+   "difficulty": 6,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_tran_nhat_duat",
+     "npc_dai_viet_boat_captain",
+     "npc_nguyen_khoai"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "C",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "동안 나루 수비대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       11
+      ],
+      [
+       28,
+       13
+      ],
+      [
+       29,
+       12
+      ],
+      [
+       27,
+       10
+      ],
+      [
+       27,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 궁수"
+    },
+    {
+     "id": "A",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_omar",
+      "display_name_ko": "오마르",
+      "evidence_level": "confirmed",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       22,
+       7
+      ],
+      [
+       22,
+       6
+      ],
+      [
+       23,
+       8
+      ],
+      [
+       21,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "원 수군 초계선"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "초계 소형선장",
+      "evidence_level": "generic",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       14,
+       4
+      ],
+      [
+       14,
+       5
+      ],
+      [
+       15,
+       6
+      ],
+      [
+       13,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "원 수군 소형선"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "후미 기병장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       30,
+       15
+      ],
+      [
+       31,
+       15
+      ],
+      [
+       32,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 후미 기병",
+     "hold_until_turn": 4
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 16,
+   "enemy_units_peak": 16,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      28,
+      11
+     ],
+     "name": "동안 나루 수비대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      29,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      14
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      22,
+      7
+     ],
+     "ref": "npc_omar",
+     "kind": "npc",
+     "name": "오마르"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      22,
+      6
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      23,
+      8
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      21,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      14,
+      4
+     ],
+     "name": "초계 소형선장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      14,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      15,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      13,
+      6
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      30,
+      15
+     ],
+     "name": "후미 기병장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      31,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      14
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1844,
+    "gold": 1654,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "duat"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 55~75 (미측정)",
+   "sort_order": 2502,
+   "prerequisite": "ch25_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s2_e1_arrive",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "zone_ref": "mid_ford",
+       "tiles": [
+        [
+         13,
+         11
+        ],
+        [
+         14,
+         11
+        ],
+        [
+         15,
+         11
+        ],
+        [
+         13,
+         12
+        ],
+        [
+         14,
+         12
+        ],
+        [
+         15,
+         12
+        ],
+        [
+         13,
+         13
+        ],
+        [
+         14,
+         13
+        ],
+        [
+         15,
+         13
+        ]
+       ]
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_tran_nhat_duat",
+     "purpose": "배가 모자라면 말을 늘리라는 농담 섞인 지시"
+    },
+    {
+     "id": "ch25_s2_e1_khoai",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "zone_ref": "mid_ford",
+       "tiles": [
+        [
+         13,
+         11
+        ],
+        [
+         14,
+         11
+        ],
+        [
+         15,
+         11
+        ],
+        [
+         13,
+         12
+        ],
+        [
+         14,
+         12
+        ],
+        [
+         15,
+         12
+        ],
+        [
+         13,
+         13
+        ],
+        [
+         14,
+         13
+        ],
+        [
+         15,
+         13
+        ]
+       ]
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_nguyen_khoai",
+     "purpose": "왼쪽 갈대(섬 남쪽)에 닿았다는 보고"
+    },
+    {
+     "id": "ch25_s2_e2_omar",
+     "on": {
+      "turn": 4,
+      "when": {
+       "type": "hp_pct_lte",
+       "unit": "hero:npc_omar",
+       "pct": 50
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_omar",
+     "purpose": "깃발만 남기고 하류에서 다시 본다는 철수 대사"
+    },
+    {
+     "id": "ch25_s2_e2_duat",
+     "on": {
+      "turn": 4,
+      "when": {
+       "type": "retreated",
+       "unit": "hero:npc_omar"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_tran_nhat_duat",
+     "purpose": "저 배는 오늘 안 본다는 한마디"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s2_pre",
+    "ch25_s2_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s2_ham_tu_ford",
+    "zones": {
+     "mid_ford": "9칸",
+     "far_ferry": "6칸",
+     "reinforce_khoai": "4칸",
+     "second_ford": "9칸",
+     "omar_retreat_lane": "3칸"
+    },
+    "deploy_zone_count": 72,
+    "tile_tags": [
+     "far_ferry",
+     "mid_ford",
+     "omar_retreat_lane",
+     "reinforce_khoai",
+     "second_ford"
+    ]
+   },
+   "design_notes": [
+    "도달형(win_mode only). 승리 = 주인공이 동안 나루 far_ferry(6칸)에 in_zone. 지휘관 격파는 승리가 아님(오마르는 부대장이라 체력 50%에서 retreat 가능, main=동안 수비대장).",
+    "물길 2갈래+여울 3칸 폭: 여울에서 궁수 5기(C)가 사선 확보, 수군 초계선이 강 위. 보병이 여울(이동2, 방어-10)을 건널 때 궁수 대응이 핵심(상성).",
+    "주인공이 중간 여울을 밟으면 코아이 합류(턴1 when). 패배 = 주인공 격파 또는 12턴 초과(win_rule 이 있어 턴 상한=패배).",
+    "후미 기병 D 는 hold_until_turn 4(늦게 합류)."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "npc_tran_nhat_duat": 3,
+     "npc_dai_viet_boat_captain": 0,
+     "npc_nguyen_khoai": 2
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  },
+  {
+   "code": "ch25_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_tran_quang_khai",
+      "x": 13,
+      "y": 13,
+      "must_survive": true
+     }
+    ],
+    "enemy_commander": {
+     "name": "소게투",
+     "hero": "npc_sogetu"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_tran_quoc_toan",
+      "tiles": [
+       [
+        14,
+        16
+       ],
+       [
+        15,
+        16
+       ],
+       [
+        16,
+        16
+       ],
+       [
+        14,
+        17
+       ]
+      ],
+      "tag": "toan",
+      "ready": true
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "toan",
+      "type": "unit_survive",
+      "unit": "hero:npc_tran_quoc_toan",
+      "label": "꾸옥 또안의 사병을 지켜라"
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "쯔엉즈엉 나루",
+   "year_label": "1285년",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s3_chuong_duong",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 16,
+   "difficulty": 7,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_tran_quang_khai",
+     "npc_tran_quoc_toan"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_sogetu",
+      "display_name_ko": "소게투",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.1
+     },
+     "soldier_type": "sword",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       30,
+       12
+      ],
+      [
+       29,
+       12
+      ],
+      [
+       31,
+       12
+      ],
+      [
+       30,
+       11
+      ],
+      [
+       30,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "원 중보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서문 궁수대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       12
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       13
+      ],
+      [
+       24,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 궁수"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "전위 기병장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       22,
+       10
+      ],
+      [
+       22,
+       14
+      ],
+      [
+       23,
+       12
+      ],
+      [
+       21,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 전위 기병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "동문 수비대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       12
+      ],
+      [
+       35,
+       11
+      ],
+      [
+       35,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 수비병",
+     "hold_until_turn": 5
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 16,
+   "enemy_units_peak": 19,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 5
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "동문 증원 궁수장",
+       "evidence_level": "generic",
+       "troop_type": "archer",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "archer",
+      "soldiers": 2,
+      "units_total": 3,
+      "ai": "advance",
+      "soldier_display_name_ko": "몽골 증원 궁수",
+      "spawn_cell": [
+       33,
+       12
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      30,
+      12
+     ],
+     "ref": "npc_sogetu",
+     "kind": "npc",
+     "name": "소게투"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      27,
+      12
+     ],
+     "name": "서문 궁수대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      24,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      22,
+      10
+     ],
+     "name": "전위 기병장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      22,
+      14
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      23,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      34,
+      12
+     ],
+     "name": "동문 수비대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      13
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1360,
+    "exp": 1972,
+    "gold": 1768,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "toan"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 50~70 (미측정)",
+   "sort_order": 2503,
+   "prerequisite": "ch25_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s3_e1_order",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:npc_tran_quang_khai",
+     "purpose": "명령이 없었다는 건조한 지적"
+    },
+    {
+     "id": "ch25_s3_e1_flag",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:npc_tran_quoc_toan",
+     "purpose": "깃발은 있었다는 답"
+    },
+    {
+     "id": "ch25_s3_e1_turn",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:npc_tran_quang_khai",
+     "purpose": "오른쪽으로 가라(앞은 안 된다)로 돌려세움"
+    },
+    {
+     "id": "ch25_s3_e2_sogetu",
+     "on": {
+      "turn": 4,
+      "when": {
+       "type": "hp_pct_lte",
+       "unit": "enemy_commander",
+       "pct": 40
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_sogetu",
+     "purpose": "남쪽 길을 반 년 걸었다는 보급 이야기"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s3_pre",
+    "ch25_s3_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s3_chuong_duong",
+    "zones": {
+     "ford": "12칸",
+     "stockade_west_gate": "1칸",
+     "stockade_east_gate": "1칸",
+     "stockade_inner": "54칸",
+     "reinforce_toan": "4칸",
+     "toan_right_lane": "16칸"
+    },
+    "deploy_zone_count": 90,
+    "tile_tags": [
+     "ford",
+     "reinforce_toan",
+     "stockade_east_gate",
+     "stockade_inner",
+     "stockade_west_gate",
+     "toan_right_lane"
+    ]
+   },
+   "design_notes": [
+    "격파형. 목책 성채(문 2곳: 서문 26,12 / 동문 33,12) 안 소게투(sword, hp_mult 1.1 보수 시작). 나루 여울(17~20,11~13) 건너 서문을 뚫어야 함 = 좁은 문 상성(궁수 B 서문, 전위 기병 C 여울 동쪽).",
+    "꾸옥 또안 사병(기병)이 턴3에 서안 남쪽 합류(cue spawn). 꾸옥 또안 사망 연출 금지(사료 verify) -> 강제 사망 cue 없음, 일반 격파는 가능하므로 서브 목표 'toan' 은 보너스로만.",
+    "패배 = 꽝카이 격파(must_survive) 또는 주인공 격파(기본). 소게투 지휘관 배정은 사료 verify -> 불확정이면 npc_sogetu 대신 익명 부장으로 교체(코드 한 줄).",
+    "소게투 병종 'heavy'는 퇴역 병종이라 sword 로 대체."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "npc_tran_quang_khai": 3,
+     "npc_tran_quoc_toan": 2
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  },
+  {
+   "code": "ch25_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_tran_nhat_duat",
+      "x": 10,
+      "y": 14,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_pham_ngu_lao",
+      "x": 18,
+      "y": 18,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "도성 수비대장",
+     "hero": "npc_yuan_garrison_captain"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        7,
+        10
+       ],
+       [
+        8,
+        10
+       ],
+       [
+        9,
+        10
+       ],
+       [
+        10,
+        10
+       ],
+       [
+        11,
+        10
+       ],
+       [
+        12,
+        10
+       ],
+       [
+        13,
+        10
+       ],
+       [
+        7,
+        11
+       ],
+       [
+        8,
+        11
+       ],
+       [
+        9,
+        11
+       ],
+       [
+        10,
+        11
+       ],
+       [
+        11,
+        11
+       ],
+       [
+        12,
+        11
+       ],
+       [
+        13,
+        11
+       ],
+       [
+        7,
+        12
+       ],
+       [
+        8,
+        12
+       ],
+       [
+        9,
+        12
+       ],
+       [
+        10,
+        12
+       ],
+       [
+        11,
+        12
+       ],
+       [
+        12,
+        12
+       ],
+       [
+        13,
+        12
+       ],
+       [
+        7,
+        13
+       ],
+       [
+        8,
+        13
+       ],
+       [
+        9,
+        13
+       ],
+       [
+        10,
+        13
+       ],
+       [
+        11,
+        13
+       ],
+       [
+        12,
+        13
+       ],
+       [
+        13,
+        13
+       ],
+       [
+        7,
+        14
+       ],
+       [
+        8,
+        14
+       ],
+       [
+        9,
+        14
+       ],
+       [
+        10,
+        14
+       ],
+       [
+        11,
+        14
+       ],
+       [
+        12,
+        14
+       ],
+       [
+        13,
+        14
+       ]
+      ],
+      "turns": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          9,
+          6
+         ],
+         [
+          10,
+          6
+         ],
+         [
+          11,
+          6
+         ],
+         [
+          12,
+          6
+         ],
+         [
+          9,
+          7
+         ],
+         [
+          10,
+          7
+         ],
+         [
+          11,
+          7
+         ],
+         [
+          12,
+          7
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "granary_empty",
+      "value": true
+     }
+    ],
+    "sub_objectives": [],
+    "lose_conditions": [
+     {
+      "id": "strongholds_lost",
+      "label": "10턴 넘어서도 거점 2곳 이상이 적의 손에 있음",
+      "when": {
+       "all": [
+        {
+         "type": "turn_gte",
+         "value": 10
+        },
+        {
+         "any": [
+          {
+           "all": [
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "cap_west_ferry",
+             "tiles": [
+              [
+               1,
+               8
+              ],
+              [
+               2,
+               8
+              ],
+              [
+               1,
+               9
+              ],
+              [
+               2,
+               9
+              ],
+              [
+               1,
+               10
+              ],
+              [
+               2,
+               10
+              ],
+              [
+               1,
+               11
+              ],
+              [
+               2,
+               11
+              ]
+             ]
+            },
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "cap_market",
+             "tiles": [
+              [
+               9,
+               11
+              ],
+              [
+               10,
+               11
+              ],
+              [
+               11,
+               11
+              ],
+              [
+               9,
+               12
+              ],
+              [
+               10,
+               12
+              ],
+              [
+               11,
+               12
+              ],
+              [
+               9,
+               13
+              ],
+              [
+               10,
+               13
+              ],
+              [
+               11,
+               13
+              ]
+             ]
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "cap_west_ferry",
+             "tiles": [
+              [
+               1,
+               8
+              ],
+              [
+               2,
+               8
+              ],
+              [
+               1,
+               9
+              ],
+              [
+               2,
+               9
+              ],
+              [
+               1,
+               10
+              ],
+              [
+               2,
+               10
+              ],
+              [
+               1,
+               11
+              ],
+              [
+               2,
+               11
+              ]
+             ]
+            },
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "cap_palace_court",
+             "tiles": [
+              [
+               9,
+               6
+              ],
+              [
+               10,
+               6
+              ],
+              [
+               11,
+               6
+              ],
+              [
+               12,
+               6
+              ],
+              [
+               9,
+               7
+              ],
+              [
+               10,
+               7
+              ],
+              [
+               11,
+               7
+              ],
+              [
+               12,
+               7
+              ]
+             ]
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "cap_market",
+             "tiles": [
+              [
+               9,
+               11
+              ],
+              [
+               10,
+               11
+              ],
+              [
+               11,
+               11
+              ],
+              [
+               9,
+               12
+              ],
+              [
+               10,
+               12
+              ],
+              [
+               11,
+               12
+              ],
+              [
+               9,
+               13
+              ],
+              [
+               10,
+               13
+              ],
+              [
+               11,
+               13
+              ]
+             ]
+            },
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "cap_palace_court",
+             "tiles": [
+              [
+               9,
+               6
+              ],
+              [
+               10,
+               6
+              ],
+              [
+               11,
+               6
+              ],
+              [
+               12,
+               6
+              ],
+              [
+               9,
+               7
+              ],
+              [
+               10,
+               7
+              ],
+              [
+               11,
+               7
+              ],
+              [
+               12,
+               7
+              ]
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "name": "탕롱 탈환",
+   "year_label": "1285년",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s4_thang_long",
+   "map_id_dev": null,
+   "map_size": [
+    28,
+    20
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      1,
+      9
+     ],
+     [
+      10,
+      12
+     ],
+     [
+      10,
+      7
+     ]
+    ],
+    "mode": "all",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 17,
+   "difficulty": 8,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_tran_nhat_duat",
+     "npc_pham_ngu_lao"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yuan_garrison_captain",
+      "display_name_ko": "도성 수비대장",
+      "evidence_level": "invented",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       10,
+       6
+      ],
+      [
+       11,
+       6
+      ],
+      [
+       9,
+       7
+      ],
+      [
+       12,
+       7
+      ],
+      [
+       10,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "원 수비병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "시장 궁수대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       10,
+       12
+      ],
+      [
+       9,
+       11
+      ],
+      [
+       11,
+       11
+      ],
+      [
+       8,
+       13
+      ],
+      [
+       12,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 궁수"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서문 나루 수비대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       2,
+       9
+      ],
+      [
+       1,
+       10
+      ],
+      [
+       2,
+       11
+      ],
+      [
+       4,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 중갑 보병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "동문 지연대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       22,
+       9
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       21,
+       9
+      ],
+      [
+       20,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 후미 기병"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 18,
+   "enemy_units_peak": 22,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 6
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "후미 증원 보병장",
+       "evidence_level": "generic",
+       "troop_type": "sword",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "sword",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "soldier_display_name_ko": "몽골 후미 보병",
+      "spawn_cell": [
+       27,
+       9
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      10,
+      6
+     ],
+     "ref": "npc_yuan_garrison_captain",
+     "kind": "npc",
+     "name": "도성 수비대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      11,
+      6
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      9,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      12,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      10,
+      7
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      10,
+      12
+     ],
+     "name": "시장 궁수대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      9,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      11,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      8,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      12,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      2,
+      9
+     ],
+     "name": "서문 나루 수비대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      1,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      2,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      4,
+      9
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      22,
+      9
+     ],
+     "name": "동문 지연대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      23,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      9
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      10
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 50~68 (미측정)",
+   "sort_order": 2504,
+   "prerequisite": "ch25_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s4_e1_fire_warn",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:npc_pham_ngu_lao",
+     "purpose": "시장 쪽 불길이 우리 길로 번진다는 경고(턴4 불 예고)"
+    },
+    {
+     "id": "ch25_s4_e1_canal",
+     "on": {
+      "turn": 4
+     },
+     "do": "say",
+     "speaker": "protagonist",
+     "purpose": "수로 쪽으로 돌면 막힌다는 제안(수문 18,15 우회)"
+    },
+    {
+     "id": "ch25_s4_e2_keys",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "flag",
+       "key": "granary_empty"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_yuan_garrison_captain",
+     "purpose": "창고 열쇠는 있는데 열 곳이 없다는 한마디(곡식이 없다는 정보)"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s4_pre",
+    "ch25_s4_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s4_thang_long",
+    "zones": {
+     "cap_west_ferry": "8칸",
+     "cap_market": "9칸",
+     "cap_palace_court": "8칸",
+     "fire_market": "35칸",
+     "canal_route": "17칸",
+     "water_gate": "1칸",
+     "west_gate": "2칸",
+     "south_gate": "2칸",
+     "east_gate": "2칸",
+     "rear_reinforce_east": "4칸",
+     "enemy_deploy_court": "5칸",
+     "enemy_deploy_market": "5칸",
+     "enemy_deploy_ferry": "4칸",
+     "enemy_deploy_east_gate": "4칸"
+    },
+    "deploy_zone_count": 68,
+    "tile_tags": [
+     "burnt",
+     "canal",
+     "cap_market",
+     "cap_palace_court",
+     "cap_west_ferry"
+    ]
+   },
+   "design_notes": [
+    "점령형(대형 28x20). objective capture mode all: 서문 나루(1,9)·시장(10,12)·궁성 앞뜰(10,7) 3점을 동시에 hold 2라운드. 거점 구역(8~9칸)이 아니라 중심 1칸씩 -> 점유 부대 간 동선 분산 필요.",
+    "패배 = 턴10 이후 거점 구역 2곳 이상에 적이 서 있음(구역 안 아무 칸; 근사). timeout 은 win_rule 없음 -> HP 비교(기존 capture 와 동일).",
+    "남쪽 논에서 남문 정면 또는 수로(x18, 수문 18,15)로 진입. 불(fire)은 시각 전용(시장 35칸, 턴4 2턴) -> 판정 영향 없음; '번짐' 은 연출/대사로만.",
+    "궁성 앞뜰 구역에 아군이 서면 granary_empty 플래그(창고 비었음 정보 대사 트리거).",
+    "동문 후미 증원 R1 턴6 보병 4(peak 22)."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "npc_tran_nhat_duat": 3,
+     "npc_pham_ngu_lao": 3
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  },
+  {
+   "code": "ch25_s5",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "tran_hung_dao",
+      "x": 0,
+      "y": 9,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_pham_ngu_lao",
+      "x": 15,
+      "y": 14,
+      "must_survive": true
+     }
+    ],
+    "enemy_commander": {
+     "name": "리항",
+     "hero": "npc_li_heng"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "retreat",
+      "unit": "hero:npc_toghan"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "ngu_lao",
+      "type": "unit_survive",
+      "unit": "hero:npc_pham_ngu_lao",
+      "label": "응우라오를 지켜라"
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "퇴로 습격",
+   "year_label": "1285년",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s5_retreat_gorge",
+   "map_id_dev": null,
+   "map_size": [
+    28,
+    20
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 16,
+   "difficulty": 6,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "tran_hung_dao",
+     "npc_pham_ngu_lao"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_li_heng",
+      "display_name_ko": "리항",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       13,
+       9
+      ],
+      [
+       12,
+       10
+      ],
+      [
+       14,
+       10
+      ],
+      [
+       11,
+       9
+      ],
+      [
+       15,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "원 후위 궁수"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_toghan",
+      "display_name_ko": "토간",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       9
+      ],
+      [
+       22,
+       10
+      ],
+      [
+       20,
+       10
+      ],
+      [
+       22,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "토간 직속 기병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "후위 지연대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       8,
+       10
+      ],
+      [
+       9,
+       9
+      ],
+      [
+       8,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 지연 보병"
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      13,
+      9
+     ],
+     "ref": "npc_li_heng",
+     "kind": "npc",
+     "name": "리항"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      12,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      14,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      11,
+      9
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      15,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      21,
+      9
+     ],
+     "ref": "npc_toghan",
+     "kind": "npc",
+     "name": "토간"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      22,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      22,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      8,
+      10
+     ],
+     "name": "후위 지연대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      9,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      8,
+      9
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1360,
+    "exp": 1972,
+    "gold": 1768,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "ngu_lao"
+    },
+    {
+     "type": "turn_within",
+     "value": 8
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 60~80 (미측정; 난이도 낮음)",
+   "sort_order": 2505,
+   "prerequisite": "ch25_s4",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s5_e1_toghan",
+     "on": {
+      "turn": 4
+     },
+     "do": "say",
+     "speaker": "hero:npc_toghan",
+     "purpose": "본대가 먼저 건넌다, 후위는 이름을 남겨라"
+    },
+    {
+     "id": "ch25_s5_e2_liheng",
+     "on": {
+      "turn": 5,
+      "when": {
+       "type": "hp_pct_lte",
+       "unit": "enemy_commander",
+       "pct": 50
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_li_heng",
+     "purpose": "화살이 얕지 않다는 한마디(후위 혼란)"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s5_pre",
+    "ch25_s5_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s5_retreat_gorge",
+    "zones": {
+     "gorge_road": "28칸",
+     "ambush_south_canyon": "8칸",
+     "toghan_exit_east": "8칸",
+     "ngu_lao_start": "4칸"
+    },
+    "deploy_zone_count": 56,
+    "tile_tags": [
+     "ambush_south_canyon",
+     "gorge_road",
+     "ngu_lao_start",
+     "toghan_exit_east"
+    ]
+   },
+   "design_notes": [
+    "격파형. 협곡 길(y9~10)로 빠지는 후위: 리항(main, 궁수)을 끊는다. 토간 부대(기병 4)는 턴4 retreat(부대 전원 이탈) -> 실질 교전 병력은 A5+C3 = 8 + 이탈 전 접촉분.",
+    "응우라오(must_survive)는 남쪽 골짜기(15,14)에서 단독 시작 -> 길 위 리항 부대와 5칸 이내(위험). 측정 후 must_survive 해제 또는 시작 칸 후퇴 가능.",
+    "리항 '부상/후퇴' 는 지휘관(b0)이라 retreat cue 불가 -> 격파로 처리(대사로 부상 암시).",
+    "리항 병종은 로스터 힌트 archer."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "tran_hung_dao": 2,
+     "npc_pham_ngu_lao": 3
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  },
+  {
+   "code": "ch25_s6",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "tran_hung_dao",
+      "x": 3,
+      "y": 8,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_tran_quang_khai",
+      "x": 3,
+      "y": 15,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "야영지 후위대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          12,
+          8
+         ],
+         [
+          13,
+          8
+         ],
+         [
+          12,
+          9
+         ],
+         [
+          13,
+          9
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "doc_found",
+      "value": true
+     }
+    ],
+    "sub_objectives": [],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "군막의 문서를 확보한다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "zone_ref": "doc_tent",
+       "tiles": [
+        [
+         12,
+         8
+        ],
+        [
+         13,
+         8
+        ],
+        [
+         12,
+         9
+        ],
+        [
+         13,
+         9
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "반끼엡 야영지",
+   "year_label": "1285년",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s6_van_kiep_camp",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      10,
+      9
+     ],
+     [
+      21,
+      10
+     ]
+    ],
+    "mode": "all",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 17,
+   "difficulty": 7,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "tran_hung_dao",
+     "npc_tran_quang_khai"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "야영지 후위대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       13
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       15,
+       13
+      ],
+      [
+       17,
+       15
+      ],
+      [
+       19,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 후위 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서쪽 마당 궁수대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       10,
+       10
+      ],
+      [
+       11,
+       10
+      ],
+      [
+       9,
+       10
+      ],
+      [
+       11,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 궁수"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "동쪽 깃발대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       22,
+       11
+      ],
+      [
+       23,
+       11
+      ],
+      [
+       21,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 창병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "북쪽 선착 기병장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       4
+      ],
+      [
+       16,
+       4
+      ],
+      [
+       14,
+       3
+      ],
+      [
+       17,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 경기병",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 17,
+   "enemy_units_peak": 21,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 6
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "항복하지 않은 수비대장",
+       "evidence_level": "generic",
+       "troop_type": "sword",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "sword",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "soldier_display_name_ko": "몽골 수비병",
+      "spawn_cell": [
+       27,
+       10
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      17,
+      13
+     ],
+     "name": "야영지 후위대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      18,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      15
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      10,
+      10
+     ],
+     "name": "서쪽 마당 궁수대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      11,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      9,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      11,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      21,
+      11
+     ],
+     "name": "동쪽 깃발대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      15,
+      4
+     ],
+     "name": "북쪽 선착 기병장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      4
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      14,
+      3
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      17,
+      3
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 50~68 (미측정)",
+   "sort_order": 2506,
+   "prerequisite": "ch25_s5",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s6_e1_doc",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "flag",
+       "key": "doc_found"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:tran_hung_dao",
+     "purpose": "문서를 찢지 말고 줄 전체를 봐야 한다"
+    },
+    {
+     "id": "ch25_s6_e1_family",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "flag",
+       "key": "doc_found"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_tran_quang_khai",
+     "purpose": "가족 이야기라는 건조한 지적"
+    },
+    {
+     "id": "ch25_s6_e2_warn",
+     "on": {
+      "turn": 5
+     },
+     "do": "say",
+     "speaker": "hero:npc_tran_quang_khai",
+     "purpose": "후방 숲에서 항복하지 않는 수비대가 움직인다는 예고(턴6 증원)"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s6_pre",
+    "ch25_s6_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s6_van_kiep_camp",
+    "zones": {
+     "cap_west_yard": "4칸",
+     "cap_east_flag": "4칸",
+     "doc_tent": "4칸",
+     "rear_reinforce": "6칸",
+     "gates": "문 구역",
+     "enemy_deploy_center": "5칸",
+     "enemy_deploy_west": "4칸",
+     "enemy_deploy_east": "4칸",
+     "enemy_deploy_landing": "4칸"
+    },
+    "deploy_zone_count": 74,
+    "tile_tags": [
+     "cap_east_flag",
+     "cap_west_yard",
+     "doc_tent",
+     "rear_reinforce"
+    ]
+   },
+   "design_notes": [
+    "점령형 + 문서 확보(win_mode all): capture 서쪽 마당(10,9)+동쪽 깃발대(21,10) 동시 hold 2라운드 AND 주인공이 doc_tent 구역(12~13,8~9) in_zone(latch). 서류 군막은 서쪽 마당 바로 옆이라 순서는 자유.",
+    "패배 = 흥다오 격파(must_survive) 또는 주인공 격파. 증원 R1 턴6: 항복하지 않은 수비대 4기(후방 숲 빈터, peak 21).",
+    "'투항 부대' 연출(defect cue)은 넣지 않음(판정 복잡) -> 후속 협의."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "tran_hung_dao": 2,
+     "npc_tran_quang_khai": 2
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  },
+  {
+   "code": "ch25_s7",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_tran_khanh_du",
+      "x": 7,
+      "y": 16,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_dai_viet_boat_captain",
+      "x": 10,
+      "y": 20,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "장원호",
+     "hero": "npc_zhang_wenhu"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          9,
+          15
+         ],
+         [
+          10,
+          15
+         ],
+         [
+          11,
+          15
+         ],
+         [
+          9,
+          16
+         ],
+         [
+          10,
+          16
+         ],
+         [
+          11,
+          16
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        9,
+        15
+       ],
+       [
+        10,
+        15
+       ],
+       [
+        11,
+        15
+       ],
+       [
+        9,
+        16
+       ],
+       [
+        10,
+        16
+       ],
+       [
+        11,
+        16
+       ],
+       [
+        12,
+        15
+       ],
+       [
+        13,
+        15
+       ],
+       [
+        12,
+        16
+       ],
+       [
+        13,
+        16
+       ]
+      ],
+      "turns": 3
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          9,
+          15
+         ],
+         [
+          10,
+          15
+         ],
+         [
+          11,
+          15
+         ],
+         [
+          9,
+          16
+         ],
+         [
+          10,
+          16
+         ],
+         [
+          11,
+          16
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "boat_1",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          14,
+          10
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          10
+         ],
+         [
+          14,
+          11
+         ],
+         [
+          15,
+          11
+         ],
+         [
+          16,
+          11
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        14,
+        10
+       ],
+       [
+        15,
+        10
+       ],
+       [
+        16,
+        10
+       ],
+       [
+        14,
+        11
+       ],
+       [
+        15,
+        11
+       ],
+       [
+        16,
+        11
+       ],
+       [
+        17,
+        10
+       ],
+       [
+        18,
+        10
+       ],
+       [
+        17,
+        11
+       ],
+       [
+        18,
+        11
+       ]
+      ],
+      "turns": 3
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          14,
+          10
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          10
+         ],
+         [
+          14,
+          11
+         ],
+         [
+          15,
+          11
+         ],
+         [
+          16,
+          11
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "boat_2",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          19,
+          5
+         ],
+         [
+          20,
+          5
+         ],
+         [
+          21,
+          5
+         ],
+         [
+          19,
+          6
+         ],
+         [
+          20,
+          6
+         ],
+         [
+          21,
+          6
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        19,
+        5
+       ],
+       [
+        20,
+        5
+       ],
+       [
+        21,
+        5
+       ],
+       [
+        19,
+        6
+       ],
+       [
+        20,
+        6
+       ],
+       [
+        21,
+        6
+       ],
+       [
+        22,
+        5
+       ],
+       [
+        23,
+        5
+       ],
+       [
+        22,
+        6
+       ],
+       [
+        23,
+        6
+       ]
+      ],
+      "turns": 3
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          19,
+          5
+         ],
+         [
+          20,
+          5
+         ],
+         [
+          21,
+          5
+         ],
+         [
+          19,
+          6
+         ],
+         [
+          20,
+          6
+         ],
+         [
+          21,
+          6
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "boat_3",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        4,
+        0
+       ],
+       [
+        4,
+        1
+       ],
+       [
+        4,
+        2
+       ],
+       [
+        4,
+        3
+       ],
+       [
+        4,
+        4
+       ],
+       [
+        4,
+        5
+       ],
+       [
+        4,
+        6
+       ],
+       [
+        4,
+        7
+       ],
+       [
+        24,
+        4
+       ],
+       [
+        24,
+        5
+       ],
+       [
+        24,
+        6
+       ],
+       [
+        23,
+        17
+       ],
+       [
+        23,
+        18
+       ]
+      ],
+      "turns": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "khanh_du",
+      "type": "unit_survive",
+      "unit": "hero:npc_tran_khanh_du",
+      "label": "칸즈를 지켜라"
+     }
+    ],
+    "protagonist_troop": "naval",
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "1번 군량선에 불을 붙인다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "boat_1",
+       "value": true
+      }
+     },
+     {
+      "label": "2번 군량선에 불을 붙인다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "boat_2",
+       "value": true
+      }
+     },
+     {
+      "label": "3번 군량선에 불을 붙인다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "boat_3",
+       "value": true
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "convoy_escaped",
+      "label": "후속 군량선이 북쪽 출구에 닿음",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "zone_ref": "north_exit",
+       "tiles": [
+        [
+         9,
+         0
+        ],
+        [
+         10,
+         0
+        ],
+        [
+         11,
+         0
+        ],
+        [
+         12,
+         0
+        ],
+        [
+         13,
+         0
+        ],
+        [
+         14,
+         0
+        ],
+        [
+         15,
+         0
+        ],
+        [
+         16,
+         0
+        ],
+        [
+         17,
+         0
+        ],
+        [
+         18,
+         0
+        ],
+        [
+         19,
+         0
+        ],
+        [
+         20,
+         0
+        ],
+        [
+         21,
+         0
+        ],
+        [
+         22,
+         0
+        ],
+        [
+         9,
+         1
+        ],
+        [
+         10,
+         1
+        ],
+        [
+         11,
+         1
+        ],
+        [
+         12,
+         1
+        ],
+        [
+         13,
+         1
+        ],
+        [
+         14,
+         1
+        ],
+        [
+         15,
+         1
+        ],
+        [
+         16,
+         1
+        ],
+        [
+         17,
+         1
+        ],
+        [
+         18,
+         1
+        ],
+        [
+         19,
+         1
+        ],
+        [
+         20,
+         1
+        ],
+        [
+         21,
+         1
+        ],
+        [
+         22,
+         1
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "번돈 군량선",
+   "year_label": "1288년",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s7_van_don_grain",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -6,
+   "effective_enemy_level": 16,
+   "difficulty": 8,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_tran_khanh_du",
+     "npc_dai_viet_boat_captain"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_zhang_wenhu",
+      "display_name_ko": "장원호",
+      "evidence_level": "accepted",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       11
+      ],
+      [
+       15,
+       11
+      ],
+      [
+       14,
+       11
+      ],
+      [
+       16,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "군량선 호위 수병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "1번 군량선 궁수대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       10,
+       16
+      ],
+      [
+       11,
+       16
+      ],
+      [
+       9,
+       16
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "군량선 궁수",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "3번 군량선 갑판장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       20,
+       6
+      ],
+      [
+       21,
+       6
+      ],
+      [
+       19,
+       6
+      ],
+      [
+       22,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "군량선 갑판병",
+     "hold_until_turn": 5
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호위함장",
+      "evidence_level": "generic",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       10
+      ],
+      [
+       19,
+       10
+      ],
+      [
+       12,
+       13
+      ],
+      [
+       23,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "호위함 수병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "후속 군량선 호송장",
+      "evidence_level": "generic",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       21
+      ],
+      [
+       29,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "후속 군량선 수병",
+     "route": {
+      "waypoints": [
+       [
+        16,
+        1
+       ]
+      ],
+      "from_turn": 4,
+      "move_cap": 6
+     }
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 18,
+   "enemy_units_peak": 18,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      16,
+      11
+     ],
+     "ref": "npc_zhang_wenhu",
+     "kind": "npc",
+     "name": "장원호"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      15,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      14,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      16,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      10,
+      16
+     ],
+     "name": "1번 군량선 궁수대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      11,
+      16
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      9,
+      16
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      13,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      20,
+      6
+     ],
+     "name": "3번 군량선 갑판장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      5
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      18,
+      10
+     ],
+     "name": "호위함장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      19,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      12,
+      13
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      23,
+      5
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      28,
+      21
+     ],
+     "name": "후속 군량선 호송장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      29,
+      21
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    },
+    {
+     "type": "sub_objective",
+     "id": "khanh_du"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 50~68 (미측정; 규칙 신규라 편차 큼)",
+   "sort_order": 2507,
+   "prerequisite": "ch25_s6",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s7_e1_wind_warn",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:npc_tran_khanh_du",
+     "purpose": "바람이 오른쪽(동쪽)이라 거기서 붙이라는 지시(턴4 갈대 불 예고)"
+    },
+    {
+     "id": "ch25_s7_e1_boat1",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "flag",
+       "key": "boat_1"
+      }
+     },
+     "do": "say",
+     "speaker": "protagonist",
+     "purpose": "첫 군량선에 불이 붙었다는 보고"
+    },
+    {
+     "id": "ch25_s7_e2_zhang",
+     "on": {
+      "turn": 4,
+      "when": {
+       "type": "hp_pct_lte",
+       "unit": "hero:npc_zhang_wenhu",
+       "pct": 50
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_zhang_wenhu",
+     "purpose": "배가 반이 남으면 반이라도 가져간다"
+    },
+    {
+     "id": "ch25_s7_e2_khanh",
+     "on": {
+      "turn": 4,
+      "when": {
+       "type": "hp_pct_lte",
+       "unit": "hero:npc_zhang_wenhu",
+       "pct": 50
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_tran_khanh_du",
+     "purpose": "가져가라, 곡식이 그리로는 안 간다"
+    },
+    {
+     "id": "ch25_s7_convoy",
+     "on": {
+      "turn": 4
+     },
+     "do": "say",
+     "speaker": "narrator",
+     "purpose": "후속 군량선이 남동쪽에서 북쪽 출구로 움직이기 시작함(시간 압박 안내)"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s7_pre",
+    "ch25_s7_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s7_van_don_grain",
+    "zones": {
+     "boat_1": "6칸",
+     "boat_2": "6칸",
+     "boat_3": "6칸",
+     "north_exit": "28칸",
+     "wind_reeds_mainland": "8칸",
+     "wind_reeds_isle": "5칸",
+     "fire_spread_e_boat_1": "4칸",
+     "fire_spread_e_boat_2": "4칸",
+     "fire_spread_e_boat_3": "4칸",
+     "ally_cove": "8칸",
+     "enemy_deploy_boat_2_cmd": "4칸",
+     "enemy_deploy_boat_1": "4칸",
+     "enemy_deploy_boat_3": "4칸",
+     "enemy_deploy_escort": "4칸"
+    },
+    "deploy_zone_count": 42,
+    "tile_tags": [
+     "boat_1",
+     "boat_2",
+     "boat_3",
+     "north_exit"
+    ]
+   },
+   "design_notes": [
+    "기타(군량선 소각): 정박 군량선 3척 = 맵 boat_1/2/3 구역(각 6칸). 승리 = 세 구역 각각에 아군 유닛이 한 번씩 들어가 cue 가 fire(구역+동쪽 번짐 4칸 3턴)+set_flag boat_N. 시설 체력 미지원 -> in_zone 접촉으로 대체. win_mode only(적 격파는 승리 아님).",
+    "구역 판정은 side a(아군 누구나, NPC 포함). 지도 노트의 '@protagonist' 대신 side a 로 한 이유: 구역 6칸 중 적이 최대 4칸을 점유해 단독 진입은 과도(측정 후 @protagonist 로 강화 가능).",
+    "패배 설계(결정): 군량선 3척은 정박이라 '2척 북쪽 출구 통과' 불성립 -> (1) max_turns 12(win_rule 이 있어 시간초과=패배), (2) 후속 군량선 호송 분대 E(naval 2기, route -> 출구 (16,1), from_turn 4, move_cap 6)가 출구 구역(28칸)에 멈추면 즉시 패배(곡식이 도성에 닿음). E 는 route AI 라 공격하지 않음 -> 요격하거나 빨리 끝내라는 시간 압박. route 가 안 먹으면 (2)만 사라져 쉬워지는 방향(안전 폴백).",
+    "주인공 병종 naval 대여(protagonist_troop, s7 전체가 해상). 장원호는 main(b0)이라 retreat 불가 -> 대사/격파 연출만(outline 의 hp 50% 후퇴는 부대장일 때만 가능 - 필요 시 main 을 익명으로 바꾸고 장원호를 sub 로).",
+    "갑판 부대 B(턴3)·C(턴5)는 hold_until_turn 으로 갑판에 대기. fire 는 시각 전용; 북동풍은 갈대 13칸 fire 턴4(2턴)."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "npc_tran_khanh_du": 3,
+     "npc_dai_viet_boat_captain": 0
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  },
+  {
+   "code": "ch25_s8",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [],
+    "enemy_commander": {
+     "name": "추격 궁기병장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          9,
+          11
+         ],
+         [
+          10,
+          11
+         ],
+         [
+          11,
+          11
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "guide_done",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_pham_ngu_lao",
+      "tiles": [
+       [
+        5,
+        19
+       ],
+       [
+        6,
+        19
+       ],
+       [
+        7,
+        20
+       ],
+       [
+        5,
+        20
+       ]
+      ],
+      "tag": "ngu_lao",
+      "ready": true
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "ngu_lao",
+      "type": "unit_survive",
+      "unit": "hero:npc_pham_ngu_lao",
+      "label": "응우라오를 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "수로 입구에 먼저 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "zone_ref": "waterway_mouth",
+       "tiles": [
+        [
+         19,
+         13
+        ],
+        [
+         20,
+         13
+        ],
+        [
+         19,
+         14
+        ],
+        [
+         20,
+         14
+        ],
+        [
+         19,
+         15
+        ],
+        [
+         20,
+         15
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "반격로",
+   "year_label": "1288년",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s8_counter_road",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -6,
+   "effective_enemy_level": 16,
+   "difficulty": 6,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 2,
+    "named": [
+     "npc_pham_ngu_lao"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "추격 궁기병장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       1,
+       4
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       1,
+       5
+      ],
+      [
+       2,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 추격 궁기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "남쪽 추격 궁기병장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       1,
+       17
+      ],
+      [
+       2,
+       17
+      ],
+      [
+       1,
+       18
+      ],
+      [
+       2,
+       18
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 추격 궁기병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "나루 앞 기병장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       20,
+       10
+      ],
+      [
+       21,
+       10
+      ],
+      [
+       21,
+       11
+      ],
+      [
+       20,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 후위 기병",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      1,
+      4
+     ],
+     "name": "추격 궁기병장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      2,
+      4
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      1,
+      5
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      2,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      1,
+      17
+     ],
+     "name": "남쪽 추격 궁기병장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      2,
+      17
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      1,
+      18
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      2,
+      18
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      10
+     ],
+     "name": "나루 앞 기병장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      9
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    },
+    {
+     "type": "sub_objective",
+     "id": "ngu_lao"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 60~80 (미측정; 난이도 낮음)",
+   "sort_order": 2508,
+   "prerequisite": "ch25_s7",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s8_e1_guide",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "flag",
+       "key": "guide_done"
+      }
+     },
+     "do": "say",
+     "speaker": "narrator",
+     "purpose": "몽골 포로가 둑길 쪽 길을 가르쳐 주는 장면(몽골 쪽도 계산이 있음)"
+    },
+    {
+     "id": "ch25_s8_e2_ngu_lao",
+     "on": {
+      "turn": 5
+     },
+     "do": "say",
+     "speaker": "hero:npc_pham_ngu_lao",
+     "purpose": "유인된 추격대 측면을 치겠다는 보고"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s8_pre",
+    "ch25_s8_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s8_counter_road",
+    "zones": {
+     "waterway_mouth": "6칸",
+     "mid_zone": "3칸",
+     "reinforce_ngu_lao": "4칸",
+     "mud_lane": "6칸",
+     "ford": "6칸",
+     "pursuit_rear": "13칸"
+    },
+    "deploy_zone_count": 49,
+    "tile_tags": [
+     "ford",
+     "mid_zone",
+     "mud_lane",
+     "pursuit_rear",
+     "reinforce_ngu_lao",
+     "waterway_mouth"
+    ]
+   },
+   "design_notes": [
+    "도달형. 승리 = 주인공이 수로 입구(19~20,13~15)에 in_zone. 서안 -> 진창 둑길(11~16,11: 늪, 한 줄) -> 여울(17~18,10~12) -> 나루. 둑길 6칸은 보병 이동력 소모 3배(약 3라운드)이고 기병은 늪 통행 불가. 스크립트 계산(이동 비용 합): 보병 27(약 4.5라운드), 기병은 북쪽 우회(16,0~1)+강 칸 비용 37(이동력 8 기준 약 4.6라운드)이라 도착 시간은 거의 같음 -> 기병 불리가 크지 않음(상성 강화가 필요하면 우회 구간을 막는 맵 수정 요청).",
+    "적: 서쪽 추격 궁기병 2부대(archer 보병 계열, 둑길 통과 가능)가 뒤에서, 동안 나루 앞에서 기병(턴3 해제)이 막는다. 응우라오(NPC)는 턴5 남서에서 합류(cue spawn).",
+    "max_turns 14, 도달 승리라 시간초과=패배. 아군 편성에 기병이 많으면 둑길에서 막히므로 안내 문구 필요(UI 요청)."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "npc_pham_ngu_lao": 3
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  },
+  {
+   "code": "ch25_s9",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_tran_khanh_du",
+      "x": 13,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_yet_kieu",
+      "x": 19,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_da_tuong",
+      "x": 16,
+      "y": 17,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "척후선단장",
+     "hero": "npc_yuan_patrol_captain"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        5,
+        8
+       ],
+       [
+        6,
+        8
+       ],
+       [
+        7,
+        8
+       ],
+       [
+        8,
+        8
+       ],
+       [
+        9,
+        8
+       ],
+       [
+        13,
+        8
+       ],
+       [
+        14,
+        8
+       ],
+       [
+        15,
+        8
+       ],
+       [
+        16,
+        8
+       ],
+       [
+        17,
+        8
+       ],
+       [
+        19,
+        8
+       ],
+       [
+        20,
+        8
+       ],
+       [
+        21,
+        8
+       ],
+       [
+        22,
+        8
+       ],
+       [
+        23,
+        8
+       ],
+       [
+        5,
+        9
+       ],
+       [
+        6,
+        9
+       ],
+       [
+        7,
+        9
+       ],
+       [
+        8,
+        9
+       ],
+       [
+        9,
+        9
+       ],
+       [
+        13,
+        9
+       ],
+       [
+        14,
+        9
+       ],
+       [
+        15,
+        9
+       ],
+       [
+        16,
+        9
+       ],
+       [
+        17,
+        9
+       ],
+       [
+        19,
+        9
+       ],
+       [
+        20,
+        9
+       ],
+       [
+        21,
+        9
+       ],
+       [
+        22,
+        9
+       ],
+       [
+        23,
+        9
+       ]
+      ],
+      "to": "swamp"
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          6,
+          8
+         ],
+         [
+          7,
+          8
+         ],
+         [
+          8,
+          8
+         ],
+         [
+          6,
+          9
+         ],
+         [
+          7,
+          9
+         ],
+         [
+          8,
+          9
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "stake_w",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          14,
+          8
+         ],
+         [
+          15,
+          8
+         ],
+         [
+          16,
+          8
+         ],
+         [
+          14,
+          9
+         ],
+         [
+          15,
+          9
+         ],
+         [
+          16,
+          9
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "stake_m",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          20,
+          8
+         ],
+         [
+          21,
+          8
+         ],
+         [
+          22,
+          8
+         ],
+         [
+          20,
+          9
+         ],
+         [
+          21,
+          9
+         ],
+         [
+          22,
+          9
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "stake_e",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "type": "hp_pct_lte",
+        "unit": "hero:npc_fan_yi",
+        "pct": 50
+       }
+      },
+      "do": "retreat",
+      "unit": "hero:npc_fan_yi"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "khanh_du",
+      "type": "unit_survive",
+      "unit": "hero:npc_tran_khanh_du",
+      "label": "칸즈를 지켜라"
+     }
+    ],
+    "protagonist_troop": "naval",
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "서쪽 말뚝 작업을 마친다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "stake_w",
+       "value": true
+      }
+     },
+     {
+      "label": "가운데 말뚝 작업을 마친다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "stake_m",
+       "value": true
+      }
+     },
+     {
+      "label": "동쪽 말뚝 작업을 마친다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "stake_e",
+       "value": true
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "work_taken",
+      "label": "작업 구역 3곳 중 2곳을 적이 차지함",
+      "when": {
+       "all": [
+        {
+         "type": "turn_gte",
+         "value": 4
+        },
+        {
+         "any": [
+          {
+           "all": [
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "work_west",
+             "tiles": [
+              [
+               6,
+               8
+              ],
+              [
+               7,
+               8
+              ],
+              [
+               8,
+               8
+              ],
+              [
+               6,
+               9
+              ],
+              [
+               7,
+               9
+              ],
+              [
+               8,
+               9
+              ]
+             ]
+            },
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "work_mid",
+             "tiles": [
+              [
+               14,
+               8
+              ],
+              [
+               15,
+               8
+              ],
+              [
+               16,
+               8
+              ],
+              [
+               14,
+               9
+              ],
+              [
+               15,
+               9
+              ],
+              [
+               16,
+               9
+              ]
+             ]
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "work_west",
+             "tiles": [
+              [
+               6,
+               8
+              ],
+              [
+               7,
+               8
+              ],
+              [
+               8,
+               8
+              ],
+              [
+               6,
+               9
+              ],
+              [
+               7,
+               9
+              ],
+              [
+               8,
+               9
+              ]
+             ]
+            },
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "work_east",
+             "tiles": [
+              [
+               20,
+               8
+              ],
+              [
+               21,
+               8
+              ],
+              [
+               22,
+               8
+              ],
+              [
+               20,
+               9
+              ],
+              [
+               21,
+               9
+              ],
+              [
+               22,
+               9
+              ]
+             ]
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "work_mid",
+             "tiles": [
+              [
+               14,
+               8
+              ],
+              [
+               15,
+               8
+              ],
+              [
+               16,
+               8
+              ],
+              [
+               14,
+               9
+              ],
+              [
+               15,
+               9
+              ],
+              [
+               16,
+               9
+              ]
+             ]
+            },
+            {
+             "type": "in_zone",
+             "side": "b",
+             "zone_ref": "work_east",
+             "tiles": [
+              [
+               20,
+               8
+              ],
+              [
+               21,
+               8
+              ],
+              [
+               22,
+               8
+              ],
+              [
+               20,
+               9
+              ],
+              [
+               21,
+               9
+              ],
+              [
+               22,
+               9
+              ]
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "name": "말뚝 매복",
+   "year_label": "1288년",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s9_stake_ambush",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 23,
+   "enemy_level": 23,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 18,
+   "difficulty": 8,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "npc_tran_khanh_du",
+     "npc_yet_kieu",
+     "npc_da_tuong"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yuan_patrol_captain",
+      "display_name_ko": "척후선단장",
+      "evidence_level": "invented",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       6
+      ],
+      [
+       14,
+       7
+      ],
+      [
+       16,
+       7
+      ],
+      [
+       14,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "원 척후선 수병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_fan_yi",
+      "display_name_ko": "판제",
+      "evidence_level": "accepted",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       24,
+       3
+      ],
+      [
+       23,
+       4
+      ],
+      [
+       25,
+       4
+      ],
+      [
+       23,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "판제 선봉 수병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서쪽 척후장",
+      "evidence_level": "generic",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       6,
+       4
+      ],
+      [
+       7,
+       5
+      ],
+      [
+       5,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "원 소형선 수병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "동쪽 척후장",
+      "evidence_level": "generic",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       6
+      ],
+      [
+       29,
+       7
+      ],
+      [
+       27,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "원 소형선 수병",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 14,
+   "enemy_units_peak": 17,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 5
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "후속 척후장",
+       "evidence_level": "generic",
+       "troop_type": "naval",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "naval",
+      "soldiers": 2,
+      "units_total": 3,
+      "ai": "advance",
+      "soldier_display_name_ko": "원 후속 척후선",
+      "spawn_cell": [
+       30,
+       5
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      15,
+      6
+     ],
+     "ref": "npc_yuan_patrol_captain",
+     "kind": "npc",
+     "name": "척후선단장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      14,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      16,
+      7
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      14,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      24,
+      3
+     ],
+     "ref": "npc_fan_yi",
+     "kind": "npc",
+     "name": "판제"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      23,
+      4
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      25,
+      4
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      23,
+      3
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      6,
+      4
+     ],
+     "name": "서쪽 척후장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      7,
+      5
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      5,
+      5
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      28,
+      6
+     ],
+     "name": "동쪽 척후장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      29,
+      7
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      27,
+      7
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1552,
+    "exp": 2250,
+    "gold": 2018,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    },
+    {
+     "type": "sub_objective",
+     "id": "khanh_du"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 45~65 (미측정; 하이브리드 규칙)",
+   "sort_order": 2509,
+   "prerequisite": "ch25_s8",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s9_e1_ebb_warn",
+     "on": {
+      "turn": 2
+     },
+     "do": "say",
+     "speaker": "hero:tran_hung_dao",
+     "purpose": "물이 서른 걸음 물러난다는 예고, 물때 계산을 주인공에게 묻기"
+    },
+    {
+     "id": "ch25_s9_e1_ebb",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "protagonist",
+     "purpose": "간조가 시작됐다는 보고(턴3 지형 변화 직후)"
+    },
+    {
+     "id": "ch25_s9_e2_fanyi",
+     "on": {
+      "turn": 4,
+      "when": {
+       "type": "retreated",
+       "unit": "hero:npc_fan_yi"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_fan_yi",
+     "purpose": "내일은 만조에 들어간다(s10 예고)"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s9_pre",
+    "ch25_s9_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s9_stake_ambush",
+    "zones": {
+     "work_west": "6칸",
+     "work_mid": "6칸",
+     "work_east": "6칸"
+    },
+    "deploy_zone_count": 80,
+    "tile_tags": [
+     "work_east",
+     "work_mid",
+     "work_west"
+    ]
+   },
+   "design_notes": [
+    "격파 + 작업(win_mode all): objective defeat_commander(척후선단장) AND 말뚝 작업 구역 3곳 각각 '턴3 이후 아군이 서 있음'(cue set_flag stake_w/m/e, latch). 턴3 terrain_change 로 남안 물가(30칸, 지도 terrain_change_plan 그대로) sea->swamp = 간조 노출. 점유 칸은 skip(규칙). 'mud/stakes' 코드 없음 -> swamp(보병 3·기병 불가·수병 3·방어 -10).",
+    "패배 = 턴4 이후 작업 구역 3곳 중 2곳 이상에 적이 서 있음 / 12턴 초과(win_rule 있어 시간초과=패배) / 주인공 격파. 적은 전원 naval(14기): swamp 로 변하면 이동 3배·방어 -10 = 좌초 상성.",
+    "판제는 sub 부대장이라 hp<=50% 이후(턴4~) retreat cue 가능(s10 재등장, 사료상 s10 에서 투신). 주인공 naval 대여.",
+    "tile 이름(말뚝 노출 진흙)은 맵디자이너/안아트 확인 후 cue 에 'tile' 추가(미지정이어도 판정 영향 없음). water_rise 연출은 맵 계획에 fx 가 없어 넣지 않음(필요 시 dir 지정)."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "npc_tran_khanh_du": 3,
+     "npc_yet_kieu": 2,
+     "npc_da_tuong": 2
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  },
+  {
+   "code": "ch25_s10",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "다이비엣 쩐 왕조군",
+     "enemy": "원(몽골) 원정군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "tran_hung_dao",
+      "x": 9,
+      "y": 14,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_tran_khanh_du",
+      "x": 9,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_dai_viet_boat_captain",
+      "x": 9,
+      "y": 16,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_tran_nhat_duat",
+      "x": 4,
+      "y": 23,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_pham_ngu_lao",
+      "x": 7,
+      "y": 23,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "오마르",
+     "hero": "npc_omar"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "move",
+      "unit": "ally_npc:npc_tran_khanh_du",
+      "to": [
+       2,
+       11
+      ]
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "move",
+      "unit": "ally_npc:npc_dai_viet_boat_captain",
+      "to": [
+       2,
+       17
+      ]
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        16,
+        12
+       ],
+       [
+        17,
+        12
+       ],
+       [
+        18,
+        12
+       ],
+       [
+        19,
+        12
+       ],
+       [
+        20,
+        12
+       ],
+       [
+        21,
+        12
+       ],
+       [
+        22,
+        12
+       ],
+       [
+        23,
+        12
+       ],
+       [
+        24,
+        12
+       ],
+       [
+        25,
+        12
+       ],
+       [
+        16,
+        13
+       ],
+       [
+        17,
+        13
+       ],
+       [
+        18,
+        13
+       ],
+       [
+        19,
+        13
+       ],
+       [
+        20,
+        13
+       ],
+       [
+        21,
+        13
+       ],
+       [
+        22,
+        13
+       ],
+       [
+        23,
+        13
+       ],
+       [
+        24,
+        13
+       ],
+       [
+        25,
+        13
+       ],
+       [
+        16,
+        14
+       ],
+       [
+        17,
+        14
+       ],
+       [
+        18,
+        14
+       ],
+       [
+        19,
+        14
+       ],
+       [
+        20,
+        14
+       ],
+       [
+        21,
+        14
+       ],
+       [
+        22,
+        14
+       ],
+       [
+        23,
+        14
+       ],
+       [
+        24,
+        14
+       ],
+       [
+        25,
+        14
+       ],
+       [
+        16,
+        15
+       ],
+       [
+        17,
+        15
+       ],
+       [
+        18,
+        15
+       ],
+       [
+        19,
+        15
+       ],
+       [
+        20,
+        15
+       ],
+       [
+        21,
+        15
+       ],
+       [
+        22,
+        15
+       ],
+       [
+        23,
+        15
+       ],
+       [
+        24,
+        15
+       ],
+       [
+        25,
+        15
+       ]
+      ],
+      "to": "swamp",
+      "fx": "water_rise",
+      "dir": "left"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        17,
+        8
+       ],
+       [
+        18,
+        8
+       ],
+       [
+        19,
+        8
+       ],
+       [
+        20,
+        8
+       ],
+       [
+        21,
+        8
+       ],
+       [
+        22,
+        8
+       ],
+       [
+        23,
+        8
+       ],
+       [
+        24,
+        8
+       ],
+       [
+        17,
+        9
+       ],
+       [
+        18,
+        9
+       ],
+       [
+        19,
+        9
+       ],
+       [
+        20,
+        9
+       ],
+       [
+        21,
+        9
+       ],
+       [
+        22,
+        9
+       ],
+       [
+        23,
+        9
+       ],
+       [
+        24,
+        9
+       ],
+       [
+        17,
+        10
+       ],
+       [
+        18,
+        10
+       ],
+       [
+        19,
+        10
+       ],
+       [
+        20,
+        10
+       ],
+       [
+        21,
+        10
+       ],
+       [
+        22,
+        10
+       ],
+       [
+        23,
+        10
+       ],
+       [
+        24,
+        10
+       ]
+      ],
+      "to": "swamp",
+      "fx": "water_rise",
+      "dir": "left"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        17,
+        18
+       ],
+       [
+        18,
+        18
+       ],
+       [
+        19,
+        18
+       ],
+       [
+        20,
+        18
+       ],
+       [
+        21,
+        18
+       ],
+       [
+        22,
+        18
+       ],
+       [
+        23,
+        18
+       ],
+       [
+        24,
+        18
+       ],
+       [
+        17,
+        19
+       ],
+       [
+        18,
+        19
+       ],
+       [
+        19,
+        19
+       ],
+       [
+        20,
+        19
+       ],
+       [
+        21,
+        19
+       ],
+       [
+        22,
+        19
+       ],
+       [
+        23,
+        19
+       ],
+       [
+        24,
+        19
+       ],
+       [
+        17,
+        20
+       ],
+       [
+        18,
+        20
+       ],
+       [
+        19,
+        20
+       ],
+       [
+        20,
+        20
+       ],
+       [
+        21,
+        20
+       ],
+       [
+        22,
+        20
+       ],
+       [
+        23,
+        20
+       ],
+       [
+        24,
+        20
+       ]
+      ],
+      "to": "swamp",
+      "fx": "water_rise",
+      "dir": "left"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "set_flag",
+      "key": "ebb_began",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_yet_kieu",
+      "tiles": [
+       [
+        10,
+        1
+       ],
+       [
+        11,
+        1
+       ],
+       [
+        10,
+        3
+       ],
+       [
+        11,
+        3
+       ]
+      ],
+      "tag": "yet_kieu",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_da_tuong",
+      "tiles": [
+       [
+        24,
+        1
+       ],
+       [
+        25,
+        1
+       ],
+       [
+        24,
+        3
+       ],
+       [
+        25,
+        3
+       ]
+      ],
+      "tag": "da_tuong",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 6,
+       "when": {
+        "type": "hp_pct_lte",
+        "unit": "hero:npc_omar",
+        "pct": 40
+       }
+      },
+      "do": "retreat",
+      "reason": "death",
+      "unit": "hero:npc_fan_yi"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "khanh_du",
+      "type": "unit_survive",
+      "unit": "hero:npc_tran_khanh_du",
+      "label": "칸즈를 지켜라"
+     }
+    ],
+    "protagonist_troop": "naval",
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "간조가 시작된다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "ebb_began",
+       "value": true
+      }
+     },
+     {
+      "label": "기함 흥다오가 쓰러지지 않는다",
+      "when": {
+       "not": {
+        "type": "defeated",
+        "unit": "hero:tran_hung_dao"
+       }
+      }
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "바익당강",
+   "year_label": "1288년 4월 9일",
+   "chapter": 25,
+   "shelf_code": "ch25",
+   "map": "su_ch25_s10_bach_dang",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": true,
+   "optional": true,
+   "recommended_level": 24,
+   "enemy_level": 24,
+   "enemy_level_offset": -7,
+   "effective_enemy_level": 17,
+   "difficulty": 10,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 5,
+    "named": [
+     "tran_hung_dao",
+     "npc_tran_khanh_du",
+     "npc_dai_viet_boat_captain",
+     "npc_tran_nhat_duat",
+     "npc_pham_ngu_lao",
+     "npc_yet_kieu",
+     "npc_da_tuong"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3(ch22 규칙 준용). named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_omar",
+      "display_name_ko": "오마르",
+      "evidence_level": "confirmed",
+      "troop_type": "naval",
+      "hp_mult": 1.1
+     },
+     "soldier_type": "naval",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       14
+      ],
+      [
+       33,
+       13
+      ],
+      [
+       35,
+       13
+      ],
+      [
+       33,
+       14
+      ],
+      [
+       35,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "원 기함 수병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_fan_yi",
+      "display_name_ko": "판제",
+      "evidence_level": "accepted",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       10
+      ],
+      [
+       31,
+       9
+      ],
+      [
+       33,
+       9
+      ],
+      [
+       32,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "판제 선봉 수병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "남쪽 전열함장",
+      "evidence_level": "generic",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       18
+      ],
+      [
+       31,
+       17
+      ],
+      [
+       33,
+       17
+      ],
+      [
+       32,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "원 전열 수병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "하구 후위함장",
+      "evidence_level": "generic",
+      "troop_type": "naval",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       37,
+       10
+      ],
+      [
+       37,
+       18
+      ],
+      [
+       38,
+       14
+      ],
+      [
+       38,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "원 후위 수병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "남안 상륙대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       22
+      ],
+      [
+       28,
+       22
+      ],
+      [
+       28,
+       23
+      ],
+      [
+       36,
+       23
+      ]
+     ],
+     "soldier_display_name_ko": "몽골 상륙 보병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 21,
+   "enemy_units_peak": 24,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 4
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "후속 선단장",
+       "evidence_level": "generic",
+       "troop_type": "naval",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "naval",
+      "soldiers": 2,
+      "units_total": 3,
+      "ai": "advance",
+      "soldier_display_name_ko": "원 후속 수병",
+      "spawn_cell": [
+       38,
+       24
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      34,
+      14
+     ],
+     "ref": "npc_omar",
+     "kind": "npc",
+     "name": "오마르"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      33,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      35,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      33,
+      14
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      35,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      32,
+      10
+     ],
+     "ref": "npc_fan_yi",
+     "kind": "npc",
+     "name": "판제"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      31,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      33,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      32,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      32,
+      18
+     ],
+     "name": "남쪽 전열함장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      31,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      33,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      32,
+      17
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "naval",
+     "cell": [
+      37,
+      10
+     ],
+     "name": "하구 후위함장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      37,
+      18
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      38,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "naval",
+     "cell": [
+      38,
+      12
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      22
+     ],
+     "name": "남안 상륙대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      22
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      23
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      36,
+      23
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1656,
+    "exp": 2401,
+    "gold": 2153,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값) / Lv24는 표 밖 외삽(+104)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    },
+    {
+     "type": "sub_objective",
+     "id": "khanh_du"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (미측정; 대규모 최종전)",
+   "sort_order": 2510,
+   "prerequisite": "ch25_s9",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 판정·연출 cue(spawn/set_flag/retreat/terrain_change/fire/move)만 있음. say/camera/sfx 본문은 ch25_bachdang.json battle_cues 에서 송서사가 작성(요청 목록은 battle_cue_requests)",
+   "battle_cue_requests": [
+    {
+     "id": "ch25_s10_e1_lure",
+     "on": {
+      "turn": 2
+     },
+     "do": "say",
+     "speaker": "hero:tran_hung_dao",
+     "purpose": "너무 빨리 도망치지 마라, 따라오게 해라"
+    },
+    {
+     "id": "ch25_s10_e2_tide_ask",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "protagonist",
+     "purpose": "물이 돌아선다, 한 시진 안이라는 보고"
+    },
+    {
+     "id": "ch25_s10_e2_tide_again",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:tran_hung_dao",
+     "purpose": "그 말을 한 번 더 하라"
+    },
+    {
+     "id": "ch25_s10_e2_tide_repeat",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "protagonist",
+     "purpose": "한 시진 안이라고 되풀이(반복으로 신뢰)"
+    },
+    {
+     "id": "ch25_s10_e3_omar",
+     "on": {
+      "turn": 4,
+      "when": {
+       "type": "flag",
+       "key": "ebb_began"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_omar",
+     "purpose": "강이 줄어든다, 배를 돌려라"
+    },
+    {
+     "id": "ch25_s10_e3_fanyi",
+     "on": {
+      "turn": 4,
+      "when": {
+       "type": "flag",
+       "key": "ebb_began"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_fan_yi",
+     "purpose": "돌릴 곳이 없다는 보고"
+    },
+    {
+     "id": "ch25_s10_e4_ambush",
+     "on": {
+      "turn": 5
+     },
+     "do": "say",
+     "speaker": "hero:npc_yet_kieu",
+     "purpose": "북쪽 지류 복병 합류 보고"
+    },
+    {
+     "id": "ch25_s10_e5_omar",
+     "on": {
+      "turn": 6,
+      "when": {
+       "type": "hp_pct_lte",
+       "unit": "hero:npc_omar",
+       "pct": 40
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_omar",
+     "purpose": "강이 이쪽 편이었군(환경 인식 대사, 패배 인정 아님)"
+    }
+   ],
+   "scene_keys": [
+    "ch25_s10_pre",
+    "ch25_s10_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch25_s10_bach_dang",
+    "zones": {
+     "stakes_t4_center": "40칸",
+     "stakes_t5_north": "24칸",
+     "stakes_t5_south": "24칸",
+     "ambush_trib_1": "4칸",
+     "ambush_trib_2": "4칸",
+     "estuary_entry": "28칸",
+     "ally_lure_retreat": "2칸",
+     "south_bank_camp": "40칸",
+     "enemy_deploy_omar": "5칸",
+     "enemy_deploy_fan_yi": "4칸",
+     "enemy_deploy_south": "4칸",
+     "enemy_deploy_mengchong": "4칸",
+     "enemy_deploy_landing": "4칸"
+    },
+    "deploy_zone_count": 72,
+    "tile_tags": [
+     "ambush_trib_1",
+     "ambush_trib_2",
+     "estuary_entry",
+     "stakes_t4_center",
+     "stakes_t5_north",
+     "stakes_t5_south"
+    ]
+   },
+   "design_notes": [
+    "대규모 40x28 격파(최종전). 승리 = 오마르(main, 기함) 격파(= 생포 연출은 승리 후 대사) AND 간조 플래그(턴4 이후) AND 흥다오 생존. 패배 = 흥다오 격파(must_survive) / 주인공 격파 / 12턴 초과(win_rule 로 시간초과=패배). 만조 3턴 -> 턴4 간조 1차(중앙 40칸) -> 턴5 간조 2차(북 24 + 남 24).",
+    "간조는 지도 terrain_change_plan 그대로(water_rise, dir left, to swamp; cue tiles 40칸 제한으로 분할). 유닛이 선 칸은 skip -> 턴4에 적이 서 있는 칸은 바다로 남음(좌초는 '비어 있는 말뚝 칸'만). 이 한계는 설계상 허용.",
+    "복병: 턴5 북쪽 지류 2곳에서 옛끼에우(naval)·자뜨엉 합류(cue spawn 영웅). 판제는 오마르 hp<=40% 에 reason death 로 투신(사료상 허용) 후 오마르 생포 연출은 대사/엔딩에서. 오로치(verify) 는 보류 -> 익명 선단장.",
+    "적 21기 + 후속 R1 턴4 3기 = peak 24(상한 28). 노브: R2(턴6 naval 3기) 추가 시 peak 27. 난이도는 offset -7(보수) 시작.",
+    "아군 NPC 5(+복병 2)라 동반병 폭주 위험 -> companion_proposal 로 영웅당 병사 수를 명시(박백엔 stage_companions.json 반영 요청)."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally_by_hero": {
+     "tran_hung_dao": 2,
+     "npc_tran_khanh_du": 3,
+     "npc_dai_viet_boat_captain": 0,
+     "npc_tran_nhat_duat": 2,
+     "npc_pham_ngu_lao": 2,
+     "npc_yet_kieu": 2,
+     "npc_da_tuong": 2
+    },
+    "_reason": "시작값: 명시 편성 수를 최종 수로 고정(자동 보강 이중 계산 방지). 시뮬 후 조정"
+   }
+  }
+ ],
+ "engine_requests": [
+  "1) terrains.json 에 mud/stakes(수병 불통행·보병 통행) 신규 지형 필요 여부: 현재 swamp 대체(수병 cost 3). s9·s10 '좌초' 체감이 약하면 stakes(naval cost null, def -10) 요청",
+  "2) s7 군량선을 유닛(시설 체력)으로 만드는 방안은 미지원 -> in_zone+set_flag 로 대체. 필요하면 'cue spawn side b 시설 유닛' 규칙 확인",
+  "3) route 가 있는 적 분대(s7 E)가 naval 로 해상 이동하는지(RouteAi 지형 비용 naval) 시뮬 확인 요청",
+  "4) stage_companions.json 에 ch25 10개 스테이지 항목 추가(각 item.companion_proposal 참조, enemy 0 으로 명시 편성 고정)",
+  "5) fire cue 는 시각 전용: s4 시장 불번짐을 판정 있는 화염으로 만들려면 별도 엔진 규칙 필요(현재 연출만)",
+  "6) lose in_zone 은 '멈춘 칸'만 판정: s1·s7 의 출구 구역은 폭을 넓혀 근사함"
+ ]
+}

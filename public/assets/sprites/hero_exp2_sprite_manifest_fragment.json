@@ -1,0 +1,4033 @@
+{
+ "note": "신규 가챠 영웅 20명(고대 지중해·유럽·스텝·인도·페르시아·이베리아) 전용 방향 시트 조각(안아트 2026-11-06). 키 규칙은 hero_v4 와 동일(unit.hero.<code>.<side>.64[.sheet]). 매핑은 hero_sprite_map_v4.json 에 추가(병합과 한 묶음)",
+ "generated": "2026-11-06T11:34:48.342Z",
+ "hero_map_added": {
+  "theseus": "unit.hero.theseus",
+  "odysseus": "unit.hero.odysseus",
+  "achilles": "unit.hero.achilles",
+  "epaminondas": "unit.hero.epaminondas",
+  "spartacus": "unit.hero.spartacus",
+  "themistocles": "unit.hero.themistocles",
+  "attila": "unit.hero.attila",
+  "tomyris": "unit.hero.tomyris",
+  "boudicca": "unit.hero.boudicca",
+  "jan_zizka": "unit.hero.jan_zizka",
+  "vercingetorix": "unit.hero.vercingetorix",
+  "garibaldi": "unit.hero.garibaldi",
+  "wat_tyler": "unit.hero.wat_tyler",
+  "shah_jahan": "unit.hero.shah_jahan",
+  "rana_pratap": "unit.hero.rana_pratap",
+  "tipu_sultan": "unit.hero.tipu_sultan",
+  "akbar": "unit.hero.akbar",
+  "zenobia": "unit.hero.zenobia",
+  "rostam": "unit.hero.rostam",
+  "tariq_ibn_ziyad": "unit.hero.tariq_ibn_ziyad"
+ },
+ "pending": {},
+ "items": [
+  {
+   "key": "unit.hero.theseus.ally.64.sheet",
+   "path": "assets/sprites/64/hero_theseus_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.theseus.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_theseus_ally_sheet.png"
+   },
+   "bytes": 12817,
+   "hero": "theseus",
+   "asset_code": "theseus",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#theseus",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/theseus.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.26
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "49x61",
+     "left": "43x60",
+     "up": "51x62"
+    },
+    "outline": "#03021d",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/theseus_compare.png"
+   },
+   "verify": true,
+   "verify_note": "신화 인물 - 고전기 그리스 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.theseus.ally.64",
+   "path": "assets/sprites/64/hero_theseus_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "theseus",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_theseus_ally.png"
+   },
+   "bytes": 1725,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.theseus.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.theseus.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_theseus_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.theseus.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_theseus_enemy_sheet.png"
+   },
+   "bytes": 12816,
+   "hero": "theseus",
+   "asset_code": "theseus",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#theseus",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/theseus.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.26
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "49x61",
+     "left": "43x60",
+     "up": "51x62"
+    },
+    "outline": "#03021d",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/theseus_compare.png"
+   },
+   "verify": true,
+   "verify_note": "신화 인물 - 고전기 그리스 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.theseus.enemy.64",
+   "path": "assets/sprites/64/hero_theseus_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "theseus",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_theseus_enemy.png"
+   },
+   "bytes": 1713,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.theseus.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.odysseus.ally.64.sheet",
+   "path": "assets/sprites/64/hero_odysseus_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.odysseus.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_odysseus_ally_sheet.png"
+   },
+   "bytes": 12656,
+   "hero": "odysseus",
+   "asset_code": "odysseus",
+   "unit_type": "archer",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#odysseus",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/odysseus.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.17
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x60",
+     "left": "48x59",
+     "up": "41x60"
+    },
+    "outline": "#0b0721",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/odysseus_compare.png"
+   },
+   "verify": true,
+   "verify_note": "신화 인물 - 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.odysseus.ally.64",
+   "path": "assets/sprites/64/hero_odysseus_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "odysseus",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_odysseus_ally.png"
+   },
+   "bytes": 1731,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.odysseus.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.odysseus.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_odysseus_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.odysseus.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_odysseus_enemy_sheet.png"
+   },
+   "bytes": 12654,
+   "hero": "odysseus",
+   "asset_code": "odysseus",
+   "unit_type": "archer",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#odysseus",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/odysseus.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.17
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x60",
+     "left": "48x59",
+     "up": "41x60"
+    },
+    "outline": "#0b0721",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/odysseus_compare.png"
+   },
+   "verify": true,
+   "verify_note": "신화 인물 - 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.odysseus.enemy.64",
+   "path": "assets/sprites/64/hero_odysseus_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "odysseus",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_odysseus_enemy.png"
+   },
+   "bytes": 1731,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.odysseus.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.achilles.ally.64.sheet",
+   "path": "assets/sprites/64/hero_achilles_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.achilles.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_achilles_ally_sheet.png"
+   },
+   "bytes": 12533,
+   "hero": "achilles",
+   "asset_code": "achilles",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#achilles",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/achilles.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.42
+    },
+    "colors": 32,
+    "clipped_px": 42,
+    "idle_size": {
+     "down": "52x64",
+     "left": "49x62",
+     "up": "55x64"
+    },
+    "outline": "#060218",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/achilles_compare.png"
+   },
+   "verify": true,
+   "verify_note": "신화 인물 - 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.achilles.ally.64",
+   "path": "assets/sprites/64/hero_achilles_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "achilles",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_achilles_ally.png"
+   },
+   "bytes": 1717,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.achilles.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.achilles.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_achilles_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.achilles.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_achilles_enemy_sheet.png"
+   },
+   "bytes": 12403,
+   "hero": "achilles",
+   "asset_code": "achilles",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#achilles",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/achilles.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.42
+    },
+    "colors": 32,
+    "clipped_px": 42,
+    "idle_size": {
+     "down": "52x64",
+     "left": "49x62",
+     "up": "55x64"
+    },
+    "outline": "#060218",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/achilles_compare.png"
+   },
+   "verify": true,
+   "verify_note": "신화 인물 - 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.achilles.enemy.64",
+   "path": "assets/sprites/64/hero_achilles_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "achilles",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_achilles_enemy.png"
+   },
+   "bytes": 1698,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.achilles.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.epaminondas.ally.64.sheet",
+   "path": "assets/sprites/64/hero_epaminondas_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.epaminondas.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_epaminondas_ally_sheet.png"
+   },
+   "bytes": 11583,
+   "hero": "epaminondas",
+   "asset_code": "epaminondas",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#epaminondas",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/epaminondas.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.32
+    },
+    "colors": 32,
+    "clipped_px": 60,
+    "idle_size": {
+     "down": "46x64",
+     "left": "41x63",
+     "up": "46x64"
+    },
+    "outline": "#03031f",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/epaminondas_compare.png"
+   },
+   "verify": true,
+   "verify_note": "테베 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.epaminondas.ally.64",
+   "path": "assets/sprites/64/hero_epaminondas_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "epaminondas",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_epaminondas_ally.png"
+   },
+   "bytes": 1580,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.epaminondas.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.epaminondas.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_epaminondas_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.epaminondas.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_epaminondas_enemy_sheet.png"
+   },
+   "bytes": 11401,
+   "hero": "epaminondas",
+   "asset_code": "epaminondas",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#epaminondas",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/epaminondas.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.32
+    },
+    "colors": 32,
+    "clipped_px": 60,
+    "idle_size": {
+     "down": "46x64",
+     "left": "41x63",
+     "up": "46x64"
+    },
+    "outline": "#03031f",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/epaminondas_compare.png"
+   },
+   "verify": true,
+   "verify_note": "테베 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.epaminondas.enemy.64",
+   "path": "assets/sprites/64/hero_epaminondas_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "epaminondas",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_epaminondas_enemy.png"
+   },
+   "bytes": 1561,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.epaminondas.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.spartacus.ally.64.sheet",
+   "path": "assets/sprites/64/hero_spartacus_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.spartacus.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_spartacus_ally_sheet.png"
+   },
+   "bytes": 12711,
+   "hero": "spartacus",
+   "asset_code": "spartacus",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#spartacus",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/spartacus.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.99
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "47x61",
+     "left": "43x61",
+     "up": "49x62"
+    },
+    "outline": "#04031b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "초상은 창을 들지만 병종(검)에 맞춰 짧은 칼로 그림(의도)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/spartacus_compare.png"
+   },
+   "verify": true,
+   "verify_note": "검투사 장비 일반화(초상은 창, 병종은 검)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.spartacus.ally.64",
+   "path": "assets/sprites/64/hero_spartacus_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "spartacus",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_spartacus_ally.png"
+   },
+   "bytes": 1768,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.spartacus.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.spartacus.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_spartacus_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.spartacus.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_spartacus_enemy_sheet.png"
+   },
+   "bytes": 12567,
+   "hero": "spartacus",
+   "asset_code": "spartacus",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#spartacus",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/spartacus.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.99
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "47x61",
+     "left": "43x61",
+     "up": "49x62"
+    },
+    "outline": "#04031b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "초상은 창을 들지만 병종(검)에 맞춰 짧은 칼로 그림(의도)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/spartacus_compare.png"
+   },
+   "verify": true,
+   "verify_note": "검투사 장비 일반화(초상은 창, 병종은 검)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.spartacus.enemy.64",
+   "path": "assets/sprites/64/hero_spartacus_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "spartacus",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_spartacus_enemy.png"
+   },
+   "bytes": 1727,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.spartacus.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.themistocles.ally.64.sheet",
+   "path": "assets/sprites/64/hero_themistocles_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.themistocles.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_themistocles_ally_sheet.png"
+   },
+   "bytes": 11921,
+   "hero": "themistocles",
+   "asset_code": "themistocles",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#themistocles",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/themistocles.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.29
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "48x64",
+     "left": "33x63",
+     "up": "50x64"
+    },
+    "outline": "#040321",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "△",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "측면 칸에서 두루마리가 작아 식별이 약함",
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/themistocles_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고전기 아테네 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.themistocles.ally.64",
+   "path": "assets/sprites/64/hero_themistocles_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "themistocles",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_themistocles_ally.png"
+   },
+   "bytes": 1630,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor"
+   },
+   "source": "unit.hero.themistocles.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.themistocles.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_themistocles_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.themistocles.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_themistocles_enemy_sheet.png"
+   },
+   "bytes": 11919,
+   "hero": "themistocles",
+   "asset_code": "themistocles",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#themistocles",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/themistocles.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.29
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "48x64",
+     "left": "33x63",
+     "up": "50x64"
+    },
+    "outline": "#040321",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "△",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "측면 칸에서 두루마리가 작아 식별이 약함",
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/themistocles_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고전기 아테네 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.themistocles.enemy.64",
+   "path": "assets/sprites/64/hero_themistocles_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "themistocles",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_themistocles_enemy.png"
+   },
+   "bytes": 1631,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor"
+   },
+   "source": "unit.hero.themistocles.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.attila.ally.64.sheet",
+   "path": "assets/sprites/64/hero_attila_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.attila.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_attila_ally_sheet.png"
+   },
+   "bytes": 12138,
+   "hero": "attila",
+   "asset_code": "attila",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#attila",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/attila.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.11
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x58",
+     "left": "52x59",
+     "up": "35x63"
+    },
+    "outline": "#03031e",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/attila_compare.png"
+   },
+   "verify": true,
+   "verify_note": "5세기 훈족 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.attila.ally.64",
+   "path": "assets/sprites/64/hero_attila_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "attila",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_attila_ally.png"
+   },
+   "bytes": 1564,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.attila.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.attila.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_attila_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.attila.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_attila_enemy_sheet.png"
+   },
+   "bytes": 11943,
+   "hero": "attila",
+   "asset_code": "attila",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#attila",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/attila.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.11
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x58",
+     "left": "52x59",
+     "up": "35x63"
+    },
+    "outline": "#03031e",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/attila_compare.png"
+   },
+   "verify": true,
+   "verify_note": "5세기 훈족 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.attila.enemy.64",
+   "path": "assets/sprites/64/hero_attila_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "attila",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_attila_enemy.png"
+   },
+   "bytes": 1538,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.attila.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.tomyris.ally.64.sheet",
+   "path": "assets/sprites/64/hero_tomyris_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.tomyris.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tomyris_ally_sheet.png"
+   },
+   "bytes": 12990,
+   "hero": "tomyris",
+   "asset_code": "tomyris",
+   "unit_type": "archer",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#tomyris",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/tomyris.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.04
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x64",
+     "left": "48x64",
+     "up": "41x63"
+    },
+    "outline": "#0a071f",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/tomyris_compare.png"
+   },
+   "verify": true,
+   "verify_note": "스키타이·사카 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.tomyris.ally.64",
+   "path": "assets/sprites/64/hero_tomyris_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "tomyris",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tomyris_ally.png"
+   },
+   "bytes": 1824,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.tomyris.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.tomyris.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_tomyris_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.tomyris.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tomyris_enemy_sheet.png"
+   },
+   "bytes": 12988,
+   "hero": "tomyris",
+   "asset_code": "tomyris",
+   "unit_type": "archer",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#tomyris",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/tomyris.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.04
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x64",
+     "left": "48x64",
+     "up": "41x63"
+    },
+    "outline": "#0a071f",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/tomyris_compare.png"
+   },
+   "verify": true,
+   "verify_note": "스키타이·사카 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.tomyris.enemy.64",
+   "path": "assets/sprites/64/hero_tomyris_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "tomyris",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tomyris_enemy.png"
+   },
+   "bytes": 1823,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.tomyris.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.boudicca.ally.64.sheet",
+   "path": "assets/sprites/64/hero_boudicca_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.boudicca.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_boudicca_ally_sheet.png"
+   },
+   "bytes": 12351,
+   "hero": "boudicca",
+   "asset_code": "boudicca",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#boudicca",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/boudicca.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.06
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "40x62",
+     "up": "38x62"
+    },
+    "outline": "#010013",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": {
+     "hair": "O",
+     "head": "△",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "초상에 없는 붉은 머리띠가 추가됨",
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/boudicca_compare.png"
+   },
+   "verify": true,
+   "verify_note": "켈트 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.boudicca.ally.64",
+   "path": "assets/sprites/64/hero_boudicca_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "boudicca",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_boudicca_ally.png"
+   },
+   "bytes": 1736,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor"
+   },
+   "source": "unit.hero.boudicca.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.boudicca.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_boudicca_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.boudicca.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_boudicca_enemy_sheet.png"
+   },
+   "bytes": 12349,
+   "hero": "boudicca",
+   "asset_code": "boudicca",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#boudicca",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/boudicca.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.06
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "40x62",
+     "up": "38x62"
+    },
+    "outline": "#010013",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": {
+     "hair": "O",
+     "head": "△",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "초상에 없는 붉은 머리띠가 추가됨",
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/boudicca_compare.png"
+   },
+   "verify": true,
+   "verify_note": "켈트 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.boudicca.enemy.64",
+   "path": "assets/sprites/64/hero_boudicca_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "boudicca",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_boudicca_enemy.png"
+   },
+   "bytes": 1737,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor"
+   },
+   "source": "unit.hero.boudicca.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.jan_zizka.ally.64.sheet",
+   "path": "assets/sprites/64/hero_jan_zizka_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.jan_zizka.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jan_zizka_ally_sheet.png"
+   },
+   "bytes": 12227,
+   "hero": "jan_zizka",
+   "asset_code": "jan_zizka",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#jan_zizka",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/jan_zizka.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.37
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "50x64",
+     "left": "40x63",
+     "up": "51x62"
+    },
+    "outline": "#020220",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "△",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "옆구리에 낀 둥근 철 투구가 방패처럼 보임",
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/jan_zizka_compare.png"
+   },
+   "verify": true,
+   "verify_note": "15세기 후스파 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.jan_zizka.ally.64",
+   "path": "assets/sprites/64/hero_jan_zizka_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "jan_zizka",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jan_zizka_ally.png"
+   },
+   "bytes": 1775,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor"
+   },
+   "source": "unit.hero.jan_zizka.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.jan_zizka.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_jan_zizka_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.jan_zizka.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jan_zizka_enemy_sheet.png"
+   },
+   "bytes": 12062,
+   "hero": "jan_zizka",
+   "asset_code": "jan_zizka",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#jan_zizka",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/jan_zizka.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.37
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "50x64",
+     "left": "40x63",
+     "up": "51x62"
+    },
+    "outline": "#020220",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "△",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "옆구리에 낀 둥근 철 투구가 방패처럼 보임",
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/jan_zizka_compare.png"
+   },
+   "verify": true,
+   "verify_note": "15세기 후스파 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.jan_zizka.enemy.64",
+   "path": "assets/sprites/64/hero_jan_zizka_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "jan_zizka",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jan_zizka_enemy.png"
+   },
+   "bytes": 1752,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor"
+   },
+   "source": "unit.hero.jan_zizka.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.vercingetorix.ally.64.sheet",
+   "path": "assets/sprites/64/hero_vercingetorix_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.vercingetorix.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_vercingetorix_ally_sheet.png"
+   },
+   "bytes": 12206,
+   "hero": "vercingetorix",
+   "asset_code": "vercingetorix",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#vercingetorix",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/vercingetorix.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.41
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "40x64",
+     "left": "38x63",
+     "up": "37x63"
+    },
+    "outline": "#02011f",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "△",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "체크무늬 망토가 초상(청·갈 체크)보다 녹색 위주",
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/vercingetorix_compare.png"
+   },
+   "verify": true,
+   "verify_note": "갈리아 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.vercingetorix.ally.64",
+   "path": "assets/sprites/64/hero_vercingetorix_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "vercingetorix",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_vercingetorix_ally.png"
+   },
+   "bytes": 1749,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor"
+   },
+   "source": "unit.hero.vercingetorix.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.vercingetorix.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_vercingetorix_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.vercingetorix.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_vercingetorix_enemy_sheet.png"
+   },
+   "bytes": 12204,
+   "hero": "vercingetorix",
+   "asset_code": "vercingetorix",
+   "unit_type": "spear",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#vercingetorix",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/vercingetorix.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.41
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "40x64",
+     "left": "38x63",
+     "up": "37x63"
+    },
+    "outline": "#02011f",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "△",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "체크무늬 망토가 초상(청·갈 체크)보다 녹색 위주",
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/vercingetorix_compare.png"
+   },
+   "verify": true,
+   "verify_note": "갈리아 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.vercingetorix.enemy.64",
+   "path": "assets/sprites/64/hero_vercingetorix_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "vercingetorix",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_vercingetorix_enemy.png"
+   },
+   "bytes": 1748,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "minor"
+   },
+   "source": "unit.hero.vercingetorix.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.garibaldi.ally.64.sheet",
+   "path": "assets/sprites/64/hero_garibaldi_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.garibaldi.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_garibaldi_ally_sheet.png"
+   },
+   "bytes": 10173,
+   "hero": "garibaldi",
+   "asset_code": "garibaldi",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#garibaldi",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/garibaldi.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.97
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "47x62",
+     "left": "45x62",
+     "up": "48x62"
+    },
+    "outline": "#020117",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "붉은 셔츠는 스왑 대상 아님(파랑 범위만) — 적 시트도 초상과 같은 색, 확인함"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/garibaldi_compare.png"
+   },
+   "verify": true,
+   "verify_note": "19세기 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.garibaldi.ally.64",
+   "path": "assets/sprites/64/hero_garibaldi_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "garibaldi",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_garibaldi_ally.png"
+   },
+   "bytes": 1531,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.garibaldi.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.garibaldi.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_garibaldi_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.garibaldi.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_garibaldi_enemy_sheet.png"
+   },
+   "bytes": 9984,
+   "hero": "garibaldi",
+   "asset_code": "garibaldi",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#garibaldi",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/garibaldi.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.97
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "47x62",
+     "left": "45x62",
+     "up": "48x62"
+    },
+    "outline": "#020117",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "붉은 셔츠는 스왑 대상 아님(파랑 범위만) — 적 시트도 초상과 같은 색, 확인함"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/garibaldi_compare.png"
+   },
+   "verify": true,
+   "verify_note": "19세기 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.garibaldi.enemy.64",
+   "path": "assets/sprites/64/hero_garibaldi_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "garibaldi",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_garibaldi_enemy.png"
+   },
+   "bytes": 1497,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.garibaldi.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.wat_tyler.ally.64.sheet",
+   "path": "assets/sprites/64/hero_wat_tyler_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.wat_tyler.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wat_tyler_ally_sheet.png"
+   },
+   "bytes": 11809,
+   "hero": "wat_tyler",
+   "asset_code": "wat_tyler",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#wat_tyler",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/wat_tyler.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.85
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x62",
+     "left": "27x61",
+     "up": "48x63"
+    },
+    "outline": "#050318",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/wat_tyler_compare.png"
+   },
+   "verify": true,
+   "verify_note": "14세기 농민 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.wat_tyler.ally.64",
+   "path": "assets/sprites/64/hero_wat_tyler_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "wat_tyler",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wat_tyler_ally.png"
+   },
+   "bytes": 1662,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.wat_tyler.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.wat_tyler.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_wat_tyler_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.wat_tyler.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wat_tyler_enemy_sheet.png"
+   },
+   "bytes": 11658,
+   "hero": "wat_tyler",
+   "asset_code": "wat_tyler",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#wat_tyler",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/wat_tyler.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.85
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x62",
+     "left": "27x61",
+     "up": "48x63"
+    },
+    "outline": "#050318",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/wat_tyler_compare.png"
+   },
+   "verify": true,
+   "verify_note": "14세기 농민 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.wat_tyler.enemy.64",
+   "path": "assets/sprites/64/hero_wat_tyler_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "wat_tyler",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wat_tyler_enemy.png"
+   },
+   "bytes": 1625,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.wat_tyler.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.shah_jahan.ally.64.sheet",
+   "path": "assets/sprites/64/hero_shah_jahan_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.shah_jahan.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_shah_jahan_ally_sheet.png"
+   },
+   "bytes": 11559,
+   "hero": "shah_jahan",
+   "asset_code": "shah_jahan",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#shah_jahan",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/shah_jahan.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.58
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "32x61",
+     "left": "55x61",
+     "up": "31x64"
+    },
+    "outline": "#090325",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/shah_jahan_compare.png"
+   },
+   "verify": true,
+   "verify_note": "17세기 무굴 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.shah_jahan.ally.64",
+   "path": "assets/sprites/64/hero_shah_jahan_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "shah_jahan",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_shah_jahan_ally.png"
+   },
+   "bytes": 1333,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.shah_jahan.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.shah_jahan.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_shah_jahan_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.shah_jahan.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_shah_jahan_enemy_sheet.png"
+   },
+   "bytes": 11393,
+   "hero": "shah_jahan",
+   "asset_code": "shah_jahan",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#shah_jahan",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/shah_jahan.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.58
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "32x61",
+     "left": "55x61",
+     "up": "31x64"
+    },
+    "outline": "#090325",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/shah_jahan_compare.png"
+   },
+   "verify": true,
+   "verify_note": "17세기 무굴 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.shah_jahan.enemy.64",
+   "path": "assets/sprites/64/hero_shah_jahan_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "shah_jahan",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_shah_jahan_enemy.png"
+   },
+   "bytes": 1310,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.shah_jahan.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.rana_pratap.ally.64.sheet",
+   "path": "assets/sprites/64/hero_rana_pratap_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.rana_pratap.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_rana_pratap_ally_sheet.png"
+   },
+   "bytes": 11511,
+   "hero": "rana_pratap",
+   "asset_code": "rana_pratap",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#rana_pratap",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/rana_pratap.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.32
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "33x61",
+     "left": "52x61",
+     "up": "30x64"
+    },
+    "outline": "#060222",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/rana_pratap_compare.png"
+   },
+   "verify": true,
+   "verify_note": "16세기 라지푸트 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.rana_pratap.ally.64",
+   "path": "assets/sprites/64/hero_rana_pratap_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "rana_pratap",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_rana_pratap_ally.png"
+   },
+   "bytes": 1409,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.rana_pratap.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.rana_pratap.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_rana_pratap_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.rana_pratap.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_rana_pratap_enemy_sheet.png"
+   },
+   "bytes": 11368,
+   "hero": "rana_pratap",
+   "asset_code": "rana_pratap",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#rana_pratap",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/rana_pratap.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.32
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "33x61",
+     "left": "52x61",
+     "up": "30x64"
+    },
+    "outline": "#060222",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/rana_pratap_compare.png"
+   },
+   "verify": true,
+   "verify_note": "16세기 라지푸트 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.rana_pratap.enemy.64",
+   "path": "assets/sprites/64/hero_rana_pratap_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "rana_pratap",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_rana_pratap_enemy.png"
+   },
+   "bytes": 1394,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.rana_pratap.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.tipu_sultan.ally.64.sheet",
+   "path": "assets/sprites/64/hero_tipu_sultan_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.tipu_sultan.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tipu_sultan_ally_sheet.png"
+   },
+   "bytes": 12075,
+   "hero": "tipu_sultan",
+   "asset_code": "tipu_sultan",
+   "unit_type": "gunner",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#tipu_sultan",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/tipu_sultan.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.5
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "53x62",
+     "left": "49x61",
+     "up": "53x62"
+    },
+    "outline": "#03010b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "녹색 줄무늬는 스왑 범위 밖 — 적 시트 의복 유지, 확인함"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/tipu_sultan_compare.png"
+   },
+   "verify": true,
+   "verify_note": "18세기 마이소르 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.tipu_sultan.ally.64",
+   "path": "assets/sprites/64/hero_tipu_sultan_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "tipu_sultan",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tipu_sultan_ally.png"
+   },
+   "bytes": 1749,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.tipu_sultan.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.tipu_sultan.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_tipu_sultan_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.tipu_sultan.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tipu_sultan_enemy_sheet.png"
+   },
+   "bytes": 11893,
+   "hero": "tipu_sultan",
+   "asset_code": "tipu_sultan",
+   "unit_type": "gunner",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#tipu_sultan",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/tipu_sultan.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.5
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "53x62",
+     "left": "49x61",
+     "up": "53x62"
+    },
+    "outline": "#03010b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "녹색 줄무늬는 스왑 범위 밖 — 적 시트 의복 유지, 확인함"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/tipu_sultan_compare.png"
+   },
+   "verify": true,
+   "verify_note": "18세기 마이소르 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.tipu_sultan.enemy.64",
+   "path": "assets/sprites/64/hero_tipu_sultan_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "tipu_sultan",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tipu_sultan_enemy.png"
+   },
+   "bytes": 1721,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.tipu_sultan.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.akbar.ally.64.sheet",
+   "path": "assets/sprites/64/hero_akbar_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.akbar.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_akbar_ally_sheet.png"
+   },
+   "bytes": 10603,
+   "hero": "akbar",
+   "asset_code": "akbar",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#akbar",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/akbar.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.38
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x58",
+     "left": "52x57",
+     "up": "30x63"
+    },
+    "outline": "#050322",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/akbar_compare.png"
+   },
+   "verify": true,
+   "verify_note": "16세기 무굴 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.akbar.ally.64",
+   "path": "assets/sprites/64/hero_akbar_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "akbar",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_akbar_ally.png"
+   },
+   "bytes": 1346,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.akbar.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.akbar.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_akbar_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.akbar.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_akbar_enemy_sheet.png"
+   },
+   "bytes": 10628,
+   "hero": "akbar",
+   "asset_code": "akbar",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#akbar",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/akbar.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.38
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x58",
+     "left": "52x57",
+     "up": "30x63"
+    },
+    "outline": "#050322",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/akbar_compare.png"
+   },
+   "verify": true,
+   "verify_note": "16세기 무굴 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.akbar.enemy.64",
+   "path": "assets/sprites/64/hero_akbar_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "akbar",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_akbar_enemy.png"
+   },
+   "bytes": 1362,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.akbar.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.zenobia.ally.64.sheet",
+   "path": "assets/sprites/64/hero_zenobia_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.zenobia.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_zenobia_ally_sheet.png"
+   },
+   "bytes": 11602,
+   "hero": "zenobia",
+   "asset_code": "zenobia",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#zenobia",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/zenobia.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.47
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "31x62",
+     "left": "53x61",
+     "up": "29x64"
+    },
+    "outline": "#070328",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/zenobia_compare.png"
+   },
+   "verify": true,
+   "verify_note": "3세기 팔미라 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.zenobia.ally.64",
+   "path": "assets/sprites/64/hero_zenobia_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "zenobia",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_zenobia_ally.png"
+   },
+   "bytes": 1409,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.zenobia.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.zenobia.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_zenobia_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.zenobia.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_zenobia_enemy_sheet.png"
+   },
+   "bytes": 11604,
+   "hero": "zenobia",
+   "asset_code": "zenobia",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#zenobia",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/zenobia.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.47
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "31x62",
+     "left": "53x61",
+     "up": "29x64"
+    },
+    "outline": "#070328",
+    "right": "mirror",
+    "enemy_swap": "none"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 none(청·청록 의복 유지, 발밑 빨강 받침으로 구분)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/zenobia_compare.png"
+   },
+   "verify": true,
+   "verify_note": "3세기 팔미라 복식 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.zenobia.enemy.64",
+   "path": "assets/sprites/64/hero_zenobia_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "zenobia",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_zenobia_enemy.png"
+   },
+   "bytes": 1411,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.zenobia.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.rostam.ally.64.sheet",
+   "path": "assets/sprites/64/hero_rostam_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.rostam.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_rostam_ally_sheet.png"
+   },
+   "bytes": 12371,
+   "hero": "rostam",
+   "asset_code": "rostam",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#rostam",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/rostam.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.38
+    },
+    "colors": 32,
+    "clipped_px": 7,
+    "idle_size": {
+     "down": "47x64",
+     "left": "46x64",
+     "up": "47x64"
+    },
+    "outline": "#06031f",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/rostam_compare.png"
+   },
+   "verify": true,
+   "verify_note": "서사시 인물 - 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.rostam.ally.64",
+   "path": "assets/sprites/64/hero_rostam_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "rostam",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_rostam_ally.png"
+   },
+   "bytes": 1780,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.rostam.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.rostam.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_rostam_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.rostam.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_rostam_enemy_sheet.png"
+   },
+   "bytes": 12098,
+   "hero": "rostam",
+   "asset_code": "rostam",
+   "unit_type": "sword",
+   "mounted": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#rostam",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/rostam.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.38
+    },
+    "colors": 32,
+    "clipped_px": 7,
+    "idle_size": {
+     "down": "47x64",
+     "left": "46x64",
+     "up": "47x64"
+    },
+    "outline": "#06031f",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/rostam_compare.png"
+   },
+   "verify": true,
+   "verify_note": "서사시 인물 - 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.rostam.enemy.64",
+   "path": "assets/sprites/64/hero_rostam_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "rostam",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_rostam_enemy.png"
+   },
+   "bytes": 1722,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.rostam.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.tariq_ibn_ziyad.ally.64.sheet",
+   "path": "assets/sprites/64/hero_tariq_ibn_ziyad_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.tariq_ibn_ziyad.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tariq_ibn_ziyad_ally_sheet.png"
+   },
+   "bytes": 11298,
+   "hero": "tariq_ibn_ziyad",
+   "asset_code": "tariq_ibn_ziyad",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#tariq_ibn_ziyad",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/tariq_ibn_ziyad.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.53
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x59",
+     "left": "53x56",
+     "up": "29x62"
+    },
+    "outline": "#020327",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/tariq_ibn_ziyad_compare.png"
+   },
+   "verify": true,
+   "verify_note": "8세기 우마이야 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.tariq_ibn_ziyad.ally.64",
+   "path": "assets/sprites/64/hero_tariq_ibn_ziyad_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "tariq_ibn_ziyad",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tariq_ibn_ziyad_ally.png"
+   },
+   "bytes": 1487,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.tariq_ibn_ziyad.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.tariq_ibn_ziyad.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_tariq_ibn_ziyad_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.tariq_ibn_ziyad.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tariq_ibn_ziyad_enemy_sheet.png"
+   },
+   "bytes": 11244,
+   "hero": "tariq_ibn_ziyad",
+   "asset_code": "tariq_ibn_ziyad",
+   "unit_type": "cavalry",
+   "mounted": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_exp2_sprite_gen.mjs(hero_v4_gen.mjs 사본) → hero_dir_pp_v4.mjs(HERO_FACE=hero_exp1/sprite_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_exp2/sprite_prompts.json#tariq_ibn_ziyad",
+   "raw": "docker/gemini/hero_exp2/sprite_raw/tariq_ibn_ziyad.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.53
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x59",
+     "left": "53x56",
+     "up": "29x62"
+    },
+    "outline": "#020327",
+    "right": "mirror",
+    "enemy_swap": {
+     "hue": [
+      185,
+      265
+     ],
+     "min_s": 0.35
+    }
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair": "O",
+     "head": "O",
+     "armor_color": "O",
+     "cape": "O",
+     "item": "O",
+     "gender_skin": "O",
+     "sheet": "O"
+    },
+    "issues": [
+     "적 스왑 min_s 0.35(강철 회색 유지)"
+    ],
+    "compare": "docker/gemini/hero_exp2/sprite_preview/compare/tariq_ibn_ziyad_compare.png"
+   },
+   "verify": true,
+   "verify_note": "8세기 우마이야 장비 일반화",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(hero_dir_refs, 배치·도트 크기만) + 정식 초상화 PNG(public/assets/portraits/<code>.png)"
+  },
+  {
+   "key": "unit.hero.tariq_ibn_ziyad.enemy.64",
+   "path": "assets/sprites/64/hero_tariq_ibn_ziyad_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "tariq_ibn_ziyad",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tariq_ibn_ziyad_enemy.png"
+   },
+   "bytes": 1455,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.tariq_ibn_ziyad.enemy.64.sheet"
+  }
+ ]
+}

@@ -1,0 +1,2983 @@
+{
+ "_note": "[임밸런 2호기 / 초안] ch24 서가 확장 스테이지(송서사 EXPAND 인계서 기준) 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 맵은 기존 서가/팩 맵 재활용(주제 불일치는 map_new_needed 참조). 신호 zone 좌표는 database/data/map_tile_tag_requests_ext2.json 병합 전에는 --with-ext 시드 시 battle_cues zone_ref 해석 오류로 중단될 수 있음.",
+ "version": 1,
+ "chapter": 24,
+ "shelf_code": "ch24",
+ "status": "draft",
+ "items": [
+  {
+   "code": "ch24_s5",
+   "name": "가론 강",
+   "year_label": "732년 여름",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_pk02_ford",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 16,
+   "difficulty": 7,
+   "culture": "europe",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_frankish_phalanx_captain"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_arab_guard_chief",
+      "display_name_ko": "안달루스 기병 도하 지휘관",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1.5
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       34,
+       12
+      ],
+      [
+       35,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 기병 도하 지휘관 병사"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_berber_cavalry_chief",
+      "display_name_ko": "베르베르 기병대장",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       26,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "베르베르 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       13
+      ],
+      [
+       32,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 기병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       9
+      ],
+      [
+       30,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 기병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 기병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       16
+      ],
+      [
+       30,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 기병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 기병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       5
+      ],
+      [
+       32,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 기병 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 기병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       7
+      ],
+      [
+       35,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 기병 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 기병대장 6",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       17
+      ],
+      [
+       33,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 기병 병사"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 기병대장 7",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       1
+      ],
+      [
+       26,
+       1
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 9,
+   "enemy_units_initial": 18,
+   "enemy_units_peak": 18,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      34,
+      12
+     ],
+     "ref": "npc_arab_guard_chief",
+     "kind": "npc",
+     "name": "안달루스 기병 도하 지휘관"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      35,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      12
+     ],
+     "ref": "npc_berber_cavalry_chief",
+     "kind": "npc",
+     "name": "베르베르 기병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      31,
+      13
+     ],
+     "name": "안달루스 기병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      13
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      9
+     ],
+     "name": "안달루스 기병대장 2"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      9
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      16
+     ],
+     "name": "안달루스 기병대장 3"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      16
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      31,
+      5
+     ],
+     "name": "안달루스 기병대장 4"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      5
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      34,
+      7
+     ],
+     "name": "안달루스 기병대장 5"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      35,
+      7
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      32,
+      17
+     ],
+     "name": "안달루스 기병대장 6"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      33,
+      17
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      1
+     ],
+     "name": "안달루스 기병대장 7"
+    },
+    {
+     "squad": "I",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      1
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1184,
+    "exp": 1717,
+    "gold": 1539,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 7 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 2405,
+   "prerequisite": "ch24_s4",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 군"
+    },
+    "enemy_commander": {
+     "name": "안달루스 기병 도하 지휘관",
+     "hero": null
+    },
+    "max_turns": 11,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          21,
+          12
+         ],
+         [
+          22,
+          12
+         ],
+         [
+          23,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "bank_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "bank_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        14,
+        12
+       ],
+       [
+        15,
+        12
+       ],
+       [
+        16,
+        12
+       ],
+       [
+        15,
+        13
+       ]
+      ],
+      "tag": "bank",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 3
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_frankish_phalanx_captain",
+      "x": 8,
+      "y": 10,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "bank_signal": [
+      [
+       21,
+       12
+      ],
+      [
+       22,
+       12
+      ],
+      [
+       23,
+       12
+      ]
+     ]
+    },
+    "tile_tags": [
+     "bank_signal"
+    ]
+   },
+   "design_notes": [
+    "[2026-11-08 임밸런 미션 비중 전환] 방어(survive_turns 8) -> 지휘관 격파(defeat_commander). 별 turn_within 6->9. max_turns 유지(측정 후 조정). 시작값, 사람 플레이 확인 필요.",
+    "[시작값] 초기 적 18기 {\"cavalry\":18}, 최대 18기. Lv19 offset -2(eff 17). 목표 유형 survive.",
+    "신호 플래그 -> 아군 증원 3기(spear) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -2->-3, 초기 적 18->18기, 대장 hp_mult 1.5->1.5",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_frankish_phalanx_captain(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch24_s6",
+   "name": "보르도 피난",
+   "year_label": "732년",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_ch24_s6_river_port",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -9,
+   "effective_enemy_level": 10,
+   "difficulty": 7,
+   "culture": "europe",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_childebrand"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_zaragoza_detachment",
+      "display_name_ko": "안달루스 추격 기병대장",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       33,
+       13
+      ],
+      [
+       33,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 추격 기병 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 추격 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 추격 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 추격 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       14
+      ],
+      [
+       34,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 추격 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 5,
+   "enemy_units_peak": 7,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      13
+     ],
+     "ref": "npc_zaragoza_detachment",
+     "kind": "npc",
+     "name": "안달루스 추격 기병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      33,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      12
+     ],
+     "name": "안달루스 추격 기병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      35,
+      14
+     ],
+     "name": "안달루스 추격 기병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      14
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1184,
+    "exp": 1717,
+    "gold": 1539,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 13
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 7 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 2406,
+   "prerequisite": "ch24_s5",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 군"
+    },
+    "enemy_commander": {
+     "name": "안달루스 추격 기병대장",
+     "hero": null
+    },
+    "max_turns": 15,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          12
+         ],
+         [
+          18,
+          12
+         ],
+         [
+          19,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "dock_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "dock_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        10,
+        12
+       ],
+       [
+        11,
+        12
+       ],
+       [
+        12,
+        12
+       ]
+      ],
+      "tag": "dock",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_andalus_archer_captain",
+      "tiles": [
+       [
+        34,
+        13
+       ],
+       [
+        35,
+        12
+       ],
+       [
+        35,
+        13
+       ],
+       [
+        33,
+        14
+       ],
+       [
+        32,
+        11
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "목표 구역에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         26,
+         12
+        ],
+        [
+         27,
+         12
+        ],
+        [
+         28,
+         12
+        ],
+        [
+         27,
+         13
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_childebrand",
+      "x": 2,
+      "y": 10,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "dock_signal": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ]
+     ],
+     "exit_24_s6": [
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       28,
+       12
+      ],
+      [
+       27,
+       13
+      ]
+     ]
+    },
+    "tile_tags": [
+     "dock_signal",
+     "exit_24_s6"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 14기 {\"cavalry\":14}, 최대 14기. Lv19 offset -2(eff 17). 목표 유형 escort.",
+    "신호 플래그 -> 아군 증원 2기(spear) 효과(시작값)",
+    "호송/탈출: 호송 대상 유닛 없이 주인공 도달 조건으로 단순화(시작값, 사람 확인 필요)",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 14->10기, 대장 hp_mult 1.4->1.2",
+    "[2026-11-04 2차 완화] offset -5->-7, 적 10->8기, max_turns 12->15",
+    "[2026-11-04 3차 완화] offset -7->-9, 적 8->6기(부대 4->3), 대장 hp_mult 1.1->1",
+    "[2026-11-04 4차] ch19_s8 와 같은 구조: main(A) 칸 [[29,12],[30,12]] 이 목표 구역 바로 옆 -> [[33,13],[33,11]] (구역에서 6칸 이상)",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_childebrand(ally_npcs), npc_andalus_archer_captain(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 3차 완화(재측정 필요)"
+  },
+  {
+   "code": "ch24_s7",
+   "name": "외드와 카를의 회견 길",
+   "year_label": "732년 가을",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_ch24_s2_forest_road",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 15,
+   "difficulty": 7,
+   "culture": "europe",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_aquitaine_cavalry_captain"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 정찰대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       24,
+       8
+      ],
+      [
+       23,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 정찰 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_abd_al_malik_ibn_qatan",
+      "display_name_ko": "압드 알말리크 이븐 카탄",
+      "evidence_level": "verify",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       9
+      ],
+      [
+       16,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 정찰 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 정찰 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       20,
+       12
+      ],
+      [
+       21,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 정찰 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 6,
+   "enemy_units_peak": 6,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      24,
+      8
+     ],
+     "name": "안달루스 정찰대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      23,
+      7
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      15,
+      9
+     ],
+     "ref": "npc_abd_al_malik_ibn_qatan",
+     "kind": "npc",
+     "name": "압드 알말리크 이븐 카탄"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      12
+     ],
+     "name": "안달루스 정찰 기병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      12
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1845,
+    "gold": 1654,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 7 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 2407,
+   "prerequisite": "ch24_s6",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 군"
+    },
+    "enemy_commander": {
+     "name": "안달루스 정찰대장",
+     "hero": null
+    },
+    "max_turns": 13,
+    "commander_guard": null,
+    "cues": [],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "fork_1 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         12,
+         11
+        ],
+        [
+         13,
+         11
+        ],
+        [
+         14,
+         11
+        ]
+       ]
+      }
+     },
+     {
+      "label": "fork_2 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         21,
+         11
+        ],
+        [
+         22,
+         11
+        ],
+        [
+         23,
+         11
+        ]
+       ]
+      }
+     },
+     {
+      "label": "목표 구역에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         31,
+         6
+        ],
+        [
+         30,
+         7
+        ],
+        [
+         31,
+         7
+        ],
+        [
+         31,
+         8
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_aquitaine_cavalry_captain",
+      "x": 2,
+      "y": 12,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "fork_1": [
+      [
+       12,
+       11
+      ],
+      [
+       13,
+       11
+      ],
+      [
+       14,
+       11
+      ]
+     ],
+     "fork_2": [
+      [
+       21,
+       11
+      ],
+      [
+       22,
+       11
+      ],
+      [
+       23,
+       11
+      ]
+     ],
+     "exit_24_s7": [
+      [
+       31,
+       6
+      ],
+      [
+       30,
+       7
+      ],
+      [
+       31,
+       7
+      ],
+      [
+       31,
+       8
+      ]
+     ]
+    },
+    "tile_tags": [
+     "fork_1",
+     "fork_2",
+     "exit_24_s7"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 8기 {\"cavalry\":8}, 최대 8기. Lv20 offset -2(eff 18). 목표 유형 escort.",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "호송/탈출: 호송 대상 유닛 없이 주인공 도달 조건으로 단순화(시작값, 사람 확인 필요)",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 8->6기, 대장 hp_mult 1.2->1",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_aquitaine_cavalry_captain(ally_npcs), npc_abd_al_malik_ibn_qatan(convert_B). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 호송류 main 위치 보정] 적 main 부대를 출구 [31,7] 인접([31,5])에서 약 7칸 떨어진 [24,8]로 이동(출구 봉쇄 방지). 시작값/needs tuning."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch24_s8",
+   "name": "아비뇽 탈환",
+   "year_label": "737년",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_pk18_wall_breach_eu",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      25,
+      10
+     ],
+     [
+      26,
+      10
+     ],
+     [
+      27,
+      10
+     ],
+     [
+      26,
+      11
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -4,
+   "effective_enemy_level": 17,
+   "difficulty": 8,
+   "culture": "europe",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "아비뇽 수비대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.4
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       30,
+       12
+      ],
+      [
+       31,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "아비뇽 수비 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "아비뇽 수비 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "아비뇽 수비 보병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "아비뇽 수비 보병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       34,
+       12
+      ],
+      [
+       35,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "아비뇽 수비 보병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "아비뇽 수비 보병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       14
+      ],
+      [
+       33,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "아비뇽 수비 보병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "아비뇽 수비 보병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       29,
+       12
+      ],
+      [
+       30,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "아비뇽 수비 보병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "아비뇽 수비 보병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       31,
+       10
+      ],
+      [
+       32,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "아비뇽 수비 보병 병사"
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 11,
+   "enemy_units_peak": 13,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      30,
+      12
+     ],
+     "name": "아비뇽 수비대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      10
+     ],
+     "name": "아비뇽 수비 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      34,
+      12
+     ],
+     "name": "아비뇽 수비 보병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      14
+     ],
+     "name": "아비뇽 수비 보병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      33,
+      14
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      12
+     ],
+     "name": "아비뇽 수비 보병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      13
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      31,
+      10
+     ],
+     "name": "아비뇽 수비 보병대장 5"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      32,
+      11
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1360,
+    "exp": 1972,
+    "gold": 1768,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 8 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 2408,
+   "prerequisite": "ch24_s7",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 군"
+    },
+    "enemy_commander": {
+     "name": "아비뇽 수비대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          11
+         ],
+         [
+          18,
+          11
+         ],
+         [
+          18,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "wall_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "wall_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        9,
+        12
+       ],
+       [
+        10,
+        12
+       ],
+       [
+        11,
+        12
+       ]
+      ],
+      "tag": "wall",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_arab_guard_captain",
+      "tiles": [
+       [
+        32,
+        12
+       ],
+       [
+        31,
+        11
+       ],
+       [
+        33,
+        11
+       ],
+       [
+        33,
+        12
+       ],
+       [
+        31,
+        13
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "wall_signal": [
+      [
+       17,
+       11
+      ],
+      [
+       18,
+       11
+      ],
+      [
+       18,
+       12
+      ]
+     ]
+    },
+    "tile_tags": [
+     "wall_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 18기 {\"sword\":16,\"archer\":2}, 최대 18기. Lv21 offset -1(eff 20). 목표 유형 capture.",
+    "신호 플래그 -> 아군 증원 2기(spear) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -1->-4, 초기 적 18->12기, 대장 hp_mult 1.6->1.4",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_arab_guard_captain(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch24_s9",
+   "name": "나르본 포위",
+   "year_label": "737년",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_pk06_fortress_siege_eu",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 9
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 19,
+   "difficulty": 8,
+   "culture": "europe",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_frankish_baggage_guard"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_umayyad_rearguard",
+      "display_name_ko": "안달루스 구원군 지휘관",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1.5
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       32,
+       13
+      ],
+      [
+       33,
+       13
+      ],
+      [
+       31,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 구원군 지휘관 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "나르본 구원 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       11
+      ],
+      [
+       35,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "나르본 구원 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "나르본 구원 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       36,
+       13
+      ],
+      [
+       37,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "나르본 구원 기병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "나르본 구원 기병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       15
+      ],
+      [
+       35,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "나르본 구원 기병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "나르본 구원 기병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       14
+      ],
+      [
+       32,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "나르본 구원 기병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "나르본 구원 기병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "나르본 구원 기병 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "나르본 구원 기병대장 6",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       13
+      ],
+      [
+       36,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "나르본 구원 기병 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "나르본 구원 기병대장 7",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       15
+      ],
+      [
+       34,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "나르본 구원 기병 병사"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "나르본 구원 기병대장 8",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       13
+      ],
+      [
+       33,
+       14
+      ],
+      [
+       33,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "나르본 구원 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 9,
+   "enemy_units_initial": 20,
+   "enemy_units_peak": 20,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      32,
+      13
+     ],
+     "ref": "npc_umayyad_rearguard",
+     "kind": "npc",
+     "name": "안달루스 구원군 지휘관"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      33,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      31,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      34,
+      11
+     ],
+     "name": "나르본 구원 기병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      35,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      36,
+      13
+     ],
+     "name": "나르본 구원 기병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      37,
+      13
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      34,
+      15
+     ],
+     "name": "나르본 구원 기병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      35,
+      15
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      32,
+      14
+     ],
+     "name": "나르본 구원 기병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      12
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      11
+     ],
+     "name": "나르본 구원 기병대장 5"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      12
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      35,
+      13
+     ],
+     "name": "나르본 구원 기병대장 6"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      36,
+      14
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      15
+     ],
+     "name": "나르본 구원 기병대장 7"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      16
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      34,
+      13
+     ],
+     "name": "나르본 구원 기병대장 8"
+    },
+    {
+     "squad": "I",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      33,
+      14
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      33,
+      12
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1360,
+    "exp": 1972,
+    "gold": 1768,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 7
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 8 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 2409,
+   "prerequisite": "ch24_s8",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 군"
+    },
+    "enemy_commander": {
+     "name": "안달루스 구원군 지휘관",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_frankish_baggage_guard",
+      "x": 9,
+      "y": 12,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "coast_signal": [
+      [
+       19,
+       13
+      ],
+      [
+       20,
+       13
+      ],
+      [
+       21,
+       13
+      ]
+     ],
+     "hill_signal": [
+      [
+       19,
+       13
+      ],
+      [
+       20,
+       13
+      ],
+      [
+       21,
+       13
+      ]
+     ]
+    },
+    "tile_tags": [
+     "coast_signal",
+     "hill_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 20기 {\"cavalry\":20}, 최대 20기. Lv21 offset -1(eff 20). 목표 유형 survive.",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -1->-2, 초기 적 20->20기, 대장 hp_mult 1.5->1.5",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_frankish_baggage_guard(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch24_s10",
+   "name": "베르 강",
+   "year_label": "737년",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_ch24_s1_vienne_ford",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 20,
+   "difficulty": 9,
+   "culture": "europe",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_umayyad_infantry_chief",
+      "display_name_ko": "안달루스 구원군 기병대장",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1.4
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       16,
+       22
+      ],
+      [
+       17,
+       22
+      ],
+      [
+       15,
+       22
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 구원군 기병 병사"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_arab_guard_chief",
+      "display_name_ko": "근위 기병대장",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       12,
+       22
+      ],
+      [
+       13,
+       22
+      ]
+     ],
+     "soldier_display_name_ko": "근위 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_andalus_rearguard_captain",
+      "display_name_ko": "후위장",
+      "evidence_level": "invented",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       8,
+       23
+      ],
+      [
+       9,
+       23
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 구원군 기병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 구원군 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       23,
+       23
+      ],
+      [
+       24,
+       23
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 구원군 기병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 구원군 기병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       4,
+       22
+      ],
+      [
+       5,
+       22
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 구원군 기병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 구원군 기병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       22
+      ],
+      [
+       29,
+       22
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 구원군 기병 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 구원군 기병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       23
+      ],
+      [
+       16,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 구원군 기병 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 구원군 기병대장 6",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       11,
+       22
+      ],
+      [
+       12,
+       23
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 구원군 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 8,
+   "enemy_units_initial": 17,
+   "enemy_units_peak": 17,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      16,
+      22
+     ],
+     "ref": "npc_umayyad_infantry_chief",
+     "kind": "npc",
+     "name": "안달루스 구원군 기병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      17,
+      22
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      15,
+      22
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      12,
+      22
+     ],
+     "ref": "npc_arab_guard_chief",
+     "kind": "npc",
+     "name": "근위 기병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      13,
+      22
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      8,
+      23
+     ],
+     "ref": "npc_andalus_rearguard_captain",
+     "kind": "npc",
+     "name": "후위장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      9,
+      23
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      23,
+      23
+     ],
+     "name": "안달루스 구원군 기병대장 2"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      23
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      4,
+      22
+     ],
+     "name": "안달루스 구원군 기병대장 3"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      5,
+      22
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      22
+     ],
+     "name": "안달루스 구원군 기병대장 4"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      22
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      16,
+      23
+     ],
+     "name": "안달루스 구원군 기병대장 5"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      21
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      11,
+      22
+     ],
+     "name": "안달루스 구원군 기병대장 6"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      12,
+      23
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 9 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 2410,
+   "prerequisite": "ch24_s9",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 군"
+    },
+    "enemy_commander": {
+     "name": "안달루스 구원군 기병대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          15,
+          17
+         ],
+         [
+          16,
+          17
+         ],
+         [
+          17,
+          17
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "ford_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "ford_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        15,
+        14
+       ],
+       [
+        16,
+        14
+       ],
+       [
+        17,
+        14
+       ],
+       [
+        16,
+        15
+       ]
+      ],
+      "tag": "ford",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 3
+     }
+    ],
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "ford_signal": [
+      [
+       15,
+       17
+      ],
+      [
+       16,
+       17
+      ],
+      [
+       17,
+       17
+      ]
+     ]
+    },
+    "tile_tags": [
+     "ford_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 20기 {\"cavalry\":20}, 최대 20기. Lv22 offset -1(eff 21). 목표 유형 defeat.",
+    "신호 플래그 -> 아군 증원 3기(cavalry) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -1->-2, 초기 적 20->17기, 대장 hp_mult 1.6->1.4",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_andalus_rearguard_captain(convert_C). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  }
+ ],
+ "npc_needed": {
+  "new_rows": [],
+  "note": "기존 roster 코드만 사용"
+ },
+ "engine_checks": [
+  "optional=true(숨은 종장 해금 필수 제외)",
+  "승리 조건은 기존 엔진 type(in_zone/defeat/capture/survive)만 사용"
+ ]
+}

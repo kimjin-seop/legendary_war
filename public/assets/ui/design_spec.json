@@ -1,0 +1,125 @@
+{
+  "$schema_note": "UI 디자인 토큰·컴포넌트 스펙(윤프론 구현용). 기준 해상도 1920x1080(풀HD), 상위 해상도는 전체 스케일. 대비비는 WCAG 상대휘도 기준 계산값(소수 1자리).",
+  "version": 2,
+  "changelog": [ "v2 (2026-11-01, 안아트): color.rankBorder 를 N/R/SR/SSR → C/B/A/S(rarity.js 동일 색)로 교체, _legacy_map 추가. 이전 파일 백업: design_spec.json.bak_v1_20261101" ],
+  "baseResolution": { "width": 1920, "height": 1080, "scaleRule": "min(viewportW/1920, viewportH/1080), 정수 배율 아님(UI는 벡터/고해상 PNG), 도트 레이어(타일·스프라이트)만 정수 배율 x3/x4" },
+  "color": {
+    "roles": {
+      "bg.deep": { "hex": "#0B1328", "use": "최하단 배경, 전투 외 화면 바탕" },
+      "panel.base": { "hex": "#101C3A", "use": "패널 바탕(불투명 92%)", "alpha": 0.92 },
+      "panel.raised": { "hex": "#172750", "use": "패널 안 카드·슬롯 바탕" },
+      "panel.inset": { "hex": "#0A1226", "use": "게이지 트랙·입력 영역(움푹 들어간 면)" },
+      "gold.main": { "hex": "#D9B45A", "use": "바깥 테두리·제목·강조 아이콘 선" },
+      "gold.light": { "hex": "#F3DC8E", "use": "테두리 상단 하이라이트·호버 글로우" },
+      "gold.dark": { "hex": "#8A6A1E", "use": "테두리 하단 그림자·눌림 상태" },
+      "line.inner": { "hex": "#3C5390", "use": "안쪽(두 번째) 테두리 선" },
+      "text.primary": { "hex": "#F4EEDC", "use": "본문·수치" },
+      "text.secondary": { "hex": "#A9B4CF", "use": "보조 설명·라벨" },
+      "text.disabled": { "hex": "#5C6886", "use": "비활성" },
+      "text.outline": { "hex": "#0A1226", "use": "숫자·강조 텍스트 외곽선(1.5px)" },
+      "ally": { "hex": "#3E8EF7", "use": "아군 유닛 링·HP바·턴 배너" },
+      "enemy": { "hex": "#E04A4A", "use": "적군 유닛 링·HP바·턴 배너" },
+      "hp": { "hex": "#4CD964", "use": "HP 게이지 채움(60% 초과)" },
+      "hp.warn": { "hex": "#F2C14E", "use": "HP 30~60%" },
+      "hp.danger": { "hex": "#E04A4A", "use": "HP 30% 이하(점멸 가능)" },
+      "exp": { "hex": "#58C7F3", "use": "EXP 게이지" },
+      "cost": { "hex": "#C58BFF", "use": "코스트/마나 게이지" },
+      "advantage.up": { "hex": "#58E07A", "use": "상성 유리 ▲" },
+      "advantage.down": { "hex": "#FF6B6B", "use": "상성 불리 ▼" },
+      "advantage.even": { "hex": "#9AA6C2", "use": "상성 대등 −" },
+      "selection": { "hex": "#FFE27A", "use": "현재 선택 커서·선택 테두리(펄스)" },
+      "move.range": { "hex": "#3E8EF7", "alpha": 0.35, "use": "이동 가능 타일 오버레이" },
+      "attack.range": { "hex": "#E04A4A", "alpha": 0.35, "use": "공격 가능 타일 오버레이" },
+      "heal.range": { "hex": "#4CD964", "alpha": 0.35, "use": "치유 가능 타일 오버레이" },
+      "danger.zone": { "hex": "#C73A5E", "alpha": 0.22, "use": "적 위험 범위" },
+      "overlay.dim": { "hex": "#000000", "alpha": 0.55, "use": "모달 뒤 어둡게" }
+    },
+    "contrast": {
+      "text.primary_on_panel.base": 15.2,
+      "text.secondary_on_panel.base": 7.4,
+      "gold.main_on_panel.base": 7.9,
+      "text.disabled_on_panel.base": 2.9,
+      "text.primary_on_gold.main(버튼 라벨은 text.outline 사용 권장)": 1.9,
+      "text.outline(#0A1226)_on_gold.main": 9.1,
+      "note": "금색 버튼 위 라벨은 밝은 글자 대신 어두운 글자(text.outline 색) 또는 밝은 글자+어두운 외곽선 1.5px 로 가독성 확보"
+    },
+    "rankBorder": {
+      "_note": "v2: 등급 체계를 코드(resources/js/game/rarity.js RARITY_COLOR)와 같은 C/B/A/S 로 통일. outer 는 rarity.js 와 반드시 같은 값. inner = outer 와 검정 45% 혼합. A 보라는 테두리(코드/프레임)에만 쓰고 아이템·초상 그림 안에는 쓰지 않음. 색각 보조로 하단 마름모 점 C1·B2·A3·S4(rarity.js RARITY_STARS 와 동일 개수). 이미지 프레임은 public/assets/ui_skin 의 frame.rank.<c|b|a|s>(본 생산 산출물, 병합 전)",
+      "C": { "outer": "#8B97A8", "inner": "#4C535C", "glow": null, "pips": 1 },
+      "B": { "outer": "#2FB5A6", "inner": "#1A635B", "glow": null, "pips": 2 },
+      "A": { "outer": "#B06AD8", "inner": "#613A77", "glow": "#B06AD8@0.30", "pips": 3 },
+      "S": { "outer": "#F0B23C", "inner": "#846221", "glow": "#FFE27A@0.5", "pips": 4, "extra": "모서리 장식 4개 + 상단 크레스트(frame.rank.s.ornament) + 내측 빛 테두리" },
+      "_legacy_map": { "N": "C", "R": "B", "SR": "A", "SSR": "S" }
+    }
+  },
+  "typography": {
+    "fontStack": { "title": "serif 계열(세리프·소문자 없는 느낌의 장식 서체; 예시 범주: 'Cinzel'류 Latin + 'Noto Serif KR' 한글, 웹폰트 라이선스 확인 필요)", "body": "'Noto Sans KR', sans-serif", "numeric": "탭ular 숫자 지원 서체(font-variant-numeric: tabular-nums), 굵기 700" },
+    "scale": {
+      "display": { "size": 40, "weight": 700, "letterSpacing": 2, "outline": "2px text.outline + 아래 2px gold.dark 그림자", "use": "화면 제목·승리/패배" },
+      "h1": { "size": 28, "weight": 700, "letterSpacing": 1, "outline": "1.5px text.outline", "use": "패널 제목(리본)" },
+      "h2": { "size": 20, "weight": 700, "use": "섹션 제목" },
+      "body": { "size": 16, "weight": 400, "lineHeight": 1.5 },
+      "caption": { "size": 13, "weight": 400, "color": "text.secondary" },
+      "numHud": { "size": 22, "weight": 700, "outline": "1.5px text.outline", "tabular": true, "use": "HP/ATK/DEF 등 HUD 수치" },
+      "numDamage": { "size": 36, "weight": 900, "outline": "2.5px text.outline", "use": "데미지 팝업(크리티컬은 48, 색 #FFE27A)" },
+      "numSmall": { "size": 14, "weight": 700, "tabular": true, "use": "슬롯 안 레벨·코스트" }
+    }
+  },
+  "spacing": { "unit": 4, "panelPadding": 16, "sectionGap": 12, "listRowGap": 8, "iconTextGap": 8, "safeArea": 24 },
+  "radius": { "panel": 6, "button": 6, "slot": 4, "gauge": 3, "pill": 999 },
+  "border": {
+    "panelDouble": { "outer": "2px gold.main", "gap": 3, "inner": "1px line.inner", "innerOffset": "바깥 테두리 안쪽 3px 위치(총 두께 2+3+1=6px)", "highlight": "바깥 테두리 상단 1px gold.light, 하단 1px gold.dark(입체감)" },
+    "cardSingle": { "outer": "1px line.inner", "hoverOuter": "1px gold.main" },
+    "cornerDeco": { "asset": "assets/ui/deco/frame_corner.png", "size": 32, "offset": -6, "placement": "패널 4모서리(좌상 원본, 우상 flipX, 좌하 flipY, 우하 flipXY), 패널 높이 120px 미만이면 생략", "use": "주요 패널·SSR 카드만(과용 금지)" },
+    "ribbonHeader": { "asset": "assets/ui/deco/ribbon_end.png", "height": 44, "placement": "패널 상단 중앙, 좌우 끝 조각 + 중앙 반복 스트립(딥 네이비 #172750, 상하 1px gold.main)", "titleStyle": "h1" },
+    "divider": { "asset": "assets/ui/deco/divider.png", "height": 16, "placement": "섹션 사이 중앙 정렬, 최대 폭 420px, 넘으면 양끝 1px gold.dark 선으로 확장" }
+  },
+  "components": {
+    "button": {
+      "sizes": { "lg": { "h": 56, "px": 32, "font": "h2" }, "md": { "h": 44, "px": 24, "font": "body(700)" }, "sm": { "h": 32, "px": 16, "font": "caption(700)" } },
+      "primary": {
+        "normal": { "fill": "linear-gradient(180deg, #F3DC8E 0%, #D9B45A 45%, #B8923A 100%)", "border": "1px #8A6A1E", "text": "#1A1406", "gloss": "상단 45% 높이에 흰색 12% 광택띠", "shadow": "0 2px 0 #5C4410" },
+        "hover": { "fill": "linear-gradient(180deg, #FFF0B0 0%, #E8C565 45%, #C9A040 100%)", "glow": "0 0 12px gold.light@0.6", "border": "1px #F3DC8E" },
+        "pressed": { "fill": "linear-gradient(180deg, #B8923A 0%, #D9B45A 100%)", "translateY": 2, "shadow": "none" },
+        "disabled": { "fill": "#3A4257", "border": "1px #2A3044", "text": "text.disabled", "gloss": "none" },
+        "focus": { "outline": "2px selection, offset 2px" }
+      },
+      "secondary": {
+        "normal": { "fill": "panel.raised", "border": "1px gold.main", "text": "text.primary" },
+        "hover": { "fill": "#1F3464", "border": "1px gold.light", "glow": "0 0 8px gold.light@0.4" },
+        "pressed": { "fill": "#0F1A36", "translateY": 1 },
+        "disabled": { "fill": "panel.inset", "border": "1px #2A3044", "text": "text.disabled" },
+        "focus": { "outline": "2px selection, offset 2px" }
+      },
+      "danger": { "normal": { "fill": "#7A2A2A", "border": "1px #E04A4A", "text": "text.primary" } }
+    },
+    "panel": { "fill": "panel.base", "border": "panelDouble", "padding": 16, "titleBar": "ribbonHeader(선택)", "shadow": "0 8px 24px #000000@0.5" },
+    "modal": { "backdrop": "overlay.dim", "panel": "panel + cornerDeco", "maxWidth": 720, "enter": "scale 0.96→1, 120ms ease-out" },
+    "gauge": {
+      "height": { "hud": 14, "card": 8, "mapUnit": 4 },
+      "track": "panel.inset + 안쪽 1px #000@0.5", "border": "1px gold.dark(hud만)", "fill": "역할색 + 상단 40% 흰색 18% 하이라이트", "radius": 3,
+      "animation": "채움 변화는 300ms ease-out, 감소 시 뒤에 흰색 잔상 바 400ms", "label": "numHud, 오른쪽 정렬 '현재/최대'"
+    },
+    "slot": {
+      "size": { "lg": 96, "md": 72, "sm": 56 },
+      "fill": "panel.raised", "border": "rankBorder[rank] outer 2px + inner 1px(gap 1px)", "radius": 4,
+      "badge": "좌상 레벨(numSmall, panel.inset 배경 pill), 우하 코스트(numSmall, gold.main)",
+      "empty": "panel.inset + 1px dashed line.inner + 중앙 '+' gold.dark",
+      "selected": "selection 2px 테두리 + 외곽 글로우 8px, 1.2s 펄스(opacity 0.6↔1)"
+    },
+    "unitCursor": { "ally": "ally 링(2px) + 그림자 타원", "enemy": "enemy 링", "selected": "selection 사각 커서 4모서리 L자(두께 3px, 길이 10px) 0.8s 바운스 2px" },
+    "turnBanner": { "height": 96, "fill": "역할색(ally/enemy) 그라데이션 중앙 불투명 → 양끝 투명", "text": "display 흰색 + 2px 외곽선", "motion": "좌→우 슬라이드 인 250ms, 정지 700ms, 아웃 250ms" },
+    "damagePopup": { "font": "numDamage", "colors": { "normal": "#FFFFFF", "crit": "#FFE27A", "heal": "#7CFF9A", "weak": "#FFFFFF(크기 0.8)", "miss": "text.secondary" }, "motion": "위로 24px 떠오르며 600ms 페이드, 크리티컬은 1.3→1 스케일 바운스" },
+    "forecastPanel": { "layout": "좌 아군 / 중앙 상성·배율 / 우 적군, 3열", "numbers": "numHud, 변화량은 ▲초록/▼빨강 캡션", "border": "panelDouble", "position": "선택 유닛 반대편 화면 끝에 고정" },
+    "tooltip": { "fill": "#0A1226@0.95", "border": "1px gold.dark", "padding": 8, "font": "caption", "delay": 300 }
+  },
+  "icon": {
+    "sizes": { "xs": 16, "sm": 24, "md": 32, "lg": 48, "xl": 64 }, "source": 128, "scaleRule": "128px 원본에서 다운스케일만(업스케일 금지), 16px 용도는 가능하면 별도 단순화 버전",
+    "classIconOnMap": { "size": 16, "background": "역할색 원형 배지 20px", "position": "유닛 스프라이트 좌상" },
+    "menuIcon": { "size": 32, "withLabel": "아이콘 위, 라벨(caption) 아래, 간격 4" },
+    "advantage": { "size": 24, "position": "예보 패널 중앙, 숫자 옆 4px" }
+  },
+  "layering": { "zOrder": ["맵 타일", "지형 오버레이(이동/공격 범위)", "유닛 그림자", "유닛 스프라이트", "유닛 HP바·배지", "커서", "이펙트", "데미지 팝업", "HUD 패널", "턴 배너", "모달", "토스트", "튜토리얼 하이라이트"] },
+  "motion": { "fast": 120, "normal": 200, "slow": 300, "easing": "cubic-bezier(0.2, 0.8, 0.2, 1)", "reduceMotion": "prefers-reduced-motion 시 펄스·바운스 제거, 페이드만" },
+  "pixelLayer": { "tile": 32, "integerScale": "풀HD에서 x3(96px 타일, 20x11 타일 화면) 또는 x4(128px), 4K에서 x6, 카메라 줌은 정수만", "imageRendering": "pixelated / Phaser pixelArt:true, roundPixels:true", "spriteSheet": "96x128 3열x4행, frameWidth 32, frameHeight 32, 행=아래·왼쪽·오른쪽·위, 열=걷기1·정지·걷기2, 걷기 애니메이션 프레임 순서 [0,1,2,1] 8fps" }
+}

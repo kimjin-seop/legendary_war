@@ -1,0 +1,46 @@
+{
+ "region": "oldworld",
+ "desc": "구대륙(유럽·아프리카·아시아, 아이슬란드~캄차카, 희망봉~타이미르)",
+ "geo": {
+  "lonMin": -25.0,
+  "lonMax": 175.0,
+  "latMin": -38.0,
+  "latMax": 78.0
+ },
+ "normalized": {
+  "x0": 0.4305555555555556,
+  "x1": 0.9861111111111112,
+  "y0": 0.06666666666666667,
+  "y1": 0.7111111111111111,
+  "w": 0.5555555555555556,
+  "h": 0.6444444444444445
+ },
+ "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+ "desktop": {
+  "path": "assets/map_world/oldworld/oldworld_base_4000.webp",
+  "size": "4000x2320",
+  "ppd": 20,
+  "bytes": 439644,
+  "sharpnessVsWorld4096": 1.76
+ },
+ "mobile": {
+  "path": "assets/map_world/oldworld/oldworld_base_2000.webp",
+  "size": "2000x1160",
+  "ppd": 10.0,
+  "bytes": 175572,
+  "sharpnessVsWorld2048": 1.76
+ },
+ "placement": "세계판 이미지 위 정규화 사각형 [x0*Ww, y0*Hw, w*Ww, h*Hw] 에 그대로 늘려 덮으면 해안이 일치(가로·세로 같은 배율)",
+ "qa_metrics": {
+  "land_iou_vs_world4096_datamask": 0.9814,
+  "soft_centroid_offset_world4096_px": [
+   -0.896,
+   -0.705
+  ],
+  "land_area_ratio": 0.9957,
+  "soft_mask_mae": 0.0084,
+  "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+  "land_iou_vs_world4096_image_estimate": 0.9287,
+  "lowfreq_color_mae_0_255": 8.3
+ }
+}

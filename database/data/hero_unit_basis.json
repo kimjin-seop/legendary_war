@@ -1,0 +1,1423 @@
+{
+ "_note": "역사 근거 병종표(제안). 기존 heroes.json·presets.json은 수정하지 않음. 기준: ①지휘관이 이끈 군대의 성격·대표 전술 우선 ②게임상 지휘관도 전투원이므로 본인 전투 스타일(직접 전투/책략) 고려. proposed_unit_type=현재 8종(sword/spear/cavalry/archer/mage/healer/heavy/flyer) 안의 최선안, ideal_v2=병종 체계 v2 후보(기마궁병·수군·코끼리병·노병·무사·화포·승병·의병·중기병 등) 안의 이상안. proposed_troops는 프리셋 부대 3개 제안. 'gap'은 현재 체계로 표현이 어려운 부분. 확신이 없으면 verify",
+ "version": 1,
+ "checked_at": "2026-10-31",
+ "_note_r5": "r5 추가분: 1차 배치 26명 병종 근거(items 끝, overrides_r4 앞에 추가). 같은 형식. 병종 배정은 8종 안의 각색이며 역사 사실 주장이 아님. 같은 병종 중복(sword·heavy·mage 등)은 사람 조정 필요. 유방·한신·장량·관우는 code=null(heroes.json 미등재)",
+ "_note_r4": "r4 추가분: 출시 풀 신규 21명 병종 근거(items 끝에 추가) + overrides_r4(기존 항목을 수정하지 않고 곽재우 병종 재제안만 별도 기록, 기존 곽재우 항목이 있어도 overrides_r4가 우선). 추가 항목의 csv_archetype=heroes_candidates.csv class_archetype, diff_from_csv=CSV 원형(치유사→healer, 중장갑→heavy, 지휘관→현 8종 중 별도 매핑 없음)과 달라졌는지. 열람 요약에 없던 병종 근거(군 편성 등)는 모델 지식이라 evidence_level을 낮춰 표기. 병종 배정은 모두 8종 안의 '각색'이며 역사 사실 주장이 아님",
+ "items": [
+  {
+   "code": "yi_sun_sin",
+   "csv_id": 142,
+   "name_ko": "이순신",
+   "current_unit_type": "archer",
+   "proposed_unit_type": "archer",
+   "ideal_v2": "naval(수군·함선 지휘관) 또는 artillery(화포)",
+   "change_needed": false,
+   "rationale": "전라좌수영 수군을 이끌었고, 판옥선 위에서 화포(총통)와 활로 거리를 두고 싸우는 원거리전이 주력이었다. 한산도에서는 학익진으로 적을 둘러싸 포격했다. 현재 8종 중에는 원거리 병종인 궁수가 가장 가깝다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Yi_Sun-sin ; https://en.wikipedia.org/wiki/List_of_naval_battles_during_the_Imjin_War",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "사부(활 쏘는 수군 병사)" },
+    { "unit_type": "archer", "basis": "포수(총통 운용)를 원거리 병종으로 대체. v2에서는 화포로" },
+    { "unit_type": "spear", "basis": "근접 방어 인원 대체. 조선 수군은 적선에 올라타 싸우는 백병전을 피하는 경향이 있어 근접 병종 비중은 낮게" }
+   ],
+   "current_troops": ["archer", "sword", "spear"],
+   "game_class_gap": "함선·수군, 화포(총통), 거북선은 표현 불가. 해전 맵은 해안 지형으로 대체(campaign_ch1_outline 참조)",
+   "notes": "현재 프리셋의 sword를 archer로 바꿔 원거리 비중을 높이자는 제안. 무과 출신이라 활 실력과도 맞지만, 개인 활 솜씨보다 수군 화력 운용이 핵심 근거"
+  },
+  {
+   "code": "hannibal",
+   "csv_id": 421,
+   "name_ko": "한니발 바르카",
+   "current_unit_type": "heavy",
+   "proposed_unit_type": "sword",
+   "ideal_v2": "commander형 보병 지휘관(무사/중보병) + 부대에 누미디아 경기병·코끼리병",
+   "change_needed": true,
+   "rationale": "카르타고군은 리비아 중장보병, 이베리아·갈리아 보병, 누미디아·이베리아 기병이 섞인 다민족 군대였다. 칸나에에서는 리비아 보병과 기병으로 포위를 완성했고, 한니발 본인은 중앙 보병 쪽에서 지휘했다고 전한다. 이동력 2에 산을 넘지 못하는 중장갑은 알프스를 넘은 기동전 지휘관의 이미지와 맞지 않아 검병을 제안한다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Hannibal ; https://www.philipharland.com/Blog/2023/05/celts-iberians-and-libyans-polybios-on-the-mixed-composition-of-hannibals-of-carthages-army-and-on-military-equipment-second-century-bce/ ; https://warhistory.org/es/article/cannae-part-ii?amp=0",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "누미디아 경기병. 칸나에·트레비아에서 결정적 역할" },
+    { "unit_type": "heavy", "basis": "리비아 중장보병(칸나에 포위의 양 끝). 코끼리 부대도 v2 전까지는 중장갑으로 대체 가능(각색)" },
+    { "unit_type": "sword", "basis": "이베리아·갈리아 보병(칸나에 중앙)" }
+   ],
+   "current_troops": ["heavy", "cavalry", "archer"],
+   "game_class_gap": "코끼리 부대, 누미디아 투창 경기병(기병과 투척의 혼합), 투석병(발레아레스)",
+   "notes": "현재 heavy도 '리비아 중보병 지휘관'으로 해석하면 완전히 틀리지는 않음 → 사람 판단 필요. 코끼리는 칸나에에서는 쓰이지 않았고, 알프스를 넘은 37마리가 대부분 일찍 죽었다는 점에 유의. 칸나에 중앙 지휘 근거는 폴리비오스로, 모델 지식·확인 필요"
+  },
+  {
+   "code": "joan_of_arc",
+   "csv_id": 248,
+   "name_ko": "잔 다르크",
+   "current_unit_type": "sword",
+   "proposed_unit_type": "sword",
+   "ideal_v2": "standard_bearer(군기 기수형 지휘관) 또는 중기병(기사)",
+   "change_needed": false,
+   "rationale": "샤를 7세의 프랑스군에 합류해 오를레앙 해방과 랭스 진군을 이끌었다. 갑옷을 입고 말을 탔지만 재판 증언에서 칼보다 군기를 드는 것을 더 좋아했다고 말한 것으로 전해져, 직접 전투보다 사기를 끌어올리는 역할이 컸다. 오를레앙 투렐 요새 공격처럼 도보 공성전에도 나섰으므로, 현재 체계에서는 검병 유지와 오라(사기 진작) 조합이 무난하다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Joan_of_Arc ; 군기 선호 증언은 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "heavy", "basis": "중갑 기사(15세기 프랑스 기사들은 말에서 내려 싸우는 경우가 많았음)" },
+    { "unit_type": "cavalry", "basis": "기마 기사 돌격(파테 전투에서 프랑스 선봉 기병이 승리)" },
+    { "unit_type": "archer", "basis": "석궁병·궁수. v2에서는 노병으로" }
+   ],
+   "current_troops": ["sword", "spear", "healer"],
+   "game_class_gap": "군기 기수(사기 버프형 지휘관), 석궁(노병), 초기 화약 공성포",
+   "notes": "현재 프리셋의 healer는 역사적 근거가 약함(종군 치유 부대 기록 없음) → 교체 제안. 파테 전투(1429)의 기병 승리는 모델 지식·확인 필요"
+  },
+  {
+   "code": "alexander",
+   "csv_id": 213,
+   "name_ko": "알렉산드로스 대왕",
+   "current_unit_type": "cavalry",
+   "proposed_unit_type": "cavalry",
+   "ideal_v2": "중기병(헤타이로이)",
+   "change_needed": false,
+   "rationale": "마케도니아군은 사리사 장창 팔랑크스가 적을 묶고 헤타이로이(동료 기병)가 결정타를 날리는 방식이었다. 알렉산드로스 본인이 가우가멜라 등에서 헤타이로이를 직접 이끌고 돌격했다.",
+   "evidence_level": "confirmed",
+   "source": "https://en.wikipedia.org/wiki/Alexander_the_Great ; 팔랑크스·헤타이로이 편제는 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "헤타이로이·테살리아 기병" },
+    { "unit_type": "spear", "basis": "사리사 팔랑크스" },
+    { "unit_type": "archer", "basis": "크레타 궁수·아그리아네스 경보병(투창)" }
+   ],
+   "current_troops": ["cavalry", "spear", "mage"],
+   "game_class_gap": "투창 경보병, 히파스피스타이(정예 보병), 공성 기계",
+   "notes": "현재 프리셋의 mage는 근거가 없어 archer로 교체 제안"
+  },
+  {
+   "code": "genghis_khan",
+   "csv_id": 201,
+   "name_ko": "칭기즈 칸",
+   "current_unit_type": "archer",
+   "proposed_unit_type": "cavalry",
+   "ideal_v2": "horse_archer(기마궁병)",
+   "change_needed": true,
+   "rationale": "몽골군은 거의 전원이 기병이었다. 경기병 궁수가 주력이고, 갑옷과 창을 갖춘 중기병이 결정적 돌격을 맡았다. 일제 사격, 거짓 후퇴, 양익 포위가 대표 전술이다. 현재 궁수는 도보 병종(이동력 3)이라 몽골 기동전을 표현하지 못하므로 기병이 최선이다.",
+   "evidence_level": "confirmed",
+   "source": "https://warhistory.org/article/mongol-doctrine-strategy-and-tactics?amp=1 ; https://en.wikipedia.org/wiki/Genghis_Khan",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "경기병 궁수(v2에서는 기마궁병)" },
+    { "unit_type": "cavalry", "basis": "중기병(창·갑옷 돌격대)" },
+    { "unit_type": "archer", "basis": "원거리 화력 보완. 기마궁을 도보 궁수로 대체한 것이라 각색 표기 필요" }
+   ],
+   "current_troops": ["cavalry", "archer", "archer"],
+   "game_class_gap": "기마궁병(이동력 높은 원거리 병종), 정복지 출신 공성 기술자",
+   "notes": "경기병과 중기병의 비율(6:4 설)은 자료마다 달라 수치는 사용하지 말 것. 영웅 스킬 horde_arrows는 기병으로 바뀌어도 이름이 어색하지 않음"
+  },
+  {
+   "code": "gwanggaeto",
+   "csv_id": 107,
+   "name_ko": "광개토대왕",
+   "current_unit_type": "spear",
+   "proposed_unit_type": "cavalry",
+   "ideal_v2": "중기병(개마무사)",
+   "change_needed": true,
+   "rationale": "광개토대왕릉비에는 400년 신라를 구원하러 '보병과 기병 5만'을 보냈다는 기록이 있고, 396년 백제 공략 등 친정 기록이 있다. 4~5세기 고구려 고분벽화에는 사람과 말이 모두 갑옷을 입은 개마무사가 그려져 있어 기병이 핵심 전력으로 평가된다. CSV class_archetype도 '기병'이다.",
+   "evidence_level": "accepted",
+   "source": "https://www.guri.go.kr/gbv/contents.do?key=1624 ; https://en.wikipedia.org/wiki/Gwanggaeto_the_Great ; 개마무사 벽화는 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "개마무사·기병" },
+    { "unit_type": "spear", "basis": "보병(창)" },
+    { "unit_type": "archer", "basis": "고구려 궁수(맥궁)" }
+   ],
+   "current_troops": ["spear", "cavalry", "archer"],
+   "game_class_gap": "중장 기병(개마무사)은 기병과 중장갑의 혼합이라 현재 체계로는 표현 불가. 수군 상륙작전(396년 백제 공략 설)도 표현 불가",
+   "notes": "현재 프리셋 구성은 이미 역사와 맞음(영웅 본인 병종만 변경 제안). 스킬 이름 conquest_spear는 병종이 바뀌면 이름과 어긋남. 대왕 본인이 개마무사를 이끌었다는 직접 기록은 확인하지 못함 → 영웅 병종을 기병으로 할지 사람 판단 필요"
+  },
+  {
+   "code": "hildegard",
+   "csv_id": 271,
+   "name_ko": "힐데가르트 폰 빙엔",
+   "current_unit_type": "healer",
+   "proposed_unit_type": "healer",
+   "ideal_v2": "healer 유지",
+   "change_needed": false,
+   "rationale": "12세기 베네딕트회 수녀원장으로, 약초와 의학을 다룬 저술(『피지카』, 『원인과 치료』)을 남겼다. 군대를 지휘한 기록은 없으며 치유사가 가장 사실에 맞다.",
+   "evidence_level": "confirmed",
+   "source": "https://en.wikipedia.org/wiki/Hildegard_of_Bingen ; 저서명은 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "healer", "basis": "수녀원 의료 인력(각색)" },
+    { "unit_type": "spear", "basis": "수녀원령 경비병(각색)" },
+    { "unit_type": "heavy", "basis": "호위 기사(각색)" }
+   ],
+   "current_troops": ["healer", "sword", "heavy"],
+   "game_class_gap": "군사 지휘 기록이 없어 어떤 부대 구성이든 각색",
+   "notes": "프리셋 부대는 역사 근거가 없는 순수 게임 설정임을 명시할 것. 현재 구성을 유지해도 무방(사람 판단)"
+  },
+  {
+   "code": "zhuge_liang",
+   "csv_id": 46,
+   "name_ko": "제갈량",
+   "current_unit_type": "mage",
+   "proposed_unit_type": "mage",
+   "ideal_v2": "strategist(책사) 유지 + 부대에 노병",
+   "change_needed": false,
+   "rationale": "촉한의 승상으로 북벌군을 지휘했지만, 본인은 직접 싸우는 무장이 아니라 계책과 군정을 맡은 지휘관이었다. 북벌 때 연발 노(連弩)를 개량하고 목우유마로 보급을 운용했다는 기록이 전한다. 게임의 책사 계열인 마법사가 가장 가깝다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Zhuge_Liang ; 연노 개량·목우유마는 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "노병(연발 노). v2에서는 노병으로" },
+    { "unit_type": "spear", "basis": "촉군 보병" },
+    { "unit_type": "sword", "basis": "근접 보병(현재 mage 1개 대신 전열 보강)" }
+   ],
+   "current_troops": ["mage", "spear", "archer"],
+   "game_class_gap": "노병(석궁), 보급 운용 지휘관",
+   "notes": "스킬 empty_fort(공성계)는 소설·일화 계열이므로 스킬 설명에서 사실로 단정하지 말 것(hero_fact_checks.json 참조)"
+  },
+  {
+   "code": null,
+   "csv_id": 144,
+   "name_ko": "곽재우",
+   "current_unit_type": null,
+   "proposed_unit_type": "cavalry",
+   "ideal_v2": "militia(의병) 유격 지휘관",
+   "change_needed": null,
+   "rationale": "경상도에서 의병을 일으켜 정암진 등에서 매복과 유격전으로 일본군의 진출을 막았다. 붉은 옷을 입고 말을 타고 다녀 홍의장군으로 불렸다는 전승이 있어 기동형 기병을 제안한다. 다만 의병 주력은 도보 궁수·창수였을 가능성이 높아 궁수안도 성립한다.",
+   "evidence_level": "verify",
+   "source": "https://www.seoul.co.kr/news/2022/02/28/20220228023002 ; CSV id 144",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "의병 궁수(조선군 주력 무기는 활)" },
+    { "unit_type": "spear", "basis": "의병 근접 인원" },
+    { "unit_type": "cavalry", "basis": "소수 기동 유격대(각색 비중 있음)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "의병(비정규 유격대), 매복 특성",
+   "notes": "heroes.json에 아직 없음(신규). 기병안과 궁수안 중 사람 판단 필요"
+  },
+  {
+   "code": null,
+   "csv_id": 145,
+   "name_ko": "김시민",
+   "current_unit_type": null,
+   "proposed_unit_type": "archer",
+   "ideal_v2": "artillery(화포) 수성 지휘관",
+   "change_needed": null,
+   "rationale": "진주목사로서 약 3,800명으로 진주성을 지켰다. 활과 화포, 비격진천뢰 같은 화약 무기, 돌 던지기와 끓는 물 같은 수성 전법을 함께 썼다고 전한다. 원거리 수성전이 핵심이라 궁수를 제안한다(CSV class도 궁수).",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Siege_of_Jinju_(1592) ; https://www.imaeil.com/page/view/2008021416452573582",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "성벽 궁수" },
+    { "unit_type": "archer", "basis": "화포·비격진천뢰 운용(v2에서는 화포)" },
+    { "unit_type": "spear", "basis": "성문 근접 방어" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "화포·화약 무기, 수성 특화(성벽 효과)",
+   "notes": "현자총통을 진주성에서 실제로 썼는지는 확인하지 못함"
+  },
+  {
+   "code": null,
+   "csv_id": 148,
+   "name_ko": "휴정",
+   "current_unit_type": null,
+   "proposed_unit_type": "mage",
+   "ideal_v2": "warrior_monk(승병) 지휘관",
+   "change_needed": null,
+   "rationale": "임진왜란 때 70대의 나이로 전국 승병을 모은 총지휘자였고, 1593년 평양성 탈환에 승병을 이끌고 참여했다. 본인이 직접 싸웠다는 기록보다 조직과 지휘 역할이 중심이라 책사 계열(마법사)을 제안한다. 치유사안도 가능하다.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Siege_of_Pyongyang_(1593) ; https://www.ktriptips.com/kor/tourspot/250301",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "승병(근접 보병)" },
+    { "unit_type": "spear", "basis": "승병" },
+    { "unit_type": "healer", "basis": "사찰 의료·보급 지원(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "승병(종교 의용군) 병종, 고령 지휘관의 조직·사기 특성",
+   "notes": "'마법사' 라벨이 승려 인물에게 오해를 줄 수 있음 → UI 라벨이 '책사'로 바뀌는지 확인 필요. 승병의 실제 무장(창·곤봉 등)은 확인하지 못함"
+  },
+  {
+   "code": null,
+   "csv_id": 149,
+   "name_ko": "유정",
+   "current_unit_type": null,
+   "proposed_unit_type": "spear",
+   "ideal_v2": "warrior_monk(승병)",
+   "change_needed": null,
+   "rationale": "휴정의 제자로 금강산 등에서 승병을 모아 싸운 승병장이다. 전쟁 뒤에는 일본에 사신으로 가 포로 송환을 교섭했다. 현장 지휘형 승병장이라 근접 보병(창병)을 제안한다.",
+   "evidence_level": "verify",
+   "source": "https://www.ktriptips.com/kor/tourspot/250301 ; CSV id 149",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "승병" },
+    { "unit_type": "sword", "basis": "승병 근접 인원(각색)" },
+    { "unit_type": "archer", "basis": "원거리 지원(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "승병, 외교관 특성",
+   "notes": "승병의 주무기와 유정 본인의 전투 방식은 출처가 약함"
+  },
+  {
+   "code": null,
+   "csv_id": 143,
+   "name_ko": "권율",
+   "current_unit_type": null,
+   "proposed_unit_type": "archer",
+   "ideal_v2": "artillery(화포·화차) 수성 지휘관",
+   "change_needed": null,
+   "rationale": "전라도 관찰사로서 행주산성에서 관군·승병·의병이 섞인 수천 명으로 일본군의 대공세를 막았다. 화차와 신기전, 활, 투석 같은 원거리 수성전이 승리의 핵심으로 알려져 있어 궁수를 제안한다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Battle_of_Haengju ; https://bizhankook.com/bk/article/24091",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "궁수" },
+    { "unit_type": "archer", "basis": "화차·신기전 운용(v2에서는 화포)" },
+    { "unit_type": "spear", "basis": "승병(처영)·의병 근접 방어" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "화차·신기전(다연장 화기), 수성 특화",
+   "notes": "행주에서 화차를 몇 대 썼는지, 처영 승병이 참전했는지는 확인 필요(병력·발사 수치는 자료마다 다름)"
+  },
+  {
+   "code": "scipio_africanus", "csv_id": 215, "name_ko": "스키피오 아프리카누스",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "sword",
+   "ideal_v2": "중보병 군단 지휘관(군단병 + 동맹 누미디아 기병)", "change_needed": null,
+   "rationale": "로마 군단 보병이 주력이었고 일리파·자마 모두 보병 군단과 동맹 기병의 협동으로 이겼다. 스페인 검(글라디우스 히스파니엔시스) 채택은 모델 지식(미확인). 본인의 자마 결전은 지휘 중심이라 근접 검병이 가장 무난하다. 한니발이 이미 sword 제안이라 겹치는 점은 사람 판단 필요.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Scipio_Africanus (마시니사 기병 지원 확인, 군제 개혁은 문서에 없음)",
+   "proposed_troops": [
+    { "unit_type": "sword", "basis": "로마 군단 보병" },
+    { "unit_type": "cavalry", "basis": "마시니사의 누미디아 동맹 기병(자마, confirmed)" },
+    { "unit_type": "spear", "basis": "후열 보병(트리아리이, 편제는 모델 지식·확인 필요)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "동맹 경기병, 소대(마니풀루스) 편제",
+   "notes": "코끼리 통로 전술·글라디우스 개혁은 열람 범위에 없음 → 스킬 설명에 쓰지 말 것"
+  },
+  {
+   "code": "saladin", "csv_id": 322, "name_ko": "살라딘",
+   "csv_archetype": "기병", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "cavalry",
+   "ideal_v2": "horse_archer(기마궁병) 지휘관", "change_needed": null,
+   "rationale": "아이유브군의 주력은 투르크·쿠르드계 기병(기마궁병 포함)으로 알려져 있으나 이번 열람 범위(위키 도입부)에서는 군 편성이 확인되지 않았다. 하틴 승리의 핵심이 기동과 포위라는 통설에 따라 기병을 제안한다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Saladin (편성 서술은 unread) ; 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "투르크·쿠르드계 기병" },
+    { "unit_type": "archer", "basis": "기마궁병을 도보 궁수로 대체(각색)" },
+    { "unit_type": "spear", "basis": "이집트·시리아 보병(편성 verify)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "기마궁병",
+   "notes": "군 편성 수치·비율 사용 금지. 맘루크 기병 편성은 살라딘 시기보다 후대에 확립됐다는 점에 유의(모델 지식, 확인 필요)"
+  },
+  {
+   "code": "leonidas", "csv_id": 205, "name_ko": "레오니다스 1세",
+   "csv_archetype": "중장갑", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "heavy",
+   "ideal_v2": "hoplite(중장보병) 지휘관", "change_needed": null,
+   "rationale": "스파르타 시민병은 방패와 창으로 싸우는 중장보병(호플리테스)이었고, 테르모필레는 좁은 길목에서 방패벽으로 막는 전투였다고 헤로도토스가 서술한다. 호플리테스 용어는 위키 문서에서 확인했으나 밀집대형(팔랑크스) 서술은 본문에 없어 모델 지식이다. 창병안(spear)도 성립한다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Leonidas_I ; 헤로도토스 7권 · 모델 지식·확인 필요(팔랑크스)",
+   "proposed_troops": [
+    { "unit_type": "heavy", "basis": "스파르타 호플리테스" },
+    { "unit_type": "spear", "basis": "테스피아·테베 등 동맹 중장보병(각색)" },
+    { "unit_type": "archer", "basis": "원거리 지원(각색, 스파르타 편성 근거 약함)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "밀집 방진, 헬로트 보조병",
+   "notes": "스킬 설명에서 '300명만' 서사 금지(연합군 존재)"
+  },
+  {
+   "code": "xiang_yu", "csv_id": 18, "name_ko": "항우",
+   "csv_archetype": "중장갑", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "heavy",
+   "ideal_v2": "무사(맹장형) 또는 초군 기병 지휘관", "change_needed": null,
+   "rationale": "『사기』는 항우의 개인 무용(솥을 든 괴력)을 강조해 돌격형 맹장으로 그려진다. 거록에서는 배를 가라앉히고 결사 항전했다. CSV 원형(중장갑)을 유지하되, 초군 병종 편성은 문서에 없어 근거는 개인 무용 중심이다. 기병은 이미 많아 해하 탈출 기병 서사(모델 지식)는 반영하지 않는다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Xiang_Yu ; 『사기』 항우본기",
+   "proposed_troops": [
+    { "unit_type": "heavy", "basis": "정예 돌격대(각색)" },
+    { "unit_type": "sword", "basis": "초군 보병(각색)" },
+    { "unit_type": "cavalry", "basis": "소수 정예 기병(해하 탈출 서사는 모델 지식, verify)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "개인 무용형 지휘관",
+   "notes": "병종 근거는 인물 서사(『사기』)이지 편제 사료가 아님"
+  },
+  {
+   "code": "wellington", "csv_id": 302, "name_ko": "웰링턴 공작",
+   "csv_archetype": "지휘관", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "spear",
+   "ideal_v2": "musket line infantry(머스킷 횡대 보병) 지휘관", "change_needed": null,
+   "rationale": "문서가 확인한 특징은 '프랑스 종대에 맞서는 보병 횡대'다. 영국 보병은 머스킷을 쓰는 화기 보병이라 정확한 대응 병종은 v2의 화기병이고, 현 8종에서는 대열을 유지해 버티는 점을 살려 spear(전열 유지)를 제안한다. 화력 비중을 강조하려면 archer 대안이 더 가깝다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Arthur_Wellesley,_1st_Duke_of_Wellington (횡대 전술 확인) ; 역사면 배치·방진은 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "영국 보병 횡대(전열 유지, 각색)" },
+    { "unit_type": "archer", "basis": "머스킷 사격·경보병 산병(원거리 병종으로 대체, v2 화기병)" },
+    { "unit_type": "cavalry", "basis": "연합 기병(워털루, 각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "화기 보병(머스킷), 대열 사격",
+   "notes": "spear 채택은 병종 이름보다 '대열 유지' 속성에 근거한 각색임을 명시. 사람 판단: spear vs archer. 방어형 지휘관 단정 금지"
+  },
+  {
+   "code": "mehmed_ii", "csv_id": 326, "name_ko": "메흐메트 2세",
+   "csv_archetype": "지휘관", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "archer",
+   "ideal_v2": "artillery(공성포) 지휘관", "change_needed": null,
+   "rationale": "1453년 정복의 핵심이 오르반이 설계한 대형 대포였다는 점이 문서에서 확인된다. v2의 화포가 정확하고, 현 8종에서는 원거리 병종인 궁수가 가장 가깝다. 예니체리 궁수·화승총 편성은 열람 범위에 없어 모델 지식이므로 근거로 삼지 않는다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Mehmed_the_Conqueror",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "공성포·화기 운용(v2에서는 화포)" },
+    { "unit_type": "spear", "basis": "예니체리 보병(각색, 편성 verify)" },
+    { "unit_type": "cavalry", "basis": "시파히 기병(각색, 편성 verify)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "대구경 공성포, 함선 육상 이송",
+   "notes": "본인이 직접 포를 쏜 것이 아니라 포병 운용 지휘관이라는 각색. 1456년 베오그라드에서 직접 전투에 참가한 기록(accepted)은 근접 전투형 안(sword)의 근거가 될 수 있음"
+  },
+  {
+   "code": "tran_hung_dao", "csv_id": 395, "name_ko": "쩐흥다오",
+   "csv_archetype": "지휘관", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "spear",
+   "ideal_v2": "수군·유격 지휘관", "change_needed": null,
+   "rationale": "문서 확인 범위에서는 육군·기병·해군 연합 편성과 바익당강의 말뚝 매복 정도만 확인되고 창병 편성 서술은 없다. 따라서 spear는 매복·방어전의 근접 인원을 대표하는 각색이며 근거가 약하다(verify). 해전 매복의 비중이 크므로 archer(수군 사부) 대안도 성립한다.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Tr%E1%BA%A7n_H%C6%B0ng_%C4%90%E1%BA%A1o (창병·해병 언급 없음) ; 『대월사기전서』(문서 인용)",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "근접 방어 보병(각색, 편성 verify)" },
+    { "unit_type": "archer", "basis": "수군 사부·궁수(각색)" },
+    { "unit_type": "sword", "basis": "육군 보병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "수군, 말뚝 매복(지형 효과)",
+   "notes": "병력 수치(12만 vs 50만) 사용 금지. 병종 근거는 약하므로 사람 판단 필요"
+  },
+  {
+   "code": "san_martin", "csv_id": 474, "name_ko": "호세 데 산마르틴",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "mage",
+   "ideal_v2": "strategist(작전 기획형 지휘관)", "change_needed": null,
+   "rationale": "대표 업적이 직접 전투가 아니라 안데스군 창설, 6개 종대 분진 횡단, 칠레 함대 이용 페루 원정 같은 작전 기획이다. 책사 계열이 가장 가깝다. 다만 본인이 기마 척탄병 연대를 창설한 기병 장교 출신(confirmed)이라 cavalry 대안도 있고, 기병 병종이 이미 6명으로 많아 mage를 우선 제안한다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_de_San_Mart%C3%ADn",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "기마 척탄병(confirmed, 연대 창설)" },
+    { "unit_type": "spear", "basis": "안데스군 보병(각색)" },
+    { "unit_type": "archer", "basis": "포병·소총병 대체(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "산악 횡단 보급, 함대 상륙",
+   "notes": "'마법사' 라벨 오해 가능성은 휴정과 동일(UI 라벨 확인 필요). 사람 판단: mage vs cavalry"
+  },
+  {
+   "code": "charles_martel", "csv_id": 240, "name_ko": "카를 마르텔",
+   "csv_archetype": "중장갑", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "heavy",
+   "ideal_v2": "방패벽 보병 지휘관", "change_needed": null,
+   "rationale": "문서는 주로 기병인 우마이야군이 프랑크 보병을 돌파하지 못했다고 서술한다(Bachrach 인용). 버티는 중보병 이미지가 CSV 원형 중장갑과 맞다. 프랑크 군의 구체 편성(방패벽·제한된 기병)은 문서에 없어 모델 지식이다. 창병안(spear)도 가능.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Charles_Martel",
+   "proposed_troops": [
+    { "unit_type": "heavy", "basis": "프랑크 중보병(각색)" },
+    { "unit_type": "spear", "basis": "프랑크 창병(각색)" },
+    { "unit_type": "cavalry", "basis": "소수 기병(각색, 편성 verify)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "봉신 징집군",
+   "notes": "중장갑 병종이 이미 여럿이라 spear 변경도 사람 판단 가능"
+  },
+  {
+   "code": "william_wallace", "csv_id": 262, "name_ko": "윌리엄 월리스",
+   "csv_archetype": "중장갑", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "spear",
+   "ideal_v2": "schiltron(창병 방진) 지휘관", "change_needed": null,
+   "rationale": "폴커크에서 창병 방진(schiltron) 4개로 싸운 것이 문서에서 확인된다(결과는 패배). 스털링 브리지의 방진 여부는 문서 요약에서 직접 확인되지 않았다. 중장갑 원형보다 창병이 사료에 맞는다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/William_Wallace",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "스코틀랜드 창병 방진(폴커크 confirmed)" },
+    { "unit_type": "archer", "basis": "소수 궁수(폴커크 서술, 편성 verify)" },
+    { "unit_type": "sword", "basis": "근접 보병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "방진(schiltron), 병목 지형",
+   "notes": "영화 이미지(중갑 전사) 배제. 스털링 브리지는 머리와 공동 지휘"
+  },
+  {
+   "code": "lakshmibai", "csv_id": 384, "name_ko": "락슈미바이",
+   "csv_archetype": "기병", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "cavalry",
+   "ideal_v2": "경기병 지휘관", "change_needed": null,
+   "rationale": "1858년 전투 중 전사했고 잔시 수성과 이후 칼피·괄리오르 항전에 직접 참여했다는 점은 확인된다. 말을 탄 전투 서사는 대중 전승 비중이 커서 기병 병종은 상징적 각색이다. 여성 부대·허리의 아이 등은 전설 혼재.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Rani_of_Jhansi",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "경기병(각색)" },
+    { "unit_type": "archer", "basis": "포병·소총병 대체(각색)" },
+    { "unit_type": "spear", "basis": "잔시 수비대(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "성채 수비, 화기",
+   "notes": "여성 부대(두르가 달)는 존재 불확실이라 프리셋 설명에 쓰지 말 것"
+  },
+  {
+   "code": "toussaint_louverture", "csv_id": 472, "name_ko": "투생 루베르튀르",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "sword",
+   "ideal_v2": "게릴라·산악전 지휘관", "change_needed": null,
+   "rationale": "문서는 게릴라 전술과 유럽식 훈련·규율의 병행, 산악 후퇴 전략을 서술한다. 특정 병종 편성은 없어 도보 근접 보병인 sword를 각색으로 제안한다. 기병이 많아 기병안은 제외.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Toussaint_Louverture",
+   "proposed_troops": [
+    { "unit_type": "sword", "basis": "혁명군 보병(각색)" },
+    { "unit_type": "archer", "basis": "소총병 대체(각색)" },
+    { "unit_type": "spear", "basis": "산악 매복 인원(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "게릴라, 산악 지형 효과",
+   "notes": "병종 근거가 약하므로 사람 판단 필요"
+  },
+  {
+   "code": "ibn_sina", "csv_id": 330, "name_ko": "이븐 시나",
+   "csv_archetype": "치유사", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "healer",
+   "ideal_v2": "healer", "change_needed": null,
+   "rationale": "『의학정전』을 쓴 의학자이자 궁정 의사였고 군대를 지휘한 기록은 없다. 치유사가 사실에 맞다.",
+   "evidence_level": "confirmed",
+   "source": "https://en.wikipedia.org/wiki/Avicenna",
+   "proposed_troops": [
+    { "unit_type": "healer", "basis": "의료 인력(각색)" },
+    { "unit_type": "mage", "basis": "철학자·학자(각색)" },
+    { "unit_type": "spear", "basis": "호위(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "군사 지휘 기록 없음, 부대 구성은 순수 게임 설정",
+   "notes": "프리셋은 역사 근거 없는 각색임을 명시"
+  },
+  {
+   "code": "ibn_khaldun", "csv_id": 333, "name_ko": "이븐 할둔",
+   "csv_archetype": "책략가", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "mage",
+   "ideal_v2": "strategist", "change_needed": null,
+   "rationale": "사학자·정치 이론가로 여러 궁정에서 외교·정치 임무를 맡았으나 군 지휘 기록은 확인되지 않는다. 책사 계열이 가장 가깝다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Ibn_Khaldun",
+   "proposed_troops": [
+    { "unit_type": "mage", "basis": "학자·참모(각색)" },
+    { "unit_type": "spear", "basis": "호위(각색)" },
+    { "unit_type": "healer", "basis": "수행 인원(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "군사 지휘 기록 없음",
+   "notes": "프리셋은 순수 게임 설정"
+  },
+  {
+   "code": "ashoka", "csv_id": 367, "name_ko": "아소카 대왕",
+   "csv_archetype": "지휘관", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "healer",
+   "ideal_v2": "dhamma ruler(지원·사기형 군주)", "change_needed": null,
+   "rationale": "칼링가 이후 법(담마) 통치와 복지(사람·동물 치료 언급, 암벽 칙령 2호는 미확인) 정책이 업적의 핵심이다. 치유사는 이 정책을 상징하는 각색이며 아소카가 의료인이었다는 뜻은 아니다. 군 지휘형은 heavy(코끼리 부대는 모델 지식, verify)가 대안이다.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Ashoka (칙령 2호·병원 서술은 unread) ; 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "healer", "basis": "복지·의료 정책 상징(각색)" },
+    { "unit_type": "heavy", "basis": "마우리아 코끼리·중장 보병(편성 verify)" },
+    { "unit_type": "spear", "basis": "마우리아 보병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "코끼리병, 칙령 통치",
+   "notes": "칼링가 사상자 수치를 설명에 쓰지 않는다. 사람 판단: healer(정책 상징) vs heavy(군사 지휘)"
+  },
+  {
+   "code": "vauban", "csv_id": 522, "name_ko": "보방",
+   "csv_archetype": "중장갑", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "heavy",
+   "ideal_v2": "engineer(공병·요새) 지휘관", "change_needed": null,
+   "rationale": "본인은 전투원이 아니라 공성·축성 기술자로, 요새 방어와 평행호 공성이 업적이다. 요새화된 방어 이미지가 중장갑 원형과 맞다. 화력 중심(Marechal의 'More powder, less blood')을 반영하려면 archer 대안이 있다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Vauban",
+   "proposed_troops": [
+    { "unit_type": "heavy", "basis": "요새 수비·참호 보병(각색)" },
+    { "unit_type": "archer", "basis": "포병·소총병(v2 화포)" },
+    { "unit_type": "spear", "basis": "공병 호위(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "공병, 요새 지형 효과",
+   "notes": "중장갑 비중이 높아지므로 archer 변경도 검토 가능"
+  },
+  {
+   "code": "archimedes", "csv_id": 214, "name_ko": "아르키메데스",
+   "csv_archetype": "책략가", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "mage",
+   "ideal_v2": "engineer(공성 병기 기술자)", "change_needed": null,
+   "rationale": "시라쿠사 방어에 쓰인 투석기·기중기·갈고리 같은 병기를 설계했다는 서술이 가장 이른 사료 3종에서 일치한다. 직접 전투가 아닌 기술 지원이라 책사 계열이 맞다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Archimedes ; 폴리비오스·리비우스·플루타르코스",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "투석기·병기 운용(각색)" },
+    { "unit_type": "spear", "basis": "시라쿠사 수비병(각색)" },
+    { "unit_type": "heavy", "basis": "성문 방어(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "공성 병기, 기중기",
+   "notes": "거울 열선을 병종·스킬 근거로 쓰지 말 것(verify)"
+  },
+  {
+   "code": "ramesses_ii", "csv_id": 411, "name_ko": "람세스 2세",
+   "csv_archetype": "중장갑", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "archer",
+   "ideal_v2": "chariot archer(전차 궁병)", "change_needed": null,
+   "rationale": "신왕국 이집트의 핵심 병종은 전차이고 카데시에서 본인이 전차를 몰고 직접 참전했다. 전차 궁병은 v2 병종이며 현 8종에서는 기병·궁수 중 하나다. 기병이 많아 궁수로 제안하되, 전차 편성·대수·전과는 문서에서 확인되지 않아 verify이다. CSV 원형(중장갑)은 사료 근거가 약해 변경한다.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Ramesses_II (전차 서술은 unread) ; 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "전차 궁병(각색)" },
+    { "unit_type": "spear", "basis": "이집트 보병(각색)" },
+    { "unit_type": "sword", "basis": "셰르덴 용병(재위 초 해적 제압 기록 있으나 편입 서술은 verify)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "전차, 대규모 건축 지원",
+   "notes": "사람 판단: archer vs heavy(CSV 유지) vs cavalry. 카데시 대승 서사 금지"
+  },
+  {
+   "code": "amanirenas", "csv_id": 426, "name_ko": "아만니레나스",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "archer",
+   "ideal_v2": "쿠시 궁병·경보병 지휘관", "change_needed": null,
+   "rationale": "쿠시의 활 전통('활의 나라')은 모델 지식이며 이번 열람 범위(문서)에서는 쿠시군 편성이 확인되지 않았다. 스트라본의 서술(방패·도끼·창 등)을 검색으로 재확인하지 못했으므로 궁수안은 verify이고 창병안도 동등하게 성립한다.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Amanirenas (군 편성 없음) ; 스트라본 17권 · 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "쿠시 궁수(각색, verify)" },
+    { "unit_type": "spear", "basis": "쿠시 보병(각색)" },
+    { "unit_type": "sword", "basis": "근접 보병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "코끼리·낙타 등 지역 병종 불명",
+   "notes": "병종 확정 전 스트라본 17권과 쿠시 고고학 자료 재확인 필요"
+  },
+  {
+   "code": "alexander_nevsky", "csv_id": 254, "name_ko": "알렉산드르 네프스키",
+   "csv_archetype": "지휘관", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "spear",
+   "ideal_v2": "druzhina(공후 직속 기병·보병) 지휘관", "change_needed": null,
+   "rationale": "문서에는 군 편성이 전혀 없다. 중세 루스 군대는 공후 직속 드루지나(기병)와 도시 민병(보병)으로 이뤄졌다는 것이 모델 지식이다. 얼음 위 전투를 보병이 기사단에 맞선 방어전으로 보는 시각을 반영해 spear를 제안하나 근거가 약해 verify이다.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Alexander_Nevsky (편성 서술 없음) ; 모델 지식·확인 필요",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "노브고로드 민병·보병(각색)" },
+    { "unit_type": "cavalry", "basis": "공후 드루지나 기병(각색)" },
+    { "unit_type": "archer", "basis": "궁수 지원(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "얼음 지형, 몽골 복속 외교",
+   "notes": "대안은 sword 또는 cavalry. 병종 확정 전 노브고로드 제1연대기 재확인"
+  },
+  {
+   "code": "jose_rizal", "csv_id": 406, "name_ko": "호세 리살",
+   "csv_archetype": "치유사", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "healer",
+   "ideal_v2": "healer(안과의사·교육자)", "change_needed": null,
+   "rationale": "안과의사로 활동했고 다파탄에서 병원·학교·급수 시설을 만들었다. 군사 지휘 기록이 없고 무장 봉기에도 반대했다. 치유사가 사실에 맞다.",
+   "evidence_level": "confirmed",
+   "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_Rizal",
+   "proposed_troops": [
+    { "unit_type": "healer", "basis": "의료·교육 인력(각색)" },
+    { "unit_type": "mage", "basis": "문필가 동료(각색)" },
+    { "unit_type": "spear", "basis": "호위(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "군사 기록 없음, 부대 구성은 순수 게임 설정",
+   "notes": "프리셋은 역사 근거 없는 각색임을 명시"
+  },
+  {
+   "code": "empress_jito", "csv_id": 168, "name_ko": "지토 천황",
+   "csv_archetype": "지휘관", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "mage",
+   "ideal_v2": "strategist(통치·계승 설계형 군주)", "change_needed": null,
+   "rationale": "열람 문서에서 전투·군 지휘 기록이 확인되지 않고 양위 후 태상천황으로 통치한 점만 확인된다. 책사 계열이 가장 사실에 가깝다. CSV 원형 지휘관은 현 8종에 대응 병종이 없어 각색.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Empress_Jit%C5%8D (진신의 난 역할·율령 서술 없음)",
+   "proposed_troops": [
+    { "unit_type": "mage", "basis": "궁정 관료·학자(각색)" },
+    { "unit_type": "spear", "basis": "궁성 경비(각색)" },
+    { "unit_type": "healer", "basis": "궁정 지원 인원(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "군사 지휘 기록 없음, 부대 구성은 순수 게임 설정",
+   "notes": "프리셋은 역사 근거 없는 각색임을 명시. 교체 후보 제안 대상(보고서 참조)"
+  },
+  {
+   "code": "minamoto_yoshitsune", "csv_id": 172, "name_ko": "미나모토노 요시쓰네",
+   "csv_archetype": "기병", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "cavalry",
+   "ideal_v2": "경기병·수군 혼성 지휘관", "change_needed": null,
+   "rationale": "이치노타니·야시마·단노우라에서 헤이케를 격파한 장수라는 사실은 확인된다. 기병 돌격(히요도리고에)·소수 병력 기습은 군기물 영향이 커 병종 근거로는 약하다. CSV 원형(기병)을 유지하되 각색 표기.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Minamoto_no_Yoshitsune (전술 서술 없음) ; 『헤이케 모노가타리』(unread)",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "무사단 기마(각색)" },
+    { "unit_type": "archer", "basis": "수군 궁수·원거리(단노우라, 각색)" },
+    { "unit_type": "sword", "basis": "근접 무사(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "수군, 소수 기습 특성",
+   "notes": "벤케이 등 전설 인물은 부대 구성에 쓰지 않음"
+  },
+  {
+   "code": "minamoto_yoritomo", "csv_id": 173, "name_ko": "미나모토노 요리토모",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "sword",
+   "ideal_v2": "무사 정권 수장(총사령관형)", "change_needed": null,
+   "rationale": "본인의 직접 전투 성과보다 거병·재기와 막부 수립이 업적이다(문서). 도보 근접 무사 지휘관인 sword를 각색으로 제안하며 근거는 약하다. 통치형 mage도 대안.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Minamoto_no_Yoritomo",
+   "proposed_troops": [
+    { "unit_type": "sword", "basis": "가마쿠라 고케닌 무사(각색)" },
+    { "unit_type": "cavalry", "basis": "기마 무사(각색)" },
+    { "unit_type": "archer", "basis": "궁술 무사(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "통치·행정 지휘, 고케닌 봉건 계약",
+   "notes": "사람 판단: sword vs mage. sword 비중이 많아지면 변경 검토"
+  },
+  {
+   "code": "murasaki_shikibu", "csv_id": 177, "name_ko": "무라사키 시키부",
+   "csv_archetype": "치유사", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "healer",
+   "ideal_v2": "지원형 문인", "change_needed": null,
+   "rationale": "군사·의료 기록은 없고 궁녀·문인이었다. 의료 근거는 없으므로 healer는 지원·회복 역할을 문학의 상징으로 맞춘 각색이다. 학자 계열 mage도 사실에 맞는 대안(이븐 할둔 선례).",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Murasaki_Shikibu",
+   "proposed_troops": [
+    { "unit_type": "healer", "basis": "궁정 지원 인원(각색)" },
+    { "unit_type": "mage", "basis": "궁정 문인(각색)" },
+    { "unit_type": "spear", "basis": "호위(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "군사 지휘 기록 없음",
+   "notes": "프리셋은 순수 게임 설정. 사람 판단: healer(CSV 유지) vs mage"
+  },
+  {
+   "code": "oda_nobunaga", "csv_id": 179, "name_ko": "오다 노부나가",
+   "csv_archetype": "지휘관", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "archer",
+   "ideal_v2": "화승총·혼성 군단 지휘관", "change_needed": null,
+   "rationale": "화승총을 대규모로 운용했다는 점이 대표 특징이나, 문서 기준 나가시마 2차 포위에서는 우천으로 화승총이 무력화되어 패배했고 나가시노 3단 사격은 후대 이론으로 오류가 지적된다. 따라서 원거리(화기) 병종 제안은 '화승총 운용' 수준에서만 성립하며 3단 사격은 근거로 쓰지 않는다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Oda_Nobunaga",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "화승총 부대(v2 화기병, 3단 사격 표현 금지)" },
+    { "unit_type": "spear", "basis": "아시가루 장창 보병(각색)" },
+    { "unit_type": "cavalry", "basis": "마상 무사(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "화승총, 성곽 건축(아즈치)",
+   "notes": "논란 인물: 히에이산·나가시마 진압은 부대 설명에 쓰지 않음. 사람 판단: archer vs sword"
+  },
+  {
+   "code": "toyotomi_hideyoshi", "csv_id": 180, "name_ko": "도요토미 히데요시",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "spear",
+   "ideal_v2": "아시가루 보병 군단 지휘관", "change_needed": null,
+   "rationale": "아시가루(농민 보병) 출신이고 전국 통일 전쟁은 대규모 보병·공성 중심이었다. 편성 사료는 열람하지 못해 spear는 각색이며 근거가 약하다. 수공(미즈즈메) 등 일화는 병종 근거로 쓰지 않음.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Toyotomi_Hideyoshi (편성 서술 없음)",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "아시가루 장창 보병(각색)" },
+    { "unit_type": "archer", "basis": "화승총·궁(각색)" },
+    { "unit_type": "sword", "basis": "무사 근접(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "공성·축성, 대규모 동원",
+   "notes": "임진왜란 캠페인 충돌 가능성은 hero_fact_checks의 campaign_conflict 참조. 조선 침공을 부대 설명에 쓰지 말 것"
+  },
+  {
+   "code": "tokugawa_ieyasu", "csv_id": 181, "name_ko": "도쿠가와 이에야스",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "heavy",
+   "ideal_v2": "총사령관·방어 지향 지휘관", "change_needed": null,
+   "rationale": "미카타가하라 대패 후 재기해 세키가하라에서 승리하고 막부를 세웠다. 편성 근거는 열람 범위에 없고 산비 군제(1566, 문서)가 확인되는 정도다. 버티며 기회를 기다린 이미지는 후대 평가라 heavy는 각색(근거 약함).",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Tokugawa_Ieyasu",
+   "proposed_troops": [
+    { "unit_type": "heavy", "basis": "미카와 정예 무사(각색)" },
+    { "unit_type": "spear", "basis": "아시가루 창병(각색)" },
+    { "unit_type": "archer", "basis": "화승총(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "산비 군제, 동맹 운영",
+   "notes": "혼다 다다카쓰와 heavy 중복. 사람 판단: heavy vs spear"
+  },
+  {
+   "code": "takeda_shingen", "csv_id": 182, "name_ko": "다케다 신겐",
+   "csv_archetype": "기병", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "cavalry",
+   "ideal_v2": "기마 무사단 지휘관", "change_needed": null,
+   "rationale": "CSV 원형(기병)을 유지하되 '기마군단 최강'은 단정 금지 소재다. 문서는 미카타가하라를 기병 중심 전술 사례로만 언급하고 동원력은 약 2만 이하라는 견해를 소개한다. 병종은 각색이며 근거가 약하다.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Takeda_Shingen",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "마상 무사(각색, 기마군단 단정 금지)" },
+    { "unit_type": "spear", "basis": "아시가루 창병(각색)" },
+    { "unit_type": "archer", "basis": "궁·화승총(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "기마 무사와 도보 병력의 혼성",
+   "notes": "후대 이미지 혼입 소재. 사람 판단: cavalry vs spear. 기병 병종 포화(이미 6명 이상) 시 spear 변경"
+  },
+  {
+   "code": "uesugi_kenshin", "csv_id": 183, "name_ko": "우에스기 겐신",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "sword",
+   "ideal_v2": "선봉형 야전 지휘관", "change_needed": null,
+   "rationale": "가와나카지마·오다와라·테도리가와에서 지휘한 사실은 확인되나 병종 편성·직접 전투 방식은 열람 범위에 없다. 도보 근접 지휘관 sword는 각색(근거 약함). 무패·군신 이미지는 근거에서 제외.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Uesugi_Kenshin",
+   "proposed_troops": [
+    { "unit_type": "sword", "basis": "에치고 무사(각색)" },
+    { "unit_type": "spear", "basis": "아시가루 창병(각색)" },
+    { "unit_type": "cavalry", "basis": "기마 무사(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "신앙적 사기 효과(비샤몬텐)",
+   "notes": "사람 판단: sword vs cavalry"
+  },
+  {
+   "code": "sanada_yukimura", "csv_id": 185, "name_ko": "사나다 유키무라",
+   "csv_archetype": "보병", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "spear",
+   "ideal_v2": "수성·역습형 지휘관(출성 방어)", "change_needed": null,
+   "rationale": "사나다마루 방어(1614)와 덴노지 돌격(1615)이 확인된다. spear는 CSV의 '보병'을 8종에 매핑한 것이며 십자창 사용은 문서에 없어 근거로 삼지 않는다(단정 금지).",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Sanada_Yukimura (십자창·붉은 갑옷 언급 없음)",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "도보 보병(CSV '보병' 매핑, 십자창 근거 아님)" },
+    { "unit_type": "archer", "basis": "화승총·궁 수비(각색)" },
+    { "unit_type": "cavalry", "basis": "덴노지 돌격 기병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "출성(방어 지형), 역습",
+   "notes": "스킬·프리셋 이름에 '십자창' 사용 금지. 표시명 '유키무라'는 통칭(본명 노부시게)"
+  },
+  {
+   "code": "honda_tadakatsu", "csv_id": 186, "name_ko": "혼다 다다카쓰",
+   "csv_archetype": "중장갑", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "heavy",
+   "ideal_v2": "중무장 무사 장수", "change_needed": null,
+   "rationale": "미카타가하라 퇴각 엄호 등 방어 성격의 전투 서술과 창 톤보키리 애용 기록이 있다. 무상처 평판은 평판 성격. CSV 원형(중장갑) 유지.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Honda_Tadakatsu",
+   "proposed_troops": [
+    { "unit_type": "heavy", "basis": "중무장 무사(각색)" },
+    { "unit_type": "spear", "basis": "창 보병(톤보키리 연관, 각색)" },
+    { "unit_type": "archer", "basis": "화승총(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "개인 무용형 지휘관",
+   "notes": "잠자리 일화·무패 단정 금지. 사람 판단: heavy vs spear"
+  },
+  {
+   "code": "sen_no_rikyu", "csv_id": 187, "name_ko": "센노 리큐",
+   "csv_archetype": "치유사", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "healer",
+   "ideal_v2": "지원형 문화인", "change_needed": null,
+   "rationale": "군사 기록이 없는 다도인이며 healer는 다도의 안정·회복을 상징하는 각색이다. 의료인이라는 뜻이 아니다.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Sen_no_Riky%C5%AB",
+   "proposed_troops": [
+    { "unit_type": "healer", "basis": "다도 지원(각색)" },
+    { "unit_type": "mage", "basis": "문화인(각색)" },
+    { "unit_type": "spear", "basis": "호위(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "군사 기록 없음",
+   "notes": "교체 후보 제안 대상(보고서 참조). 프리셋은 순수 게임 설정"
+  },
+  {
+   "code": "date_masamune", "csv_id": 189, "name_ko": "다테 마사무네",
+   "csv_archetype": "기병", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "cavalry",
+   "ideal_v2": "기마 무사 영주", "change_needed": null,
+   "rationale": "스리아게하라 승리와 센다이 번 건설은 확인되나 병종 근거는 CSV 원형(기병)과 후대 이미지뿐이다. 문서에 철포 부대 서술이 없고 안대·검은 갑옷은 후대 이미지이므로 단정 금지.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Date_Masamune (철포 부대 서술 없음)",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "마상 무사(각색)" },
+    { "unit_type": "archer", "basis": "화승총·궁(각색, 철포 부대 단정 금지)" },
+    { "unit_type": "spear", "basis": "아시가루 창병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "영지 경영",
+   "notes": "사람 판단: cavalry vs archer"
+  },
+  {
+   "code": "sakamoto_ryoma", "csv_id": 196, "name_ko": "사카모토 료마",
+   "csv_archetype": "암살자", "diff_from_csv": true,
+   "current_unit_type": null, "proposed_unit_type": "mage",
+   "ideal_v2": "strategist(해운·외교 중개형)", "change_needed": null,
+   "rationale": "가이엔타이(해군·무역)를 만들고 선중팔책을 구상한 점이 업적이다. 직접 전투 기록은 없고 CSV 원형 '암살자'는 현 8종에 없으며 사실과도 맞지 않아 책사로 변경한다. 검술·권총 일화는 근거에서 제외.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Sakamoto_Ry%C5%8Dma",
+   "proposed_troops": [
+    { "unit_type": "mage", "basis": "정치 구상·외교(각색)" },
+    { "unit_type": "sword", "basis": "도사 무사 동료(각색)" },
+    { "unit_type": "archer", "basis": "가이엔타이 선원·소총(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "해운·무역 조직, 암살자 병종 없음",
+   "notes": "암살 피해자임을 스킬로 쓰지 말 것"
+  },
+  {
+   "code": "saigo_takamori", "csv_id": 197, "name_ko": "사이고 다카모리",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "sword",
+   "ideal_v2": "총지휘관(근대 이행기 사족군)", "change_needed": null,
+   "rationale": "보신 전쟁 진격군 지휘와 에도성 협상, 세이난 전쟁 지휘가 확인된다. 사쓰마 무사 중심의 근접 병종 sword는 각색(편성 사료는 열람 범위 밖). 세이난 전쟁 사상자·최후 장면은 부대 설명에 쓰지 않는다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Saig%C5%8D_Takamori",
+   "proposed_troops": [
+    { "unit_type": "sword", "basis": "사쓰마 사족(각색)" },
+    { "unit_type": "archer", "basis": "소총병(각색)" },
+    { "unit_type": "spear", "basis": "근위·보병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "근대식 군제 혼재",
+   "notes": "논란 인물(세이칸론은 소재 제외). 사람 판단: sword vs heavy"
+  },
+  {
+   "code": "napoleon", "csv_id": 301, "name_ko": "나폴레옹 보나파르트",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "archer",
+   "ideal_v2": "포병 출신 총사령관(군단제)", "change_needed": null,
+   "rationale": "툴롱에서 포병 지휘관으로 두각을 나타냈다(문서). 현 8종에서 포병은 원거리 병종 archer가 가장 가깝다. 대군 기동전의 지휘 특성은 영웅 스킬로 표현. 군단 편제(문서 열람 범위 밖)는 근거로 쓰지 않는다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Napoleon",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "포병·소총병(v2 화포)" },
+    { "unit_type": "spear", "basis": "프랑스 보병 방진(각색)" },
+    { "unit_type": "cavalry", "basis": "기병 예비대(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "포병, 군단제",
+   "notes": "논란 인물. 러시아 원정·자파·아이티는 부대 설명에서 제외. 웰링턴(spear 제안)과의 대칭은 각색. 사람 판단: archer vs cavalry"
+  },
+  {
+   "code": null, "csv_id": 19, "name_ko": "유방",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "spear",
+   "ideal_v2": "보병 대군 총지휘관", "change_needed": null,
+   "rationale": "초한 전쟁은 대규모 보병 중심이었고 유방은 팽성·고릉·백등에서 패배하면서도 최종 승리했다. 개인 전투 기록보다 총지휘와 인재 활용이 핵심이라 보병 spear를 각색으로 제안하며 근거는 약하다.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Emperor_Gaozu_of_Han",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "한군 보병(각색)" },
+    { "unit_type": "archer", "basis": "노병(각색)" },
+    { "unit_type": "cavalry", "basis": "기병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "연합군 총지휘, 보급",
+   "notes": "heroes.json 미등재. 사람 판단: spear vs sword"
+  },
+  {
+   "code": null, "csv_id": 20, "name_ko": "한신",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "sword",
+   "ideal_v2": "기만·기동 전략가형 야전군 사령관", "change_needed": null,
+   "rationale": "정형의 배수진과 기병 매복, 하양 도하, 위수 전투 등 기동·기만 성과(accepted)가 핵심이다. 직접 전투가 아닌 지휘형이라 mage 대안도 있으나 mage가 이미 많아 sword 제안. 일화(과하지욕 등)는 근거 제외.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Han_Xin",
+   "proposed_troops": [
+    { "unit_type": "sword", "basis": "근접 보병(각색)" },
+    { "unit_type": "cavalry", "basis": "정형 매복 기병(accepted)" },
+    { "unit_type": "archer", "basis": "노병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "기만·배수진 지형 효과",
+   "notes": "사람 판단: sword vs mage"
+  },
+  {
+   "code": null, "csv_id": 21, "name_ko": "장량",
+   "csv_archetype": "책략가", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "mage",
+   "ideal_v2": "strategist(책사)", "change_needed": null,
+   "rationale": "직접 지휘 기록보다 홍문연 조언·한신 제왕 책봉 설득 등 참모 역할이 업적이다. 책사 계열이 사실에 맞다.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Zhang_Liang_(Western_Han)",
+   "proposed_troops": [
+    { "unit_type": "mage", "basis": "참모(각색)" },
+    { "unit_type": "spear", "basis": "호위(각색)" },
+    { "unit_type": "archer", "basis": "노병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "참모·외교",
+   "notes": "황석공 등 전설은 근거 제외"
+  },
+  {
+   "code": null, "csv_id": 47, "name_ko": "관우",
+   "csv_archetype": "중장갑", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "heavy",
+   "ideal_v2": "맹장형 보·기병 지휘관", "change_needed": null,
+   "rationale": "백마의 안량 격파와 번성 수공(칠군), 형주 방어는 확인된다. CSV 원형(중장갑)을 유지하되 청룡언월도·적면 이미지는 연의 요소로 병종 근거에서 제외. 정사상 병종 편성은 열람하지 못해 각색.",
+   "evidence_level": "accepted",
+   "source": "https://en.wikipedia.org/wiki/Guan_Yu (청룡언월도는 소설)",
+   "proposed_troops": [
+    { "unit_type": "heavy", "basis": "촉군 정예(각색)" },
+    { "unit_type": "cavalry", "basis": "기병(안량 격파 서술, 각색)" },
+    { "unit_type": "archer", "basis": "수군·노병(번성 수공, 각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "수공, 수군",
+   "notes": "사람 판단: heavy vs cavalry"
+  },
+  {
+   "code": "eulji_mundeok", "csv_id": 109, "name_ko": "을지문덕",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "mage",
+   "ideal_v2": "기만·청야 전략가형 사령관", "change_needed": null,
+   "rationale": "거짓 후퇴로 수군을 보급에서 멀어지게 한 기만 전술(accepted)이 대표 성과다. 현 8종에서는 책략형인 mage를 제안하나 병종 편성 사료가 문서에 없어 근거는 약하다. archer(맥궁)·spear 대안.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Eulji_Mundeok",
+   "proposed_troops": [
+    { "unit_type": "spear", "basis": "고구려 보병(각색)" },
+    { "unit_type": "archer", "basis": "고구려 궁수(각색)" },
+    { "unit_type": "cavalry", "basis": "기병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "청야·기만 지형 효과",
+   "notes": "병력 수치 사용 금지. 사람 판단: mage vs spear"
+  },
+  {
+   "code": "gyebaek", "csv_id": 114, "name_ko": "계백",
+   "csv_archetype": "중장갑", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "heavy",
+   "ideal_v2": "결사 방어 지휘관", "change_needed": null,
+   "rationale": "황산벌에서 소수 병력으로 신라군에 맞선 방어전이 확인된다. 편성 사료는 없고 CSV 원형(중장갑)을 유지한다. 처자 살해 일화는 근거 제외.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Gyebaek",
+   "proposed_troops": [
+    { "unit_type": "heavy", "basis": "백제 결사대(각색)" },
+    { "unit_type": "spear", "basis": "보병(각색)" },
+    { "unit_type": "archer", "basis": "궁수(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "방어 지형 효과",
+   "notes": "사람 판단: heavy vs spear"
+  },
+  {
+   "code": "queen_seondeok", "csv_id": 115, "name_ko": "선덕여왕",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "healer",
+   "ideal_v2": "dhamma ruler형 지원 군주(구휼·조영)", "change_needed": null,
+   "rationale": "구휼과 세금 감면, 첨성대·황룡사탑 조영 등 정책이 업적이고 군 지휘 기록은 없다. healer는 정책 상징 각색(아소카 선례)이고 근거는 약하다. mage 대안.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Queen_Seondeok_of_Silla",
+   "proposed_troops": [
+    { "unit_type": "healer", "basis": "구휼 정책 상징(각색)" },
+    { "unit_type": "mage", "basis": "천문·불교 조영(각색)" },
+    { "unit_type": "spear", "basis": "신라 보병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "군사 지휘 기록 없음",
+   "notes": "예언 일화는 근거 제외. 사람 판단: healer vs mage"
+  },
+  {
+   "code": "cyrus_the_great", "csv_id": 312, "name_ko": "키루스 2세",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "cavalry",
+   "ideal_v2": "페르시아 기병·궁병 혼성 군주", "change_needed": null,
+   "rationale": "메디아·리디아·바빌로니아 정복 사실은 확인되나 군 편성은 열람 범위 밖(unread)이다. 페르시아 기병이 중요했다는 통설은 모델 지식이라 cavalry는 약한 제안(verify).",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Cyrus_the_Great (편성 서술 열람 범위 밖)",
+   "proposed_troops": [
+    { "unit_type": "cavalry", "basis": "페르시아 기병(각색, verify)" },
+    { "unit_type": "archer", "basis": "페르시아 궁병(각색)" },
+    { "unit_type": "spear", "basis": "보병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "제국 통치",
+   "notes": "관용 이미지는 병종 근거가 아님. 사람 판단: cavalry vs archer"
+  },
+  {
+   "code": "darius_the_great", "csv_id": 313, "name_ko": "다리우스 1세",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "archer",
+   "ideal_v2": "행정·궁병 군주", "change_needed": null,
+   "rationale": "행정 업적(사트라피·왕도로·다릭)이 핵심이고 페르시아 궁병 이미지가 있으나 편성 근거는 열람 범위 밖(unread)이다. archer는 약한 제안(verify). mage(행정형) 대안.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Darius_the_Great (편성 서술 없음)",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "페르시아 궁병(각색)" },
+    { "unit_type": "spear", "basis": "보병(각색)" },
+    { "unit_type": "cavalry", "basis": "기병(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "행정·감찰",
+   "notes": "사람 판단: archer vs mage"
+  },
+  {
+   "code": "artemisia_i", "csv_id": 314, "name_ko": "아르테미시아 1세",
+   "csv_archetype": "지휘관", "diff_from_csv": false,
+   "current_unit_type": null, "proposed_unit_type": "archer",
+   "ideal_v2": "naval 함선 지휘관", "change_needed": null,
+   "rationale": "살라미스에서 5척을 지휘했다는 서술(헤로도토스, 단일 출처)이 근거이며 함선 지휘는 현 8종에 없다. 원거리·해전 성격으로 archer를 각색 제안(이순신 선례). 근거는 약함.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Artemisia_I_of_Caria ; 헤로도토스(unread)",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "함상 궁수(각색)" },
+    { "unit_type": "spear", "basis": "해병 보병(각색)" },
+    { "unit_type": "sword", "basis": "카리아 근접 인원(각색)" }
+   ],
+   "current_troops": null,
+   "game_class_gap": "함선, 해전",
+   "notes": "칼륀도스 충돌·깃발 기만은 근거 제외"
+  },
+  {
+   "code": "julius_caesar", "csv_id": 216, "name_ko": "율리우스 카이사르", "pool_unit_type": "sword", "diff_from_pool": false,
+   "proposed_unit_type": "sword", "ideal_v2": "군단 지휘관(군단병 + 갈리아·게르만 동맹 기병)", "change_needed": false,
+   "rationale": "갈리아 원정과 내전 모두 로마 군단 보병이 주력이었고, 루비콘 도하도 군단(제13군단) 단위였다. 군단 보병의 지휘관인 sword가 무난하다. 군단 편제 세부는 모델 지식(verify).",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Julius_Caesar ; 『갈리아 전기』(unread)",
+   "proposed_troops": [ { "unit_type": "sword", "basis": "로마 군단 보병" }, { "unit_type": "cavalry", "basis": "갈리아·게르만 동맹 기병(각색)" }, { "unit_type": "archer", "basis": "원거리 보조병(각색)" } ],
+   "game_class_gap": "공성 보루(알레시아 이중 성벽은 unread)", "notes": "병종 중복(sword) 많으면 사람 조정"
+  },
+  {
+   "code": "philip_ii", "csv_id": 234, "name_ko": "필리포스 2세", "pool_unit_type": "spear", "diff_from_pool": false,
+   "proposed_unit_type": "spear", "ideal_v2": "사리사 팔랑크스 지휘관", "change_needed": false,
+   "rationale": "모든 병사가 사리사(장창)를 드는 방진 도입이 그에게 귀속되는 대표 개혁이며 창병이 가장 맞다. 기병 확대도 개혁의 일부(약 600명에서 4,000명, 기원전 334년경).",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Philip_II_of_Macedon (귀속은 credited, 필리포스 vs 알렉산드로스 논쟁 verify)",
+   "proposed_troops": [ { "unit_type": "spear", "basis": "사리사 팔랑크스" }, { "unit_type": "cavalry", "basis": "마케도니아 기병" }, { "unit_type": "archer", "basis": "경보병·궁수 보조(각색)" } ],
+   "game_class_gap": "사리사 방진(장창 대형)", "notes": "알렉산드로스(cavalry) 부대 구성과 역할 구분"
+  },
+  {
+   "code": "aristotle", "csv_id": 212, "name_ko": "아리스토텔레스", "pool_unit_type": "mage", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "학자(책사 계열)", "change_needed": false,
+   "rationale": "군사 역할이 문서에 없고 리케이온 교육·저술이 업적이라 책사 계열 mage가 가장 가깝다(각색). 부대 구성은 순수 게임 설정.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Aristotle",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "제자·학자(각색)" }, { "unit_type": "healer", "basis": "의학·생물학 연구 지원(각색)" }, { "unit_type": "spear", "basis": "호위(각색)" } ],
+   "game_class_gap": "군사 지휘 기록 없음", "notes": "프리셋은 역사 근거 없는 각색임을 명시"
+  },
+  {
+   "code": "socrates", "csv_id": 210, "name_ko": "소크라테스", "pool_unit_type": "heavy", "diff_from_pool": false,
+   "proposed_unit_type": "heavy", "ideal_v2": "hoplite(중장보병) 시민병", "change_needed": null,
+   "rationale": "플라톤이 포티다이아·델리온·암피폴리스 참전을 서술하나 문서에는 중무장 보병이라는 표현이 없어 heavy는 시민병 일반의 각색이다(verify). 철학자 이미지로 mage·healer 안도 성립하나 pool이 heavy이므로 유지.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Socrates (hoplite 서술 없음) ; 플라톤(unread)",
+   "proposed_troops": [ { "unit_type": "heavy", "basis": "아테네 시민 중장보병(각색, verify)" }, { "unit_type": "spear", "basis": "아테네 보병(각색)" }, { "unit_type": "mage", "basis": "문답 동료(각색)" } ],
+   "game_class_gap": "문답법 같은 비군사 능력", "notes": "사람 판단: heavy vs mage"
+  },
+  {
+   "code": "marcus_aurelius", "csv_id": 220, "name_ko": "마르쿠스 아우렐리우스", "pool_unit_type": "heavy", "diff_from_pool": false,
+   "proposed_unit_type": "heavy", "ideal_v2": "변경 방어 군단 사령관", "change_needed": false,
+   "rationale": "마르코만니·콰디·야지게스를 상대로 북방 변경 방어 전쟁을 치렀고(변경 체류는 verify) 로마 중장 군단이 주력이므로 heavy가 무난하다.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Marcus_Aurelius",
+   "proposed_troops": [ { "unit_type": "heavy", "basis": "로마 중장 군단병" }, { "unit_type": "sword", "basis": "군단 보병" }, { "unit_type": "archer", "basis": "보조 궁수(각색)" } ],
+   "game_class_gap": "스토아 철학자 군주(사기·정신력)", "notes": "heavy 중복 시 사람 조정"
+  },
+  {
+   "code": "fabius_maximus", "csv_id": 541, "name_ko": "파비우스 막시무스", "pool_unit_type": "spear", "diff_from_pool": false,
+   "proposed_unit_type": "spear", "ideal_v2": "지구전 지휘관", "change_needed": false,
+   "rationale": "정면 회전을 피하고 보급을 끊는 지구전이 대표 전략으로, 대열을 지켜 버티는 속성이 spear에 가깝다(각색). 편제 근거는 문서에 없음.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Quintus_Fabius_Maximus_Verrucosus",
+   "proposed_troops": [ { "unit_type": "spear", "basis": "로마 보병(각색)" }, { "unit_type": "sword", "basis": "군단병(각색)" }, { "unit_type": "cavalry", "basis": "보급 차단용 기병(각색)" } ],
+   "game_class_gap": "지구전·보급 차단", "notes": "본인 직접 군사 성과는 small이라는 문서 평가 병기"
+  },
+  {
+   "code": "william_i", "csv_id": 244, "name_ko": "윌리엄 1세", "pool_unit_type": "heavy", "diff_from_pool": false,
+   "proposed_unit_type": "heavy", "ideal_v2": "중기병·성채 지휘관", "change_needed": null,
+   "rationale": "헤이스팅스는 노르만·프랑코 연합군의 승리이고 이후 성채망으로 통치했다. 문서는 병종 구성을 서술하지 않으므로 성채·중무장 이미지에 따른 각색이다(verify). 기병 안도 성립.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/William_the_Conqueror (편성 서술 없음)",
+   "proposed_troops": [ { "unit_type": "heavy", "basis": "노르만 중무장 병력(각색)" }, { "unit_type": "cavalry", "basis": "노르만 기사(각색, 편성 verify)" }, { "unit_type": "archer", "basis": "궁수(각색)" } ],
+   "game_class_gap": "성채 지형 효과", "notes": "사람 판단: heavy vs cavalry"
+  },
+  {
+   "code": "el_cid", "csv_id": 245, "name_ko": "엘 시드", "pool_unit_type": "cavalry", "diff_from_pool": false,
+   "proposed_unit_type": "cavalry", "ideal_v2": "중기병 용병대장", "change_needed": false,
+   "rationale": "추방 후 타이파 군대를 이끌고 기독교·무슬림 병력을 혼성 지휘했으며 야전 승리가 주 업적이다. 기사 이미지가 강하나 기병 편성 서술은 문서에 직접 없어 각색(verify).",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/El_Cid ; Historia Roderici",
+   "proposed_troops": [ { "unit_type": "cavalry", "basis": "카스티야 기사(각색)" }, { "unit_type": "archer", "basis": "무슬림 보조 궁수(각색)" }, { "unit_type": "spear", "basis": "보병(각색)" } ],
+   "game_class_gap": "혼성 용병군", "notes": "기병 병종 비중이 높아 사람 조정 가능"
+  },
+  {
+   "code": "richard_i", "csv_id": 246, "name_ko": "리처드 1세", "pool_unit_type": "heavy", "diff_from_pool": false,
+   "proposed_unit_type": "heavy", "ideal_v2": "중기병·노병 혼성 지휘관", "change_needed": null,
+   "rationale": "아르수프에서 대열을 유지한 십자군 진군이 승리의 핵심이라는 서술이 있고, 본인 직접 전투 참가로 알려져 중장 병종이 무난하다. 문서에서 병종 편성은 확인하지 못했다(verify).",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Richard_I_of_England",
+   "proposed_troops": [ { "unit_type": "heavy", "basis": "십자군 중기병·중보병(각색)" }, { "unit_type": "archer", "basis": "석궁병(각색)" }, { "unit_type": "spear", "basis": "보병(각색)" } ],
+   "game_class_gap": "석궁, 원정 보급", "notes": "대안: cavalry"
+  },
+  {
+   "code": "eleanor_aquitaine", "csv_id": 247, "name_ko": "아키텐의 엘레오노르", "pool_unit_type": "mage", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "섭정·외교형 군주", "change_needed": false,
+   "rationale": "군 지휘 기록이 확인되지 않고 섭정·혼인 동맹 등 정치 업적이 중심이라 책사 계열 mage가 가장 가깝다(각색). 제2차 십자군 참여는 있었으나 지휘 근거는 약하다.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Eleanor_of_Aquitaine",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "궁정 관료·참모(각색)" }, { "unit_type": "spear", "basis": "궁정 경비(각색)" }, { "unit_type": "healer", "basis": "궁정 지원 인원(각색)" } ],
+   "game_class_gap": "군사 지휘 기록 없음", "notes": "프리셋은 순수 게임 설정"
+  },
+  {
+   "code": "black_prince", "csv_id": 264, "name_ko": "에드워드 흑세자", "pool_unit_type": "cavalry", "diff_from_pool": false,
+   "proposed_unit_type": "cavalry", "ideal_v2": "중기병·장궁병 혼성 지휘관(샤보세 기동)", "change_needed": null,
+   "rationale": "아키텐 샤보세와 푸아티에·나헤라 승리의 지휘관이며 기병 이미지가 강하나, 푸아티에·크레시는 하마 기사와 장궁병 중심 전투로 알려져 있어 문서에서 병종 편성은 확인하지 못했다(verify). 기동 작전(샤보세) 성격 때문에 기병이 무난.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Edward_the_Black_Prince (편성 서술 unread)",
+   "proposed_troops": [ { "unit_type": "cavalry", "basis": "기사 기마대(각색)" }, { "unit_type": "archer", "basis": "장궁병(각색, 헨리 5세와 겹침)" }, { "unit_type": "spear", "basis": "하마 기사 보병(각색)" } ],
+   "game_class_gap": "하마 기사, 장궁", "notes": "사람 판단: cavalry vs heavy"
+  },
+  {
+   "code": "henry_v", "csv_id": 265, "name_ko": "헨리 5세", "pool_unit_type": "archer", "diff_from_pool": false,
+   "proposed_unit_type": "archer", "ideal_v2": "장궁병 중심 혼성군 지휘관", "change_needed": false,
+   "rationale": "아쟁쿠르에서 진흙탕에 발이 묶인 프랑스 중기병을 영국 궁수가 측면에서 공격해 승리했다고 서술되어 장궁병을 병종으로 삼는 것이 문서 근거와 맞는다(confirmed).",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Henry_V_of_England",
+   "proposed_troops": [ { "unit_type": "archer", "basis": "영국 장궁병" }, { "unit_type": "heavy", "basis": "하마 중무장 기사(각색)" }, { "unit_type": "spear", "basis": "보병(각색)" } ],
+   "game_class_gap": "장궁, 말뚝 방어(문서 미언급)", "notes": "진흙 지형은 지형 효과로 표현"
+  },
+  {
+   "code": "christine_de_pizan", "csv_id": 276, "name_ko": "크리스틴 드 피장", "pool_unit_type": "healer", "diff_from_pool": false,
+   "proposed_unit_type": "healer", "ideal_v2": "지원형 문인", "change_needed": null,
+   "rationale": "군사·의료 기록은 없고 저술가다. 전쟁법과 기사도를 다룬 1410년 저작이 있어 mage 안도 성립하며, healer는 지원·회복 역할의 상징 각색이다.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Christine_de_Pizan",
+   "proposed_troops": [ { "unit_type": "healer", "basis": "궁정 지원 인원(각색)" }, { "unit_type": "mage", "basis": "궁정 문인(각색)" }, { "unit_type": "spear", "basis": "호위(각색)" } ],
+   "game_class_gap": "군사 지휘 기록 없음", "notes": "프리셋은 순수 게임 설정. 사람 판단: healer vs mage"
+  },
+  {
+   "code": "elizabeth_i", "csv_id": 288, "name_ko": "엘리자베스 1세", "pool_unit_type": "healer", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "strategist(통치·외교형 군주)", "change_needed": null,
+   "rationale": "본인이 함대를 직접 지휘하지 않았고 수장령·의회 관계·외교가 업적이라 책사 계열(mage)이 사실에 가깝다. healer는 사기·회복 상징 각색에 불과하다. pool이 healer이므로 변경은 사람 판단.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Elizabeth_I",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "궁정 참모(각색)" }, { "unit_type": "archer", "basis": "해군 포수·사부(아르마다 요격, 각색)" }, { "unit_type": "spear", "basis": "근위병(각색)" } ],
+   "game_class_gap": "군주의 직접 지휘 기록 없음", "notes": "pool(healer)과 다름. 지토·시키부 사례와 같은 처리"
+  },
+  {
+   "code": "leonardo_da_vinci", "csv_id": 279, "name_ko": "레오나르도 다 빈치", "pool_unit_type": "mage", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "engineer(군사 기술자)", "change_needed": false,
+   "rationale": "체사레 보르자의 군사 건축가·기술자로 일했으나 군사 설계 대부분이 실현되지 않았다. 직접 전투가 아닌 기술 지원이라 책사 계열이 맞다(아르키메데스 선례).",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Leonardo_da_Vinci",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "공방 제자·기술자(각색)" }, { "unit_type": "archer", "basis": "설계 병기 운용(각색, 실현 verify)" }, { "unit_type": "spear", "basis": "호위(각색)" } ],
+   "game_class_gap": "미실현 병기", "notes": "탱크·비행기계 등 설계를 실제 병기로 쓰지 않음"
+  },
+  {
+   "code": "gustavus_adolphus", "csv_id": 290, "name_ko": "구스타브 2세 아돌프", "pool_unit_type": "archer", "diff_from_pool": false,
+   "proposed_unit_type": "archer", "ideal_v2": "화기·경량 포 혼성 지휘관", "change_needed": null,
+   "rationale": "경량 기동포와 기병·보병·포병의 결합 운용이 대표 개혁으로 서술되어 원거리(화기) 병종이 무난하다. 기병 돌격 중 전사하므로 cavalry 안도 성립(verify).",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Gustavus_Adolphus",
+   "proposed_troops": [ { "unit_type": "archer", "basis": "머스킷·경량 포(v2 화기병)" }, { "unit_type": "cavalry", "basis": "스웨덴 기병(각색)" }, { "unit_type": "spear", "basis": "창병(각색)" } ],
+   "game_class_gap": "화기 보병, 경량 포", "notes": "사람 판단: archer vs cavalry"
+  },
+  {
+   "code": "maria_theresa", "csv_id": 295, "name_ko": "마리아 테레지아", "pool_unit_type": "mage", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "strategist(통치·행정형 군주)", "change_needed": false,
+   "rationale": "직접 지휘 기록이 없고 계승 전쟁 수행·행정·재정·교육 개혁이 업적이라 책사 계열(mage)이 가장 사실에 가깝다.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Maria_Theresa",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "궁정 관료(각색)" }, { "unit_type": "spear", "basis": "합스부르크 보병(각색)" }, { "unit_type": "cavalry", "basis": "헝가리 기병(각색, 1741년 헝가리 지지)" } ],
+   "game_class_gap": "군주의 행정 지휘", "notes": "프리셋은 각색"
+  },
+  {
+   "code": "frederick_great", "csv_id": 296, "name_ko": "프리드리히 대왕", "pool_unit_type": "spear", "diff_from_pool": false,
+   "proposed_unit_type": "spear", "ideal_v2": "선형 보병(규율 사격) 지휘관", "change_needed": false,
+   "rationale": "부친이 물려준 규율 높은 보병이 승리의 핵심이라고 서술되어 대열을 유지하는 spear가 가까우나 정확한 대응은 화기 보병이다(각색). 기병 교리 재정비도 언급.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Frederick_the_Great",
+   "proposed_troops": [ { "unit_type": "spear", "basis": "프로이센 선형 보병(각색)" }, { "unit_type": "cavalry", "basis": "재정비된 기병(각색)" }, { "unit_type": "archer", "basis": "포병·사격(각색)" } ],
+   "game_class_gap": "화기 보병, 사선 대형", "notes": "웰링턴(spear)과 겹침, 사람 조정"
+  },
+  {
+   "code": "peter_great", "csv_id": 297, "name_ko": "표트르 대제", "pool_unit_type": "sword", "diff_from_pool": false,
+   "proposed_unit_type": "sword", "ideal_v2": "근대 정규군·해군 창설 군주", "change_needed": null,
+   "rationale": "폴타바 승리와 군·해군 창설이 업적이나 병종 편성은 문서에 없다. 직접 전선에 서는 정규 보병 지휘관 이미지로 sword를 각색 제안한다. mage(행정 개혁가) 안도 성립(verify).",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Peter_the_Great (편성 서술 없음)",
+   "proposed_troops": [ { "unit_type": "sword", "basis": "러시아 정규 보병(각색)" }, { "unit_type": "archer", "basis": "포병·머스킷(각색)" }, { "unit_type": "cavalry", "basis": "드라군(각색)" } ],
+   "game_class_gap": "해군, 근대 정규군 편제", "notes": "사람 판단: sword vs mage"
+  },
+  {
+   "code": "nelson", "csv_id": 303, "name_ko": "허레이쇼 넬슨", "pool_unit_type": "archer", "diff_from_pool": false,
+   "proposed_unit_type": "archer", "ideal_v2": "naval(함대 지휘관, 이순신 선례)", "change_needed": false,
+   "rationale": "나일·코펜하겐·트라팔가르는 함포 교전이며 함대 지휘관은 현 8종에서 원거리 병종 각색이 가장 가깝다(이순신·아르테미시아 선례).",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Horatio_Nelson,_1st_Viscount_Nelson",
+   "proposed_troops": [ { "unit_type": "archer", "basis": "함포·해병 사수(각색)" }, { "unit_type": "sword", "basis": "승선 백병전 인원(각색)" }, { "unit_type": "spear", "basis": "해병(각색)" } ],
+   "game_class_gap": "함선, 해전", "notes": "해전 맵은 해안 지형으로 대체"
+  },
+  {
+   "code": "cao_cao", "csv_id": 43, "name_ko": "조조", "pool_unit_type": "sword", "diff_from_pool": false,
+   "proposed_unit_type": "sword", "ideal_v2": "기병·보병 혼성 대군 지휘관", "change_needed": null,
+   "rationale": "관도 승리와 북중국 통일을 이끈 대군 지휘관이나 병종 편성은 문서에 없다. 직접 전선 지휘관 이미지로 sword를 각색 제안(verify). 둔전제 같은 행정 업적 때문에 mage 안도 성립.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Cao_Cao (편성 서술 없음)",
+   "proposed_troops": [ { "unit_type": "sword", "basis": "위군 보병(각색)" }, { "unit_type": "cavalry", "basis": "북방 기병(오환 정벌, 각색)" }, { "unit_type": "archer", "basis": "노병(각색)" } ],
+   "game_class_gap": "둔전 병농 일치", "notes": "사람 판단: sword vs mage"
+  },
+  {
+   "code": "sima_yi", "csv_id": 50, "name_ko": "사마의", "pool_unit_type": "mage", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "strategist(방어전·정치형 지휘관)", "change_needed": null,
+   "rationale": "제갈량의 북벌을 방어전으로 막은 대표 사례이며 직접 전투 서술보다 지휘·정치 활동이 중심이라 mage가 가깝다(각색). 방어 성격으로 spear·heavy 안도 가능(verify).",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sima_Yi",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "참모(각색)" }, { "unit_type": "spear", "basis": "위군 방어 보병(각색)" }, { "unit_type": "cavalry", "basis": "위군 기병(각색)" } ],
+   "game_class_gap": "방어 지휘", "notes": "제갈량(mage)과 겹침, 사람 조정"
+  },
+  {
+   "code": "liu_bei", "csv_id": 44, "name_ko": "유비", "pool_unit_type": "sword", "diff_from_pool": false,
+   "proposed_unit_type": "sword", "ideal_v2": "군벌 지휘관(보병 중심)", "change_needed": null,
+   "rationale": "군벌로서 익주·한중을 차지했으나 병종 편성은 문서에 없다. 병종은 각색이며 verify. 본인 직접 전투 이미지는 약하다.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Liu_Bei (편성 서술 없음)",
+   "proposed_troops": [ { "unit_type": "sword", "basis": "촉군 보병(각색)" }, { "unit_type": "spear", "basis": "촉군 창병(각색)" }, { "unit_type": "archer", "basis": "노병(각색)" } ],
+   "game_class_gap": "연합 군벌 체제", "notes": "관우(heavy)·제갈량(mage)과 조합"
+  },
+  {
+   "code": "sun_quan", "csv_id": 45, "name_ko": "손권", "pool_unit_type": "archer", "diff_from_pool": false,
+   "proposed_unit_type": "archer", "ideal_v2": "naval(수군 군주)", "change_needed": null,
+   "rationale": "적벽·형주 기습이 수군·장강 중심 전역이었고 오나라 방어가 강 지형에 의존했다는 점에서 원거리·수군 각색이 가능하다. 문서에 병종 근거는 직접 없어 verify. 인재 위임형 군주라 mage 안도 성립.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Sun_Quan (편성 서술 없음)",
+   "proposed_troops": [ { "unit_type": "archer", "basis": "수군 사수(각색)" }, { "unit_type": "spear", "basis": "오군 보병(각색)" }, { "unit_type": "sword", "basis": "근접 병력(각색)" } ],
+   "game_class_gap": "수군, 장강", "notes": "사람 판단: archer vs mage"
+  },
+  {
+   "code": "zhou_yu", "csv_id": 51, "name_ko": "주유", "pool_unit_type": "mage", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "수군 사령관(화공)", "change_needed": null,
+   "rationale": "적벽에서 화공을 실행하고 총공격을 명령했으며 강릉에서 전투를 이끌었다. 수군 지휘관이지만 화공·계책 성격으로 mage 유지가 무난하다(수군은 현 8종에 없음). archer 안도 가능.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Zhou_Yu",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "화공 계획 참모(각색)" }, { "unit_type": "archer", "basis": "수군 사수(각색)" }, { "unit_type": "spear", "basis": "병사(각색)" } ],
+   "game_class_gap": "수군, 화공선", "notes": "제갈량과의 라이벌 구도는 연의 허구라 병종 근거에서 제외"
+  },
+  {
+   "code": "taizong_tang", "csv_id": 65, "name_ko": "당태종", "pool_unit_type": "cavalry", "diff_from_pool": false,
+   "proposed_unit_type": "cavalry", "ideal_v2": "경기병·중기병 황제(진왕 시절 기병 지휘)", "change_needed": null,
+   "rationale": "당군의 돌궐·토욕혼 원정은 기병 중심 기동전이었다는 것이 통설이나 문서 발췌에서 병종 서술을 확인하지 못했다(verify). 원정 지휘는 이정 등 장수였으므로 태종 본인은 군주 각색.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Emperor_Taizong_of_Tang (병종 서술 unread)",
+   "proposed_troops": [ { "unit_type": "cavalry", "basis": "당군 기병(각색)" }, { "unit_type": "archer", "basis": "궁수(각색)" }, { "unit_type": "spear", "basis": "보병(각색)" } ],
+   "game_class_gap": "장수와 군주 역할 분리", "notes": "사람 판단: cavalry vs mage(통치형)"
+  },
+  {
+   "code": "wu_zetian", "csv_id": 69, "name_ko": "측천무후", "pool_unit_type": "mage", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "strategist(통치·인재 등용형 군주)", "change_needed": false,
+   "rationale": "직접 군사 지휘 기록이 없고 과거제 확대·인재 등용·정치 운영이 업적이라 책사 계열 mage가 가장 가깝다.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Wu_Zetian",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "궁정 관료(각색)" }, { "unit_type": "spear", "basis": "궁성 경비(각색)" }, { "unit_type": "healer", "basis": "궁정 지원 인원(각색)" } ],
+   "game_class_gap": "군사 지휘 기록 없음", "notes": "프리셋은 순수 게임 설정"
+  },
+  {
+   "code": "confucius", "csv_id": 9, "name_ko": "공자", "pool_unit_type": "healer", "diff_from_pool": false,
+   "proposed_unit_type": "healer", "ideal_v2": "스승형 지원 영웅(mage 안 가능)", "change_needed": null,
+   "rationale": "군사 권한이 없었고 교육·외교가 업적이다. healer는 가르침으로 아군을 북돋우는 지원 역할의 각색(의료 근거 없음)이며 mage(학자) 안도 성립.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Confucius",
+   "proposed_troops": [ { "unit_type": "healer", "basis": "제자 지원 인원(각색)" }, { "unit_type": "mage", "basis": "학자 제자(각색)" }, { "unit_type": "spear", "basis": "호위(각색)" } ],
+   "game_class_gap": "군사 지휘 기록 없음", "notes": "프리셋은 순수 게임 설정. 사람 판단: healer vs mage"
+  },
+  {
+   "code": "jangsu", "csv_id": 108, "name_ko": "장수왕", "pool_unit_type": "mage", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "strategist(천도·외교형 군주)", "change_needed": false,
+   "rationale": "직접 지휘 서술이 없고 평양 천도·남북조 등거리 외교·장기 통치가 업적이라 책사 계열 mage가 사실에 가깝다(각색).",
+   "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/장수왕",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "외교·참모(각색)" }, { "unit_type": "cavalry", "basis": "고구려 기병(각색)" }, { "unit_type": "spear", "basis": "고구려 보병(각색)" } ],
+   "game_class_gap": "군주의 외교·천도", "notes": "광개토대왕(cavalry)과 구분"
+  },
+  {
+   "code": "kim_yusin", "csv_id": 111, "name_ko": "김유신", "pool_unit_type": "sword", "diff_from_pool": false,
+   "proposed_unit_type": "sword", "ideal_v2": "대장군(신라 보병·기병 혼성 지휘)", "change_needed": null,
+   "rationale": "황산벌 5만 병력을 이끈 지휘관이나 병종 편성은 문서에 없다. 최전선 지휘관 이미지로 sword를 각색 제안(verify). 화랑 기병 이미지로 cavalry 안도 가능.",
+   "evidence_level": "verify", "source": "https://ko.wikipedia.org/wiki/김유신 (편성 서술 없음)",
+   "proposed_troops": [ { "unit_type": "sword", "basis": "신라 보병(각색)" }, { "unit_type": "cavalry", "basis": "신라 기병(각색)" }, { "unit_type": "spear", "basis": "신라 창병(각색)" } ],
+   "game_class_gap": "당·신라 연합군", "notes": "사람 판단: sword vs cavalry"
+  },
+  {
+   "code": "gang_gamchan", "csv_id": 124, "name_ko": "강감찬", "pool_unit_type": "spear", "diff_from_pool": false,
+   "proposed_unit_type": "spear", "ideal_v2": "수공·매복 방어 지휘관", "change_needed": null,
+   "rationale": "흥화진 매복·수공, 귀주 섬멸 등 방어·유인 전술이 대표이나 병종 편성은 문서에 없다. 대열을 지키는 방어형 spear를 각색 제안(verify). 사격 중심이면 archer 안.",
+   "evidence_level": "verify", "source": "https://ko.wikipedia.org/wiki/강감찬 (편성 서술 없음)",
+   "proposed_troops": [ { "unit_type": "spear", "basis": "고려 보병(각색)" }, { "unit_type": "archer", "basis": "궁수·노병(각색)" }, { "unit_type": "cavalry", "basis": "고려 기병(각색)" } ],
+   "game_class_gap": "수공·매복 지형 효과", "notes": "사람 판단: spear vs archer"
+  },
+  {
+   "code": "seo_hui", "csv_id": 125, "name_ko": "서희", "pool_unit_type": "mage", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "strategist(외교관)", "change_needed": false,
+   "rationale": "대표 업적이 전투가 아니라 993년 소손녕과의 담판이라 책사 계열 mage가 가장 사실에 가깝다.",
+   "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/서희",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "외교 참모(각색)" }, { "unit_type": "spear", "basis": "호위 병력(각색)" }, { "unit_type": "archer", "basis": "고려 궁수(각색)" } ],
+   "game_class_gap": "외교 협상(담판)", "notes": "프리셋은 각색"
+  },
+  {
+   "code": "wang_geon", "csv_id": 123, "name_ko": "왕건", "pool_unit_type": "spear", "diff_from_pool": false,
+   "proposed_unit_type": "spear", "ideal_v2": "수군·육군 혼성 통일 군주", "change_needed": null,
+   "rationale": "후삼국 통일(일리천)과 호족 결합 정책이 업적이나 병종 편성은 문서에 없다. 다수 호족군을 통솔하는 중심 보병 지휘관으로 spear를 각색(verify). 나주 해전 서술은 있으나 수군은 현 8종에 없음.",
+   "evidence_level": "verify", "source": "https://ko.wikipedia.org/wiki/태조_(고려) (편성 서술 없음)",
+   "proposed_troops": [ { "unit_type": "spear", "basis": "고려 보병(각색)" }, { "unit_type": "cavalry", "basis": "호족 기병(각색)" }, { "unit_type": "archer", "basis": "수군 궁수(각색)" } ],
+   "game_class_gap": "수군, 호족 연합군", "notes": "사람 판단"
+  },
+  {
+   "code": "yi_seonggye", "csv_id": 130, "name_ko": "이성계", "pool_unit_type": "archer", "diff_from_pool": false,
+   "proposed_unit_type": "archer", "ideal_v2": "기마궁병(horse_archer)", "change_needed": null,
+   "rationale": "활 솜씨('신궁')가 알려졌으나 문서는 이 별명과 무패 서술에 직접 출처가 없다고 표시한다(verify). 황산대첩·홍건적 격퇴의 병종 편성도 문서에 없어 archer는 각색이며, 기동성을 살리면 cavalry 안이 더 가깝다.",
+   "evidence_level": "verify", "source": "https://ko.wikipedia.org/wiki/태조_(조선)",
+   "proposed_troops": [ { "unit_type": "archer", "basis": "조선 궁수(각색)" }, { "unit_type": "cavalry", "basis": "동북면 기병(각색)" }, { "unit_type": "spear", "basis": "보병(각색)" } ],
+   "game_class_gap": "기마궁병", "notes": "사람 판단: archer vs cavalry"
+  },
+  {
+   "code": "sejong", "csv_id": 135, "name_ko": "세종", "pool_unit_type": "healer", "diff_from_pool": false,
+   "proposed_unit_type": "healer", "ideal_v2": "strategist(통치·문자·과학 지원 군주)", "change_needed": null,
+   "rationale": "의료 근거는 없고 훈민정음·집현전·과학 기구 지원·4군 6진이 업적이다. healer는 백성을 돌보는 지원 상징의 각색이며 mage(책사) 안이 사실에 더 가깝다(verify).",
+   "evidence_level": "verify", "source": "https://ko.wikipedia.org/wiki/세종_(조선)",
+   "proposed_troops": [ { "unit_type": "healer", "basis": "궁중 의료·구휼(각색)" }, { "unit_type": "mage", "basis": "집현전 학자(각색)" }, { "unit_type": "archer", "basis": "북방 수비 궁수(각색)" } ],
+   "game_class_gap": "군주의 문치", "notes": "프리셋은 각색. 사람 판단: healer vs mage"
+  },
+  {
+   "code": "heo_jun", "csv_id": 147, "name_ko": "허준", "pool_unit_type": "healer", "diff_from_pool": false,
+   "proposed_unit_type": "healer", "ideal_v2": "healer(어의)", "change_needed": false,
+   "rationale": "내의원 어의로 선조를 호종했고 『동의보감』 편찬을 이끌었다. 치유사가 사실에 맞다(confirmed).",
+   "evidence_level": "confirmed", "source": "https://ko.wikipedia.org/wiki/허준",
+   "proposed_troops": [ { "unit_type": "healer", "basis": "내의원 의관(각색)" }, { "unit_type": "mage", "basis": "의서 편찬 동료(각색)" }, { "unit_type": "spear", "basis": "호종 병사(각색)" } ],
+   "game_class_gap": "군사 지휘 기록 없음", "notes": "프리셋은 각색. 드라마 설정 배제"
+  },
+  {
+   "code": "jeong_yakyong", "csv_id": 150, "name_ko": "정약용", "pool_unit_type": "healer", "diff_from_pool": false,
+   "proposed_unit_type": "healer", "ideal_v2": "engineer(학자·기술 관료)", "change_needed": null,
+   "rationale": "홍역 치료서 『마과회통』이 있어 healer 각색의 근거가 있으나 대표 업적은 저술·화성 설계라 mage 안도 성립한다. 군사 지휘 기록은 없다.",
+   "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/정약용",
+   "proposed_troops": [ { "unit_type": "healer", "basis": "의학·구휼 인력(각색)" }, { "unit_type": "mage", "basis": "학자·기술자(각색)" }, { "unit_type": "spear", "basis": "호위(각색)" } ],
+   "game_class_gap": "군사 지휘 기록 없음", "notes": "사람 판단: healer vs mage"
+  },
+  {
+   "code": "suleiman_i", "csv_id": 327, "name_ko": "술레이만 1세", "pool_unit_type": "archer", "diff_from_pool": false,
+   "proposed_unit_type": "archer", "ideal_v2": "artillery·예니체리 화기 지휘 군주", "change_needed": null,
+   "rationale": "정복 전역과 법전 편찬이 업적이나 예니체리·포병 편성은 열람 범위에서 확인하지 못했다(verify). 메흐메트 2세(archer)와 겹치므로 사람 조정 대상.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Suleiman_the_Magnificent (편성 서술 unread)",
+   "proposed_troops": [ { "unit_type": "archer", "basis": "화기·포병(각색)" }, { "unit_type": "spear", "basis": "예니체리 보병(각색)" }, { "unit_type": "cavalry", "basis": "시파히 기병(각색)" } ],
+   "game_class_gap": "화승총, 함대", "notes": "사람 판단: archer vs sword vs cavalry"
+  },
+  {
+   "code": "harun_rashid", "csv_id": 318, "name_ko": "하룬 알라시드", "pool_unit_type": "healer", "diff_from_pool": false,
+   "proposed_unit_type": "mage", "ideal_v2": "strategist(통치·외교 칼리프)", "change_needed": null,
+   "rationale": "의료 근거가 없고 비잔티움 원정, 프랑크와의 외교, 라카 천도가 업적이라 mage(통치·외교형)가 사실에 가깝다. healer는 지혜의 집 같은 문화 후원 이미지의 각색이나 지혜의 집은 전설적이다(verify). pool이 healer이므로 변경은 사람 판단.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Harun_al-Rashid",
+   "proposed_troops": [ { "unit_type": "mage", "basis": "궁정 학자·참모(각색)" }, { "unit_type": "cavalry", "basis": "아바스 기병(각색)" }, { "unit_type": "spear", "basis": "근위 보병(각색)" } ],
+   "game_class_gap": "군주의 외교", "notes": "pool(healer)과 다름. 천일야화 배제"
+  },
+  {
+   "code": "khalid_ibn_walid", "csv_id": 320, "name_ko": "할리드 이븐 알왈리드", "pool_unit_type": "cavalry", "diff_from_pool": false,
+   "proposed_unit_type": "cavalry", "ideal_v2": "경기병·기마 지휘관(사막 기동전)", "change_needed": false,
+   "rationale": "우후드에서 메카군 기병 우익을 지휘했고 사막 횡단 기동으로 시리아 전선에 이동했다는 서술이 있어 기병이 문서 근거와 맞는다.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Khalid_ibn_al-Walid",
+   "proposed_troops": [ { "unit_type": "cavalry", "basis": "아랍 기병" }, { "unit_type": "spear", "basis": "아랍 보병(각색)" }, { "unit_type": "archer", "basis": "궁수(각색)" } ],
+   "game_class_gap": "낙타 기동, 사막 행군", "notes": "행군 경로는 전승마다 다름"
+  },
+  {
+   "code": "alp_arslan", "csv_id": 343, "name_ko": "알프 아르슬란", "pool_unit_type": "cavalry", "diff_from_pool": false,
+   "proposed_unit_type": "cavalry", "ideal_v2": "horse_archer(기마궁병)", "change_needed": null,
+   "rationale": "셀주크군의 주력이 투르크 기마(기마궁병)였다는 것은 통설이나 열람 문서 발췌에서 병종 서술을 확인하지 못했다(unread, verify). 만지케르트 승리의 지휘관이므로 cavalry를 각색한다.",
+   "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Alp_Arslan (편성 서술 unread)",
+   "proposed_troops": [ { "unit_type": "cavalry", "basis": "투르크 기마(각색)" }, { "unit_type": "archer", "basis": "기마궁을 도보 궁수로 대체(각색)" }, { "unit_type": "spear", "basis": "보병(각색)" } ],
+   "game_class_gap": "기마궁병, 이크타 병력", "notes": "기병 비중이 높아 사람 조정 가능"
+  },
+  {
+   "code": "jalal_ad_din", "csv_id": 357, "name_ko": "자랄 앗딘 망구베르디", "pool_unit_type": "cavalry", "diff_from_pool": false,
+   "proposed_unit_type": "cavalry", "ideal_v2": "투르크계 기병 지휘관", "change_needed": null,
+   "rationale": "호라즘 군의 병종 구성은 열람 문서에서 확인하지 못했다(verify). 파르완 승리와 장거리 이동 저항 이미지로 cavalry를 각색한다.",
+   "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Jalal_ad-Din_Mingburnu (편성 서술 없음)",
+   "proposed_troops": [ { "unit_type": "cavalry", "basis": "투르크계 기병(각색)" }, { "unit_type": "archer", "basis": "궁수(각색)" }, { "unit_type": "spear", "basis": "보병(각색)" } ],
+   "game_class_gap": "장거리 이동 저항", "notes": "기병 비중이 높아 사람 조정 가능"
+  }
+ ],
+ "overrides_r4": [
+  {
+   "csv_id": 144,
+   "name_ko": "곽재우",
+   "supersedes": "items[csv_id=144](기존 항목은 수정하지 않음)",
+   "proposed_unit_type": "archer",
+   "ideal_v2": "militia(의병) 유격 지휘관",
+   "rationale": "기병 병종이 이미 6명이라 겹침을 피하고, 의병 매복·유격전 소재에 맞춰 궁수로 정한다. 문서(Hawley 2005 인용)에서 의병 결성, 낙동강 일본군 보급로 교란, 의령 남강 도하 저지는 확인되나 도하 저지 서술에 citation needed가 있고 병종 구성은 문서에 없다. 홍의 때문에 기병을 연상할 수 있으나 말을 탔다는 근거도 확인하지 못했다. 단정하지 말고 각색으로 표기.",
+   "evidence_level": "verify",
+   "source": "https://en.wikipedia.org/wiki/Gwak_Jae-u ; Hawley 2005 The Imjin War(문서 인용)",
+   "proposed_troops": [
+    { "unit_type": "archer", "basis": "의병 궁수(각색, verify)" },
+    { "unit_type": "spear", "basis": "의병 근접 인원(각색)" },
+    { "unit_type": "sword", "basis": "근접 보병(각색)" }
+   ],
+   "game_class_gap": "의병, 매복 특성",
+   "notes": "사람 판단: archer vs cavalry. 스킬은 효과 중심 중립명만 사용"
+  }
+ ]
+}

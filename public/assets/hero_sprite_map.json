@@ -1,0 +1,1118 @@
+{
+ "version": 1,
+ "note": "FE 는 speaker/유닛의 영웅 code(없으면 CSV id)로 hero_sprite_assign.json 의 sprite_key 를 찾고, 없으면 rules 로 계산. 키에 .ally.64/.enemy.64 를 붙여 manifest 에서 조회",
+ "priority": [
+  "unit.hero.<code>(전용)",
+  "rarity S/A(기존 SSR/SR) 인데 전용 없음 → missing_dedicated 보고(임시로 풀)",
+  "unit.cmd.<pool_id>(풀)",
+  "unit.<unit_type>(병종 공용)"
+ ],
+ "exceptions": {
+  "yi_sun_sin": "unit.hero.yi_sun_sin",
+  "alexander": "unit.hero.alexander",
+  "genghis_khan": "unit.hero.genghis_khan",
+  "hannibal": "unit.hero.hannibal",
+  "joan_of_arc": "unit.hero.joan_of_arc",
+  "gwanggaeto": "unit.hero.gwanggaeto",
+  "zhuge_liang": "unit.hero.zhuge_liang",
+  "gwak_jaeu": "unit.hero.gwak_jaeu",
+  "kim_simin": "unit.hero.kim_simin",
+  "hyujeong": "unit.hero.hyujeong",
+  "yujeong": "unit.hero.yujeong",
+  "gwon_yul": "unit.hero.gwon_yul"
+ },
+ "rarity_scale": "S/A/B/C (기존 SSR→S, SR→A, R→B). S/A 는 전용 스프라이트 필수",
+ "dedicated_required": [
+  {
+   "code": "yi_sun_sin",
+   "rarity": "S",
+   "ready": true
+  },
+  {
+   "code": "alexander",
+   "rarity": "S",
+   "ready": true
+  },
+  {
+   "code": "genghis_khan",
+   "rarity": "S",
+   "ready": true
+  },
+  {
+   "code": "hannibal",
+   "rarity": "A",
+   "ready": true
+  },
+  {
+   "code": "joan_of_arc",
+   "rarity": "A",
+   "ready": true
+  },
+  {
+   "code": "gwanggaeto",
+   "rarity": "A",
+   "ready": true
+  },
+  {
+   "code": "zhuge_liang",
+   "rarity": "A",
+   "ready": true
+  }
+ ],
+ "rules": {
+  "region_must_match": true,
+  "score": {
+   "era_match": 40,
+   "gender_match": 30,
+   "female_hero_male_pool_penalty": -25,
+   "unit_type_match": 20,
+   "role_keyword_match": 25
+  },
+  "tie_break": "FNV-1a hash(id:name_ko) % candidates (결정론적)",
+  "gender_guess": "role/story 키워드(여왕·왕비·황후·여제·수녀·성녀·여성 등) → f, 그 외 m (CSV 에 성별 없음, verify)",
+  "class_to_unit": {
+   "지휘관": "sword",
+   "책략가": "mage",
+   "중장갑": "heavy",
+   "궁수": "archer",
+   "치유사": "healer",
+   "기병": "cavalry",
+   "보병": "spear",
+   "암살자": "archer"
+  }
+ },
+ "pool": [
+  {
+   "pool_id": "ea_joseon_general",
+   "key": "unit.cmd.ea_joseon_general",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "근세",
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "archer",
+    "sword",
+    "heavy"
+   ],
+   "desc": "조선 무관: 첨주 달린 조선식 투구, 붉은 두정갑(금속 징), 환도(곧은 외날, 일본도 금지), 각궁"
+  },
+  {
+   "pool_id": "ea_joseon_scholar",
+   "key": "unit.cmd.ea_joseon_scholar",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "근세",
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "mage",
+    "healer"
+   ],
+   "desc": "조선 문관: 검은 사모(관모)와 단령(짙은 청색 관복), 흉배, 손에 책과 붓"
+  },
+  {
+   "pool_id": "ea_goguryeo_general",
+   "key": "unit.cmd.ea_goguryeo_general",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "고대",
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "spear",
+    "cavalry",
+    "heavy"
+   ],
+   "desc": "고구려 장수: 새 깃 장식 종장판 투구, 철 찰갑, 긴 창, 짙은 남색 망토"
+  },
+  {
+   "pool_id": "ea_silla_hwarang",
+   "key": "unit.cmd.ea_silla_hwarang",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "고대",
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "cavalry"
+   ],
+   "desc": "신라 화랑풍 젊은 장수: 금동 장식 투구, 흰 비단 전포 위 가죽 갑옷, 환두대도(둥근 고리 손잡이 검)"
+  },
+  {
+   "pool_id": "ea_silla_queen",
+   "key": "unit.cmd.ea_silla_queen",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "고대",
+    "중세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "healer",
+    "mage"
+   ],
+   "desc": "고대 한국 여왕: 금관(나뭇가지 모양 세움 장식)과 금 귀걸이, 흰 저고리에 붉은 치마, 긴 겉옷"
+  },
+  {
+   "pool_id": "ea_han_general",
+   "key": "unit.cmd.ea_han_general",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "고대"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "spear",
+    "cavalry"
+   ],
+   "desc": "한(漢)대 장수: 붉은 술 달린 철 투구, 검은 가죽 찰갑에 붉은 전포, 긴 직검(환수도), 붉은 망토"
+  },
+  {
+   "pool_id": "ea_han_strategist",
+   "key": "unit.cmd.ea_han_strategist",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "고대",
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "mage"
+   ],
+   "desc": "한·삼국 책사: 흰 학창의(검은 테두리), 천 두건, 깃털 부채 또는 죽간"
+  },
+  {
+   "pool_id": "ea_tang_general",
+   "key": "unit.cmd.ea_tang_general",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "cavalry",
+    "heavy",
+    "sword"
+   ],
+   "desc": "당(唐)대 장수: 복발형 투구(양옆 봉황 날개 장식), 가슴에 둥근 호심경이 달린 명광개, 붉은 전포, 장검"
+  },
+  {
+   "pool_id": "ea_song_minister",
+   "key": "unit.cmd.ea_song_minister",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "mage",
+    "healer"
+   ],
+   "desc": "송·명 문관: 양쪽으로 길게 뻗은 날개 달린 검은 복두, 붉은 관복, 홀(笏)을 두 손에 듦"
+  },
+  {
+   "pool_id": "ea_chinese_emperor",
+   "key": "unit.cmd.ea_chinese_emperor",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "고대",
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "mage"
+   ],
+   "desc": "중국 황제: 구슬 발이 늘어진 면류관, 검은 바탕에 금색 용 문양 곤룡포, 위엄 있는 자세"
+  },
+  {
+   "pool_id": "ea_chinese_empress",
+   "key": "unit.cmd.ea_chinese_empress",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "고대",
+    "중세",
+    "근세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "healer",
+    "mage"
+   ],
+   "desc": "중국 황후: 봉황 장식 봉관, 붉은 바탕 금색 자수 예복과 하피(어깨 띠), 긴 소매"
+  },
+  {
+   "pool_id": "ea_korean_queen",
+   "key": "unit.cmd.ea_korean_queen",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "근세",
+    "중세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "healer"
+   ],
+   "desc": "조선 왕비: 큰 가체 머리와 떨잠, 붉은 적의(금박 문양), 단정한 자세"
+  },
+  {
+   "pool_id": "ea_japanese_court_lady",
+   "key": "unit.cmd.ea_japanese_court_lady",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "중세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "mage",
+    "healer"
+   ],
+   "desc": "헤이안 궁중 여성: 겹겹이 색이 보이는 주니히토에, 긴 검은 머리, 쥘부채"
+  },
+  {
+   "pool_id": "ea_samurai_daimyo",
+   "key": "unit.cmd.ea_samurai_daimyo",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "heavy",
+    "cavalry"
+   ],
+   "desc": "일본 전국시대 다이묘: 앞장식(마에다테) 달린 가부토 투구, 오요로이 갑옷, 진바오리, 일본도. 중국식 요소 금지"
+  },
+  {
+   "pool_id": "ea_onna_musha",
+   "key": "unit.cmd.ea_onna_musha",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "중세",
+    "근세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "spear",
+    "archer"
+   ],
+   "desc": "일본 여성 무사(온나무샤): 흰 머리띠, 가벼운 도마루 갑옷, 긴 나기나타"
+  },
+  {
+   "pool_id": "ea_mongol_khan",
+   "key": "unit.cmd.ea_mongol_khan",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "archer",
+    "cavalry"
+   ],
+   "desc": "몽골 대칸: 모피 테두리 가죽 모자, 가죽 라멜라 갑옷과 델, 활과 화살통. 한자·일본식 요소 금지"
+  },
+  {
+   "pool_id": "ea_jurchen_rider",
+   "key": "unit.cmd.ea_jurchen_rider",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "중세",
+    "근세",
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "cavalry",
+    "archer"
+   ],
+   "desc": "여진·청 기병 지휘관: 붉은 술이 달린 뾰족 투구, 남색 면갑(징 박힌 천 갑옷), 활, 변발"
+  },
+  {
+   "pool_id": "ea_monk_commander",
+   "key": "unit.cmd.ea_monk_commander",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "고대",
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "healer",
+    "mage"
+   ],
+   "desc": "동아시아 승려 지휘관: 삭발, 회색 장삼과 갈색 가사, 염주, 고리 달린 석장"
+  },
+  {
+   "pool_id": "ea_modern_officer",
+   "key": "unit.cmd.ea_modern_officer",
+   "ready": false,
+   "region": "동아시아",
+   "eras": [
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "archer",
+    "sword"
+   ],
+   "desc": "19세기 동아시아 신식 군 장교: 서양식 군복에 동아시아 장식, 챙 모자, 군도·권총 없이 지휘봉"
+  },
+  {
+   "pool_id": "eu_greek_hoplite",
+   "key": "unit.cmd.eu_greek_hoplite",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "고대"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "spear",
+    "heavy"
+   ],
+   "desc": "고대 그리스 중장보병 지휘관: 말총 장식 코린트식 청동 투구, 청동 흉갑, 큰 둥근 방패(호플론), 창"
+  },
+  {
+   "pool_id": "eu_macedon_king",
+   "key": "unit.cmd.eu_macedon_king",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "고대"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "cavalry"
+   ],
+   "desc": "마케도니아 왕·기병 지휘관: 프리기아식 청동 투구, 근육 흉갑, 붉은 망토, 짧은 검, 말에 탄 모습"
+  },
+  {
+   "pool_id": "eu_roman_legate",
+   "key": "unit.cmd.eu_roman_legate",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "고대"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "heavy",
+    "sword"
+   ],
+   "desc": "로마 장군: 붉은 크레스트 투구, 근육 흉갑과 어깨 가죽 띠, 붉은 망토(팔루다멘툼), 글라디우스"
+  },
+  {
+   "pool_id": "eu_roman_empress",
+   "key": "unit.cmd.eu_roman_empress",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "고대"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "healer",
+    "mage"
+   ],
+   "desc": "로마 귀족 여성: 스톨라와 팔라(긴 천 겉옷), 머리에 금 디아뎀, 올림머리"
+  },
+  {
+   "pool_id": "eu_celtic_warrior",
+   "key": "unit.cmd.eu_celtic_warrior",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "고대"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "spear"
+   ],
+   "desc": "켈트·갈리아 전사 족장: 긴 머리와 콧수염, 목에 금 토르크, 체크무늬 바지, 긴 검과 타원 방패"
+  },
+  {
+   "pool_id": "eu_viking_jarl",
+   "key": "unit.cmd.eu_viking_jarl",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "heavy",
+    "sword"
+   ],
+   "desc": "바이킹 수장: 코가리개 달린 둥근 철 투구(뿔 없음), 사슬갑옷과 모피 망토, 도끼와 둥근 방패"
+  },
+  {
+   "pool_id": "eu_byzantine_emperor",
+   "key": "unit.cmd.eu_byzantine_emperor",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "mage",
+    "healer",
+    "sword"
+   ],
+   "desc": "비잔티움 황제: 보석 달린 관(스템마), 자주색·금색 로로스 예복, 손에 보주와 홀"
+  },
+  {
+   "pool_id": "eu_crusader_knight",
+   "key": "unit.cmd.eu_crusader_knight",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "heavy",
+    "cavalry"
+   ],
+   "desc": "중세 기사: 통형 대투구(그레이트 헬름), 사슬갑옷 위 단색 서코트, 연 모양 방패, 장검"
+  },
+  {
+   "pool_id": "eu_knight_f",
+   "key": "unit.cmd.eu_knight_f",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "중세",
+    "근세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "sword",
+    "cavalry"
+   ],
+   "desc": "중세 후기 여성 기사: 투구 없이 짧은 머리, 흰 판금 갑옷, 검과 깃발"
+  },
+  {
+   "pool_id": "eu_medieval_king",
+   "key": "unit.cmd.eu_medieval_king",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword"
+   ],
+   "desc": "중세 유럽 왕: 금 왕관, 사슬갑옷 위 문장 없는 붉은 서코트, 모피 안감 망토, 장검"
+  },
+  {
+   "pool_id": "eu_medieval_queen",
+   "key": "unit.cmd.eu_medieval_queen",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "중세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "healer",
+    "mage"
+   ],
+   "desc": "중세 여왕: 작은 금 왕관과 베일, 긴 소매 가운, 모피 망토, 손에 홀"
+  },
+  {
+   "pool_id": "eu_abbess",
+   "key": "unit.cmd.eu_abbess",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "중세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "healer"
+   ],
+   "desc": "중세 수녀원장: 검은 수녀복과 흰 두건, 십자가, 손에 책"
+  },
+  {
+   "pool_id": "eu_condottiere",
+   "key": "unit.cmd.eu_condottiere",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "cavalry",
+    "heavy"
+   ],
+   "desc": "르네상스 용병대장: 깃털 달린 베레, 밀라노식 판금 갑옷, 지휘봉"
+  },
+  {
+   "pool_id": "eu_renaissance_scholar",
+   "key": "unit.cmd.eu_renaissance_scholar",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "mage"
+   ],
+   "desc": "르네상스 학자: 검은 베레와 긴 로브, 천구의 또는 책"
+  },
+  {
+   "pool_id": "eu_musketeer_officer",
+   "key": "unit.cmd.eu_musketeer_officer",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "archer"
+   ],
+   "desc": "17세기 장교: 챙 넓은 깃털 모자, 가죽 버프코트와 가슴 흉갑, 긴 부츠, 머스킷을 세워 듦"
+  },
+  {
+   "pool_id": "eu_pirate_captain_f",
+   "key": "unit.cmd.eu_pirate_captain_f",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "근세",
+    "근대초"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "archer",
+    "sword"
+   ],
+   "desc": "근세 여성 선장: 삼각모, 긴 코트와 허리띠, 커틀러스"
+  },
+  {
+   "pool_id": "eu_admiral",
+   "key": "unit.cmd.eu_admiral",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "근세",
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "archer"
+   ],
+   "desc": "18세기 제독: 삼각모, 금 장식 남색 해군 코트, 망원경"
+  },
+  {
+   "pool_id": "eu_napoleonic_general",
+   "key": "unit.cmd.eu_napoleonic_general",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "cavalry",
+    "sword"
+   ],
+   "desc": "19세기 초 유럽 장군: 쌍각모, 금 견장 달린 짙은 군복, 사벨, 망토"
+  },
+  {
+   "pool_id": "eu_modern_statesman",
+   "key": "unit.cmd.eu_modern_statesman",
+   "ready": false,
+   "region": "유럽",
+   "eras": [
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "mage",
+    "healer"
+   ],
+   "desc": "19세기 정치가·학자: 긴 프록코트와 조끼, 실크해트를 손에, 서류"
+  },
+  {
+   "pool_id": "wa_persian_immortal",
+   "key": "unit.cmd.wa_persian_immortal",
+   "ready": false,
+   "region": "서아시아·중동·중앙아시아",
+   "eras": [
+    "고대"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "archer",
+    "spear"
+   ],
+   "desc": "고대 페르시아 지휘관: 주름 잡힌 긴 옷과 천 두건, 긴 창과 활, 짧은 곱슬 수염"
+  },
+  {
+   "pool_id": "wa_cataphract",
+   "key": "unit.cmd.wa_cataphract",
+   "ready": false,
+   "region": "서아시아·중동·중앙아시아",
+   "eras": [
+    "고대",
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "cavalry",
+    "heavy"
+   ],
+   "desc": "사산·파르티아 중장기병 지휘관: 얼굴을 가린 철 투구, 비늘 갑옷, 긴 창, 말에 탄 모습"
+  },
+  {
+   "pool_id": "wa_caliph",
+   "key": "unit.cmd.wa_caliph",
+   "ready": false,
+   "region": "서아시아·중동·중앙아시아",
+   "eras": [
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "mage",
+    "healer"
+   ],
+   "desc": "중세 이슬람 학자·군주: 검은 터번, 긴 로브와 겉옷, 책 또는 아스트롤라베"
+  },
+  {
+   "pool_id": "wa_mamluk_rider",
+   "key": "unit.cmd.wa_mamluk_rider",
+   "ready": false,
+   "region": "서아시아·중동·중앙아시아",
+   "eras": [
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "cavalry",
+    "archer"
+   ],
+   "desc": "맘루크 기병 지휘관: 터번 두른 뾰족 투구, 사슬갑옷, 곡도, 활"
+  },
+  {
+   "pool_id": "wa_ottoman_sultan",
+   "key": "unit.cmd.wa_ottoman_sultan",
+   "ready": false,
+   "region": "서아시아·중동·중앙아시아",
+   "eras": [
+    "근세",
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "heavy"
+   ],
+   "desc": "오스만 술탄: 깃털 장식(에그레트) 큰 터번, 금 자수 카프탄, 곡도"
+  },
+  {
+   "pool_id": "wa_persian_queen",
+   "key": "unit.cmd.wa_persian_queen",
+   "ready": false,
+   "region": "서아시아·중동·중앙아시아",
+   "eras": [
+    "고대",
+    "중세",
+    "근세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "healer",
+    "mage"
+   ],
+   "desc": "페르시아·중동 여왕: 금 장식 머리 베일, 긴 자수 드레스, 귀걸이"
+  },
+  {
+   "pool_id": "wa_steppe_archer_f",
+   "key": "unit.cmd.wa_steppe_archer_f",
+   "ready": false,
+   "region": "서아시아·중동·중앙아시아",
+   "eras": [
+    "고대",
+    "중세"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "archer",
+    "cavalry"
+   ],
+   "desc": "스키타이·초원 여전사: 뾰족한 펠트 모자, 가죽 갑옷과 바지, 짧은 합성궁"
+  },
+  {
+   "pool_id": "wa_central_asian_scholar",
+   "key": "unit.cmd.wa_central_asian_scholar",
+   "ready": false,
+   "region": "서아시아·중동·중앙아시아",
+   "eras": [
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "mage"
+   ],
+   "desc": "중앙아시아 학자: 둥근 모자와 긴 줄무늬 겉옷(차판), 두루마리와 천문 기구"
+  },
+  {
+   "pool_id": "sa_rajput_king",
+   "key": "unit.cmd.sa_rajput_king",
+   "ready": false,
+   "region": "남·동남아시아",
+   "eras": [
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "cavalry"
+   ],
+   "desc": "인도 라지푸트·무굴 군주: 보석 장식 터번, 긴 쿠르타와 가슴 갑옷, 탈와르(곡도), 콧수염"
+  },
+  {
+   "pool_id": "sa_elephant_commander",
+   "key": "unit.cmd.sa_elephant_commander",
+   "ready": false,
+   "region": "남·동남아시아",
+   "eras": [
+    "고대",
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "heavy"
+   ],
+   "desc": "인도 코끼리 기수 지휘관: 작은 코끼리 위 가마에 탄 장수(코끼리와 기수를 한 캐릭터로), 창"
+  },
+  {
+   "pool_id": "sa_khmer_king",
+   "key": "unit.cmd.sa_khmer_king",
+   "ready": false,
+   "region": "남·동남아시아",
+   "eras": [
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "spear"
+   ],
+   "desc": "크메르 왕: 뾰족한 탑 모양 금관, 어깨 장식과 삼폿(허리천), 창"
+  },
+  {
+   "pool_id": "sa_indian_queen",
+   "key": "unit.cmd.sa_indian_queen",
+   "ready": false,
+   "region": "남·동남아시아",
+   "eras": [
+    "중세",
+    "근세",
+    "근대초"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "archer",
+    "cavalry",
+    "healer"
+   ],
+   "desc": "인도 여왕: 사리와 작은 왕관, 금 장신구, 손에 활 또는 검"
+  },
+  {
+   "pool_id": "sa_southeast_general",
+   "key": "unit.cmd.sa_southeast_general",
+   "ready": false,
+   "region": "남·동남아시아",
+   "eras": [
+    "근세",
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "spear",
+    "sword"
+   ],
+   "desc": "동남아 장군: 뾰족한 투구, 자수 상의와 긴 천 바지, 긴 창"
+  },
+  {
+   "pool_id": "af_pharaoh",
+   "key": "unit.cmd.af_pharaoh",
+   "ready": false,
+   "region": "아프리카",
+   "eras": [
+    "고대"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "archer"
+   ],
+   "desc": "이집트 파라오: 줄무늬 네메스 두건과 코브라 장식, 금 목걸이, 흰 킬트, 굽은 검(코페시)"
+  },
+  {
+   "pool_id": "af_egyptian_queen",
+   "key": "unit.cmd.af_egyptian_queen",
+   "ready": false,
+   "region": "아프리카",
+   "eras": [
+    "고대"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "healer",
+    "mage"
+   ],
+   "desc": "이집트 여왕: 독수리 장식 왕관, 흰 린넨 드레스, 넓은 금 목걸이"
+  },
+  {
+   "pool_id": "af_nubian_archer",
+   "key": "unit.cmd.af_nubian_archer",
+   "ready": false,
+   "region": "아프리카",
+   "eras": [
+    "고대",
+    "중세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "archer"
+   ],
+   "desc": "누비아·쿠시 궁수 지휘관: 짧은 머리와 금 머리띠, 가죽 띠, 긴 활"
+  },
+  {
+   "pool_id": "af_ethiopian_emperor",
+   "key": "unit.cmd.af_ethiopian_emperor",
+   "ready": false,
+   "region": "아프리카",
+   "eras": [
+    "중세",
+    "근세",
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "cavalry"
+   ],
+   "desc": "에티오피아 황제: 금 왕관, 흰 샴마 천 겉옷 위 붉은 망토, 사자 갈기 장식, 검"
+  },
+  {
+   "pool_id": "af_zulu_commander",
+   "key": "unit.cmd.af_zulu_commander",
+   "ready": false,
+   "region": "아프리카",
+   "eras": [
+    "근대초",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "spear"
+   ],
+   "desc": "남아프리카 전사 왕: 머리띠와 깃털 장식, 소가죽 긴 방패, 짧은 찌르는 창"
+  },
+  {
+   "pool_id": "am_aztec_warrior",
+   "key": "unit.cmd.am_aztec_warrior",
+   "ready": false,
+   "region": "아메리카",
+   "eras": [
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "spear",
+    "sword"
+   ],
+   "desc": "아즈텍 독수리 전사 지휘관: 독수리 머리 모양 투구, 깃털 장식, 흑요석 날이 박힌 몽둥이(마쿠아우이틀)"
+  },
+  {
+   "pool_id": "am_inca_sapa",
+   "key": "unit.cmd.am_inca_sapa",
+   "ready": false,
+   "region": "아메리카",
+   "eras": [
+    "중세",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "mage",
+    "healer"
+   ],
+   "desc": "잉카 황제: 붉은 술 머리띠(마스카파이차)와 깃털, 기하 무늬 튜닉, 금 가슴 장식"
+  },
+  {
+   "pool_id": "am_plains_chief",
+   "key": "unit.cmd.am_plains_chief",
+   "ready": false,
+   "region": "아메리카",
+   "eras": [
+    "근대초",
+    "근세"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "archer",
+    "cavalry"
+   ],
+   "desc": "북미 평원 원주민 지도자: 깃털 머리장식, 가죽 옷과 구슬 장식, 활"
+  },
+  {
+   "pool_id": "am_revolution_general",
+   "key": "unit.cmd.am_revolution_general",
+   "ready": false,
+   "region": "아메리카",
+   "eras": [
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "cavalry",
+    "sword"
+   ],
+   "desc": "18~19세기 아메리카 독립전쟁 장군: 삼각모, 금 장식 군복 코트, 사벨"
+  },
+  {
+   "pool_id": "am_native_leader_f",
+   "key": "unit.cmd.am_native_leader_f",
+   "ready": false,
+   "region": "아메리카",
+   "eras": [
+    "근세",
+    "근대초"
+   ],
+   "gender": "f",
+   "unit_types": [
+    "healer",
+    "archer"
+   ],
+   "desc": "아메리카 원주민 여성 지도자: 긴 땋은 머리, 가죽 드레스와 구슬 장식, 깃털"
+  },
+  {
+   "pool_id": "oc_polynesian_chief",
+   "key": "unit.cmd.oc_polynesian_chief",
+   "ready": false,
+   "region": "오세아니아·기타",
+   "eras": [
+    "근세",
+    "근대초"
+   ],
+   "gender": "m",
+   "unit_types": [
+    "sword",
+    "spear"
+   ],
+   "desc": "폴리네시아 추장: 깃털 망토와 깃털 투구, 조개 목걸이, 나무 곤봉"
+  }
+ ],
+ "missing_dedicated": [],
+ "distribution": {
+  "ea_monk_commander": 28,
+  "eu_roman_legate": 27,
+  "ea_chinese_emperor": 26,
+  "am_revolution_general": 23,
+  "wa_caliph": 22,
+  "sa_rajput_king": 20,
+  "af_ethiopian_emperor": 20,
+  "ea_samurai_daimyo": 19,
+  "ea_han_strategist": 18,
+  "eu_napoleonic_general": 17,
+  "eu_modern_statesman": 17,
+  "ea_song_minister": 16,
+  "eu_renaissance_scholar": 16,
+  "ea_han_general": 14,
+  "ea_silla_hwarang": 14,
+  "eu_byzantine_emperor": 14,
+  "sa_indian_queen": 14,
+  "oc_polynesian_chief": 14,
+  "ea_goguryeo_general": 13,
+  "ea_joseon_scholar": 13,
+  "eu_viking_jarl": 13,
+  "wa_cataphract": 13,
+  "am_native_leader_f": 13,
+  "ea_joseon_general": 12,
+  "ea_modern_officer": 12,
+  "eu_admiral": 12,
+  "sa_southeast_general": 12,
+  "af_egyptian_queen": 11,
+  "af_pharaoh": 11,
+  "eu_crusader_knight": 10,
+  "wa_persian_queen": 10,
+  "wa_mamluk_rider": 10,
+  "am_plains_chief": 10,
+  "wa_central_asian_scholar": 9,
+  "sa_elephant_commander": 9,
+  "ea_jurchen_rider": 8,
+  "eu_medieval_queen": 8,
+  "eu_medieval_king": 8,
+  "eu_pirate_captain_f": 8,
+  "wa_persian_immortal": 8,
+  "wa_ottoman_sultan": 8,
+  "eu_condottiere": 7,
+  "ea_tang_general": 6,
+  "eu_greek_hoplite": 6,
+  "eu_musketeer_officer": 6,
+  "af_zulu_commander": 6,
+  "eu_knight_f": 5,
+  "eu_abbess": 5,
+  "af_nubian_archer": 5,
+  "am_aztec_warrior": 5,
+  "ea_chinese_empress": 4,
+  "eu_celtic_warrior": 4,
+  "ea_silla_queen": 3,
+  "am_inca_sapa": 3,
+  "ea_japanese_court_lady": 2,
+  "eu_roman_empress": 2,
+  "ea_korean_queen": 1,
+  "ea_mongol_khan": 1,
+  "ea_onna_musha": 1,
+  "eu_macedon_king": 1
+ },
+ "over_15pct": [],
+ "total_heroes": 659
+}

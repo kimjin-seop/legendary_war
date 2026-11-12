@@ -1,0 +1,483 @@
+{
+ "_note": "cost=null은 통행 불가. def_pct는 방어 보정(%) 시작값. 맵 타일 문자 symbol / 확장 지형(시작값, 임밸런 조정): s여울 b다리 r도로 x늪 n설원사막 k절벽(비행만) W성벽(전부 불가) v마을(방어 보정만, 회복·점령은 미구현) / 지형 2단계 속성(선택): elevation(고지 1), cover(원거리 엄폐 1), heals(턴 종료 회복 1) - 효과는 규칙 플래그(highground_mult 등)가 켜질 때만 / [물 규칙] move_type naval 추가(수병). 신규 지형 o바다 q암초 h항구 d모래 i언덕 V허공 j서가발판은 5종 move_type 전부 명시(RuleSet::terrainMod는 누락 move_type을 cost1로 폴백하므로 누락=통행 가능). water=수상 칸, boarding=비수병 배 탑승 칸(sea·reef) / 총병 사선(LOS) 규칙: blocks_line_of_fire=1 인 칸은 사격자-대상 사이 중간 칸일 때 총병(gunner) 사격을 막는다(사격자·대상 칸 자체는 무관, 유닛은 막지 않음)",
+ "items": [
+  {
+   "code": "plain",
+   "name": "평지",
+   "symbol": "p",
+   "modifiers": {
+    "foot": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "mounted": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": -10
+    }
+   }
+  },
+  {
+   "code": "forest",
+   "name": "숲",
+   "symbol": "f",
+   "modifiers": {
+    "foot": {
+     "cost": 2,
+     "def_pct": 20
+    },
+    "mounted": {
+     "cost": 3,
+     "def_pct": 20
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 3,
+     "def_pct": 10
+    }
+   },
+   "cover": 1,
+   "blocks_line_of_fire": 1
+  },
+  {
+   "code": "mountain",
+   "name": "산",
+   "symbol": "m",
+   "modifiers": {
+    "foot": {
+     "cost": 3,
+     "def_pct": 30
+    },
+    "mounted": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": null,
+     "def_pct": 0
+    }
+   },
+   "elevation": 1,
+   "blocks_line_of_fire": 1
+  },
+  {
+   "code": "water",
+   "name": "물",
+   "symbol": "w",
+   "modifiers": {
+    "foot": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "mounted": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": 20
+    }
+   },
+   "water": 1
+  },
+  {
+   "code": "castle",
+   "name": "성",
+   "symbol": "c",
+   "modifiers": {
+    "foot": {
+     "cost": 1,
+     "def_pct": 30
+    },
+    "mounted": {
+     "cost": 1,
+     "def_pct": 30
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 30
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": 20
+    }
+   },
+   "blocks_line_of_fire": 1
+  },
+  {
+   "code": "shallows",
+   "name": "얕은 여울",
+   "symbol": "s",
+   "modifiers": {
+    "foot": {
+     "cost": 2,
+     "def_pct": -10
+    },
+    "mounted": {
+     "cost": 2,
+     "def_pct": -10
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": 10
+    }
+   },
+   "water": 1
+  },
+  {
+   "code": "bridge",
+   "name": "다리",
+   "symbol": "b",
+   "modifiers": {
+    "foot": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "mounted": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": 0
+    }
+   }
+  },
+  {
+   "code": "road",
+   "name": "도로",
+   "symbol": "r",
+   "modifiers": {
+    "foot": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "mounted": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": 0
+    }
+   }
+  },
+  {
+   "code": "swamp",
+   "name": "늪",
+   "symbol": "x",
+   "modifiers": {
+    "foot": {
+     "cost": 3,
+     "def_pct": -10
+    },
+    "mounted": {
+     "cost": null,
+     "def_pct": -10
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 3,
+     "def_pct": -10
+    }
+   }
+  },
+  {
+   "code": "snow_desert",
+   "name": "설원·사막",
+   "symbol": "n",
+   "modifiers": {
+    "foot": {
+     "cost": 2,
+     "def_pct": 0
+    },
+    "mounted": {
+     "cost": 2,
+     "def_pct": 0
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 3,
+     "def_pct": -10
+    }
+   }
+  },
+  {
+   "code": "cliff",
+   "name": "절벽",
+   "symbol": "k",
+   "modifiers": {
+    "foot": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "mounted": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": null,
+     "def_pct": 0
+    }
+   },
+   "blocks_line_of_fire": 1
+  },
+  {
+   "code": "wall",
+   "name": "성벽",
+   "symbol": "W",
+   "modifiers": {
+    "foot": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "mounted": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "flying": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": null,
+     "def_pct": 0
+    }
+   },
+   "elevation": 1,
+   "blocks_line_of_fire": 1
+  },
+  {
+   "code": "village",
+   "name": "마을",
+   "symbol": "v",
+   "modifiers": {
+    "foot": {
+     "cost": 1,
+     "def_pct": 10
+    },
+    "mounted": {
+     "cost": 1,
+     "def_pct": 10
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": 0
+    }
+   },
+   "heals": 1
+  },
+  {
+   "code": "sea",
+   "name": "바다",
+   "symbol": "o",
+   "modifiers": {
+    "foot": {
+     "cost": 2,
+     "def_pct": -10
+    },
+    "mounted": {
+     "cost": 3,
+     "def_pct": -10
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": 25
+    }
+   },
+   "water": 1,
+   "boarding": 1
+  },
+  {
+   "code": "reef",
+   "name": "암초",
+   "symbol": "q",
+   "modifiers": {
+    "foot": {
+     "cost": 3,
+     "def_pct": 5
+    },
+    "mounted": {
+     "cost": 4,
+     "def_pct": 5
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 2,
+     "def_pct": 35
+    }
+   },
+   "cover": 1,
+   "water": 1,
+   "boarding": 1
+  },
+  {
+   "code": "harbor",
+   "name": "항구",
+   "symbol": "h",
+   "modifiers": {
+    "foot": {
+     "cost": 1,
+     "def_pct": 10
+    },
+    "mounted": {
+     "cost": 1,
+     "def_pct": 10
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": 15
+    }
+   },
+   "water": 1
+  },
+  {
+   "code": "sand",
+   "name": "모래",
+   "symbol": "d",
+   "modifiers": {
+    "foot": {
+     "cost": 1,
+     "def_pct": -5
+    },
+    "mounted": {
+     "cost": 2,
+     "def_pct": -5
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": 1,
+     "def_pct": -10
+    }
+   }
+  },
+  {
+   "code": "hill",
+   "name": "언덕",
+   "symbol": "i",
+   "modifiers": {
+    "foot": {
+     "cost": 2,
+     "def_pct": 15
+    },
+    "mounted": {
+     "cost": 2,
+     "def_pct": 15
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": null,
+     "def_pct": 0
+    }
+   },
+   "elevation": 1
+  },
+  {
+   "code": "void",
+   "name": "허공",
+   "symbol": "V",
+   "modifiers": {
+    "foot": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "mounted": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "flying": {
+     "cost": null,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": null,
+     "def_pct": 0
+    }
+   }
+  },
+  {
+   "code": "rift_plank",
+   "name": "서가 발판",
+   "symbol": "j",
+   "modifiers": {
+    "foot": {
+     "cost": 1,
+     "def_pct": -10
+    },
+    "mounted": {
+     "cost": 1,
+     "def_pct": -10
+    },
+    "flying": {
+     "cost": 1,
+     "def_pct": 0
+    },
+    "naval": {
+     "cost": null,
+     "def_pct": 0
+    }
+   }
+  }
+ ]
+}

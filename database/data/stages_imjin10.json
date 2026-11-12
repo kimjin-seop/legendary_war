@@ -1,0 +1,1752 @@
+{
+  "_note": "[박백엔, 임시 v0] ch1_s1~s10 임진왜란 10맵 재배정 시드 입력(game:seed-imjin10). enemy_squad는 4부대(본대 지휘관 + squads 3) 임시 편성이며 임밸런 stages_ch1_enemy_v3.json 도착 시 --enemy 옵션/교체 대상. 수치 전부 가정 시작값. triggers.zone = 맵 meta.enemy_extra_zones 이름. forced_heroes: 해전 4종 이순신 수군 대여(unit_type/troop_type naval). 주인공(@protagonist)은 --with-protagonist 옵션으로만 추가",
+  "map_meta_patch": {
+    "im_04_jinju": {
+      "enemy_extra_zones": {
+        "outer_east": [
+          [
+            23,
+            4
+          ],
+          [
+            23,
+            5
+          ],
+          [
+            23,
+            6
+          ],
+          [
+            23,
+            7
+          ]
+        ]
+      }
+    },
+    "im_06_haengju": {
+      "enemy_extra_zones": {
+        "flank": [
+          [
+            3,
+            15
+          ],
+          [
+            3,
+            16
+          ],
+          [
+            20,
+            15
+          ],
+          [
+            20,
+            16
+          ]
+        ]
+      }
+    },
+    "im_07_noryang": {
+      "enemy_extra_zones": {
+        "rear": [
+          [
+            22,
+            8
+          ],
+          [
+            22,
+            9
+          ],
+          [
+            22,
+            10
+          ],
+          [
+            22,
+            11
+          ]
+        ]
+      }
+    },
+    "su_ch1_s4_jinju": {
+      "enemy_extra_zones": {
+        "outer_east": [
+          [
+            31,
+            9
+          ],
+          [
+            31,
+            10
+          ],
+          [
+            31,
+            11
+          ],
+          [
+            31,
+            12
+          ]
+        ]
+      }
+    },
+    "su_ch1_s7_noryang": {
+      "enemy_extra_zones": {
+        "rear": [
+          [
+            26,
+            10
+          ],
+          [
+            26,
+            11
+          ],
+          [
+            26,
+            12
+          ],
+          [
+            26,
+            13
+          ]
+        ]
+      }
+    }
+  },
+  "items": [
+    {
+      "code": "ch1_s1",
+      "map": "su_ch1_s1_okpo",
+      "objective": {
+        "type": "defeat_commander"
+      },
+      "triggers": [],
+      "rules": {
+        "factions": {
+          "ally": "조선 수군",
+          "enemy": "일본 수군"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 14,
+            "y": 13,
+            "must_survive": false
+          },
+          {
+            "hero": "npc_jeong_un",
+            "x": 17,
+            "y": 9,
+            "must_survive": false
+          },
+          {
+            "hero": "npc_won_gyun",
+            "x": 18,
+            "y": 19,
+            "must_survive": false
+          }
+        ],
+        "enemy_commander": {
+          "name": "도도 다카토라",
+          "hero": "npc_todo_takatora"
+        },
+        "cues": [
+          { "on": { "battle_start": true }, "do": "camera", "tile": [13, 16], "ms": 600 },
+          { "on": { "battle_start": true }, "do": "spawn_actor", "actor": "ox_r1", "tile": [16, 16], "side": "b", "sprite": { "unit_type": "sword" }, "name": "왜군", "facing": "left", "fx": "ship" },
+          { "on": { "battle_start": true }, "do": "spawn_actor", "actor": "ox_r2", "tile": [16, 17], "side": "b", "sprite": { "unit_type": "sword" }, "name": "왜군", "facing": "left", "fx": "ship" },
+          { "on": { "battle_start": true }, "do": "parallel", "cues": [
+            { "do": "walk", "actor": "ox_r1", "path": [[15, 16], [14, 16], [13, 16], [12, 16], [11, 16], [10, 16]], "speed": 3 },
+            { "do": "walk", "actor": "ox_r2", "path": [[15, 17], [14, 17], [13, 17], [12, 17], [11, 17], [11, 16]], "speed": 3 }
+          ] },
+          { "on": { "battle_start": true }, "do": "face", "actor": "ox_r1", "dir": "up" },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "actor:ox_r1", "actor": "ox_r1", "text": "곳간이다. 쌀은 배에 실을 만큼만 퍼라. 나머지는 여기 남는다." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "actor:ox_r2", "actor": "ox_r2", "text": "남는 걸 마을 사람들이 먹으면 어쩝니까. 그럼 우리가 다음에 올 때 더 힘든 싸움이 될 텐데요." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "actor:ox_r1", "actor": "ox_r1", "text": "그래서 태우고 간다. ...표정 풀어라. 대장 명이다. 횃불 이리 내라." },
+          { "on": { "battle_start": true }, "do": "fire", "tiles": [[10, 14], [10, 15]], "turns": 1 },
+          { "on": { "battle_start": true }, "do": "sfx", "key": "sfx_fire" },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "actor:ox_r2", "actor": "ox_r2", "text": "......가자. 배가 기다린다. 여기서 뭘 보든 못 본 걸로 하자." },
+          { "on": { "battle_start": true }, "do": "face", "actor": "ox_r1", "dir": "right" },
+          { "on": { "battle_start": true }, "do": "parallel", "cues": [
+            { "do": "walk", "actor": "ox_r1", "path": [[11, 16], [12, 16], [13, 16], [14, 16], [15, 16], [16, 16]], "speed": 4 },
+            { "do": "walk", "actor": "ox_r2", "path": [[11, 17], [12, 17], [13, 17], [14, 17], [15, 17], [16, 17]], "speed": 4 }
+          ] },
+          { "on": { "battle_start": true }, "do": "despawn_actor", "actor": "ox_r1", "fx": "ship" },
+          { "on": { "battle_start": true }, "do": "despawn_actor", "actor": "ox_r2", "fx": "ship" },
+          { "on": { "battle_start": true }, "do": "camera", "tile": [10, 14], "ms": 500 },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "say",
+            "speaker": "hero:npc_jeong_un",
+            "expr": "serious",
+            "text": "방금 놈들이 던진 횃불입니다! 곳간에 이어 마른 초가 지붕까지 곧 옮겨 붙겠습니다. 저 배들은 아직 닻도 못 올렸습니다. 서두르십시오."
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "tile": [
+              10,
+              14
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "fire",
+            "tiles": [
+              [
+                9,
+                13
+              ],
+              [
+                10,
+                13
+              ],
+              [
+                9,
+                14
+              ],
+              [
+                10,
+                14
+              ],
+              [
+                9,
+                15
+              ],
+              [
+                10,
+                15
+              ]
+            ],
+            "turns": 2
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "sfx",
+            "key": "sfx_fire"
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "say",
+            "speaker": "hero:gwak_jae_u",
+            "expr": "serious",
+            "text": "불똥이 이웃 지붕으로 넘어갔소. 성문 앞 마당까지 닿겠군."
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "say",
+            "speaker": "hero:yi_sun_sin",
+            "expr": "neutral",
+            "text": "불은 뭍의 일이오. 우리는 물 위의 놈들을 보시오."
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_jeong_un",
+            "expr": "neutral",
+            "text": "불길이 잦아듭니다. 연기 사이로 저들 닻줄이 보입니다."
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "tile": [
+              25,
+              19
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "say",
+            "speaker": "hero:gwak_jae_u",
+            "expr": "neutral",
+            "text": "저쪽 물빛이 다르오."
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "move",
+            "unit": "hero:npc_won_gyun",
+            "to": [
+              21,
+              18
+            ]
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:npc_won_gyun",
+            "expr": "serious",
+            "text": "앞은 내 배요!"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:yi_sun_sin",
+            "expr": "serious",
+            "text": "줄을 지키시오. 신호를 보시오."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "set_flag",
+            "key": "okpo_wongyun_out",
+            "value": true
+          },
+          {
+            "on": {
+              "turn": 4,
+              "when": {
+                "type": "flag",
+                "key": "okpo_wongyun_out"
+              }
+            },
+            "do": "move",
+            "unit": "hero:npc_won_gyun",
+            "to": [
+              20,
+              17
+            ]
+          },
+          {
+            "on": {
+              "turn": 4,
+              "when": {
+                "type": "flag",
+                "key": "okpo_wongyun_out"
+              }
+            },
+            "do": "say",
+            "speaker": "hero:npc_won_gyun",
+            "expr": "neutral",
+            "text": "……신호 봤소. 줄에 들겠소."
+          },
+          {
+            "on": {
+              "turn": 3,
+              "when": {
+                "type": "hp_pct_lte",
+                "unit": "enemy_commander",
+                "pct": 40
+              }
+            },
+            "do": "say",
+            "speaker": "hero:npc_jeong_un",
+            "expr": "serious",
+            "text": "지휘선이 흔들립니다. 지금입니다."
+          },
+          {
+            "on": {
+              "turn": 3,
+              "when": {
+                "type": "hp_pct_lte",
+                "unit": "enemy_commander",
+                "pct": 40
+              }
+            },
+            "do": "sfx",
+            "key": "sfx_battle_roar"
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "tile": [
+              14,
+              13
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "say",
+            "speaker": "hero:gwak_jae_u",
+            "expr": "neutral",
+            "text": "후미는 비었소. 뒤는 걱정 마시오."
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "restore"
+          }
+        ]
+      },
+      "forced_heroes": [
+        "@protagonist",
+        {
+          "hero": "yi_sun_sin",
+          "unit_type": "naval",
+          "troop_type": "naval"
+        }
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s1_v0",
+        "name": "옥포의 첫 승전 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "도도 다카토라",
+          "name_evidence": "accepted",
+          "unit_type": "naval",
+          "hp_mult": 1.0,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "naval"
+        },
+        "units": [
+          "naval"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 선봉장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 좌익장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 우익장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "ch1_s2",
+      "map": "su_ch1_s2_jeongamjin",
+      "objective": {
+        "type": "defeat_commander"
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s2_v0",
+        "name": "정암진 나루 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "일본군 도하 부대 지휘관",
+          "name_evidence": "verify(실명 비표기)",
+          "unit_type": "sword",
+          "hp_mult": 1.0,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "sword"
+        },
+        "units": [
+          "sword"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 선봉장",
+              "unit_type": "spear",
+              "troop_type": "spear",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "spear"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 좌익장",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "archer"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 우익장",
+              "unit_type": "sword",
+              "troop_type": "sword",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "sword"
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "factions": {
+          "ally": "조선군",
+          "enemy": "일본군"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 13,
+            "y": 14,
+            "must_survive": false
+          }
+        ],
+        "enemy_commander": {
+          "name": "안코쿠지 에케이",
+          "hero": "npc_ankokuji_ekei"
+        }
+      }
+    },
+    {
+      "code": "ch1_s3",
+      "map": "su_ch1_s3_hansando",
+      "objective": {
+        "type": "capture",
+        "points": "map",
+        "mode": "any",
+        "hold_turns": 3,
+        "by": "any_unit"
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist",
+        {
+          "hero": "yi_sun_sin",
+          "unit_type": "naval",
+          "troop_type": "naval"
+        }
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s3_v0",
+        "name": "한산도, 학의 날개 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "와키자카 야스하루",
+          "name_evidence": "confirmed",
+          "unit_type": "naval",
+          "hp_mult": 1.0,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "naval"
+        },
+        "units": [
+          "naval",
+          "naval"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 선봉장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval",
+              "naval"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 좌익장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval",
+              "naval"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 우익장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval",
+              "naval"
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "factions": {
+          "ally": "조선 수군",
+          "enemy": "일본 수군"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 10,
+            "y": 14,
+            "must_survive": false,
+            "unit_type": "naval"
+          },
+          {
+            "hero": "npc_won_gyun",
+            "x": 15,
+            "y": 19,
+            "must_survive": false
+          }
+        ],
+        "enemy_commander": {
+          "name": "와키자카 야스하루",
+          "hero": "npc_wakizaka_yasuharu"
+        }
+      }
+    },
+    {
+      "code": "ch1_s4",
+      "map": "su_ch1_s4_jinju",
+      "objective": {
+        "type": "survive_turns",
+        "turns": 8
+      },
+      "triggers": [
+        {
+          "on": {
+            "turn": 5
+          },
+          "action": "spawn",
+          "side": "b",
+          "zone": "outer_east",
+          "units": [
+            "spear",
+            "spear"
+          ],
+          "limit": 2
+        }
+      ],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s4_v0",
+        "name": "진주성의 엿새 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "하세가와 히데카즈",
+          "name_evidence": "accepted",
+          "unit_type": "sword",
+          "hp_mult": 1.0,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "sword"
+        },
+        "units": [
+          "sword",
+          "sword"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 선봉장",
+              "unit_type": "spear",
+              "troop_type": "spear",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "spear",
+              "spear"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 좌익장",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "archer",
+              "archer"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 우익장",
+              "unit_type": "sword",
+              "troop_type": "sword",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "sword",
+              "sword"
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "factions": {
+          "ally": "조선군",
+          "enemy": "일본군"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 21,
+            "y": 12,
+            "must_survive": false
+          },
+          {
+            "hero": "kim_si_min",
+            "x": 20,
+            "y": 11,
+            "must_survive": false
+          }
+        ],
+        "enemy_commander": {
+          "name": "하세가와 히데카즈",
+          "hero": "npc_hasegawa_hidekazu"
+        }
+      }
+    },
+    {
+      "code": "ch1_s5",
+      "map": "su_ch1_s5_pyeongyang",
+      "objective": {
+        "type": "capture",
+        "points": "map",
+        "mode": "any",
+        "hold_turns": 2,
+        "by": "any_unit"
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s5_v0",
+        "name": "평양성 탈환 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "고니시 유키나가",
+          "name_evidence": "confirmed",
+          "unit_type": "spear",
+          "hp_mult": 1.0,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "spear"
+        },
+        "units": [
+          "spear",
+          "spear"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 선봉장",
+              "unit_type": "sword",
+              "troop_type": "sword",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "sword",
+              "sword"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 좌익장",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "archer",
+              "archer"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 우익장",
+              "unit_type": "spear",
+              "troop_type": "spear",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "spear",
+              "spear"
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "factions": {
+          "ally": "조명 연합군",
+          "enemy": "일본군"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 9,
+            "y": 15,
+            "must_survive": false
+          },
+          {
+            "hero": "npc_i_yeoseong",
+            "x": 9,
+            "y": 17,
+            "must_survive": false
+          },
+          {
+            "hero": "hyujeong",
+            "x": 8,
+            "y": 16,
+            "must_survive": false
+          },
+          {
+            "hero": "yujeong",
+            "x": 9,
+            "y": 19,
+            "must_survive": false
+          }
+        ],
+        "enemy_commander": {
+          "name": "고니시 유키나가",
+          "hero": "npc_konishi_yukinaga"
+        }
+      }
+    },
+    {
+      "code": "ch1_s6",
+      "map": "im_06_haengju",
+      "objective": {
+        "type": "survive_turns",
+        "turns": 10
+      },
+      "triggers": [
+        {
+          "on": {
+            "turn": 3
+          },
+          "action": "spawn",
+          "side": "b",
+          "zone": "flank",
+          "units": [
+            "archer",
+            "sword"
+          ],
+          "limit": 2
+        }
+      ],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s6_v0",
+        "name": "행주산성 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "일본군 지휘관(총대장 실명 verify로 비표기)",
+          "name_evidence": "verify",
+          "unit_type": "archer",
+          "hp_mult": 1.0,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "archer"
+        },
+        "units": [
+          "archer",
+          "archer"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 선봉장",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "archer",
+              "archer"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 좌익장",
+              "unit_type": "sword",
+              "troop_type": "sword",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "sword",
+              "sword"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 우익장",
+              "unit_type": "spear",
+              "troop_type": "spear",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "spear",
+              "spear"
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "factions": {
+          "ally": "조선군",
+          "enemy": "일본군"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 9,
+            "y": 6,
+            "must_survive": false
+          },
+          {
+            "hero": "gwon_yul",
+            "x": 11,
+            "y": 10,
+            "must_survive": false
+          }
+        ],
+        "enemy_commander": {
+          "name": "우키타 히데이에",
+          "hero": "npc_ukita_hideie"
+        }
+      }
+    },
+    {
+      "code": "ch1_s7",
+      "map": "su_ch1_s7_noryang",
+      "objective": {
+        "type": "defeat_commander"
+      },
+      "triggers": [
+        {
+          "on": {
+            "turn": 3
+          },
+          "action": "spawn",
+          "side": "b",
+          "zone": "rear",
+          "units": [
+            "naval",
+            "naval"
+          ],
+          "limit": 2
+        }
+      ],
+      "forced_heroes": [
+        "@protagonist",
+        {
+          "hero": "yi_sun_sin",
+          "unit_type": "naval",
+          "troop_type": "naval"
+        }
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s7_v0",
+        "name": "노량, 마지막 바다 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "시마즈 요시히로",
+          "name_evidence": "confirmed",
+          "unit_type": "naval",
+          "hp_mult": 1.3,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "naval"
+        },
+        "units": [
+          "naval",
+          "naval"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 선봉장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval",
+              "naval"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 좌익장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval",
+              "naval"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 우익장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval",
+              "naval"
+            ]
+          }
+        ]
+      },
+      "rules": {
+        "factions": {
+          "ally": "조명 연합 수군",
+          "enemy": "일본 수군"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 7,
+            "y": 12,
+            "must_survive": false,
+            "unit_type": "naval"
+          },
+          {
+            "hero": "npc_jin_rin",
+            "x": 6,
+            "y": 7,
+            "must_survive": false
+          }
+        ],
+        "enemy_commander": {
+          "name": "시마즈 요시히로",
+          "hero": "npc_shimazu_yoshihiro"
+        },
+        "cues": [
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "camera",
+            "mode": "overview",
+            "ms": 700
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "say",
+            "speaker": "hero:yi_sun_sin",
+            "expr": "neutral",
+            "text": "불 하나는 우리, 불 둘은 명이오."
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "tile": [
+              26,
+              11
+            ],
+            "ms": 600
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "say",
+            "speaker": "hero:gwak_jae_u",
+            "expr": "neutral",
+            "text": "동쪽 북이 한 박자 빨라졌소."
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "shake",
+            "power": 3,
+            "ms": 400
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "sfx",
+            "key": "sfx_battle_roar"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "camera",
+            "tile": [
+              26,
+              11
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:npc_jin_rin",
+            "expr": "serious",
+            "text": "뒤에 불이 늘었다!"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:yi_sun_sin",
+            "expr": "serious",
+            "text": "도독, 앞을 보시오. 뒤는 우리가 보겠소."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 3,
+              "when": {
+                "type": "hp_pct_lte",
+                "unit": "hero:npc_jin_rin",
+                "pct": 50
+              }
+            },
+            "do": "say",
+            "speaker": "hero:npc_jin_rin",
+            "expr": "serious",
+            "text": "……앞이 무너진다. 말했을 것이다."
+          },
+          {
+            "on": {
+              "turn": 3,
+              "when": {
+                "type": "hp_pct_lte",
+                "unit": "hero:npc_jin_rin",
+                "pct": 50
+              }
+            },
+            "do": "say",
+            "speaker": "hero:gwak_jae_u",
+            "expr": "serious",
+            "text": "도독, 불 둘이 아직 서 있소."
+          },
+          {
+            "on": {
+              "turn": 3,
+              "when": {
+                "type": "hp_pct_lte",
+                "unit": "hero:npc_jin_rin",
+                "pct": 50
+              }
+            },
+            "do": "set_flag",
+            "key": "jinrin_pressed",
+            "value": true
+          },
+          {
+            "on": {
+              "turn": 3,
+              "when": {
+                "all": [
+                  {
+                    "type": "flag",
+                    "key": "jinrin_pressed"
+                  },
+                  {
+                    "type": "adjacent",
+                    "a": "hero:yi_sun_sin",
+                    "b": "hero:npc_jin_rin"
+                  }
+                ]
+              }
+            },
+            "do": "say",
+            "speaker": "hero:npc_jin_rin",
+            "expr": "neutral",
+            "text": "……인사는 나중에 하겠다."
+          },
+          {
+            "on": {
+              "turn": 3,
+              "when": {
+                "type": "hp_pct_lte",
+                "unit": "enemy_commander",
+                "pct": 30
+              }
+            },
+            "do": "say",
+            "speaker": "hero:gwak_jae_u",
+            "expr": "neutral",
+            "text": "북이 느려졌소. 저쪽이 흔들리오."
+          },
+          {
+            "on": {
+              "turn": 3,
+              "when": {
+                "type": "hp_pct_lte",
+                "unit": "enemy_commander",
+                "pct": 30
+              }
+            },
+            "do": "sfx",
+            "key": "sfx_battle_clash"
+          }
+        ]
+      }
+    },
+    {
+      "code": "ch1_s8",
+      "map": "su_ch1_s8_seoga_collapse",
+      "objective": {
+        "type": "capture",
+        "points": "map",
+        "mode": "any",
+        "hold_turns": 2,
+        "by": "any_unit"
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s8_v0",
+        "name": "번진 기록 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "번진한 기록의 수호자",
+          "unit_type": "sword",
+          "hp_mult": 1.2,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "sword"
+        },
+        "units": [
+          "sword",
+          "sword"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 선봉장",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "archer",
+              "archer"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 좌익장",
+              "unit_type": "mage",
+              "troop_type": "mage",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "mage",
+              "mage"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 우익장",
+              "unit_type": "sword",
+              "troop_type": "sword",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "sword",
+              "sword"
+            ]
+          }
+        ]
+      },
+      "new": {
+        "name": "번진 기록",
+        "recommended_level": 8,
+        "enemy_level": 9,
+        "enemy_level_offset": 0,
+        "reward_exp": 760,
+        "reward_user_exp": 520,
+        "reward_gold": 900,
+        "difficulty": 7,
+        "sort_order": 108,
+        "prerequisite": "ch1_s7",
+        "star_conditions": [
+          {
+            "type": "clear"
+          },
+          {
+            "type": "all_alive"
+          },
+          {
+            "type": "turn_within",
+            "value": 12
+          }
+        ]
+      },
+      "rules": {
+        "factions": {
+          "ally": "서고 연합",
+          "enemy": "먹그림자"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 4,
+            "y": 6,
+            "must_survive": false
+          },
+          {
+            "hero": "yi_sun_sin",
+            "x": 5,
+            "y": 6,
+            "must_survive": false
+          }
+        ],
+        "enemy_commander": {
+          "name": "번진 기록의 그림자",
+          "hero": "npc_shadow_ink"
+        }
+      }
+    },
+    {
+      "code": "ch1_s9",
+      "map": "su_ch1_s9_myeongnyang",
+      "objective": {
+        "type": "survive_turns",
+        "turns": 8
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist",
+        {
+          "hero": "yi_sun_sin",
+          "unit_type": "naval",
+          "troop_type": "naval"
+        }
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s9_v0",
+        "name": "1597, 물살 앞에서 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "구루시마 미치후사",
+          "unit_type": "naval",
+          "hp_mult": 1.3,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "naval"
+        },
+        "units": [
+          "naval",
+          "naval",
+          "naval"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 선봉장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval",
+              "naval",
+              "naval"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 좌익장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval",
+              "naval",
+              "naval"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 수군 우익장",
+              "unit_type": "naval",
+              "troop_type": "naval",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "naval",
+              "naval",
+              "naval"
+            ]
+          }
+        ]
+      },
+      "new": {
+        "name": "1597, 물살 앞에서",
+        "recommended_level": 9,
+        "enemy_level": 10,
+        "enemy_level_offset": -3,
+        "reward_exp": 900,
+        "reward_user_exp": 620,
+        "reward_gold": 1050,
+        "difficulty": 8,
+        "sort_order": 109,
+        "prerequisite": "ch1_s8",
+        "star_conditions": [
+          {
+            "type": "clear"
+          },
+          {
+            "type": "all_alive"
+          },
+          {
+            "type": "turn_within",
+            "value": 12
+          }
+        ]
+      },
+      "rules": {
+        "factions": {
+          "ally": "조선 수군",
+          "enemy": "일본 수군"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 10,
+            "y": 12,
+            "must_survive": false,
+            "unit_type": "naval"
+          }
+        ],
+        "enemy_commander": {
+          "name": "구루시마 미치후사",
+          "hero": "npc_kurushima_michifusa"
+        },
+        "protagonist_troop": "naval"
+      }
+    },
+    {
+      "code": "ch1_s10",
+      "map": "su_ch1_s10_last_seoga",
+      "objective": {
+        "type": "defeat_commander"
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch1_s10_v0",
+        "name": "마지막 기록 적군(임시 4부대)",
+        "culture": "japan",
+        "commander": {
+          "display_name_ko": "마지막 기록의 주인",
+          "unit_type": "sword",
+          "hp_mult": 1.5,
+          "atk_mult": 1.0,
+          "def_mult": 1.0,
+          "aura": null,
+          "skills": [],
+          "troop_type": "sword"
+        },
+        "units": [
+          "sword",
+          "sword"
+        ],
+        "squads": [
+          {
+            "commander": {
+              "display_name_ko": "왜군 선봉장",
+              "unit_type": "mage",
+              "troop_type": "mage",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "mage",
+              "mage"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 좌익장",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "archer",
+              "archer"
+            ]
+          },
+          {
+            "commander": {
+              "display_name_ko": "왜군 우익장",
+              "unit_type": "spear",
+              "troop_type": "spear",
+              "hp_mult": 1.0,
+              "atk_mult": 1.0,
+              "def_mult": 1.0,
+              "aura": null
+            },
+            "units": [
+              "spear",
+              "spear"
+            ]
+          }
+        ]
+      },
+      "new": {
+        "name": "마지막 기록",
+        "recommended_level": 10,
+        "enemy_level": 11,
+        "enemy_level_offset": 2,
+        "reward_exp": 1100,
+        "reward_user_exp": 760,
+        "reward_gold": 1270,
+        "difficulty": 9,
+        "sort_order": 110,
+        "prerequisite": "ch1_s9",
+        "star_conditions": [
+          {
+            "type": "clear"
+          },
+          {
+            "type": "all_alive"
+          },
+          {
+            "type": "turn_within",
+            "value": 14
+          }
+        ]
+      },
+      "rules": {
+        "factions": {
+          "ally": "서고 연합",
+          "enemy": "먹그림자"
+        },
+        "ally_npcs": [
+          {
+            "hero": "gwak_jae_u",
+            "x": 10,
+            "y": 15,
+            "must_survive": false
+          },
+          {
+            "hero": "yi_sun_sin",
+            "x": 11,
+            "y": 15,
+            "must_survive": false
+          }
+        ],
+        "enemy_commander": {
+          "name": "마지막 그림자",
+          "hero": "npc_shadow_last"
+        }
+      }
+    }
+  ]
+}

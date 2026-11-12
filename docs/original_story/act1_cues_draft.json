@@ -1,0 +1,109 @@
+{
+ "_note": "[초안 P1, 2026-11-03, 송서사] 오리지널 메인 1막(ch101_s1~s5) stages.rules.cues 초안. 출처: docs/original_story/act1_events.md 이벤트 표 중 '구현 가능' 행. 스키마: docs/CUTSCENE_SPEC.md 1·6·9절(say/sfx/shake/set_flag/retreat, on=battle_start|turn:N|turn+when). 이 파일의 stages.<코드>.rules.cues 배열을 해당 스테이지 JSON rules.cues에 그대로 복사하면 된다(cue 객체에는 스펙 필드만 둔다. 메모는 cue_notes·requests에 분리). 좌표가 필요한 camera/move 부분은 '맵 좌표 미확정'이라 cue에서 제외하고 requests에 모았다(원 이벤트가 camera+say 조합이면 좌표 불필요한 say·sfx 부분만 남겼다). 효과음 키는 public/assets/audio/manifest.json에 존재하는 것만 사용: sfx_battle_tick, sfx_battle_rumble, sfx_battle_fall, sfx_aura_pulse, sfx_move_step, sfx_turn_enemy(6종 모두 manifest 확인). speaker: 지문은 'caption'(CuePlayer가 narrator와 동일 처리), 지음 hero:npc_jieum, 쪽이 hero:npc_jjogi, 사자 hero:npc_red_pen, 주인공 protagonist(스펙 예시 외이나 BattleDialogue가 kind=protagonist로 처리함을 확인). {protagonist_name} 토큰은 BattleDialogue의 fillTokens가 치환한다. 전부 오리지널 가상, 대사는 창작 대사(invented). 동일 시점 cue는 배열 순서대로 발동. 편별 cue 수: s1 6, s2 10, s3 10, s4 12, s5 21(총 59).",
+ "version": 1,
+ "status": "draft",
+ "act": 1,
+ "chapter": 101,
+ "stages": {
+  "ch101_s1": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "책이 한 장 넘어간다. 글자가 없다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "책이 놓인 칸은 피해서 움직이십시오. 찢어지면 접수 서류가 늘어납니다."},
+   {"on": {"turn": 3, "when": {"type": "alive_count", "side": "b", "op": "lte", "value": 1}}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "마지막 한 명입니다. 책은 아직 무사합니다."},
+   {"on": {"turn": 5}, "do": "sfx", "key": "sfx_aura_pulse"},
+   {"on": {"turn": 5}, "do": "say", "speaker": "caption", "text": "책 사이에서 쪽 한 장이 떨어진다."}
+  ]}},
+  "ch101_s2": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "붉은 줄이 그어진 쪽이 책상 끝에 놓여 있다. 붉은 줄은 이름 칸 위에만 있다."},
+   {"on": {"turn": 2}, "do": "sfx", "key": "sfx_battle_rumble"},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "좌측 책장이 한 번 더 기울었습니다. 책상 여섯 개가 위험 구간입니다."},
+   {"on": {"turn": 3}, "do": "shake", "power": 2, "ms": 400},
+   {"on": {"turn": 3}, "do": "sfx", "key": "sfx_battle_fall"},
+   {"on": {"turn": 3}, "do": "say", "speaker": "caption", "text": "천장 조명이 한 줄 꺼진다. 필사실 한쪽이 어두워진다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "선 안쪽에서는 보입니다. 선 밖은 보이지 않는 것으로 계산합니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "보호 기준선을 확인합니다. 기준선 위를 유지하십시오."},
+   {"on": {"turn": 5}, "do": "sfx", "key": "sfx_aura_pulse"},
+   {"on": {"turn": 5}, "do": "say", "speaker": "caption", "text": "지도에 없는 문이 반쯤 열린다. 숨소리 같은 것이 새어 나온다."}
+  ]}},
+  "ch101_s3": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "sfx", "key": "sfx_move_step"},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_jjogi", "expr": "serious", "text": "따라온다. 문이 또 하나 지워졌어."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "caption", "text": "복도 끝 문은 아직 닫혀 있다. 문 아래로 녹색 실 한 올이 삐져나와 있다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "걸음을 멈추겠습니다. 이름을 알려 주십시오. 외워 두면 뒤에서 부를 수 있어요."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "지금입니까."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jjogi", "expr": "serious", "text": "지금이어야 해. 부를 수 없으면 뒤에서 오는 걸 알릴 수가 없잖아."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "{protagonist_name} 님이라고 부르십시오."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "{protagonist_name} 님. 외웠어."},
+   {"on": {"turn": 4}, "do": "sfx", "key": "sfx_battle_rumble"},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "문까지 세 칸입니다. 한 줄로 막으면 닫히기 전에 닿습니다."}
+  ]}},
+  "ch101_s4": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_red_pen", "expr": "neutral", "text": "제7조 제2항. 인도하지 않으면 회수합니다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "규정집 이천사백 조항 중 이백십 조항 확인."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "제31조 제1항. 보존 대상의 의사를 확인해야 합니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_red_pen", "expr": "neutral", "text": "준용 여부는 교정 담당의 해석 사항입니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "해석 사항은 제44조에 따로 있습니다. 서고의 최고 책임자인 서고장 이름으로만 해석합니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_red_pen", "expr": "neutral", "text": "……서명이 필요합니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jjogi", "expr": "serious", "text": "내 의사는 밝히겠습니다. 정리를 원하지 않아요."},
+   {"on": {"turn": 5}, "do": "sfx", "key": "sfx_turn_enemy"},
+   {"on": {"turn": 7}, "do": "say", "speaker": "hero:npc_red_pen", "expr": "neutral", "text": "준용 조항 확인. 서명 없는 결재로 직인을 찍은 사실이 확인되었습니다. 정리를 중지합니다."},
+   {"on": {"turn": 7}, "do": "retreat", "unit": "hero:npc_red_pen"},
+   {"on": {"turn": 7}, "do": "say", "speaker": "caption", "text": "직인함이 기울며 직인 하나가 바닥에 구른다."}
+  ]}},
+  "ch101_s5": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "sfx", "key": "sfx_battle_fall"},
+   {"on": {"battle_start": true}, "do": "shake", "power": 2, "ms": 300},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "입구가 닫혔습니다. 퇴로 없음. 지도에 그립니다."},
+   {"on": {"turn": 2}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"turn": 2}, "do": "say", "speaker": "caption", "text": "붉은 줄이 서가 하나를 더 덮는다."},
+   {"on": {"turn": 3}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"turn": 3}, "do": "say", "speaker": "caption", "text": "붉은 줄이 서가 하나를 더 덮는다."},
+   {"on": {"turn": 3}, "do": "shake", "power": 3, "ms": 400},
+   {"on": {"turn": 3}, "do": "sfx", "key": "sfx_battle_rumble"},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "서가 한 줄이 닫혔습니다. 통로 하나가 줄었습니다. 쪽이의 책 서가까지 두 칸입니다."},
+   {"on": {"turn": 4}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"turn": 4}, "do": "say", "speaker": "caption", "text": "붉은 줄이 서가 하나를 더 덮는다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "지도 탁상에서 통신으로 말합니다. 순회지에서는 이렇게 됩니다. 들립니까."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "들립니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "음량을 기록합니다. 이후 통신 줄은 이 방식입니다."},
+   {"on": {"turn": 5}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"turn": 5}, "do": "say", "speaker": "caption", "text": "붉은 줄이 서가 하나를 더 덮는다."},
+   {"on": {"turn": 5}, "do": "sfx", "key": "sfx_aura_pulse"},
+   {"on": {"turn": 5}, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "여백이 밝아져. 연기 같은 게 보여."},
+   {"on": {"turn": 6}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"turn": 6}, "do": "say", "speaker": "caption", "text": "붉은 줄이 서가 하나를 더 덮는다."}
+  ]}}
+ },
+ "cue_notes": {
+  "ch101_s1": "e1-E1 camera 제외(책 칸 좌표). e1-E4: when alive_count side b = 적 진영 전체 생존 수라서 지휘관 포함 여부에 따라 lte 1이 맞는지 맵 확정 뒤 임밸런 확인(kind 필드로 조정). e1-E5: 전투가 5턴 전에 끝나면 미발동, post 첫 줄이 대신한다. e1-E3(돌발)은 move 좌표가 필요해 전체 제외.",
+  "ch101_s2": "e2-E1·E5 camera 제외(좌표). e2-E4는 개수 문구 없음(원안 유지). 암전·시야 제한은 미구현이라 e2-E3은 shake+sfx+say로 대체.",
+  "ch101_s3": "쪽이는 비전투라 cue say 화자로만 등장(포트레이트 미등록이면 이름표만). e3-E3 5줄은 turn 3 한 시점에 순서대로 발동. e3-E2 camera 제외. e3-E4(적B 후방 이동+쪽이 경고)는 move 좌표 필요로 전체 제외.",
+  "ch101_s4": "e4-E4 camera 제외, 종소리 대용 sfx만 남김. e4-E5의 retreat는 사자가 (지휘관이 아닌) 별도 유닛으로 배치될 때만 동작하며, 지휘관·주인공은 조용히 건너뛴다(스펙 9-1). 사자 유닛 id가 확정되면 unit 값을 id로 치환해도 된다. 버티기 턴 수(turn 7 연출 시점)는 stages 목표(survive N) 확정 뒤 N-1 이하로 조정할 것. 전투가 turn 4~7 전에 끝나면 미발동.",
+  "ch101_s5": "e5-E2 압박 연출은 turn 2~6마다 동일 문구가 반복되는 것이 의도(매 턴 번지는 속도를 보여 줌)이며 고정 개수 문구는 없다. e5-E5 camera 제외. e5-E3 통로 감소는 연출만(판정 없음)이며 terrain_change로 판정까지 구현하려면 좌표가 필요(requests 참조)."
+ },
+ "requests": {
+  "coordinates_needed": [
+   {"ref": "e1-E1", "do": "camera focus 책상 위 책 칸 600ms (battle_start, say 앞)", "needs": "맵 확정 후 책 칸 [x,y] (맵디자이너)"},
+   {"ref": "e1-E3", "do": "move <적A> -> 책 인접 칸, say 3줄, set_flag a1e1_book_threat (turn 3). 대사 초안: 지음 '한 명이 방향을 틀었습니다. 책으로 갑니다.' / 주인공 '먼저 끌어내겠습니다. 칸을 비워 주십시오.' / 지음 '비우는 것은 순회원 권한입니다.'", "needs": "적A 유닛 id, 책 인접 빈 칸"},
+   {"ref": "e1-E5", "do": "camera focus 책 칸 -> restore (turn 5)", "needs": "책 칸 좌표"},
+   {"ref": "e2-E1", "do": "camera focus 붉은 줄 쪽 칸 -> restore (battle_start)", "needs": "붉은 줄 쪽 좌표"},
+   {"ref": "e2-E5", "do": "camera focus 서쪽 벽 문 -> restore (turn 5)", "needs": "문 칸 좌표"},
+   {"ref": "e3-E2", "do": "camera focus 복도 끝 문 -> restore (turn 2)", "needs": "문 칸 좌표"},
+   {"ref": "e3-E4", "do": "move <적B> -> 후방 칸 + say 쪽이 '{protagonist_name} 님, 뒤쪽 서가야!' (turn 5)", "needs": "적B 유닛 id, 후방 칸"},
+   {"ref": "e4-E4", "do": "camera focus 카운터 -> restore (turn 5, sfx는 반영됨)", "needs": "카운터 칸 좌표"},
+   {"ref": "e4-E5", "do": "camera focus 직인 낙하 칸 (turn 7), move 사자 -> 맵 가장자리(retreat로 대체됨)", "needs": "직인 낙하 칸"},
+   {"ref": "e5-E2", "do": "camera focus 붉은 줄 번지는 서가 -> restore (turn 2~6 매 턴)", "needs": "서가 칸 좌표(턴마다 다른 서가 권장)"},
+   {"ref": "e5-E3", "do": "terrain_change 서가 한 줄 통로 칸 -> 서가 지형 코드 (turn 3). 지금은 연출만", "needs": "통로 칸 좌표 + 서가 지형 코드(안아트·맵디자이너)"},
+   {"ref": "e5-E5", "do": "camera focus 쪽이의 책 서가 800ms -> restore (turn 5)", "needs": "서가 칸 좌표"}
+  ],
+  "unimplemented_or_deferred": [
+   "공백병 '글자 지워짐' 이펙트, 쪽 찢어짐 판정(s1)",
+   "책상 보호 개수 판정(s2): 대안으로 sub_objectives type=unit_survive/hold_zone 사용 여부는 임밸런 결정. 암전·시야 제한은 보류",
+   "쪽이 NPC 유닛화·호위 판정(s3, 비전투 결정으로 보류), 문 열림 연출",
+   "직인 낙하 오브젝트(s4), 버티기 턴 수는 stages 목표 survive N으로 확정 필요",
+   "여백 그림이 떠오르는 전용 연출, 붉은 줄 번짐 이펙트, 서가 쓰러짐 지형 판정(s5)",
+   "종이 넘김·조명 꺼짐·종소리 전용 효과음(manifest에 없어 대용 키 사용: tick=종이 넘김/종소리, rumble=책장 쓰러짐)"
+  ]
+ }
+}

@@ -1,0 +1,73 @@
+{
+ "_note": "전투 소모품 정의(임밸런 consumables_policy_v1 시작값, needs tuning). kind=heal: heal_flat(고정 HP) 또는 heal_pct(최대 HP 비율) 회복. kind=buff: 대상에게 stat 버프(amount %, duration 라운드). per_battle_uses=전투당 해당 소모품 사용 상한, max_per_battle=전투당 전체 합계 상한. 해제약은 엔진에 상태이상이 없어 enabled=false.",
+ "enabled": true,
+ "max_per_battle": 3,
+ "max_stack": 20,
+ "max_buy_qty": 10,
+ "currency": "gold",
+ "items": [
+  {
+   "code": "potion_s",
+   "name_ko": "회복약(소)",
+   "kind": "heal",
+   "heal_flat": 15,
+   "price_gold": 15,
+   "per_battle_uses": 2,
+   "stack_limit": 20,
+   "enabled": true
+  },
+  {
+   "code": "potion_m",
+   "name_ko": "회복약(중)",
+   "kind": "heal",
+   "heal_flat": 30,
+   "price_gold": 40,
+   "per_battle_uses": 2,
+   "stack_limit": 20,
+   "enabled": true
+  },
+  {
+   "code": "potion_l",
+   "name_ko": "회복약(대)",
+   "kind": "heal",
+   "heal_pct": 50,
+   "price_gold": 90,
+   "per_battle_uses": 1,
+   "stack_limit": 10,
+   "enabled": true
+  },
+  {
+   "code": "cleanse",
+   "name_ko": "상태이상 해제약",
+   "kind": "cleanse",
+   "price_gold": 30,
+   "per_battle_uses": 1,
+   "stack_limit": 10,
+   "enabled": false
+  },
+  {
+   "code": "tonic_atk",
+   "name_ko": "사기 고양약",
+   "kind": "buff",
+   "stat": "atk",
+   "amount": 10,
+   "duration": 1,
+   "price_gold": 50,
+   "per_battle_uses": 1,
+   "stack_limit": 10,
+   "enabled": true
+  },
+  {
+   "code": "tonic_def",
+   "name_ko": "철벽약",
+   "kind": "buff",
+   "stat": "def",
+   "amount": 20,
+   "duration": 1,
+   "price_gold": 50,
+   "per_battle_uses": 1,
+   "stack_limit": 10,
+   "enabled": true
+  }
+ ]
+}

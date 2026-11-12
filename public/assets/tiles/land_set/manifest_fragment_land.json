@@ -1,0 +1,38 @@
+{
+ "tileset.land_set": {
+  "path": "/assets/tiles/land_set/ls_static.png",
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "size": [
+   512,
+   672
+  ],
+  "count": 330,
+  "cols": 16,
+  "proposed_global_index_start": 200,
+  "variants": {
+   "x2": "/assets/tiles/land_set/ls_static_x2.png"
+  },
+  "alpha": "전부 불투명",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "spec": "/assets/tiles/land_set/ls_spec.json",
+  "names": "/assets/tiles/land_set/ls_names.json",
+  "generator": "docker/gemini/land_tiles_build.py + land_tiles_lib.py/lib2/lib3 (절차 생성, 이미지 모델 호출 0회)",
+  "prompt_ref": "없음(절차 생성). 팔레트·규칙은 ls_spec.json principle",
+  "license": "자체 생성(원본 TileMap.png 2·3번 테두리 1px 픽셀만 이음새 호환용으로 재사용 — 원본 라이선스 미확인분 포함, 개발 한정)",
+  "verify": true,
+  "qa": {
+   "checked": true,
+   "verdict": "pass(조건부)",
+   "issues": [
+    "FE 미연결: 오토타일 규칙 코드 필요",
+    "성곽·한옥 형태는 단순화(고증 verify)"
+   ]
+  },
+  "load_hint": "this.load.spritesheet('land_set', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 200(제안)",
+  "scope": "battle"
+ }
+}

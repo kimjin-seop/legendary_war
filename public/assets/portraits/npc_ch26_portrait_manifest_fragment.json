@@ -1,0 +1,1926 @@
+{
+ "note": "npc_ch26 초상 33키(신규 32 + 별칭 npc_pompey_magnus→기존 pompey_magnus 파일, 안아트 2026-11-08): ch26 로스터 29행·대사 화자 전원 + 설계서 컷인 4(카토·렌툴루스·세르빌리아·트레보니우스). 생성 정의 npc_ch26_style.mjs. 영웅 코드 mark_antony·marcus_brutus 는 portrait.npc_<code> 로 portraitCode 접두사 규칙이 연결",
+ "generated": "2026-11-08T13:02:09.460Z",
+ "keyRules": {
+  "portrait": "portrait.<code> (+ .thumb). 표정 neutral 1종"
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "portrait.npc_labienus",
+   "path": "assets/portraits/npc/npc_labienus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1357967,
+   "npc": "npc_labienus",
+   "roster_code": "npc_labienus",
+   "name_ko": "티투스 라비에누스",
+   "side": "ally",
+   "era": "기원전 100경~45",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s1",
+    "ch26_s2",
+    "ch26_s3",
+    "ch26_s5",
+    "ch26_s8"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_labienus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_labienus.webp",
+    "size": "256x343",
+    "bytes": 26448
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_labienus",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_labienus.jpg",
+   "calls": 3,
+   "calls_ok": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": [],
+    "notes": "r0·r1 말총 볏이 위쪽에서 잘려 r2(낮은 볏)로 재생성 채택"
+   },
+   "verify": true,
+   "verify_note": "카이사르의 갈리아 최고 부장, 49년 폼페이우스 측으로 이탈(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_publius_crassus",
+   "path": "assets/portraits/npc/npc_publius_crassus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1210543,
+   "npc": "npc_publius_crassus",
+   "roster_code": "npc_publius_crassus",
+   "name_ko": "푸블리우스 크라수스",
+   "side": "ally",
+   "era": "기원전 86경~53",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s1"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_publius_crassus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_publius_crassus.webp",
+    "size": "256x343",
+    "bytes": 27448
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_publius_crassus",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_publius_crassus.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "갈리아 전쟁 기병 지휘(confirmed), 아버지 마르쿠스 크라수스와 별개 인물. 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_mark_antony",
+   "path": "assets/portraits/npc/npc_mark_antony.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1151238,
+   "npc": "npc_mark_antony",
+   "roster_code": "npc_mark_antony",
+   "name_ko": "마르쿠스 안토니우스",
+   "side": "ally",
+   "era": "기원전 83~30",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s4",
+    "ch26_s5",
+    "ch26_s6",
+    "ch26_s7",
+    "ch26_s8",
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_mark_antony.thumb",
+    "path": "assets/portraits/npc/thumb/npc_mark_antony.webp",
+    "size": "256x343",
+    "bytes": 25284
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_mark_antony",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_mark_antony.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "플루타르코스의 외모 서술(넓은 이마·매부리코·수염) 취지 반영, 세부는 일반화(verify).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_curio",
+   "path": "assets/portraits/npc/npc_curio.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 992146,
+   "npc": "npc_curio",
+   "roster_code": "npc_curio",
+   "name_ko": "가이우스 스크리보니우스 쿠리오",
+   "side": "ally",
+   "era": "기원전 84경~49",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s4"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_curio.thumb",
+    "path": "assets/portraits/npc/thumb/npc_curio.webp",
+    "size": "256x343",
+    "bytes": 21260
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_curio",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_curio.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "49년 호민관, 로마 탈출 후 아프리카에서 전사(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_quintus_cassius",
+   "path": "assets/portraits/npc/npc_quintus_cassius.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 972951,
+   "npc": "npc_quintus_cassius",
+   "roster_code": "npc_quintus_cassius",
+   "name_ko": "퀸투스 카시우스 롱기누스",
+   "side": "ally",
+   "era": "기원전 1세기(?~47)",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s4"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_quintus_cassius.thumb",
+    "path": "assets/portraits/npc/thumb/npc_quintus_cassius.webp",
+    "size": "256x343",
+    "bytes": 19182
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_quintus_cassius",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_quintus_cassius.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "49년 호민관, 안토니우스와 함께 탈출(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_asinius_pollio",
+   "path": "assets/portraits/npc/npc_asinius_pollio.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1029677,
+   "npc": "npc_asinius_pollio",
+   "roster_code": "npc_asinius_pollio",
+   "name_ko": "가이우스 아시니우스 폴리오",
+   "side": "ally",
+   "era": "기원전 75~서기 4",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s5"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_asinius_pollio.thumb",
+    "path": "assets/portraits/npc/thumb/npc_asinius_pollio.webp",
+    "size": "256x343",
+    "bytes": 21682
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_asinius_pollio",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_asinius_pollio.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "루비콘 도하 현장 동행(confirmed, 플루타르코스가 폴리오 기록 인용). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_ariovistus",
+   "path": "assets/portraits/npc/npc_ariovistus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1072475,
+   "npc": "npc_ariovistus",
+   "roster_code": "npc_ariovistus",
+   "name_ko": "아리오비스투스",
+   "side": "enemy",
+   "era": "기원전 1세기(?~54경)",
+   "culture": "germanic(suebi)",
+   "used_in": [
+    "ch26_s1"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_ariovistus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_ariovistus.webp",
+    "size": "256x343",
+    "bytes": 22522
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_ariovistus",
+   "style_ref": "assets/portraits/vercingetorix.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_ariovistus.jpg",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": [
+     "창끝이 프레임 위 가장자리에 닿음(r1, 기존 vercingetorix 초상과 같은 수준)",
+     "수에비 매듭이 옆머리 대신 뒤통수 상투에 가깝게 그려짐(verify)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "수에비 왕, 기원전 58년 패배(confirmed). 수에비 매듭은 타키투스 기록 기반 게임 표현(verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_vercassivellaunus",
+   "path": "assets/portraits/npc/npc_vercassivellaunus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1062403,
+   "npc": "npc_vercassivellaunus",
+   "roster_code": "npc_vercassivellaunus",
+   "name_ko": "베르카시벨라우노스",
+   "side": "enemy",
+   "era": "기원전 1세기",
+   "culture": "gaul(arverni)",
+   "used_in": [
+    "ch26_s3"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_vercassivellaunus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_vercassivellaunus.webp",
+    "size": "256x343",
+    "bytes": 21534
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_vercassivellaunus",
+   "style_ref": "assets/portraits/vercingetorix.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_vercassivellaunus.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": [
+     "망토 하단이 좌우 가장자리에 닿음(흉상 하단, 표시상 문제 없음)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "알레시아 구원군 지휘, 포로(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_domitius_ahenobarbus",
+   "path": "assets/portraits/npc/npc_domitius_ahenobarbus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1068882,
+   "npc": "npc_domitius_ahenobarbus",
+   "roster_code": "npc_domitius_ahenobarbus",
+   "name_ko": "루키우스 도미티우스 아헤노바르부스",
+   "side": "enemy",
+   "era": "기원전 98~48",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s6"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_domitius_ahenobarbus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_domitius_ahenobarbus.webp",
+    "size": "256x343",
+    "bytes": 22720
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_domitius_ahenobarbus",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_domitius_ahenobarbus.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "코르피니움 항복·석방, 파르살루스 전사(confirmed). 붉은 수염은 가문 별명(Ahenobarbus=청동 수염) 기반 게임 표현(verify).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_cato_the_younger",
+   "path": "assets/portraits/npc/npc_cato_the_younger.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 902380,
+   "npc": "npc_cato_the_younger",
+   "roster_code": "npc_cato_the_younger",
+   "name_ko": "마르쿠스 포르키우스 카토",
+   "side": "neutral",
+   "era": "기원전 95~46",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s4",
+    "ch26_s9"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_cato_the_younger.thumb",
+    "path": "assets/portraits/npc/thumb/npc_cato_the_younger.webp",
+    "size": "256x343",
+    "bytes": 19248
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_cato_the_younger",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_cato_the_younger.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "튜닉 없이 토가를 입고 내전 중 머리·수염을 깎지 않았다는 플루타르코스 서술 반영(verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_lentulus_crus",
+   "path": "assets/portraits/npc/npc_lentulus_crus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1052715,
+   "npc": "npc_lentulus_crus",
+   "roster_code": "npc_lentulus_crus",
+   "name_ko": "루키우스 코르넬리우스 렌툴루스 크루스",
+   "side": "enemy",
+   "era": "기원전 1세기(?~48)",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s4"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_lentulus_crus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_lentulus_crus.webp",
+    "size": "256x343",
+    "bytes": 24890
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_lentulus_crus",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_lentulus_crus.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "49년 집정관(confirmed). 컷인 이름표용. 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_caecilius_metellus",
+   "path": "assets/portraits/npc/npc_caecilius_metellus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1060055,
+   "npc": "npc_caecilius_metellus",
+   "roster_code": "npc_caecilius_metellus",
+   "name_ko": "루키우스 카이킬리우스 메텔루스",
+   "side": "enemy",
+   "era": "기원전 1세기",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s7"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_caecilius_metellus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_caecilius_metellus.webp",
+    "size": "256x343",
+    "bytes": 25572
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_caecilius_metellus",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_caecilius_metellus.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "49년 국고 개방을 막은 호민관(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_metellus_scipio",
+   "path": "assets/portraits/npc/npc_metellus_scipio.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1122384,
+   "npc": "npc_metellus_scipio",
+   "roster_code": "npc_metellus_scipio",
+   "name_ko": "메텔루스 스키피오",
+   "side": "enemy",
+   "era": "기원전 95경~46",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s8"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_metellus_scipio.thumb",
+    "path": "assets/portraits/npc/thumb/npc_metellus_scipio.webp",
+    "size": "256x343",
+    "bytes": 26260
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_metellus_scipio",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_metellus_scipio.jpg",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": [],
+    "notes": "r0 흰 볏 위쪽 잘림 → r1 재생성 채택"
+   },
+   "verify": true,
+   "verify_note": "파르살루스 폼페이우스군 중앙 지휘(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_marcus_brutus",
+   "path": "assets/portraits/npc/npc_marcus_brutus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 978769,
+   "npc": "npc_marcus_brutus",
+   "roster_code": "npc_marcus_brutus",
+   "name_ko": "마르쿠스 유니우스 브루투스",
+   "side": "enemy",
+   "era": "기원전 85~42",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s7",
+    "ch26_s8",
+    "ch26_s9",
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_marcus_brutus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_marcus_brutus.webp",
+    "size": "256x343",
+    "bytes": 19936
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_marcus_brutus",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_marcus_brutus.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "주화 초상의 옅은 수염 취지만 반영, 얼굴은 일반화(verify). 비난 톤 금지.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_servilia",
+   "path": "assets/portraits/npc/npc_servilia.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1147528,
+   "npc": "npc_servilia",
+   "roster_code": "npc_servilia",
+   "name_ko": "세르빌리아",
+   "side": "neutral",
+   "era": "기원전 100경~42 이후",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s7",
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_servilia.thumb",
+    "path": "assets/portraits/npc/thumb/npc_servilia.webp",
+    "size": "256x343",
+    "bytes": 23882
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_servilia",
+   "style_ref": "assets/portraits/cleopatra_vii.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_servilia.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "컷인 인물. 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_gnaeus_pompey_younger",
+   "path": "assets/portraits/npc/npc_gnaeus_pompey_younger.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1189911,
+   "npc": "npc_gnaeus_pompey_younger",
+   "roster_code": "npc_gnaeus_pompey_younger",
+   "name_ko": "그나이우스 폼페이우스(아들)",
+   "side": "enemy",
+   "era": "기원전 75경~45",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s9"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_gnaeus_pompey_younger.thumb",
+    "path": "assets/portraits/npc/thumb/npc_gnaeus_pompey_younger.webp",
+    "size": "256x343",
+    "bytes": 28062
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_gnaeus_pompey_younger",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_gnaeus_pompey_younger.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "문다 전투 폼페이우스파 지휘(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_decimus_brutus",
+   "path": "assets/portraits/npc/npc_decimus_brutus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 967586,
+   "npc": "npc_decimus_brutus",
+   "roster_code": "npc_decimus_brutus",
+   "name_ko": "데키무스 유니우스 브루투스",
+   "side": "enemy",
+   "era": "기원전 81경~43",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_decimus_brutus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_decimus_brutus.webp",
+    "size": "256x343",
+    "bytes": 20006
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_decimus_brutus",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_decimus_brutus.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "3월 15일 카이사르를 설득해 회의장으로 데려간 인물(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_cassius_longinus",
+   "path": "assets/portraits/npc/npc_cassius_longinus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 984468,
+   "npc": "npc_cassius_longinus",
+   "roster_code": "npc_cassius_longinus",
+   "name_ko": "가이우스 카시우스 롱기누스",
+   "side": "enemy",
+   "era": "기원전 85경~42",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_cassius_longinus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_cassius_longinus.webp",
+    "size": "256x343",
+    "bytes": 19678
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_cassius_longinus",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_cassius_longinus.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "카르라이 생존 장교, 암살 주모자(confirmed). 마르고 창백한 인상은 플루타르코스 일화 반영(verify).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_casca",
+   "path": "assets/portraits/npc/npc_casca.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 992936,
+   "npc": "npc_casca",
+   "roster_code": "npc_casca",
+   "name_ko": "푸블리우스 세르빌리우스 카스카",
+   "side": "enemy",
+   "era": "기원전 1세기(?~42)",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_casca.thumb",
+    "path": "assets/portraits/npc/thumb/npc_casca.webp",
+    "size": "256x343",
+    "bytes": 25264
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_casca",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_casca.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "첫 일격을 가한 인물로 전해짐(confirmed 큰 줄기, 장면은 비그래픽). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_trebonius",
+   "path": "assets/portraits/npc/npc_trebonius.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 986662,
+   "npc": "npc_trebonius",
+   "roster_code": "npc_trebonius",
+   "name_ko": "가이우스 트레보니우스",
+   "side": "enemy",
+   "era": "기원전 92경~43",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_trebonius.thumb",
+    "path": "assets/portraits/npc/thumb/npc_trebonius.webp",
+    "size": "256x343",
+    "bytes": 24288
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_trebonius",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_trebonius.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "3월 15일 안토니우스를 문 밖에 붙잡아 둠(사료마다 데키무스와 혼동, verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_calpurnia",
+   "path": "assets/portraits/npc/npc_calpurnia.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1121548,
+   "npc": "npc_calpurnia",
+   "roster_code": "npc_calpurnia",
+   "name_ko": "칼푸르니아",
+   "side": "neutral",
+   "era": "기원전 76경~?",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_calpurnia.thumb",
+    "path": "assets/portraits/npc/thumb/npc_calpurnia.webp",
+    "size": "256x343",
+    "bytes": 26798
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_calpurnia",
+   "style_ref": "assets/portraits/cleopatra_vii.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_calpurnia.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": [],
+    "notes": "r0 스톨라 하단 검은 얼룩 → darkspot_fix 로 원본 색 복구"
+   },
+   "verify": true,
+   "verify_note": "컷인 인물(꿈 일화). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_spurinna",
+   "path": "assets/portraits/npc/npc_spurinna.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1097754,
+   "npc": "npc_spurinna",
+   "roster_code": "npc_spurinna",
+   "name_ko": "스푸린나",
+   "side": "neutral",
+   "era": "기원전 1세기",
+   "culture": "ancient_med(etruscan)",
+   "used_in": [
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_spurinna.thumb",
+    "path": "assets/portraits/npc/thumb/npc_spurinna.webp",
+    "size": "256x343",
+    "bytes": 23578
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_spurinna",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_spurinna.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "3월 15일 경고 일화(confirmed 큰 줄기). 원뿔 모자·술 망토는 에트루리아 미술 기반 일반화(verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_artemidorus",
+   "path": "assets/portraits/npc/npc_artemidorus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1059601,
+   "npc": "npc_artemidorus",
+   "roster_code": "npc_artemidorus",
+   "name_ko": "크니도스의 아르테미도로스",
+   "side": "neutral",
+   "era": "기원전 1세기",
+   "culture": "ancient_med(greek)",
+   "used_in": [
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_artemidorus.thumb",
+    "path": "assets/portraits/npc/thumb/npc_artemidorus.webp",
+    "size": "256x343",
+    "bytes": 25090
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_artemidorus",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_artemidorus.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_all_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "경고문 일화(플루타르코스, confirmed 큰 줄기). 이름표·컷인용. 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_sugambri_scout_captain",
+   "path": "assets/portraits/npc/npc_sugambri_scout_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1044903,
+   "npc": "npc_sugambri_scout_captain",
+   "roster_code": "npc_sugambri_scout_captain",
+   "name_ko": "수감브리 정찰 기수",
+   "side": "enemy",
+   "era": "기원전 55",
+   "culture": "germanic(sugambri)",
+   "used_in": [
+    "ch26_s2"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_sugambri_scout_captain.thumb",
+    "path": "assets/portraits/npc/thumb/npc_sugambri_scout_captain.webp",
+    "size": "256x343",
+    "bytes": 21146
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_sugambri_scout_captain",
+   "style_ref": "assets/portraits/vercingetorix.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_sugambri_scout_captain.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_p2_dark.jpg",
+    "issues": [
+     "투창 끝이 프레임 위 가장자리에 닿음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(이름 없음).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_roman_engineer_squad",
+   "path": "assets/portraits/npc/npc_roman_engineer_squad.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1249855,
+   "npc": "npc_roman_engineer_squad",
+   "roster_code": "npc_roman_engineer_squad",
+   "name_ko": "로마 공병대",
+   "side": "ally",
+   "era": "기원전 55",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s2"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_roman_engineer_squad.thumb",
+    "path": "assets/portraits/npc/thumb/npc_roman_engineer_squad.webp",
+    "size": "256x343",
+    "bytes": 26274
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_roman_engineer_squad",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_roman_engineer_squad.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_p2_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물. 돌라브라는 로마 공병 도구 일반화.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_roman_engineer_foreman",
+   "path": "assets/portraits/npc/npc_roman_engineer_foreman.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 938097,
+   "npc": "npc_roman_engineer_foreman",
+   "roster_code": "npc_roman_engineer_foreman",
+   "name_ko": "로마 공병 감독",
+   "side": "ally",
+   "era": "기원전 55",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s2"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_roman_engineer_foreman.thumb",
+    "path": "assets/portraits/npc/thumb/npc_roman_engineer_foreman.webp",
+    "size": "256x343",
+    "bytes": 24200
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_roman_engineer_foreman",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_roman_engineer_foreman.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_p2_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_republican_guard_captain",
+   "path": "assets/portraits/npc/npc_republican_guard_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1471481,
+   "npc": "npc_republican_guard_captain",
+   "roster_code": "npc_republican_guard_captain",
+   "name_ko": "공화파 경비대장",
+   "side": "enemy",
+   "era": "기원전 49",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s4"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_republican_guard_captain.thumb",
+    "path": "assets/portraits/npc/thumb/npc_republican_guard_captain.webp",
+    "size": "256x343",
+    "bytes": 31018
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_republican_guard_captain",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_republican_guard_captain.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_p2_dark.jpg",
+    "issues": [
+     "가로 볏 윗선이 프레임 위 가장자리에 닿음(잘림 거의 없음)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물. 가로 볏은 백인대장 표지 일반화.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_border_post_commander",
+   "path": "assets/portraits/npc/npc_border_post_commander.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1062163,
+   "npc": "npc_border_post_commander",
+   "roster_code": "npc_border_post_commander",
+   "name_ko": "국경 초소장",
+   "side": "enemy",
+   "era": "기원전 49",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s5"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_border_post_commander.thumb",
+    "path": "assets/portraits/npc/thumb/npc_border_post_commander.webp",
+    "size": "256x343",
+    "bytes": 20660
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_border_post_commander",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_border_post_commander.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_p2_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(교전 각색).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_gladiator_captain",
+   "path": "assets/portraits/npc/npc_gladiator_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 965394,
+   "npc": "npc_gladiator_captain",
+   "roster_code": "npc_gladiator_captain",
+   "name_ko": "검투사 두목",
+   "side": "enemy",
+   "era": "기원전 44",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s10"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_gladiator_captain.thumb",
+    "path": "assets/portraits/npc/thumb/npc_gladiator_captain.webp",
+    "size": "256x343",
+    "bytes": 22428
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_gladiator_captain",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_gladiator_captain.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_p2_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(데키무스 휘하 검투사, 큰 줄기 confirmed).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_corfinium_officer",
+   "path": "assets/portraits/npc/npc_corfinium_officer.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1328639,
+   "npc": "npc_corfinium_officer",
+   "roster_code": "npc_corfinium_officer",
+   "name_ko": "코르피니움 장교",
+   "side": "enemy",
+   "era": "기원전 49",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s6"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_corfinium_officer.thumb",
+    "path": "assets/portraits/npc/thumb/npc_corfinium_officer.webp",
+    "size": "256x343",
+    "bytes": 24714
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_corfinium_officer",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_corfinium_officer.jpg",
+   "calls": 3,
+   "calls_ok": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "issues": [],
+    "notes": "r0·r1 흰 볏 위쪽 잘림 → r2 볏 없는 투구로 설명 변경 후 채택"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(장교들이 지휘관을 넘긴 사료 취지).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_senate_clerk",
+   "path": "assets/portraits/npc/npc_senate_clerk.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 991314,
+   "npc": "npc_senate_clerk",
+   "roster_code": "npc_senate_clerk",
+   "name_ko": "원로원 서기",
+   "side": "neutral",
+   "era": "기원전 49",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s4"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_senate_clerk.thumb",
+    "path": "assets/portraits/npc/thumb/npc_senate_clerk.webp",
+    "size": "256x343",
+    "bytes": 21282
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_senate_clerk",
+   "style_ref": "assets/portraits/pompey_magnus.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_senate_clerk.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_p2_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_servilia_maid",
+   "path": "assets/portraits/npc/npc_servilia_maid.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 906392,
+   "npc": "npc_servilia_maid",
+   "roster_code": "npc_servilia_maid",
+   "name_ko": "세르빌리아의 하녀",
+   "side": "neutral",
+   "era": "기원전 49",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch26_s7"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_servilia_maid.thumb",
+    "path": "assets/portraits/npc/thumb/npc_servilia_maid.webp",
+    "size": "256x343",
+    "bytes": 20432
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs p(portrait_campaign_style.mjs job() + npc_ch26_style.mjs P_CH26) → npc_ch26_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs P_CH26.npc_servilia_maid",
+   "style_ref": "assets/portraits/cleopatra_vii.png",
+   "raw": "docker/gemini/npc_ch26/portraits/raw/portrait_npc_servilia_maid.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check)",
+     "검은 얼룩 복구(portrait_darkspot_fix) 후 내부 반투명 <0.7%",
+     "머리 위 여백·잘림",
+     "시대 복식(공화정 말기)·색 축 구분",
+     "광원 왼쪽 위·셀 셰이딩 통일"
+    ],
+    "contact": "docker/gemini/npc_ch26/portraits/out/qa_p2_dark.jpg",
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_pompey_magnus",
+   "path": "assets/portraits/pompey_magnus.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1132307,
+   "npc": "npc_pompey_magnus",
+   "roster_code": "npc_pompey_magnus",
+   "name_ko": "폼페이우스",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "alias_of": "portrait.pompey_magnus",
+   "thumb": {
+    "key": "portrait.npc_pompey_magnus.thumb",
+    "path": "assets/portraits/thumb/pompey_magnus.webp",
+    "size": "256x343"
+   },
+   "generator": {
+    "note": "신규 생성 없음 — 기존 영웅 초상 재사용(같은 파일 경로)"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "notes": "기존 승인 에셋"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  }
+ ]
+}

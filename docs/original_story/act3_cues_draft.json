@@ -1,0 +1,84 @@
+{
+ "_note": "[초안 P6, 2026-11-03, 송서사] 오리지널 메인 3막(ch103_s1~s5) stages.rules.cues 초안. 출처: docs/original_story/act3_events.md 이벤트 표 중 '구현 가능' 행(좌표·유닛 id 없이 성립하는 say/sfx/shake 부분만). 스키마·변환 원칙은 act1_cues_draft.json과 동일(docs/CUTSCENE_SPEC.md 1·6절). stages.<코드>.rules.cues 배열을 해당 스테이지 JSON rules.cues에 그대로 복사하면 된다. 좌표가 필요한 camera/move/fire/spawn/terrain_change는 cue에서 제외하고 requests에 모았다. 제외 기준: 제외된 행동(이동·증원·지형 변화)이 일어났다는 사실을 말하는 대사는 그 행동 없이는 거짓이 되므로 함께 제외하고 requests에 대사 초안을 보존했다. 효과음 키는 manifest(public/assets/audio/manifest.json) 확인된 것만: sfx_battle_tick, sfx_battle_rumble, sfx_battle_fall, sfx_aura_pulse, sfx_move_step, sfx_turn_enemy(6종). speaker: caption / hero:npc_jieum / hero:npc_mabu / hero:npc_bobyeong / hero:npc_baetsagong / hero:npc_ilkkun / hero:npc_gyojeong / hero:147 / protagonist. 쪽이(hero:npc_jjogi)는 비전투라 cue say 화자로만 쓸 수 있으나 3막 이벤트 표에는 쪽이 대사가 없다(caption으로만 묘사). 전부 오리지널 가상, 대사는 창작 대사(invented). 스테이지별 cue 수: s1 4, s2 4, s3 5, s4 5, s5 15(총 33). 종소리 연출은 act1 s4 방식대로 sfx_battle_tick 대용.",
+ "version": 1,
+ "status": "draft",
+ "act": 3,
+ "chapter": 103,
+ "stages": {
+  "ch103_s1": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "성벽 위에서 누군가 외치는 소리가 바람에 실려 온다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_mabu", "expr": "neutral", "text": "해가 기울어요. 문 닫히기 전에 들어가야 해요."},
+   {"on": {"turn": 6}, "do": "sfx", "key": "sfx_move_step"},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_mabu", "expr": "neutral", "text": "문이 보여요. 해가 아직 남았어요."}
+  ]}},
+  "ch103_s2": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "비에 젖은 들판에서 말발굽 소리가 낮게 깔린다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "진창 칸에는 기병이 들어가지 못합니다."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "hero:147", "expr": "neutral", "text": "다친 분은 마른 땅으로 오시오. 내가 보겠습니다."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "caption", "text": "진창 속에서 낡은 신발 한 짝이 모습을 드러낸다."}
+  ]}},
+  "ch103_s3": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "강안개 속에서 노 젓는 소리만 들린다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_baetsagong", "expr": "neutral", "text": "첫 배는 비워 보내요. 안 돌아오면 아무도 건너지 마요."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "caption", "text": "쪽이의 소맷자락 끝이 안개처럼 흐려 보인다."},
+   {"on": {"turn": 7}, "do": "sfx", "key": "sfx_move_step"},
+   {"on": {"turn": 7}, "do": "say", "speaker": "hero:npc_baetsagong", "expr": "neutral", "text": "하나, 둘. 하나, 둘."}
+  ]}},
+  "ch103_s4": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "문서함 서랍이 벽을 따라 줄지어 있고 일곱째 칸에만 먼지가 없다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_jieum", "expr": "serious", "text": "'정리 예정.' ……서명란이 비어 있습니다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:147", "expr": "neutral", "text": "쪽이, 숨이 가쁘면 말하시오. 맥을 보겠소."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "caption", "text": "쪽이의 손끝이 종이처럼 얇게 비친다."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "caption", "text": "문서함 일곱째 칸에서 낱장 한 장 끝이 보인다."}
+  ]}},
+  "ch103_s5": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "sfx", "key": "sfx_battle_tick"},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "성당 문 위로 종소리가 한 번 울린다. 행렬이 멈추었다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_ilkkun", "expr": "neutral", "text": "문이 닫히면 안에서는 못 열어요. 서둘러 주세요."},
+   {"on": {"turn": 3}, "do": "sfx", "key": "sfx_aura_pulse"},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "통신선에 신호가 끼었습니다. 이 층의 신호가 아닙니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "순회원 여러분, 교정 담당입니다. 첫 장 복원 건으로 직접 연락드렸습니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "이름이 비어 있는 책은 읽는 이를 속입니다. 읽는 이는 누가 한 일인지 알아야 하니까요."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "알 권리는 인정합니다. 다만 이름 칸이 비어 있어도 쪽은 사람이 한 일을 적고 있습니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "한 일이 적혀 있어도 누가 했는지 대답하지 못하면 읽는 이에게는 오류입니다. 정리도 보존입니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:147", "expr": "neutral", "text": "내 장부에는 대답 없는 병자도 있소. 그래도 내 환자였소."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "허준 님의 장부는 보존 가치가 있다고 평가합니다. 열람 방식에는 개선이 필요합니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "serious", "text": "그 개선이 이름을 대신 적는 것이면 받아들일 수 없습니다."},
+   {"on": {"turn": 4}, "do": "shake", "power": 2, "ms": 300},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "발신 층 표시 7. 교정관 신호와 일치합니다."},
+   {"on": {"turn": 7}, "do": "say", "speaker": "caption", "text": "문 앞 돌계단에서 공백병이 무너진다. 종이 한 장이 미끄러져 내려온다."}
+  ]}}
+ },
+ "cue_notes": {
+  "ch103_s1": "e1-E1 camera 제외, caption만. e1-E3(terrain_change 큰길 + rumble + 마부·지음 대사 '큰길 바닥이 질어졌어요/진창 칸에는 기병이 들어가지 못하고 보병도 발이 묶입니다')와 e1-E4(move 적 척후 + 지음 '척후가 큰길 앞쪽에서 접근합니다')는 requests. e1-E5 camera 제외, 전투가 6턴 전에 끝나면 미발동(post '들어갔어요'가 대신). 승리조건 unit_survive 마부 + 수레 줄 성문 도달(도달 판정은 확인 필요).",
+  "ch103_s2": "e2-E3(move 적 기병 -> 진창 + sfx_battle_fall + 보병 '앉았다! 저놈들 앉았다!')는 requests. e2-E4 허준 대사는 파티 유닛이라 그대로. e2-E5 camera 제외, caption만. 승리조건은 적 지휘관 격파(기존).",
+  "ch103_s3": "e3-E3(move 배 NPC + 3줄)는 requests. e3-E4는 쪽이 이상 증세 caption(쪽이 비전투). e3-E5는 전투가 7턴 전에 끝나면 미발동. 승리조건 unit_survive 뱃사공 + 배 줄 맞은편 도달(확인 필요).",
+  "ch103_s4": "e4-E1과 e4-E1b는 battle_start에 순서대로(caption -> 지음). camera 제외. e4-E3(spawn 공백병, 3막 증원 1회, 지음 '문서함 뒤에서 공백병이 나옵니다. 칸 앞을 막으십시오.')는 requests. 승리조건 hold_zone 문서함 일곱째 칸. 쪽이 NPC 유닛(허준 곁 이동, 비전투)과 문서함 접촉 판정·서명 입력 연출은 미구현 요청.",
+  "ch103_s5": "e5-E3 교정관 직접 대화 8줄은 turn 3 한 시점에 순서대로 발동(sfx_aura_pulse 먼저). 막 보스는 없고 교정관은 음성 전용(전투 유닛 아님). e5-E1 camera 제외, 종소리는 sfx_battle_tick 대용. e5-E5(terrain_change 성당 문 앞 길 + 성당 일꾼 '사람들이 문 앞으로 몰려요! 길을 열어 주세요!')는 requests. e5-E6 camera 제외, 전투가 7턴 전에 끝나면 미발동(post 첫 줄이 대신). 문 선통과 금지 판정(공백병이 문을 먼저 통과하면 실패)은 미구현. 잔 다르크는 전투 중 등장 없음(post2 caption만)."
+ },
+ "requests": {
+  "coordinates_needed": [
+   {"ref": "e1-E1", "do": "camera focus 성문 600ms -> restore (battle_start)", "needs": "성문 칸 좌표"},
+   {"ref": "e1-E3", "do": "terrain_change 큰길 일부 칸 -> 진창 지형 코드 + sfx_battle_rumble + say 마부 '큰길 바닥이 질어졌어요!' / 지음 '진창 칸에는 기병이 들어가지 못하고 보병도 발이 묶입니다. 수레 줄을 마른 칸으로 한 줄로 세우십시오.' (turn 3)", "needs": "큰길 칸 좌표, 진창 지형 코드(terrains 확인)"},
+   {"ref": "e1-E4", "do": "move <적 척후> -> 큰길 앞쪽 칸 + say 지음 '척후가 큰길 앞쪽에서 접근합니다.' (turn 4)", "needs": "척후 유닛 id, 큰길 칸"},
+   {"ref": "e1-E5", "do": "camera focus 성문 -> restore (turn 6, sfx·say는 반영됨)", "needs": "성문 칸 좌표"},
+   {"ref": "e2-E3", "do": "move <적 기병> -> 진창 칸 + sfx_battle_fall + say 보병 '앉았다! 저놈들 앉았다!' (turn 3)", "needs": "적 기병 유닛 id, 진창 칸"},
+   {"ref": "e2-E5", "do": "camera focus 진창 칸 -> restore (turn 6, caption은 반영됨)", "needs": "진창 칸 좌표"},
+   {"ref": "e3-E3", "do": "move <배 NPC> -> 항로 밖 칸 + say 3줄 (turn 4). 대사 초안: 뱃사공 '물살이 이쪽으로 밀어요!' / 지음 '배 한 척이 항로를 벗어났습니다.' / 주인공 '배 줄을 붙이겠습니다. 항로로 돌려놓겠습니다.'", "needs": "배 NPC 유닛 id, 항로 밖 칸"},
+   {"ref": "e4-E1", "do": "camera focus 문서함 일곱째 칸 -> restore (battle_start, say 앞뒤)", "needs": "문서함 일곱째 칸 좌표"},
+   {"ref": "e4-E3", "do": "spawn side b unit_type 공백병 tiles 문서함 뒤 tag a3e4_blank ready false + say 지음 '문서함 뒤에서 공백병이 나옵니다. 칸 앞을 막으십시오.' (turn 3, 3막 증원 1회)", "needs": "문서함 뒤 칸 좌표, 공백병 unit_type 확인"},
+   {"ref": "e4-E5", "do": "camera focus 문서함 일곱째 칸 -> restore (turn 6, caption은 반영됨)", "needs": "문서함 일곱째 칸 좌표"},
+   {"ref": "e5-E1", "do": "camera focus 성당 문 -> restore (battle_start)", "needs": "성당 문 칸 좌표"},
+   {"ref": "e5-E5", "do": "terrain_change 성당 문 앞 길 일부 칸 -> 군중/장애 지형 코드 + say 성당 일꾼 '사람들이 문 앞으로 몰려요! 길을 열어 주세요!' (turn 5)", "needs": "문 앞 길 칸 좌표, 장애 지형 코드"},
+   {"ref": "e5-E6", "do": "camera focus 공백병 지휘 개체 -> restore (turn 7) + 가능하면 격파 시 주변 공백병 retreat", "needs": "지휘 개체 유닛 id, 주변 공백병 유닛 id"}
+  ],
+  "unimplemented_or_deferred": [
+   "수레 도달·길 선택 AI, 수레 NPC 유닛 id, 마부 포트레이트(s1)",
+   "진창 지형 타일, 보병 NPC 유닛 id(s2)",
+   "수상 호위 AI, 배 NPC 유닛, 뱃사공 포트레이트(s3)",
+   "쪽이 NPC 유닛(허준 곁 이동, 비전투), 문서함 칸 접촉 판정 연출, 서명 입력 연출(s4)",
+   "문 선통과 금지 판정, 성당 일꾼 포트레이트, 정리 목록 종이 오브젝트(s5)",
+   "종소리·문 열림 전용 효과음(manifest에 없어 sfx_battle_tick 대용)"
+  ]
+ }
+}

@@ -1,0 +1,4326 @@
+{
+ "_note": "대사 장면 배경(bg.<set>.<name>) manifest 조각 — 미병합. 병합: docker/gemini/merge_fragments.mjs FRAGMENTS 에 { path: `${A}/bg/scene/manifest_fragment_scene_bg.json` } 1줄 추가(윤프론). 전 항목 scope lazy·deferred(부팅 로드 제외)",
+ "_keyRule": "bg.<set>.<name> — set: archive(서고 공통) | <서가 id>(imjin=임진왜란, 이후 goryeo_khitan 등). 예약 set: battle, screen. 파일 public/assets/bg/scene/<set>/<name>.webp(1920x1080) + <name>_1280.webp",
+ "_generated": "2026-11-01",
+ "items": [
+  {
+   "key": "bg.archive.hall",
+   "path": "assets/bg/scene/archive/hall.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/archive/hall_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 142890,
+    "1280": 67076
+   },
+   "set": "archive",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[archive_hall] (참조 이미지 cutscene/il01_hall.jpg — 그림체 기준)",
+   "src_raw": "assets/raw/scene_bg/archive_hall.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass(메모)",
+    "issues": [
+     "1차 채택(참조 il01_hall 그림체)",
+     "좌우 서가·사다리 디테일이 다소 많음 → 좌우 22% 비네팅으로 완화",
+     "문 아래 바닥 빛줄 때문에 대사창 영역 최악 대비 4.3:1(패널이 덮으므로 실사용 문제 없음)",
+     "글자·사람 없음"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.126,
+     "dialog_luma_p99": 0.426,
+     "dialog_luma_pre_grade": 0.144,
+     "white_text_contrast_mean": 13.25,
+     "white_text_contrast_worst_p99": 4.33,
+     "side_luma_l": 0.179,
+     "side_luma_r": 0.172,
+     "side_detail_l": 0.0233,
+     "side_detail_r": 0.0231,
+     "center_detail": 0.0172
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.archive.aisle",
+   "path": "assets/bg/scene/archive/aisle.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/archive/aisle_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 83722,
+    "1280": 40880
+   },
+   "set": "archive",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[archive_aisle] (참조 이미지 cutscene/il01_hall.jpg — 그림체 기준)",
+   "src_raw": "assets/raw/scene_bg/archive_aisle.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass(메모)",
+    "issues": [
+     "1차 채택",
+     "복도 끝 둥근 창이 4분할 창살(건축 창살, 종교 상징으로 읽힐 가능성 낮음 — 민감하면 교체)",
+     "가장 어둡고 단순: 튜토리얼 반복 배경으로 적합"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.06,
+     "dialog_luma_p99": 0.127,
+     "dialog_luma_pre_grade": 0.073,
+     "white_text_contrast_mean": 16.61,
+     "white_text_contrast_worst_p99": 14.23,
+     "side_luma_l": 0.079,
+     "side_luma_r": 0.078,
+     "side_detail_l": 0.0135,
+     "side_detail_r": 0.0133,
+     "center_detail": 0.0206
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.archive.deep",
+   "path": "assets/bg/scene/archive/deep.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/archive/deep_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 96374,
+    "1280": 49284
+   },
+   "set": "archive",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[archive_deep] (참조 이미지 cutscene/il01_hall.jpg — 그림체 기준)",
+   "src_raw": "assets/raw/scene_bg/archive_deep.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "1차 채택",
+     "먹물 그림자는 추상 연기 형태(사람·얼굴·손 없음)",
+     "떠다니는 종이는 빈 종이(글자 없음)",
+     "하단 모서리 부서진 판자는 대사창 아래·어둡게 처리"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.063,
+     "dialog_luma_p99": 0.261,
+     "dialog_luma_pre_grade": 0.085,
+     "white_text_contrast_mean": 16.22,
+     "white_text_contrast_worst_p99": 8.73,
+     "side_luma_l": 0.142,
+     "side_luma_r": 0.112,
+     "side_detail_l": 0.01,
+     "side_detail_r": 0.0104,
+     "center_detail": 0.0184
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.archive.ink",
+   "path": "assets/bg/scene/archive/ink.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/archive/ink_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 120664,
+    "1280": 53048
+   },
+   "set": "archive",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[archive_ink] (참조 이미지 cutscene/il01_hall.jpg — 그림체 기준)",
+   "src_raw": "assets/raw/scene_bg/archive_ink.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "1차 채택",
+     "먹물 번짐·공허·떠 있는 발판 표현 명확",
+     "좌측 하단 먹물 줄기는 초상화 하단에 가려짐"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.086,
+     "dialog_luma_p99": 0.247,
+     "dialog_luma_pre_grade": 0.095,
+     "white_text_contrast_mean": 15.23,
+     "white_text_contrast_worst_p99": 9.07,
+     "side_luma_l": 0.113,
+     "side_luma_r": 0.079,
+     "side_detail_l": 0.017,
+     "side_detail_r": 0.0158,
+     "center_detail": 0.021
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.archive.dusk",
+   "path": "assets/bg/scene/archive/dusk.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/archive/dusk_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 71158,
+    "1280": 37928
+   },
+   "set": "archive",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[archive_dusk2]",
+   "src_raw": "assets/raw/scene_bg_fix/archive_dusk2.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "2차 채택(archive_dusk2)",
+     "1차 기각: 참조 이미지 구도 복제로 hall 과 구분 불가, 노을색 약함",
+     "주황 노을 창 3개 + 열람 책상, 창살은 격자(종교 상징 아님)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.098,
+     "dialog_luma_p99": 0.198,
+     "dialog_luma_pre_grade": 0.099,
+     "white_text_contrast_mean": 15.01,
+     "white_text_contrast_worst_p99": 11.17,
+     "side_luma_l": 0.141,
+     "side_luma_r": 0.143,
+     "side_detail_l": 0.0155,
+     "side_detail_r": 0.0158,
+     "center_detail": 0.0322
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.imjin.fleet_dawn",
+   "path": "assets/bg/scene/imjin/fleet_dawn.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/imjin/fleet_dawn_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 22948,
+    "1280": 11974
+   },
+   "set": "imjin",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[imjin_fleet_dawn]",
+   "src_raw": "assets/raw/scene_bg/imjin_fleet_dawn.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass(verify)",
+    "issues": [
+     "1차 채택",
+     "판옥선은 작은 실루엣(2층 갑판·누각 형태, 고증 verify)",
+     "깃발 무늬 없음, 사람 없음",
+     "정보량이 적어 22KB — 대사 가독 최상"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.041,
+     "dialog_luma_p99": 0.093,
+     "dialog_luma_pre_grade": 0.052,
+     "white_text_contrast_mean": 17.23,
+     "white_text_contrast_worst_p99": 15.48,
+     "side_luma_l": 0.19,
+     "side_luma_r": 0.171,
+     "side_detail_l": 0.0026,
+     "side_detail_r": 0.003,
+     "center_detail": 0.0061
+    }
+   },
+   "verify": true,
+   "verify_note": "판옥선 형태(2층 갑판·누각) 고증 verify"
+  },
+  {
+   "key": "bg.imjin.night_sea",
+   "path": "assets/bg/scene/imjin/night_sea.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/imjin/night_sea_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 18616,
+    "1280": 9422
+   },
+   "set": "imjin",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[imjin_night_sea2]",
+   "src_raw": "assets/raw/scene_bg_fix/imjin_night_sea2.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass(메모)",
+    "issues": [
+     "2차 채택(imjin_night_sea2) + 크롭",
+     "1차 기각: 상단·75% 높이 수평 띠",
+     "2차도 위 11.8%·아래 11.9% 검은 띠 → 크롭(원본 2752x1152 영역 → 1920x1080, 해상도 충분)",
+     "배는 어두운 실루엣과 등불만"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.036,
+     "dialog_luma_p99": 0.079,
+     "dialog_luma_pre_grade": 0.048,
+     "white_text_contrast_mean": 17.37,
+     "white_text_contrast_worst_p99": 16.0,
+     "side_luma_l": 0.102,
+     "side_luma_r": 0.106,
+     "side_detail_l": 0.0029,
+     "side_detail_r": 0.0028,
+     "center_detail": 0.0059
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.imjin.strait",
+   "path": "assets/bg/scene/imjin/strait.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/imjin/strait_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 73350,
+    "1280": 40286
+   },
+   "set": "imjin",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[imjin_strait]",
+   "src_raw": "assets/raw/scene_bg/imjin_strait.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass(verify)",
+    "issues": [
+     "1차 채택",
+     "원경 배 2척의 살대 돛(동아시아식 돛) — 판옥선 형태와 차이 verify, 크기 작음",
+     "우측 절벽이 초상화 슬롯 뒤에 크지만 어둡고 단순"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.079,
+     "dialog_luma_p99": 0.247,
+     "dialog_luma_pre_grade": 0.095,
+     "white_text_contrast_mean": 15.14,
+     "white_text_contrast_worst_p99": 8.72,
+     "side_luma_l": 0.138,
+     "side_luma_r": 0.109,
+     "side_detail_l": 0.005,
+     "side_detail_r": 0.0062,
+     "center_detail": 0.0096
+    }
+   },
+   "verify": true,
+   "verify_note": "명량(울돌목) 지형은 각색 서가(what_if)라 형태만 참고"
+  },
+  {
+   "key": "bg.imjin.river",
+   "path": "assets/bg/scene/imjin/river.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/imjin/river_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 134008,
+    "1280": 71658
+   },
+   "set": "imjin",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[imjin_river2]",
+   "src_raw": "assets/raw/scene_bg_fix/imjin_river2.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass(메모)",
+    "issues": [
+     "2차 채택(imjin_river2)",
+     "1차 기각: 수면 75% 높이 칼같은 어두운 띠",
+     "세트 중 가장 밝음(좌측 나무·하늘) — 실화면에서 초상화 가독 확인 권장, 필요 시 FE 에서 남색 오버레이 10~20%",
+     "정암진은 구체 지형이 아닌 일반 강변"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.105,
+     "dialog_luma_p99": 0.603,
+     "dialog_luma_pre_grade": 0.105,
+     "white_text_contrast_mean": 12.71,
+     "white_text_contrast_worst_p99": 2.46,
+     "side_luma_l": 0.183,
+     "side_luma_r": 0.278,
+     "side_detail_l": 0.0163,
+     "side_detail_r": 0.016,
+     "center_detail": 0.011
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.imjin.fortress",
+   "path": "assets/bg/scene/imjin/fortress.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/imjin/fortress_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 68404,
+    "1280": 35522
+   },
+   "set": "imjin",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[imjin_fortress]",
+   "src_raw": "assets/raw/scene_bg/imjin_fortress.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass(verify)",
+    "issues": [
+     "1차 채택",
+     "현판 빈 판(글자 없음)",
+     "성가퀴는 일반 동아시아 철(凸)형 — 조선 읍성 여장 형태 verify",
+     "노을 하늘에 장밋빛 기운(보라·마젠타는 아님)",
+     "가는 연기·부러진 사다리만(유혈·시신 없음)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.05,
+     "dialog_luma_p99": 0.153,
+     "dialog_luma_pre_grade": 0.061,
+     "white_text_contrast_mean": 16.87,
+     "white_text_contrast_worst_p99": 13.07,
+     "side_luma_l": 0.147,
+     "side_luma_r": 0.135,
+     "side_detail_l": 0.0074,
+     "side_detail_r": 0.0052,
+     "center_detail": 0.0177
+    }
+   },
+   "verify": true,
+   "verify_note": "조선 읍성(진주성) 성가퀴·문루 형태 verify"
+  },
+  {
+   "key": "bg.imjin.pyongyang_winter",
+   "path": "assets/bg/scene/imjin/pyongyang_winter.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/imjin/pyongyang_winter_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 67272,
+    "1280": 36702
+   },
+   "set": "imjin",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[imjin_pyongyang_winter]",
+   "src_raw": "assets/raw/scene_bg/imjin_pyongyang_winter.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass(verify)",
+    "issues": [
+     "1차 채택",
+     "현판 빈 판, 깃발 무늬 없음",
+     "2층 문루·관아 지붕은 일반화된 조선 성곽 표현(대동문 실제 형태와 다름, verify)",
+     "좌측 슬롯 뒤 하늘이 밝음(휘도 0.37) — 은청색 머리 초상화 대비 실화면 확인 권장"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.086,
+     "dialog_luma_p99": 0.317,
+     "dialog_luma_pre_grade": 0.11,
+     "white_text_contrast_mean": 15.31,
+     "white_text_contrast_worst_p99": 6.93,
+     "side_luma_l": 0.373,
+     "side_luma_r": 0.261,
+     "side_detail_l": 0.0061,
+     "side_detail_r": 0.007,
+     "center_detail": 0.0157
+    }
+   },
+   "verify": true,
+   "verify_note": "평양성 대동문·성곽 형태는 일반화된 조선 성곽 표현, verify"
+  },
+  {
+   "key": "bg.imjin.haengju_sunset",
+   "path": "assets/bg/scene/imjin/haengju_sunset.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/imjin/haengju_sunset_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 58954,
+    "1280": 32972
+   },
+   "set": "imjin",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[imjin_haengju_sunset]",
+   "src_raw": "assets/raw/scene_bg/imjin_haengju_sunset.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass(verify)",
+    "issues": [
+     "1차 채택 + 크롭(상단 13% 제거: 단색 띠)",
+     "토성+석축+목책 혼재 표현 — 실제 행주산성은 토성·목책 중심(verify)",
+     "깃발 무늬 없음"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.105,
+     "dialog_luma_p99": 0.194,
+     "dialog_luma_pre_grade": 0.134,
+     "white_text_contrast_mean": 14.87,
+     "white_text_contrast_worst_p99": 11.3,
+     "side_luma_l": 0.154,
+     "side_luma_r": 0.308,
+     "side_detail_l": 0.007,
+     "side_detail_r": 0.0045,
+     "center_detail": 0.012
+    }
+   },
+   "verify": true,
+   "verify_note": "행주산성 토성·목책 형태 verify"
+  },
+  {
+   "key": "bg.hastings.harbor",
+   "path": "assets/bg/scene/hastings/harbor.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/hastings/harbor_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 61164,
+    "1280": 32620
+   },
+   "set": "hastings",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[hastings_harbor]",
+   "src_raw": "assets/raw/scene_bg/hastings_harbor.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 23% 검은 띠 크롭(호출 없음)",
+     "롱십 1척 위주(지정은 여러 척)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.086,
+     "dialog_luma_p99": 0.268,
+     "dialog_luma_pre_grade": 0.115,
+     "white_text_contrast_mean": 15.46,
+     "white_text_contrast_worst_p99": 8.5,
+     "side_luma_l": 0.365,
+     "side_luma_r": 0.16,
+     "side_detail_l": 0.0045,
+     "side_detail_r": 0.01,
+     "center_detail": 0.007
+    }
+   },
+   "verify": true,
+   "verify_note": "노르만 수송선은 바이킹식 롱십 계열로 일반화(verify)"
+  },
+  {
+   "key": "bg.hastings.pevensey",
+   "path": "assets/bg/scene/hastings/pevensey.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/hastings/pevensey_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 45870,
+    "1280": 22656
+   },
+   "set": "hastings",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[hastings_pevensey]",
+   "src_raw": "assets/raw/scene_bg/hastings_pevensey.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.18,
+     "dialog_luma_p99": 0.31,
+     "dialog_luma_pre_grade": 0.237,
+     "white_text_contrast_mean": 11.35,
+     "white_text_contrast_worst_p99": 7.14,
+     "side_luma_l": 0.273,
+     "side_luma_r": 0.251,
+     "side_detail_l": 0.004,
+     "side_detail_r": 0.0034,
+     "center_detail": 0.0135
+    }
+   },
+   "verify": true,
+   "verify_note": "페븐시 로마 요새(색슨 해안 요새) 형태 일반화"
+  },
+  {
+   "key": "bg.hastings.camp_night",
+   "path": "assets/bg/scene/hastings/camp_night.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/hastings/camp_night_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 42290,
+    "1280": 22706
+   },
+   "set": "hastings",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[hastings_camp_night]",
+   "src_raw": "assets/raw/scene_bg/hastings_camp_night.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 검은 띠 크롭"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.097,
+     "dialog_luma_p99": 0.211,
+     "dialog_luma_pre_grade": 0.121,
+     "white_text_contrast_mean": 15.17,
+     "white_text_contrast_worst_p99": 10.6,
+     "side_luma_l": 0.13,
+     "side_luma_r": 0.112,
+     "side_detail_l": 0.0043,
+     "side_detail_r": 0.0062,
+     "center_detail": 0.0078
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.hastings.ridge",
+   "path": "assets/bg/scene/hastings/ridge.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/hastings/ridge_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 53996,
+    "1280": 28128
+   },
+   "set": "hastings",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[hastings_ridge]",
+   "src_raw": "assets/raw/scene_bg/hastings_ridge.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 검은 띠 크롭",
+     "좌측 측면이 밝은 편(0.46) — 초상 뒤 가독 실화면 확인 권장"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.153,
+     "dialog_luma_p99": 0.365,
+     "dialog_luma_pre_grade": 0.187,
+     "white_text_contrast_mean": 11.88,
+     "white_text_contrast_worst_p99": 5.72,
+     "side_luma_l": 0.457,
+     "side_luma_r": 0.257,
+     "side_detail_l": 0.005,
+     "side_detail_r": 0.0085,
+     "center_detail": 0.0178
+    }
+   },
+   "verify": true,
+   "verify_note": "방패벽만 남긴 연출(인물 없음 규칙)"
+  },
+  {
+   "key": "bg.hastings.thames",
+   "path": "assets/bg/scene/hastings/thames.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/hastings/thames_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 80460,
+    "1280": 44210
+   },
+   "set": "hastings",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[hastings_thames]",
+   "src_raw": "assets/raw/scene_bg/hastings_thames.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "상하 검은 띠 크롭"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.141,
+     "dialog_luma_p99": 0.353,
+     "dialog_luma_pre_grade": 0.17,
+     "white_text_contrast_mean": 12.21,
+     "white_text_contrast_worst_p99": 5.9,
+     "side_luma_l": 0.227,
+     "side_luma_r": 0.265,
+     "side_detail_l": 0.011,
+     "side_detail_r": 0.0092,
+     "center_detail": 0.0133
+    }
+   },
+   "verify": true,
+   "verify_note": "11세기 런던(로마 성벽·나무 다리) 일반화"
+  },
+  {
+   "key": "bg.hastings.tent",
+   "path": "assets/bg/scene/hastings/tent.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/hastings/tent_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 79066,
+    "1280": 41724
+   },
+   "set": "hastings",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[hastings_tent]",
+   "src_raw": "assets/raw/scene_bg/hastings_tent.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "하단 띠 크롭",
+     "천막 입구 눈밭이 밝아 대사창 최악 대비 2.95(반투명 패널 전제, 평균은 충분)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.128,
+     "dialog_luma_p99": 0.547,
+     "dialog_luma_pre_grade": 0.136,
+     "white_text_contrast_mean": 11.8,
+     "white_text_contrast_worst_p99": 2.95,
+     "side_luma_l": 0.14,
+     "side_luma_r": 0.143,
+     "side_detail_l": 0.0085,
+     "side_detail_r": 0.0112,
+     "center_detail": 0.0184
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.tours.vienne_ford",
+   "path": "assets/bg/scene/tours/vienne_ford.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/tours/vienne_ford_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 184828,
+    "1280": 98840
+   },
+   "set": "tours",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[tours_vienne_ford]",
+   "src_raw": "assets/raw/scene_bg/tours_vienne_ford.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.127,
+     "dialog_luma_p99": 0.37,
+     "dialog_luma_pre_grade": 0.144,
+     "white_text_contrast_mean": 13.16,
+     "white_text_contrast_worst_p99": 5.56,
+     "side_luma_l": 0.228,
+     "side_luma_r": 0.265,
+     "side_detail_l": 0.0326,
+     "side_detail_r": 0.0277,
+     "center_detail": 0.0136
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.tours.roman_road",
+   "path": "assets/bg/scene/tours/roman_road.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/tours/roman_road_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 130522,
+    "1280": 68136
+   },
+   "set": "tours",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[tours_roman_road]",
+   "src_raw": "assets/raw/scene_bg/tours_roman_road.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.088,
+     "dialog_luma_p99": 0.326,
+     "dialog_luma_pre_grade": 0.088,
+     "white_text_contrast_mean": 14.86,
+     "white_text_contrast_worst_p99": 6.7,
+     "side_luma_l": 0.174,
+     "side_luma_r": 0.09,
+     "side_detail_l": 0.0146,
+     "side_detail_r": 0.0081,
+     "center_detail": 0.0132
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.tours.oak_slope",
+   "path": "assets/bg/scene/tours/oak_slope.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/tours/oak_slope_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 125200,
+    "1280": 62972
+   },
+   "set": "tours",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[tours_oak_slope]",
+   "src_raw": "assets/raw/scene_bg/tours_oak_slope.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "서리 표현이 눈처럼 보임(10월 서리 장면과 일치)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.057,
+     "dialog_luma_p99": 0.096,
+     "dialog_luma_pre_grade": 0.076,
+     "white_text_contrast_mean": 16.75,
+     "white_text_contrast_worst_p99": 15.36,
+     "side_luma_l": 0.158,
+     "side_luma_r": 0.196,
+     "side_detail_l": 0.0148,
+     "side_detail_r": 0.0198,
+     "center_detail": 0.0126
+    }
+   },
+   "verify": false,
+   "verify_note": "ch24_s3_pre·s4_pre·s4_post 공용"
+  },
+  {
+   "key": "bg.tours.night_slope",
+   "path": "assets/bg/scene/tours/night_slope.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/tours/night_slope_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 116212,
+    "1280": 59572
+   },
+   "set": "tours",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[tours_night_slope]",
+   "src_raw": "assets/raw/scene_bg/tours_night_slope.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 띠 크롭"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.134,
+     "dialog_luma_p99": 0.426,
+     "dialog_luma_pre_grade": 0.149,
+     "white_text_contrast_mean": 12.44,
+     "white_text_contrast_worst_p99": 4.53,
+     "side_luma_l": 0.14,
+     "side_luma_r": 0.138,
+     "side_detail_l": 0.0135,
+     "side_detail_r": 0.0135,
+     "center_detail": 0.006
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.legnica.muddy_plain",
+   "path": "assets/bg/scene/legnica/muddy_plain.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/legnica/muddy_plain_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 68622,
+    "1280": 36922
+   },
+   "set": "legnica",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[legnica_muddy_plain]",
+   "src_raw": "assets/raw/scene_bg/legnica_muddy_plain.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.106,
+     "dialog_luma_p99": 0.362,
+     "dialog_luma_pre_grade": 0.144,
+     "white_text_contrast_mean": 14.1,
+     "white_text_contrast_worst_p99": 5.76,
+     "side_luma_l": 0.35,
+     "side_luma_r": 0.261,
+     "side_detail_l": 0.0052,
+     "side_detail_r": 0.0054,
+     "center_detail": 0.0072
+    }
+   },
+   "verify": false,
+   "verify_note": "ch21_s1·s4 공용"
+  },
+  {
+   "key": "bg.legnica.river_fog",
+   "path": "assets/bg/scene/legnica/river_fog.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/legnica/river_fog_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 73864,
+    "1280": 38192
+   },
+   "set": "legnica",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[legnica_river_fog]",
+   "src_raw": "assets/raw/scene_bg/legnica_river_fog.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.067,
+     "dialog_luma_p99": 0.166,
+     "dialog_luma_pre_grade": 0.07,
+     "white_text_contrast_mean": 16.26,
+     "white_text_contrast_worst_p99": 12.48,
+     "side_luma_l": 0.203,
+     "side_luma_r": 0.168,
+     "side_detail_l": 0.0085,
+     "side_detail_r": 0.0106,
+     "center_detail": 0.0124
+    }
+   },
+   "verify": false,
+   "verify_note": "ch21_s2(오데르)·s5(사요) 공용"
+  },
+  {
+   "key": "bg.legnica.castle_plain",
+   "path": "assets/bg/scene/legnica/castle_plain.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/legnica/castle_plain_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 37514,
+    "1280": 19706
+   },
+   "set": "legnica",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[legnica_castle_plain]",
+   "src_raw": "assets/raw/scene_bg/legnica_castle_plain.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.087,
+     "dialog_luma_p99": 0.162,
+     "dialog_luma_pre_grade": 0.103,
+     "white_text_contrast_mean": 15.59,
+     "white_text_contrast_worst_p99": 12.67,
+     "side_luma_l": 0.257,
+     "side_luma_r": 0.262,
+     "side_detail_l": 0.0037,
+     "side_detail_r": 0.0033,
+     "center_detail": 0.01
+    }
+   },
+   "verify": true,
+   "verify_note": "브로츠와프 13세기 성 형태 일반화"
+  },
+  {
+   "key": "bg.legnica.danube_fortress",
+   "path": "assets/bg/scene/legnica/danube_fortress.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/legnica/danube_fortress_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 44960,
+    "1280": 23606
+   },
+   "set": "legnica",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[legnica_danube_fortress]",
+   "src_raw": "assets/raw/scene_bg/legnica_danube_fortress.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.114,
+     "dialog_luma_p99": 0.405,
+     "dialog_luma_pre_grade": 0.148,
+     "white_text_contrast_mean": 13.49,
+     "white_text_contrast_worst_p99": 4.9,
+     "side_luma_l": 0.367,
+     "side_luma_r": 0.273,
+     "side_detail_l": 0.0035,
+     "side_detail_r": 0.0044,
+     "center_detail": 0.0106
+    }
+   },
+   "verify": true,
+   "verify_note": "에스테르곰 성채 형태 일반화"
+  },
+  {
+   "key": "bg.legnica.dalmatia",
+   "path": "assets/bg/scene/legnica/dalmatia.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/legnica/dalmatia_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 136874,
+    "1280": 69748
+   },
+   "set": "legnica",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[legnica_dalmatia]",
+   "src_raw": "assets/raw/scene_bg/legnica_dalmatia.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "하단 석회암 길이 밝아 대사창 최악 대비 2.67(반투명 패널 전제)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.154,
+     "dialog_luma_p99": 0.578,
+     "dialog_luma_pre_grade": 0.164,
+     "white_text_contrast_mean": 11.05,
+     "white_text_contrast_worst_p99": 2.67,
+     "side_luma_l": 0.272,
+     "side_luma_r": 0.263,
+     "side_detail_l": 0.0135,
+     "side_detail_r": 0.0122,
+     "center_detail": 0.0189
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.legnica.mountain_road",
+   "path": "assets/bg/scene/legnica/mountain_road.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/legnica/mountain_road_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 150974,
+    "1280": 83732
+   },
+   "set": "legnica",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[legnica_mountain_road]",
+   "src_raw": "assets/raw/scene_bg/legnica_mountain_road.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.077,
+     "dialog_luma_p99": 0.194,
+     "dialog_luma_pre_grade": 0.096,
+     "white_text_contrast_mean": 16.0,
+     "white_text_contrast_worst_p99": 11.31,
+     "side_luma_l": 0.156,
+     "side_luma_r": 0.248,
+     "side_detail_l": 0.0121,
+     "side_detail_r": 0.0175,
+     "center_detail": 0.0282
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.panipat.kabul",
+   "path": "assets/bg/scene/panipat/kabul.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/panipat/kabul_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 85688,
+    "1280": 47848
+   },
+   "set": "panipat",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[panipat_kabul]",
+   "src_raw": "assets/raw/scene_bg/panipat_kabul.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.097,
+     "dialog_luma_p99": 0.226,
+     "dialog_luma_pre_grade": 0.113,
+     "white_text_contrast_mean": 14.97,
+     "white_text_contrast_worst_p99": 9.72,
+     "side_luma_l": 0.296,
+     "side_luma_r": 0.144,
+     "side_detail_l": 0.01,
+     "side_detail_r": 0.0079,
+     "center_detail": 0.0172
+    }
+   },
+   "verify": true,
+   "verify_note": "16세기 카불 성채(발라 히사르) 일반화"
+  },
+  {
+   "key": "bg.panipat.fort_gate",
+   "path": "assets/bg/scene/panipat/fort_gate.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/panipat/fort_gate_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 70082,
+    "1280": 36150
+   },
+   "set": "panipat",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[panipat_fort_gate]",
+   "src_raw": "assets/raw/scene_bg/panipat_fort_gate.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.093,
+     "dialog_luma_p99": 0.236,
+     "dialog_luma_pre_grade": 0.115,
+     "white_text_contrast_mean": 15.01,
+     "white_text_contrast_worst_p99": 9.55,
+     "side_luma_l": 0.165,
+     "side_luma_r": 0.149,
+     "side_detail_l": 0.008,
+     "side_detail_r": 0.0082,
+     "center_detail": 0.0219
+    }
+   },
+   "verify": false,
+   "verify_note": "ch22_s2(바자우르)·s6_post(아그라 성문) 공용"
+  },
+  {
+   "key": "bg.panipat.lahore_river",
+   "path": "assets/bg/scene/panipat/lahore_river.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/panipat/lahore_river_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 62296,
+    "1280": 33326
+   },
+   "set": "panipat",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[panipat_lahore_river]",
+   "src_raw": "assets/raw/scene_bg/panipat_lahore_river.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.091,
+     "dialog_luma_p99": 0.214,
+     "dialog_luma_pre_grade": 0.111,
+     "white_text_contrast_mean": 15.18,
+     "white_text_contrast_worst_p99": 10.35,
+     "side_luma_l": 0.247,
+     "side_luma_r": 0.167,
+     "side_detail_l": 0.0065,
+     "side_detail_r": 0.0092,
+     "center_detail": 0.0074
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.panipat.dry_plain",
+   "path": "assets/bg/scene/panipat/dry_plain.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/panipat/dry_plain_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 69912,
+    "1280": 36288
+   },
+   "set": "panipat",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[panipat_dry_plain]",
+   "src_raw": "assets/raw/scene_bg/panipat_dry_plain.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "아카시아형 나무 — 북인도 건조 평원 일반화(verify)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.098,
+     "dialog_luma_p99": 0.148,
+     "dialog_luma_pre_grade": 0.122,
+     "white_text_contrast_mean": 15.19,
+     "white_text_contrast_worst_p99": 13.28,
+     "side_luma_l": 0.2,
+     "side_luma_r": 0.218,
+     "side_detail_l": 0.012,
+     "side_detail_r": 0.0091,
+     "center_detail": 0.006
+    }
+   },
+   "verify": false,
+   "verify_note": "ch22_s4(히사르)·s6_pre(아그라 길) 공용"
+  },
+  {
+   "key": "bg.panipat.wagon_laager",
+   "path": "assets/bg/scene/panipat/wagon_laager.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/panipat/wagon_laager_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 83986,
+    "1280": 43210
+   },
+   "set": "panipat",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[panipat_wagon_laager]",
+   "src_raw": "assets/raw/scene_bg/panipat_wagon_laager.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.085,
+     "dialog_luma_p99": 0.167,
+     "dialog_luma_pre_grade": 0.104,
+     "white_text_contrast_mean": 15.65,
+     "white_text_contrast_worst_p99": 12.43,
+     "side_luma_l": 0.204,
+     "side_luma_r": 0.164,
+     "side_detail_l": 0.013,
+     "side_detail_r": 0.009,
+     "center_detail": 0.0128
+    }
+   },
+   "verify": true,
+   "verify_note": "수레 진지(아라바) 일반화. ch22_s5·s7 공용"
+  },
+  {
+   "key": "bg.panipat.ghaghra",
+   "path": "assets/bg/scene/panipat/ghaghra.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/panipat/ghaghra_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 120792,
+    "1280": 61956
+   },
+   "set": "panipat",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[panipat_ghaghra]",
+   "src_raw": "assets/raw/scene_bg/panipat_ghaghra.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "강배가 유럽식 코그에 가까움(verify)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.086,
+     "dialog_luma_p99": 0.312,
+     "dialog_luma_pre_grade": 0.086,
+     "white_text_contrast_mean": 14.76,
+     "white_text_contrast_worst_p99": 6.92,
+     "side_luma_l": 0.27,
+     "side_luma_r": 0.204,
+     "side_detail_l": 0.0195,
+     "side_detail_r": 0.0206,
+     "center_detail": 0.0192
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.mongol.onon",
+   "path": "assets/bg/scene/mongol/onon.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mongol/onon_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 37314,
+    "1280": 19380
+   },
+   "set": "mongol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[mongol_onon]",
+   "src_raw": "assets/raw/scene_bg/mongol_onon.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "1차는 화면 가운데 밝기가 다른 사각 패널 경계가 생겨 기각(raw mongol_onon_r0_reject.jpg) → 재생성 1회",
+     "밤에 가까운 저녁 톤 — 칼카 낮 장면(ch18_s7_pre)과 시간대 불일치(공용 재사용 결정에 따른 한계)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.039,
+     "dialog_luma_p99": 0.121,
+     "dialog_luma_pre_grade": 0.053,
+     "white_text_contrast_mean": 17.27,
+     "white_text_contrast_worst_p99": 14.38,
+     "side_luma_l": 0.094,
+     "side_luma_r": 0.132,
+     "side_detail_l": 0.0029,
+     "side_detail_r": 0.0036,
+     "center_detail": 0.01
+    }
+   },
+   "verify": false,
+   "verify_note": "ch18_s1(오논)·s7(칼카) 공용"
+  },
+  {
+   "key": "bg.mongol.hexi_canyon",
+   "path": "assets/bg/scene/mongol/hexi_canyon.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mongol/hexi_canyon_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 64668,
+    "1280": 34384
+   },
+   "set": "mongol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[mongol_hexi_canyon]",
+   "src_raw": "assets/raw/scene_bg/mongol_hexi_canyon.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.119,
+     "dialog_luma_p99": 0.247,
+     "dialog_luma_pre_grade": 0.132,
+     "white_text_contrast_mean": 14.13,
+     "white_text_contrast_worst_p99": 9.2,
+     "side_luma_l": 0.154,
+     "side_luma_r": 0.138,
+     "side_detail_l": 0.0068,
+     "side_detail_r": 0.0076,
+     "center_detail": 0.0107
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.mongol.pass",
+   "path": "assets/bg/scene/mongol/pass.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mongol/pass_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 86812,
+    "1280": 45106
+   },
+   "set": "mongol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[mongol_pass]",
+   "src_raw": "assets/raw/scene_bg/mongol_pass.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "상하 띠 크롭"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.063,
+     "dialog_luma_p99": 0.281,
+     "dialog_luma_pre_grade": 0.065,
+     "white_text_contrast_mean": 16.06,
+     "white_text_contrast_worst_p99": 8.05,
+     "side_luma_l": 0.134,
+     "side_luma_r": 0.153,
+     "side_detail_l": 0.0084,
+     "side_detail_r": 0.0111,
+     "center_detail": 0.0129
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.mongol.tianshan",
+   "path": "assets/bg/scene/mongol/tianshan.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mongol/tianshan_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 43774,
+    "1280": 23582
+   },
+   "set": "mongol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[mongol_tianshan]",
+   "src_raw": "assets/raw/scene_bg/mongol_tianshan.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 띠 크롭"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.079,
+     "dialog_luma_p99": 0.273,
+     "dialog_luma_pre_grade": 0.084,
+     "white_text_contrast_mean": 15.27,
+     "white_text_contrast_worst_p99": 8.3,
+     "side_luma_l": 0.189,
+     "side_luma_r": 0.132,
+     "side_detail_l": 0.0039,
+     "side_detail_r": 0.0035,
+     "center_detail": 0.0107
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.mongol.syr_river",
+   "path": "assets/bg/scene/mongol/syr_river.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mongol/syr_river_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 128798,
+    "1280": 70650
+   },
+   "set": "mongol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[mongol_syr_river]",
+   "src_raw": "assets/raw/scene_bg/mongol_syr_river.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "상하 띠 크롭"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.225,
+     "dialog_luma_p99": 0.481,
+     "dialog_luma_pre_grade": 0.263,
+     "white_text_contrast_mean": 8.56,
+     "white_text_contrast_worst_p99": 3.68,
+     "side_luma_l": 0.322,
+     "side_luma_r": 0.179,
+     "side_detail_l": 0.0171,
+     "side_detail_r": 0.0189,
+     "center_detail": 0.0204
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.mongol.indus_cliff",
+   "path": "assets/bg/scene/mongol/indus_cliff.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mongol/indus_cliff_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 78448,
+    "1280": 42986
+   },
+   "set": "mongol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[mongol_indus_cliff]",
+   "src_raw": "assets/raw/scene_bg/mongol_indus_cliff.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "하단 띠 크롭",
+     "대사창 영역에 흰 급류 거품이 밝음(p99 0.73) — 반투명 패널 전제"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.161,
+     "dialog_luma_p99": 0.733,
+     "dialog_luma_pre_grade": 0.169,
+     "white_text_contrast_mean": 9.51,
+     "white_text_contrast_worst_p99": 1.69,
+     "side_luma_l": 0.192,
+     "side_luma_r": 0.191,
+     "side_detail_l": 0.0083,
+     "side_detail_r": 0.0064,
+     "center_detail": 0.0101
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.mongol.winter_steppe",
+   "path": "assets/bg/scene/mongol/winter_steppe.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mongol/winter_steppe_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 49474,
+    "1280": 26618
+   },
+   "set": "mongol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[mongol_winter_steppe]",
+   "src_raw": "assets/raw/scene_bg/mongol_winter_steppe.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 띠 크롭"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.143,
+     "dialog_luma_p99": 0.337,
+     "dialog_luma_pre_grade": 0.167,
+     "white_text_contrast_mean": 12.69,
+     "white_text_contrast_worst_p99": 6.42,
+     "side_luma_l": 0.381,
+     "side_luma_r": 0.371,
+     "side_detail_l": 0.004,
+     "side_detail_r": 0.0067,
+     "center_detail": 0.0039
+    }
+   },
+   "verify": false
+  },
+  {
+   "key": "bg.goryeo_khitan.camp",
+   "path": "assets/bg/scene/goryeo_khitan/camp.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/goryeo_khitan/camp_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 116482,
+    "1280": 62870
+   },
+   "set": "goryeo_khitan",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[goryeo_camp]",
+   "src_raw": "assets/raw/scene_bg/goryeo_camp.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.094,
+     "dialog_luma_p99": 0.22,
+     "dialog_luma_pre_grade": 0.126,
+     "white_text_contrast_mean": 15.24,
+     "white_text_contrast_worst_p99": 10.18,
+     "side_luma_l": 0.197,
+     "side_luma_r": 0.16,
+     "side_detail_l": 0.0204,
+     "side_detail_r": 0.0098,
+     "center_detail": 0.0164
+    }
+   },
+   "verify": false,
+   "verify_note": "ch11_s1 pre/post 공용"
+  },
+  {
+   "key": "bg.goryeo_khitan.fortress_wall",
+   "path": "assets/bg/scene/goryeo_khitan/fortress_wall.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/goryeo_khitan/fortress_wall_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 60450,
+    "1280": 32380
+   },
+   "set": "goryeo_khitan",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[goryeo_fortress]",
+   "src_raw": "assets/raw/scene_bg/goryeo_fortress.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "1차는 화면 가운데 밝기가 다른 사각 패널 → 재생성 1회(raw goryeo_fortress_r0_reject.jpg)",
+     "상하 띠 크롭"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.114,
+     "dialog_luma_p99": 0.209,
+     "dialog_luma_pre_grade": 0.14,
+     "white_text_contrast_mean": 14.48,
+     "white_text_contrast_worst_p99": 10.69,
+     "side_luma_l": 0.181,
+     "side_luma_r": 0.185,
+     "side_detail_l": 0.0089,
+     "side_detail_r": 0.007,
+     "center_detail": 0.0089
+    }
+   },
+   "verify": true,
+   "verify_note": "ch11_s2 공용"
+  },
+  {
+   "key": "bg.goryeo_khitan.icedam",
+   "path": "assets/bg/scene/goryeo_khitan/icedam.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/goryeo_khitan/icedam_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 75894,
+    "1280": 39834
+   },
+   "set": "goryeo_khitan",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[goryeo_icedam]",
+   "src_raw": "assets/raw/scene_bg/goryeo_icedam.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "상하 띠 크롭",
+     "소가죽 둑 전승 일반화(verify)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.097,
+     "dialog_luma_p99": 0.237,
+     "dialog_luma_pre_grade": 0.12,
+     "white_text_contrast_mean": 15.02,
+     "white_text_contrast_worst_p99": 9.47,
+     "side_luma_l": 0.244,
+     "side_luma_r": 0.201,
+     "side_detail_l": 0.0095,
+     "side_detail_r": 0.0081,
+     "center_detail": 0.0103
+    }
+   },
+   "verify": true,
+   "verify_note": "ch11_s3 공용(흥화진 물막이 전승)"
+  },
+  {
+   "key": "bg.goryeo_khitan.gwiju_plain",
+   "path": "assets/bg/scene/goryeo_khitan/gwiju_plain.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/goryeo_khitan/gwiju_plain_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 66138,
+    "1280": 31914
+   },
+   "set": "goryeo_khitan",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[goryeo_plain]",
+   "src_raw": "assets/raw/scene_bg/goryeo_plain.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "원경 구릉에 아주 작은 군대 실루엣 점(인물 식별 불가)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.104,
+     "dialog_luma_p99": 0.213,
+     "dialog_luma_pre_grade": 0.139,
+     "white_text_contrast_mean": 14.75,
+     "white_text_contrast_worst_p99": 10.41,
+     "side_luma_l": 0.362,
+     "side_luma_r": 0.26,
+     "side_detail_l": 0.0054,
+     "side_detail_r": 0.0089,
+     "center_detail": 0.0132
+    }
+   },
+   "verify": false,
+   "verify_note": "ch11_s4 공용"
+  },
+  {
+   "key": "bg.redcliff.river_road",
+   "path": "assets/bg/scene/redcliff/river_road.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/redcliff/river_road_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 85124,
+    "1280": 45690
+   },
+   "set": "redcliff",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[redcliff_road]",
+   "src_raw": "assets/raw/scene_bg/redcliff_road.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "원본 상하 11.8% 단색 띠 → CROP2 로 제거"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.086,
+     "dialog_luma_p99": 0.218,
+     "dialog_luma_pre_grade": 0.101,
+     "white_text_contrast_mean": 15.52,
+     "white_text_contrast_worst_p99": 10.36,
+     "side_luma_l": 0.338,
+     "side_luma_r": 0.229,
+     "side_detail_l": 0.017,
+     "side_detail_r": 0.0109,
+     "center_detail": 0.0104
+    }
+   },
+   "verify": false,
+   "verify_note": "ch12_s1 공용"
+  },
+  {
+   "key": "bg.redcliff.wu_fleet",
+   "path": "assets/bg/scene/redcliff/wu_fleet.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/redcliff/wu_fleet_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 55968,
+    "1280": 28062
+   },
+   "set": "redcliff",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[redcliff_fleet]",
+   "src_raw": "assets/raw/scene_bg/redcliff_fleet.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.064,
+     "dialog_luma_p99": 0.165,
+     "dialog_luma_pre_grade": 0.078,
+     "white_text_contrast_mean": 16.31,
+     "white_text_contrast_worst_p99": 12.32,
+     "side_luma_l": 0.214,
+     "side_luma_r": 0.138,
+     "side_detail_l": 0.0042,
+     "side_detail_r": 0.0055,
+     "center_detail": 0.0205
+    }
+   },
+   "verify": true,
+   "verify_note": "ch12_s2_pre·s3_pre 공용"
+  },
+  {
+   "key": "bg.redcliff.north_bank",
+   "path": "assets/bg/scene/redcliff/north_bank.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/redcliff/north_bank_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 85714,
+    "1280": 43792
+   },
+   "set": "redcliff",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[redcliff_bank]",
+   "src_raw": "assets/raw/scene_bg/redcliff_bank.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.071,
+     "dialog_luma_p99": 0.186,
+     "dialog_luma_pre_grade": 0.081,
+     "white_text_contrast_mean": 16.05,
+     "white_text_contrast_worst_p99": 11.57,
+     "side_luma_l": 0.185,
+     "side_luma_r": 0.164,
+     "side_detail_l": 0.0102,
+     "side_detail_r": 0.0091,
+     "center_detail": 0.0145
+    }
+   },
+   "verify": false,
+   "verify_note": "ch12_s2_post·s4_pre 공용"
+  },
+  {
+   "key": "bg.redcliff.burning_river",
+   "path": "assets/bg/scene/redcliff/burning_river.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/redcliff/burning_river_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 34232,
+    "1280": 18878
+   },
+   "set": "redcliff",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[redcliff_fire]",
+   "src_raw": "assets/raw/scene_bg/redcliff_fire.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "불타는 배 형태가 원경 불길로만 보임(선단 실루엣 약함)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.052,
+     "dialog_luma_p99": 0.106,
+     "dialog_luma_pre_grade": 0.068,
+     "white_text_contrast_mean": 16.86,
+     "white_text_contrast_worst_p99": 14.85,
+     "side_luma_l": 0.135,
+     "side_luma_r": 0.107,
+     "side_detail_l": 0.0028,
+     "side_detail_r": 0.0041,
+     "center_detail": 0.0056
+    }
+   },
+   "verify": false,
+   "verify_note": "ch12_s3_post"
+  },
+  {
+   "key": "bg.redcliff.yiling_gate",
+   "path": "assets/bg/scene/redcliff/yiling_gate.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/redcliff/yiling_gate_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 114034,
+    "1280": 61022
+   },
+   "set": "redcliff",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[redcliff_yiling]",
+   "src_raw": "assets/raw/scene_bg/redcliff_yiling.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.088,
+     "dialog_luma_p99": 0.246,
+     "dialog_luma_pre_grade": 0.091,
+     "white_text_contrast_mean": 15.21,
+     "white_text_contrast_worst_p99": 9.26,
+     "side_luma_l": 0.185,
+     "side_luma_r": 0.165,
+     "side_detail_l": 0.0094,
+     "side_detail_r": 0.01,
+     "center_detail": 0.0235
+    }
+   },
+   "verify": true,
+   "verify_note": "ch12_s4_post"
+  },
+  {
+   "key": "bg.nagashino.night_road",
+   "path": "assets/bg/scene/nagashino/night_road.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/nagashino/night_road_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 58700,
+    "1280": 31852
+   },
+   "set": "nagashino",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[nagashino_night]",
+   "src_raw": "assets/raw/scene_bg/nagashino_night.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.07,
+     "dialog_luma_p99": 0.197,
+     "dialog_luma_pre_grade": 0.075,
+     "white_text_contrast_mean": 16.14,
+     "white_text_contrast_worst_p99": 11.17,
+     "side_luma_l": 0.1,
+     "side_luma_r": 0.11,
+     "side_detail_l": 0.0072,
+     "side_detail_r": 0.0077,
+     "center_detail": 0.0057
+    }
+   },
+   "verify": false,
+   "verify_note": "ch20_s1_pre"
+  },
+  {
+   "key": "bg.nagashino.oda_camp",
+   "path": "assets/bg/scene/nagashino/oda_camp.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/nagashino/oda_camp_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 73192,
+    "1280": 40840
+   },
+   "set": "nagashino",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[nagashino_camp]",
+   "src_raw": "assets/raw/scene_bg/nagashino_camp.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "1차·재생성 모두 하단 어두운 사각 띠 → CROP2 로 하단 28% 잘라냄(좌우도 16:9 맞춤으로 좁아짐)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.169,
+     "dialog_luma_p99": 0.473,
+     "dialog_luma_pre_grade": 0.213,
+     "white_text_contrast_mean": 11.42,
+     "white_text_contrast_worst_p99": 3.82,
+     "side_luma_l": 0.258,
+     "side_luma_r": 0.29,
+     "side_detail_l": 0.0098,
+     "side_detail_r": 0.0153,
+     "center_detail": 0.0055
+    }
+   },
+   "verify": true,
+   "verify_note": "ch20_s1_post"
+  },
+  {
+   "key": "bg.nagashino.shitara_field",
+   "path": "assets/bg/scene/nagashino/shitara_field.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/nagashino/shitara_field_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 74920,
+    "1280": 39456
+   },
+   "set": "nagashino",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[nagashino_field]",
+   "src_raw": "assets/raw/scene_bg/nagashino_field.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 5.7% 단색 띠 CROP2 제거"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.076,
+     "dialog_luma_p99": 0.146,
+     "dialog_luma_pre_grade": 0.092,
+     "white_text_contrast_mean": 15.97,
+     "white_text_contrast_worst_p99": 13.36,
+     "side_luma_l": 0.144,
+     "side_luma_r": 0.176,
+     "side_detail_l": 0.0066,
+     "side_detail_r": 0.0069,
+     "center_detail": 0.0129
+    }
+   },
+   "verify": true,
+   "verify_note": "ch20_s2_pre·s3 공용"
+  },
+  {
+   "key": "bg.nagashino.mountain_fort",
+   "path": "assets/bg/scene/nagashino/mountain_fort.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/nagashino/mountain_fort_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 72546,
+    "1280": 38770
+   },
+   "set": "nagashino",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[nagashino_fort]",
+   "src_raw": "assets/raw/scene_bg/nagashino_fort.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.083,
+     "dialog_luma_p99": 0.26,
+     "dialog_luma_pre_grade": 0.092,
+     "white_text_contrast_mean": 15.59,
+     "white_text_contrast_worst_p99": 8.7,
+     "side_luma_l": 0.164,
+     "side_luma_r": 0.128,
+     "side_detail_l": 0.0055,
+     "side_detail_r": 0.0064,
+     "center_detail": 0.0178
+    }
+   },
+   "verify": false,
+   "verify_note": "ch20_s2_post"
+  },
+  {
+   "key": "bg.orleans.muster",
+   "path": "assets/bg/scene/orleans/muster.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/orleans/muster_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 71864,
+    "1280": 41720
+   },
+   "set": "orleans",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[orleans_muster]",
+   "src_raw": "assets/raw/scene_bg/orleans_muster.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "상단 띠·하단 28% 패널 → CROP2(남는 높이 61%, 좌우 크게 좁아짐)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.242,
+     "dialog_luma_p99": 0.494,
+     "dialog_luma_pre_grade": 0.287,
+     "white_text_contrast_mean": 8.54,
+     "white_text_contrast_worst_p99": 3.51,
+     "side_luma_l": 0.372,
+     "side_luma_r": 0.304,
+     "side_detail_l": 0.0152,
+     "side_detail_r": 0.0149,
+     "center_detail": 0.0065
+    }
+   },
+   "verify": false,
+   "verify_note": "ch16_s1_pre"
+  },
+  {
+   "key": "bg.orleans.city_gate",
+   "path": "assets/bg/scene/orleans/city_gate.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/orleans/city_gate_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 115350,
+    "1280": 65712
+   },
+   "set": "orleans",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[orleans_gate]",
+   "src_raw": "assets/raw/scene_bg/orleans_gate.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "상단 띠·하단 28% 패널 → CROP2(남는 높이 58%)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.229,
+     "dialog_luma_p99": 0.555,
+     "dialog_luma_pre_grade": 0.253,
+     "white_text_contrast_mean": 9.08,
+     "white_text_contrast_worst_p99": 2.82,
+     "side_luma_l": 0.259,
+     "side_luma_r": 0.21,
+     "side_detail_l": 0.0124,
+     "side_detail_r": 0.0089,
+     "center_detail": 0.0195
+    }
+   },
+   "verify": true,
+   "verify_note": "ch16_s1_post"
+  },
+  {
+   "key": "bg.orleans.fort_field",
+   "path": "assets/bg/scene/orleans/fort_field.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/orleans/fort_field_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 34384,
+    "1280": 18796
+   },
+   "set": "orleans",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[orleans_fort]",
+   "src_raw": "assets/raw/scene_bg/orleans_fort.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "하단 26% 단색 → CROP2"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.098,
+     "dialog_luma_p99": 0.171,
+     "dialog_luma_pre_grade": 0.128,
+     "white_text_contrast_mean": 15.27,
+     "white_text_contrast_worst_p99": 12.27,
+     "side_luma_l": 0.214,
+     "side_luma_r": 0.207,
+     "side_detail_l": 0.0061,
+     "side_detail_r": 0.0037,
+     "center_detail": 0.0069
+    }
+   },
+   "verify": false,
+   "verify_note": "ch16_s2·s3 공용"
+  },
+  {
+   "key": "bg.orleans.tourelles_bridge",
+   "path": "assets/bg/scene/orleans/tourelles_bridge.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/orleans/tourelles_bridge_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 38180,
+    "1280": 19958
+   },
+   "set": "orleans",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[orleans_bridge]",
+   "src_raw": "assets/raw/scene_bg/orleans_bridge.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 4.4% 띠 CROP2"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.101,
+     "dialog_luma_p99": 0.319,
+     "dialog_luma_pre_grade": 0.11,
+     "white_text_contrast_mean": 14.18,
+     "white_text_contrast_worst_p99": 6.86,
+     "side_luma_l": 0.206,
+     "side_luma_r": 0.197,
+     "side_detail_l": 0.004,
+     "side_detail_r": 0.0056,
+     "center_detail": 0.0098
+    }
+   },
+   "verify": true,
+   "verify_note": "ch16_s4 공용"
+  },
+  {
+   "key": "bg.orleans.patay_field",
+   "path": "assets/bg/scene/orleans/patay_field.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/orleans/patay_field_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 71790,
+    "1280": 36628
+   },
+   "set": "orleans",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[orleans_patay]",
+   "src_raw": "assets/raw/scene_bg/orleans_patay.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.093,
+     "dialog_luma_p99": 0.255,
+     "dialog_luma_pre_grade": 0.096,
+     "white_text_contrast_mean": 14.89,
+     "white_text_contrast_worst_p99": 8.84,
+     "side_luma_l": 0.153,
+     "side_luma_r": 0.136,
+     "side_detail_l": 0.0102,
+     "side_detail_r": 0.0097,
+     "center_detail": 0.0054
+    }
+   },
+   "verify": false,
+   "verify_note": "ch16_s5 공용"
+  },
+  {
+   "key": "bg.hwangsanbeol.silla_camp",
+   "path": "assets/bg/scene/hwangsanbeol/silla_camp.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/hwangsanbeol/silla_camp_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 51168,
+    "1280": 26908
+   },
+   "set": "hwangsanbeol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[hwangsan_camp]",
+   "src_raw": "assets/raw/scene_bg/hwangsan_camp.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 28% 가 어둡게 가라앉음(경계 없는 그라데이션, 대사창 자리)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.053,
+     "dialog_luma_p99": 0.121,
+     "dialog_luma_pre_grade": 0.061,
+     "white_text_contrast_mean": 16.81,
+     "white_text_contrast_worst_p99": 14.47,
+     "side_luma_l": 0.107,
+     "side_luma_r": 0.111,
+     "side_detail_l": 0.0051,
+     "side_detail_r": 0.009,
+     "center_detail": 0.0121
+    }
+   },
+   "verify": false,
+   "verify_note": "ch13_s1_pre·s2_pre 공용"
+  },
+  {
+   "key": "bg.hwangsanbeol.plain",
+   "path": "assets/bg/scene/hwangsanbeol/plain.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/hwangsanbeol/plain_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 46080,
+    "1280": 24826
+   },
+   "set": "hwangsanbeol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[hwangsan_plain]",
+   "src_raw": "assets/raw/scene_bg/hwangsan_plain.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "상하 단색 띠 CROP2 제거"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.085,
+     "dialog_luma_p99": 0.168,
+     "dialog_luma_pre_grade": 0.111,
+     "white_text_contrast_mean": 15.62,
+     "white_text_contrast_worst_p99": 12.4,
+     "side_luma_l": 0.264,
+     "side_luma_r": 0.183,
+     "side_detail_l": 0.005,
+     "side_detail_r": 0.0045,
+     "center_detail": 0.0184
+    }
+   },
+   "verify": false,
+   "verify_note": "ch13_s1_post·s2_post 공용"
+  },
+  {
+   "key": "bg.hwangsanbeol.sabi_river",
+   "path": "assets/bg/scene/hwangsanbeol/sabi_river.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/hwangsanbeol/sabi_river_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 87624,
+    "1280": 44100
+   },
+   "set": "hwangsanbeol",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[hwangsan_sabi]",
+   "src_raw": "assets/raw/scene_bg/hwangsan_sabi.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "언덕 위 성곽 형태 일반화(verify)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.132,
+     "dialog_luma_p99": 0.321,
+     "dialog_luma_pre_grade": 0.161,
+     "white_text_contrast_mean": 13.06,
+     "white_text_contrast_worst_p99": 6.68,
+     "side_luma_l": 0.318,
+     "side_luma_r": 0.272,
+     "side_detail_l": 0.0092,
+     "side_detail_r": 0.008,
+     "center_detail": 0.012
+    }
+   },
+   "verify": true,
+   "verify_note": "ch13_s3 공용"
+  },
+  {
+   "key": "bg.salsu.liao_field",
+   "path": "assets/bg/scene/salsu/liao_field.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/salsu/liao_field_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 121420,
+    "1280": 63120
+   },
+   "set": "salsu",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[salsu_field]",
+   "src_raw": "assets/raw/scene_bg/salsu_field.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "상하 단색 띠 CROP2 제거"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.104,
+     "dialog_luma_p99": 0.179,
+     "dialog_luma_pre_grade": 0.128,
+     "white_text_contrast_mean": 14.94,
+     "white_text_contrast_worst_p99": 11.98,
+     "side_luma_l": 0.151,
+     "side_luma_r": 0.247,
+     "side_detail_l": 0.0186,
+     "side_detail_r": 0.0166,
+     "center_detail": 0.0348
+    }
+   },
+   "verify": false,
+   "verify_note": "ch14_s1 공용"
+  },
+  {
+   "key": "bg.salsu.hill_road",
+   "path": "assets/bg/scene/salsu/hill_road.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/salsu/hill_road_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 54014,
+    "1280": 28416
+   },
+   "set": "salsu",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[salsu_hills]",
+   "src_raw": "assets/raw/scene_bg/salsu_hills.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.076,
+     "dialog_luma_p99": 0.18,
+     "dialog_luma_pre_grade": 0.086,
+     "white_text_contrast_mean": 15.96,
+     "white_text_contrast_worst_p99": 11.94,
+     "side_luma_l": 0.13,
+     "side_luma_r": 0.145,
+     "side_detail_l": 0.0055,
+     "side_detail_r": 0.0057,
+     "center_detail": 0.0052
+    }
+   },
+   "verify": false,
+   "verify_note": "ch14_s2·s3 공용"
+  },
+  {
+   "key": "bg.salsu.salsu_river",
+   "path": "assets/bg/scene/salsu/salsu_river.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/salsu/salsu_river_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 58106,
+    "1280": 28534
+   },
+   "set": "salsu",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[salsu_river]",
+   "src_raw": "assets/raw/scene_bg/salsu_river.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "metrics": {
+     "dialog_luma_mean": 0.064,
+     "dialog_luma_p99": 0.138,
+     "dialog_luma_pre_grade": 0.082,
+     "white_text_contrast_mean": 16.52,
+     "white_text_contrast_worst_p99": 13.62,
+     "side_luma_l": 0.228,
+     "side_luma_r": 0.195,
+     "side_detail_l": 0.0083,
+     "side_detail_r": 0.0101,
+     "center_detail": 0.0059
+    }
+   },
+   "verify": false,
+   "verify_note": "ch14_s4 공용"
+  },
+  {
+   "key": "bg.mediterranean.italy_ridge",
+   "path": "assets/bg/scene/mediterranean/italy_ridge.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mediterranean/italy_ridge_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 69716,
+    "1280": 39550
+   },
+   "set": "mediterranean",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[med_ridge]",
+   "src_raw": "assets/raw/scene_bg/med_ridge.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "하단 31% 어두운 사각 패널 → CROP2 로 잘라냄(16:9 맞춤으로 좌우 좁아짐)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.131,
+     "dialog_luma_p99": 0.386,
+     "dialog_luma_pre_grade": 0.185,
+     "white_text_contrast_mean": 13.43,
+     "white_text_contrast_worst_p99": 5.28,
+     "side_luma_l": 0.285,
+     "side_luma_r": 0.378,
+     "side_detail_l": 0.0118,
+     "side_detail_r": 0.0042,
+     "center_detail": 0.0094
+    }
+   },
+   "verify": false,
+   "verify_note": "ch15_s1 공용"
+  },
+  {
+   "key": "bg.mediterranean.carthago_lagoon",
+   "path": "assets/bg/scene/mediterranean/carthago_lagoon.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mediterranean/carthago_lagoon_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 54306,
+    "1280": 29540
+   },
+   "set": "mediterranean",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[med_lagoon]",
+   "src_raw": "assets/raw/scene_bg/med_lagoon.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "상하 단색 띠 CROP2 제거"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.094,
+     "dialog_luma_p99": 0.255,
+     "dialog_luma_pre_grade": 0.106,
+     "white_text_contrast_mean": 14.74,
+     "white_text_contrast_worst_p99": 8.7,
+     "side_luma_l": 0.339,
+     "side_luma_r": 0.213,
+     "side_detail_l": 0.0083,
+     "side_detail_r": 0.005,
+     "center_detail": 0.0101
+    }
+   },
+   "verify": true,
+   "verify_note": "ch15_s2 공용"
+  },
+  {
+   "key": "bg.mediterranean.africa_coast",
+   "path": "assets/bg/scene/mediterranean/africa_coast.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mediterranean/africa_coast_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 49664,
+    "1280": 25898
+   },
+   "set": "mediterranean",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[med_africa]",
+   "src_raw": "assets/raw/scene_bg/med_africa.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "1차 가운데 사각 패널로 기각 → 재생성 1회 통과"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.089,
+     "dialog_luma_p99": 0.167,
+     "dialog_luma_pre_grade": 0.117,
+     "white_text_contrast_mean": 15.55,
+     "white_text_contrast_worst_p99": 12.4,
+     "side_luma_l": 0.306,
+     "side_luma_r": 0.176,
+     "side_detail_l": 0.003,
+     "side_detail_r": 0.0057,
+     "center_detail": 0.0127
+    }
+   },
+   "verify": false,
+   "verify_note": "ch15_s3 공용"
+  },
+  {
+   "key": "bg.mediterranean.zama_plain",
+   "path": "assets/bg/scene/mediterranean/zama_plain.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/mediterranean/zama_plain_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 54744,
+    "1280": 28580
+   },
+   "set": "mediterranean",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[med_zama]",
+   "src_raw": "assets/raw/scene_bg/med_zama.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "상하 단색 띠 CROP2 제거"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.057,
+     "dialog_luma_p99": 0.13,
+     "dialog_luma_pre_grade": 0.068,
+     "white_text_contrast_mean": 16.71,
+     "white_text_contrast_worst_p99": 13.99,
+     "side_luma_l": 0.223,
+     "side_luma_r": 0.172,
+     "side_detail_l": 0.0059,
+     "side_detail_r": 0.0074,
+     "center_detail": 0.0079
+    }
+   },
+   "verify": false,
+   "verify_note": "ch15_s4 공용"
+  },
+  {
+   "key": "bg.gaugamela.tigris_ford",
+   "path": "assets/bg/scene/gaugamela/tigris_ford.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/gaugamela/tigris_ford_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 100802,
+    "1280": 54960
+   },
+   "set": "gaugamela",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[gauga_ford]",
+   "src_raw": "assets/raw/scene_bg/gauga_ford.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "1차 가운데 패널로 기각 → 재생성 1회 통과"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.097,
+     "dialog_luma_p99": 0.281,
+     "dialog_luma_pre_grade": 0.114,
+     "white_text_contrast_mean": 14.82,
+     "white_text_contrast_worst_p99": 8.04,
+     "side_luma_l": 0.184,
+     "side_luma_r": 0.17,
+     "side_detail_l": 0.0053,
+     "side_detail_r": 0.0107,
+     "center_detail": 0.0101
+    }
+   },
+   "verify": false,
+   "verify_note": "ch17_s1 공용"
+  },
+  {
+   "key": "bg.gaugamela.camp_night",
+   "path": "assets/bg/scene/gaugamela/camp_night.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/gaugamela/camp_night_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 55618,
+    "1280": 30958
+   },
+   "set": "gaugamela",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[gauga_camp]",
+   "src_raw": "assets/raw/scene_bg/gauga_camp.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 28% 단색 CROP2"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.134,
+     "dialog_luma_p99": 0.397,
+     "dialog_luma_pre_grade": 0.154,
+     "white_text_contrast_mean": 12.61,
+     "white_text_contrast_worst_p99": 5.02,
+     "side_luma_l": 0.174,
+     "side_luma_r": 0.187,
+     "side_detail_l": 0.0061,
+     "side_detail_r": 0.0083,
+     "center_detail": 0.0048
+    }
+   },
+   "verify": false,
+   "verify_note": "ch17_s2 공용"
+  },
+  {
+   "key": "bg.gaugamela.plain",
+   "path": "assets/bg/scene/gaugamela/plain.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/gaugamela/plain_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 58956,
+    "1280": 28324
+   },
+   "set": "gaugamela",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[gauga_plain]",
+   "src_raw": "assets/raw/scene_bg/gauga_plain.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "1차 가운데 패널로 기각 → 재생성 1회, 하단 띠 CROP2"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.087,
+     "dialog_luma_p99": 0.17,
+     "dialog_luma_pre_grade": 0.109,
+     "white_text_contrast_mean": 15.61,
+     "white_text_contrast_worst_p99": 12.35,
+     "side_luma_l": 0.373,
+     "side_luma_r": 0.268,
+     "side_detail_l": 0.0083,
+     "side_detail_r": 0.0059,
+     "center_detail": 0.0105
+    }
+   },
+   "verify": false,
+   "verify_note": "ch17_s3 공용"
+  },
+  {
+   "key": "bg.gaugamela.retreat_road",
+   "path": "assets/bg/scene/gaugamela/retreat_road.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/gaugamela/retreat_road_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 74156,
+    "1280": 43574
+   },
+   "set": "gaugamela",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[gauga_retreat]",
+   "src_raw": "assets/raw/scene_bg/gauga_retreat.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "1차·재생성 모두 가운데 사각 패널 → 패널 안쪽만 잘라 사용, 약 1.4배 확대로 선이 조금 부드러움"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.186,
+     "dialog_luma_p99": 0.303,
+     "dialog_luma_pre_grade": 0.246,
+     "white_text_contrast_mean": 11.18,
+     "white_text_contrast_worst_p99": 7.35,
+     "side_luma_l": 0.329,
+     "side_luma_r": 0.176,
+     "side_detail_l": 0.0065,
+     "side_detail_r": 0.01,
+     "center_detail": 0.0116
+    }
+   },
+   "verify": false,
+   "verify_note": "ch17_s4 공용"
+  },
+  {
+   "key": "bg.holy_land.hattin_field",
+   "path": "assets/bg/scene/holy_land/hattin_field.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/holy_land/hattin_field_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 55030,
+    "1280": 26692
+   },
+   "set": "holy_land",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[holy_hattin]",
+   "src_raw": "assets/raw/scene_bg/holy_hattin.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "1차 가운데 패널로 기각 → 재생성 1회 통과"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.074,
+     "dialog_luma_p99": 0.206,
+     "dialog_luma_pre_grade": 0.087,
+     "white_text_contrast_mean": 15.94,
+     "white_text_contrast_worst_p99": 10.82,
+     "side_luma_l": 0.277,
+     "side_luma_r": 0.27,
+     "side_detail_l": 0.0059,
+     "side_detail_r": 0.0076,
+     "center_detail": 0.0071
+    }
+   },
+   "verify": true,
+   "verify_note": "ch19_s1 공용"
+  },
+  {
+   "key": "bg.holy_land.jerusalem_gate",
+   "path": "assets/bg/scene/holy_land/jerusalem_gate.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/holy_land/jerusalem_gate_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 107932,
+    "1280": 61434
+   },
+   "set": "holy_land",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[holy_jerusalem]",
+   "src_raw": "assets/raw/scene_bg/holy_jerusalem.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "상단 띠·하단 29% 패널 → CROP2(남는 높이 60%)",
+     "성문 형태 일반화(verify)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.187,
+     "dialog_luma_p99": 0.437,
+     "dialog_luma_pre_grade": 0.227,
+     "white_text_contrast_mean": 10.68,
+     "white_text_contrast_worst_p99": 4.37,
+     "side_luma_l": 0.424,
+     "side_luma_r": 0.283,
+     "side_detail_l": 0.0082,
+     "side_detail_r": 0.0133,
+     "center_detail": 0.0234
+    }
+   },
+   "verify": true,
+   "verify_note": "ch19_s2 공용"
+  },
+  {
+   "key": "bg.holy_land.arsuf_coast",
+   "path": "assets/bg/scene/holy_land/arsuf_coast.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/holy_land/arsuf_coast_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 54610,
+    "1280": 29318
+   },
+   "set": "holy_land",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[holy_arsuf]",
+   "src_raw": "assets/raw/scene_bg/holy_arsuf.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "하단 26% 단색 CROP2"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.131,
+     "dialog_luma_p99": 0.335,
+     "dialog_luma_pre_grade": 0.159,
+     "white_text_contrast_mean": 13.25,
+     "white_text_contrast_worst_p99": 6.39,
+     "side_luma_l": 0.235,
+     "side_luma_r": 0.292,
+     "side_detail_l": 0.0088,
+     "side_detail_r": 0.0029,
+     "center_detail": 0.007
+    }
+   },
+   "verify": false,
+   "verify_note": "ch19_s3 공용"
+  },
+  {
+   "key": "bg.holy_land.jaffa_harbor",
+   "path": "assets/bg/scene/holy_land/jaffa_harbor.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/holy_land/jaffa_harbor_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 69070,
+    "1280": 38096
+   },
+   "set": "holy_land",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[holy_jaffa]",
+   "src_raw": "assets/raw/scene_bg/holy_jaffa.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "상단 띠·하단 25% 단색 → CROP2(남는 높이 65%)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.114,
+     "dialog_luma_p99": 0.248,
+     "dialog_luma_pre_grade": 0.152,
+     "white_text_contrast_mean": 14.09,
+     "white_text_contrast_worst_p99": 9.06,
+     "side_luma_l": 0.347,
+     "side_luma_r": 0.195,
+     "side_detail_l": 0.006,
+     "side_detail_r": 0.0103,
+     "center_detail": 0.0154
+    }
+   },
+   "verify": false,
+   "verify_note": "ch19_s4 공용"
+  },
+  {
+   "key": "bg.finale.signal_room",
+   "path": "assets/bg/scene/finale/signal_room.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/finale/signal_room_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 127616,
+    "1280": 69452
+   },
+   "set": "finale",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[finale_signal] (참조 이미지 public/assets/raw/cutscene/il01_hall.jpg — 그림체 기준)",
+   "src_raw": "assets/raw/scene_bg/finale_signal.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "상하 띠 CROP2"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.16,
+     "dialog_luma_p99": 0.46,
+     "dialog_luma_pre_grade": 0.201,
+     "white_text_contrast_mean": 11.63,
+     "white_text_contrast_worst_p99": 3.88,
+     "side_luma_l": 0.206,
+     "side_luma_r": 0.166,
+     "side_detail_l": 0.0152,
+     "side_detail_r": 0.0164,
+     "center_detail": 0.0193
+    }
+   },
+   "verify": false,
+   "verify_note": "ch999_s2 공용"
+  },
+  {
+   "key": "bg.finale.white_room",
+   "path": "assets/bg/scene/finale/white_room.webp",
+   "type": "image",
+   "format": "webp",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "1280": "assets/bg/scene/finale/white_room_1280.webp"
+   },
+   "bytes_variants": {
+    "1920": 74718,
+    "1280": 38200
+   },
+   "set": "finale",
+   "usage": "dialogue_background",
+   "display": "cover(화면을 빈틈없이 덮는 배율, 중앙 기준 잘림). 하단 약 40%와 좌우 가장자리는 대사창·초상화 가독용으로 미리 어둡게 구움(추가 오버레이 불필요, 원하면 0~20% 남색 오버레이)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "aspect": "16:9",
+    "script": "docker/gemini/gen_scene_bg.mjs + style_scene_bg.mjs, 후처리 pp_scene_bg.py"
+   },
+   "prompt_ref": "style_scene_bg.mjs SCENE_BGS[finale_white] (참조 이미지 public/assets/raw/cutscene/il01_hall.jpg — 그림체 기준)",
+   "src_raw": "assets/raw/scene_bg/finale_white.jpg",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "가운데 빈 종이는 장면 의도(흰 방의 빈 쪽)"
+    ],
+    "metrics": {
+     "dialog_luma_mean": 0.476,
+     "dialog_luma_p99": 0.839,
+     "dialog_luma_pre_grade": 0.517,
+     "white_text_contrast_mean": 2.86,
+     "white_text_contrast_worst_p99": 1.28,
+     "side_luma_l": 0.38,
+     "side_luma_r": 0.35,
+     "side_detail_l": 0.0142,
+     "side_detail_r": 0.0183,
+     "center_detail": 0.0081
+    }
+   },
+   "verify": false,
+   "verify_note": "ch999_s4 공용"
+  }
+ ]
+}

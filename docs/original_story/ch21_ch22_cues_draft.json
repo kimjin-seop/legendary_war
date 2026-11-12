@@ -1,0 +1,102 @@
+{
+ "_note": "[초안, 2026-11-03, 송서사] ch21(레그니차) s1·s2 와 ch22(파니파트) s1 의 stages.rules.cues 초안. 스키마·변환 원칙은 docs/CUTSCENE_SPEC.md 1·6·8·9절과 docs/original_story/act4_cues_draft.json 과 동일. stages.<코드>.rules.cues 배열을 해당 스테이지 JSON 에 그대로 복사하면 된다. 'cues' 는 좌표·유닛 id 없이 성립하는 항목만 담았다(say/shake/sfx/set_flag, hp_pct_lte·defeated 같은 전투 상태 조건). 'pending' 은 좌표·유닛 id·증원 설정이 있어야 성립하는 항목이라 맵디자이너/임밸런 확정 후 합친다(이 항목의 대사는 그 행동 없이는 거짓이 되므로 cues 에 넣지 않았다). 효과음 키는 manifest 에서 확인된 것만 사용(sfx_battle_rumble 등). 화자 코드(hero:npc_*, hero:npc_babur)는 dialogueData.js NPC_NAMES/HERO_NAMES 등록이 필요하다(윤프론 요청, SCENARIO_DIRECTION_REQUESTS.md 참조). 모든 대사는 창작이며 사료 근거는 사건 골격에만 있다. 헨리크 2세의 최후와 이브라힘 로디의 최후는 cue 로도 연출하지 않는다.",
+ "version": 1,
+ "status": "draft",
+ "stages": {
+  "ch21_s1": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "맞은편 구릉 위에 깃발 넷이 나란히 선다. 풀 위로 아침 안개가 낮게 깔렸다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_henry_ii_pious", "expr": "serious", "text": "왕이 오기까지 하루요. 그 하루를 저들이 우리 땅에서 쓰게 둘 수는 없소."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_teutonic_commander", "expr": "serious", "text": "대형 유지. 명령 없이 앞으로 나가는 자는 대열에서 뺀다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_kadan", "expr": "neutral", "text": "아직 등을 돌린 놈이 없군. 내 깃발이 먼저 도는 걸로 되어 있었지, 서기."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "그렇게 적혀 있습니다."},
+   {"on": {"when": {"type": "hp_pct_lte", "unit": "enemy_commander", "pct": 60}}, "do": "say", "speaker": "hero:npc_henry_ii_pious", "expr": "serious", "text": "대열을 지켜라. 왕이 오고 계신다."},
+   {"on": {"when": {"all": [{"type": "hp_pct_lte", "unit": "enemy_commander", "pct": 35}, {"not": {"type": "defeated", "unit": "hero:npc_kadan"}}]}}, "do": "say", "speaker": "hero:npc_kadan", "expr": "neutral", "text": "내 깃발은. 아직 서 있나."},
+   {"on": {"when": {"all": [{"type": "hp_pct_lte", "unit": "enemy_commander", "pct": 35}, {"not": {"type": "defeated", "unit": "hero:npc_kadan"}}]}}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "서 있습니다. 화살이 몇 개 박혔습니다."}
+  ]}},
+  "ch21_s2": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "강 건너 헝가리 진영의 천막이 줄지어 있다. 안개 속에서 나무 널이 흔들리는 소리가 난다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_subutai", "expr": "neutral", "text": "강 건너에 새 깃발이 늘지 않았습니다. 셈은 아직 맞습니다."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "hero:npc_subutai", "expr": "neutral", "text": "소식은 없습니다. 오늘은 소식이 없는 쪽이 좋은 소식입니다."}
+  ]}},
+  "ch22_s1": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "수레 사이에서 가죽끈 당기는 소리가 난다. 정면 먼지 너머로 코끼리의 어깨가 흔들린다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_ibrahim_lodi", "expr": "serious", "text": "정면이 좁다. 그래도 간다. 앞이 멈추면 뒤가 밀린다."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_lodi_commander", "expr": "neutral", "text": "수레 뒤에 무엇이 있는지 보이지 않습니다, 폐하."},
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_ibrahim_lodi", "expr": "serious", "text": "코끼리를 앞세워라. 벽은 코끼리가 연다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_ustad_ali_quli", "expr": "neutral", "text": "사거리에 듭니다, 전하."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_babur", "expr": "neutral", "text": "앞줄 어깨가 서로 부딪치고 있네. 더 좁아질 때까지 두게."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_ustad_ali_quli", "expr": "serious", "text": "쏩니다."},
+   {"on": {"turn": 3}, "do": "sfx", "key": "sfx_battle_rumble"},
+   {"on": {"turn": 3}, "do": "shake", "power": 4, "ms": 500},
+   {"on": {"turn": 3}, "do": "say", "speaker": "caption", "text": "첫 포성. 수레 전체가 한 번 울린다. 나팔 소리는 묻혀 들리지 않는다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_ibrahim_lodi", "expr": "serious", "text": "멈추지 마라. 멈추면 뒤에서 밟힌다."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "hero:npc_babur", "expr": "neutral", "text": "도랑 쪽에 신호를 올려라. 돌아 들어가게 하게."},
+   {"on": {"when": {"type": "hp_pct_lte", "unit": "enemy_commander", "pct": 40}}, "do": "say", "speaker": "hero:npc_lodi_commander", "expr": "neutral", "text": "폐하, 후속대를 부르십시오."},
+   {"on": {"when": {"type": "hp_pct_lte", "unit": "enemy_commander", "pct": 40}}, "do": "say", "speaker": "hero:npc_ibrahim_lodi", "expr": "serious", "text": "부르고 있다. 길이 좁아 늦을 뿐이다."}
+  ]}}
+ },
+ "pending": {
+  "ch21_s1": [
+   {"id": "s1_p1_smoke", "needs": "연기 칸 좌표(맵 확정 후, 3~5칸), 4부대 편성 위치", "cues": [
+    {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_baidar", "expr": "neutral", "text": "풀에 불을 놓았습니다. 연기가 오르면 돌아섭니다."},
+    {"on": {"turn": 3}, "do": "fire", "tiles": "TBD", "turns": 3},
+    {"on": {"turn": 3}, "do": "sfx", "key": "sfx_battle_tick"},
+    {"on": {"turn": 3}, "do": "camera", "tile": "TBD", "ms": 500},
+    {"on": {"turn": 4}, "do": "camera", "mode": "restore"}
+   ], "note": "대사가 '연기가 올랐다'를 전제하므로 fire cue 와 같은 턴에 합친다. fire 는 시각 전용이며 시야 제한은 없다(연출 요청 참조)."},
+   {"id": "s1_p2_run_shout", "needs": "미에슈코 2세 부대 지휘 유닛(적 squad leader ref hero:npc_mieszko_ii_opole 또는 UNIT@x,y)", "cues": [
+    {"on": {"turn": 4}, "do": "say", "speaker": "caption", "text": "연기 속에서 누군가 연합군의 말로 소리친다. 달아나라, 달아나라."},
+    {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_mieszko_ii_opole", "expr": "serious", "text": "누구 목소리냐. 우리 쪽이 무너졌나."},
+    {"on": {"turn": 4}, "do": "retreat", "unit": "hero:npc_mieszko_ii_opole"}
+   ], "note": "단일 서술(Hildinger)에 근거해 verify. 퇴각(retreat)은 사망이 아니고 지휘관 유닛이면 건너뛰므로 지휘관이 아닌 부대 리더 유닛이어야 한다. 격파 가능한 적을 줄이는 효과가 있으므로 임밸런 판단."},
+   {"id": "s1_p3_bohemian_vanguard", "needs": "stages.triggers spawn(turn 7 가안, 북서 칸 좌표, 보헤미아 선발대 편성)", "cues": [
+    {"on": {"turn": 7}, "do": "camera", "tile": "TBD", "ms": 500},
+    {"on": {"turn": 7}, "do": "sfx", "key": "sfx_turn_enemy"},
+    {"on": {"turn": 7}, "do": "say", "speaker": "caption", "text": "북서쪽 끝에서 낯선 깃발들이 올라온다."},
+    {"on": {"turn": 7}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "북서쪽에 새 깃발입니다. 보헤미아 쪽입니다."},
+    {"on": {"turn": 7}, "do": "say", "speaker": "hero:npc_baidar", "expr": "neutral", "text": "하루 거리라고 했는데 선발대가 먼저 닿았군요."},
+    {"on": {"turn": 7}, "do": "say", "speaker": "hero:npc_kadan", "expr": "serious", "text": "그러면 해가 기울기 전에 끝낸다."},
+    {"on": {"turn": 8}, "do": "camera", "mode": "restore"}
+   ], "note": "증원 turn 은 stages.triggers 와 반드시 같은 값. 7 은 가안. 사료상 바츨라프는 하루 거리 접근 후 패전 소식에 후퇴했으며 선발대 전투 투입은 각색(what_if)."},
+   {"id": "s1_p4_gap_report", "needs": "적 중기병 선두와 보병 후열의 칸 범위(in_zone rect 또는 adjacent 조건)", "cues": [
+    {"on": {"when": {"type": "in_zone", "side": "b", "rect": "TBD"}}, "do": "set_flag", "key": "c21_gap_opened"},
+    {"on": {"when": {"type": "flag", "key": "c21_gap_opened"}}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "앞줄이 보병에서 떨어졌습니다. 활 두 번 거리를 넘습니다."},
+    {"on": {"when": {"type": "flag", "key": "c21_gap_opened"}}, "do": "say", "speaker": "hero:npc_baidar", "expr": "neutral", "text": "이제 돌아서도 됩니다."}
+   ], "note": "거짓 후퇴가 먹혔는지를 구역 진입으로 판정하는 조건 분기(CUTSCENE_SPEC 6절 in_zone). 구역은 몽골 궁수 사정권 안쪽 칸으로 맵디자이너가 확정."}
+  ],
+  "ch21_s2": [
+   {"id": "s2_p1_south_bridge", "needs": "남쪽 임시 다리 칸 좌표(terrain_change 대상 강 칸), 다리 어귀 구역 좌표", "cues": [
+    {"on": {"when": {"type": "in_zone", "side": "a", "rect": "TBD"}}, "do": "set_flag", "key": "c21_bridgehead"},
+    {"on": {"when": {"type": "flag", "key": "c21_bridgehead"}}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "어귀를 잡았습니다. 신호를 올립니다."},
+    {"on": {"when": {"type": "flag", "key": "c21_bridgehead"}}, "do": "terrain_change", "tiles": "TBD", "to": "bridge"},
+    {"on": {"when": {"type": "flag", "key": "c21_bridgehead"}}, "do": "say", "speaker": "hero:npc_subutai", "expr": "neutral", "text": "남쪽 판자가 얹힙니다. 다리가 둘이 됩니다."}
+   ], "note": "terrain_change 의 to 값은 terrains 코드에 'bridge' 가 있는지 확인(없으면 plain/ford). 신호는 아군이 어귀 구역에 진입하면 자동 발동(플레이어 선택이 아니라 위치 조건)."}
+  ],
+  "ch22_s1": [
+   {"id": "s1_p1_open_gaps", "needs": "수레 방벽 틈 칸 좌표(처음엔 통행 불가 지형, 왼쪽 틈 먼저), terrain_change 대상 지형 코드", "cues": [
+    {"on": {"turn": 4}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "방패를 눕힙니다. 왼쪽 틈부터."},
+    {"on": {"turn": 4}, "do": "terrain_change", "tiles": "TBD(왼쪽 틈)", "to": "plain"},
+    {"on": {"turn": 5}, "do": "terrain_change", "tiles": "TBD(오른쪽 틈)", "to": "plain"}
+   ], "note": "틈이 열리는 시점은 플레이 설계 선택지: (a) 고정 turn, (b) 코끼리 퇴각 flag 후. 신호가 닿지 않는다는 서사와 맞추려면 (b) 권장. 임밸런/박백엔 판단."},
+   {"id": "s1_p2_elephant_turn", "needs": "적 '코끼리 부대'(heavy) 한 부대의 지휘 유닛 ref(UNIT@x,y), 퇴각 허용 여부 임밸런 판단", "cues": [
+    {"on": {"turn": 3}, "do": "camera", "unit": "UNIT@x,y", "ms": 500},
+    {"on": {"turn": 3}, "do": "say", "speaker": "caption", "text": "코끼리 한 마리가 고개를 돌려 대열 안쪽으로 돌아선다."},
+    {"on": {"turn": 3}, "do": "retreat", "unit": "UNIT@x,y"},
+    {"on": {"turn": 3}, "do": "set_flag", "key": "c22_elephant_turned"},
+    {"on": {"turn": 4}, "do": "camera", "mode": "restore"}
+   ], "note": "포성에 짐승이 놀랐다는 서술은 기대·전승으로 시오리 verify. 사상 연출 금지: 퇴각(unit_removed)은 사망이 아니므로 적합. 한 부대만 이탈."},
+   {"id": "s1_p3_lodi_reinforce", "needs": "stages.triggers spawn(turn 6 가안, 동쪽 칸 좌표, 로디 후속 보병)", "cues": [
+    {"on": {"turn": 6}, "do": "camera", "tile": "TBD", "ms": 500},
+    {"on": {"turn": 6}, "do": "say", "speaker": "caption", "text": "동쪽에서 먼지가 일어난다. 좁은 정면 때문에 늦은 로디의 후속대다."},
+    {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_lodi_commander", "expr": "neutral", "text": "후속대가 닿았습니다. 앞이 비는 대로 채우겠습니다."},
+    {"on": {"turn": 7}, "do": "camera", "mode": "restore"}
+   ], "note": "사료 근거 약함, 각색. 증원 turn 은 stages.triggers 와 같은 값."},
+   {"id": "s1_p4_cannon_sfx", "needs": "FE 효과음 키(대포 소리). manifest 에 없으면 sfx_battle_rumble 로 대체 사용 중", "cues": [], "note": "CUTSCENE_SPEC sfx 는 manifest 키만. 전용 포성 키가 생기면 cues 의 turn 3 sfx 를 교체."}
+  ]
+ },
+ "cue_notes": {
+  "ch21_s1": "cue 8개(대사 7, 판정 없음). 전투 시작 직후 헨리크 1줄은 적에게도 이유가 있다는 장치(경건공 호칭이 아닌 실명 NPC). 튜턴 분견대장 1줄은 pre 의 '대형을 흩지 않는 부대' 복선 회수. 카단 '내 깃발' 2줄은 hp 조건이며 카단이 쓰러졌으면 발동하지 않는다. 전투가 일찍 끝나면 turn 기반 cue 는 발동하지 않으므로 post 에서 중복 서술하지 않는다.",
+  "ch21_s2": "safe cue 3개. 핵심 연출(남쪽 다리)은 pending 으로 분리. 헝가리 측 화자는 쓰지 않았다(차후 익명 지휘관 NPC 합의 시 추가).",
+  "ch22_s1": "cue 14개(대사 10, sfx 1, shake 1, caption 2). 로디 대사는 전부 창작이며 '멈출 수 없는 사람'의 논리(앞이 멈추면 뒤가 민다)로만 구성하고 평가 형용사를 붙이지 않았다. 신호가 포성에 묻힌다는 복선은 pre 의 알리 쿨리 대사와 turn 3 caption 으로 이어지고 post 의 '신호는 닿았나'로 회수된다."
+ }
+}

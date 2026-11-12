@@ -1,0 +1,3313 @@
+{
+ "_note": "3차 영웅 풀 확장 능력치·등급·스킬 설계안(임밸런, 2026-11-06). 모든 수치는 시작값/needs tuning이며 시뮬레이션은 아직 실행하지 않았다(미측정). 기준: 틀 v2(hero_stat_rules_v2_proposal.json: 등급 평탄 보너스 x 병종 배율, 성장률 범위 S4.6~5.2/A3.8~4.3/B3.3~3.7/C3.0), 체력 고정 hp_bonus=10·growth_hp_pct=3(개성은 공격·방어만), 코스트 S6/A4/B3/C2. 승격(source=promote, npc_ 접두) 22명은 서빙 DB 현행 능력치를 재사용(stat_basis=reuse_db)해 스테이지 영향을 막고, 병종/등급 변경분은 stage_impact_check 에 표시했다. 신규는 틀 + 개성 기울기(tilt)로 생성. 스킬: 슬롯 S 3+2/A 2+2/B 2+1/C 1+1, 등급 가치 상한(skill_value_ceiling_by_rarity) 준수를 스크립트로 검증(위반 0). 엔진 지원 템플릿만 사용. name_ko 가 null 인 new_skills 는 송서사 이름 필요. 화면/대사에 근거 수준·각색 표기 금지. 엔진/DB/기존 데이터 파일은 수정하지 않았다.",
+ "version": 1,
+ "inputs": {
+  "candidates": "database/data/proposals/hero_expansion_wave3_candidates.json",
+  "frame": "database/data/proposals/hero_stat_rules_v2_proposal.json",
+  "db_snapshot": "서빙 DB 읽기 전용 SELECT 2026-11-06 (heroes 569행 중 campaign_only=0 149명, skills 548개 중 enabled·미연결 98개)"
+ },
+ "fields": {
+  "unit_type": "영웅 유닛 클래스(sword|spear|cavalry|archer|gunner|mage)",
+  "troop_type": "부대 병종(sword|spear|cavalry|archer|gunner|naval)",
+  "skill/passive_skill": "hero_expansion_stats.json 호환 단일 슬롯(첫 액티브/첫 패시브)",
+  "passives/actives": "hero_skills sort_order 순 전체 목록(슬롯 상한 내)",
+  "aura": "aura_atk|aura_def|aura_both|null(지휘관 영웅만)",
+  "stage_impact_check": "승격 영웅의 DB 현행 대비 변경 항목(비어있지 않으면 스테이지 NPC 영향 확인 필요)",
+  "audit.dev_pct": "틀 대비 Lv30 점수 편차(%), A1: OK -8~+5 / WARN -15~+8 / FAIL 밖"
+ },
+ "items": [
+  {
+   "code": "sun_tzu",
+   "name_ko": "손무",
+   "source": "new",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "mage",
+   "troop_type": "archer",
+   "rarity": "S",
+   "rarity_proposed": "S",
+   "cost": 6,
+   "hp_bonus": 10,
+   "atk_bonus": 8,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 5.1,
+   "growth_def_pct": 4.7,
+   "skill": "w3_stance_s",
+   "passive_skill": "w3_tm_highland_s",
+   "passives": [
+    "w3_tm_highland_s",
+    "cc_fs_mid",
+    "sh_hyb_s"
+   ],
+   "actives": [
+    "w3_stance_s",
+    "w3_buff_def_s"
+   ],
+   "aura": "aura_both",
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "정보·지형 우위 + 반격 태세/방어 진형",
+   "audit": {
+    "dev_pct": 1.7,
+    "A1": "OK"
+   },
+   "evidence_note": "송서사 근거 수준 verify: 수치/스킬명에 사실 단정 금지"
+  },
+  {
+   "code": "charlemagne",
+   "name_ko": "카롤루스 대제",
+   "source": "new",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "S",
+   "rarity_proposed": "S",
+   "cost": 6,
+   "hp_bonus": 10,
+   "atk_bonus": 8,
+   "def_bonus": 3,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 5.1,
+   "growth_def_pct": 4.8,
+   "skill": "rd_alexander_a_pierce",
+   "passive_skill": "rd_julius_caesar_p1",
+   "passives": [
+    "rd_julius_caesar_p1",
+    "uk_charge_mid",
+    "sh_atk_s"
+   ],
+   "actives": [
+    "rd_alexander_a_pierce",
+    "rd_genghis_khan_a2"
+   ],
+   "aura": "aura_both",
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "다민족 통합(진형) + 기사단 돌진",
+   "audit": {
+    "dev_pct": -0.4,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "yue_fei",
+   "name_ko": "악비",
+   "source": "new",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 4,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4,
+   "growth_def_pct": 4.2,
+   "skill": "w3_buff_def_a",
+   "passive_skill": "sh_def_m",
+   "passives": [
+    "sh_def_m",
+    "sa_form_mid"
+   ],
+   "actives": [
+    "w3_buff_def_a",
+    "w3_str_a"
+   ],
+   "aura": "aura_def",
+   "stat_basis": "frame_v2 tilt -1",
+   "concept": "군기 엄정(방어) + 진형 유지 전진",
+   "audit": {
+    "dev_pct": 1.2,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "zhang_fei",
+   "name_ko": "장비",
+   "source": "new",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 6,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.1,
+   "growth_def_pct": 4.1,
+   "skill": "rd_richard_i_a1",
+   "passive_skill": "p2_last_mid",
+   "passives": [
+    "p2_last_mid",
+    "sh_atk_m"
+   ],
+   "actives": [
+    "rd_richard_i_a1",
+    "w3_buff_def_a"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "일기당천(배수진) + 위압 일격",
+   "audit": {
+    "dev_pct": 0.4,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "wei_qing",
+   "name_ko": "위청",
+   "source": "new",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 6,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 3.9,
+   "skill": "w3_surge_a",
+   "passive_skill": "uk_charge_mid",
+   "passives": [
+    "uk_charge_mid",
+    "is_reg_weak"
+   ],
+   "actives": [
+    "w3_surge_a",
+    "rd_minamoto_yoshitsune_a1"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "원정 보급 + 장거리 기병 후방 강습",
+   "audit": {
+    "dev_pct": -1.3,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "zhu_yuanzhang",
+   "name_ko": "주원장",
+   "source": "new",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 5,
+   "def_bonus": 3,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.1,
+   "growth_def_pct": 4.1,
+   "skill": "w3_buff_def_a",
+   "passive_skill": "ky_form_mid",
+   "passives": [
+    "ky_form_mid",
+    "sh_hyb_m"
+   ],
+   "actives": [
+    "w3_buff_def_a",
+    "rd_joan_of_arc_a1"
+   ],
+   "aura": "aura_both",
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "민심 규합(진형) + 거점 쌓으며 전진",
+   "audit": {
+    "dev_pct": 0.9,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "jumong",
+   "name_ko": "주몽",
+   "source": "new",
+   "tier": "core",
+   "region": "korea",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 6,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 3.9,
+   "skill": "w3_volley_a",
+   "passive_skill": "al_fs_mid",
+   "passives": [
+    "al_fs_mid",
+    "sh_atk_m"
+   ],
+   "actives": [
+    "w3_volley_a",
+    "w3_aoe_a"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "신궁(선제 일격) + 연속 사격",
+   "audit": {
+    "dev_pct": 1.5,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "naresuan",
+   "name_ko": "나레수안",
+   "source": "new",
+   "tier": "core",
+   "region": "southeast_asia",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 6,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 3.9,
+   "skill": "w3_surge_a",
+   "passive_skill": "bp_charge_mid",
+   "passives": [
+    "bp_charge_mid",
+    "sc_last_weak"
+   ],
+   "actives": [
+    "w3_surge_a",
+    "rd_nguyen_hue_a2"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "독립 의지 + 코끼리 위 돌격",
+   "audit": {
+    "dev_pct": -1.3,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "xerxes_i",
+   "name_ko": "크세르크세스 1세",
+   "source": "new",
+   "tier": "core",
+   "region": "middle_east",
+   "unit_type": "sword",
+   "troop_type": "archer",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 5,
+   "def_bonus": 3,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.1,
+   "growth_def_pct": 4.1,
+   "skill": "w3_buff_atk_b",
+   "passive_skill": "cc_hyb_mid",
+   "passives": [
+    "cc_hyb_mid",
+    "th_form_mid"
+   ],
+   "actives": [
+    "w3_buff_atk_b",
+    "w3_str_a"
+   ],
+   "aura": "aura_both",
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "대군 위용 + 광역 사기 증가",
+   "audit": {
+    "dev_pct": 0.9,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "timur",
+   "name_ko": "티무르",
+   "source": "new",
+   "tier": "core",
+   "region": "middle_east",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 6,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 3.9,
+   "skill": "w3_surge_a",
+   "passive_skill": "ts_charge_mid",
+   "passives": [
+    "ts_charge_mid",
+    "al_atk_mid"
+   ],
+   "actives": [
+    "w3_surge_a",
+    "w3_str_a"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "원정 기동 + 기병 포위",
+   "audit": {
+    "dev_pct": -1.3,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "hayreddin_barbarossa",
+   "name_ko": "하이레딘 바르바로사",
+   "source": "new",
+   "tier": "core",
+   "region": "middle_east",
+   "unit_type": "sword",
+   "troop_type": "naval",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 6,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.1,
+   "growth_def_pct": 4.1,
+   "skill": "w3_surge_a",
+   "passive_skill": "ns_atk_weak",
+   "passives": [
+    "ns_atk_weak",
+    "sh_hyb_m"
+   ],
+   "actives": [
+    "w3_surge_a",
+    "w3_str_a"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "해풍 이용 + 갤리 돌격",
+   "audit": {
+    "dev_pct": 0.4,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "kublai_khan",
+   "name_ko": "쿠빌라이 칸",
+   "source": "new",
+   "tier": "core",
+   "region": "steppe",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 5,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 4,
+   "skill": "w3_buff_atk_b",
+   "passive_skill": "gk_siege_mid",
+   "passives": [
+    "gk_siege_mid",
+    "sa_form_mid"
+   ],
+   "actives": [
+    "w3_buff_atk_b",
+    "w3_surge_a"
+   ],
+   "aura": "aura_both",
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "다민족 군단 + 공성 연계",
+   "audit": {
+    "dev_pct": 0,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "modu_chanyu",
+   "name_ko": "묵돌 선우",
+   "source": "new",
+   "tier": "core",
+   "region": "steppe",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 6,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 3.9,
+   "skill": "w3_volley_a",
+   "passive_skill": "aa_atk_weak",
+   "passives": [
+    "aa_atk_weak",
+    "al_fs_mid"
+   ],
+   "actives": [
+    "w3_volley_a",
+    "w3_buff_atk_b"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "기마 궁술 + 명적 신호 일제 사격",
+   "audit": {
+    "dev_pct": 1.5,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "cleopatra_vii",
+   "name_ko": "클레오파트라 7세",
+   "source": "new",
+   "tier": "core",
+   "region": "ancient_med",
+   "unit_type": "mage",
+   "troop_type": "archer",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 5,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 3.9,
+   "skill": "w3_buff_atk_b",
+   "passive_skill": "em_hyb_weak",
+   "passives": [
+    "em_hyb_weak",
+    "hr_def_weak"
+   ],
+   "actives": [
+    "w3_buff_atk_b",
+    "w3_buff_def_a"
+   ],
+   "aura": "aura_both",
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "외교 + 협상으로 아군 결집",
+   "audit": {
+    "dev_pct": 0,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "augustus",
+   "name_ko": "아우구스투스",
+   "source": "new",
+   "tier": "core",
+   "region": "ancient_med",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 4,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4,
+   "growth_def_pct": 4.2,
+   "skill": "w3_buff_def_a",
+   "passive_skill": "sa_form_mid",
+   "passives": [
+    "sa_form_mid",
+    "c2_def_weak"
+   ],
+   "actives": [
+    "w3_buff_def_a",
+    "w3_str_a"
+   ],
+   "aura": "aura_def",
+   "stat_basis": "frame_v2 tilt -1",
+   "concept": "제도 정비 + 군단 재편",
+   "audit": {
+    "dev_pct": 1.2,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "suvorov",
+   "name_ko": "알렉산드르 수보로프",
+   "source": "new",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "gunner",
+   "troop_type": "gunner",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 6,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 3.9,
+   "skill": "rd_napoleon_a1",
+   "passive_skill": "w3_pur_mid",
+   "passives": [
+    "w3_pur_mid",
+    "on_atk_mid"
+   ],
+   "actives": [
+    "rd_napoleon_a1",
+    "w3_buff_atk_b"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "속전속결 + 총검 돌격",
+   "audit": {
+    "dev_pct": 3.4,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "qi_jiguang",
+   "name_ko": "척계광",
+   "source": "new",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "gunner",
+   "troop_type": "gunner",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.6,
+   "growth_def_pct": 3.4,
+   "skill": "w3_aoe_b",
+   "passive_skill": "gm_form_weak",
+   "passives": [
+    "gm_form_weak",
+    "on_atk_mid"
+   ],
+   "actives": [
+    "w3_aoe_b"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "소부대 연계 + 화기 일제 사격",
+   "audit": {
+    "dev_pct": 0,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "dae_jo_yeong",
+   "name_ko": "대조영",
+   "source": "new",
+   "tier": "core",
+   "region": "korea",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_str_c",
+   "passive_skill": "gy2_tdef_weak",
+   "passives": [
+    "gy2_tdef_weak",
+    "sh_atk_w"
+   ],
+   "actives": [
+    "w3_str_c"
+   ],
+   "aura": null,
+   "stat_basis": "C frame (c-boost B)",
+   "concept": "추격 저지(산악 방어) + 산악 매복",
+   "audit": {
+    "dev_pct": null,
+    "A1": "C 틀 재조정(미측정)"
+   }
+  },
+  {
+   "code": "choe_yeong",
+   "name_ko": "최영",
+   "source": "new",
+   "tier": "core",
+   "region": "korea",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 3,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.5,
+   "growth_def_pct": 3.6,
+   "skill": "w3_str_b",
+   "passive_skill": "sc_last_weak",
+   "passives": [
+    "sc_last_weak",
+    "sh_hyb_w"
+   ],
+   "actives": [
+    "w3_str_b"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt -1",
+   "concept": "청렴 기개 + 왜구 몰아내는 돌격",
+   "audit": {
+    "dev_pct": 1.2,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "miyamoto_musashi",
+   "name_ko": "미야모토 무사시",
+   "source": "new",
+   "tier": "core",
+   "region": "japan",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "B",
+   "rarity_proposed": "A",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 6,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.6,
+   "growth_def_pct": 3.5,
+   "skill": "w3_str_b",
+   "passive_skill": "gy_atk_weak",
+   "passives": [
+    "gy_atk_weak",
+    "al_fs_mid"
+   ],
+   "actives": [
+    "w3_str_b"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt +2",
+   "concept": "이도류(공격) + 연속 베기",
+   "audit": {
+    "dev_pct": 1.7,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "ngo_quyen",
+   "name_ko": "응오꾸옌",
+   "source": "new",
+   "tier": "core",
+   "region": "southeast_asia",
+   "unit_type": "sword",
+   "troop_type": "naval",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 3,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.5,
+   "growth_def_pct": 3.6,
+   "skill": "w3_buff_def_b",
+   "passive_skill": "jy_def_weak",
+   "passives": [
+    "jy_def_weak",
+    "zy_atk_weak"
+   ],
+   "actives": [
+    "w3_buff_def_b"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt -1",
+   "concept": "조수 이용 + 말뚝 함정 진지",
+   "audit": {
+    "dev_pct": 1.2,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "aurangzeb",
+   "name_ko": "아우랑제브",
+   "source": "new",
+   "tier": "core",
+   "region": "south_asia",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_str_c",
+   "passive_skill": "ld2_siege_weak",
+   "passives": [
+    "ld2_siege_weak",
+    "sj_reg_weak"
+   ],
+   "actives": [
+    "w3_str_c"
+   ],
+   "aura": null,
+   "stat_basis": "C frame (c-boost B)",
+   "concept": "장기 원정 + 요새 포위",
+   "audit": {
+    "dev_pct": null,
+    "A1": "C 틀 재조정(미측정)"
+   }
+  },
+  {
+   "code": "nebuchadnezzar_ii",
+   "name_ko": "네부카드네자르 2세",
+   "source": "new",
+   "tier": "core",
+   "region": "middle_east",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 1,
+   "def_bonus": 4,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_buff_def_c",
+   "passive_skill": "sy_tdef_mid",
+   "passives": [
+    "sy_tdef_mid",
+    "hr_def_weak"
+   ],
+   "actives": [
+    "w3_buff_def_c"
+   ],
+   "aura": null,
+   "stat_basis": "C frame (c-boost B)",
+   "concept": "성벽 방어 + 병력 집중",
+   "audit": {
+    "dev_pct": null,
+    "A1": "C 틀 재조정(미측정)"
+   }
+  },
+  {
+   "code": "kutuzov",
+   "name_ko": "미하일 쿠투조프",
+   "source": "new",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "gunner",
+   "troop_type": "gunner",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 2,
+   "def_bonus": 3,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_buff_def_c",
+   "passive_skill": "fm_def_weak",
+   "passives": [
+    "fm_def_weak",
+    "sy2_form_weak"
+   ],
+   "actives": [
+    "w3_buff_def_c"
+   ],
+   "aura": null,
+   "stat_basis": "C frame (c-boost B)",
+   "concept": "지연 방어 + 후퇴 소모",
+   "audit": {
+    "dev_pct": null,
+    "A1": "C 틀 재조정(미측정)"
+   }
+  },
+  {
+   "code": "bayinnaung",
+   "name_ko": "바인나웅",
+   "source": "new",
+   "tier": "core(reserve 승격: npc_babur 중복 대체)",
+   "region": "southeast_asia",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_str_c",
+   "passive_skill": "w1_atk_weak",
+   "passives": [
+    "w1_atk_weak",
+    "ma_form_weak"
+   ],
+   "actives": [
+    "w3_str_c"
+   ],
+   "aura": null,
+   "stat_basis": "C frame (c-boost B)",
+   "concept": "대군 편성 + 코끼리 부대",
+   "audit": {
+    "dev_pct": null,
+    "A1": "C 틀 재조정(미측정)"
+   }
+  },
+  {
+   "code": "edward_iii",
+   "name_ko": "에드워드 3세",
+   "source": "new",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_aoe_c",
+   "passive_skill": "h5_last_weak",
+   "passives": [
+    "h5_last_weak",
+    "sh_atk_m"
+   ],
+   "actives": [
+    "w3_aoe_c"
+   ],
+   "aura": null,
+   "stat_basis": "C frame (c-boost B)",
+   "concept": "장궁 일제 사격 + 하마 방진",
+   "audit": {
+    "dev_pct": null,
+    "A1": "C 틀 재조정(미측정)"
+   }
+  },
+  {
+   "code": "li_guang",
+   "name_ko": "이광",
+   "source": "new",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "rarity": "C",
+   "rarity_proposed": "B",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_str_c",
+   "passive_skill": "aa_atk_weak",
+   "passives": [
+    "aa_atk_weak"
+   ],
+   "actives": [
+    "w3_str_c"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "저격 + 허장성세",
+   "audit": {
+    "dev_pct": 1.9,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "robert_the_bruce",
+   "name_ko": "로버트 1세",
+   "source": "new",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "sword",
+   "troop_type": "spear",
+   "rarity": "C",
+   "rarity_proposed": "C",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_buff_def_c",
+   "passive_skill": "sc_last_weak",
+   "passives": [
+    "sc_last_weak"
+   ],
+   "actives": [
+    "w3_buff_def_c"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "저항 + 창병 방진",
+   "audit": {
+    "dev_pct": 1.5,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "constantine_xi",
+   "name_ko": "콘스탄티노스 11세",
+   "source": "new",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "C",
+   "rarity_proposed": "C",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 1,
+   "def_bonus": 4,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_buff_def_c",
+   "passive_skill": "w3_tdef_castle_w",
+   "passives": [
+    "w3_tdef_castle_w"
+   ],
+   "actives": [
+    "w3_buff_def_c"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt -2",
+   "concept": "성벽 방어 + 최후 전열",
+   "audit": {
+    "dev_pct": 2.6,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "porus",
+   "name_ko": "포루스",
+   "source": "new",
+   "tier": "core",
+   "region": "south_asia",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "C",
+   "rarity_proposed": "B",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_str_c",
+   "passive_skill": "sy_atk_weak",
+   "passives": [
+    "sy_atk_weak"
+   ],
+   "actives": [
+    "w3_str_c"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt +1",
+   "concept": "코끼리 압박 + 중장 돌파",
+   "audit": {
+    "dev_pct": 1,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "gajah_mada",
+   "name_ko": "가자 마다",
+   "source": "new",
+   "tier": "core",
+   "region": "southeast_asia",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "C",
+   "rarity_proposed": "B",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_surge_c",
+   "passive_skill": "sj_reg_weak",
+   "passives": [
+    "sj_reg_weak"
+   ],
+   "actives": [
+    "w3_surge_c"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "섬 연결 보급 + 해안 상륙",
+   "audit": {
+    "dev_pct": 1.5,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "qutuz",
+   "name_ko": "쿠투즈",
+   "source": "new",
+   "tier": "core",
+   "region": "middle_east",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "C",
+   "rarity_proposed": "B",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_surge_c",
+   "passive_skill": "dm_atk_weak",
+   "passives": [
+    "dm_atk_weak"
+   ],
+   "actives": [
+    "w3_surge_c"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "기병 유인 + 거짓 후퇴",
+   "audit": {
+    "dev_pct": 0.1,
+    "A1": "OK"
+   }
+  },
+  {
+   "code": "chanakya",
+   "name_ko": "카우틸랴",
+   "source": "new",
+   "tier": "core",
+   "region": "south_asia",
+   "unit_type": "mage",
+   "troop_type": "archer",
+   "rarity": "C",
+   "rarity_proposed": "B",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_aoe_c",
+   "passive_skill": "thd_fs_weak",
+   "passives": [
+    "thd_fs_weak"
+   ],
+   "actives": [
+    "w3_aoe_c"
+   ],
+   "aura": null,
+   "stat_basis": "frame_v2 tilt +0",
+   "concept": "계략 + 첩보",
+   "audit": {
+    "dev_pct": 2.4,
+    "A1": "OK"
+   },
+   "evidence_note": "송서사 근거 수준 verify: 수치/스킬명에 사실 단정 금지"
+  },
+  {
+   "code": "npc_jiang_wei",
+   "name_ko": "강유",
+   "source": "promote",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4,
+   "growth_def_pct": 4.1,
+   "skill": "w3_buff_atk_b",
+   "passive_skill": "w3_pur_mid",
+   "passives": [
+    "w3_pur_mid",
+    "sh_atk_m"
+   ],
+   "actives": [
+    "w3_buff_atk_b",
+    "rd_joan_of_arc_a1"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "끈질긴 추격 + 창진",
+   "audit": {
+    "dev_pct": -2.7,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "spear",
+    "troop": "spear",
+    "rarity": "A",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     4,
+     4.1
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": [],
+   "tilt_suggest": "공격형 atk 5/def 1"
+  },
+  {
+   "code": "npc_zhang_liao",
+   "name_ko": "장료",
+   "source": "promote",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 3.8,
+   "skill": "w3_surge_a",
+   "passive_skill": "zl_fs_mid",
+   "passives": [
+    "zl_fs_mid",
+    "bp_charge_mid"
+   ],
+   "actives": [
+    "w3_surge_a",
+    "w3_str_a"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "선제 돌격 + 지휘 유닛 돌격",
+   "audit": {
+    "dev_pct": -1.8,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "cavalry",
+    "troop": "cavalry",
+    "rarity": "A",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     4.2,
+     3.8
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": [],
+   "tilt_suggest": "공격형 atk 5/def 1"
+  },
+  {
+   "code": "npc_konishi_yukinaga",
+   "name_ko": "고니시 유키나가",
+   "source": "promote",
+   "tier": "core",
+   "region": "japan",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4,
+   "growth_def_pct": 4.1,
+   "skill": "w3_aoe_a",
+   "passive_skill": "ga_atk_weak",
+   "passives": [
+    "ga_atk_weak",
+    "em_hyb_weak"
+   ],
+   "actives": [
+    "w3_aoe_a",
+    "w3_buff_def_a"
+   ],
+   "aura": "aura_both",
+   "stat_basis": "reuse_db",
+   "concept": "기동 선봉 + 교섭(공세 완화)",
+   "audit": {
+    "dev_pct": -2.7,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "spear",
+    "troop": "spear",
+    "rarity": "A",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     4,
+     4.1
+    ],
+    "aura_id": 3
+   },
+   "stage_impact_check": [
+    "troop_type spear->gunner"
+   ]
+  },
+  {
+   "code": "npc_wakizaka_yasuharu",
+   "name_ko": "와키자카 야스하루",
+   "source": "promote",
+   "tier": "core",
+   "region": "japan",
+   "unit_type": "sword",
+   "troop_type": "naval",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4,
+   "growth_def_pct": 4.1,
+   "skill": "w3_str_a",
+   "passive_skill": "ns_atk_weak",
+   "passives": [
+    "ns_atk_weak",
+    "sh_hyb_m"
+   ],
+   "actives": [
+    "w3_str_a",
+    "w3_surge_a"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "공세 + 접근전 돌입",
+   "audit": {
+    "dev_pct": -2.7,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "naval",
+    "troop": "naval",
+    "rarity": "A",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     4,
+     4.1
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": [],
+   "tilt_suggest": "공격형 atk 5/def 1"
+  },
+  {
+   "code": "npc_harold_godwinson",
+   "name_ko": "해럴드 고드윈슨",
+   "source": "promote",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "spear",
+   "troop_type": "sword",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4,
+   "growth_def_pct": 4.1,
+   "skill": "w3_buff_def_a",
+   "passive_skill": "th_form_mid",
+   "passives": [
+    "th_form_mid",
+    "sh_def_w"
+   ],
+   "actives": [
+    "w3_buff_def_a",
+    "w3_surge_a"
+   ],
+   "aura": "aura_def",
+   "stat_basis": "reuse_db",
+   "concept": "방패벽 + 연전 가속",
+   "audit": {
+    "dev_pct": -2.7,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "spear",
+    "troop": "spear",
+    "rarity": "A",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     4,
+     4.1
+    ],
+    "aura_id": 2
+   },
+   "stage_impact_check": [
+    "troop_type spear->sword"
+   ],
+   "tilt_suggest": "수비형 atk 3/def 3"
+  },
+  {
+   "code": "npc_harald_hardrada",
+   "name_ko": "하랄 하르드라다",
+   "source": "promote",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 3,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.1,
+   "growth_def_pct": 3.9,
+   "skill": "w3_str_a",
+   "passive_skill": "p2_last_mid",
+   "passives": [
+    "p2_last_mid",
+    "sh_atk_w"
+   ],
+   "actives": [
+    "w3_str_a",
+    "w3_buff_atk_b"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "전투광 + 광폭 돌격",
+   "audit": {
+    "dev_pct": -1,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "sword",
+    "troop": "sword",
+    "rarity": "A",
+    "atk": 4,
+    "def": 3,
+    "growth_atk_def": [
+     4.1,
+     3.9
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": [],
+   "tilt_suggest": "공격형 atk 5/def 2"
+  },
+  {
+   "code": "npc_hephaestion",
+   "name_ko": "헤파이스티온",
+   "source": "promote",
+   "tier": "core",
+   "region": "ancient_med",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "A",
+   "rarity_proposed": "A",
+   "cost": 4,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 4.2,
+   "growth_def_pct": 3.8,
+   "skill": "w3_surge_a",
+   "passive_skill": "th_form_mid",
+   "passives": [
+    "th_form_mid",
+    "ts_charge_mid"
+   ],
+   "actives": [
+    "w3_surge_a",
+    "w3_buff_atk_b"
+   ],
+   "aura": "aura_both",
+   "stat_basis": "reuse_db",
+   "concept": "측근 지원 + 연계 돌격",
+   "audit": {
+    "dev_pct": -1.8,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "cavalry",
+    "troop": "cavalry",
+    "rarity": "A",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     4.2,
+     3.8
+    ],
+    "aura_id": 3
+   },
+   "stage_impact_check": []
+  },
+  {
+   "code": "npc_zhao_yun",
+   "name_ko": "조운",
+   "source": "promote",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "spear",
+   "troop_type": "cavalry",
+   "rarity": "B",
+   "rarity_proposed": "A",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.4,
+   "growth_def_pct": 3.5,
+   "skill": "w3_surge_b",
+   "passive_skill": "sc_def_weak",
+   "passives": [
+    "sc_def_weak",
+    "bp_charge_mid"
+   ],
+   "actives": [
+    "w3_surge_b"
+   ],
+   "aura": "aura_def",
+   "stat_basis": "reuse_db",
+   "concept": "후위 방어 + 단독 돌파/구출",
+   "audit": {
+    "dev_pct": -0.3,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "spear",
+    "troop": "spear",
+    "rarity": "B",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     3.4,
+     3.5
+    ],
+    "aura_id": 2
+   },
+   "stage_impact_check": [
+    "troop_type spear->cavalry"
+   ],
+   "tilt_suggest": "수비형 atk 3/def 3"
+  },
+  {
+   "code": "npc_huang_zhong",
+   "name_ko": "황충",
+   "source": "promote",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.5,
+   "growth_def_pct": 3.3,
+   "skill": "w3_str_b",
+   "passive_skill": "gy2_tdef_weak",
+   "passives": [
+    "gy2_tdef_weak",
+    "cc_fs_mid"
+   ],
+   "actives": [
+    "w3_str_b"
+   ],
+   "aura": null,
+   "stat_basis": "reuse_db",
+   "concept": "고지 사격 + 단발 강타",
+   "audit": {
+    "dev_pct": -1.1,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "archer",
+    "troop": "archer",
+    "rarity": "B",
+    "atk": 3,
+    "def": 1,
+    "growth_atk_def": [
+     3.5,
+     3.3
+    ],
+    "aura_id": null
+   },
+   "stage_impact_check": [],
+   "tilt_suggest": "공격형 atk 4/def 0"
+  },
+  {
+   "code": "npc_huang_gai",
+   "name_ko": "황개",
+   "source": "promote",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "naval",
+   "troop_type": "naval",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.4,
+   "growth_def_pct": 3.5,
+   "skill": "w3_fire_aoe_b",
+   "passive_skill": "zy_atk_weak",
+   "passives": [
+    "zy_atk_weak",
+    "ec_last_weak"
+   ],
+   "actives": [
+    "w3_fire_aoe_b"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "화공 연계 + 화선 광역",
+   "audit": {
+    "dev_pct": -0.3,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "naval",
+    "troop": "naval",
+    "rarity": "B",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     3.4,
+     3.5
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": [
+    "troop_type naval->archer"
+   ]
+  },
+  {
+   "code": "npc_yang_gyu",
+   "name_ko": "양규",
+   "source": "promote",
+   "tier": "core",
+   "region": "korea",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.4,
+   "growth_def_pct": 3.5,
+   "skill": "w3_surge_b",
+   "passive_skill": "sy_tdef_mid",
+   "passives": [
+    "sy_tdef_mid",
+    "sc_last_weak"
+   ],
+   "actives": [
+    "w3_surge_b"
+   ],
+   "aura": "aura_def",
+   "stat_basis": "reuse_db",
+   "concept": "수성 + 퇴각로 기습",
+   "audit": {
+    "dev_pct": -0.3,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "spear",
+    "troop": "spear",
+    "rarity": "B",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     3.4,
+     3.5
+    ],
+    "aura_id": 2
+   },
+   "stage_impact_check": [],
+   "tilt_suggest": "수비형 atk 3/def 3"
+  },
+  {
+   "code": "npc_heukchi_sangji",
+   "name_ko": "흑치상지",
+   "source": "promote",
+   "tier": "core",
+   "region": "korea",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.8,
+   "growth_def_pct": 3.2,
+   "skill": "w3_buff_atk_b",
+   "passive_skill": "gm_form_weak",
+   "passives": [
+    "gm_form_weak",
+    "sh_def_w"
+   ],
+   "actives": [
+    "w3_buff_atk_b"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "사기 회복 + 병력 재편",
+   "audit": {
+    "dev_pct": 1.7,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "cavalry",
+    "troop": "cavalry",
+    "rarity": "B",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     3.8,
+     3.2
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": []
+  },
+  {
+   "code": "npc_kurushima_michifusa",
+   "name_ko": "구루시마 미치후사",
+   "source": "promote",
+   "tier": "core",
+   "region": "japan",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.4,
+   "growth_def_pct": 3.5,
+   "skill": "w3_surge_b",
+   "passive_skill": "ns_atk_weak",
+   "passives": [
+    "ns_atk_weak",
+    "sc_def_weak"
+   ],
+   "actives": [
+    "w3_surge_b"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "물살 이용 + 소형선 돌파",
+   "audit": {
+    "dev_pct": -0.3,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "naval",
+    "troop": "naval",
+    "rarity": "B",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     3.4,
+     3.5
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": [
+    "troop_type naval->sword"
+   ]
+  },
+  {
+   "code": "npc_muqali",
+   "name_ko": "무칼리",
+   "source": "promote",
+   "tier": "core",
+   "region": "steppe",
+   "unit_type": "sword",
+   "troop_type": "cavalry",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.4,
+   "growth_def_pct": 3.5,
+   "skill": "w3_surge_b",
+   "passive_skill": "ma_form_weak",
+   "passives": [
+    "ma_form_weak",
+    "dm_atk_weak"
+   ],
+   "actives": [
+    "w3_surge_b"
+   ],
+   "aura": "aura_def",
+   "stat_basis": "reuse_db",
+   "concept": "점령지 관리 + 장거리 기동",
+   "audit": {
+    "dev_pct": -0.3,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "sword",
+    "troop": "sword",
+    "rarity": "B",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     3.4,
+     3.5
+    ],
+    "aura_id": 2
+   },
+   "stage_impact_check": [
+    "troop_type sword->cavalry"
+   ],
+   "tilt_suggest": "공격형 atk 5/def 1"
+  },
+  {
+   "code": "npc_ogedei",
+   "name_ko": "오고타이",
+   "source": "promote",
+   "tier": "core",
+   "region": "steppe",
+   "unit_type": "sword",
+   "troop_type": "archer",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.4,
+   "growth_def_pct": 3.5,
+   "skill": "w3_buff_atk_b",
+   "passive_skill": "sj_reg_weak",
+   "passives": [
+    "sj_reg_weak",
+    "su_atk_weak"
+   ],
+   "actives": [
+    "w3_buff_atk_b"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "후방 보급 + 원정군 지원",
+   "audit": {
+    "dev_pct": -0.3,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "sword",
+    "troop": "sword",
+    "rarity": "B",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     3.4,
+     3.5
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": [
+    "troop_type sword->archer"
+   ]
+  },
+  {
+   "code": "npc_baldwin_iv",
+   "name_ko": "발두앵 4세",
+   "source": "promote",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.6,
+   "growth_def_pct": 3.3,
+   "skill": "w3_str_b",
+   "passive_skill": "h5_last_weak",
+   "passives": [
+    "h5_last_weak",
+    "bp_charge_mid"
+   ],
+   "actives": [
+    "w3_str_b"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "투지 + 소수 집중 돌격",
+   "audit": {
+    "dev_pct": 0.9,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "cavalry",
+    "troop": "cavalry",
+    "rarity": "B",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     3.6,
+     3.3
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": [],
+   "tilt_suggest": "공격형 atk 5/def 1"
+  },
+  {
+   "code": "npc_dunois",
+   "name_ko": "장 드 뒤누아",
+   "source": "promote",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "rarity": "B",
+   "rarity_proposed": "B",
+   "cost": 3,
+   "hp_bonus": 10,
+   "atk_bonus": 4,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3.6,
+   "growth_def_pct": 3.3,
+   "skill": "w3_surge_b",
+   "passive_skill": "ky_form_mid",
+   "passives": [
+    "ky_form_mid",
+    "sc_def_weak"
+   ],
+   "actives": [
+    "w3_surge_b"
+   ],
+   "aura": "aura_atk",
+   "stat_basis": "reuse_db",
+   "concept": "지휘 + 구원 돌파",
+   "audit": {
+    "dev_pct": 0.9,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "cavalry",
+    "troop": "cavalry",
+    "rarity": "B",
+    "atk": 4,
+    "def": 2,
+    "growth_atk_def": [
+     3.6,
+     3.3
+    ],
+    "aura_id": 1
+   },
+   "stage_impact_check": []
+  },
+  {
+   "code": "npc_lu_su",
+   "name_ko": "노숙",
+   "source": "promote",
+   "tier": "core",
+   "region": "china",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "C",
+   "rarity_proposed": "B",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_buff_atk_c",
+   "passive_skill": "gm_form_weak",
+   "passives": [
+    "gm_form_weak"
+   ],
+   "actives": [
+    "w3_buff_atk_c"
+   ],
+   "aura": null,
+   "stat_basis": "frame_regen(class change sword->mage)",
+   "concept": "아군 사기 보조 + 협상",
+   "audit": {
+    "dev_pct": 2.4,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "sword",
+    "troop": "sword",
+    "rarity": "C",
+    "atk": 2,
+    "def": 2,
+    "growth_atk_def": [
+     3,
+     3
+    ],
+    "aura_id": null
+   },
+   "stage_impact_check": [
+    "unit_type sword->mage",
+    "troop_type sword->archer"
+   ]
+  },
+  {
+   "code": "npc_kim_chunchu",
+   "name_ko": "김춘추",
+   "source": "promote",
+   "tier": "core",
+   "region": "korea",
+   "unit_type": "mage",
+   "troop_type": "spear",
+   "rarity": "C",
+   "rarity_proposed": "B",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 3,
+   "def_bonus": 1,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_buff_def_c",
+   "passive_skill": "hr_def_weak",
+   "passives": [
+    "hr_def_weak"
+   ],
+   "actives": [
+    "w3_buff_def_c"
+   ],
+   "aura": null,
+   "stat_basis": "frame_regen(class change sword->mage)",
+   "concept": "동맹 지원 + 외교",
+   "audit": {
+    "dev_pct": 2.4,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "sword",
+    "troop": "sword",
+    "rarity": "C",
+    "atk": 2,
+    "def": 2,
+    "growth_atk_def": [
+     3,
+     3
+    ],
+    "aura_id": null
+   },
+   "stage_impact_check": [
+    "unit_type sword->mage",
+    "troop_type sword->spear"
+   ]
+  },
+  {
+   "code": "npc_kato_kiyomasa",
+   "name_ko": "가토 기요마사",
+   "source": "promote",
+   "tier": "core",
+   "region": "japan",
+   "unit_type": "sword",
+   "troop_type": "spear",
+   "rarity": "C",
+   "rarity_proposed": "A",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 2,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_buff_def_c",
+   "passive_skill": "xy_charge_weak",
+   "passives": [
+    "xy_charge_weak"
+   ],
+   "actives": [
+    "w3_buff_def_c"
+   ],
+   "aura": null,
+   "stat_basis": "reuse_db",
+   "concept": "창 돌격 + 농성",
+   "audit": {
+    "dev_pct": 0.3,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "sword",
+    "troop": "sword",
+    "rarity": "C",
+    "atk": 2,
+    "def": 2,
+    "growth_atk_def": [
+     3,
+     3
+    ],
+    "aura_id": null
+   },
+   "stage_impact_check": [
+    "troop_type sword->spear"
+   ]
+  },
+  {
+   "code": "npc_darius_iii",
+   "name_ko": "다리우스 3세",
+   "source": "promote",
+   "tier": "core",
+   "region": "middle_east",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "C",
+   "rarity_proposed": "C",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 2,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_str_c",
+   "passive_skill": "c2_def_weak",
+   "passives": [
+    "c2_def_weak"
+   ],
+   "actives": [
+    "w3_str_c"
+   ],
+   "aura": null,
+   "stat_basis": "reuse_db",
+   "concept": "대군 호위 + 병차 돌격",
+   "audit": {
+    "dev_pct": 0.3,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "sword",
+    "troop": "sword",
+    "rarity": "C",
+    "atk": 2,
+    "def": 2,
+    "growth_atk_def": [
+     3,
+     3
+    ],
+    "aura_id": null
+   },
+   "stage_impact_check": []
+  },
+  {
+   "code": "npc_balian_ibelin",
+   "name_ko": "발리앙 디벨랭",
+   "source": "promote",
+   "tier": "core",
+   "region": "europe",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "rarity": "C",
+   "rarity_proposed": "B",
+   "cost": 2,
+   "hp_bonus": 10,
+   "atk_bonus": 2,
+   "def_bonus": 2,
+   "growth_hp_pct": 3,
+   "growth_atk_pct": 3,
+   "growth_def_pct": 3,
+   "skill": "w3_buff_def_c",
+   "passive_skill": "w3_tdef_castle_w",
+   "passives": [
+    "w3_tdef_castle_w"
+   ],
+   "actives": [
+    "w3_buff_def_c"
+   ],
+   "aura": null,
+   "stat_basis": "reuse_db",
+   "concept": "수성 + 시간 벌기",
+   "audit": {
+    "dev_pct": 0.3,
+    "A1": "OK"
+   },
+   "db_current": {
+    "class": "sword",
+    "troop": "sword",
+    "rarity": "C",
+    "atk": 2,
+    "def": 2,
+    "growth_atk_def": [
+     3,
+     3
+    ],
+    "aura_id": null
+   },
+   "stage_impact_check": [],
+   "tilt_suggest": "수비형 atk 1/def 3"
+  }
+ ],
+ "new_skills": [
+  {
+   "code": "w3_aoe_a",
+   "type": "active",
+   "template": "T_ACTIVE_AOE",
+   "params": {
+    "power_pct": 100,
+    "radius": 1,
+    "splash_pct": 55,
+    "friendly_fire": false,
+    "cooldown": 4,
+    "uses": 1
+   },
+   "rarity_min": "A",
+   "name_ko": null,
+   "name_hint": "집중 사격/포격(A 100/55)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_aoe_b",
+   "type": "active",
+   "template": "T_ACTIVE_AOE",
+   "params": {
+    "power_pct": 95,
+    "radius": 1,
+    "splash_pct": 50,
+    "friendly_fire": false,
+    "cooldown": 4,
+    "uses": 1
+   },
+   "rarity_min": "B",
+   "name_ko": null,
+   "name_hint": "일제 사격/포격(B 95/50)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_aoe_c",
+   "type": "active",
+   "template": "T_ACTIVE_AOE",
+   "params": {
+    "power_pct": 90,
+    "radius": 1,
+    "splash_pct": 45,
+    "friendly_fire": false,
+    "cooldown": 4,
+    "uses": 1
+   },
+   "rarity_min": "C",
+   "name_ko": null,
+   "name_hint": "소규모 광역(C 90/45)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_buff_atk_b",
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "atk",
+    "amount": 8,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 1,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "rarity_min": "B",
+   "name_ko": null,
+   "name_hint": "독려/사기 고취(B·A atk+8 r1)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_buff_atk_c",
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "atk",
+    "amount": 8,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 1,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "rarity_min": "C",
+   "name_ko": null,
+   "name_hint": "사기 고취(C atk+8 r1)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_buff_def_a",
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "def",
+    "amount": 20,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 1,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "rarity_min": "A",
+   "name_ko": null,
+   "name_hint": "방진 구축(A def+20 r1)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_buff_def_b",
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "def",
+    "amount": 15,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 1,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "rarity_min": "B",
+   "name_ko": null,
+   "name_hint": "방어 진지(B def+15 r1)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_buff_def_c",
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "def",
+    "amount": 15,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 1,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "rarity_min": "C",
+   "name_ko": null,
+   "name_hint": "방어 태세(C def+15 r1)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_buff_def_s",
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "def",
+    "amount": 25,
+    "duration": 2,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "rarity_min": "S",
+   "name_ko": null,
+   "name_hint": "대범위 방어 진형(S def+25 r2 2턴)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_fire_aoe_b",
+   "type": "active",
+   "template": "T_ACTIVE_AOE",
+   "params": {
+    "power_pct": 95,
+    "radius": 1,
+    "splash_pct": 50,
+    "friendly_fire": false,
+    "cooldown": 4,
+    "uses": 1,
+    "element": "fire"
+   },
+   "rarity_min": "B",
+   "name_ko": null,
+   "name_hint": "화공 광역(화속성, B 95/50)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_pur_mid",
+   "type": "passive",
+   "template": "T_PURSUIT",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 14,
+      "when": {
+       "target_hp_below_pct": 50
+      }
+     }
+    ]
+   },
+   "rarity_min": "A",
+   "name_ko": null,
+   "name_hint": "추격(적 HP 50% 미만 시 atk+14%) - em_pur_mid 와 동일 params",
+   "tags": [
+    "pursuit"
+   ],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": "em_pur_mid"
+  },
+  {
+   "code": "w3_stance_s",
+   "type": "active",
+   "template": "T_ACTIVE_STANCE",
+   "params": {
+    "counter_pct": 50,
+    "radius": 2,
+    "duration": 1,
+    "cooldown": 4,
+    "uses": 1
+   },
+   "rarity_min": "S",
+   "name_ko": null,
+   "name_hint": "후발제인 반격 태세(S 전용)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_str_a",
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 125,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "rarity_min": "A",
+   "name_ko": null,
+   "name_hint": "단발 강타 (A 상한 125)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_str_b",
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 120,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "rarity_min": "B",
+   "name_ko": null,
+   "name_hint": "단발 강공 (B 상한 120)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_str_c",
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 115,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "rarity_min": "C",
+   "name_ko": null,
+   "name_hint": "단발 일격 (C 상한 115)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_surge_a",
+   "type": "active",
+   "template": "T_ACTIVE_SURGE",
+   "params": {
+    "move_bonus": 2,
+    "attack_pct": 105,
+    "min_turn": 2,
+    "leap": false,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "rarity_min": "A",
+   "name_ko": null,
+   "name_hint": "장거리 기동 강습(A move+2/105)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_surge_b",
+   "type": "active",
+   "template": "T_ACTIVE_SURGE",
+   "params": {
+    "move_bonus": 1,
+    "attack_pct": 105,
+    "min_turn": 2,
+    "leap": false,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "rarity_min": "B",
+   "name_ko": null,
+   "name_hint": "기동 강습(B move+1/105)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_surge_c",
+   "type": "active",
+   "template": "T_ACTIVE_SURGE",
+   "params": {
+    "move_bonus": 1,
+    "attack_pct": 100,
+    "min_turn": 2,
+    "leap": false,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "rarity_min": "C",
+   "name_ko": null,
+   "name_hint": "기동 강습(C move+1/100)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_tdef_castle_w",
+   "type": "passive",
+   "template": "T_TERRAIN_DEF",
+   "params": {
+    "tier": "weak",
+    "effects": [
+     {
+      "def_pct": 25,
+      "when": {
+       "terrain": [
+        "castle"
+       ]
+      }
+     }
+    ]
+   },
+   "rarity_min": "C",
+   "name_ko": null,
+   "name_hint": "성벽 수비(성채 def+25%, weak) - ksm_tdef_weak 와 동일 params",
+   "tags": [
+    "fortress_hold"
+   ],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": "ksm_tdef_weak"
+  },
+  {
+   "code": "w3_tm_highland_s",
+   "type": "passive",
+   "template": "T_TERRAIN_MASTER",
+   "params": {
+    "tier": "S",
+    "effects": [
+     {
+      "atk_pct": 12,
+      "def_pct": 12,
+      "when": {
+       "terrain": [
+        "forest",
+        "mountain",
+        "hill"
+       ]
+      }
+     }
+    ],
+    "move_discount": {
+     "terrain": [
+      "forest",
+      "mountain",
+      "hill"
+     ],
+     "amount": 1
+    }
+   },
+   "rarity_min": "S",
+   "name_ko": null,
+   "name_hint": "지형 달인(숲·산·언덕, S 전용) - rd_yi_sun_sin_p1 구조 복제",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  },
+  {
+   "code": "w3_volley_a",
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 120,
+    "cooldown": 2,
+    "uses": 2
+   },
+   "rarity_min": "A",
+   "name_ko": null,
+   "name_hint": "연속 사격(짧은 쿨다운 120)",
+   "tags": [],
+   "status": "proposed",
+   "enabled": true,
+   "clone_of": null
+  }
+ ],
+ "skill_pool_usage": {
+  "pool_98_used_unique": 52,
+  "pool_98_used_codes": [
+   "aa_atk_weak",
+   "al_atk_mid",
+   "al_fs_mid",
+   "bp_charge_mid",
+   "bp_fs_weak",
+   "c2_def_weak",
+   "cc_fs_mid",
+   "cc_hyb_mid",
+   "dm_atk_weak",
+   "ec_last_weak",
+   "em_hyb_weak",
+   "fm_def_weak",
+   "ga_atk_weak",
+   "gk_siege_mid",
+   "gm_form_weak",
+   "gy2_tdef_weak",
+   "gy_atk_weak",
+   "h5_last_weak",
+   "hr_def_weak",
+   "is_reg_weak",
+   "jy_def_weak",
+   "ky_form_mid",
+   "ld2_siege_weak",
+   "ma_form_weak",
+   "ns_atk_weak",
+   "on_atk_mid",
+   "p2_last_mid",
+   "rd_alexander_a_pierce",
+   "rd_genghis_khan_a2",
+   "rd_joan_of_arc_a1",
+   "rd_julius_caesar_p1",
+   "rd_minamoto_yoshitsune_a1",
+   "rd_napoleon_a1",
+   "rd_nguyen_hue_a2",
+   "rd_richard_i_a1",
+   "sa_form_mid",
+   "sc_def_weak",
+   "sc_last_weak",
+   "sh_atk_s",
+   "sj_reg_weak",
+   "su_atk_weak",
+   "sy2_form_weak",
+   "sy_atk_weak",
+   "sy_tdef_mid",
+   "th_form_mid",
+   "thd_fs_weak",
+   "ts_charge_mid",
+   "uk_charge_mid",
+   "w1_atk_weak",
+   "xy_charge_weak",
+   "zl_fs_mid",
+   "zy_atk_weak"
+  ],
+  "shared_sh_codes_reused": [
+   "sh_atk_m",
+   "sh_atk_w",
+   "sh_def_m",
+   "sh_def_w",
+   "sh_hyb_m",
+   "sh_hyb_s",
+   "sh_hyb_w"
+  ],
+  "pool_98_unused": [
+   "an_fs_weak",
+   "ao_fs_weak",
+   "ao_hyb_weak",
+   "ar_tdef_mid",
+   "as_def_weak",
+   "as_heal_weak",
+   "cf_def_weak",
+   "cf_heal_weak",
+   "e1_heal_weak",
+   "fg_atk_weak",
+   "gk_hyb_weak",
+   "hg_heal_mid",
+   "hj_heal_weak",
+   "is_heal_weak",
+   "jr_def_weak",
+   "ld2_hyb_weak",
+   "on_vs_mid",
+   "pg_fs_weak",
+   "rd_alexander_a2",
+   "rd_alexander_p2",
+   "rd_genghis_khan_a_pierce",
+   "rd_genghis_khan_p2",
+   "rd_gwanggaeto_a1",
+   "rd_hannibal_a1",
+   "rd_hannibal_p1",
+   "rd_joan_of_arc_p1",
+   "rd_kim_si_min_p1",
+   "rd_richard_i_p1",
+   "rd_shaka_zulu_a2",
+   "rd_william_wallace_p1",
+   "rd_yi_seonggye_a1",
+   "rd_yi_sun_sin_a2",
+   "rd_yi_sun_sin_a_stance",
+   "rd_yi_sun_sin_p2",
+   "rd_yujeong_p1",
+   "sh_def_s",
+   "sh_heal_m",
+   "sh_heal_s",
+   "sh_heal_w",
+   "sj_heal_weak",
+   "tl_fs_weak",
+   "vb_def_mid",
+   "wg_fs_weak",
+   "ww_hyb_weak",
+   "ys_atk_mid",
+   "ys_hyb_mid"
+  ],
+  "unused_note": "미사용 풀: 치유 전용 11(sh_heal_*, *_heal_*)과 영웅 전용 S 상향 스킬(rd_*_p2/a2/a_stance/a_pierce 등), A 지형방어 강 3종(rd_kim_si_min_p1/rd_yujeong_p1/rd_william_wallace_p1), r2 방어 버프(rd_*_a1)는 등급 상한상 B/C 에 불가하거나 컨셉 불일치로 남김. 후속 A급 수성형 영웅용 예약."
+ },
+ "swap_proposals": {
+  "_note": "동아시아 비중 완화·총병/중동 보강용 교체안(미적용, 팀장/송서사 결정). 승격 영웅은 능력치 재사용 원칙상 out 대상으로 지정.",
+  "out": [
+   "npc_huang_gai",
+   "npc_kurushima_michifusa",
+   "npc_lu_su"
+  ],
+  "in": [
+   {
+    "code": "nader_shah",
+    "name_ko": "나데르 샤",
+    "source": "new(proposal_only)",
+    "region": "middle_east",
+    "unit_type": "cavalry",
+    "troop_type": "cavalry",
+    "rarity": "A",
+    "cost": 4,
+    "hp_bonus": 10,
+    "atk_bonus": 6,
+    "def_bonus": 1,
+    "growth_hp_pct": 3,
+    "growth_atk_pct": 4.2,
+    "growth_def_pct": 3.9,
+    "skill": "w3_surge_a",
+    "passive_skill": "ts_charge_mid",
+    "passives": [
+     "ts_charge_mid",
+     "cc_fs_mid"
+    ],
+    "actives": [
+     "w3_surge_a",
+     "w3_str_a"
+    ],
+    "aura": "aura_atk",
+    "stat_basis": "frame_v2 tilt +1",
+    "concept": "원정 기동 + 기병 돌격 (황개 대체: 중동 보강)",
+    "audit": {
+     "dev_pct": -1.3,
+     "A1": "OK"
+    },
+    "evidence_note": "송서사 미조사 후보: 역사 근거·관계·대사는 송서사 작성 필요, 중복 코드 SQL 확인(2026-11-06 서빙 DB에서 nader_shah/pompey_magnus/selim_i 미존재 확인)"
+   },
+   {
+    "code": "pompey_magnus",
+    "name_ko": "폼페이우스",
+    "source": "new(reserve)",
+    "region": "ancient_med",
+    "unit_type": "sword",
+    "troop_type": "sword",
+    "rarity": "B",
+    "cost": 3,
+    "hp_bonus": 10,
+    "atk_bonus": 4,
+    "def_bonus": 2,
+    "growth_hp_pct": 3,
+    "growth_atk_pct": 3.5,
+    "growth_def_pct": 3.6,
+    "skill": "w3_str_b",
+    "passive_skill": "ma_form_weak",
+    "passives": [
+     "ma_form_weak",
+     "sh_def_w"
+    ],
+    "actives": [
+     "w3_str_b"
+    ],
+    "aura": null,
+    "stat_basis": "frame_v2 tilt +0",
+    "concept": "공화정 군단 + 해적 소탕 (구루시마 대체; 송서사 예비 후보)",
+    "audit": {
+     "dev_pct": 0.6,
+     "A1": "OK"
+    },
+    "evidence_note": "송서사 미조사 후보: 역사 근거·관계·대사는 송서사 작성 필요, 중복 코드 SQL 확인(2026-11-06 서빙 DB에서 nader_shah/pompey_magnus/selim_i 미존재 확인)"
+   },
+   {
+    "code": "selim_i",
+    "name_ko": "셀림 1세",
+    "source": "new(proposal_only)",
+    "region": "middle_east",
+    "unit_type": "gunner",
+    "troop_type": "gunner",
+    "rarity": "B",
+    "cost": 3,
+    "hp_bonus": 10,
+    "atk_bonus": 4,
+    "def_bonus": 1,
+    "growth_hp_pct": 3,
+    "growth_atk_pct": 3.6,
+    "growth_def_pct": 3.4,
+    "skill": "w3_aoe_b",
+    "passive_skill": "su_atk_weak",
+    "passives": [
+     "su_atk_weak",
+     "on_atk_mid"
+    ],
+    "actives": [
+     "w3_aoe_b"
+    ],
+    "aura": null,
+    "stat_basis": "frame_v2 tilt +0",
+    "concept": "화기 군단 + 일제 포격 (노숙 대체: 중동·총병 보강)",
+    "audit": {
+     "dev_pct": 0,
+     "A1": "OK"
+    },
+    "evidence_note": "송서사 미조사 후보: 역사 근거·관계·대사는 송서사 작성 필요, 중복 코드 SQL 확인(2026-11-06 서빙 DB에서 nader_shah/pompey_magnus/selim_i 미존재 확인)"
+   }
+  ],
+  "pairs": [
+   {
+    "out": "npc_huang_gai",
+    "in": "nader_shah"
+   },
+   {
+    "out": "npc_kurushima_michifusa",
+    "in": "pompey_magnus"
+   },
+   {
+    "out": "npc_lu_su",
+    "in": "selim_i"
+   }
+  ]
+ },
+ "c_boost_options": {
+  "_note": "현 기준 C 는 17명(8.3%)으로 권장 10% 미달. 아래 중 택일(미적용).",
+  "optionA_promoted_B_to_C": {
+   "heroes": [
+    "npc_yang_gyu",
+    "npc_dunois",
+    "npc_heukchi_sangji",
+    "npc_huang_zhong",
+    "npc_huang_gai",
+    "npc_kurushima_michifusa"
+   ],
+   "result_rarity": {
+    "B": 81,
+    "A": 69,
+    "S": 31,
+    "C": 23
+   },
+   "result_pct": {
+    "B": 39.7,
+    "A": 33.8,
+    "S": 15.2,
+    "C": 11.3
+   },
+   "cost": "승격 NPC 능력치가 atk4/def2·성장 3.4/3.5 에서 atk2/def2·3.0/3.0 으로 하향되어 해당 NPC 가 나오는 스테이지 난이도가 변함 -> 임밸런 재측정 필요"
+  },
+  "optionB_new_B_to_C": {
+   "heroes": [
+    "dae_jo_yeong",
+    "aurangzeb",
+    "nebuchadnezzar_ii",
+    "edward_iii",
+    "bayinnaung",
+    "kutuzov"
+   ],
+   "result_rarity": {
+    "B": 81,
+    "A": 69,
+    "S": 31,
+    "C": 23
+   },
+   "result_pct": {
+    "B": 39.7,
+    "A": 33.8,
+    "S": 15.2,
+    "C": 11.3
+   },
+   "cost": "신규라 스테이지 영향은 없지만 영향력 B 급 군주/장수를 C 로 낮추게 됨(송서사 등급 근거 재확인)"
+  }
+ },
+ "distribution": {
+  "existing_pool_149": {
+   "n": 149,
+   "rarity": {
+    "S": 29,
+    "A": 48,
+    "B": 67,
+    "C": 5
+   },
+   "rarity_pct": {
+    "B": 45,
+    "A": 32.2,
+    "S": 19.5,
+    "C": 3.4
+   },
+   "troop": {
+    "sword": 41,
+    "spear": 29,
+    "cavalry": 43,
+    "archer": 24,
+    "gunner": 12,
+    "naval": 0
+   },
+   "troop_pct": {
+    "cavalry": 28.9,
+    "sword": 27.5,
+    "spear": 19.5,
+    "archer": 16.1,
+    "gunner": 8.1,
+    "naval": 0
+   },
+   "unit_class": {
+    "sword": 35,
+    "spear": 26,
+    "cavalry": 31,
+    "archer": 18,
+    "gunner": 9,
+    "mage": 16,
+    "healer": 14
+   },
+   "culture": {
+    "europe": 29,
+    "korea": 20,
+    "ancient_med": 20,
+    "middle_east": 15,
+    "japan": 15,
+    "south_asia": 14,
+    "china": 14,
+    "steppe": 12,
+    "southeast_asia": 10
+   },
+   "culture_pct": {
+    "europe": 19.5,
+    "korea": 13.4,
+    "ancient_med": 13.4,
+    "middle_east": 10.1,
+    "japan": 10.1,
+    "south_asia": 9.4,
+    "china": 9.4,
+    "steppe": 8.1,
+    "southeast_asia": 6.7
+   },
+   "east_asia": 49,
+   "east_asia_pct": 32.9
+  },
+  "wave3_new_55": {
+   "n": 55,
+   "rarity": {
+    "S": 2,
+    "A": 21,
+    "B": 20,
+    "C": 12
+   },
+   "rarity_pct": {
+    "A": 38.2,
+    "B": 36.4,
+    "C": 21.8,
+    "S": 3.6
+   },
+   "troop": {
+    "archer": 13,
+    "cavalry": 13,
+    "spear": 12,
+    "sword": 10,
+    "naval": 3,
+    "gunner": 4
+   },
+   "troop_pct": {
+    "archer": 23.6,
+    "cavalry": 23.6,
+    "spear": 21.8,
+    "sword": 18.2,
+    "gunner": 7.3,
+    "naval": 5.5
+   },
+   "unit_class": {
+    "mage": 5,
+    "cavalry": 11,
+    "spear": 12,
+    "sword": 18,
+    "archer": 6,
+    "gunner": 3
+   },
+   "culture": {
+    "china": 13,
+    "europe": 11,
+    "korea": 6,
+    "southeast_asia": 4,
+    "middle_east": 6,
+    "steppe": 4,
+    "ancient_med": 3,
+    "japan": 5,
+    "south_asia": 3
+   },
+   "culture_pct": {
+    "china": 23.6,
+    "europe": 20,
+    "korea": 10.9,
+    "middle_east": 10.9,
+    "japan": 9.1,
+    "southeast_asia": 7.3,
+    "steppe": 7.3,
+    "ancient_med": 5.5,
+    "south_asia": 5.5
+   },
+   "east_asia": 24,
+   "east_asia_pct": 43.6
+  },
+  "pool_after_204": {
+   "n": 204,
+   "rarity": {
+    "B": 87,
+    "A": 69,
+    "S": 31,
+    "C": 17
+   },
+   "rarity_pct": {
+    "B": 42.6,
+    "A": 33.8,
+    "S": 15.2,
+    "C": 8.3
+   },
+   "troop": {
+    "cavalry": 56,
+    "spear": 41,
+    "naval": 3,
+    "archer": 37,
+    "sword": 51,
+    "gunner": 16
+   },
+   "troop_pct": {
+    "cavalry": 27.5,
+    "sword": 25,
+    "spear": 20.1,
+    "archer": 18.1,
+    "gunner": 7.8,
+    "naval": 1.5
+   },
+   "unit_class": {
+    "cavalry": 42,
+    "spear": 38,
+    "healer": 14,
+    "archer": 24,
+    "sword": 53,
+    "gunner": 12,
+    "mage": 21
+   },
+   "culture": {
+    "korea": 26,
+    "steppe": 16,
+    "china": 27,
+    "south_asia": 17,
+    "japan": 20,
+    "ancient_med": 23,
+    "southeast_asia": 14,
+    "europe": 40,
+    "middle_east": 21
+   },
+   "culture_pct": {
+    "europe": 19.6,
+    "china": 13.2,
+    "korea": 12.7,
+    "ancient_med": 11.3,
+    "middle_east": 10.3,
+    "japan": 9.8,
+    "south_asia": 8.3,
+    "steppe": 7.8,
+    "southeast_asia": 6.9
+   },
+   "east_asia": 73,
+   "east_asia_pct": 35.8
+  },
+  "wave3_new_55_with_swaps": {
+   "n": 55,
+   "rarity": {
+    "S": 2,
+    "A": 22,
+    "B": 20,
+    "C": 11
+   },
+   "rarity_pct": {
+    "A": 40,
+    "B": 36.4,
+    "C": 20,
+    "S": 3.6
+   },
+   "troop": {
+    "archer": 11,
+    "cavalry": 14,
+    "spear": 12,
+    "sword": 10,
+    "naval": 3,
+    "gunner": 5
+   },
+   "troop_pct": {
+    "cavalry": 25.5,
+    "spear": 21.8,
+    "archer": 20,
+    "sword": 18.2,
+    "gunner": 9.1,
+    "naval": 5.5
+   },
+   "unit_class": {
+    "mage": 4,
+    "cavalry": 12,
+    "spear": 12,
+    "sword": 17,
+    "archer": 6,
+    "gunner": 4
+   },
+   "culture": {
+    "china": 11,
+    "europe": 11,
+    "korea": 6,
+    "southeast_asia": 4,
+    "middle_east": 8,
+    "steppe": 4,
+    "ancient_med": 4,
+    "japan": 4,
+    "south_asia": 3
+   },
+   "culture_pct": {
+    "china": 20,
+    "europe": 20,
+    "middle_east": 14.5,
+    "korea": 10.9,
+    "southeast_asia": 7.3,
+    "steppe": 7.3,
+    "ancient_med": 7.3,
+    "japan": 7.3,
+    "south_asia": 5.5
+   },
+   "east_asia": 21,
+   "east_asia_pct": 38.2
+  },
+  "pool_after_204_with_swaps": {
+   "n": 204,
+   "rarity": {
+    "B": 87,
+    "A": 70,
+    "S": 31,
+    "C": 16
+   },
+   "rarity_pct": {
+    "B": 42.6,
+    "A": 34.3,
+    "S": 15.2,
+    "C": 7.8
+   },
+   "troop": {
+    "cavalry": 57,
+    "spear": 41,
+    "naval": 3,
+    "archer": 35,
+    "sword": 51,
+    "gunner": 17
+   },
+   "troop_pct": {
+    "cavalry": 27.9,
+    "sword": 25,
+    "spear": 20.1,
+    "archer": 17.2,
+    "gunner": 8.3,
+    "naval": 1.5
+   },
+   "unit_class": {
+    "cavalry": 43,
+    "spear": 38,
+    "healer": 14,
+    "archer": 24,
+    "sword": 52,
+    "gunner": 13,
+    "mage": 20
+   },
+   "culture": {
+    "korea": 26,
+    "steppe": 16,
+    "china": 25,
+    "south_asia": 17,
+    "japan": 19,
+    "ancient_med": 24,
+    "southeast_asia": 14,
+    "europe": 40,
+    "middle_east": 23
+   },
+   "culture_pct": {
+    "europe": 19.6,
+    "korea": 12.7,
+    "china": 12.3,
+    "ancient_med": 11.8,
+    "middle_east": 11.3,
+    "japan": 9.3,
+    "south_asia": 8.3,
+    "steppe": 7.8,
+    "southeast_asia": 6.9
+   },
+   "east_asia": 70,
+   "east_asia_pct": 34.3
+  }
+ },
+ "rarity_gate": {
+  "S_target": "약 21% 이내",
+  "S_actual_after": 15.2,
+  "A_target": "40% 이하",
+  "A_actual_after": 33.8,
+  "C_target": "10% 이상 권장",
+  "C_actual_after": 8.3
+ },
+ "blockers_and_findings": [
+  "npc_babur 는 서빙 DB 에서 이미 campaign_only=0(플레이어블, A 궁수). 승격 대상에서 제외하고 예비 bayinnaung(동남아, B 창병)을 코어로 올려 55명 유지. 박백엔 최종 중복 SQL 에서 확인 필요.",
+  "신규 코드 33개(+교체안 3개)는 서빙 DB heroes 에 존재하지 않음을 확인(0행). 승격 22명 코드는 모두 campaign_only=1 로 존재.",
+  "승격 22명 중 unit_type/troop_type 이 DB 와 다른 항목은 stage_impact_check 참조: 병종 변경 다수, 클래스 변경 2건(노숙·김춘추 sword->mage, 능력치 재생성).",
+  "조운은 송서사 제안 A 였으나 DB 가 B(spear)이고 능력치 재사용 원칙에 따라 B 유지. A 상향은 스테이지 영향 확인 후 결정.",
+  "수병(naval) 부대는 현재 플레이어블 0명. 3명(하이레딘·와키자카·응오꾸옌)만 도입했고 황개·구루시마는 궁수/보병 부대로 조정했다(수병 5명 동시 도입은 미측정 위험). 수병 영웅 유닛 클래스는 sword 로 둠(영웅 유닛은 수병 불가 규칙).",
+  "w3_pur_mid, w3_tdef_castle_w, w3_tm_highland_s 는 기존 행(em_pur_mid, ksm_tdef_weak, rd_yi_sun_sin_p1)과 같은 params 구조의 복제라 엔진 변경은 불필요해 보이나 박백엔 확인 요청."
+ ],
+ "requests": {
+  "박백엔": [
+   "최종 중복 확인 SQL(신규 33·교체 3 코드 0행, 승격 22 campaign_only=1, npc_babur 플레이어블 확인).",
+   "승격 시 heroes UPDATE 범위 확인: 부대 병종 변경이 스테이지 NPC 병사 구성에 영향 주는지, 노숙·김춘추 클래스 mage 변경 허용 여부.",
+   "w3_* 신규 스킬 시드 반영 후 game:audit-skills 상한 위반 재검사, rd_* 풀 스킬 연결(hero_skills) 반영. hero_troop_types 하드코드 목록에 gunner·naval 포함 여부 확인."
+  ],
+  "송서사": [
+   "w3_* 신규 스킬 이름(name_ko) 작성(name_hint 참조, 화면에 근거 표기 금지).",
+   "교체안 3명(나데르 샤·셀림 1세 신규 조사, 폼페이우스는 예비 후보)의 역사·관계 데이터와 병종 제안 변경(쿠투조프·고니시 gunner, 황개 archer, 노숙·김춘추 mage 클래스, 구루시마 sword) 근거 검토."
+  ],
+  "임밸런(후속)": [
+   "시드 후 game:simulate 로 병종·등급 평균 승률 45~55%, 신규 개별 35~65% 이상치 플래그 측정(매트릭스 영웅당 1000판 이상, 레벨 5/10/20 중 2개).",
+   "수병 3명은 수상 맵 승률 별도 측정, 승격 NPC 병종 변경분은 해당 스테이지 승률 재측정."
+  ]
+ },
+ "human_check": [
+  "승격 NPC(조운·황충 등)가 등급 대비 약해 보이지 않는지(atk4/def2 재사용이라 개성 약함). tilt_suggest 적용 여부 결정.",
+  "조운 A 상향, 황개/구루시마 수병 제외, 고니시·쿠투조프 총병 각색, 노숙·김춘추 마법사 클래스에 대한 인상.",
+  "C 등급 비율 10% 목표 vs 역사적 영향력 기준(옵션 A/B 선택).",
+  "신규 영웅 기울기(공격형/수비형)가 플레이에서 체감되는지, 무사시 6/1·콘스탄티노스 1/4 같은 극단값이 재미있는지."
+ ]
+}

@@ -1,0 +1,5684 @@
+{
+ "note": "주인공(서고 소환자) 에셋 manifest 조각(안아트 2026-11-01). manifest.json 직접 수정 안 함 — 병합은 윤프론(build_manifest.mjs MERGE_FRAGMENTS 에 이 경로 추가). 설계: docker/gemini/protagonist_design.md",
+ "generated": "2026-11-01T12:44:30.851Z",
+ "keyRules": {
+  "faces": [
+   "male_a",
+   "male_b",
+   "male_c",
+   "female_a",
+   "female_b",
+   "female_c"
+  ],
+  "expressions": [
+   "neutral",
+   "smile",
+   "determined",
+   "hurt"
+  ],
+  "classes": [
+   "sword",
+   "spear",
+   "archer",
+   "cavalry",
+   "heavy"
+  ],
+  "portrait": "portrait.protagonist_<face>.<expr> (face=male_a|male_b|male_c|female_a|female_b|female_c, expr=neutral|smile|determined|hurt). 없는 표정 → portrait.protagonist_<face>.neutral",
+  "fullbody": "illust.protagonist_<face>.fullbody (캐릭터 생성 화면 선택 카드)",
+  "sprite": "unit.protagonist.<face>.<class>.<ally|enemy>.64.sheet (class=sword|spear|archer|cavalry|heavy, 기본 복장=base). 조회 순서: unit.protagonist.<face>.<class>.<side>.64.sheet → unit.protagonist.<face>.base.<side>.64.sheet → unit.<class>.<side>.64.sheet(범용 병종) . 주인공 cavalry 의 병종 키는 cavalry, heavy 는 heavy",
+  "x2": "각 시트 item.variants.x2 (64_x2 폴더, nearest 2배)"
+ },
+ "pending": [],
+ "items": [
+  {
+   "key": "portrait.protagonist_male_a.neutral",
+   "path": "assets/portraits/protagonist/protagonist_male_a_neutral.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 907350,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "neutral",
+   "face": "male_a",
+   "gender": "male",
+   "sprite": "unit.protagonist.male_a.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_a','neutral')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_a_neutral.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_male_a.smile",
+   "path": "assets/portraits/protagonist/protagonist_male_a_smile.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 868801,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "smile",
+   "face": "male_a",
+   "gender": "male",
+   "fallback_key": "portrait.protagonist_male_a.neutral",
+   "sprite": "unit.protagonist.male_a.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_a','smile')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_a_smile.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_male_a.determined",
+   "path": "assets/portraits/protagonist/protagonist_male_a_determined.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 879632,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "determined",
+   "face": "male_a",
+   "gender": "male",
+   "fallback_key": "portrait.protagonist_male_a.neutral",
+   "sprite": "unit.protagonist.male_a.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_a','determined')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_a_determined.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_male_a.hurt",
+   "path": "assets/portraits/protagonist/protagonist_male_a_hurt.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 902922,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "hurt",
+   "face": "male_a",
+   "gender": "male",
+   "fallback_key": "portrait.protagonist_male_a.neutral",
+   "sprite": "unit.protagonist.male_a.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_a','hurt')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_a_hurt.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "illust.protagonist_male_a.fullbody",
+   "path": "assets/portraits/protagonist/fullbody/protagonist_male_a_fullbody.png",
+   "type": "illustration",
+   "size": "893x1600",
+   "bytes": 792842,
+   "alpha": true,
+   "ratio": "9:16",
+   "face": "male_a",
+   "gender": "male",
+   "use": "캐릭터 생성 화면 선택 카드/전신 일러스트(작게 쓸 때는 CSS 축소, 정수 배율 불필요)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs + alpha_process.py B"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs fullbodyJob('male_a')",
+   "raw": "docker/gemini/protagonist_raw/fullbody_male_a.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "size": "893x1600",
+    "checklist": [
+     "neutral 초상화와 동일 인물·복장",
+     "발끝 잘림 없음",
+     "알파(불투명 마젠타 잔여 최대 7px, 육안 확인 불가 수준)"
+    ],
+    "issues": [
+     "표정은 지시(자신감 있는 미소)보다 차분한 중립에 가까움"
+    ]
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요"
+  },
+  {
+   "key": "unit.protagonist.male_a.base.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_base_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_base_ally_sheet.png"
+   },
+   "bytes": 10701,
+   "face": "male_a",
+   "class": "base",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.male_a.base.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_base_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_base_enemy_sheet.png"
+   },
+   "bytes": 10619,
+   "face": "male_a",
+   "class": "base",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.male_a.sword.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_sword_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_sword_ally_sheet.png"
+   },
+   "bytes": 10603,
+   "face": "male_a",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.male_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_a.sword.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_sword_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_sword_enemy_sheet.png"
+   },
+   "bytes": 10534,
+   "face": "male_a",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.male_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_a.spear.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_spear_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_spear_ally_sheet.png"
+   },
+   "bytes": 11760,
+   "face": "male_a",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.male_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_a.spear.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_spear_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_spear_enemy_sheet.png"
+   },
+   "bytes": 11699,
+   "face": "male_a",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.male_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_a.archer.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_archer_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_archer_ally_sheet.png"
+   },
+   "bytes": 12957,
+   "face": "male_a",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.male_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_a.archer.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_archer_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_archer_enemy_sheet.png"
+   },
+   "bytes": 12667,
+   "face": "male_a",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.male_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_a.cavalry.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_cavalry_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_cavalry_ally_sheet.png"
+   },
+   "bytes": 11314,
+   "face": "male_a",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.male_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_a.cavalry.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_cavalry_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_cavalry_enemy_sheet.png"
+   },
+   "bytes": 11162,
+   "face": "male_a",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.male_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_a.heavy.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_heavy_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_heavy_ally_sheet.png"
+   },
+   "bytes": 11008,
+   "face": "male_a",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.male_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_a.heavy.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_a_heavy_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_a_heavy_enemy_sheet.png"
+   },
+   "bytes": 10982,
+   "face": "male_a",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.male_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_a','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_a_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "portrait.protagonist_male_b.neutral",
+   "path": "assets/portraits/protagonist/protagonist_male_b_neutral.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 880137,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "neutral",
+   "face": "male_b",
+   "gender": "male",
+   "sprite": "unit.protagonist.male_b.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_b','neutral')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_b_neutral.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_male_b.smile",
+   "path": "assets/portraits/protagonist/protagonist_male_b_smile.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 913218,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "smile",
+   "face": "male_b",
+   "gender": "male",
+   "fallback_key": "portrait.protagonist_male_b.neutral",
+   "sprite": "unit.protagonist.male_b.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_b','smile')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_b_smile.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_male_b.determined",
+   "path": "assets/portraits/protagonist/protagonist_male_b_determined.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 922974,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "determined",
+   "face": "male_b",
+   "gender": "male",
+   "fallback_key": "portrait.protagonist_male_b.neutral",
+   "sprite": "unit.protagonist.male_b.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_b','determined')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_b_determined.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_male_b.hurt",
+   "path": "assets/portraits/protagonist/protagonist_male_b_hurt.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 927671,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "hurt",
+   "face": "male_b",
+   "gender": "male",
+   "fallback_key": "portrait.protagonist_male_b.neutral",
+   "sprite": "unit.protagonist.male_b.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_b','hurt')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_b_hurt.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "illust.protagonist_male_b.fullbody",
+   "path": "assets/portraits/protagonist/fullbody/protagonist_male_b_fullbody.png",
+   "type": "illustration",
+   "size": "893x1600",
+   "bytes": 866086,
+   "alpha": true,
+   "ratio": "9:16",
+   "face": "male_b",
+   "gender": "male",
+   "use": "캐릭터 생성 화면 선택 카드/전신 일러스트(작게 쓸 때는 CSS 축소, 정수 배율 불필요)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs + alpha_process.py B"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs fullbodyJob('male_b')",
+   "raw": "docker/gemini/protagonist_raw/fullbody_male_b.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "size": "893x1600",
+    "checklist": [
+     "neutral 초상화와 동일 인물·복장",
+     "발끝 잘림 없음",
+     "알파(불투명 마젠타 잔여 최대 7px, 육안 확인 불가 수준)"
+    ],
+    "issues": [
+     "표정은 지시(자신감 있는 미소)보다 차분한 중립에 가까움"
+    ]
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요"
+  },
+  {
+   "key": "unit.protagonist.male_b.base.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_base_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_base_ally_sheet.png"
+   },
+   "bytes": 11513,
+   "face": "male_b",
+   "class": "base",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.male_b.base.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_base_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_base_enemy_sheet.png"
+   },
+   "bytes": 11365,
+   "face": "male_b",
+   "class": "base",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.male_b.sword.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_sword_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_sword_ally_sheet.png"
+   },
+   "bytes": 11432,
+   "face": "male_b",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.male_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_b.sword.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_sword_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_sword_enemy_sheet.png"
+   },
+   "bytes": 11239,
+   "face": "male_b",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.male_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_b.spear.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_spear_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_spear_ally_sheet.png"
+   },
+   "bytes": 12886,
+   "face": "male_b",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.male_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_b.spear.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_spear_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_spear_enemy_sheet.png"
+   },
+   "bytes": 12790,
+   "face": "male_b",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.male_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_b.archer.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_archer_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_archer_ally_sheet.png"
+   },
+   "bytes": 13055,
+   "face": "male_b",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.male_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_b.archer.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_archer_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_archer_enemy_sheet.png"
+   },
+   "bytes": 12804,
+   "face": "male_b",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.male_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_b.cavalry.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_cavalry_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_cavalry_ally_sheet.png"
+   },
+   "bytes": 12493,
+   "face": "male_b",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.male_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_b.cavalry.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_cavalry_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_cavalry_enemy_sheet.png"
+   },
+   "bytes": 12386,
+   "face": "male_b",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.male_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_b.heavy.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_heavy_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_heavy_ally_sheet.png"
+   },
+   "bytes": 12278,
+   "face": "male_b",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.male_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_b.heavy.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_b_heavy_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_b_heavy_enemy_sheet.png"
+   },
+   "bytes": 12199,
+   "face": "male_b",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.male_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_b','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_b_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "portrait.protagonist_male_c.neutral",
+   "path": "assets/portraits/protagonist/protagonist_male_c_neutral.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 871057,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "neutral",
+   "face": "male_c",
+   "gender": "male",
+   "sprite": "unit.protagonist.male_c.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_c','neutral')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_c_neutral.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_male_c.smile",
+   "path": "assets/portraits/protagonist/protagonist_male_c_smile.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 880699,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "smile",
+   "face": "male_c",
+   "gender": "male",
+   "fallback_key": "portrait.protagonist_male_c.neutral",
+   "sprite": "unit.protagonist.male_c.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_c','smile')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_c_smile.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_male_c.determined",
+   "path": "assets/portraits/protagonist/protagonist_male_c_determined.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 901700,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "determined",
+   "face": "male_c",
+   "gender": "male",
+   "fallback_key": "portrait.protagonist_male_c.neutral",
+   "sprite": "unit.protagonist.male_c.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_c','determined')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_c_determined.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_male_c.hurt",
+   "path": "assets/portraits/protagonist/protagonist_male_c_hurt.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 884504,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "hurt",
+   "face": "male_c",
+   "gender": "male",
+   "fallback_key": "portrait.protagonist_male_c.neutral",
+   "sprite": "unit.protagonist.male_c.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('male_c','hurt')",
+   "raw": "docker/gemini/protagonist_raw/portrait_male_c_hurt.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "illust.protagonist_male_c.fullbody",
+   "path": "assets/portraits/protagonist/fullbody/protagonist_male_c_fullbody.png",
+   "type": "illustration",
+   "size": "893x1600",
+   "bytes": 844268,
+   "alpha": true,
+   "ratio": "9:16",
+   "face": "male_c",
+   "gender": "male",
+   "use": "캐릭터 생성 화면 선택 카드/전신 일러스트(작게 쓸 때는 CSS 축소, 정수 배율 불필요)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs + alpha_process.py B"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs fullbodyJob('male_c')",
+   "raw": "docker/gemini/protagonist_raw/fullbody_male_c.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "size": "893x1600",
+    "checklist": [
+     "neutral 초상화와 동일 인물·복장",
+     "발끝 잘림 없음",
+     "알파(불투명 마젠타 잔여 최대 7px, 육안 확인 불가 수준)"
+    ],
+    "issues": [
+     "표정은 지시(자신감 있는 미소)보다 차분한 중립에 가까움"
+    ]
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요"
+  },
+  {
+   "key": "unit.protagonist.male_c.base.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_base_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_base_ally_sheet.png"
+   },
+   "bytes": 11009,
+   "face": "male_c",
+   "class": "base",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.male_c.base.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_base_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_base_enemy_sheet.png"
+   },
+   "bytes": 10843,
+   "face": "male_c",
+   "class": "base",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.male_c.sword.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_sword_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_sword_ally_sheet.png"
+   },
+   "bytes": 11877,
+   "face": "male_c",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.male_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_c.sword.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_sword_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_sword_enemy_sheet.png"
+   },
+   "bytes": 11709,
+   "face": "male_c",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.male_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_c.spear.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_spear_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_spear_ally_sheet.png"
+   },
+   "bytes": 11724,
+   "face": "male_c",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.male_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_c.spear.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_spear_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_spear_enemy_sheet.png"
+   },
+   "bytes": 11560,
+   "face": "male_c",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.male_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_c.archer.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_archer_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_archer_ally_sheet.png"
+   },
+   "bytes": 12836,
+   "face": "male_c",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.male_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_c.archer.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_archer_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_archer_enemy_sheet.png"
+   },
+   "bytes": 12490,
+   "face": "male_c",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.male_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_c.cavalry.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_cavalry_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_cavalry_ally_sheet.png"
+   },
+   "bytes": 11866,
+   "face": "male_c",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.male_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_c.cavalry.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_cavalry_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_cavalry_enemy_sheet.png"
+   },
+   "bytes": 11770,
+   "face": "male_c",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.male_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_c.heavy.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_heavy_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_heavy_ally_sheet.png"
+   },
+   "bytes": 12078,
+   "face": "male_c",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.male_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.male_c.heavy.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_male_c_heavy_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_male_c_heavy_enemy_sheet.png"
+   },
+   "bytes": 11869,
+   "face": "male_c",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.male_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_male_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('male_c','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_male_c_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_male_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "portrait.protagonist_female_a.neutral",
+   "path": "assets/portraits/protagonist/protagonist_female_a_neutral.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 876521,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "neutral",
+   "face": "female_a",
+   "gender": "female",
+   "sprite": "unit.protagonist.female_a.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_a','neutral')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_a_neutral.jpg",
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": [
+     "여성 3종은 남성보다 프레이밍이 약간 넓음(머리가 조금 작음)"
+    ]
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_female_a.smile",
+   "path": "assets/portraits/protagonist/protagonist_female_a_smile.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 881497,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "smile",
+   "face": "female_a",
+   "gender": "female",
+   "fallback_key": "portrait.protagonist_female_a.neutral",
+   "sprite": "unit.protagonist.female_a.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_a','smile')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_a_smile.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_female_a.determined",
+   "path": "assets/portraits/protagonist/protagonist_female_a_determined.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 882107,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "determined",
+   "face": "female_a",
+   "gender": "female",
+   "fallback_key": "portrait.protagonist_female_a.neutral",
+   "sprite": "unit.protagonist.female_a.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_a','determined')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_a_determined.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_female_a.hurt",
+   "path": "assets/portraits/protagonist/protagonist_female_a_hurt.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 897516,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "hurt",
+   "face": "female_a",
+   "gender": "female",
+   "fallback_key": "portrait.protagonist_female_a.neutral",
+   "sprite": "unit.protagonist.female_a.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_a','hurt')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_a_hurt.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "illust.protagonist_female_a.fullbody",
+   "path": "assets/portraits/protagonist/fullbody/protagonist_female_a_fullbody.png",
+   "type": "illustration",
+   "size": "893x1600",
+   "bytes": 841096,
+   "alpha": true,
+   "ratio": "9:16",
+   "face": "female_a",
+   "gender": "female",
+   "use": "캐릭터 생성 화면 선택 카드/전신 일러스트(작게 쓸 때는 CSS 축소, 정수 배율 불필요)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs + alpha_process.py B"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs fullbodyJob('female_a')",
+   "raw": "docker/gemini/protagonist_raw/fullbody_female_a.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "size": "893x1600",
+    "checklist": [
+     "neutral 초상화와 동일 인물·복장",
+     "발끝 잘림 없음",
+     "알파(불투명 마젠타 잔여 최대 7px, 육안 확인 불가 수준)"
+    ],
+    "issues": [
+     "표정은 지시(자신감 있는 미소)보다 차분한 중립에 가까움"
+    ]
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요"
+  },
+  {
+   "key": "unit.protagonist.female_a.base.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_base_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_base_ally_sheet.png"
+   },
+   "bytes": 10986,
+   "face": "female_a",
+   "class": "base",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.female_a.base.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_base_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_base_enemy_sheet.png"
+   },
+   "bytes": 10849,
+   "face": "female_a",
+   "class": "base",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.female_a.sword.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_sword_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_sword_ally_sheet.png"
+   },
+   "bytes": 11925,
+   "face": "female_a",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.female_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_a.sword.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_sword_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_sword_enemy_sheet.png"
+   },
+   "bytes": 11808,
+   "face": "female_a",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.female_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_a.spear.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_spear_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_spear_ally_sheet.png"
+   },
+   "bytes": 12410,
+   "face": "female_a",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.female_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 행에서 창을 수평으로 겨눔(3칸 일관, 문제 아님)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_a.spear.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_spear_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_spear_enemy_sheet.png"
+   },
+   "bytes": 12179,
+   "face": "female_a",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.female_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 행에서 창을 수평으로 겨눔(3칸 일관, 문제 아님)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_a.archer.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_archer_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_archer_ally_sheet.png"
+   },
+   "bytes": 13223,
+   "face": "female_a",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.female_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "어깨 망토가 지시(남색)보다 밝은 청색"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_a.archer.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_archer_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_archer_enemy_sheet.png"
+   },
+   "bytes": 12896,
+   "face": "female_a",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.female_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "어깨 망토가 지시(남색)보다 밝은 청색"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_a.cavalry.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_cavalry_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_cavalry_ally_sheet.png"
+   },
+   "bytes": 11561,
+   "face": "female_a",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.female_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_a.cavalry.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_cavalry_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_cavalry_enemy_sheet.png"
+   },
+   "bytes": 11351,
+   "face": "female_a",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.female_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_a.heavy.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_heavy_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_heavy_ally_sheet.png"
+   },
+   "bytes": 12068,
+   "face": "female_a",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.female_a.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_a.heavy.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_a_heavy_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_a_heavy_enemy_sheet.png"
+   },
+   "bytes": 11915,
+   "face": "female_a",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.female_a.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_a.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_a','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_a_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_a.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "portrait.protagonist_female_b.neutral",
+   "path": "assets/portraits/protagonist/protagonist_female_b_neutral.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 888539,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "neutral",
+   "face": "female_b",
+   "gender": "female",
+   "sprite": "unit.protagonist.female_b.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_b','neutral')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_b_neutral.jpg",
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": [
+     "여성 3종은 남성보다 프레이밍이 약간 넓음(머리가 조금 작음)"
+    ]
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_female_b.smile",
+   "path": "assets/portraits/protagonist/protagonist_female_b_smile.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 890224,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "smile",
+   "face": "female_b",
+   "gender": "female",
+   "fallback_key": "portrait.protagonist_female_b.neutral",
+   "sprite": "unit.protagonist.female_b.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_b','smile')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_b_smile.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_female_b.determined",
+   "path": "assets/portraits/protagonist/protagonist_female_b_determined.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 894147,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "determined",
+   "face": "female_b",
+   "gender": "female",
+   "fallback_key": "portrait.protagonist_female_b.neutral",
+   "sprite": "unit.protagonist.female_b.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_b','determined')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_b_determined.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_female_b.hurt",
+   "path": "assets/portraits/protagonist/protagonist_female_b_hurt.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 935076,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "hurt",
+   "face": "female_b",
+   "gender": "female",
+   "fallback_key": "portrait.protagonist_female_b.neutral",
+   "sprite": "unit.protagonist.female_b.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_b','hurt')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_b_hurt.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "illust.protagonist_female_b.fullbody",
+   "path": "assets/portraits/protagonist/fullbody/protagonist_female_b_fullbody.png",
+   "type": "illustration",
+   "size": "893x1600",
+   "bytes": 851807,
+   "alpha": true,
+   "ratio": "9:16",
+   "face": "female_b",
+   "gender": "female",
+   "use": "캐릭터 생성 화면 선택 카드/전신 일러스트(작게 쓸 때는 CSS 축소, 정수 배율 불필요)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs + alpha_process.py B"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs fullbodyJob('female_b')",
+   "raw": "docker/gemini/protagonist_raw/fullbody_female_b.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "size": "893x1600",
+    "checklist": [
+     "neutral 초상화와 동일 인물·복장",
+     "발끝 잘림 없음",
+     "알파(불투명 마젠타 잔여 최대 7px, 육안 확인 불가 수준)"
+    ],
+    "issues": [
+     "표정은 지시(자신감 있는 미소)보다 차분한 중립에 가까움"
+    ]
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요"
+  },
+  {
+   "key": "unit.protagonist.female_b.base.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_base_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_base_ally_sheet.png"
+   },
+   "bytes": 12161,
+   "face": "female_b",
+   "class": "base",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.female_b.base.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_base_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_base_enemy_sheet.png"
+   },
+   "bytes": 12036,
+   "face": "female_b",
+   "class": "base",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.female_b.sword.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_sword_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_sword_ally_sheet.png"
+   },
+   "bytes": 11449,
+   "face": "female_b",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.female_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_sword.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "재생성 1회: 1차는 정면 행 검·버클러 누락"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_b.sword.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_sword_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_sword_enemy_sheet.png"
+   },
+   "bytes": 11512,
+   "face": "female_b",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.female_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_sword.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "재생성 1회: 1차는 정면 행 검·버클러 누락"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_b.spear.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_spear_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_spear_ally_sheet.png"
+   },
+   "bytes": 12685,
+   "face": "female_b",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.female_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_spear.jpg",
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "재생성 2회: 측면 창 누락→창 각도 흔들림 해결. 후면 walk2 칸 창 위치가 반대라 walk1 칸 재사용(protagonist_facing.json map.up)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_b.spear.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_spear_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_spear_enemy_sheet.png"
+   },
+   "bytes": 12599,
+   "face": "female_b",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.female_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_spear.jpg",
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "재생성 2회: 측면 창 누락→창 각도 흔들림 해결. 후면 walk2 칸 창 위치가 반대라 walk1 칸 재사용(protagonist_facing.json map.up)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_b.archer.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_archer_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_archer_ally_sheet.png"
+   },
+   "bytes": 13064,
+   "face": "female_b",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.female_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "어깨 망토가 지시(남색)보다 밝은 청색"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_b.archer.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_archer_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_archer_enemy_sheet.png"
+   },
+   "bytes": 12965,
+   "face": "female_b",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.female_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "어깨 망토가 지시(남색)보다 밝은 청색"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_b.cavalry.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_cavalry_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_cavalry_ally_sheet.png"
+   },
+   "bytes": 12233,
+   "face": "female_b",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.female_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_b.cavalry.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_cavalry_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_cavalry_enemy_sheet.png"
+   },
+   "bytes": 12114,
+   "face": "female_b",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.female_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_cavalry.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_b.heavy.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_heavy_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_heavy_ally_sheet.png"
+   },
+   "bytes": 13141,
+   "face": "female_b",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.female_b.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_b.heavy.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_b_heavy_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_b_heavy_enemy_sheet.png"
+   },
+   "bytes": 13029,
+   "face": "female_b",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.female_b.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_b.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_b','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_b_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_b.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "portrait.protagonist_female_c.neutral",
+   "path": "assets/portraits/protagonist/protagonist_female_c_neutral.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 928495,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "neutral",
+   "face": "female_c",
+   "gender": "female",
+   "sprite": "unit.protagonist.female_c.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_c','neutral')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_c_neutral.jpg",
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": [
+     "여성 3종은 남성보다 프레이밍이 약간 넓음(머리가 조금 작음)"
+    ]
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_female_c.smile",
+   "path": "assets/portraits/protagonist/protagonist_female_c_smile.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 925931,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "smile",
+   "face": "female_c",
+   "gender": "female",
+   "fallback_key": "portrait.protagonist_female_c.neutral",
+   "sprite": "unit.protagonist.female_c.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_c','smile')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_c_smile.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_female_c.determined",
+   "path": "assets/portraits/protagonist/protagonist_female_c_determined.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 908081,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "determined",
+   "face": "female_c",
+   "gender": "female",
+   "fallback_key": "portrait.protagonist_female_c.neutral",
+   "sprite": "unit.protagonist.female_c.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_c','determined')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_c_determined.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "portrait.protagonist_female_c.hurt",
+   "path": "assets/portraits/protagonist/protagonist_female_c_hurt.png",
+   "type": "portrait",
+   "size": "896x1200",
+   "bytes": 928160,
+   "alpha": true,
+   "ratio": "3:4",
+   "min": "896x1200",
+   "expression": "hurt",
+   "face": "female_c",
+   "gender": "female",
+   "fallback_key": "portrait.protagonist_female_c.neutral",
+   "sprite": "unit.protagonist.female_c.base",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs(protagonist_gen.sh) + protagonist_style.mjs → portrait_alpha_batch.sh"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs portraitJob('female_c','hurt')",
+   "raw": "docker/gemini/protagonist_raw/portrait_female_c_hurt.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "6종 얼굴 구분",
+     "같은 얼굴 4표정 동일 인물",
+     "표정 정의 일치",
+     "기본 복장 통일",
+     "성인·노출 없음",
+     "알파 마젠타 잔여 0~1px",
+     "896x1200"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "오리지널 캐릭터(서고 소환자), 참조는 자체 생성 raw 만 사용"
+  },
+  {
+   "key": "illust.protagonist_female_c.fullbody",
+   "path": "assets/portraits/protagonist/fullbody/protagonist_female_c_fullbody.png",
+   "type": "illustration",
+   "size": "893x1600",
+   "bytes": 906212,
+   "alpha": true,
+   "ratio": "9:16",
+   "face": "female_c",
+   "gender": "female",
+   "use": "캐릭터 생성 화면 선택 카드/전신 일러스트(작게 쓸 때는 CSS 축소, 정수 배율 불필요)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs + alpha_process.py B"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs fullbodyJob('female_c')",
+   "raw": "docker/gemini/protagonist_raw/fullbody_female_c.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "size": "893x1600",
+    "checklist": [
+     "neutral 초상화와 동일 인물·복장",
+     "발끝 잘림 없음",
+     "알파(불투명 마젠타 잔여 최대 7px, 육안 확인 불가 수준)"
+    ],
+    "issues": [
+     "표정은 지시(자신감 있는 미소)보다 차분한 중립에 가까움"
+    ]
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요"
+  },
+  {
+   "key": "unit.protagonist.female_c.base.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_base_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_base_ally_sheet.png"
+   },
+   "bytes": 11854,
+   "face": "female_c",
+   "class": "base",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.female_c.base.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_base_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_base_enemy_sheet.png"
+   },
+   "bytes": 11719,
+   "face": "female_c",
+   "class": "base",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','base')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_base.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "측면 idle 칸이 완전한 프로필보다 약간 3/4"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본(배치·도트 크기만) + 정식 neutral 초상화"
+  },
+  {
+   "key": "unit.protagonist.female_c.sword.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_sword_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_sword_ally_sheet.png"
+   },
+   "bytes": 12064,
+   "face": "female_c",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.female_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_c.sword.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_sword_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_sword_enemy_sheet.png"
+   },
+   "bytes": 12118,
+   "face": "female_c",
+   "class": "sword",
+   "fallback_key": "unit.protagonist.female_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','sword')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_sword.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_c.spear.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_spear_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_spear_ally_sheet.png"
+   },
+   "bytes": 13325,
+   "face": "female_c",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.female_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_c.spear.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_spear_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_spear_enemy_sheet.png"
+   },
+   "bytes": 13193,
+   "face": "female_c",
+   "class": "spear",
+   "fallback_key": "unit.protagonist.female_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','spear')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_spear.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_c.archer.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_archer_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_archer_ally_sheet.png"
+   },
+   "bytes": 14423,
+   "face": "female_c",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.female_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_c.archer.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_archer_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_archer_enemy_sheet.png"
+   },
+   "bytes": 14226,
+   "face": "female_c",
+   "class": "archer",
+   "fallback_key": "unit.protagonist.female_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','archer')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_archer.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_c.cavalry.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_cavalry_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_cavalry_ally_sheet.png"
+   },
+   "bytes": 12006,
+   "face": "female_c",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.female_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_cavalry.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)",
+     "재생성 1회: 1차는 정면·측면 idle 랜스 누락, 측면 walk2 우향"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_c.cavalry.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_cavalry_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_cavalry_enemy_sheet.png"
+   },
+   "bytes": 11943,
+   "face": "female_c",
+   "class": "cavalry",
+   "fallback_key": "unit.protagonist.female_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','cavalry')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_cavalry.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [
+     "랜스가 긴 직검/장창처럼 날이 넓게 그려짐(6종 공통, 기병 무기로 읽히는 데는 문제 없음)",
+     "재생성 1회: 1차는 정면·측면 idle 랜스 누락, 측면 walk2 우향"
+    ],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_c.heavy.ally.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_heavy_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_heavy_ally_sheet.png"
+   },
+   "bytes": 14240,
+   "face": "female_c",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.female_c.base.ally.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  },
+  {
+   "key": "unit.protagonist.female_c.heavy.enemy.64.sheet",
+   "path": "assets/sprites/protagonist/64/protagonist_female_c_heavy_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열(hue 185-265) → 빨강 스왑 + 발밑 빨강 받침",
+   "variants": {
+    "x2": "assets/sprites/protagonist/64_x2/protagonist_female_c_heavy_enemy_sheet.png"
+   },
+   "bytes": 14060,
+   "face": "female_c",
+   "class": "heavy",
+   "fallback_key": "unit.protagonist.female_c.base.enemy.64.sheet",
+   "portrait": "portrait.protagonist_female_c.neutral",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/protagonist_gen.mjs → hero_dir_pp_v4.mjs(protagonist_pp.sh) → protagonist_compare.mjs"
+   },
+   "prompt_ref": "docker/gemini/protagonist_style.mjs sheetJob('female_c','heavy')",
+   "raw": "docker/gemini/protagonist_raw/sheet_female_c_heavy.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "초상화와 머리 모양·머리색·피부·코트 색 일치",
+     "클래스 장비 64px 식별",
+     "9칸 무기 존재",
+     "측면 좌향",
+     "적 시트 머리색 유지(min_s 0.43)"
+    ],
+    "issues": [],
+    "compare": "docker/gemini/protagonist_preview/compare_female_c.png"
+   },
+   "verify": false,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요",
+   "provenance": "refs: 병종 방향 시트 견본 + 정식 neutral 초상화 + 같은 얼굴 base 시트 raw"
+  }
+ ]
+}

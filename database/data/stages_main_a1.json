@@ -1,0 +1,1602 @@
+{
+  "_note": "[박백엔 초안 v0, 2026-11-03] 오리지널 메인 1막 ch101_s1~s5 시드 입력(game:seed-main). 모든 수치(보상·적 편성·레벨·턴 수·별 조건)는 임시값이며 밸런스는 임밸런이 후속 확정. rules.cues = docs/original_story/act1_cues_draft.json 복사. 맵 main_a1_* 는 database/data/maps_main_a1.json(맵디자이너, maps_imjin10.json 과 같은 items[] 형식; capture 목표 칸은 meta.objective_points, 통행 가능 칸이어야 함)에서 읽는다. objective: s1·s2 = defeat_commander(적 지휘관 격파 = 공백병 격퇴 대용), s3 = capture 도달(hold_turns 0; 적 지휘관 격파로도 승리가 되는 OR 판정), s4 = survive_turns 8(임시), s5 = capture 점유 3턴 + 적 점유 2턴 패배. 엔진 한계·요청은 박백엔 보고서 참조.",
+  "version": 1,
+  "status": "draft",
+  "act": 1,
+  "chapter": 101,
+  "items": [
+    {
+      "code": "ch101_s1",
+      "chapter": 101,
+      "name": "열람실의 빈 책",
+      "map": "main_a1_1_reading_room",
+      "objective": {
+        "type": "defeat_commander"
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch101_s1_v0",
+        "name": "열람실 공백병(임시)",
+        "culture": null,
+        "commander": {
+          "display_name_ko": "공백병",
+          "unit_type": "sword",
+          "troop_type": "sword",
+          "hp_mult": 1,
+          "atk_mult": 1,
+          "def_mult": 1,
+          "aura": null,
+          "skills": []
+        },
+        "units": [],
+        "soldier_display_name_ko": "공백병",
+        "squads": [
+          {
+            "id": "spear",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "공백병",
+              "unit_type": "spear",
+              "troop_type": "spear",
+              "hp_mult": 1,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": []
+            },
+            "units": [],
+            "soldier_display_name_ko": "공백병"
+          },
+          {
+            "id": "bow",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "공백병 궁수",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 1,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": []
+            },
+            "units": [],
+            "soldier_display_name_ko": "공백병"
+          }
+        ]
+      },
+      "recommended_level": 1,
+      "enemy_level": 3,
+      "enemy_level_offset": 0,
+      "difficulty": 1,
+      "sort_order": 10101,
+      "prerequisite": null,
+      "reward": {
+        "exp": 60,
+        "user_exp": 40,
+        "gold": 150
+      },
+      "star_conditions": [
+        {
+          "type": "clear"
+        },
+        {
+          "type": "sub_objective",
+          "id": "books"
+        },
+        {
+          "type": "turn_within",
+          "value": 5
+        }
+      ],
+      "rules": {
+        "factions": {
+          "ally": "서고 순회원",
+          "enemy": "공백병"
+        },
+        "cues": [
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              8,
+              4
+            ],
+            "ms": 600
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "sfx",
+            "key": "sfx_battle_tick"
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "책이 한 장 넘어간다. 글자가 없다."
+          },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "첫 열람실입니다. 글자가 지워진 책부터 정리 대상으로 분류됩니다." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "지워진 책은 어떻게 알아봅니까." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "책등에 이름은 남고 속이 비어 있습니다. 펼치지 말고 책등만 보십시오." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "알겠습니다. 책이 놓인 칸은 밟지 않겠습니다." },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "책이 놓인 칸은 피해서 움직이십시오. 찢어지면 접수 서류가 늘어납니다."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "set_flag",
+            "key": "a1e1_book_threat",
+            "value": true
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "비우는 것은 순회원 권한입니다."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "protagonist",
+            "expr": "neutral",
+            "text": "먼저 끌어내겠습니다. 칸을 비워 주십시오."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "한 명이 방향을 틀었습니다. 책으로 갑니다."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "move",
+            "unit": "UNIT@5,2",
+            "to": [
+              8,
+              3
+            ]
+          },
+          {
+            "on": {
+              "turn": 3,
+              "when": {
+                "type": "alive_count",
+                "side": "b",
+                "op": "lte",
+                "value": 1
+              }
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "마지막 한 명입니다. 책은 아직 무사합니다."
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              8,
+              4
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "sfx",
+            "key": "sfx_aura_pulse"
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "책 사이에서 쪽 한 장이 떨어진다."
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "restore"
+          }
+        ],
+        "sub_objectives": [
+          {
+            "id": "books",
+            "type": "protect_tiles",
+            "tiles": [
+              [
+                8,
+                4
+              ],
+              [
+                3,
+                7
+              ],
+              [
+                13,
+                7
+              ]
+            ],
+            "max_breach": 0,
+            "label": "책이 놓인 칸 지키기"
+          }
+        ]
+      }
+    },
+    {
+      "code": "ch101_s2",
+      "chapter": 101,
+      "name": "필사실의 붉은 줄",
+      "map": "main_a1_2_scriptorium",
+      "objective": {
+        "type": "defeat_commander"
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch101_s2_v0",
+        "name": "필사실 공백병(임시)",
+        "culture": null,
+        "commander": {
+          "display_name_ko": "공백병 선임",
+          "unit_type": "spear",
+          "troop_type": "spear",
+          "hp_mult": 1,
+          "atk_mult": 1,
+          "def_mult": 1,
+          "aura": null,
+          "skills": []
+        },
+        "units": [
+          "spear"
+        ],
+        "soldier_display_name_ko": "공백병",
+        "squads": [
+          {
+            "id": "sword",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "공백병",
+              "unit_type": "sword",
+              "troop_type": "sword",
+              "hp_mult": 1,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": []
+            },
+            "units": [],
+            "soldier_display_name_ko": "공백병"
+          },
+          {
+            "id": "archer",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "공백병",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 1,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": []
+            },
+            "units": [],
+            "soldier_display_name_ko": "공백병"
+          }
+        ]
+      },
+      "recommended_level": 2,
+      "enemy_level": 1,
+      "enemy_level_offset": 0,
+      "difficulty": 2,
+      "sort_order": 10102,
+      "prerequisite": "ch101_s1",
+      "reward": {
+        "exp": 150,
+        "user_exp": 70,
+        "gold": 200
+      },
+      "star_conditions": [
+        {
+          "type": "clear"
+        },
+        {
+          "type": "sub_objective",
+          "id": "desks"
+        },
+        {
+          "type": "turn_within",
+          "value": 4
+        }
+      ],
+      "rules": {
+        "factions": {
+          "ally": "서고 순회원",
+          "enemy": "공백병"
+        },
+        "cues": [
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              8,
+              2
+            ],
+            "ms": 600
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "붉은 줄이 그어진 쪽이 책상 끝에 놓여 있다. 붉은 줄은 이름 칸 위에만 있다."
+          },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "붉은 줄은 이름 칸에만 그어져 있습니다. 본문에는 손대지 않았습니다." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "이름만 지운다는 겁니까." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "이름이 지워지면 글은 남아도 누구의 것도 아니게 됩니다." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "이름 칸이 있는 책상부터 지키겠습니다." },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "sfx",
+            "key": "sfx_battle_rumble"
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "좌측 책장이 한 번 더 기울었습니다. 책상 여섯 개가 위험 구간입니다."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "shake",
+            "power": 2,
+            "ms": 400
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "sfx",
+            "key": "sfx_battle_fall"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "천장 조명이 한 줄 꺼진다. 필사실 한쪽이 어두워진다."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "선 안쪽에서는 보입니다. 선 밖은 보이지 않는 것으로 계산합니다."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "보호 기준선을 확인합니다. 기준선 위를 유지하십시오."
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              0,
+              6
+            ],
+            "ms": 600
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "sfx",
+            "key": "sfx_aura_pulse"
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "지도에 없는 문이 반쯤 열린다. 숨소리 같은 것이 새어 나온다."
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "restore"
+          }
+        ],
+        "sub_objectives": [
+          {
+            "id": "desks",
+            "type": "protect_tiles",
+            "tiles": [
+              [
+                4,
+                2
+              ],
+              [
+                6,
+                2
+              ],
+              [
+                8,
+                2
+              ],
+              [
+                13,
+                2
+              ],
+              [
+                15,
+                2
+              ],
+              [
+                4,
+                4
+              ],
+              [
+                6,
+                4
+              ],
+              [
+                8,
+                4
+              ],
+              [
+                14,
+                4
+              ],
+              [
+                16,
+                4
+              ]
+            ],
+            "max_breach": 5,
+            "label": "책상 5개 이상 지키기"
+          }
+        ]
+      }
+    },
+    {
+      "code": "ch101_s3",
+      "chapter": 101,
+      "name": "지도에 없는 복도",
+      "map": "main_a1_3_corridor",
+      "objective": {
+        "type": "capture",
+        "points": "map",
+        "mode": "any",
+        "hold_turns": 0,
+        "by": "any_unit"
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch101_s3_v0",
+        "name": "복도 공백병(임시)",
+        "culture": null,
+        "commander": {
+          "display_name_ko": "공백병 선임",
+          "unit_type": "spear",
+          "troop_type": "spear",
+          "hp_mult": 0.85,
+          "atk_mult": 1,
+          "def_mult": 1,
+          "aura": null,
+          "skills": []
+        },
+        "units": [
+          "spear"
+        ],
+        "cells": [
+          [
+            17,
+            3
+          ],
+          [
+            13,
+            10
+          ]
+        ],
+        "squads": [
+          {
+            "id": "guard",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "공백병 궁수",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 0.85,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": []
+            },
+            "units": [
+              "archer"
+            ],
+            "cells": [
+              [
+                11,
+                6
+              ]
+            ],
+            "soldier_display_name_ko": "공백병"
+          },
+          {
+            "id": "mage",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "공백병 주술사",
+              "unit_type": "mage",
+              "troop_type": "mage",
+              "hp_mult": 1,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": []
+            },
+            "units": [],
+            "soldier_display_name_ko": "공백병"
+          },
+          {
+            "id": "niche",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "감실 수비병",
+              "unit_type": "sword",
+              "troop_type": "sword",
+              "hp_mult": 0.7,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": []
+            },
+            "units": [],
+            "cells": [
+              [
+                4,
+                6
+              ]
+            ],
+            "hold_until_turn": 5,
+            "soldier_display_name_ko": "공백병"
+          }
+        ],
+        "soldier_display_name_ko": "공백병"
+      },
+      "recommended_level": 3,
+      "enemy_level": 3,
+      "enemy_level_offset": 0,
+      "difficulty": 3,
+      "sort_order": 10103,
+      "prerequisite": "ch101_s2",
+      "reward": {
+        "exp": 270,
+        "user_exp": 110,
+        "gold": 300
+      },
+      "star_conditions": [
+        {
+          "type": "clear"
+        },
+        {
+          "type": "all_alive"
+        },
+        {
+          "type": "turn_within",
+          "value": 6
+        }
+      ],
+      "rules": {
+        "factions": {
+          "ally": "서고 순회원",
+          "enemy": "공백병"
+        },
+        "cues": [
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "sfx",
+            "key": "sfx_move_step"
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "say",
+            "speaker": "hero:npc_jjogi",
+            "expr": "serious",
+            "text": "따라온다. 문이 또 하나 지워졌어."
+          },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "복도 지도가 비었습니다. 문 위치는 기억으로만 확인됩니다." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "어느 문이 남아 있습니까." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "저 끝 문 하나. 아래로 녹색 실이 삐져나온 쪽이야." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "그쪽으로 갑니다. 뒤에서 오는 것은 제가 알리겠습니다." },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              23,
+              10
+            ],
+            "ms": 600
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "복도 끝 문은 아직 닫혀 있다. 문 아래로 녹색 실 한 올이 삐져나와 있다."
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:npc_jjogi",
+            "expr": "neutral",
+            "text": "걸음을 멈추겠습니다. 이름을 알려 주십시오. 외워 두면 뒤에서 부를 수 있어요."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "protagonist",
+            "expr": "neutral",
+            "text": "지금입니까."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:npc_jjogi",
+            "expr": "serious",
+            "text": "지금이어야 해. 부를 수 없으면 뒤에서 오는 걸 알릴 수가 없잖아."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "protagonist",
+            "expr": "neutral",
+            "text": "{protagonist_name} 님이라고 부르십시오."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:npc_jjogi",
+            "expr": "neutral",
+            "text": "{protagonist_name} 님. 외웠어."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "sfx",
+            "key": "sfx_battle_rumble"
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "문까지 세 칸입니다. 한 줄로 막으면 닫히기 전에 닿습니다."
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "say",
+            "speaker": "hero:npc_jjogi",
+            "expr": "serious",
+            "text": "{protagonist_name} 님, 뒤쪽 서가야!"
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "move",
+            "unit": "UNIT@4,6",
+            "to": [
+              4,
+              4
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "code": "ch101_s4",
+      "chapter": 101,
+      "name": "대출 카운터의 회수 절차",
+      "map": "su_ch101_s4_counter",
+      "objective": {
+        "type": "survive_turns",
+        "turns": 8
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch101_s4_v0",
+        "name": "붉은 펜 회수조(임시)",
+        "culture": null,
+        "commander": {
+          "display_name_ko": "회수조 반장",
+          "unit_type": "sword",
+          "troop_type": "sword",
+          "hp_mult": 1.15,
+          "atk_mult": 1,
+          "def_mult": 1,
+          "aura": null,
+          "skills": []
+        },
+        "units": [],
+        "squads": [
+          {
+            "id": "pen",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "붉은 펜의 사자",
+              "unit_type": "mage",
+              "troop_type": "mage",
+              "hp_mult": 1,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": [],
+              "kind": "named",
+              "npc_ref": "npc_red_pen",
+              "name_evidence": "invented"
+            },
+            "units": []
+          },
+          {
+            "id": "guard",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "회수조 호위",
+              "unit_type": "spear",
+              "troop_type": "spear",
+              "hp_mult": 1,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": []
+            },
+            "units": []
+          }
+        ]
+      },
+      "recommended_level": 4,
+      "enemy_level": 2,
+      "enemy_level_offset": 0,
+      "difficulty": 4,
+      "sort_order": 10104,
+      "prerequisite": "ch101_s3",
+      "reward": {
+        "exp": 420,
+        "user_exp": 160,
+        "gold": 400
+      },
+      "star_conditions": [
+        {
+          "type": "clear"
+        },
+        {
+          "type": "all_alive"
+        },
+        {
+          "type": "turn_within",
+          "value": 4
+        }
+      ],
+      "rules": {
+        "factions": {
+          "ally": "서고 순회원",
+          "enemy": "공백병"
+        },
+        "cues": [
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "sfx",
+            "key": "sfx_battle_tick"
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "say",
+            "speaker": "hero:npc_red_pen",
+            "expr": "neutral",
+            "text": "제7조 제2항. 인도하지 않으면 회수합니다."
+          },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "회수에는 인도 확인서가 필요합니다. 오늘 그 서식은 이쪽에 없습니다." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "카운터를 넘겨주지 않으면 되는 겁니까." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "여덟 차례를 버티면 됩니다. 규정집은 두껍지만 시간은 한정되어 있습니다." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jjogi", "expr": "serious", "text": "나는 뒤에서 책을 막고 있을게. 앞은 부탁해." },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "규정집 이천사백 조항 중 이백십 조항 확인."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "제31조 제1항. 보존 대상의 의사를 확인해야 합니다."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_red_pen",
+            "expr": "neutral",
+            "text": "준용 여부는 교정 담당의 해석 사항입니다."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "해석 사항은 제44조에 따로 있습니다. 서고의 최고 책임자인 서고장 이름으로만 해석합니다."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_red_pen",
+            "expr": "neutral",
+            "text": "……서명이 필요합니다."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_jjogi",
+            "expr": "serious",
+            "text": "내 의사는 밝히겠습니다. 정리를 원하지 않아요."
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              9,
+              7
+            ],
+            "ms": 600
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "sfx",
+            "key": "sfx_turn_enemy"
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 7
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              12,
+              11
+            ],
+            "ms": 600
+          },
+          {
+            "on": {
+              "turn": 7
+            },
+            "do": "say",
+            "speaker": "hero:npc_red_pen",
+            "expr": "neutral",
+            "text": "준용 조항 확인. 서명 없는 결재로 직인을 찍은 사실이 확인되었습니다. 정리를 중지합니다."
+          },
+          {
+            "on": {
+              "turn": 7
+            },
+            "do": "retreat",
+            "unit": "hero:npc_red_pen"
+          },
+          {
+            "on": {
+              "turn": 7
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "직인함이 기울며 직인 하나가 바닥에 구른다."
+          },
+          {
+            "on": {
+              "turn": 7
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "spawn",
+            "side": "b",
+            "unit_type": "sword",
+            "tiles": [
+              [
+                9,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                11,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                12,
+                1
+              ]
+            ],
+            "tag": "recovery",
+            "ready": true
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "spawn",
+            "side": "b",
+            "unit_type": "sword",
+            "tiles": [
+              [
+                9,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                11,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                12,
+                1
+              ]
+            ],
+            "tag": "recovery",
+            "ready": true
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "spawn",
+            "side": "b",
+            "unit_type": "spear",
+            "tiles": [
+              [
+                9,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                11,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                12,
+                1
+              ]
+            ],
+            "tag": "recovery",
+            "ready": true
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "spawn",
+            "side": "b",
+            "unit_type": "spear",
+            "tiles": [
+              [
+                9,
+                1
+              ],
+              [
+                10,
+                1
+              ],
+              [
+                8,
+                1
+              ],
+              [
+                11,
+                1
+              ],
+              [
+                7,
+                1
+              ],
+              [
+                12,
+                1
+              ]
+            ],
+            "tag": "recovery",
+            "ready": true
+          }
+        ]
+      }
+    },
+    {
+      "code": "ch101_s5",
+      "chapter": 101,
+      "name": "빈 책 창고의 첫 쪽",
+      "map": "su_ch101_s5_empty_stacks",
+      "objective": {
+        "type": "capture",
+        "points": "map",
+        "mode": "any",
+        "hold_turns": 3,
+        "by": "any_unit",
+        "fail_if_enemy_holds": 2
+      },
+      "triggers": [],
+      "forced_heroes": [
+        "@protagonist"
+      ],
+      "enemy_squad": {
+        "code": "e_ch101_s5_v0",
+        "name": "빈 책 창고 공백병(임시)",
+        "culture": null,
+        "commander": {
+          "display_name_ko": "공백병 대장",
+          "unit_type": "spear",
+          "troop_type": "spear",
+          "hp_mult": 1.3,
+          "atk_mult": 1,
+          "def_mult": 1,
+          "aura": null,
+          "skills": []
+        },
+        "units": [
+          "spear"
+        ],
+        "soldier_display_name_ko": "공백병",
+        "squads": [
+          {
+            "id": "sword",
+            "role": "sub",
+            "commander": {
+              "display_name_ko": "공백병 궁수",
+              "unit_type": "archer",
+              "troop_type": "archer",
+              "hp_mult": 1,
+              "atk_mult": 1,
+              "def_mult": 1,
+              "aura": null,
+              "skills": []
+            },
+            "units": [
+              "archer"
+            ],
+            "soldier_display_name_ko": "공백병"
+          }
+        ]
+      },
+      "recommended_level": 5,
+      "enemy_level": 2,
+      "enemy_level_offset": 0,
+      "difficulty": 5,
+      "sort_order": 10105,
+      "prerequisite": "ch101_s4",
+      "reward": {
+        "exp": 520,
+        "user_exp": 230,
+        "gold": 550
+      },
+      "star_conditions": [
+        {
+          "type": "clear"
+        },
+        {
+          "type": "all_alive"
+        },
+        {
+          "type": "turn_within",
+          "value": 15
+        }
+      ],
+      "rules": {
+        "factions": {
+          "ally": "서고 순회원",
+          "enemy": "공백병"
+        },
+        "cues": [
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "terrain_change",
+            "tiles": [
+              [
+                0,
+                6
+              ],
+              [
+                0,
+                7
+              ]
+            ],
+            "to": "wall",
+            "tile": "int_wallface_bot_C2"
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "sfx",
+            "key": "sfx_battle_fall"
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "shake",
+            "power": 2,
+            "ms": 300
+          },
+          {
+            "on": {
+              "battle_start": true
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "입구가 닫혔습니다. 퇴로 없음. 지도에 그립니다."
+          },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "나갈 길이 없으면 거점을 쥐는 수밖에 없습니다." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "거점에 적이 서 있는 동안은 지도가 더 비워집니다. 서가를 덮는 붉은 줄도 빨라집니다." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jjogi", "expr": "serious", "text": "{protagonist_name} 님, 책 사이로 길이 하나 보여. 아직은." },
+          { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "그 길은 마지막에 씁니다. 먼저 거점을 지키겠습니다." },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              18,
+              1
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "sfx",
+            "key": "sfx_battle_tick"
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "붉은 줄이 서가 하나를 더 덮는다."
+          },
+          {
+            "on": {
+              "turn": 2
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "terrain_change",
+            "tiles": [
+              [
+                14,
+                5
+              ],
+              [
+                14,
+                6
+              ],
+              [
+                14,
+                7
+              ],
+              [
+                14,
+                8
+              ]
+            ],
+            "to": "wall",
+            "tile": "int_wallface_bot_C2"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              12,
+              3
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "sfx",
+            "key": "sfx_battle_tick"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "붉은 줄이 서가 하나를 더 덮는다."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "shake",
+            "power": 3,
+            "ms": 400
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "sfx",
+            "key": "sfx_battle_rumble"
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "서가 한 줄이 닫혔습니다. 통로 하나가 줄었습니다. 쪽이의 책 서가까지 두 칸입니다."
+          },
+          {
+            "on": {
+              "turn": 3
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              10,
+              12
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "sfx",
+            "key": "sfx_battle_tick"
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "붉은 줄이 서가 하나를 더 덮는다."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "지도 탁상에서 통신으로 말합니다. 순회지에서는 이렇게 됩니다. 들립니까."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "protagonist",
+            "expr": "neutral",
+            "text": "들립니다."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "say",
+            "speaker": "hero:npc_jieum",
+            "expr": "neutral",
+            "text": "음량을 기록합니다. 이후 통신 줄은 이 방식입니다."
+          },
+          {
+            "on": {
+              "turn": 4
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              21,
+              7
+            ],
+            "ms": 800
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              17,
+              10
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "sfx",
+            "key": "sfx_battle_tick"
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "붉은 줄이 서가 하나를 더 덮는다."
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "sfx",
+            "key": "sfx_aura_pulse"
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "say",
+            "speaker": "hero:npc_jjogi",
+            "expr": "neutral",
+            "text": "여백이 밝아져. 연기 같은 게 보여."
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 5
+            },
+            "do": "camera",
+            "mode": "restore"
+          },
+          {
+            "on": {
+              "turn": 6
+            },
+            "do": "camera",
+            "mode": "focus",
+            "tile": [
+              16,
+              8
+            ],
+            "ms": 500
+          },
+          {
+            "on": {
+              "turn": 6
+            },
+            "do": "sfx",
+            "key": "sfx_battle_tick"
+          },
+          {
+            "on": {
+              "turn": 6
+            },
+            "do": "say",
+            "speaker": "caption",
+            "text": "붉은 줄이 서가 하나를 더 덮는다."
+          },
+          {
+            "on": {
+              "turn": 6
+            },
+            "do": "camera",
+            "mode": "restore"
+          }
+        ]
+      }
+    }
+  ],
+  "_merged": true
+}

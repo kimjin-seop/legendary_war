@@ -1,0 +1,174 @@
+{
+  "scenario": {
+    "code": "rome",
+    "name": "포에니 전쟁 시즌 · 지중해",
+    "shelf_code": "ch15",
+    "season_days": 28,
+    "map_view": {
+      "lon_min": -8,
+      "lon_max": 19,
+      "lat_min": 34,
+      "lat_max": 45
+    },
+    "note": "주 대립 2세력(로마 vs 카르타고)만 국가·영토를 가진다. 누미디아는 로마 소속, 발레아레스는 카르타고 소속 영토 없는 원군(supporters). 기원전 218~202년 제2차 포에니 전쟁 근사. 영토 좌표는 당대 도시 위경도 근사값(송서사·임밸런 검수 대기). 대장 진영: 로마 측=로마, 적=카르타고(captain 감사 결과와 일관). 시작값(needs tuning)."
+  },
+  "countries": [
+    {
+      "code": "rome",
+      "name": "로마",
+      "color": "#B8312F",
+      "allies": [],
+      "supporters": [
+        {
+          "code": "numidia",
+          "name": "누미디아",
+          "label": "원군"
+        }
+      ],
+      "ai_profile": {
+        "style": "aggressive"
+      }
+    },
+    {
+      "code": "carthage",
+      "name": "카르타고",
+      "color": "#6B3FA0",
+      "allies": [],
+      "supporters": [
+        {
+          "code": "balearic",
+          "name": "발레아레스",
+          "label": "원군"
+        }
+      ],
+      "ai_profile": {
+        "style": "defensive"
+      }
+    }
+  ],
+  "territories": [
+    {
+      "code": "rome",
+      "name": "로마",
+      "kind": "capital",
+      "defense_level": 3,
+      "lon": 12.5,
+      "lat": 41.9,
+      "battle_map_code": "castle_01_med",
+      "start_country": "rome"
+    },
+    {
+      "code": "capua",
+      "name": "카푸아",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 14.25,
+      "lat": 41.11,
+      "battle_map_code": "plain_01_med",
+      "start_country": "rome"
+    },
+    {
+      "code": "messana",
+      "name": "메사나",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 15.55,
+      "lat": 38.19,
+      "battle_map_code": "mountain_01",
+      "start_country": "rome"
+    },
+    {
+      "code": "massilia",
+      "name": "마살리아",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 5.37,
+      "lat": 43.3,
+      "battle_map_code": "plain_01_med",
+      "start_country": "rome"
+    },
+    {
+      "code": "tarraco",
+      "name": "타라코",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 1.25,
+      "lat": 41.12,
+      "battle_map_code": "mountain_01",
+      "start_country": "rome"
+    },
+    {
+      "code": "carthage",
+      "name": "카르타고",
+      "kind": "capital",
+      "defense_level": 3,
+      "lon": 10.32,
+      "lat": 36.85,
+      "battle_map_code": "castle_01_med",
+      "start_country": "carthage"
+    },
+    {
+      "code": "utica",
+      "name": "우티카",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 10.06,
+      "lat": 37.06,
+      "battle_map_code": "river_01",
+      "start_country": "carthage"
+    },
+    {
+      "code": "zama",
+      "name": "자마",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 9.28,
+      "lat": 35.97,
+      "battle_map_code": "desert_01",
+      "start_country": "carthage"
+    },
+    {
+      "code": "lilybaeum",
+      "name": "릴리바이온",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 12.43,
+      "lat": 37.8,
+      "battle_map_code": "castle_01_med",
+      "start_country": "carthage"
+    },
+    {
+      "code": "carthago_nova",
+      "name": "카르타고 노바",
+      "kind": "normal",
+      "defense_level": 3,
+      "lon": -0.99,
+      "lat": 37.6,
+      "battle_map_code": "castle_01_med",
+      "start_country": "carthage"
+    }
+  ],
+  "retired_countries": [
+    {
+      "code": "numidia",
+      "name": "누미디아",
+      "color": "#C9A227"
+    },
+    {
+      "code": "balearic",
+      "name": "발레아레스",
+      "color": "#8A7B5B"
+    }
+  ],
+  "links": [
+    ["rome", "capua"],
+    ["capua", "messana"],
+    ["messana", "lilybaeum"],
+    ["lilybaeum", "carthage"],
+    ["carthage", "utica"],
+    ["carthage", "zama"],
+    ["rome", "massilia"],
+    ["massilia", "tarraco"],
+    ["tarraco", "carthago_nova"]
+  ]
+}

@@ -1,0 +1,252 @@
+{
+ "note": "누락 영웅 초상(안아트-2 2026-11-09): 멤논·스티건드·벨러 4세·마우론티우스 신규 4, 포로스는 기존 초상 재사용. manifest 병합은 윤프론.",
+ "generated": "2026-11-09T13:15:22.461Z",
+ "keyRules": {
+  "portrait": "portrait.<code> (+ .thumb). 표정 neutral 1종"
+ },
+ "merge_hint": "items 와 item.thumb 를 각각 manifest 키로 추가(source_fragment=assets/portraits/missing_heroes_manifest_fragment.json)",
+ "reuse": [
+  {
+   "code": "porus",
+   "name_ko": "포로스",
+   "use_keys": [
+    "portrait.porus",
+    "portrait.npc_porus"
+   ],
+   "generated": false,
+   "reason": "portrait.porus(영웅 wave3, 남색 터번·흰 숄·창·나무 방패)와 portrait.npc_porus(흰 터번·붉은 망토·가죽 흉갑) 둘 다 manifest 에 있음. 펀자브 BC 4세기 왕(히다스페스 326 BC, 아리아노스·플루타르코스: 매우 큰 키) — 두 초상 모두 얼굴·복식이 문화권에 맞아 재생성 불필요. 스테이지(ch17_s10)에는 영웅 코드 porus 사용 권장"
+  }
+ ],
+ "skipped": [],
+ "items": [
+  {
+   "key": "portrait.npc_memnon",
+   "path": "assets/portraits/npc/npc_memnon.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1266701,
+   "npc": "npc_memnon",
+   "roster_code": "npc_memnon",
+   "name_ko": "멤논(로도스)",
+   "side": "enemy",
+   "era": "기원전 4세기(BC 380경~333)",
+   "culture": "greek(rhodes) in achaemenid service",
+   "used_in": [
+    "ch17_s5"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_memnon.thumb",
+    "path": "assets/portraits/npc/thumb/npc_memnon.webp",
+    "size": "256x343",
+    "format": "webp",
+    "bytes": 27982
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/missing_heroes/mh_gen.mjs → mh_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/missing_heroes/mh_style.mjs P_MH.npc_memnon",
+   "style_ref": "assets/portraits/scipio_africanus.png",
+   "source_note": "Wikipedia \"Memnon of Rhodes\": 로도스 출신, BC 380경 생, 333 사망(약 47세) → 그라니코스 334 BC 약 46세. 용모 기록·동시대 초상 없음(주화는 헬리오스). 복식은 BC 4세기 그리스 중장보병 지휘관 일반화",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "round": "r2",
+    "checks": {
+     "crop": "ok(r1 창끝 잘림 → r2 프레임 안)",
+     "background": "ok(마젠타 잔여 0)",
+     "hands": "ok(5지, 투구·창 쥔 손 자연스러움)",
+     "face_distinct": "ok(곱슬 흑발·풍성한 흑색 곱슬수염·올리브 피부, 다리우스·파르메니온과 구분)"
+    },
+    "notes": "수염 회색 가닥이 지시보다 적음. 오른손 아래 창대 선이 약간 겹쳐 보임(축소 시 무시 수준). 흉갑 어깨덮개 금장 장식이 BC4세기 리노토락스치고 화려함(게임 표현)"
+   },
+   "verify": true,
+   "verify_note": "용모 근거 없음(나이·그리스 성인 남성 수염 관행만). 망토의 페르시아 금실 테는 디자인",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_stigand",
+   "path": "assets/portraits/npc/npc_stigand.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1007055,
+   "npc": "npc_stigand",
+   "roster_code": "npc_stigand",
+   "name_ko": "스티건드(캔터베리 대주교)",
+   "side": "enemy",
+   "era": "11세기(?~1072)",
+   "culture": "anglo-saxon(anglo-scandinavian), english church",
+   "used_in": [
+    "ch23_s9"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_stigand.thumb",
+    "path": "assets/portraits/npc/thumb/npc_stigand.webp",
+    "size": "256x343",
+    "format": "webp",
+    "bytes": 21990
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/missing_heroes/mh_gen.mjs → mh_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/missing_heroes/mh_style.mjs P_MH.npc_stigand",
+   "style_ref": "assets/portraits/william_i.png",
+   "source_note": "Wikipedia \"Stigand\": 생년 미상(990~1000경 추정), 이스트앵글리아 출신 잉글랜드·스칸디나비아 혼계 집안. 바이외 태피스트리에 해럴드 대관 장면에서 삭발한 성직자가 팔리움을 걸친 모습으로 등장 → 삭발·면도·팔리움 반영. 1066년 60대 후반~70대",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "round": "r1",
+    "checks": {
+     "crop": "ok",
+     "background": "ok(마젠타 0)",
+     "hands": "ok(펼친 손·지팡이 쥔 손 5지)",
+     "face_distinct": "ok(톤슈어·면도·처진 볼 노인, 윌리엄 1세·오도와 구분)"
+    },
+    "notes": "팔리움 십자 생략(규칙). 제의 두건형 깃은 디자인"
+   },
+   "verify": true,
+   "verify_note": "나이 추정(verify). 제의 색은 디자인. 팔리움 십자 문양은 종교 상징 금지 규칙으로 생략",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_bela_iv",
+   "path": "assets/portraits/npc/npc_bela_iv.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1085660,
+   "npc": "npc_bela_iv",
+   "roster_code": "npc_bela_iv",
+   "name_ko": "벨러 4세",
+   "side": "enemy",
+   "era": "13세기(1206~1270)",
+   "culture": "central_europe(hungary, arpad)",
+   "used_in": [
+    "ch21_s6",
+    "ch21_s7"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_bela_iv.thumb",
+    "path": "assets/portraits/npc/thumb/npc_bela_iv.webp",
+    "size": "256x343",
+    "format": "webp",
+    "bytes": 19700
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/missing_heroes/mh_gen.mjs → mh_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/missing_heroes/mh_style.mjs P_MH.npc_bela_iv",
+   "style_ref": "assets/portraits/alexander_nevsky.png",
+   "source_note": "Wikipedia \"Béla IV of Hungary\": 1206 하반기 생 → 모히(1241.4) 약 34세. 용모 기록 없음. 14세기 Illuminated Chronicle 에 대관·몽골 추격 장면 있음(후대 도상). 관은 의례용 성관 대신 단순한 열린 관으로 일반화",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "round": "r1",
+    "checks": {
+     "crop": "ok(칼 아래는 허리선 프레임 밖 — 규격대로)",
+     "background": "ok(불투명 마젠타 1px, 진홍 서코트 오검출 수준)",
+     "hands": "ok(5지)",
+     "face_distinct": "ok(어깨 긴 밤색 머리·짧은 수염·지친 회청색 눈)"
+    },
+    "notes": "망토 털이 흰 담비가 아닌 점박이 갈색 털로 나옴. 칼을 칼집째 날밑 부근으로 쥔 자세가 약간 어색. 관은 백합 돌기 열린 관(십자 없음)"
+   },
+   "verify": true,
+   "verify_note": "용모 근거 없음(나이만). 머리·수염은 13세기 중부유럽 귀족 일반화(verify). 관 형태 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_mauronte",
+   "path": "assets/portraits/npc/npc_mauronte.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1229608,
+   "npc": "npc_mauronte",
+   "roster_code": "npc_mauronte",
+   "name_ko": "마우론티우스(프로방스 공)",
+   "side": "enemy",
+   "era": "8세기 초(fl. 720~739)",
+   "culture": "gallo-roman(provence, marseille)",
+   "used_in": [
+    "ch24_s8"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_mauronte.thumb",
+    "path": "assets/portraits/npc/thumb/npc_mauronte.webp",
+    "size": "256x343",
+    "format": "webp",
+    "bytes": 23596
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/missing_heroes/mh_gen.mjs → mh_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/missing_heroes/mh_style.mjs P_MH.npc_mauronte",
+   "style_ref": "assets/portraits/charles_martel.png",
+   "source_note": "Wikipedia \"Maurontus\": 720~730년대 마르세유를 거점으로 한 프로방스의 dux/patricius, 736년경 유수프 알피흐리를 아비뇽에 들임, 739 알프스로 도주. 출신·용모·도상 기록 없음 → 프로방스 갈로로만 귀족(면도·로마식 망토) 일반화",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "round": "r1",
+    "checks": {
+     "crop": "ok(지휘봉·칼은 허리선에서 잘림 — 규격대로)",
+     "background": "ok(마젠타 0)",
+     "hands": "ok(5지)",
+     "face_distinct": "ok(면도한 마른 얼굴·매부리코·비스듬한 눈과 미소, 카롤루스 마르텔·힐데브란트와 구분)"
+    },
+    "notes": "지휘봉이 가슴 높이가 아니라 허리 아래로 내려감(지시와 다름, 큰 문제 없음)"
+   },
+   "verify": true,
+   "verify_note": "나이·용모 근거 없음(디자인 제안). 코드 npc_mauronte 는 안아트 제안(시나리오 표기 마우론티우스) — DB 등록 시 코드 확정 필요",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  }
+ ]
+}

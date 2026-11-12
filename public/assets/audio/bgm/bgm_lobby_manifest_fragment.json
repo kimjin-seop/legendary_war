@@ -1,0 +1,58 @@
+{
+  "_note": "안아트 2026-11-02 v2(사용자 제공 곡 교체·300KB 목표). build_audio_manifest.mjs 가 audioSlot 을 읽어 audio/manifest.json slots 에 넣는다(bytes 는 실제 파일에서 재계산).",
+  "audioSlot": {
+    "bgm_lobby": {
+      "type": "bgm",
+      "path": "assets/audio/bgm/bgm_lobby.mp3",
+      "paths": [
+        "assets/audio/bgm/bgm_lobby.opus",
+        "assets/audio/bgm/bgm_lobby.mp3"
+      ],
+      "loop": true,
+      "loopMarker": {
+        "name": "loop",
+        "start": 0.2,
+        "duration": 90.63
+      },
+      "loopMeta": "assets/audio/bgm/bgm_lobby.loop.json",
+      "volume": 0.6,
+      "volumeNote": "파일 -17 LUFS(로비·전투 동일). 0.6 이면 유효 약 -21.4 LUFS 로 로비=전투 체감 레벨 일치(구 bgm_battle 은 약 -13.5 LUFS x 0.5 = 약 -19.5 LUFS 였음)",
+      "bytes": 282312,
+      "bytesFallbackMp3": 280402,
+      "approxSeconds": 91,
+      "source": "사용자 제공 lobby.mp3 (MP3 48kHz stereo 192kbps, 119.56s, 제목 'Suspended Chord - Extended Loop', comment 'made with suno') 에서 22.80~113.43s 루프 추출, 0.5s 크로스페이드, 0.2s 프리/포스트롤, -17 LUFS, libopus 22k VBR stereo (compression 10)(.opus) + LAME ABR 26k mono 22.05kHz, lowpass 7.5kHz, +1.0dB(모노 다운믹스 보정, TP -1.0dBTP 제한)",
+      "license": "사용자 제작 파일(Suno 생성물). 공개 전 Suno 약관 확인 필요",
+      "method": "user-provided+edit"
+    }
+  },
+  "manifestItem": {
+    "key": "bgm.lobby",
+    "path": "assets/audio/bgm/bgm_lobby.opus",
+    "variants": {
+      "mp3": "assets/audio/bgm/bgm_lobby.mp3"
+    },
+    "type": "bgm",
+    "bytes": 282312,
+    "loop": true,
+    "loopMeta": "assets/audio/bgm/bgm_lobby.loop.json",
+    "scope": "lazy",
+    "generator": {
+      "model": "Suno(사용자 생성)",
+      "script": "docker/gemini/bgm_v2/"
+    },
+    "prompt_ref": "없음(사용자 제작)",
+    "license": "사용자 제작 파일(Suno 생성물). 공개 전 Suno 약관 확인 필요",
+    "qa": {
+      "checked": true,
+      "verdict": "pass-numeric",
+      "issues": [
+        "청취 미검증: 이음새(루프 끝 90.63s -> 0s) 및 원본 85.9~87.4s 완전 무음 브레이크(루프 63.1~64.6s 부근, 곡 의도인지 생성 결함인지 판단 필요)",
+        "원본 인트로 0~22.8s 는 재생되지 않음(마커 루프 본체만 재생)",
+        "mp3 폴백은 모노·7.6kHz 이하로 둔탁(Opus 미지원 브라우저만 해당)",
+        "Safari 의 Ogg Opus 디코드 지원 verify(미지원이면 mp3 폴백)"
+      ]
+    },
+    "verify": true,
+    "listen_verified": false
+  }
+}

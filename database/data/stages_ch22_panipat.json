@@ -1,0 +1,799 @@
+{
+ "_note": "[임밸런 / 초안] ch22 제1차 파니파트(1526) 기록 s1. 수치는 시작값(needs tuning). 설계 근거는 임밸런 보고(2026-11-03)와 docs/SCENARIO_CH21_CH22_DESIGN.md. 시드 미적재. 대사 본문은 초안.",
+ "version": 1,
+ "chapter": 22,
+ "shelf_code": "ch22",
+ "status": "draft",
+ "schema": "stages_ch18_mongol.json 과 같은 구조(stages 행 필드 + enemy_squads/triggers/units_flat_initial + rules{factions,ally_npcs,enemy_commander,cues,sub_objectives}). EnemyV3Adapter::convert 입력.",
+ "maps_used": {
+  "pk_06_fortress_siege": {
+   "id_dev": 169,
+   "size": [
+    28,
+    20
+   ]
+  }
+ },
+ "verify_events": [
+  "우스타드 알리 쿨리·후마윤의 파니파트 당일 역할",
+  "코끼리 혼란(포성) 전개",
+  "툴루그마 우회 세부",
+  "로디 병력/코끼리 수(사료 폭이 커 게임 수치와 연결 안 함)"
+ ],
+ "items": [
+  {
+   "code": "ch22_s5",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "바부르 군",
+     "enemy": "델리 술탄국 로디군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_babur",
+      "x": 13,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_ustad_ali_quli",
+      "x": 15,
+      "y": 13,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_shah_mir_hussain",
+      "x": 12,
+      "y": 11,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "이브라힘 로디",
+     "hero": "npc_ibrahim_lodi"
+    },
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1526년 4월 21일 새벽, 파니파트 평원. 수레를 가죽끈으로 엮은 방벽이 동쪽을 막아섰다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "가죽끈은 당겼네. 틈마다 방패를 세웠으니 저쪽 눈에는 벽으로 보일 걸세.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_ustad_ali_quli",
+      "text": "포는 틈 앞에 맞췄습니다. 쏘기 시작하면 나팔은 묻힙니다. 신호를 믿지 마십시오.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "이음새는 점검했습니다. 방패를 눕히는 일은 제가 맡습니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       18,
+       13
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "hero:npc_ustad_ali_quli",
+      "text": "사거리에 듭니다, 폐하. 명을 주십시오.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "앞줄 어깨가 서로 부딪치고 있네. 더 좁아질 때까지 두게.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "sfx",
+      "key": "sfx_battle_tick"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "sfx",
+      "key": "sfx_battle_rumble"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "shake",
+      "power": 4,
+      "ms": 500
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_ustad_ali_quli",
+      "text": "쏩니다! 열 호흡 동안 한 걸음도 들이지 마십시오.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_ibrahim_lodi",
+      "text": "정면이 좁다. 그래도 간다. 앞이 멈추면 뒤가 밀리니 멈추지 마라.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       27,
+       13
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "포성에 코끼리 대열이 흔들린다. 일부는 방향을 틀어 후방으로 빠진다. 고삐를 놓친 조련사들의 고함이 포성에 묻힌다."
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "sfx",
+      "key": "sfx_battle_roar"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "retreat",
+      "unit": "UNIT@28,13"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "retreat",
+      "unit": "UNIT@27,14"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "hero:npc_babur",
+      "text": "기마궁수는 양익으로 돌아 나가게. 몽골 사람들이 오래 하던 방식이지. 신호가 안 닿아도 자네들 눈이 신호일세.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_humayun",
+      "tile": [
+       19,
+       8
+      ],
+      "tag": "tulughma",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        18,
+        8
+       ]
+      ],
+      "tag": "tulughma",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        20,
+        8
+       ]
+      ],
+      "tag": "tulughma",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        19,
+        9
+       ]
+      ],
+      "tag": "tulughma",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       19,
+       8
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "sfx",
+      "key": "sfx_battle_roar"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "로디의 후속 부대가 좁은 정면으로 밀려든다. 정면이 좁아 수를 쓰지 못한다."
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "남쪽 틈 쪽으로 적 기병이 돌아옵니다. 보고 정하겠습니다.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       12,
+       19
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "camera",
+      "mode": "restore"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "gate",
+      "type": "protect_tiles",
+      "tiles": [
+       [
+        17,
+        13
+       ],
+       [
+        17,
+        14
+       ]
+      ],
+      "max_breach": 1,
+      "label": "수레벽의 틈을 지켜라"
+     },
+     {
+      "id": "babur",
+      "type": "unit_survive",
+      "unit": "hero:npc_babur",
+      "label": "바부르를 지켜라"
+     }
+    ]
+   },
+   "name": "파니파트의 수레벽",
+   "year_label": "1526년",
+   "chapter": 22,
+   "shelf_code": "ch22",
+   "map": "su_pk06_fortress_siege_ind",
+   "map_id_dev": 169,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 10
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": 7,
+   "effective_enemy_level": 26,
+   "difficulty": 9,
+   "culture": "south_asia",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_babur",
+     "npc_ustad_ali_quli",
+     "npc_shah_mir_hussain"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(아군 NPC, rules.ally_npcs). 측정은 npc_refill: 파티 3영웅(주인공+일반 영웅 2) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_babur"
+    },
+    {
+     "hero_code": "npc_ustad_ali_quli"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ibrahim_lodi",
+      "display_name_ko": "이브라힘 로디",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 2
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       31,
+       13
+      ],
+      [
+       30,
+       13
+      ],
+      [
+       31,
+       12
+      ],
+      [
+       31,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "술탄 친위 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "코끼리 부대장",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       13
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       14
+      ],
+      [
+       28,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "전투 코끼리"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_vikramajit_gwalior",
+      "display_name_ko": "비크라마지트",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       10
+      ]
+     ],
+     "hold_until_turn": 3,
+     "soldier_display_name_ko": "로디군 창병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "로디군 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "로디군 궁병"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_tatar_khan_lodi",
+      "display_name_ko": "타타르 칸",
+      "evidence_level": "verify",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       21
+      ],
+      [
+       27,
+       21
+      ]
+     ],
+     "hold_until_turn": 4,
+     "soldier_display_name_ko": "로디군 기병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 16,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 6
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "로디군 후속 보병대장",
+       "evidence_level": "generic",
+       "troop_type": "sword",
+       "hp_mult": 1
+      },
+      "soldier_type": "sword",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "spawn_cell": [
+       33,
+       13
+      ],
+      "soldier_display_name_ko": "로디군 후속 보병"
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      31,
+      13
+     ],
+     "ref": "npc_ibrahim_lodi",
+     "kind": "npc",
+     "name": "이브라힘 로디"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      31,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      31,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      13
+     ],
+     "name": "코끼리 부대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      29,
+      10
+     ],
+     "ref": "npc_vikramajit_gwalior",
+     "kind": "npc",
+     "name": "비크라마지트"
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      32,
+      11
+     ],
+     "name": "로디군 궁병대장"
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      26,
+      21
+     ],
+     "ref": "npc_tatar_khan_lodi",
+     "kind": "npc",
+     "name": "타타르 칸"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      21
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1480,
+    "exp": 2146,
+    "gold": 1924,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "gate"
+    },
+    {
+     "type": "sub_objective",
+     "id": "babur"
+    }
+   ],
+   "win_rate_band_target_pct": "55~80 (목표 중앙 약 65)",
+   "sort_order": 2205,
+   "prerequisite": "ch22_s3",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "파니파트 1526-04-21은 confirmed. 수레 방벽·총병·기병 출격 틈·포성에 따른 코끼리 혼란·툴루그마 우회는 accepted(전개 세부 verify). 사료 병력(바부르 1.2만 vs 로디 5만 이상, 코끼리 약 1천)은 게임 수치와 연결하지 않는다.",
+    "로디 전사는 accepted이나 최후는 연출하지 않는다(생존 N턴 승리 시점에 붕괴로 처리). 우스타드 알리 쿨리의 당일 역할과 후마윤의 당일 역할은 verify.",
+    "비크라마지트는 사용하지 않는다(기록 미확인). \"무굴\"은 1526년 시점 국호가 아니므로 진영 표기는 바부르 군."
+   ],
+   "cue_text_status": "writer_final (송서사 2026-11-03: say/caption 본문과 expr 일부만 교체, 타이밍·좌표·unit·spawn·retreat 불변). 사료 근거는 사건 골격에만 있고 대사는 전부 창작(is_invented).",
+   "measured": {
+    "win_pct": 66.5,
+    "ci95": [
+     59.7,
+     72.7
+    ],
+    "n": 200,
+    "seeds": [
+     81,
+     82
+    ],
+    "avg_rounds_win": 9,
+    "turn_limit_pct": 0,
+    "sim": "rsim2 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning) / LANE/NOFE/GOTO 환경값은 스테이지별 기존 설정 유지, ch22_s5는 NOFE=1",
+    "note": "최종 재측정(NOFE=1 공식 교전 모드; 기본 모드는 86%로 과대). 변경 없음."
+   },
+   "adapted_note": "화기=archer 병종 각색(별도 화약 병종·소음 없음). 코끼리=heavy 각색, 포성 혼란은 turn 4 cue retreat로 코끼리 부대 일부를 전장에서 이탈시켜 표현(판정 있음, 사망 아님). 수레 방벽=pk_06_fortress_siege의 성벽+두 개의 문(수레벽+틈 번안). 툴루그마=turn 5 cue spawn(후마윤+기병 3기)으로 번안.",
+   "engine_requests": [
+    "E-5 survive 후 처치 목표(win_mode all)는 박백엔 AND 규칙 안정화 후 후속 변형으로 검토. 현재는 survive_turns 단독",
+    "E-6 코끼리 혼란 상태(적 유닛 행동 불능/방향 전환) 미구현. retreat cue로 근사",
+    "E-7 수레벽 전용 타일/에셋(현재 성벽 타일로 대체)"
+   ],
+   "design_notes": [
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_shah_mir_hussain(ally_npcs), npc_vikramajit_gwalior(convert_C), npc_tatar_khan_lodi(convert_F). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정1회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset 0->-4, 일반 부대 병사/부대 7기 축소(초기 24->17), 증원 0기 감소, 대장 hp_mult 2.8->2.8. 시작값/needs tuning.",
+    "[2026-11-04 보정2회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -4->-7, 일반 부대 병사/부대 3기 축소(초기 17->14), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 2.8->2.8. 시작값/needs tuning.",
+    "[2026-11-04 보정3회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -7->-12, 일반 부대 병사/부대 2기 축소(초기 14->12), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 2->2. 시작값/needs tuning.",
+    "[2026-11-04 보정6회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -12->-9, 일반 부대 병사/부대 0기 축소(초기 12->12), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 2->2. 시작값/needs tuning.",
+    "[임밸런 2026-11-09] enemy_level_offset -9->7(realistic +0 56.2%, 48판; 이전 -9에서 97.9%)."
+   ]
+  }
+ ]
+}

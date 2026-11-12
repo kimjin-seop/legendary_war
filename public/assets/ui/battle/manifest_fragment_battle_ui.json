@@ -1,0 +1,630 @@
+{
+ "note": "전투 HUD 스킨(안아트 2026-11-04). 키 ui.battle.*, @2x PNG(표시 = 크기/2). 판·버튼은 slice(px@2x)",
+ "assets": [
+  {
+   "key": "ui.battle.turn_panel",
+   "path": "assets/ui/battle/turn_panel.png",
+   "type": "image",
+   "size": [
+    150,
+    64
+   ],
+   "scale": "@2x",
+   "display": [
+    75,
+    32
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 11051,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "턴 표시 판(왼쪽 정사각 칸 = 교차 검 엠블럼, 구분선 뒤 = 턴 글자, 오른쪽 곡선 끝). 가로 3-slice",
+   "slice": {
+    "l": 52,
+    "r": 42,
+    "t": 0,
+    "b": 0
+   },
+   "slice_mode": "3h",
+   "emblem_slot_2x": [
+    8,
+    8,
+    38,
+    48
+   ]
+  },
+  {
+   "key": "ui.battle.terrain_panel",
+   "path": "assets/ui/battle/terrain_panel.png",
+   "type": "image",
+   "size": [
+    181,
+    96
+   ],
+   "scale": "@2x",
+   "display": [
+    90,
+    48
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 16360,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "지형 정보 판(모서리 금 덩굴). 9-slice",
+   "slice": {
+    "l": 22,
+    "r": 22,
+    "t": 22,
+    "b": 22
+   },
+   "slice_mode": "9"
+  },
+  {
+   "key": "ui.battle.minimap_frame",
+   "path": "assets/ui/battle/minimap_frame.png",
+   "type": "image",
+   "size": [
+    140,
+    140
+   ],
+   "scale": "@2x",
+   "display": [
+    70,
+    70
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 15005,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "미니맵 프레임(가운데 투명 구멍, 미니맵 그림 위에 얹음). 9-slice",
+   "slice": {
+    "l": 26,
+    "r": 26,
+    "t": 26,
+    "b": 26
+   },
+   "slice_mode": "9"
+  },
+  {
+   "key": "ui.battle.btn_turn_end",
+   "path": "assets/ui/battle/btn_turn_end.png",
+   "type": "image",
+   "size": [
+    109,
+    64
+   ],
+   "scale": "@2x",
+   "display": [
+    54,
+    32
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 9062,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "턴 종료 큰 금 버튼(기본). 가로 3-slice, 글자·아이콘은 FE",
+   "slice": {
+    "l": 35,
+    "r": 35,
+    "t": 0,
+    "b": 0
+   },
+   "slice_mode": "3h",
+   "states": [
+    "ui.battle.btn_turn_end",
+    "ui.battle.btn_turn_end.pressed",
+    "ui.battle.btn_turn_end.disabled"
+   ]
+  },
+  {
+   "key": "ui.battle.btn_turn_end.pressed",
+   "path": "assets/ui/battle/btn_turn_end_pressed.png",
+   "type": "image",
+   "size": [
+    109,
+    64
+   ],
+   "scale": "@2x",
+   "display": [
+    54,
+    32
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 8358,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "턴 종료 버튼(누름): 어둡게 + 아래로 2px",
+   "slice": {
+    "l": 35,
+    "r": 35,
+    "t": 0,
+    "b": 0
+   },
+   "slice_mode": "3h"
+  },
+  {
+   "key": "ui.battle.btn_turn_end.disabled",
+   "path": "assets/ui/battle/btn_turn_end_disabled.png",
+   "type": "image",
+   "size": [
+    109,
+    64
+   ],
+   "scale": "@2x",
+   "display": [
+    54,
+    32
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 7297,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "턴 종료 버튼(비활성): 채도 낮춤·어둡게",
+   "slice": {
+    "l": 35,
+    "r": 35,
+    "t": 0,
+    "b": 0
+   },
+   "slice_mode": "3h"
+  },
+  {
+   "key": "ui.battle.ico.swords_cross",
+   "path": "assets/ui/battle/ico_swords_cross.png",
+   "type": "image",
+   "size": [
+    96,
+    96
+   ],
+   "scale": "@2x",
+   "display": [
+    48,
+    48
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 20822,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.swords_cross (48px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.hourglass",
+   "path": "assets/ui/battle/ico_hourglass.png",
+   "type": "image",
+   "size": [
+    48,
+    48
+   ],
+   "scale": "@2x",
+   "display": [
+    24,
+    24
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 4443,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.hourglass (24px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.move_cost",
+   "path": "assets/ui/battle/ico_move_cost.png",
+   "type": "image",
+   "size": [
+    40,
+    40
+   ],
+   "scale": "@2x",
+   "display": [
+    20,
+    20
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 3138,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.move_cost (20px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.defense",
+   "path": "assets/ui/battle/ico_defense.png",
+   "type": "image",
+   "size": [
+    40,
+    40
+   ],
+   "scale": "@2x",
+   "display": [
+    20,
+    20
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 2335,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.defense (20px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.terrain.plain",
+   "path": "assets/ui/battle/ico_terrain_plain.png",
+   "type": "image",
+   "size": [
+    48,
+    48
+   ],
+   "scale": "@2x",
+   "display": [
+    24,
+    24
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 4727,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.terrain.plain (24px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.terrain.forest",
+   "path": "assets/ui/battle/ico_terrain_forest.png",
+   "type": "image",
+   "size": [
+    48,
+    48
+   ],
+   "scale": "@2x",
+   "display": [
+    24,
+    24
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 4882,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.terrain.forest (24px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.terrain.mountain",
+   "path": "assets/ui/battle/ico_terrain_mountain.png",
+   "type": "image",
+   "size": [
+    48,
+    48
+   ],
+   "scale": "@2x",
+   "display": [
+    24,
+    24
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 4084,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.terrain.mountain (24px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.terrain.water",
+   "path": "assets/ui/battle/ico_terrain_water.png",
+   "type": "image",
+   "size": [
+    48,
+    48
+   ],
+   "scale": "@2x",
+   "display": [
+    24,
+    24
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 4893,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.terrain.water (24px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.terrain.castle",
+   "path": "assets/ui/battle/ico_terrain_castle.png",
+   "type": "image",
+   "size": [
+    48,
+    48
+   ],
+   "scale": "@2x",
+   "display": [
+    24,
+    24
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 4615,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.terrain.castle (24px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.terrain.sand",
+   "path": "assets/ui/battle/ico_terrain_sand.png",
+   "type": "image",
+   "size": [
+    48,
+    48
+   ],
+   "scale": "@2x",
+   "display": [
+    24,
+    24
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 3746,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.terrain.sand (24px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.zoom_in",
+   "path": "assets/ui/battle/ico_zoom_in.png",
+   "type": "image",
+   "size": [
+    64,
+    64
+   ],
+   "scale": "@2x",
+   "display": [
+    32,
+    32
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 7857,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.zoom_in (32px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.zoom_out",
+   "path": "assets/ui/battle/ico_zoom_out.png",
+   "type": "image",
+   "size": [
+    64,
+    64
+   ],
+   "scale": "@2x",
+   "display": [
+    32,
+    32
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 7698,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.zoom_out (32px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.collapse",
+   "path": "assets/ui/battle/ico_collapse.png",
+   "type": "image",
+   "size": [
+    64,
+    64
+   ],
+   "scale": "@2x",
+   "display": [
+    32,
+    32
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 7848,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.collapse (32px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.expand_all",
+   "path": "assets/ui/battle/ico_expand_all.png",
+   "type": "image",
+   "size": [
+    64,
+    64
+   ],
+   "scale": "@2x",
+   "display": [
+    32,
+    32
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 10038,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.expand_all (32px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.flag",
+   "path": "assets/ui/battle/ico_flag.png",
+   "type": "image",
+   "size": [
+    48,
+    48
+   ],
+   "scale": "@2x",
+   "display": [
+    24,
+    24
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 3616,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.flag (24px 표시 @2x)"
+  },
+  {
+   "key": "ui.battle.ico.crown",
+   "path": "assets/ui/battle/ico_crown.png",
+   "type": "image",
+   "size": [
+    48,
+    48
+   ],
+   "scale": "@2x",
+   "display": [
+    24,
+    24
+   ],
+   "alpha": true,
+   "format": "png",
+   "scope": "battle",
+   "bytes": 4618,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/battle_ui_gen.mjs → battle_ui_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "전투 HUD 아이콘 ico.crown (24px 표시 @2x)"
+  }
+ ]
+}

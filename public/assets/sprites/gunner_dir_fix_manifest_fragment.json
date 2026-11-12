@@ -1,0 +1,143 @@
+{
+ "_note": "총병 방향 결함 교정(안아트 2026-11-09): 같은 키·같은 경로 파일 교체(replaces_existing_keys). 디자인 변경 없음(칸 교환/칸 좌우반전만). 재실행 대비 facing.json 매핑도 갱신(gunner/facing.json gunner_europe·gunner_japan, gunner_fix/facing.json gunner_china). manifest 의 bytes 값만 갱신 대상, ASSET_VERSION 상향 필요(같은 파일명)",
+ "generated": "2026-11-09",
+ "replaces_existing_keys": true,
+ "items": [
+  {
+   "key": "unit.japan.gunner.ally.64.sheet",
+   "path": "assets/sprites/64/japan_gunner_ally_sheet.png",
+   "variants": {
+    "x2": "assets/sprites/64_x2/japan_gunner_ally_sheet.png"
+   },
+   "bytes": 21668,
+   "bytes_x2": 25039,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "fix": "행1(left)·행2(right) 내용 교환 — 원본은 왼쪽 행에 오른쪽을 향한 그림, 오른쪽 행에 왼쪽을 향한 그림",
+   "backup": "docker/db-backup-20261109/gunner-fix/64/japan_gunner_ally_sheet.png",
+   "script": "docker/gemini/gunner_dir_fix.py",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "notes": "좌향 행 3칸 모두 총구 왼쪽, 우향 행 3칸 모두 오른쪽. 받침 마커 칸 중심 대칭(x21~42)이라 위치 불변. x2 = x1 nearest 2배(기존과 같은 규칙, 교정 전 x2 와 x1 2배가 화소 일치함을 확인)",
+    "contact": "docker/gemini/gunner_fix/preview/gunner_dir_fix_before_after.png"
+   }
+  },
+  {
+   "key": "unit.japan.gunner.enemy.64.sheet",
+   "path": "assets/sprites/64/japan_gunner_enemy_sheet.png",
+   "variants": {
+    "x2": "assets/sprites/64_x2/japan_gunner_enemy_sheet.png"
+   },
+   "bytes": 21208,
+   "bytes_x2": 24244,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "fix": "행1(left)·행2(right) 내용 교환 — 원본은 왼쪽 행에 오른쪽을 향한 그림, 오른쪽 행에 왼쪽을 향한 그림",
+   "backup": "docker/db-backup-20261109/gunner-fix/64/japan_gunner_enemy_sheet.png",
+   "script": "docker/gemini/gunner_dir_fix.py",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "notes": "좌향 행 3칸 모두 총구 왼쪽, 우향 행 3칸 모두 오른쪽. 받침 마커 칸 중심 대칭(x21~42)이라 위치 불변. x2 = x1 nearest 2배(기존과 같은 규칙, 교정 전 x2 와 x1 2배가 화소 일치함을 확인)",
+    "contact": "docker/gemini/gunner_fix/preview/gunner_dir_fix_before_after.png"
+   }
+  },
+  {
+   "key": "unit.china.gunner.ally.64.sheet",
+   "path": "assets/sprites/64/china_gunner_ally_sheet.png",
+   "variants": {
+    "x2": "assets/sprites/64_x2/china_gunner_ally_sheet.png"
+   },
+   "bytes": 18488,
+   "bytes_x2": 21941,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "fix": "측면 2행의 walk2(열2) 칸만 반대 방향 → 칸 좌우반전",
+   "backup": "docker/db-backup-20261109/gunner-fix/64/china_gunner_ally_sheet.png",
+   "script": "docker/gemini/gunner_dir_fix.py",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "notes": "좌향 행 3칸 모두 총구 왼쪽, 우향 행 3칸 모두 오른쪽. 받침 마커 칸 중심 대칭(x21~42)이라 위치 불변. x2 = x1 nearest 2배(기존과 같은 규칙, 교정 전 x2 와 x1 2배가 화소 일치함을 확인)",
+    "contact": "docker/gemini/gunner_fix/preview/gunner_dir_fix_before_after.png"
+   }
+  },
+  {
+   "key": "unit.china.gunner.enemy.64.sheet",
+   "path": "assets/sprites/64/china_gunner_enemy_sheet.png",
+   "variants": {
+    "x2": "assets/sprites/64_x2/china_gunner_enemy_sheet.png"
+   },
+   "bytes": 18558,
+   "bytes_x2": 21686,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "fix": "측면 2행의 walk2(열2) 칸만 반대 방향 → 칸 좌우반전",
+   "backup": "docker/db-backup-20261109/gunner-fix/64/china_gunner_enemy_sheet.png",
+   "script": "docker/gemini/gunner_dir_fix.py",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "notes": "좌향 행 3칸 모두 총구 왼쪽, 우향 행 3칸 모두 오른쪽. 받침 마커 칸 중심 대칭(x21~42)이라 위치 불변. x2 = x1 nearest 2배(기존과 같은 규칙, 교정 전 x2 와 x1 2배가 화소 일치함을 확인)",
+    "contact": "docker/gemini/gunner_fix/preview/gunner_dir_fix_before_after.png"
+   }
+  },
+  {
+   "key": "unit.europe.gunner.ally.64.sheet",
+   "path": "assets/sprites/64/europe_gunner_ally_sheet.png",
+   "variants": {
+    "x2": "assets/sprites/64_x2/europe_gunner_ally_sheet.png"
+   },
+   "bytes": 16491,
+   "bytes_x2": 19552,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "fix": "측면 2행의 walk2(열2) 칸만 반대 방향 → 칸 좌우반전(default 총병 별칭이 같은 파일 사용)",
+   "backup": "docker/db-backup-20261109/gunner-fix/64/europe_gunner_ally_sheet.png",
+   "script": "docker/gemini/gunner_dir_fix.py",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "notes": "좌향 행 3칸 모두 총구 왼쪽, 우향 행 3칸 모두 오른쪽. 받침 마커 칸 중심 대칭(x21~42)이라 위치 불변. x2 = x1 nearest 2배(기존과 같은 규칙, 교정 전 x2 와 x1 2배가 화소 일치함을 확인)",
+    "contact": "docker/gemini/gunner_fix/preview/gunner_dir_fix_before_after.png"
+   }
+  },
+  {
+   "key": "unit.europe.gunner.enemy.64.sheet",
+   "path": "assets/sprites/64/europe_gunner_enemy_sheet.png",
+   "variants": {
+    "x2": "assets/sprites/64_x2/europe_gunner_enemy_sheet.png"
+   },
+   "bytes": 16319,
+   "bytes_x2": 19187,
+   "size": "192x256",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "grid": "3x4(행: down,left,right,up / 열: walk1,idle,walk2)",
+   "fix": "측면 2행의 walk2(열2) 칸만 반대 방향 → 칸 좌우반전(default 총병 별칭이 같은 파일 사용)",
+   "backup": "docker/db-backup-20261109/gunner-fix/64/europe_gunner_enemy_sheet.png",
+   "script": "docker/gemini/gunner_dir_fix.py",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "notes": "좌향 행 3칸 모두 총구 왼쪽, 우향 행 3칸 모두 오른쪽. 받침 마커 칸 중심 대칭(x21~42)이라 위치 불변. x2 = x1 nearest 2배(기존과 같은 규칙, 교정 전 x2 와 x1 2배가 화소 일치함을 확인)",
+    "contact": "docker/gemini/gunner_fix/preview/gunner_dir_fix_before_after.png"
+   }
+  },
+  {
+   "key": "unit.default.gunner.ally.64.sheet / unit.default.gunner.enemy.64.sheet",
+   "note": "유럽 시트 별칭(같은 파일) — 위 europe 교정으로 함께 해결, 별도 파일 없음"
+  }
+ ]
+}

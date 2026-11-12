@@ -1,0 +1,554 @@
+{
+ "_note": "25장 '쩐 왕조 대 몽골·원'(부제 '비워 둔 도성', 가칭) 장면 대사. 원본(database/data) -> resources/js/game/data/dialogue 동기화 대상(docker/sync_dialogue_data.mjs FILES 에 ch25_bachdang.json 추가 필요, 복사는 박백엔). 구조는 ch24_tours.json 을 따른다. speaker = 'shiori' | 'protagonist'({protagonist_name}, 홍강 하류 포구의 뱃사람 겸 연락병) | 'caption' | 'narrator'(전투 중 caption) | 'hero:<code>'(ch25_roster_proposal.json 코드). 장 질문: '비워 둔 곳은 누구의 것인가'. battle_cues 는 stages_ch25_bachdang.json 각 item.battle_cue_requests 의 id 를 cue_id 키로 달아 전부 포함(+ 추가 요청 1건: ch25_s10_e5_fanyi). cue 의 on.when 은 stages 요청과 동일(in_zone 은 zone_ref, 시드가 tile_tags 로 치환). 근거 수준·검수 사항은 이 파일에 쓰지 않고 docs/original_story/ch25_dialogue_notes.md 에 둔다. 쿠빌라이는 컷인(서신 낭독)만. [2026-11-09 전면 재집필: 장면 id·화자 코드·cue_id·on/when 구조 유지, 말투를 speaker_profile 에 맞춰 재배분(흥다오 하오체, 꽝카이 하게체, 녓주엇 가벼운 반말투, 칸즈 거친 반말)]",
+ "version": 1,
+ "protagonist_rule": "주인공 호칭은 항상 '{protagonist_name} 님' 형태만 쓴다(이름 뒤 직접 조사 금지). 다른 인물은 주인공을 '뱃사람'으로 부른다.",
+ "speaker_profile": {
+  "protagonist": { "name": "{protagonist_name}", "note": "홍강 하류 포구의 뱃사람. 물때와 물길을 읽는다. 합쇼체, 질문을 받으면 지명·거리·물때로 대답한다. 확신이 없으면 없다고 말한다" },
+  "shiori": { "name": "시오리", "note": "서고의 파수꾼. 도입 1~2줄, 질문 한 줄. 정중하고 차분, 건조한 농담" },
+  "hero:tran_hung_dao": { "name": "쩐흥다오", "note": "총지휘. 짧게 단정하고 이유는 한 번만 말한다. 하오체. 설명을 미루고 행동으로 보여 준다" },
+  "hero:npc_tran_nhan_tong": { "name": "쩐 녓똥", "note": "젊은 임금. 조심스럽고 하오체. 엔딩에서만 발화" },
+  "hero:npc_tran_thanh_tong": { "name": "쩐 타인똥", "note": "상황. 이름표만, 발화 없음" },
+  "hero:npc_tran_quang_khai": { "name": "쩐 꽝카이", "note": "태사. 건조한 노신, 하게체. 칭찬하지 않고 정산한다" },
+  "hero:npc_tran_nhat_duat": { "name": "쩐 녓주엇", "note": "말이 많고 농담이 앞선다. 반말에 가까운 하게체. 농담 뒤에 계산이 있다" },
+  "hero:npc_tran_khanh_du": { "name": "쩐 칸즈", "note": "수군 지휘. 거칠고 실무적인 반말. 직위 얘기를 싫어한다" },
+  "hero:npc_pham_ngu_lao": { "name": "팜 응우라오", "note": "짧고 투박한 합쇼체. 질문이 직설적" },
+  "hero:npc_tran_quoc_toan": { "name": "쩐 꾸옥 또안", "note": "젊은 종친. 합쇼체, 먼저 뛰어나가고 나중에 설명한다" },
+  "hero:npc_nguyen_khoai": { "name": "응우옌 코아이", "note": "함뜨 전 참전 장수. 한두 마디 하오체 보고" },
+  "hero:npc_yet_kieu": { "name": "옛끼에우", "note": "가신 이름표형. 물 아래 보고를 짧게 하는 합쇼체" },
+  "hero:npc_da_tuong": { "name": "자뜨엉", "note": "가신 이름표형. 거친 반말, 일을 말한다" },
+  "hero:npc_dai_viet_scout_captain": { "name": "다이비엣 척후장", "note": "직함형. 단문 보고 합쇼체" },
+  "hero:npc_dai_viet_boat_captain": { "name": "나루 선장", "note": "직함형. 배와 척수를 말하는 합쇼체" },
+  "hero:kublai_khan": { "name": "쿠빌라이 칸", "note": "컷인 서신 낭독만. 짧은 하라체 명령" },
+  "hero:npc_toghan": { "name": "토간", "note": "급하고 체면을 챙긴다. 하라체 군령" },
+  "hero:npc_sogetu": { "name": "소게투", "note": "노련한 장수. 길과 보급을 말하는 하오체" },
+  "hero:npc_omar": { "name": "오마르", "note": "자존심 강한 수군 지휘관. 격식 있는 하라체" },
+  "hero:npc_li_heng": { "name": "리항", "note": "후위 지휘. 짧은 하오체" },
+  "hero:npc_fan_yi": { "name": "판제", "note": "수군 부장. 보고하는 합쇼체" },
+  "hero:npc_zhang_wenhu": { "name": "장원호", "note": "군량선단 지휘. 손익을 따지는 하오체" },
+  "hero:npc_yuan_garrison_captain": { "name": "도성 수비대장", "note": "직함형. 지친 하오체, 창고와 열쇠를 말한다" }
+ },
+ "arc": {
+  "chapter_question": "비워 둔 곳은 누구의 것인가",
+  "table": [
+   { "phase": "기", "scene": "ch25_open", "what": "사신이 길만 빌려 달라고 한다. 흥다오는 거절을 이미 끝냈다. 비우는 일이 무엇을 뜻하는지 뱃사람이 묻는다" },
+   { "phase": "기", "scene": "ch25_s1_pre/post (랑선 길목)", "what": "이기러 온 것이 아니라 시간을 사러 왔다는 지휘. 비워야 길이 늘어난다" },
+   { "phase": "승", "scene": "ch25_s2_pre/post (함뜨 나루)", "what": "물길을 아는 사람에게 값을 치르겠다던 북쪽 사신의 기억. 오마르는 물러나며 다시 온다고 한다" },
+   { "phase": "승", "scene": "ch25_s3_pre/cues/post (쯔엉즈엉)", "what": "명령 없이 달려온 어린 종친, 칼 대신 방향을 바꿔 주는 노신. 적 목책의 곡식 포대는 비어 있다" },
+   { "phase": "승", "scene": "ch25_s4_pre/cues/post (탕롱 탈환)", "what": "열쇠는 있는데 열 곳이 없는 수비대장. 점령한 쪽이 점령한 곳에서 굶었다" },
+   { "phase": "전", "scene": "ch25_s5_pre/post (퇴로 습격) / ch25_s6_pre/post (반끼엡)", "what": "토간은 후위를 버리고 건넌다. 군막에서 쩐 왕가 인장이 찍힌 서류가 나오고 흥다오는 말이 없다. 안쪽의 균열은 가족 일이다" },
+   { "phase": "전", "scene": "ch25_s7_pre/cues/post (번돈)", "what": "3차. 직위가 깎인 칸즈가 군량선에 불을 붙인다. 채우는 쪽의 약점이 바다 위에 있다" },
+   { "phase": "결", "scene": "ch25_s8 / s9 / s10", "what": "빈 도성에서 쫓겨나는 토간, 말뚝을 숨기는 간조, 만조에 끌려 들어온 선단. 물이 돌아서는 시각을 두 번 말하게 하는 흥다오" },
+   { "phase": "결", "scene": "ch25_end", "what": "비워 둔 도성이 돌아온다. 곳간은 시간이 채운다. 이름 없는 사람은 대답하지 않고, 쿠빌라이는 다시 준비하라고 한다" }
+  ]
+ },
+ "chapter": 25,
+ "scenes": [
+  {
+   "id": "ch25_open",
+   "stage_code": null,
+   "timing": "chapter_start",
+   "bg": "시간의 서고. 커다란 지도 위 홍강 하류 한곳에 작은 배 모양 핀이 꽂혀 있고, 북쪽 끝에는 접힌 서신 한 장이 놓여 있다. 창밖에서 짠 바람 냄새가 난다",
+   "lines": [
+    { "speaker": "shiori", "expr": "serious", "text": "새 기록입니다. '쩐 왕조 대 몽골·원', 부제는 '비워 둔 도성'. 1285년에서 1288년까지, 홍강 유역이 무대입니다." },
+    { "speaker": "shiori", "expr": "neutral", "text": "{protagonist_name} 님은 홍강 하류 포구에서 물때를 읽는 뱃사람입니다. 이름이 남을 사람은 아닙니다. 오늘은 포구에 북쪽 사신의 배가 닿는 날이고요." },
+    { "speaker": "caption", "text": "1284년 말, 다이비엣 홍강 하류의 포구. 대원의 사신이 서신 한 장을 들고 배에서 내렸다. 남쪽 참파를 치러 가니 길을 빌려 달라는 내용이다." },
+    { "speaker": "hero:kublai_khan", "expr": "serious", "text": "(서신 낭독) 짐은 남쪽 참파를 정벌한다. 안남은 길을 열고 군량을 대라." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "사신 배는 만조를 타고 들어왔습니다. 돌아갈 땐 간조를 타야 하는데, 그 시각을 사신은 묻지 않았습니다. ...제가 먼저 말해 주지도 않았고요." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "물때를 읽는다는 뱃사람이 그대인가. 사신이 묻지 않았다니, 물었으면 뭐라 답할 셈이었소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "아는 대로 말했을 겁니다. 물때는 속일 수 있는 게 아니라서요." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "정직한 입은 쓸모가 크오. 그러니 묻는 자를 가려서 만나시오. 아껴 쓸 입이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...서신에는 어떻게 답하셨습니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "임금께서 이미 답하셨소. 길은 빌려 줄 수 없다고. 참파로 가는 길은 도성으로 오는 길이기도 하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그러면 저들이 옵니다. 오면, 무엇을 비웁니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "곡식, 집, 길. 저들이 왔을 때 먹을 것이 한 톨도 없어야 하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "도성도 말입니까. 사람이 사는 곳을 비우는 겁니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "도성은 마지막이오. 먼저 길목이오. 비워도 물은 남소. 그대는 물을 읽으시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "포구에 어머니가 혼자 계십니다. 물은 읽겠습니다. 다만 이 포구가 언제 비워지는지는 미리 알려 주십시오." },
+    { "speaker": "hero:tran_hung_dao", "expr": "neutral", "text": "...약속은 못 하오. 알려 주겠다는 말만 하겠소." },
+    { "speaker": "shiori", "expr": "smile", "text": "이번 질문은 이것입니다. 비워 둔 곳은 누구의 것인가. 가시지요." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s1_pre",
+   "stage_code": "ch25_s1",
+   "timing": "before_battle",
+   "bg": "랑선 북쪽 산길 입구. 이른 아침의 안개가 협곡으로 내려앉아 있고, 길은 좁아 말 한 마리가 겨우 들어선다",
+   "lines": [
+    { "speaker": "caption", "text": "1285년 정월, 랑선 길목. 토간이 이끄는 원군이 북쪽 국경을 넘었다. 쩐흥다오의 본대는 남쪽 강으로 물러나는 중이다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "이 길목을 일곱 턴 붙드오. 그 뒤에는 놓겠소." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "angry", "text": "놓을 거면 왜 지킵니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "놓으려고 지키는 거요. 본대가 둘째 나루를 건널 때까지." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "후퇴 명령을 가져왔습니다. 본대는 오늘 밤 둘째 나루에 닿습니다. ...이기러 오신 게 아닌 겁니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "이기는 건 나중 일이오. 지금 필요한 건 시간이오. 이유는 신호가 설 때 듣게 될 거요." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "그 신호가 서기 전에 저희가 먼저 쓰러지면 이유는 누가 듣습니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "쓰러지지 마시오. 질문이 짧은 건 좋은데 대답을 기다리는 시간은 없소." },
+    { "speaker": "hero:npc_dai_viet_scout_captain", "expr": "neutral", "text": "북쪽 길은 좁습니다. 기병은 한 줄로만 들어옵니다. 협곡 끝만 막으면 뒤가 밀립니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "그 줄을 끊소. 협곡 안에서 한 칸도 내주지 마시오." },
+    { "speaker": "caption", "text": "목표: 일곱 턴 동안 길목을 지켜 본대의 후퇴 시간을 번다. 흥다오 공이 쓰러지거나 적이 남쪽 출구와 후퇴로를 넘으면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s1_post",
+   "stage_code": "ch25_s1",
+   "timing": "after_clear",
+   "bg": "협곡 남쪽 끝. 해 질 녘, 부러진 수레와 비어 있는 우물이 길 위에 흩어져 있다",
+   "lines": [
+    { "speaker": "caption", "text": "일곱 턴이 지났다. 신호 연기가 오르고 다이비엣 군은 남쪽 길로 물러난다." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "이긴 듯한데 물러납니다. 이상합니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "이긴 것으로 치지 마시오. 이겼다고 믿는 쪽이 멀리까지 쫓아오오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "길 위에 부러진 수레와 빈 우물을 남겨 두는 건 일부러입니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "저들은 그걸 보고 이 길이 아직 쓸 만하다고 믿을 거요. 그리고 쓸 거요." },
+    { "speaker": "hero:npc_dai_viet_scout_captain", "expr": "neutral", "text": "저들이 협곡을 열었습니다. 도성까지 닷새 거리입니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "닷새면 충분하오. 도성은 그때까지 비어 있어야 하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...도성에는 사람이 삽니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "사람은 이미 강 건너에 있소. 남은 건 벽뿐이오. 벽은 다시 세울 수 있소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "벽에 살던 사람 이름도 같이 다시 세워지면 좋겠습니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "neutral", "text": "...기억해 두겠소." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s2_pre",
+   "stage_code": "ch25_s2",
+   "timing": "before_battle",
+   "bg": "함뜨 나루 북안의 새벽. 가로로 넓은 강이 안개를 끌고 흐르고, 건너편 나루에 원군의 횃불이 줄지어 있다. 갈대밭 사이에 배 몇 척이 묶여 있다",
+   "lines": [
+    { "speaker": "caption", "text": "1285년 늦봄, 함뜨 나루. 도성을 잃은 쩐 왕조군이 반격에 나선다. 강 건너 나루에는 원군이 있다." },
+    { "speaker": "hero:npc_dai_viet_boat_captain", "expr": "neutral", "text": "배는 열한 척입니다. 사람을 다 싣기엔 모자랍니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "모자라면 줄여야지. 근데 사람을 줄이자니 인심이 나빠지고, 배를 늘리자니 나무가 없어. 어느 쪽이 덜 억울할까." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "강 한가운데에 모래톱이 있습니다. 거기까지는 배 없이 걸어 들어갑니다. 무릎 깊이입니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "neutral", "text": "뱃사람이 어떻게 그렇게 정확히 알아." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "지난겨울 북쪽 사신 배가 같은 걸 물었습니다. 값은 치르겠다면서요. 아는 대로 말하지 않았습니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "그럼 저들은 아직 모래톱을 몰라. 좋군. 모르는 쪽이 먼저 빠지는 법이거든." },
+    { "speaker": "hero:npc_dai_viet_boat_captain", "expr": "serious", "text": "다만 오마르의 초계선이 강 한복판을 막고 있습니다. 수군이 위에서 쏘면 건너는 사람이 표적입니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "neutral", "text": "오마르는 한 번 놓치면 하류에서 다시 오는 사람이야. 오늘은 쫓지 말고 비키게만 해." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "쫓지 않고 비키게만 하는 쪽이 쏘는 것보다 어렵습니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "알아. 그래서 말로 때울 사람이 필요한 거고. 내가 말로 때울 테니 뱃사람은 노나 잘 저어." },
+    { "speaker": "caption", "text": "목표: 배를 모아 함뜨 건너편 나루에 닿는다. 주인공이 쓰러지거나 12턴이 지나면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s2_post",
+   "stage_code": "ch25_s2",
+   "timing": "after_clear",
+   "bg": "함뜨 동안 나루. 해가 오르고 젖은 깃발이 말뚝에 걸려 있다. 하류 쪽 수면에 원 수군의 배가 작게 멀어진다",
+   "lines": [
+    { "speaker": "hero:npc_nguyen_khoai", "expr": "neutral", "text": "동안 나루 수비대는 길을 비웠소. 갈대 사이로 빠졌소." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "배보다 사람이 먼저 닿았네. 순서가 바뀌었는데 아무도 화를 안 내니 이상한 날이야." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "오마르의 배는 하류로 내려갔습니다. 물이 빠지는 쪽이라 빨리 갑니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "neutral", "text": "다시 온다고 했지. 그 말이 맞다면 그때도 물길 아는 사람이 필요하겠군." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...그때도 제가 이 강에 있어야 합니까. 포구에는 어머니 혼자 계십니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "이름을 적어 둘까 하다 말았어. 적어 두면 저들도 읽을 테니까. 기억은 나 혼자 해 두지." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...어머니 이름은 적지 말아 주십시오." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "neutral", "text": "처음부터 안 적었어. 걱정 마, 나 말 많은 사람이지 입 가벼운 사람은 아니니까." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s3_pre",
+   "stage_code": "ch25_s3",
+   "timing": "before_battle",
+   "bg": "쯔엉즈엉 나루 서쪽 강안. 강 건너 목책이 높게 서 있고 문은 두 곳이다. 여울의 물이 무릎 높이로 얕게 흐른다",
+   "lines": [
+    { "speaker": "caption", "text": "1285년 6월, 쯔엉즈엉 나루. 도성을 앞에 둔 나루에 원군이 목책을 세웠다. 남쪽에서 올라온 부대가 합류해 있다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "문은 서문과 동문 둘뿐일세. 목책이 높아 사다리를 걸 곳도 없네." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "서문 앞은 여울입니다. 물은 무릎까지, 길이는 이십 보쯤 이어집니다. 말이 들어가면 발을 디딜 곳이 없습니다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "기병은 두고 보병으로 건너겠네. 신호 전에는 아무도 움직이지 않네." },
+    { "speaker": "hero:npc_dai_viet_scout_captain", "expr": "neutral", "text": "목책 안 깃발은 남쪽에서 올라온 부대 것으로 보입니다. 소게투의 깃발이라고 하는 자도 있습니다만 확인은 못 했습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "쓰러뜨려야 할 건 목책이 아니라 그 깃발 아래 서 있는 사람입니다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "하나 더 있네. 꾸옥 또안이라는 어린 종친이 사병을 이끌고 따라왔다고 하더군. 오지 말라 했는데." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "지금 어디에 있습니까." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "모르네. 오지 말라고 했으니 어딘가 와 있겠지." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...오지 말라고 하면 오는 사람입니까." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "그 나이엔 오지 말라는 말을 '지금 와라'로 듣지. 자네도 통역이 필요하겠군, 이 일엔." },
+    { "speaker": "caption", "text": "목표: 쯔엉즈엉 나루의 몽골 지휘관을 쓰러뜨린다. 꽝카이 공이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s3_post",
+   "stage_code": "ch25_s3",
+   "timing": "after_clear",
+   "bg": "쯔엉즈엉 나루의 저녁. 목책 문이 열려 있고 안쪽에서 빈 곡식 포대가 끌려 나온다. 강바람에 깃발 하나가 천천히 내려온다",
+   "lines": [
+    { "speaker": "caption", "text": "목책 문이 열리고 남쪽 군의 깃발이 내려갔다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "이겼네. 이제 명령 없이 움직인 값을 정산해야지." },
+    { "speaker": "hero:npc_tran_quoc_toan", "expr": "serious", "text": "벌을 받겠습니다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "벌은 이겼을 때 주지 않네. 졌을 때 주지. 오른쪽으로 돌라는 말은 들었으니 그걸로 됐네." },
+    { "speaker": "hero:npc_tran_quoc_toan", "expr": "neutral", "text": "다음에는 명령을 기다리겠습니다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "기다릴 수 있으면 종친이 아니지. 다음에도 먼저 달려가겠지. 앞이 아니라 옆으로 달리게." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "목책 안 곡식 포대를 열어 봤습니다. 대부분 비어 있었습니다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "남쪽 길을 반 년 걸어온 군이네. 비어 있는 게 정상이지. 문제는 도성 쪽일세." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "도성도 비어 있다고 들었습니다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "비운 쪽이 비운 곳으로 돌아가는 걸세. 가세." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s4_pre",
+   "stage_code": "ch25_s4",
+   "timing": "before_battle",
+   "bg": "탕롱 남문 밖 논. 도성 성벽 너머로 그을린 지붕선이 보이고 수로가 도성 쪽으로 곧게 뻗어 있다",
+   "lines": [
+    { "speaker": "caption", "text": "1285년 6월, 탕롱. 정월 이후 원군이 점령했던 도성. 성 안은 그을려 있고 수비대는 곡식 없이 버티고 있다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "오늘 문제는 누가 먼저 들어가느냐야. 열쇠는 문을 두드린 사람이 아니라 문을 연 사람이 받거든." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "거점은 셋입니다. 서문 나루, 시장, 궁성 앞뜰. 동시에 잡아야 합니다. 한 곳이라도 놓치면 저들이 되살아납니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "남쪽 수로에 수문이 있습니다. 시장에 불이 번지면 수로를 따라 도는 길이 가장 안전합니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "neutral", "text": "곡식 없는 수비대는 어떻게 싸우지." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "배고픈 만큼 화가 나 있을 겁니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "그게 제일 상대하기 어려워. 서두르는 놈보다 화난 놈이 오래 버티거든." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "시장 쪽은 제 고향 장터와 닮았습니다. 장사꾼 집은 불이 번지기 쉽게 지붕을 이었을 겁니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "neutral", "text": "그럼 거기가 불 나는 쪽이니 발 빠른 사람을 보내. 근데 뱃사람, 도성 지붕이 불에 약하다는 건 어떻게 알았어." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "포구 창고도 같은 지붕입니다. 한 번 데어 봤습니다." },
+    { "speaker": "caption", "text": "목표: 서문 나루, 시장, 궁성 앞뜰 세 거점을 2턴 동안 우리 깃발 아래 둔다. 10턴이 지나도 두 곳 이상이 적의 손에 있으면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s4_post",
+   "stage_code": "ch25_s4",
+   "timing": "after_clear",
+   "bg": "탕롱 궁성 앞뜰. 깃발이 바뀌어 올라가고, 열려 있는 창고 안은 텅 비어 있다",
+   "lines": [
+    { "speaker": "caption", "text": "세 거점에 다이비엣 깃발이 올랐다." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "창고를 모두 열어 봤습니다. 한 톨도 없습니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "도성을 점령하고도 먹을 게 없었다니. 이긴 쪽이 이겼다고 말하기엔 좀 쑥스럽겠는걸." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "곡식은 정월 전에 치워졌다고 들었습니다. 점령한 쪽이 점령한 곳에서 굶은 셈입니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "neutral", "text": "그렇지. 그리고 임금은 아직 오지 않아. 도성이 비었다고 저들이 믿게 하려면 저들이 완전히 물러날 때까지 비어 있어야 해." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "흥다오 공께서 퇴로 협곡에서 기다리십니다. 저들 후위를 끊으러 갑니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s5_pre",
+   "stage_code": "ch25_s5",
+   "timing": "before_battle",
+   "bg": "도성 북쪽 퇴로 협곡. 낮은 안개가 길 위에 깔리고 멀리서 수레바퀴 소리가 이어진다",
+   "lines": [
+    { "speaker": "caption", "text": "1285년 6월 중순, 철수하는 원군의 후위가 좁은 협곡을 지난다. 본대는 이미 앞서 건너갔다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "앞이 아니라 뒤를 치오. 본대가 건너면 후위만 남소." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "후위 지휘관은 누구입니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "리항이오. 저 사람이 막히면 토간은 걸음을 올릴 거요. 후위를 떼어 놓고 가겠다는 뜻이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "협곡 입구에 안개가 낮게 깔립니다. 소리가 가깝게 들립니다. 사람 수가 실제보다 많게 들릴 겁니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "많게 들리는 쪽이 이쪽이면 좋겠소. 저들은 급하오. 급한 쪽은 좁은 곳에서 뭉치오. 뭉치면 한 번에 닿소." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "뭉친 쪽이 이쪽이 되면 어쩝니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "그래서 그대가 앞에 서는 거요. 응우라오, 뭉치지 마시오." },
+    { "speaker": "caption", "text": "목표: 철수하는 후위의 지휘관 리항을 막아서 쓰러뜨린다. 응우라오 공이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s5_post",
+   "stage_code": "ch25_s5",
+   "timing": "after_clear",
+   "bg": "협곡 북쪽 출구. 안개가 걷히고 건너편 둑 위로 먼지 기둥이 멀어진다",
+   "lines": [
+    { "speaker": "caption", "text": "후위의 기가 흩어지고 리항의 군은 뒤로 물러났다. 토간은 이미 강 건너에 있다." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "angry", "text": "토간을 놓쳤습니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "쫓지 않소. 저들이 돌아갈 길은 하나뿐이오. 문제는 그다음이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "이것으로 끝나는 겁니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "한 번 지고 돌아가는 나라가 아니오. 우리가 비우는 법을 알았다면 저들은 채우는 법을 배워 올 거요." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "반끼엡 야영지로 가오. 저들이 마지막으로 머문 자리요. 거기서 확인할 게 있소." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s6_pre",
+   "stage_code": "ch25_s6",
+   "timing": "before_battle",
+   "bg": "반끼엡 야영지 앞 언덕. 목책 한쪽이 반쯤 불타 있고 군막이 열 개 남짓 흩어져 있다. 뒤쪽으로 숲이 이어진다",
+   "lines": [
+    { "speaker": "caption", "text": "1285년 6월, 반끼엡. 원군이 마지막으로 남긴 야영지. 급히 버린 자리다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "목책이 반쯤 탔네. 서둘러 철수한 모양일세." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "급히 버린 자리엔 서류가 남소. 군막 하나를 먼저 보겠소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "인장이 걸린 군막은 대개 뒤쪽 숲 가까이에 둡니다. 불이 닿지 않게요. 포구 창고도 같습니다. 문서는 물과 불을 피합니다." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "뱃사람이 문서 둘 곳을 아는군." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "그리로 가오. 숲 쪽에 항복하지 않은 수비대가 남아 있을 수 있소. 등 뒤를 보며 가시오." },
+    { "speaker": "caption", "text": "목표: 야영지 두 거점을 되찾고 군막의 문서를 확보한다. 흥다오 공이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s6_post",
+   "stage_code": "ch25_s6",
+   "timing": "after_clear",
+   "bg": "반끼엡 야영지 안 군막. 바닥에 펼쳐진 서류 위로 촛불이 흔들린다",
+   "lines": [
+    { "speaker": "caption", "text": "군막에서 서류 한 묶음이 나왔다. 마지막 장에 쩐 왕가의 인장이 찍혀 있다. 인장은 쩐 익딱 쪽의 것이다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "글은 읽지 못합니다. 인장은 압니다. 포구 장부에서 본 모양입니다." },
+    { "speaker": "caption", "text": "흥다오는 한동안 말이 없다. 꽝카이가 먼저 시선을 거둔다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "가족 얘기라 더 늦출 수 없소. 사본부터 만들어 임금께 올리시오." },
+    { "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "한 줄로 쓰겠네. 이름 대신 인장 모양만." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "그리하시오. 이름을 쓰는 건 그 뒤요. 이 서류가 무엇을 뜻하는지는 아직 모르오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...이 일로 달라지는 것이 있습니까." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "사람은 달라지지 않소. 우리가 읽는 방식이 달라지오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s7_pre",
+   "stage_code": "ch25_s7",
+   "timing": "before_battle",
+   "bg": "번돈 앞바다의 새벽. 낮은 섬들 사이로 북동풍이 불고, 수평선에 군량선단의 돛이 점점이 보인다",
+   "lines": [
+    { "speaker": "caption", "text": "1288년 정월, 번돈 앞바다. 장원호가 이끄는 원군의 군량선단이 북쪽 바다에서 내려온다. 쩐 칸즈는 직위가 깎인 채 이곳에 있다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "angry", "text": "직위 얘기는 하지 마라. 직위는 깎였고 배는 남았다. 배 얘기만 해." },
+    { "speaker": "hero:npc_dai_viet_boat_captain", "expr": "neutral", "text": "군량선은 열 척이 넘습니다. 호위함이 앞뒤로 붙어 있습니다. 전부 태우시겠습니까." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "열 척 다 태우면 연기가 하늘에 박혀서 후속대가 뱃머리를 돌려. 앞 세 척이다. 나머지는 눈 가리려고 달고 온 배야." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "앞 세 척에 곡식이 있다는 걸 어떻게 아십니까, 공." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "물에 앉은 깊이다. 곡식 실은 배는 배 밑이 물을 더 먹어. 직위는 깎여도 눈은 안 깎였다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "바람은 북동입니다. 해 뜨기 전에 한 번 바뀝니다. 불은 바람을 따라가니 바뀌기 직전에 붙이면, 바뀐 바람이 불을 다음 배로 데려갑니다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "바뀌는 시각을 믿으라는 거냐." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "믿으시라고는 못 합니다. 자신 없을 때는 없다고 말씀드립니다. 대신 신호가 있습니다. 배 오른쪽 갈대가 먼저 눕습니다. 그게 신호입니다. 거기서 붙이면 불이 옆 배로 번집니다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "angry", "text": "직위 깎인 놈한테 풀잎을 보라는 거냐." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "직위 얘기는 안 했습니다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "...불은 내가 붙인다. 너는 갈대가 눕는 걸 봐. 믿는다. 아니, 믿을 수밖에 없지. 내가 가진 건 배 하나뿐이니까." },
+    { "speaker": "caption", "text": "목표: 군량선 세 척에 불을 붙인다. 후속 군량선이 북쪽 출구에 닿으면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s7_post",
+   "stage_code": "ch25_s7",
+   "timing": "after_clear",
+   "bg": "번돈 앞바다의 낮. 불탄 배의 연기가 바다 위로 길게 눕고 판자 조각이 파도에 밀려온다",
+   "lines": [
+    { "speaker": "caption", "text": "군량선 세 척에서 연기가 길게 오른다. 장원호의 선단 일부는 북쪽 바다로 물러났다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "곡식이 바다에 가라앉았다. 저들은 이걸 알면 어디로 갈까." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "도성입니다. 도성에 곡식이 있다고 믿으니까요." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "믿고 가서 빈 창고를 열겠지. 그 창고를 비운 것도 우리고, 이 배를 태운 것도 우리다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그러면 먹을 게 없는 건 이제 저쪽뿐입니까." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "우리도 없어. 그래도 우리는 땅이 있다. 땅에서 나는 건 시간이 지나면 나와." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "갈대가 눕는 걸 믿으셨습니다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "풀잎이 직위보다 믿을 만하더군. 다른 놈한테는 말하지 마라." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "직위는 돌려받으십니까." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "angry", "text": "돌려받는다더군. 돌려받아도 배는 같아. 타는 놈이 같으니까." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s8_pre",
+   "stage_code": "ch25_s8",
+   "timing": "before_battle",
+   "bg": "탕롱 남쪽 둑길. 낮은 논 사이로 흙길이 이어지고 멀리 수로 입구의 갈대가 바람에 눕는다",
+   "lines": [
+    { "speaker": "caption", "text": "1288년 3월, 탕롱 남쪽. 도성을 다시 점령했던 토간이 곡식을 얻지 못한 채 철수를 시작했다. 육군과 수군이 갈라진다." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "공께서 수로 입구에서 기다리십니다. 뱃사람이 물때를 전해야 합니다. 먼저 닿으십시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "혼자 갑니까." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "혼자가 빠릅니다. 저는 돌아서 갑니다. 저들이 뱃사람을 따라붙으면 그 옆구리에서 나타납니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "물때는 오늘 저녁입니다. 해 질 무렵 수로 입구가 얕아집니다. 그때까지 못 닿으면 다음 물때를 기다려야 합니다." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "닿으십시오. 길을 모르면 포로가 하나 있습니다. 둑길을 안다고 합니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "값은 무엇입니까." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "자기 목숨입니다. 풀어 달랍니다. 맞는 말인지는 가 보면 압니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...가 보면 아는 길을 믿으라는 말씀이군요. 포로에게 이 한마디만 전해 주십시오. 틀린 길이면 제가 먼저 빠진다고." },
+    { "speaker": "caption", "text": "목표: 14턴 안에 수로 입구에 먼저 닿는다. 주인공이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s8_post",
+   "stage_code": "ch25_s8",
+   "timing": "after_clear",
+   "bg": "수로 입구의 해 질 녘. 갈대 사이로 물이 빠지는 소리가 들리고, 진흙이 조금씩 드러난다",
+   "lines": [
+    { "speaker": "caption", "text": "해가 지기 전, 수로 입구. 흥다오가 둑 위에서 기다리고 있다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "물때는." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "오늘 밤 물이 빠집니다. 모레는 만조입니다. 그 뒤로 사흘 동안 강 하구가 비어 있습니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "확실하오?" },
+    { "speaker": "protagonist", "expr": "neutral", "text": "확실하다고는 못 합니다. 달을 보고 말합니다. 달이 틀리면 저도 틀립니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "달이 틀리면 틀렸다고 말하는 사람이면 충분하오. 다음 물때에 말뚝을 박겠소." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "추격대 옆구리를 쳤습니다. 토간은 뒤로 물러났습니다. ...포로 말이 맞았습니다. 길이 마르긴 했는데 지름길은 아니더군요." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그 포로는 어떻게 됐습니까." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "약속대로 풀어 줬습니다. 그쪽 말로 고맙다고 하더군요. 뱃사람은 뭐라고 옮기겠습니까." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "'길 값은 길에서 치렀다.' 이쪽 말로는 그렇게 됩니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s9_pre",
+   "stage_code": "ch25_s9",
+   "timing": "before_battle",
+   "bg": "바익당강 하류의 간조 직전. 갯벌과 갈대가 강 양쪽으로 넓게 이어지고, 작은 배들이 쇠촉 달린 말뚝을 싣고 대기한다",
+   "lines": [
+    { "speaker": "caption", "text": "1288년 4월 초, 바익당강. 만조에 잠기는 강바닥에 쇠촉 말뚝을 박아 숨긴다. 원 척후선이 하구까지 와 있다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "말뚝은 세 곳에 박는다. 서쪽, 가운데, 동쪽. 간조가 반나절이야. 못 끝내면 다음 물때까지 기다려야 하고, 그동안 저쪽 척후선이 말뚝 박는 걸 구경하러 와." },
+    { "speaker": "hero:npc_yet_kieu", "expr": "neutral", "text": "물속은 제가 보겠습니다. 갯벌 밑에 단단한 곳과 무른 곳을 손으로 짚어 알려 드리겠습니다." },
+    { "speaker": "hero:npc_da_tuong", "expr": "neutral", "text": "말뚝은 내가 박는다. 물 밑에서는 눈이 없어. 손이 눈이야. 깊이가 어긋나면 배가 비켜 가니까 그건 박다 보면 알아." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "간조가 시작되면 서쪽 갯벌이 먼저 드러납니다. 서쪽부터 박으십시오. 가운데는 물이 마지막에 빠집니다." },
+    { "speaker": "hero:npc_da_tuong", "expr": "neutral", "text": "그럼 가운데는 진흙 속에 서서 박으라는 소리군. 허리까지 빠지겠는데." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "허리 아래까지만 빠집니다. 그 이상이면 말뚝 대신 사람이 박힙니다." },
+    { "speaker": "hero:npc_da_tuong", "expr": "neutral", "text": "...그런 소리는 박기 전에 하지 마." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "흥다오 공이 물때 계산을 배 사람한테 맡기라 하셨다. 틀리면 말뚝이 아니라 우리 배가 박혀." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "틀릴 수 있습니다. 달이 틀리면 저도 틀립니다. 그래서 서쪽부터 합니다. 서쪽에서 물이 늦으면 나머지를 고칠 시간이 남습니다." },
+    { "speaker": "caption", "text": "목표: 서쪽, 가운데, 동쪽 세 곳의 말뚝 작업을 모두 마친다. 작업 구역 세 곳 중 두 곳을 적이 차지하면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s9_post",
+   "stage_code": "ch25_s9",
+   "timing": "after_clear",
+   "bg": "간조의 바익당강. 말뚝 박은 자리에 갈대와 진흙을 덮어 숨긴 흔적이 보이고, 먼 하구에 원 선단의 돛이 서성인다",
+   "lines": [
+    { "speaker": "caption", "text": "세 곳의 말뚝이 모두 자리를 잡았다. 판제의 선봉은 하구 쪽으로 물러났다." },
+    { "speaker": "hero:npc_da_tuong", "expr": "neutral", "text": "박았어. 다음 만조에 다 잠겨. 아무도 못 봐." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "못 보는 게 일이지." },
+    { "speaker": "hero:npc_yet_kieu", "expr": "neutral", "text": "한 가지 보고드립니다. 동쪽 말뚝 하나가 반 뼘 낮습니다. 큰 배 밑은 걸리고 작은 배는 지나갑니다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "우리 배는 지나간다는 소리냐." },
+    { "speaker": "hero:npc_yet_kieu", "expr": "neutral", "text": "예." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "그럼 됐다. 저쪽 배가 큰 배다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "판제가 내일 만조에 들어온다고 했습니다. 만조의 꼭지는 해가 중천일 때고, 물이 돌아서는 건 그 뒤 한 시진 안입니다. 다만 앞 배가 너무 빨리 도망치면 저들이 따라오지 않습니다. 몇 척은 일부러 느려야 합니다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "나는 느리게 도망치는 법을 배운 적이 없어. 그 말은 공께 직접 해." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공께는 이미 말씀드렸습니다. 느린 배는 칸즈 공이 맡으시라고." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "angry", "text": "...젠장." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s10_pre",
+   "stage_code": "ch25_s10",
+   "timing": "before_battle",
+   "bg": "바익당강의 정오 만조. 강폭이 넓게 펴지고 서쪽 하안에는 다이비엣 소형선이, 동쪽 하구에는 원 수군의 선단이 줄지어 있다. 말뚝은 수면 아래에 있어 보이지 않는다",
+   "lines": [
+    { "speaker": "caption", "text": "1288년 4월 9일, 바익당강. 만조의 강 위로 원 수군 선단이 들어온다. 강바닥에는 보이지 않는 말뚝이 서 있다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "저쪽 배는 우리의 두 배가 넘어. 정면으로는 안 돼." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "수는 오늘 일이 아니오. 오늘 일은 시간이오." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "만조에 들어온 배는 간조에 나가야 합니다. 문제는 나가기 전에 우리가 밀리지 않는 겁니다." },
+    { "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "나는 하안 갈대밭에서 구경하는 쪽이야. 구경이 길어지면 화살이 날아올 테니 갈대 사이로 숨어서." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "뱃사람. 물이 언제 돌아서는가." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "정오 만조가 꼭지입니다. 그 뒤 내려가기 시작하는 순간을 제가 알려 드리겠습니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "알리는 것만으로는 부족하오. 그 순간 배들이 어디에 있어야 하는지가 일이오. 앞 배는 천천히 도망치시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...어머니 포구도 오늘 이 강 아래에 있습니다. 제 입에서 나가는 시각이 틀리면 이 강이 아니라 그 포구가 먼저 마릅니다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "neutral", "text": "그러니 틀리지 마시오. 틀리게 말할 사람이었으면 부르지 않았소." },
+    { "speaker": "caption", "text": "목표: 간조가 시작될 때까지 기함의 흥다오 공을 지키며 오마르의 기함을 쓰러뜨린다. 흥다오 공 또는 주인공이 쓰러지거나 12턴이 지나면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_s10_post",
+   "stage_code": "ch25_s10",
+   "timing": "after_clear",
+   "bg": "간조의 바익당강. 말뚝에 걸린 원 수군 배들이 비스듬히 기울어 있고 강바닥의 진흙에서 물이 빠지는 소리가 난다",
+   "lines": [
+    { "speaker": "caption", "text": "간조의 강바닥에서 원 수군 선단이 움직이지 못한다. 오마르의 기함도 말뚝에 걸렸다. 오마르는 붙잡혔다." },
+    { "speaker": "hero:npc_omar", "expr": "serious", "text": "진 건 알겠다. 어디서 졌는지 모르겠다. 물이냐, 말뚝이냐, 사람이냐." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "물이 돌아서는 때를 아는 사람이 이쪽에 있었소. 그걸 믿는 사람도 이쪽에 있었고." },
+    { "speaker": "hero:npc_omar", "expr": "serious", "text": "그 사람의 이름이 무엇이냐." },
+    { "speaker": "hero:tran_hung_dao", "expr": "neutral", "text": "뱃사람이오." },
+    { "speaker": "hero:npc_omar", "expr": "angry", "text": "이름 없는 사람에게 졌다고 적으란 말이냐." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "적을 필요 없소. 그대의 처분은 임금께서 정하실 거요." },
+    { "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "육군은 이미 철수 길에 올랐다고 합니다. 토간도 그쪽에 있습니다." },
+    { "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "판제는 끝내 건너편에 닿지 못했어. 강물은 만조 때나 간조 때나 똑같이 차가울 텐데." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...물은 이긴 쪽도 진 쪽도 가리지 않습니다. 가리는 건 때입니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch25_end",
+   "stage_code": null,
+   "timing": "chapter_end",
+   "bg": "탕롱 궁성 앞뜰의 늦봄. 지붕 기와 몇 장이 사라져 있고 곳간 문은 열려 있으며 안쪽은 비어 있다. 멀리 서고의 지도가 겹쳐 보인다",
+   "lines": [
+    { "speaker": "caption", "text": "1288년 늦봄, 탕롱. 임금 쩐 녓똥과 상황 쩐 타인똥이 도성에 들어온다. 성 안은 비어 있었다." },
+    { "speaker": "hero:npc_tran_nhan_tong", "expr": "neutral", "text": "도성이 이렇게 조용한 줄은 몰랐소. 곳간도 비어 있고." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "도성은 돌려 드립니다. 곳간은 아직 채우지 못했습니다." },
+    { "speaker": "hero:npc_tran_nhan_tong", "expr": "neutral", "text": "곳간은 시간이 채우오. 그대들은 시간을 샀소." },
+    { "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "뱃사람. 물이 빠지는 것을 어떻게 알았소." },
+    { "speaker": "caption", "text": "{protagonist_name} 님은 대답하지 않고 포구 쪽 하늘을 본다." },
+    { "speaker": "hero:tran_hung_dao", "expr": "neutral", "text": "대답하지 않아도 되오. 아껴 쓸 입이라고 했소. 다음 물때에도 필요한 사람이오. 다만 오늘은 포구에 다녀오시오. 어머니께 말씀드릴 게 있을 거요." },
+    { "speaker": "caption", "text": "대도에서 쿠빌라이 칸이 남정을 다시 준비한다는 소식이 닿는다." },
+    { "speaker": "hero:kublai_khan", "expr": "serious", "text": "(서신 낭독) 다시 준비하라. 이번에는 곡식부터 먼저 보내라." },
+    { "speaker": "shiori", "expr": "neutral", "text": "이 이름은 기록에 없습니다. 기록에는 바익당의 말뚝과 흥다오 공의 이름만 남을 것입니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "비워 두었기 때문에 기다릴 수 있었습니다. 채운 쪽은 기다릴 수 없었고요. 도성이 누구의 것이냐고 물으시면 저는 모르겠습니다. 다만 물은 빠질 때가 있었습니다." },
+    { "speaker": "shiori", "expr": "smile", "text": "비워 둔 곳은 누구의 것인가. 이번 질문의 답으로 기록해 두겠습니다. 가시지요." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  }
+ ],
+ "battle_cues": {
+  "ch25_s1": [
+   { "cue_id": "ch25_s1_e1_dust", "on": { "turn": 2 }, "do": "say", "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "북쪽 길에 먼지가 섰습니다. 한 덩이가 아니라 둘입니다." },
+   { "cue_id": "ch25_s1_e1_order", "on": { "turn": 2 }, "do": "say", "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "기병이 먼저요. 길부터 좁히시오. 한 줄로만 들어오게." },
+   { "cue_id": "ch25_s1_e2_ask", "on": { "turn": 6, "when": { "type": "flag", "key": "withdraw_ok" } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "비워도 됩니까. 이 길을 통째로 내주는 겁니다." },
+   { "cue_id": "ch25_s1_e2_answer", "on": { "turn": 6, "when": { "type": "flag", "key": "withdraw_ok" } }, "do": "say", "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "비워야 길이 늘어나오. 길이 길어지면 저들 곡식이 먼저 닳소. 우린 이미 치웠소." }
+  ],
+  "ch25_s2": [
+   { "cue_id": "ch25_s2_e1_arrive", "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "mid_ford" } }, "do": "say", "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "배가 모자라면 말이라도 늘리면 돼. 쏘는 쪽은 저 사람들이 아니라 겁먹은 쪽이야." },
+   { "cue_id": "ch25_s2_e1_khoai", "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "mid_ford" } }, "do": "say", "speaker": "hero:npc_nguyen_khoai", "expr": "neutral", "text": "왼쪽 갈대 사이에 닿았소. 여울 아래쪽은 내가 맡겠소." },
+   { "cue_id": "ch25_s2_e2_omar", "on": { "turn": 4, "when": { "type": "hp_pct_lte", "unit": "hero:npc_omar", "pct": 50 } }, "do": "say", "speaker": "hero:npc_omar", "expr": "serious", "text": "깃발만 남겨라. 나는 하류에서 다시 본다." },
+   { "cue_id": "ch25_s2_e2_duat", "on": { "turn": 4, "when": { "type": "retreated", "unit": "hero:npc_omar" } }, "do": "say", "speaker": "hero:npc_tran_nhat_duat", "expr": "smile", "text": "저 배는 오늘 안 봐. 내일 보자고 해 두지." }
+  ],
+  "ch25_s3": [
+   { "cue_id": "ch25_s3_e1_order", "on": { "turn": 3 }, "do": "say", "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "명령이 없었네." },
+   { "cue_id": "ch25_s3_e1_flag", "on": { "turn": 3 }, "do": "say", "speaker": "hero:npc_tran_quoc_toan", "expr": "serious", "text": "깃발은 있었습니다. 앞에서 기다리기만 하면 늦습니다." },
+   { "cue_id": "ch25_s3_e1_turn", "on": { "turn": 3 }, "do": "say", "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "...오른쪽으로 가게. 앞은 안 되네. 목책 밑 오른쪽 길로 돌게." },
+   { "cue_id": "ch25_s3_e2_sogetu", "on": { "turn": 4, "when": { "type": "hp_pct_lte", "unit": "enemy_commander", "pct": 40 } }, "do": "say", "speaker": "hero:npc_sogetu", "expr": "serious", "text": "남쪽 길은 이미 반 년 걸었소. 이제 와서 곡식을 달라 하지는 않겠지." }
+  ],
+  "ch25_s4": [
+   { "cue_id": "ch25_s4_e1_fire_warn", "on": { "turn": 3 }, "do": "say", "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "시장 쪽에 연기가 오릅니다. 불이 우리 길로 번질 겁니다." },
+   { "cue_id": "ch25_s4_e1_canal", "on": { "turn": 4 }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수로 쪽으로 돌면 막힙니다. 수문 아래로 가면 불이 닿지 않습니다." },
+   { "cue_id": "ch25_s4_e2_keys", "on": { "turn": 1, "when": { "type": "flag", "key": "granary_empty" } }, "do": "say", "speaker": "hero:npc_yuan_garrison_captain", "expr": "serious", "text": "창고 열쇠는 있는데 열 곳이 없군. 이걸 누구 앞에 내밀라는 거지." }
+  ],
+  "ch25_s5": [
+   { "cue_id": "ch25_s5_e1_toghan", "on": { "turn": 4 }, "do": "say", "speaker": "hero:npc_toghan", "expr": "angry", "text": "본대가 먼저 건넌다. 후위는 이름을 남겨라. 해 지기 전에 강을 건너야 한다." },
+   { "cue_id": "ch25_s5_e2_liheng", "on": { "turn": 5, "when": { "type": "hp_pct_lte", "unit": "enemy_commander", "pct": 50 } }, "do": "say", "speaker": "hero:npc_li_heng", "expr": "serious", "text": "화살이 얕지 않군. 서 있는 자들은 흩어지지 마라." }
+  ],
+  "ch25_s6": [
+   { "cue_id": "ch25_s6_e1_doc", "on": { "turn": 1, "when": { "type": "flag", "key": "doc_found" } }, "do": "say", "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "찢지 마시오. 이름 하나가 아니라 줄 전체를 봐야 하오." },
+   { "cue_id": "ch25_s6_e1_family", "on": { "turn": 1, "when": { "type": "flag", "key": "doc_found" } }, "do": "say", "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "가족 얘기일세. 지금 읽어야 하나." },
+   { "cue_id": "ch25_s6_e2_warn", "on": { "turn": 5 }, "do": "say", "speaker": "hero:npc_tran_quang_khai", "expr": "neutral", "text": "숲 쪽에서 시위 소리가 나네. 항복하지 않은 자들이 움직이는군." }
+  ],
+  "ch25_s7": [
+   { "cue_id": "ch25_s7_e1_wind_warn", "on": { "turn": 3 }, "do": "say", "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "바람이 오른쪽이다. 갈대가 눕는다. 거기서 붙여라. 늦으면 풀잎한테 욕먹는다." },
+   { "cue_id": "ch25_s7_e1_boat1", "on": { "turn": 1, "when": { "type": "flag", "key": "boat_1" } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 군량선에 불이 붙었습니다. 바람이 아직 안 바뀌었습니다. 곧 바뀝니다. 바뀌면 둘째 배 쪽으로 갑니다." },
+   { "cue_id": "ch25_s7_e2_zhang", "on": { "turn": 4, "when": { "type": "hp_pct_lte", "unit": "hero:npc_zhang_wenhu", "pct": 50 } }, "do": "say", "speaker": "hero:npc_zhang_wenhu", "expr": "serious", "text": "배가 반이 남으면 반이라도 가져간다. 도성에서는 곡식 한 알이 귀하다." },
+   { "cue_id": "ch25_s7_e2_khanh", "on": { "turn": 4, "when": { "type": "hp_pct_lte", "unit": "hero:npc_zhang_wenhu", "pct": 50 } }, "do": "say", "speaker": "hero:npc_tran_khanh_du", "expr": "angry", "text": "가져가 봐라. 도착해서 열어 볼 창고가 비어 있을 텐데." },
+   { "cue_id": "ch25_s7_convoy", "on": { "turn": 4 }, "do": "say", "speaker": "narrator", "text": "남동쪽에서 후속 군량선이 북쪽 출구를 향해 움직이기 시작한다. 출구에 닿기 전에 막아야 한다." }
+  ],
+  "ch25_s8": [
+   { "cue_id": "ch25_s8_e1_guide", "on": { "turn": 1, "when": { "type": "flag", "key": "guide_done" } }, "do": "say", "speaker": "narrator", "text": "붙들린 몽골 병사가 손가락으로 둑길을 가리킨다. '이쪽이 마른 길이다. 지름길은 아니다. 나도 그쪽으로 돌아가야 한다.'" },
+   { "cue_id": "ch25_s8_e2_ngu_lao", "on": { "turn": 5 }, "do": "say", "speaker": "hero:npc_pham_ngu_lao", "expr": "neutral", "text": "옆구리를 치겠습니다. 길이 늘어진 곳을 보고 있었습니다." }
+  ],
+  "ch25_s9": [
+   { "cue_id": "ch25_s9_e1_ebb_warn", "on": { "turn": 2 }, "do": "say", "speaker": "hero:npc_tran_khanh_du", "expr": "neutral", "text": "흥다오 공의 전갈이다. 물이 서른 걸음 물러난다고. 물때는 배 사람한테 다시 묻는 중이라고. 배 사람, 서른 걸음 맞나." },
+   { "cue_id": "ch25_s9_e1_ebb", "on": { "turn": 3 }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "간조가 시작됐습니다. 서쪽 갯벌부터 드러납니다. 서른 걸음이 맞았습니다. ...스물아홉이었을지도 모릅니다." },
+   { "cue_id": "ch25_s9_e2_fanyi", "on": { "turn": 4, "when": { "type": "retreated", "unit": "hero:npc_fan_yi" } }, "do": "say", "speaker": "hero:npc_fan_yi", "expr": "serious", "text": "내일은 만조에 들어갑니다. 그때는 이 갯벌이 물 아래겠지요. 물 아래에 무엇이 있든 배는 깊이만 믿고 갑니다." }
+  ],
+  "ch25_s10": [
+   { "cue_id": "ch25_s10_e1_lure", "on": { "turn": 2 }, "do": "say", "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "너무 빨리 도망치지 마시오. 따라오게 하시오." },
+   { "cue_id": "ch25_s10_e2_tide_ask", "on": { "turn": 3 }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "물이 돌아섭니다. 한 시진 안입니다." },
+   { "cue_id": "ch25_s10_e2_tide_again", "on": { "turn": 3 }, "do": "say", "speaker": "hero:tran_hung_dao", "expr": "serious", "text": "그 말을 한 번 더 하시오." },
+   { "cue_id": "ch25_s10_e2_tide_repeat", "on": { "turn": 3 }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "한 시진 안입니다." },
+   { "cue_id": "ch25_s10_e3_omar", "on": { "turn": 4, "when": { "type": "flag", "key": "ebb_began" } }, "do": "say", "speaker": "hero:npc_omar", "expr": "angry", "text": "강이 줄어든다. 배를 돌려라." },
+   { "cue_id": "ch25_s10_e3_fanyi", "on": { "turn": 4, "when": { "type": "flag", "key": "ebb_began" } }, "do": "say", "speaker": "hero:npc_fan_yi", "expr": "serious", "text": "돌릴 곳이 없습니다. 뒤 배들이 앞 배를 밀고 있습니다." },
+   { "cue_id": "ch25_s10_e4_ambush", "on": { "turn": 5 }, "do": "say", "speaker": "hero:npc_yet_kieu", "expr": "neutral", "text": "북쪽 지류에서 나왔습니다. 말뚝 사이로 들어갑니다." },
+   { "cue_id": "ch25_s10_e5_fanyi", "on": { "turn": 6, "when": { "type": "hp_pct_lte", "unit": "hero:npc_omar", "pct": 40 } }, "do": "say", "speaker": "hero:npc_fan_yi", "expr": "serious", "text": "먼저 가십시오. 강은 제가 건너 길을 열겠습니다." },
+   { "cue_id": "ch25_s10_e5_omar", "on": { "turn": 6, "when": { "type": "hp_pct_lte", "unit": "hero:npc_omar", "pct": 40 } }, "do": "say", "speaker": "hero:npc_omar", "expr": "serious", "text": "...강이 이쪽 편이었군." }
+  ]
+ }
+}

@@ -1,0 +1,239 @@
+{
+ "_note": "누락 영웅 5명(멤논·포로스·스티건드·벨러 4세·마우론티우스)의 서사·인연 초안. 신규 파일, 기존 데이터·앱 코드·DB 미수정. 작성: 송서사, 2026-11-09. tips는 resources/js/game/data/hero_tips.json의 tips 항목(name/life/desc)과 같은 형식이고, history는 hero_history_part_npc1.json 항목(one_line/life/summary/battle_style)과 같다. relations의 hero_a/hero_b는 hero code 문자열이며(hero_relations.json은 CSV id 사용: alexander=213, william_i=244, charles_martel=240, 나머지 신규 5명은 CSV 미등재) 인연 type은 ally/rival/mentor/kin/lord_vassal/same_event/lineage, directed=true면 hero_a에서 hero_b 방향, strength 1~3이다. 이 파일의 모든 encounter_lines와 story는 화면 출력용이며, 근거 수준·출처는 같은 이름의 md에만 둔다.",
+ "version": 1,
+ "created_at": "2026-11-09",
+ "heroes": [
+  {
+   "code": "npc_memnon",
+   "name_ko": "멤논",
+   "name_en": "Memnon of Rhodes",
+   "culture": "greek",
+   "born": -380,
+   "died": -333,
+   "tips": {
+    "name": "멤논",
+    "life": "기원전 380경~기원전 333",
+    "desc": "알렉산드로스에 맞서 페르시아의 지연책을 쥐었던 로도스의 용병 장수"
+   },
+   "history": {
+    "one_line": "알렉산드로스에 맞서 땅을 비우는 작전을 권한 그리스 용병 장수",
+    "life": "기원전 380경~기원전 333, 에게해 로도스 섬 출신으로 페르시아를 섬긴 장수이다.",
+    "summary": "그리스 용병으로 페르시아 왕을 섬겼고 소아시아 서부의 방어를 맡았다. 기원전 334년 그라니코스 강에서 알렉산드로스와 정면으로 맞서지 말고 곡식과 땅을 비우며 물러나자고 권했으나 총독들은 받아들이지 않았다. 패전 뒤 다리우스에게 해안과 바다의 지휘를 넘겨받아 에게해 섬들을 되찾아 나가다가 기원전 333년 레스보스의 미틸레네를 포위하던 중 병으로 세상을 떠났다. 그의 죽음으로 페르시아의 장기전 구상도 끊겼다는 평가가 따른다.",
+    "battle_style": "정면 격돌보다 보급선과 해안 거점을 흔드는 지연전을 택했다. 병력 규모가 크게 불리할 때 싸움의 장소와 시간을 고르는 계산이 강점이었다."
+   },
+   "story": "로도스 출신 용병이 페르시아 왕의 돈으로 소아시아를 지켰다. 그는 그라니코스에서 알렉산드로스와 곧바로 맞서지 말고 땅을 비우자고 권했으나 총독들은 듣지 않았고, 그 뒤 해군 사령관이 되어 에게해를 거슬러 오르던 중 미틸레네 앞에서 죽었다. 그가 살아 있었다면 전쟁이 길어졌을 거라는 말이 지금도 남는다."
+  },
+  {
+   "code": "npc_porus",
+   "name_ko": "포로스",
+   "name_en": "Porus",
+   "culture": "south_asia",
+   "born": null,
+   "died": null,
+   "tips": {
+    "name": "포로스",
+    "life": "생몰년 미상",
+    "desc": "히다스페스 강가에서 알렉산드로스와 맞선 편자브의 왕"
+   },
+   "history": {
+    "one_line": "코끼리 부대로 알렉산드로스의 마지막 큰 싸움을 치른 편자브의 왕",
+    "life": "생몰년 미상, 인도 서북부 히다스페스 강 동쪽 일대를 다스린 왕이다.",
+    "summary": "히다스페스 강과 아케시네스 강 사이 지역을 다스리던 왕이었다. 기원전 326년 알렉산드로스가 폭풍우 속에 상류로 강을 건너자 코끼리와 전차, 보병을 내세워 맞섰으나 패했다. 부상을 입고도 끝까지 물러나지 않다가 항복했고, 알렉산드로스는 그를 왕으로 대우하며 영토를 돌려주고 오히려 넓혀 주었다. 이 일은 정복자와 현지 왕이 맺은 드문 관계로 전한다.",
+    "battle_style": "강변 방어선에 코끼리를 앞세워 기병의 접근을 막는 전술을 썼다. 기마가 약한 인도 군이 마케도니아 기병을 상대로 쓸 수 있는 가장 무거운 수단이었다."
+   },
+   "story": "강 건너 편자브를 다스리던 왕은 폭우 속에 상류를 건너온 알렉산드로스를 코끼리 줄 앞에서 맞았다. 싸움은 졌으나 그는 부상을 입고도 끝까지 물러서지 않았고, 정복자는 포로가 아닌 왕으로 그를 돌려보냈다. 패배한 쪽이 땅을 되돌려받은 흔치 않은 경우로 기억된다."
+  },
+  {
+   "code": "npc_stigand",
+   "name_ko": "스티건드",
+   "name_en": "Stigand",
+   "culture": "anglo_saxon",
+   "born": null,
+   "died": 1072,
+   "tips": {
+    "name": "스티건드",
+    "life": "생년 미상~1072",
+    "desc": "정복 전후 잉글랜드 교회를 쥐고 있던 캔터베리 대주교"
+   },
+   "history": {
+    "one_line": "왕이 바뀌어도 자리를 지키려 한 캔터베리 대주교",
+    "life": "생년 미상~1072, 잉글랜드 교회의 고위 성직자로 캔터베리 대주교를 지냈다.",
+    "summary": "에드워드 참회왕 곁에서 윈체스터 주교를 거쳐 1052년 캔터베리 대주교가 되었다. 윈체스터 주교직을 함께 쥐고, 대립 교황이 보낸 팔리움을 받은 일 때문에 로마와 갈등을 빚었다. 1066년 헤이스팅스 이후 윌리엄에게 복종했으나 1070년 교황 사절이 연 회의에서 면직되어 윈체스터에 갇힌 채 세상을 떠났다. 앵글로색슨 교회가 노르만 쪽으로 넘어가는 과정을 보여 주는 인물로 꼽힌다.",
+    "battle_style": "직접 싸우기보다 교회 재산과 조정의 줄을 쥐고 흥정하는 방식으로 영향력을 지켰다. 전장에서는 상징과 서약을 무기로 삼는 협상가에 가깝다."
+   },
+   "story": "왕 곁에서 올라간 성직자는 주교 두 자리를 한꺼번에 쥐고 대주교가 되었다. 헤이스팅스 뒤에는 에드거를 세우자는 쪽에 섰다가 윌리엄에게 무릎을 꿇었고, 몇 해 뒤 교황 사절이 연 회의에서 면직되었다. 그의 몰락은 앵글로색슨 교회의 시대가 끝나는 장면으로 읽힌다."
+  },
+  {
+   "code": "npc_bela_iv",
+   "name_ko": "벨러 4세",
+   "name_en": "Béla IV of Hungary",
+   "culture": "hungarian",
+   "born": 1206,
+   "died": 1270,
+   "tips": {
+    "name": "벨러 4세",
+    "life": "1206~1270",
+    "desc": "모히에서 몽골에 패하고 나라를 다시 세운 헝가리의 왕"
+   },
+   "history": {
+    "one_line": "모히에서 무너진 뒤 돌성으로 나라를 다시 세운 헝가리 왕",
+    "life": "1206~1270, 헝가리 아르파드 왕조의 왕이다(재위 1235~1270).",
+    "summary": "1235년 즉위해 귀족의 힘을 누르고 쿠만인 유입을 받아들이려 했다. 1241년 몽골군이 침입하자 모히 평원에서 수부타이의 포위 작전에 걸려 대패했고, 오스트리아를 거쳐 아드리아 해안의 섬까지 쫓겨 갔다. 몽골이 이듬해 물러나자 돌아와 돌로 지은 성과 성벽 도시를 늘리고 외지 정착민을 불러 모았다. 이 때문에 후대에 '제2의 건국자'로 불린다.",
+    "battle_style": "정면 야전보다 성과 성벽에 의지한 방어를 중시하는 쪽으로 바뀌었다. 모히의 패배가 낳은 교훈을 나라의 설계로 옮긴 왕이다."
+   },
+   "story": "귀족들과 힘겨루기를 하던 왕은 1241년 몽골의 침입에 모히 평원에서 대패하고 아드리아 해안까지 쫓겨 갔다. 몽골이 물러난 뒤 그가 한 일은 복수가 아니라 돌성을 쌓고 사람을 불러 모으는 일이었다. 그래서 그는 패전의 왕이면서 나라를 다시 세운 왕으로 함께 기록된다."
+  },
+  {
+   "code": "npc_mauronte",
+   "name_ko": "마우론티우스",
+   "name_en": "Mauronte (Maurontus)",
+   "culture": "frankish",
+   "born": null,
+   "died": null,
+   "tips": {
+    "name": "마우론티우스",
+    "life": "생몰년 미상 (8세기)",
+    "desc": "카를 마르텔의 프로방스 원정에 맞서 마르세유를 지킨 지방 귀족"
+   },
+   "history": {
+    "one_line": "카를 마르텔의 손길이 닿기 전 프로방스를 쥐려 한 마르세유의 귀족",
+    "life": "생몰년 미상, 8세기 전반 프로방스 마르세유 일대를 쥐고 있던 귀족이다.",
+    "summary": "프랑크 왕국의 변경에서 사실상 독자적으로 프로방스를 다스린 유력자였다. 카를 마르텔이 남쪽으로 세력을 넓히자 아랍 측의 나르본 총독과 손을 잡아 아비뇽과 프로방스를 지키려 했다. 737년 아비뇽이 카를 쪽에 함락되고 739년 원정에서 산악으로 달아난 것으로 전해진다. 이후 프로방스는 프랑크 왕국의 통제 아래 들어간다.",
+    "battle_style": "자기 영지의 성채와 해안 거점에 의지하는 방어형 지휘관이다. 상대가 강할 때는 이웃 세력과의 흥정으로 시간을 버는 쪽을 택했다."
+   },
+   "story": "변경의 귀족은 궁재가 남쪽으로 내려오자 자기 땅을 지키려고 이웃의 아랍 총독과 손을 잡았다. 아비뇽이 떨어지고 원정이 거듭되자 그는 산으로 물러났고, 프로방스는 결국 프랑크의 손에 들어갔다. 그의 선택은 배신인지 생존인지에 따라 달리 읽히는 문제로 남는다."
+  }
+ ],
+ "relations": [
+  {
+   "id": "relm5_01",
+   "hero_a": "npc_memnon",
+   "hero_b": "alexander",
+   "type": "rival",
+   "directed": false,
+   "strength": 3,
+   "reason": "멤논은 그라니코스 이후 소아시아 해안과 에게해에서 알렉산드로스의 진군을 늦추려 한 페르시아 쪽 지휘관이었다.",
+   "encounter_lines": [
+    { "speaker_hero": "npc_memnon", "text": "정면으로 오지 마시오. 먹을 게 없는 땅에서는 대군일수록 먼저 주저앉소." },
+    { "speaker_hero": "alexander", "text": "먹을 걸 남겨 둔 쪽이 이기는 게 아니오. 먼저 도착한 쪽이 이기지." }
+   ]
+  },
+  {
+   "id": "relm5_02",
+   "hero_a": "npc_darius_iii",
+   "hero_b": "npc_memnon",
+   "type": "lord_vassal",
+   "directed": true,
+   "strength": 2,
+   "reason": "다리우스 3세는 그라니코스 패전 뒤 멤논에게 해안과 에게해 방면의 지휘를 맡겼다.",
+   "encounter_lines": [
+    { "speaker_hero": "npc_darius_iii", "text": "총독들의 말이 틀렸다는 걸 이제 알겠다. 그대에게 바다를 맡기마." },
+    { "speaker_hero": "npc_memnon", "text": "받겠습니다. 다만 늦게 주신 만큼 대가는 비쌀 겁니다." }
+   ]
+  },
+  {
+   "id": "relm5_03",
+   "hero_a": "npc_porus",
+   "hero_b": "alexander",
+   "type": "rival",
+   "directed": false,
+   "strength": 3,
+   "reason": "포로스는 기원전 326년 히다스페스 강에서 알렉산드로스와 싸워 패했고, 이후 알렉산드로스에게 왕으로 인정받아 영토를 돌려받았다.",
+   "encounter_lines": [
+    { "speaker_hero": "alexander", "text": "그대를 어떻게 대하면 되겠소?" },
+    { "speaker_hero": "npc_porus", "text": "왕이 왕을 대하듯이. 그 말로 충분하오." }
+   ]
+  },
+  {
+   "id": "relm5_04",
+   "hero_a": "npc_stigand",
+   "hero_b": "william_i",
+   "type": "rival",
+   "directed": false,
+   "strength": 2,
+   "reason": "스티건드는 헤이스팅스 뒤 윌리엄에게 복종했으나, 윌리엄은 1070년 교황 사절이 연 회의에서 그를 대주교직에서 물러나게 했다.",
+   "encounter_lines": [
+    { "speaker_hero": "william_i", "text": "무릎을 꿇은 날의 서약은 기억하고 있소, 대주교." },
+    { "speaker_hero": "npc_stigand", "text": "저도 그렇습니다, 폐하. 그래서 지금도 자리를 지키고 있는 것이고요." }
+   ]
+  },
+  {
+   "id": "relm5_05",
+   "hero_a": "npc_stigand",
+   "hero_b": "npc_harold_godwinson",
+   "type": "ally",
+   "directed": false,
+   "strength": 2,
+   "reason": "스티건드는 에드워드 참회왕 시기 고드윈 가문 쪽 정치 세력과 가까웠고, 1066년 해럴드가 왕위에 오르던 시기에도 같은 진영에 있었다.",
+   "encounter_lines": [
+    { "speaker_hero": "npc_stigand", "text": "관은 아직 식지도 않았는데 왕관 이야기부터 하시는군요." },
+    { "speaker_hero": "npc_harold_godwinson", "text": "남쪽에 배가 모이고 있소, 대주교. 미룰 시간이 없소." }
+   ]
+  },
+  {
+   "id": "relm5_06",
+   "hero_a": "npc_stigand",
+   "hero_b": "npc_edgar_atheling",
+   "type": "same_event",
+   "directed": false,
+   "strength": 1,
+   "reason": "헤이스팅스 뒤 런던의 귀족들과 주교들이 에드거 에설링을 왕으로 세우자는 쪽에 모였고, 스티건드도 그 가운데 있었다고 전한다.",
+   "encounter_lines": [
+    { "speaker_hero": "npc_stigand", "text": "공자께서는 어리십니다. 그래서 더 많은 이름이 필요합니다." },
+    { "speaker_hero": "npc_edgar_atheling", "text": "제 이름 뒤에 서는 분들이 정작 어디에 서 계신지는 알고 싶습니다." }
+   ]
+  },
+  {
+   "id": "relm5_07",
+   "hero_a": "npc_bela_iv",
+   "hero_b": "npc_batu",
+   "type": "rival",
+   "directed": false,
+   "strength": 3,
+   "reason": "1241년 바투가 총사령으로 이끈 몽골 서정군이 헝가리를 침공했고, 벨러 4세는 모히 평원에서 패한 뒤 도망쳤다.",
+   "encounter_lines": [
+    { "speaker_hero": "npc_batu", "text": "성문 안에서 기다리는 왕은 처음 보는 건 아니오." },
+    { "speaker_hero": "npc_bela_iv", "text": "기다리는 게 아닙니다. 돌아올 때 쌓을 벽의 높이를 재고 있습니다." }
+   ]
+  },
+  {
+   "id": "relm5_08",
+   "hero_a": "npc_bela_iv",
+   "hero_b": "npc_subutai",
+   "type": "rival",
+   "directed": false,
+   "strength": 3,
+   "reason": "모히 전투(1241)에서 수부타이의 작전에 헝가리군이 포위되어 벨러 4세가 크게 패했다.",
+   "encounter_lines": [
+    { "speaker_hero": "npc_subutai", "text": "열어 둔 길이 하나 있었지. 누구나 거기로 가더군." },
+    { "speaker_hero": "npc_bela_iv", "text": "알고 있었소. 그래서 오늘은 그 길에 아무도 세우지 않았소." }
+   ]
+  },
+  {
+   "id": "relm5_09",
+   "hero_a": "npc_bela_iv",
+   "hero_b": "npc_kadan",
+   "type": "rival",
+   "directed": false,
+   "strength": 2,
+   "reason": "모히 이후 카단이 달아나는 벨러 4세를 쫓아 크로아티아 해안까지 내려갔으나 왕을 붙잡지 못했다.",
+   "encounter_lines": [
+    { "speaker_hero": "npc_kadan", "text": "바다 끝까지 도망쳐 놓고 이름은 왕이라 하오?" },
+    { "speaker_hero": "npc_bela_iv", "text": "살아 있는 왕이 죽은 왕보다 쓸모가 많소. 당신도 곧 알게 될 거요." }
+   ]
+  },
+  {
+   "id": "relm5_10",
+   "hero_a": "npc_mauronte",
+   "hero_b": "charles_martel",
+   "type": "rival",
+   "directed": false,
+   "strength": 3,
+   "reason": "카를 마르텔이 730년대 후반 프로방스로 원정해 아비뇽 등을 점령했고, 마우론티우스는 그에 맞서 아랍 측과 손을 잡은 것으로 전해진다.",
+   "encounter_lines": [
+    { "speaker_hero": "charles_martel", "text": "프로방스는 누구의 땅이오, 마우론티우스?" },
+    { "speaker_hero": "npc_mauronte", "text": "아직은 누구도 이름을 붙이지 못한 땅이오, 궁재. 여기 사는 이들은 알고 있소." }
+   ]
+  }
+ ]
+}

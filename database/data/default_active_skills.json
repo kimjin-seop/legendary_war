@@ -1,0 +1,19 @@
+{
+ "_note": "병종별 기본 액티브 스킬(사용자 지시 2026-11-03: 어느 장수라도 기본적으로 액티브 하나). 영웅에 enabled 액티브(hero_skills/heroes.skill_id)가 없을 때 ArmyBuilder 가 유닛 병종(unit.type)에 맞는 1개를 전투 생성 시 주입한다(시드·DB 변경 없음, 새 영웅 자동 적용). 수치는 가정 시작값(임밸런 측정 대상), params 는 ActiveParams 스키마로 clamp. 적용 범위: 플레이어/아군 NPC(a측)는 config game.default_active_skills(기본 true), b측(방 상대·시즌 방어 AI)은 game.enemy_default_skills(기본 false). 스테이지 적은 영웅 행이 없어 해당 없음.",
+ "version": 1,
+ "by_unit_type": {
+  "sword":   {"code": "default_sword",   "name": "강타",       "template": "T_ACTIVE_STRIKE", "params": {"power_pct": 115, "cooldown": 3, "uses": 2}},
+  "spear":   {"code": "default_spear",   "name": "방진 구축",   "template": "T_ACTIVE_BUFF",   "params": {"stat": "def", "amount": 15, "duration": 1, "target_mode": "self_area", "radius": 2, "cooldown": 4, "uses": 2}},
+  "cavalry": {"code": "default_cavalry", "name": "질풍 돌격",   "template": "T_ACTIVE_SURGE",  "params": {"move_bonus": 2, "attack_pct": 105, "min_turn": 2, "leap": false, "cooldown": 4, "uses": 2}},
+  "archer":  {"code": "default_archer",  "name": "일제 사격",   "template": "T_ACTIVE_AOE",    "params": {"power_pct": 100, "radius": 1, "splash_pct": 60, "friendly_fire": false, "cooldown": 4, "uses": 1}},
+  "mage":    {"code": "default_mage",    "name": "마력 폭발",   "template": "T_ACTIVE_AOE",    "params": {"power_pct": 100, "radius": 1, "splash_pct": 60, "friendly_fire": false, "cooldown": 4, "uses": 1}},
+  "healer":  {"code": "default_healer",  "name": "응급 치료",   "template": "T_ACTIVE_HEAL",   "params": {"heal_flat": 14, "heal_pct": 20, "radius": 0, "area_pct": 50, "cast_range": 2, "cooldown": 4, "uses": 2}},
+  "naval":   {"code": "default_naval",   "name": "함포 사격",   "template": "T_ACTIVE_STRIKE", "params": {"power_pct": 120, "cooldown": 3, "uses": 2}},
+  "flyer":   {"code": "default_flyer",   "name": "급강하",     "template": "T_ACTIVE_STRIKE", "params": {"power_pct": 115, "cooldown": 3, "uses": 2}},
+  "gunner":  {"code": "default_gunner",  "name": "철포 일제 사격", "template": "T_ACTIVE_STRIKE", "params": {"power_pct": 120, "cooldown": 3, "uses": 2}}
+ },
+ "by_rarity_note": "영웅 등급별 기본 액티브 params 덮어쓰기(임밸런 v4 skill_value_ceiling_by_rarity SURGE 행). 표에 없는 병종·등급은 by_unit_type 그대로(= A 수준).",
+ "by_rarity": {
+  "cavalry": {"C": {"move_bonus": 1, "attack_pct": 100}, "B": {"move_bonus": 1, "attack_pct": 105}, "S": {"move_bonus": 2, "attack_pct": 110}}
+ }
+}

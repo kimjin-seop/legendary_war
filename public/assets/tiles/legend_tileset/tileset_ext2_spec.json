@@ -1,0 +1,1014 @@
+{
+ "version": 1,
+ "date": "2026-11-01",
+ "key": "tileset.unity32_ext2",
+ "principle": "Unity 타일맵 가이드 방식: 32x32 격자·여백 0·PPU 32·Point 필터, 사람이 골라 칠하는 개별 타일. 오토타일/런타임 이웃 규칙 없음. 회전 90도 단위만.",
+ "sheet": {
+  "file": "/assets/tiles/legend_tileset/tileset_ext2.png",
+  "size": [
+   320,
+   192
+  ],
+  "cols": 10,
+  "rows": 6,
+  "count": 54,
+  "index_range": [
+   110,
+   163
+  ],
+  "frame_of_global": "frame = 전역 인덱스 - 110",
+  "x2": "/assets/tiles/legend_tileset/tileset_ext2_x2.png",
+  "empty_frames": [
+   164,
+   165,
+   166,
+   167,
+   168,
+   169
+  ],
+  "why_start_110": "기존 tileset_ext.png(320x256)의 프레임 74~79(전역 104~109)는 빈 칸이지만 텍스처에 이미 존재 — 겹침 방지로 110부터",
+  "source": "generated(procedural) — 이미지 생성 모델 호출 0회. 원본 TileMap.png 0·1·2·3·5번 픽셀/팔레트 파생 + 신규 1색 ford_hi(80e8ff)"
+ },
+ "conventions": {
+  "pair_rule": "A→B 세트(grass_ford, ford_deep, grass_sand, sand_ford)는 항상 B 칸(낮은/젖은 쪽)에 칠한다. 이름 방향 = A 가 있는 쪽. 기존 shore_* 와 같은 규칙.",
+  "inner_outer": "_inner = A 가 두 변(예: NW_inner = N·W 쪽이 A). _outer = A 가 대각 꼭짓점에만(예: NW_outer = 북서 대각만 A). 기존 shore_NW_inner/outer 와 동일 의미.",
+  "chain": "풀 → (grass_ford) → 여울 → (ford_deep) → 깊은 물(0). 풀 → (grass_sand) → 모래 → (sand_ford) → 여울. 각 B 칸의 먼 쪽 가장자리는 B 바탕 타일과 픽셀 동일 → 단계를 이어 붙일 수 있음.",
+  "water_ramp": "수심 3단(무늬색/바탕색): 여울 80e8ff/00d4ff, 얕은 물(원본 1번) 00d4ff/0094ff, 깊은 물(원본 0번) 0094ff/005aff. 무늬 위치는 원본 0·1번과 같아 칸 경계에서 이어짐.",
+  "ford_vs_water_light": "여울(ford_a/b)은 원본 1번(water_light, s)보다 한 단계 밝음. 1번과 여울을 직접 맞대면 경계가 생김 — ford_deep 의 중간 띠가 1번 색이므로 깊은 물로 갈 때 사용.",
+  "bridge_end": "도로 모래(2) 칸에 칠함. 방향 = 판자 다리(5)가 있는 쪽. 가로 다리(E/W)는 판자 5번을 rot 1(90도)로 둔 것과 맞물림.",
+  "unsupported": "A 가 마주보는 두 변(N·S 또는 E·W), 3변 이상, 직선+반대편 대각, 한 칸에 서로 다른 A 두 종(풀과 모래 동시) 조합 타일은 없음 — 지도에서 피하거나 추가 제작 요청. 또한 B 칸의 대각 이웃에 A 보다 한 단계 위 지형이 닿으면(예: 깊은 물 칸 대각에 풀) 모서리 3~6px 이 어긋남 → 깊은 물은 대각 포함 8방향을 여울로 감쌀 것."
+ },
+ "tiles": [
+  {
+   "index": 110,
+   "frame": 0,
+   "row": 0,
+   "col": 0,
+   "name": "grass_ford_N",
+   "use": "풀→여울 직선: 여울(ford) 칸에 칠함, 풀(3)이(가) N쪽",
+   "paint_on": "여울(ford) 칸",
+   "toward": "N",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽: 풀(3)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 111,
+   "frame": 1,
+   "row": 0,
+   "col": 1,
+   "name": "grass_ford_E",
+   "use": "풀→여울 직선: 여울(ford) 칸에 칠함, 풀(3)이(가) E쪽",
+   "paint_on": "여울(ford) 칸",
+   "toward": "E",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "E쪽: 풀(3)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 112,
+   "frame": 2,
+   "row": 0,
+   "col": 2,
+   "name": "grass_ford_S",
+   "use": "풀→여울 직선: 여울(ford) 칸에 칠함, 풀(3)이(가) S쪽",
+   "paint_on": "여울(ford) 칸",
+   "toward": "S",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽: 풀(3)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 113,
+   "frame": 3,
+   "row": 0,
+   "col": 3,
+   "name": "grass_ford_W",
+   "use": "풀→여울 직선: 여울(ford) 칸에 칠함, 풀(3)이(가) W쪽",
+   "paint_on": "여울(ford) 칸",
+   "toward": "W",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "W쪽: 풀(3)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 114,
+   "frame": 4,
+   "row": 0,
+   "col": 4,
+   "name": "grass_ford_NW_inner",
+   "use": "풀→여울 안쪽 모서리: 여울(ford) 칸, 풀(3)이(가) N·W 두 변",
+   "paint_on": "여울(ford) 칸",
+   "toward": "NW",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N·W쪽: 풀(3)",
+    "N쪽 줄 이웃은 grass_ford_N, W쪽 줄 이웃은 grass_ford_W"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 115,
+   "frame": 5,
+   "row": 0,
+   "col": 5,
+   "name": "grass_ford_NE_inner",
+   "use": "풀→여울 안쪽 모서리: 여울(ford) 칸, 풀(3)이(가) N·E 두 변",
+   "paint_on": "여울(ford) 칸",
+   "toward": "NE",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N·E쪽: 풀(3)",
+    "N쪽 줄 이웃은 grass_ford_N, E쪽 줄 이웃은 grass_ford_E"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 116,
+   "frame": 6,
+   "row": 0,
+   "col": 6,
+   "name": "grass_ford_SE_inner",
+   "use": "풀→여울 안쪽 모서리: 여울(ford) 칸, 풀(3)이(가) S·E 두 변",
+   "paint_on": "여울(ford) 칸",
+   "toward": "SE",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S·E쪽: 풀(3)",
+    "S쪽 줄 이웃은 grass_ford_S, E쪽 줄 이웃은 grass_ford_E"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 117,
+   "frame": 7,
+   "row": 0,
+   "col": 7,
+   "name": "grass_ford_SW_inner",
+   "use": "풀→여울 안쪽 모서리: 여울(ford) 칸, 풀(3)이(가) S·W 두 변",
+   "paint_on": "여울(ford) 칸",
+   "toward": "SW",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S·W쪽: 풀(3)",
+    "S쪽 줄 이웃은 grass_ford_S, W쪽 줄 이웃은 grass_ford_W"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 118,
+   "frame": 8,
+   "row": 0,
+   "col": 8,
+   "name": "grass_ford_NW_outer",
+   "use": "풀→여울 바깥 모서리: 여울(ford) 칸, 풀(3)은(는) NW 대각 꼭짓점에만",
+   "paint_on": "여울(ford) 칸",
+   "toward": "NW",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽 이웃: grass_ford_W",
+    "W쪽 이웃: grass_ford_N"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 119,
+   "frame": 9,
+   "row": 0,
+   "col": 9,
+   "name": "grass_ford_NE_outer",
+   "use": "풀→여울 바깥 모서리: 여울(ford) 칸, 풀(3)은(는) NE 대각 꼭짓점에만",
+   "paint_on": "여울(ford) 칸",
+   "toward": "NE",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽 이웃: grass_ford_E",
+    "E쪽 이웃: grass_ford_N"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 120,
+   "frame": 10,
+   "row": 1,
+   "col": 0,
+   "name": "grass_ford_SE_outer",
+   "use": "풀→여울 바깥 모서리: 여울(ford) 칸, 풀(3)은(는) SE 대각 꼭짓점에만",
+   "paint_on": "여울(ford) 칸",
+   "toward": "SE",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽 이웃: grass_ford_E",
+    "E쪽 이웃: grass_ford_S"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 121,
+   "frame": 11,
+   "row": 1,
+   "col": 1,
+   "name": "grass_ford_SW_outer",
+   "use": "풀→여울 바깥 모서리: 여울(ford) 칸, 풀(3)은(는) SW 대각 꼭짓점에만",
+   "paint_on": "여울(ford) 칸",
+   "toward": "SW",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽 이웃: grass_ford_W",
+    "W쪽 이웃: grass_ford_S"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 122,
+   "frame": 12,
+   "row": 1,
+   "col": 2,
+   "name": "ford_deep_N",
+   "use": "여울→심수 직선: 깊은 물(0) 칸에 칠함, 여울(ford_a/b)이(가) N쪽",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "N",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽: 여울(ford_a/b)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 123,
+   "frame": 13,
+   "row": 1,
+   "col": 3,
+   "name": "ford_deep_E",
+   "use": "여울→심수 직선: 깊은 물(0) 칸에 칠함, 여울(ford_a/b)이(가) E쪽",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "E",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "E쪽: 여울(ford_a/b)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 124,
+   "frame": 14,
+   "row": 1,
+   "col": 4,
+   "name": "ford_deep_S",
+   "use": "여울→심수 직선: 깊은 물(0) 칸에 칠함, 여울(ford_a/b)이(가) S쪽",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "S",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽: 여울(ford_a/b)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 125,
+   "frame": 15,
+   "row": 1,
+   "col": 5,
+   "name": "ford_deep_W",
+   "use": "여울→심수 직선: 깊은 물(0) 칸에 칠함, 여울(ford_a/b)이(가) W쪽",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "W",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "W쪽: 여울(ford_a/b)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 126,
+   "frame": 16,
+   "row": 1,
+   "col": 6,
+   "name": "ford_deep_NW_inner",
+   "use": "여울→심수 안쪽 모서리: 깊은 물(0) 칸, 여울(ford_a/b)이(가) N·W 두 변",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "NW",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N·W쪽: 여울(ford_a/b)",
+    "N쪽 줄 이웃은 ford_deep_N, W쪽 줄 이웃은 ford_deep_W"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 127,
+   "frame": 17,
+   "row": 1,
+   "col": 7,
+   "name": "ford_deep_NE_inner",
+   "use": "여울→심수 안쪽 모서리: 깊은 물(0) 칸, 여울(ford_a/b)이(가) N·E 두 변",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "NE",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N·E쪽: 여울(ford_a/b)",
+    "N쪽 줄 이웃은 ford_deep_N, E쪽 줄 이웃은 ford_deep_E"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 128,
+   "frame": 18,
+   "row": 1,
+   "col": 8,
+   "name": "ford_deep_SE_inner",
+   "use": "여울→심수 안쪽 모서리: 깊은 물(0) 칸, 여울(ford_a/b)이(가) S·E 두 변",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "SE",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S·E쪽: 여울(ford_a/b)",
+    "S쪽 줄 이웃은 ford_deep_S, E쪽 줄 이웃은 ford_deep_E"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 129,
+   "frame": 19,
+   "row": 1,
+   "col": 9,
+   "name": "ford_deep_SW_inner",
+   "use": "여울→심수 안쪽 모서리: 깊은 물(0) 칸, 여울(ford_a/b)이(가) S·W 두 변",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "SW",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S·W쪽: 여울(ford_a/b)",
+    "S쪽 줄 이웃은 ford_deep_S, W쪽 줄 이웃은 ford_deep_W"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 130,
+   "frame": 20,
+   "row": 2,
+   "col": 0,
+   "name": "ford_deep_NW_outer",
+   "use": "여울→심수 바깥 모서리: 깊은 물(0) 칸, 여울(ford_a/b)은(는) NW 대각 꼭짓점에만",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "NW",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽 이웃: ford_deep_W",
+    "W쪽 이웃: ford_deep_N"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 131,
+   "frame": 21,
+   "row": 2,
+   "col": 1,
+   "name": "ford_deep_NE_outer",
+   "use": "여울→심수 바깥 모서리: 깊은 물(0) 칸, 여울(ford_a/b)은(는) NE 대각 꼭짓점에만",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "NE",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽 이웃: ford_deep_E",
+    "E쪽 이웃: ford_deep_N"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 132,
+   "frame": 22,
+   "row": 2,
+   "col": 2,
+   "name": "ford_deep_SE_outer",
+   "use": "여울→심수 바깥 모서리: 깊은 물(0) 칸, 여울(ford_a/b)은(는) SE 대각 꼭짓점에만",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "SE",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽 이웃: ford_deep_E",
+    "E쪽 이웃: ford_deep_S"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 133,
+   "frame": 23,
+   "row": 2,
+   "col": 3,
+   "name": "ford_deep_SW_outer",
+   "use": "여울→심수 바깥 모서리: 깊은 물(0) 칸, 여울(ford_a/b)은(는) SW 대각 꼭짓점에만",
+   "paint_on": "깊은 물(0) 칸",
+   "toward": "SW",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽 이웃: ford_deep_W",
+    "W쪽 이웃: ford_deep_S"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 134,
+   "frame": 24,
+   "row": 2,
+   "col": 4,
+   "name": "grass_sand_N",
+   "use": "풀→모래 직선: 모래(2) 칸에 칠함, 풀(3)이(가) N쪽",
+   "paint_on": "모래(2) 칸",
+   "toward": "N",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽: 풀(3)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 135,
+   "frame": 25,
+   "row": 2,
+   "col": 5,
+   "name": "grass_sand_E",
+   "use": "풀→모래 직선: 모래(2) 칸에 칠함, 풀(3)이(가) E쪽",
+   "paint_on": "모래(2) 칸",
+   "toward": "E",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "E쪽: 풀(3)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 136,
+   "frame": 26,
+   "row": 2,
+   "col": 6,
+   "name": "grass_sand_S",
+   "use": "풀→모래 직선: 모래(2) 칸에 칠함, 풀(3)이(가) S쪽",
+   "paint_on": "모래(2) 칸",
+   "toward": "S",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽: 풀(3)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 137,
+   "frame": 27,
+   "row": 2,
+   "col": 7,
+   "name": "grass_sand_W",
+   "use": "풀→모래 직선: 모래(2) 칸에 칠함, 풀(3)이(가) W쪽",
+   "paint_on": "모래(2) 칸",
+   "toward": "W",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "W쪽: 풀(3)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 138,
+   "frame": 28,
+   "row": 2,
+   "col": 8,
+   "name": "grass_sand_NW_inner",
+   "use": "풀→모래 안쪽 모서리: 모래(2) 칸, 풀(3)이(가) N·W 두 변",
+   "paint_on": "모래(2) 칸",
+   "toward": "NW",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "N·W쪽: 풀(3)",
+    "N쪽 줄 이웃은 grass_sand_N, W쪽 줄 이웃은 grass_sand_W"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 139,
+   "frame": 29,
+   "row": 2,
+   "col": 9,
+   "name": "grass_sand_NE_inner",
+   "use": "풀→모래 안쪽 모서리: 모래(2) 칸, 풀(3)이(가) N·E 두 변",
+   "paint_on": "모래(2) 칸",
+   "toward": "NE",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "N·E쪽: 풀(3)",
+    "N쪽 줄 이웃은 grass_sand_N, E쪽 줄 이웃은 grass_sand_E"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 140,
+   "frame": 30,
+   "row": 3,
+   "col": 0,
+   "name": "grass_sand_SE_inner",
+   "use": "풀→모래 안쪽 모서리: 모래(2) 칸, 풀(3)이(가) S·E 두 변",
+   "paint_on": "모래(2) 칸",
+   "toward": "SE",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "S·E쪽: 풀(3)",
+    "S쪽 줄 이웃은 grass_sand_S, E쪽 줄 이웃은 grass_sand_E"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 141,
+   "frame": 31,
+   "row": 3,
+   "col": 1,
+   "name": "grass_sand_SW_inner",
+   "use": "풀→모래 안쪽 모서리: 모래(2) 칸, 풀(3)이(가) S·W 두 변",
+   "paint_on": "모래(2) 칸",
+   "toward": "SW",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "S·W쪽: 풀(3)",
+    "S쪽 줄 이웃은 grass_sand_S, W쪽 줄 이웃은 grass_sand_W"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 142,
+   "frame": 32,
+   "row": 3,
+   "col": 2,
+   "name": "grass_sand_NW_outer",
+   "use": "풀→모래 바깥 모서리: 모래(2) 칸, 풀(3)은(는) NW 대각 꼭짓점에만",
+   "paint_on": "모래(2) 칸",
+   "toward": "NW",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽 이웃: grass_sand_W",
+    "W쪽 이웃: grass_sand_N"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 143,
+   "frame": 33,
+   "row": 3,
+   "col": 3,
+   "name": "grass_sand_NE_outer",
+   "use": "풀→모래 바깥 모서리: 모래(2) 칸, 풀(3)은(는) NE 대각 꼭짓점에만",
+   "paint_on": "모래(2) 칸",
+   "toward": "NE",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽 이웃: grass_sand_E",
+    "E쪽 이웃: grass_sand_N"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 144,
+   "frame": 34,
+   "row": 3,
+   "col": 4,
+   "name": "grass_sand_SE_outer",
+   "use": "풀→모래 바깥 모서리: 모래(2) 칸, 풀(3)은(는) SE 대각 꼭짓점에만",
+   "paint_on": "모래(2) 칸",
+   "toward": "SE",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽 이웃: grass_sand_E",
+    "E쪽 이웃: grass_sand_S"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 145,
+   "frame": 35,
+   "row": 3,
+   "col": 5,
+   "name": "grass_sand_SW_outer",
+   "use": "풀→모래 바깥 모서리: 모래(2) 칸, 풀(3)은(는) SW 대각 꼭짓점에만",
+   "paint_on": "모래(2) 칸",
+   "toward": "SW",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽 이웃: grass_sand_W",
+    "W쪽 이웃: grass_sand_S"
+   ],
+   "alpha": false,
+   "source": "generated(procedural, land_set 2026-11-01 교체)"
+  },
+  {
+   "index": 146,
+   "frame": 36,
+   "row": 3,
+   "col": 6,
+   "name": "sand_ford_N",
+   "use": "모래→여울(해변) 직선: 여울(ford) 칸에 칠함, 모래(2)이(가) N쪽",
+   "paint_on": "여울(ford) 칸",
+   "toward": "N",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽: 모래(2)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 147,
+   "frame": 37,
+   "row": 3,
+   "col": 7,
+   "name": "sand_ford_E",
+   "use": "모래→여울(해변) 직선: 여울(ford) 칸에 칠함, 모래(2)이(가) E쪽",
+   "paint_on": "여울(ford) 칸",
+   "toward": "E",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "E쪽: 모래(2)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 148,
+   "frame": 38,
+   "row": 3,
+   "col": 8,
+   "name": "sand_ford_S",
+   "use": "모래→여울(해변) 직선: 여울(ford) 칸에 칠함, 모래(2)이(가) S쪽",
+   "paint_on": "여울(ford) 칸",
+   "toward": "S",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽: 모래(2)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 149,
+   "frame": 39,
+   "row": 3,
+   "col": 9,
+   "name": "sand_ford_W",
+   "use": "모래→여울(해변) 직선: 여울(ford) 칸에 칠함, 모래(2)이(가) W쪽",
+   "paint_on": "여울(ford) 칸",
+   "toward": "W",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "W쪽: 모래(2)",
+    "반대쪽: 같은 칸 종류(내부)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 150,
+   "frame": 40,
+   "row": 4,
+   "col": 0,
+   "name": "sand_ford_NW_inner",
+   "use": "모래→여울(해변) 안쪽 모서리: 여울(ford) 칸, 모래(2)이(가) N·W 두 변",
+   "paint_on": "여울(ford) 칸",
+   "toward": "NW",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N·W쪽: 모래(2)",
+    "N쪽 줄 이웃은 sand_ford_N, W쪽 줄 이웃은 sand_ford_W"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 151,
+   "frame": 41,
+   "row": 4,
+   "col": 1,
+   "name": "sand_ford_NE_inner",
+   "use": "모래→여울(해변) 안쪽 모서리: 여울(ford) 칸, 모래(2)이(가) N·E 두 변",
+   "paint_on": "여울(ford) 칸",
+   "toward": "NE",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N·E쪽: 모래(2)",
+    "N쪽 줄 이웃은 sand_ford_N, E쪽 줄 이웃은 sand_ford_E"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 152,
+   "frame": 42,
+   "row": 4,
+   "col": 2,
+   "name": "sand_ford_SE_inner",
+   "use": "모래→여울(해변) 안쪽 모서리: 여울(ford) 칸, 모래(2)이(가) S·E 두 변",
+   "paint_on": "여울(ford) 칸",
+   "toward": "SE",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S·E쪽: 모래(2)",
+    "S쪽 줄 이웃은 sand_ford_S, E쪽 줄 이웃은 sand_ford_E"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 153,
+   "frame": 43,
+   "row": 4,
+   "col": 3,
+   "name": "sand_ford_SW_inner",
+   "use": "모래→여울(해변) 안쪽 모서리: 여울(ford) 칸, 모래(2)이(가) S·W 두 변",
+   "paint_on": "여울(ford) 칸",
+   "toward": "SW",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S·W쪽: 모래(2)",
+    "S쪽 줄 이웃은 sand_ford_S, W쪽 줄 이웃은 sand_ford_W"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 154,
+   "frame": 44,
+   "row": 4,
+   "col": 4,
+   "name": "sand_ford_NW_outer",
+   "use": "모래→여울(해변) 바깥 모서리: 여울(ford) 칸, 모래(2)은(는) NW 대각 꼭짓점에만",
+   "paint_on": "여울(ford) 칸",
+   "toward": "NW",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽 이웃: sand_ford_W",
+    "W쪽 이웃: sand_ford_N"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 155,
+   "frame": 45,
+   "row": 4,
+   "col": 5,
+   "name": "sand_ford_NE_outer",
+   "use": "모래→여울(해변) 바깥 모서리: 여울(ford) 칸, 모래(2)은(는) NE 대각 꼭짓점에만",
+   "paint_on": "여울(ford) 칸",
+   "toward": "NE",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽 이웃: sand_ford_E",
+    "E쪽 이웃: sand_ford_N"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 156,
+   "frame": 46,
+   "row": 4,
+   "col": 6,
+   "name": "sand_ford_SE_outer",
+   "use": "모래→여울(해변) 바깥 모서리: 여울(ford) 칸, 모래(2)은(는) SE 대각 꼭짓점에만",
+   "paint_on": "여울(ford) 칸",
+   "toward": "SE",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽 이웃: sand_ford_E",
+    "E쪽 이웃: sand_ford_S"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 157,
+   "frame": 47,
+   "row": 4,
+   "col": 7,
+   "name": "sand_ford_SW_outer",
+   "use": "모래→여울(해변) 바깥 모서리: 여울(ford) 칸, 모래(2)은(는) SW 대각 꼭짓점에만",
+   "paint_on": "여울(ford) 칸",
+   "toward": "SW",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽 이웃: sand_ford_W",
+    "W쪽 이웃: sand_ford_S"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 158,
+   "frame": 48,
+   "row": 4,
+   "col": 8,
+   "name": "ford_a",
+   "use": "여울 내부(잠긴 강돌) — 반복 바탕",
+   "paint_on": "여울 칸",
+   "toward": "-",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "ford_b 와 섞어 반복 완화"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 159,
+   "frame": 49,
+   "row": 4,
+   "col": 9,
+   "name": "ford_b",
+   "use": "여울 내부 변형(강돌+물살 흰 줄)",
+   "paint_on": "여울 칸",
+   "toward": "-",
+   "code": "s(ford)",
+   "collider": "None",
+   "place_next_to": [
+    "ford_a"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 160,
+   "frame": 50,
+   "row": 5,
+   "col": 0,
+   "name": "bridge_end_N",
+   "use": "다리 끝(돌 문턱): 도로 모래 칸에 칠함, 판자 다리(5)가 N쪽으로 이어짐",
+   "paint_on": "도로(2) 칸",
+   "toward": "N",
+   "code": "r",
+   "collider": "None",
+   "place_next_to": [
+    "N쪽: 판자(5, 가로 다리는 rot 1)",
+    "반대쪽: 도로(2)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 161,
+   "frame": 51,
+   "row": 5,
+   "col": 1,
+   "name": "bridge_end_E",
+   "use": "다리 끝(돌 문턱): 도로 모래 칸에 칠함, 판자 다리(5)가 E쪽으로 이어짐",
+   "paint_on": "도로(2) 칸",
+   "toward": "E",
+   "code": "r",
+   "collider": "None",
+   "place_next_to": [
+    "E쪽: 판자(5, 가로 다리는 rot 1)",
+    "반대쪽: 도로(2)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 162,
+   "frame": 52,
+   "row": 5,
+   "col": 2,
+   "name": "bridge_end_S",
+   "use": "다리 끝(돌 문턱): 도로 모래 칸에 칠함, 판자 다리(5)가 S쪽으로 이어짐",
+   "paint_on": "도로(2) 칸",
+   "toward": "S",
+   "code": "r",
+   "collider": "None",
+   "place_next_to": [
+    "S쪽: 판자(5, 가로 다리는 rot 1)",
+    "반대쪽: 도로(2)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  },
+  {
+   "index": 163,
+   "frame": 53,
+   "row": 5,
+   "col": 3,
+   "name": "bridge_end_W",
+   "use": "다리 끝(돌 문턱): 도로 모래 칸에 칠함, 판자 다리(5)가 W쪽으로 이어짐",
+   "paint_on": "도로(2) 칸",
+   "toward": "W",
+   "code": "r",
+   "collider": "None",
+   "place_next_to": [
+    "W쪽: 판자(5, 가로 다리는 rot 1)",
+    "반대쪽: 도로(2)"
+   ],
+   "alpha": false,
+   "source": "generated"
+  }
+ ],
+ "land_set_note": "2026-11-01 안아트: 134~145 grass_sand_* 를 같은 의미로 재제작(월드 필드 방식, 테두리 1px = 원본 2/3 픽셀). 백업 *.bak-tile-20261101"
+}

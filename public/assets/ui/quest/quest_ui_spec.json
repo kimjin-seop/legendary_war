@@ -1,0 +1,25 @@
+{
+ "_note": "퀘스트 화면 UI 스펙(안아트 2026-11-04, 사용자 시안 images/64.png 분석). 크기는 1x 기준(@2x 는 2배). 색은 design_spec 톤(남색 칠기 + 앤티크 금). 텍스트는 모두 FE 렌더",
+ "layout": {"card_columns": 2, "card_size_1x": [440, 104], "card_gap": [16, 12], "card_padding": [12, 10], "thumb_1x": [160, 96], "thumb_left_inset": 8, "status_button_area_w": 150, "notice_line_h": 28},
+ "components": {
+  "top_tab": {"keys": {"on": "atlas.uiskin#tab.on", "off": "atlas.uiskin#tab.off"}, "slice": "3h", "h_1x": 56, "icon_1x": 32, "icons": {"quest": "atlas.uiskin#ico.quest", "ranking": "ui.battle.ico.crown", "shop": "atlas.uiskin#ico.shop", "exchange": "atlas.uiskin#ico.ticket"}, "label": {"size": 22, "weight": 700, "color_on": "#FFE7A3", "color_off": "#C9B98A"}},
+  "sub_tab_pill": {"keys": {"on": "atlas.uiskin#btn.primary.sm.normal", "off": "atlas.uiskin#btn.secondary.sm.normal", "pressed": "atlas.uiskin#btn.secondary.sm.pressed"}, "slice": "3h", "h_1x": 40, "w_1x": 180, "label": {"size": 18, "color_on": "#2A1A06", "color_off": "#E6D8B0"}, "count_suffix": "메인(3) 처럼 수령 가능 수를 괄호로"},
+  "notice": {"icon": "atlas.uiskin#ico.info", "icon_1x": 20, "text": {"size": 15, "color": "#C9C3B0"}},
+  "card": {"normal": "ui.quest.card.normal", "claimable": "ui.quest.card.claimable", "done": "ui.quest.card.done", "slice": "9", "note": "claimable 은 바깥 글로우 8px@2x(4px@1x) 포함 — 카드 영역보다 사방 4px 크게 배치"},
+  "thumb": {"map": "assets/ui/quest/quest_thumb_map.json", "key_prefix": "ui.quest.thumb.", "mask": "모서리 4px 둥글게 또는 카드 프레임 안쪽", "done_tint": "밝기 75%"},
+  "title": {"size": 20, "weight": 700, "color": "#F4E6C0"},
+  "desc": {"size": 15, "color": "#B8B2A2"},
+  "progress_bar": {"track": "atlas.uiskin#bar.track", "fill": "atlas.uiskin#bar.fill.gold", "slice": "3h", "w_1x": 280, "h_1x": 18, "label": {"text": "진행 {p}/{t}", "size": 13, "weight": 700, "color": "#FFFFFF", "stroke": "#2A1A06 2px"}, "empty_fill": "채움 0이면 fill 생략"},
+  "reward": {"gold_icon": "atlas.uiskin_extra#ico.gold", "xp_icon": "result.ico.exp.sm", "icon_1x": 18, "text": {"size": 15, "color_gold": "#F0C65A", "color_xp": "#9FD3FF"}, "format": "골드 {n} · XP {n}"},
+  "status_button": {
+   "done": {"bg": "atlas.uiskin#btn.secondary.sm.disabled", "icon": "atlas.uiskin#ico.check(채도 0·밝기 80%)", "label": "수령 완료", "color": "#BDB6A2"},
+   "progress": {"bg": "atlas.uiskin#btn.secondary.sm.normal", "label": "진행 중", "suffix_icon": "› (FE 텍스트, 또는 ui.battle.ico.collapse 90도 회전)", "color": "#E6D8B0", "action": "해당 스테이지로 이동"},
+   "claim": {"bg": "atlas.uiskin#btn.primary.normal", "glow": "atlas.uiskin#btn.glow(뒤에, 1.2초 맥동 알파 0.5↔1)", "icon": "result.ico.chest.sm", "label": "수령", "color": "#2A1A06", "size_1x": [150, 52]}
+  },
+  "banner": {"key": "ui.quest.banner", "anchor": "top-right", "size_1x": [550, 165], "cta": {"bg": "atlas.uiskin#btn.primary.normal", "label": "회원 가입", "size_1x": [190, 52]}},
+  "badge": {"key": "atlas.uiskin#badge.dot", "note": "좌측 메뉴 '성장·보상' 수령 가능 수"},
+  "logo": {"integrated": "ui.logo.topbar", "emblem_only": "ui.logo.emblem", "plaque_text_free": "ui.logo.plaque", "topbar_h_1x": 72, "text_render": {"font": "굵은 세리프풍 한글", "fill": "세로 그라데이션 #F7D77A → #C08A2E", "stroke": "#3A2508 2px", "shadow": "0 2px 0 #00000080"}}
+ },
+ "contrast": {"title_on_card": "#F4E6C0 on #16203A ≈ 12.6:1", "desc_on_card": "#B8B2A2 on #16203A ≈ 7.6:1", "claim_label_on_gold": "#2A1A06 on #E9B649 ≈ 9.0:1", "bar_label": "흰색 + 2px 짙은 외곽선(채움·트랙 어느 쪽에서도 4.5:1 이상)"},
+ "states_note": "카드 상태 = done(수령 완료) / progress(진행 중) / claimable(수령 가능). 정렬 권장: claimable → progress → done"
+}

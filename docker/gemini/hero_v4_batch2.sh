@@ -1,0 +1,16 @@
+#!/bin/sh
+# v4 배치2: 재검증 실패분(초상화 1:1 불일치 또는 9칸 소품 누락) 재생성. 실행(프로젝트 루트): sh docker/gemini/hero_v4_batch2.sh
+G="sh docker/gemini/hero_v4_gen.sh"
+W="9칸 모두 같은 무기를 같은 손에 같은 각도로(측면 가운데 칸·뒷모습 걷기 칸 포함, 빠짐 없이)."
+$G gwanggaeto --force "--note=v4b2: 구세대 시트 금 투구·남색 갑옷 — 초상화 은 투구·금 날개 장식·남색 금새 어깨와 불일치" "--extra=투구는 반드시 은빛 강철(금색 투구 금지), 꼭대기 금 날개 장식만 금색. $W"
+$G frederick_great --force "--note=v4b2: 초상화에 없는 삼각모·붉은 소매" "--extra=모자를 쓰지 않은 맨머리, 회색 머리 뒤 검은 리본 꽁지머리가 측면·뒷모습에서 보임. $W"
+$G wang_geon --force "--note=v4b2: 초상화 검은 관모 vs 시트 남색 투구" "--extra=머리에는 투구가 아니라 검은 비단 관모(위가 둥글고 높은 검은 모자, 아래 금 테 띠). $W"
+$G darius_i --force "--note=v4b2: 초상화 금 홀 vs 시트 창" "--extra=손에 든 것은 금 홀(끝에 둥근 금 구슬이 달린 가는 금 막대) 하나뿐, 창날 없음. $W"
+$G napoleon --force "--note=v4b2: 초상화에 없는 이각모" "--extra=모자 없는 맨머리(짧은 갈색 머리). 녹색 코트·흰 조끼·흰 바지·검은 장화·남색 망토. $W"
+$G richard_i --force "--note=v4b2: 후면 walk2 칼 누락" "--extra=곧은 장검은 오른손에 들고 9칸 모두 칼날이 보인다(뒷모습 3칸 모두 몸 오른쪽에 같은 각도). $W"
+$G saladin --force "--note=v4b2: 후면 walk2 칼 누락" "--extra=굽은 칼은 오른손에 칼날을 아래로 들고 9칸 모두 보인다(뒷모습 3칸 모두 같은 위치). $W"
+$G scipio_africanus --force "--note=v4b2: 후면 idle·walk2 칼 누락" "--extra=글라디우스는 오른손에 들고 9칸 모두 칼날이 보인다(뒷모습 3칸 모두 몸 오른쪽 아래에 같은 각도). $W"
+$G xiang_yu --force "--note=v4b2: 측면 walk2 극 누락" "--extra=극(긴 장병기)은 9칸 모두 세로로 세워 같은 손에(측면 3칸 모두 몸 앞쪽에 창대가 위아래로 길게 보임). $W"
+$G cao_cao --force "--note=v4b2: 측면 idle 검 누락" "--extra=곧은 검은 오른손에 세워 들고 9칸 모두 보인다(측면 3칸 모두 기수 앞쪽에 검이 세로로). $W"
+$G han_xin --force "--note=v4b2: 측면 idle 검 누락" "--extra=곧은 검은 오른손에 세워 들고 9칸 모두 보인다(측면 3칸 모두 기수 앞쪽에 검이 세로로). $W"
+$G taizong_tang --force "--note=v4b2: 측면 idle 정면 3/4 각도" "--extra=2행 세 칸 모두 완전한 왼쪽 옆모습(가운데 칸 포함, 몸통 정면 금지). 허리 칼집의 검은 9칸 모두 보인다"

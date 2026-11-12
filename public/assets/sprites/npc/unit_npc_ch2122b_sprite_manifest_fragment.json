@@ -1,0 +1,426 @@
+{
+ "note": "ch21 브워지미에시(s1)·미에슈코 2세(s2 적 총대장) + ch18_s1 나이만 잔당 우두머리(각색, 에셋 코드 신설) 초상·시트(안아트 2026-11-03). 잘랄 앗딘은 기존 영웅 에셋 재사용 → reuse_map",
+ "generated": "2026-11-03T05:19:12.297Z",
+ "keyRules": {
+  "npc_sprite": "unit.npc.<npc_code>.<ally|enemy>.64.sheet (unit_npc_sprite_manifest_fragment.json 과 같은 규칙)",
+  "reuse_map": {
+   "jalal_ad_din": {
+    "stage": "ch18_s6 enemy_squads A leader(display_name_ko \"잘랄 앗딘\", 현재 kind generic / ref null)",
+    "portrait": "portrait.jalal_ad_din",
+    "sheet": "unit.hero.jalal_ad_din.enemy.64.sheet",
+    "note": "영웅 에셋(초상·64 시트) 이미 존재. leader 를 kind npc/hero + ref jalal_ad_din 으로 바꾸면 전용 초상·시트가 붙음"
+   }
+  }
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "unit.npc.npc_wlodzimierz_krakow.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_wlodzimierz_krakow_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_wlodzimierz_krakow_ally_sheet.png"
+   },
+   "bytes": 10900,
+   "npc": "npc_wlodzimierz_krakow",
+   "name_ko": "브워지미에시",
+   "side": "ally",
+   "npc_default_side": "둥근 투구 옆선, 장검을 칼끝 아래로 몸 앞에, 반망토 자락",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch2122b_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch2122b_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch2122b_style.mjs S_B.npc_wlodzimierz_krakow",
+   "ref_portrait": "public/assets/portraits/npc/npc_wlodzimierz_krakow.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_wlodzimierz_krakow.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "측면 행 걷기 칸에서 장검 각도가 칸마다 조금 다름"
+    ]
+   },
+   "verify": true,
+   "verify_note": "문장 외투 생략(무지 포도주빛). 용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_wlodzimierz_krakow.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_wlodzimierz_krakow_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_wlodzimierz_krakow_enemy_sheet.png"
+   },
+   "bytes": 10870,
+   "npc": "npc_wlodzimierz_krakow",
+   "name_ko": "브워지미에시",
+   "side": "enemy",
+   "npc_default_side": "둥근 투구 옆선, 장검을 칼끝 아래로 몸 앞에, 반망토 자락",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch2122b_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch2122b_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch2122b_style.mjs S_B.npc_wlodzimierz_krakow",
+   "ref_portrait": "public/assets/portraits/npc/npc_wlodzimierz_krakow.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_wlodzimierz_krakow.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "측면 행 걷기 칸에서 장검 각도가 칸마다 조금 다름"
+    ]
+   },
+   "verify": true,
+   "verify_note": "문장 외투 생략(무지 포도주빛). 용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_mieszko_ii_opole.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_mieszko_ii_opole_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_mieszko_ii_opole_ally_sheet.png"
+   },
+   "bytes": 11012,
+   "npc": "npc_mieszko_ii_opole",
+   "name_ko": "미에슈코 2세",
+   "side": "ally",
+   "npc_default_side": "쇠사슬 두건 옆선, 도끼를 몸 앞에 세워 쥠, 황토색 서코트",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch2122b_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch2122b_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch2122b_style.mjs S_B.npc_mieszko_ii_opole",
+   "ref_portrait": "public/assets/portraits/npc/npc_mieszko_ii_opole.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_mieszko_ii_opole.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "뒷모습 사슬 두건이 둥근 통처럼 보임(64px 판독 한계)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화(체격 과장 금지)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_mieszko_ii_opole.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_mieszko_ii_opole_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_mieszko_ii_opole_enemy_sheet.png"
+   },
+   "bytes": 10902,
+   "npc": "npc_mieszko_ii_opole",
+   "name_ko": "미에슈코 2세",
+   "side": "enemy",
+   "npc_default_side": "쇠사슬 두건 옆선, 도끼를 몸 앞에 세워 쥠, 황토색 서코트",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch2122b_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch2122b_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch2122b_style.mjs S_B.npc_mieszko_ii_opole",
+   "ref_portrait": "public/assets/portraits/npc/npc_mieszko_ii_opole.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_mieszko_ii_opole.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "뒷모습 사슬 두건이 둥근 통처럼 보임(64px 판독 한계)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화(체격 과장 금지)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_naiman_remnant_chief.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_naiman_remnant_chief_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_naiman_remnant_chief_ally_sheet.png"
+   },
+   "bytes": 11528,
+   "npc": "npc_naiman_remnant_chief",
+   "name_ko": "나이만 잔당 우두머리",
+   "side": "ally",
+   "npc_default_side": "회색 말이 왼쪽을 향해 걷고 기수는 창을 세워 듦, 뾰족 모자 옆선",
+   "culture": "mongol",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch2122b_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch2122b_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch2122b_style.mjs S_B.npc_naiman_remnant_chief",
+   "ref_portrait": "public/assets/portraits/npc/npc_naiman_remnant_chief.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_naiman_remnant_chief.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "짙은 회색 말·흑갈 델이 어두운 지형 위에서 대비 낮음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "각색 인물. 나이만 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_naiman_remnant_chief.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_naiman_remnant_chief_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_naiman_remnant_chief_enemy_sheet.png"
+   },
+   "bytes": 11242,
+   "npc": "npc_naiman_remnant_chief",
+   "name_ko": "나이만 잔당 우두머리",
+   "side": "enemy",
+   "npc_default_side": "회색 말이 왼쪽을 향해 걷고 기수는 창을 세워 듦, 뾰족 모자 옆선",
+   "culture": "mongol",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.china.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 채도 0.5 이상 청색(외곽선)만 적색 스왑 — 회청색 말 제외(enemy_swap min_s 0.5, 2026-11-03 camp)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch2122b_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch2122b_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch2122b_style.mjs S_B.npc_naiman_remnant_chief",
+   "ref_portrait": "public/assets/portraits/npc/npc_naiman_remnant_chief.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_naiman_remnant_chief.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "짙은 회색 말·흑갈 델이 어두운 지형 위에서 대비 낮음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "각색 인물. 나이만 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  }
+ ]
+}

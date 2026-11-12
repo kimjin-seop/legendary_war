@@ -1,0 +1,2356 @@
+{
+ "note": "수병 전투 시트(일본·조선·공용) + 일본군 지휘관 NPC 시트·초상화 + 먹물 그림자 + 서가11 NPC 초상화 manifest 조각(안아트 2026-11-01). 미병합 — manifest.json 직접 수정 안 함. 병합: merge_fragments.mjs FRAGMENTS 에 { path: `${A}/npc_naval_manifest_fragment.json`, kind: 'npc_naval' } 추가(items 배열 형식, 썸네일은 item.thumb 내장 → 기존 로직이 처리). 모든 항목 deferred:true(부팅 로드 제외, 해당 스테이지/대화 진입 시 지연 로드 권장)",
+ "generated": "2026-11-01T13:20:15.741Z",
+ "keyRules": {
+  "naval": "unit.<japan|korea|default>.naval.<ally|enemy>.64.sheet (없는 문화권 → unit.default.naval.*; 기존 대체용 보병 시트는 fallback 필드)",
+  "npc_sprite": "unit.npc.<npc_code>.<ally|enemy>.64.sheet (일본군 지휘관은 적으로 나오므로 enemy 사용 권장. 먹물 그림자는 팔레트 스왑 없음 — ally/enemy 차이는 발밑 받침 색만)",
+  "npc_portrait": "portrait.<npc_code> (+ .thumb). 표정은 neutral 1종, 대사 expr 은 모두 이 키로 폴백",
+  "sheet_layout": "192x256, 64x64 프레임 3열x4행, 행=down,left,right,up, 열=walk1,idle,walk2 (hero v4 와 동일), x2 는 variants.x2"
+ },
+ "items": [
+  {
+   "key": "unit.japan.naval.ally.64.sheet",
+   "path": "assets/sprites/naval_troops/64/japan_naval_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/naval_troops/64_x2/japan_naval_ally_sheet.png"
+   },
+   "bytes": 11624,
+   "culture": "japan",
+   "troop": "naval",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.japan.spear.ally.64.sheet",
+   "overlay_hint": "ship_overlay.* back→본 시트→front 순(상체만 보임). 흘수선 y=62",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs(npc_naval_gen.sh) + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs NAVAL.naval_japan",
+   "ref_portrait": "assets/portraits/troops/japan_naval.png",
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4",
+     "측면 행 좌향·창 3칸 일관(3차 생성본)",
+     "배 오버레이 위 흰 머리띠·검은 흉갑·갈고리 창끝 식별",
+     "알파 0/255"
+    ],
+    "issues": [
+     "1~2차: 측면 걷기 칸 창 누락·방향 혼재 → 재생성 2회",
+     "적 팔레트: 남색→적갈색 스왑(기존 문화권 시트와 같은 규칙)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "아시가루 수군 복식 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.japan.naval.enemy.64.sheet",
+   "path": "assets/sprites/naval_troops/64/japan_naval_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/naval_troops/64_x2/japan_naval_enemy_sheet.png"
+   },
+   "bytes": 11435,
+   "culture": "japan",
+   "troop": "naval",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.japan.spear.enemy.64.sheet",
+   "overlay_hint": "ship_overlay.* back→본 시트→front 순(상체만 보임). 흘수선 y=62",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs(npc_naval_gen.sh) + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs NAVAL.naval_japan",
+   "ref_portrait": "assets/portraits/troops/japan_naval.png",
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4",
+     "측면 행 좌향·창 3칸 일관(3차 생성본)",
+     "배 오버레이 위 흰 머리띠·검은 흉갑·갈고리 창끝 식별",
+     "알파 0/255"
+    ],
+    "issues": [
+     "1~2차: 측면 걷기 칸 창 누락·방향 혼재 → 재생성 2회",
+     "적 팔레트: 남색→적갈색 스왑(기존 문화권 시트와 같은 규칙)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "아시가루 수군 복식 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.korea.naval.ally.64.sheet",
+   "path": "assets/sprites/naval_troops/64/korea_naval_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/naval_troops/64_x2/korea_naval_ally_sheet.png"
+   },
+   "bytes": 11067,
+   "culture": "korea",
+   "troop": "naval",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.korea.spear.ally.64.sheet",
+   "overlay_hint": "ship_overlay.* back→본 시트→front 순(상체만 보임). 흘수선 y=62",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs(npc_naval_gen.sh) + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs NAVAL.naval_korea",
+   "ref_portrait": "assets/portraits/troops/korea_naval.png",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "전립 실루엣·붉은 술",
+     "갈고리 창끝이 뱃전 위로 보임",
+     "알파 0/255"
+    ],
+    "issues": [
+     "전립 챙이 64px 에서 넓어 판옥선 누각 일부를 가림(의도된 실루엣)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "조선 수군 복식(전립·두정갑) 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.korea.naval.enemy.64.sheet",
+   "path": "assets/sprites/naval_troops/64/korea_naval_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/naval_troops/64_x2/korea_naval_enemy_sheet.png"
+   },
+   "bytes": 10985,
+   "culture": "korea",
+   "troop": "naval",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.korea.spear.enemy.64.sheet",
+   "overlay_hint": "ship_overlay.* back→본 시트→front 순(상체만 보임). 흘수선 y=62",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs(npc_naval_gen.sh) + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs NAVAL.naval_korea",
+   "ref_portrait": "assets/portraits/troops/korea_naval.png",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "전립 실루엣·붉은 술",
+     "갈고리 창끝이 뱃전 위로 보임",
+     "알파 0/255"
+    ],
+    "issues": [
+     "전립 챙이 64px 에서 넓어 판옥선 누각 일부를 가림(의도된 실루엣)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "조선 수군 복식(전립·두정갑) 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.default.naval.ally.64.sheet",
+   "path": "assets/sprites/naval_troops/64/default_naval_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/naval_troops/64_x2/default_naval_ally_sheet.png"
+   },
+   "bytes": 12424,
+   "culture": "default",
+   "troop": "naval",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.spear.ally.64.sheet",
+   "overlay_hint": "ship_overlay.* back→본 시트→front 순(상체만 보임). 흘수선 y=62",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs(npc_naval_gen.sh) + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs NAVAL.naval_default",
+   "ref_portrait": "assets/portraits/troops/default_naval.png",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "파란 두건",
+     "검을 어깨 높이로 세워 뱃전 위로 보임(2차)",
+     "알파 0/255"
+    ],
+    "issues": [
+     "1차: 검이 허리 아래라 뱃전에 가림 → 재생성 1회"
+    ]
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.default.naval.enemy.64.sheet",
+   "path": "assets/sprites/naval_troops/64/default_naval_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/naval_troops/64_x2/default_naval_enemy_sheet.png"
+   },
+   "bytes": 12251,
+   "culture": "default",
+   "troop": "naval",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.spear.enemy.64.sheet",
+   "overlay_hint": "ship_overlay.* back→본 시트→front 순(상체만 보임). 흘수선 y=62",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs(npc_naval_gen.sh) + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs NAVAL.naval_default",
+   "ref_portrait": "assets/portraits/troops/default_naval.png",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "파란 두건",
+     "검을 어깨 높이로 세워 뱃전 위로 보임(2차)",
+     "알파 0/255"
+    ],
+    "issues": [
+     "1차: 검이 허리 아래라 뱃전에 가림 → 재생성 1회"
+    ]
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_todo_takatora.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_todo_takatora_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_todo_takatora_ally_sheet.png"
+   },
+   "bytes": 12377,
+   "npc": "npc_jp_todo_takatora",
+   "name_ko": "도도 다카토라",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.japan.sword.ally.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_todo_takatora (sheet)",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "1차: 정면 행 지휘봉 누락 → 재생성 1회"
+    ]
+   },
+   "verify": true,
+   "verify_note": "복식 일반화(특정 투구·문장 재현 안 함)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_todo_takatora.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_todo_takatora_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_todo_takatora_enemy_sheet.png"
+   },
+   "bytes": 12140,
+   "npc": "npc_jp_todo_takatora",
+   "name_ko": "도도 다카토라",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.japan.sword.enemy.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_todo_takatora (sheet)",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "1차: 정면 행 지휘봉 누락 → 재생성 1회"
+    ]
+   },
+   "verify": true,
+   "verify_note": "복식 일반화(특정 투구·문장 재현 안 함)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_wakizaka_yasuharu.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_wakizaka_yasuharu_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_wakizaka_yasuharu_ally_sheet.png"
+   },
+   "bytes": 11441,
+   "npc": "npc_jp_wakizaka_yasuharu",
+   "name_ko": "와키자카 야스하루",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.japan.sword.ally.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_wakizaka_yasuharu (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "측면 walk2 칼 각도가 다른 프레임보다 낮음(경미)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "복식 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_wakizaka_yasuharu.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_wakizaka_yasuharu_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_wakizaka_yasuharu_enemy_sheet.png"
+   },
+   "bytes": 11231,
+   "npc": "npc_jp_wakizaka_yasuharu",
+   "name_ko": "와키자카 야스하루",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.japan.sword.enemy.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_wakizaka_yasuharu (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "측면 walk2 칼 각도가 다른 프레임보다 낮음(경미)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "복식 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_hasegawa_hidekazu.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_hasegawa_hidekazu_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_hasegawa_hidekazu_ally_sheet.png"
+   },
+   "bytes": 12215,
+   "npc": "npc_jp_hasegawa_hidekazu",
+   "name_ko": "하세가와 히데카즈",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.japan.sword.ally.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_hasegawa_hidekazu (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "용모·연령 근거 약함(40대는 일반화)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_hasegawa_hidekazu.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_hasegawa_hidekazu_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_hasegawa_hidekazu_enemy_sheet.png"
+   },
+   "bytes": 12112,
+   "npc": "npc_jp_hasegawa_hidekazu",
+   "name_ko": "하세가와 히데카즈",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.japan.sword.enemy.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_hasegawa_hidekazu (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "용모·연령 근거 약함(40대는 일반화)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_konishi_yukinaga.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_konishi_yukinaga_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_konishi_yukinaga_ally_sheet.png"
+   },
+   "bytes": 11234,
+   "npc": "npc_jp_konishi_yukinaga",
+   "name_ko": "고니시 유키나가",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.japan.sword.ally.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_konishi_yukinaga (sheet)",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "1차: 측면 idle 부채 누락 → 재생성 1회",
+     "뒷모습 걷기 프레임에서 부채 좌우 위치가 바뀜(경미한 깜빡임)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "종교 관련 표현은 의도적으로 배제",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_konishi_yukinaga.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_konishi_yukinaga_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_konishi_yukinaga_enemy_sheet.png"
+   },
+   "bytes": 11155,
+   "npc": "npc_jp_konishi_yukinaga",
+   "name_ko": "고니시 유키나가",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.japan.sword.enemy.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_konishi_yukinaga (sheet)",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "1차: 측면 idle 부채 누락 → 재생성 1회",
+     "뒷모습 걷기 프레임에서 부채 좌우 위치가 바뀜(경미한 깜빡임)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "종교 관련 표현은 의도적으로 배제",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_shimazu_yoshihiro.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_shimazu_yoshihiro_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_shimazu_yoshihiro_ally_sheet.png"
+   },
+   "bytes": 10456,
+   "npc": "npc_jp_shimazu_yoshihiro",
+   "name_ko": "시마즈 요시히로",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.japan.sword.ally.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_shimazu_yoshihiro (sheet)",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "1차: 흰 수염 누락·주름이 붉은 상처처럼 보임 → 재생성 1회",
+     "2차 측면 walk2 만 칼을 뽑음 → facing.json 으로 walk2 자리에 walk1 재사용(걷기 2프레임 동일)",
+     "정면은 칼을 뽑아 들고 뒷모습은 칼집(시점상 허용)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "연령(1598년 기준 60대) 외 용모는 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_shimazu_yoshihiro.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_shimazu_yoshihiro_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_shimazu_yoshihiro_enemy_sheet.png"
+   },
+   "bytes": 10185,
+   "npc": "npc_jp_shimazu_yoshihiro",
+   "name_ko": "시마즈 요시히로",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.japan.sword.enemy.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_shimazu_yoshihiro (sheet)",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "1차: 흰 수염 누락·주름이 붉은 상처처럼 보임 → 재생성 1회",
+     "2차 측면 walk2 만 칼을 뽑음 → facing.json 으로 walk2 자리에 walk1 재사용(걷기 2프레임 동일)",
+     "정면은 칼을 뽑아 들고 뒷모습은 칼집(시점상 허용)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "연령(1598년 기준 60대) 외 용모는 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_kurushima_michifusa.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_kurushima_michifusa_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_kurushima_michifusa_ally_sheet.png"
+   },
+   "bytes": 12256,
+   "npc": "npc_jp_kurushima_michifusa",
+   "name_ko": "구루시마 미치후사",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.japan.sword.ally.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_kurushima_michifusa (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "측면 걷기 프레임 간 창 각도 차이(경미한 깜빡임)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 전사 장면 표현 안 함",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_kurushima_michifusa.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_kurushima_michifusa_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_kurushima_michifusa_enemy_sheet.png"
+   },
+   "bytes": 11979,
+   "npc": "npc_jp_kurushima_michifusa",
+   "name_ko": "구루시마 미치후사",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.japan.sword.enemy.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_kurushima_michifusa (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "측면 걷기 프레임 간 창 각도 차이(경미한 깜빡임)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 전사 장면 표현 안 함",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_ukita_hideie.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_ukita_hideie_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_ukita_hideie_ally_sheet.png"
+   },
+   "bytes": 10888,
+   "npc": "npc_jp_ukita_hideie",
+   "name_ko": "우키타 히데이에",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.japan.sword.ally.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_ukita_hideie (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "총대장 여부 단정 안 함(시나리오 verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_ukita_hideie.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_ukita_hideie_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_ukita_hideie_enemy_sheet.png"
+   },
+   "bytes": 10840,
+   "npc": "npc_jp_ukita_hideie",
+   "name_ko": "우키타 히데이에",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.japan.sword.enemy.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_ukita_hideie (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "총대장 여부 단정 안 함(시나리오 verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_ankokuji_ekei.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_ankokuji_ekei_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_ankokuji_ekei_ally_sheet.png"
+   },
+   "bytes": 12376,
+   "npc": "npc_jp_ankokuji_ekei",
+   "name_ko": "안코쿠지 에케이",
+   "side": "ally",
+   "deferred": true,
+   "fallback": "unit.japan.mage.ally.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_ankokuji_ekei (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "키가 다른 지휘관보다 약간 작음(58px)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "승려 출신 표현은 두건·먹색 옷으로만(종교 상징 배제)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_jp_ankokuji_ekei.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_jp_ankokuji_ekei_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_jp_ankokuji_ekei_enemy_sheet.png"
+   },
+   "bytes": 12253,
+   "npc": "npc_jp_ankokuji_ekei",
+   "name_ko": "안코쿠지 에케이",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": "unit.japan.mage.enemy.64.sheet",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_ankokuji_ekei (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "키가 다른 지휘관보다 약간 작음(58px)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "승려 출신 표현은 두건·먹색 옷으로만(종교 상징 배제)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_ink_shadow_s8.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ink_shadow_s8_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ink_shadow_s8_ally_sheet.png"
+   },
+   "bytes": 14948,
+   "npc": "npc_ink_shadow_s8",
+   "name_ko": "번진 기록의 그림자",
+   "side": "ally",
+   "deferred": true,
+   "fallback": null,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs INK.npc_ink_shadow_s8 (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "어두운 타일 위에서 외곽 대비 낮음(종잇조각으로 형태 식별)",
+     "적/아군 팔레트 스왑 없음"
+    ]
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_ink_shadow_s8.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ink_shadow_s8_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ink_shadow_s8_enemy_sheet.png"
+   },
+   "bytes": 14947,
+   "npc": "npc_ink_shadow_s8",
+   "name_ko": "번진 기록의 그림자",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": null,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs INK.npc_ink_shadow_s8 (sheet)",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "어두운 타일 위에서 외곽 대비 낮음(종잇조각으로 형태 식별)",
+     "적/아군 팔레트 스왑 없음"
+    ]
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_ink_shadow_final.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ink_shadow_final_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ink_shadow_final_ally_sheet.png"
+   },
+   "bytes": 21401,
+   "npc": "npc_ink_shadow_final",
+   "name_ko": "마지막 그림자",
+   "side": "ally",
+   "deferred": true,
+   "fallback": null,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs INK.npc_ink_shadow_final (sheet)",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "1차: 도트가 아닌 일러스트로 나와 격자 판정 실패 → 재생성 1회",
+     "중심 금빛이 32색 양자화로 회백 점으로 약해짐",
+     "프레임을 거의 채움(58x63) — 의도적으로 s8 보다 큼"
+    ]
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "unit.npc.npc_ink_shadow_final.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ink_shadow_final_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ink_shadow_final_enemy_sheet.png"
+   },
+   "bytes": 21396,
+   "npc": "npc_ink_shadow_final",
+   "name_ko": "마지막 그림자",
+   "side": "enemy",
+   "deferred": true,
+   "fallback": null,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs INK.npc_ink_shadow_final (sheet)",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256 3x4, 32색, 1px 외곽선",
+     "초상화와 머리 장비·색·소지품 일치",
+     "측면 좌향",
+     "64px 1배 식별"
+    ],
+    "issues": [
+     "1차: 도트가 아닌 일러스트로 나와 격자 판정 실패 → 재생성 1회",
+     "중심 금빛이 32색 양자화로 회백 점으로 약해짐",
+     "프레임을 거의 채움(58x63) — 의도적으로 s8 보다 큼"
+    ]
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_jp_todo_takatora",
+   "path": "assets/portraits/npc/npc_jp_todo_takatora.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1015807,
+   "npc": "npc_jp_todo_takatora",
+   "name_ko": "도도 다카토라",
+   "group": "일본군 지휘관(서가 임진)",
+   "side": "지휘봉을 몸 앞으로, 투구 목가리개",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_jp_todo_takatora.thumb",
+    "path": "assets/portraits/npc/thumb/npc_jp_todo_takatora.webp",
+    "size": "256x343",
+    "bytes": 20018
+   },
+   "sprite": "unit.npc.npc_jp_todo_takatora",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_todo_takatora (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_jp_todo_takatora.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "복식 일반화(특정 투구·문장 재현 안 함)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_jp_wakizaka_yasuharu",
+   "path": "assets/portraits/npc/npc_jp_wakizaka_yasuharu.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1082344,
+   "npc": "npc_jp_wakizaka_yasuharu",
+   "name_ko": "와키자카 야스하루",
+   "group": "일본군 지휘관(서가 임진)",
+   "side": "카타나를 몸 앞에 비스듬히, 머리띠 끈",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_jp_wakizaka_yasuharu.thumb",
+    "path": "assets/portraits/npc/thumb/npc_jp_wakizaka_yasuharu.webp",
+    "size": "256x343",
+    "bytes": 25998
+   },
+   "sprite": "unit.npc.npc_jp_wakizaka_yasuharu",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_wakizaka_yasuharu (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_jp_wakizaka_yasuharu.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "복식 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_jp_hasegawa_hidekazu",
+   "path": "assets/portraits/npc/npc_jp_hasegawa_hidekazu.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1192379,
+   "npc": "npc_jp_hasegawa_hidekazu",
+   "name_ko": "하세가와 히데카즈",
+   "group": "일본군 지휘관(서가 임진)",
+   "side": "창을 몸 앞에 세워 쥠, 넓은 목가리개",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_jp_hasegawa_hidekazu.thumb",
+    "path": "assets/portraits/npc/thumb/npc_jp_hasegawa_hidekazu.webp",
+    "size": "256x343",
+    "bytes": 26880
+   },
+   "sprite": "unit.npc.npc_jp_hasegawa_hidekazu",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_hasegawa_hidekazu (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_jp_hasegawa_hidekazu.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "용모·연령 근거 약함(40대는 일반화)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_jp_konishi_yukinaga",
+   "path": "assets/portraits/npc/npc_jp_konishi_yukinaga.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1010098,
+   "npc": "npc_jp_konishi_yukinaga",
+   "name_ko": "고니시 유키나가",
+   "group": "일본군 지휘관(서가 임진)",
+   "side": "둥근 지휘 부채를 몸 앞으로",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_jp_konishi_yukinaga.thumb",
+    "path": "assets/portraits/npc/thumb/npc_jp_konishi_yukinaga.webp",
+    "size": "256x343",
+    "bytes": 22020
+   },
+   "sprite": "unit.npc.npc_jp_konishi_yukinaga",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_konishi_yukinaga (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_jp_konishi_yukinaga.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": [
+     "종교 관련 표현 의도적 배제"
+    ]
+   },
+   "verify": true,
+   "verify_note": "종교 관련 표현은 의도적으로 배제",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_jp_shimazu_yoshihiro",
+   "path": "assets/portraits/npc/npc_jp_shimazu_yoshihiro.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1164656,
+   "npc": "npc_jp_shimazu_yoshihiro",
+   "name_ko": "시마즈 요시히로",
+   "group": "일본군 지휘관(서가 임진)",
+   "side": "카타나를 몸 앞에, 회백 수염",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_jp_shimazu_yoshihiro.thumb",
+    "path": "assets/portraits/npc/thumb/npc_jp_shimazu_yoshihiro.webp",
+    "size": "256x343",
+    "bytes": 26026
+   },
+   "sprite": "unit.npc.npc_jp_shimazu_yoshihiro",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_shimazu_yoshihiro (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_jp_shimazu_yoshihiro.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "연령(1598년 기준 60대) 외 용모는 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_jp_kurushima_michifusa",
+   "path": "assets/portraits/npc/npc_jp_kurushima_michifusa.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 985907,
+   "npc": "npc_jp_kurushima_michifusa",
+   "name_ko": "구루시마 미치후사",
+   "group": "일본군 지휘관(서가 임진)",
+   "side": "창을 어깨에 기대 앞으로, 머리띠 끈",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_jp_kurushima_michifusa.thumb",
+    "path": "assets/portraits/npc/thumb/npc_jp_kurushima_michifusa.webp",
+    "size": "256x343",
+    "bytes": 23250
+   },
+   "sprite": "unit.npc.npc_jp_kurushima_michifusa",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_kurushima_michifusa (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_jp_kurushima_michifusa.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "용모 일반화. 전사 장면 표현 안 함",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_jp_ukita_hideie",
+   "path": "assets/portraits/npc/npc_jp_ukita_hideie.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1069245,
+   "npc": "npc_jp_ukita_hideie",
+   "name_ko": "우키타 히데이에",
+   "group": "일본군 지휘관(서가 임진)",
+   "side": "흰 술 지휘봉을 몸 앞으로",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_jp_ukita_hideie.thumb",
+    "path": "assets/portraits/npc/thumb/npc_jp_ukita_hideie.webp",
+    "size": "256x343",
+    "bytes": 25574
+   },
+   "sprite": "unit.npc.npc_jp_ukita_hideie",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_ukita_hideie (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_jp_ukita_hideie.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": [
+     "진바오리 진홍색이 약간 분홍빛(체리 레드) — 스타일 가이드 '분홍 금지' 경계선. 알파 손실 없음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "총대장 여부 단정 안 함(시나리오 verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_jp_ankokuji_ekei",
+   "path": "assets/portraits/npc/npc_jp_ankokuji_ekei.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 829058,
+   "npc": "npc_jp_ankokuji_ekei",
+   "name_ko": "안코쿠지 에케이",
+   "group": "일본군 지휘관(서가 임진)",
+   "side": "둥근 지휘 부채를 몸 앞으로, 두건 뒷자락",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_jp_ankokuji_ekei.thumb",
+    "path": "assets/portraits/npc/thumb/npc_jp_ankokuji_ekei.webp",
+    "size": "256x343",
+    "bytes": 13892
+   },
+   "sprite": "unit.npc.npc_jp_ankokuji_ekei",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs JP.npc_jp_ankokuji_ekei (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_jp_ankokuji_ekei.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": [
+     "회색 두건이 얼굴을 감싸는 형태라 보는 사람에 따라 수녀·히잡처럼 읽힐 수 있음(종교 상징은 없음) — 사람 확인 권장"
+    ]
+   },
+   "verify": true,
+   "verify_note": "승려 출신 표현은 두건·먹색 옷으로만(종교 상징 배제)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_ink_shadow_s8",
+   "path": "assets/portraits/npc/npc_ink_shadow_s8.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 729758,
+   "npc": "npc_ink_shadow_s8",
+   "name_ko": "번진 기록의 그림자",
+   "group": "먹물 그림자(허구)",
+   "side": "shadow",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_ink_shadow_s8.thumb",
+    "path": "assets/portraits/npc/thumb/npc_ink_shadow_s8.webp",
+    "size": "256x343",
+    "bytes": 22118
+   },
+   "sprite": "unit.npc.npc_ink_shadow_s8",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs INK.npc_ink_shadow_s8 (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_ink_shadow_s8.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "사람·얼굴 형상 없음",
+     "빈 종잇조각, 글자 없음",
+     "알파 마젠타 0"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_ink_shadow_final",
+   "path": "assets/portraits/npc/npc_ink_shadow_final.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 973777,
+   "npc": "npc_ink_shadow_final",
+   "name_ko": "마지막 그림자",
+   "group": "먹물 그림자(허구)",
+   "side": "shadow",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_ink_shadow_final.thumb",
+    "path": "assets/portraits/npc/thumb/npc_ink_shadow_final.webp",
+    "size": "256x343",
+    "bytes": 27422
+   },
+   "sprite": "unit.npc.npc_ink_shadow_final",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs INK.npc_ink_shadow_final (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_ink_shadow_final.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "사람·얼굴 형상 없음",
+     "s8 보다 크고 무거운 소용돌이, 중심 금빛",
+     "알파 마젠타 0"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_dae_dosu",
+   "path": "assets/portraits/npc/npc_dae_dosu.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1107554,
+   "npc": "npc_dae_dosu",
+   "name_ko": "대도수",
+   "group": "서가11 고려-거란",
+   "side": "ally",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_dae_dosu.thumb",
+    "path": "assets/portraits/npc/thumb/npc_dae_dosu.webp",
+    "size": "256x343",
+    "bytes": 24446
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_dae_dosu (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_dae_dosu.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": [
+     "대도수·강민첨 모두 청회색 찰갑+둥근 투구라 실루엣 유사(강민첨은 투구 깃털·회색 수염으로 구분)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "고려 갑옷 형태 고증 확인 필요",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_yu_bang",
+   "path": "assets/portraits/npc/npc_yu_bang.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 990452,
+   "npc": "npc_yu_bang",
+   "name_ko": "유방",
+   "group": "서가11 고려-거란",
+   "side": "ally",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_yu_bang.thumb",
+    "path": "assets/portraits/npc/thumb/npc_yu_bang.webp",
+    "size": "256x343",
+    "bytes": 21588
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_yu_bang (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_yu_bang.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "궁병 배정은 게임 각색",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_gang_min_cheom",
+   "path": "assets/portraits/npc/npc_gang_min_cheom.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1058849,
+   "npc": "npc_gang_min_cheom",
+   "name_ko": "강민첨",
+   "group": "서가11 고려-거란",
+   "side": "ally",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_gang_min_cheom.thumb",
+    "path": "assets/portraits/npc/thumb/npc_gang_min_cheom.webp",
+    "size": "256x343",
+    "bytes": 21526
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_gang_min_cheom (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_gang_min_cheom.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "직함·세부 행적 verify, 갑옷 고증",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_kim_jong_hyeon",
+   "path": "assets/portraits/npc/npc_kim_jong_hyeon.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1040230,
+   "npc": "npc_kim_jong_hyeon",
+   "name_ko": "김종현",
+   "group": "서가11 고려-거란",
+   "side": "ally",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_kim_jong_hyeon.thumb",
+    "path": "assets/portraits/npc/thumb/npc_kim_jong_hyeon.webp",
+    "size": "256x343",
+    "bytes": 23648
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_kim_jong_hyeon (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_kim_jong_hyeon.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "직함 verify, 전승은 사실로 쓰지 않음",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_nameless_scribe",
+   "path": "assets/portraits/npc/npc_nameless_scribe.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 968908,
+   "npc": "npc_nameless_scribe",
+   "name_ko": "무명 기록관",
+   "group": "서가11 고려-거란",
+   "side": "ally",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_nameless_scribe.thumb",
+    "path": "assets/portraits/npc/thumb/npc_nameless_scribe.webp",
+    "size": "256x343",
+    "bytes": 22436
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_nameless_scribe (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_nameless_scribe.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": [
+     "허구 인물, 중성적 외형"
+    ]
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_so_sonnyeong",
+   "path": "assets/portraits/npc/npc_so_sonnyeong.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1049535,
+   "npc": "npc_so_sonnyeong",
+   "name_ko": "소손녕",
+   "group": "서가11 고려-거란",
+   "side": "enemy",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_so_sonnyeong.thumb",
+    "path": "assets/portraits/npc/thumb/npc_so_sonnyeong.webp",
+    "size": "256x343",
+    "bytes": 21738
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_so_sonnyeong (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_so_sonnyeong.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": [
+     "거란 머리 모양 고증(곤발) 미반영 — 설명대로 땋은 머리"
+    ]
+   },
+   "verify": true,
+   "verify_note": "거란 머리 모양(곤발) 고증 verify — 설명대로 땋은 머리로 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_so_baeap",
+   "path": "assets/portraits/npc/npc_so_baeap.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1107256,
+   "npc": "npc_so_baeap",
+   "name_ko": "소배압",
+   "group": "서가11 고려-거란",
+   "side": "enemy",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_so_baeap.thumb",
+    "path": "assets/portraits/npc/thumb/npc_so_baeap.webp",
+    "size": "256x343",
+    "bytes": 20908
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_so_baeap (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_so_baeap.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": true,
+   "verify_note": "연령·용모 verify",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_khitan_vanguard",
+   "path": "assets/portraits/npc/npc_khitan_vanguard.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1137631,
+   "npc": "npc_khitan_vanguard",
+   "name_ko": "거란 선봉 기병대장",
+   "group": "서가11 고려-거란",
+   "side": "enemy",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_khitan_vanguard.thumb",
+    "path": "assets/portraits/npc/thumb/npc_khitan_vanguard.webp",
+    "size": "256x343",
+    "bytes": 23516
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_khitan_vanguard (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_khitan_vanguard.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": [
+     "알파 후 방패 옆 마젠타 포켓 17px 수동 투명 처리(잔여 0)"
+    ]
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_khitan_archer_captain",
+   "path": "assets/portraits/npc/npc_khitan_archer_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1010090,
+   "npc": "npc_khitan_archer_captain",
+   "name_ko": "거란 궁병대 지휘관",
+   "group": "서가11 고려-거란",
+   "side": "enemy",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_khitan_archer_captain.thumb",
+    "path": "assets/portraits/npc/thumb/npc_khitan_archer_captain.webp",
+    "size": "256x343",
+    "bytes": 23338
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_khitan_archer_captain (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_khitan_archer_captain.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": []
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_khitan_rearguard",
+   "path": "assets/portraits/npc/npc_khitan_rearguard.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1146963,
+   "npc": "npc_khitan_rearguard",
+   "name_ko": "거란 후위 지휘관",
+   "group": "서가11 고려-거란",
+   "side": "enemy",
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr(serious·regret 등) → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_khitan_rearguard.thumb",
+    "path": "assets/portraits/npc/thumb/npc_khitan_rearguard.webp",
+    "size": "256x343",
+    "bytes": 24304
+   },
+   "sprite": null,
+   "sprite_note": "스프라이트는 문화권 병종 시트 폴백(korea.<unit> / 거란은 별도 문화권 시트 없음 → default 또는 china 계열 FE 결정)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_naval_gen.mjs + npc_naval_style.mjs → npc_naval_portrait_pp.sh(alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_naval_style.mjs S11.npc_khitan_rearguard (portrait)",
+   "raw": "docker/gemini/npc_naval/raw/portrait_npc_khitan_rearguard.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4",
+     "알파 마젠타 잔여 0",
+     "문장·투구 앞장식·글자·종교 상징 없음",
+     "설명 나이·색 테마 일치"
+    ],
+    "issues": [
+     "1차가 소배압과 거의 동일(흰 긴 수염·남색) → 황토·갈색, 짧은 회색 수염으로 재생성 1회"
+    ]
+   },
+   "verify": false,
+   "verify_note": null,
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  }
+ ]
+}

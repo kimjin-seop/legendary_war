@@ -1,0 +1,6922 @@
+{
+ "note": "영웅 전용 방향 시트 v3 manifest 조각(초상화 기준 재제작, 안아트 2026-11-01). manifest.json 직접 수정 안 함 — build_manifest.mjs MERGE_FRAGMENTS 에 이 경로 추가 후 재생성. hero_sprite_map_v2 에서 해당 영웅 항목 삭제(또는 hero_map_v3 값 적용)는 manifest 병합과 동시에 해야 함(먼저 하면 키 미존재로 로드 실패)",
+ "generated": "2026-11-01T09:13:43.684Z",
+ "calls_total": 41,
+ "hero_map_v3": {
+  "wellington": "unit.hero.wellington",
+  "tran_hung_dao": "unit.hero.tran_hung_dao",
+  "san_martin": "unit.hero.san_martin",
+  "william_wallace": "unit.hero.william_wallace",
+  "lakshmibai": "unit.hero.lakshmibai",
+  "ibn_sina": "unit.hero.ibn_sina",
+  "ashoka": "unit.hero.ashoka",
+  "alexander_nevsky": "unit.hero.alexander_nevsky",
+  "jose_rizal": "unit.hero.jose_rizal",
+  "philip_ii": "unit.hero.philip_ii",
+  "socrates": "unit.hero.socrates",
+  "fabius_maximus": "unit.hero.fabius_maximus",
+  "eleanor_aquitaine": "unit.hero.eleanor_aquitaine",
+  "maria_theresa": "unit.hero.maria_theresa",
+  "frederick_great": "unit.hero.frederick_great",
+  "empress_jito": "unit.hero.empress_jito",
+  "uesugi_kenshin": "unit.hero.uesugi_kenshin",
+  "sanada_yukimura": "unit.hero.sanada_yukimura",
+  "eulji_mundeok": "unit.hero.eulji_mundeok",
+  "seondeok": "unit.hero.seondeok",
+  "gang_gamchan": "unit.hero.gang_gamchan",
+  "wang_geon": "unit.hero.wang_geon",
+  "liu_bang": "unit.hero.liu_bang",
+  "wu_zetian": "unit.hero.wu_zetian",
+  "confucius": "unit.hero.confucius",
+  "cyrus_ii": "unit.hero.cyrus_ii",
+  "darius_i": "unit.hero.darius_i",
+  "harun_rashid": "unit.hero.harun_rashid",
+  "toyotomi_hideyoshi": "unit.hero.toyotomi_hideyoshi",
+  "napoleon": "unit.hero.napoleon",
+  "black_prince": "unit.hero.black_prince",
+  "jangsu": "unit.hero.jangsu",
+  "el_cid": "unit.hero.el_cid",
+  "elizabeth_i": "unit.hero.elizabeth_i",
+  "sun_quan": "unit.hero.sun_quan",
+  "toussaint_louverture": "unit.hero.toussaint_louverture"
+ },
+ "pending": {},
+ "items": [
+  {
+   "key": "unit.hero.wellington.ally.64.sheet",
+   "path": "assets/sprites/64/hero_wellington_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.wellington.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wellington_ally_sheet.png"
+   },
+   "bytes": 7507,
+   "hero": "wellington",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#wellington",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#wellington",
+   "raw": "docker/gemini/hero_v3_raw/wellington.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.26
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "37x61",
+     "left": "34x61",
+     "up": "35x62"
+    },
+    "outline": "#04011e",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 갈색 곱슬",
+     "beard": "O 없음",
+     "clothes": "O 남색 연미복·금 견장·붉은 띠·흰 바지",
+     "item": "O 사브르",
+     "gender_age": "O"
+    },
+    "issues": [
+     "병종(창)과 달리 사브르(초상화 기준, verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/wellington_compare.png"
+   },
+   "verify": true,
+   "verify_note": "병종(창)과 달리 사브르 — 초상화 기준",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.wellington.ally.64",
+   "path": "assets/sprites/64/hero_wellington_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "wellington",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wellington_ally.png"
+   },
+   "bytes": 1068,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.wellington.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.wellington.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_wellington_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.wellington.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wellington_enemy_sheet.png"
+   },
+   "bytes": 7507,
+   "hero": "wellington",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#wellington",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#wellington",
+   "raw": "docker/gemini/hero_v3_raw/wellington.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.26
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "37x61",
+     "left": "34x61",
+     "up": "35x62"
+    },
+    "outline": "#04011e",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 갈색 곱슬",
+     "beard": "O 없음",
+     "clothes": "O 남색 연미복·금 견장·붉은 띠·흰 바지",
+     "item": "O 사브르",
+     "gender_age": "O"
+    },
+    "issues": [
+     "병종(창)과 달리 사브르(초상화 기준, verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/wellington_compare.png"
+   },
+   "verify": true,
+   "verify_note": "병종(창)과 달리 사브르 — 초상화 기준",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.wellington.enemy.64",
+   "path": "assets/sprites/64/hero_wellington_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "wellington",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wellington_enemy.png"
+   },
+   "bytes": 1068,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.wellington.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.tran_hung_dao.ally.64.sheet",
+   "path": "assets/sprites/64/hero_tran_hung_dao_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.tran_hung_dao.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tran_hung_dao_ally_sheet.png"
+   },
+   "bytes": 8560,
+   "hero": "tran_hung_dao",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#tran_hung_dao",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#tran_hung_dao",
+   "raw": "docker/gemini/hero_v3_raw/tran_hung_dao.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.39
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "31x62",
+     "up": "37x63"
+    },
+    "outline": "#01000f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 상투·머리띠",
+     "beard": "O",
+     "clothes": "O 회색 미늘·녹색 전포",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/tran_hung_dao_compare.png"
+   },
+   "verify": true,
+   "verify_note": "대월 무장 복식 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.tran_hung_dao.ally.64",
+   "path": "assets/sprites/64/hero_tran_hung_dao_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "tran_hung_dao",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tran_hung_dao_ally.png"
+   },
+   "bytes": 1255,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.tran_hung_dao.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.tran_hung_dao.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_tran_hung_dao_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.tran_hung_dao.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tran_hung_dao_enemy_sheet.png"
+   },
+   "bytes": 8560,
+   "hero": "tran_hung_dao",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#tran_hung_dao",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#tran_hung_dao",
+   "raw": "docker/gemini/hero_v3_raw/tran_hung_dao.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.39
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "31x62",
+     "up": "37x63"
+    },
+    "outline": "#01000f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 상투·머리띠",
+     "beard": "O",
+     "clothes": "O 회색 미늘·녹색 전포",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/tran_hung_dao_compare.png"
+   },
+   "verify": true,
+   "verify_note": "대월 무장 복식 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.tran_hung_dao.enemy.64",
+   "path": "assets/sprites/64/hero_tran_hung_dao_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "tran_hung_dao",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_tran_hung_dao_enemy.png"
+   },
+   "bytes": 1255,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.tran_hung_dao.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.san_martin.ally.64.sheet",
+   "path": "assets/sprites/64/hero_san_martin_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.san_martin.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_san_martin_ally_sheet.png"
+   },
+   "bytes": 7875,
+   "hero": "san_martin",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#san_martin",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#san_martin",
+   "raw": "docker/gemini/hero_v3_raw/san_martin.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.12
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x58",
+     "left": "42x59",
+     "up": "33x61"
+    },
+    "outline": "#03011c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 곱슬·구레나룻",
+     "beard": "O 구레나룻",
+     "clothes": "O 남색 정복·금 견장·망토",
+     "item": "△ 말린 지도가 작은 막대처럼 보임",
+     "gender_age": "O"
+    },
+    "issues": [
+     "지도 소품 식별도 낮음(경미)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/san_martin_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.san_martin.ally.64",
+   "path": "assets/sprites/64/hero_san_martin_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "san_martin",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_san_martin_ally.png"
+   },
+   "bytes": 1125,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.san_martin.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.san_martin.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_san_martin_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.san_martin.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_san_martin_enemy_sheet.png"
+   },
+   "bytes": 7875,
+   "hero": "san_martin",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#san_martin",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#san_martin",
+   "raw": "docker/gemini/hero_v3_raw/san_martin.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.12
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x58",
+     "left": "42x59",
+     "up": "33x61"
+    },
+    "outline": "#03011c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 곱슬·구레나룻",
+     "beard": "O 구레나룻",
+     "clothes": "O 남색 정복·금 견장·망토",
+     "item": "△ 말린 지도가 작은 막대처럼 보임",
+     "gender_age": "O"
+    },
+    "issues": [
+     "지도 소품 식별도 낮음(경미)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/san_martin_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.san_martin.enemy.64",
+   "path": "assets/sprites/64/hero_san_martin_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "san_martin",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_san_martin_enemy.png"
+   },
+   "bytes": 1125,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.san_martin.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.william_wallace.ally.64.sheet",
+   "path": "assets/sprites/64/hero_william_wallace_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.william_wallace.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_william_wallace_ally_sheet.png"
+   },
+   "bytes": 8834,
+   "hero": "william_wallace",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#william_wallace",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#william_wallace",
+   "raw": "docker/gemini/hero_v3_raw/william_wallace.jpg",
+   "calls": 2,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.29
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x63",
+     "left": "40x63",
+     "up": "40x62"
+    },
+    "outline": "#010118",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 사슬 두건",
+     "beard": "O",
+     "clothes": "O 가죽 조끼·사슬·남색 망토",
+     "item": "O 창(9칸 일관)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "1차본 정면 행 창 누락 → 재생성 1회로 해결"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/william_wallace_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.william_wallace.ally.64",
+   "path": "assets/sprites/64/hero_william_wallace_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "william_wallace",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_william_wallace_ally.png"
+   },
+   "bytes": 1117,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.william_wallace.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.william_wallace.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_william_wallace_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.william_wallace.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_william_wallace_enemy_sheet.png"
+   },
+   "bytes": 8834,
+   "hero": "william_wallace",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#william_wallace",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#william_wallace",
+   "raw": "docker/gemini/hero_v3_raw/william_wallace.jpg",
+   "calls": 2,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.29
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x63",
+     "left": "40x63",
+     "up": "40x62"
+    },
+    "outline": "#010118",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 사슬 두건",
+     "beard": "O",
+     "clothes": "O 가죽 조끼·사슬·남색 망토",
+     "item": "O 창(9칸 일관)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "1차본 정면 행 창 누락 → 재생성 1회로 해결"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/william_wallace_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.william_wallace.enemy.64",
+   "path": "assets/sprites/64/hero_william_wallace_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "william_wallace",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_william_wallace_enemy.png"
+   },
+   "bytes": 1117,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.william_wallace.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.lakshmibai.ally.64.sheet",
+   "path": "assets/sprites/64/hero_lakshmibai_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.lakshmibai.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_lakshmibai_ally_sheet.png"
+   },
+   "bytes": 7886,
+   "hero": "lakshmibai",
+   "unit_type": "cavalry",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#lakshmibai",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#lakshmibai",
+   "raw": "docker/gemini/hero_v3_raw/lakshmibai.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.23
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "31x59",
+     "left": "53x55",
+     "up": "29x62"
+    },
+    "outline": "#03001f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 청록 터번",
+     "beard": "O 없음",
+     "clothes": "O 청록·금빛 튜닉",
+     "item": "O 탈와르·갈색 말",
+     "gender_age": "O 여성"
+    },
+    "issues": [
+     "기마라 얼굴이 작음(기존 기병 영웅과 동일 수준)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/lakshmibai_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.lakshmibai.ally.64",
+   "path": "assets/sprites/64/hero_lakshmibai_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "lakshmibai",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_lakshmibai_ally.png"
+   },
+   "bytes": 925,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.lakshmibai.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.lakshmibai.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_lakshmibai_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.lakshmibai.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_lakshmibai_enemy_sheet.png"
+   },
+   "bytes": 7886,
+   "hero": "lakshmibai",
+   "unit_type": "cavalry",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#lakshmibai",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#lakshmibai",
+   "raw": "docker/gemini/hero_v3_raw/lakshmibai.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.23
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "31x59",
+     "left": "53x55",
+     "up": "29x62"
+    },
+    "outline": "#03001f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 청록 터번",
+     "beard": "O 없음",
+     "clothes": "O 청록·금빛 튜닉",
+     "item": "O 탈와르·갈색 말",
+     "gender_age": "O 여성"
+    },
+    "issues": [
+     "기마라 얼굴이 작음(기존 기병 영웅과 동일 수준)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/lakshmibai_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.lakshmibai.enemy.64",
+   "path": "assets/sprites/64/hero_lakshmibai_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "lakshmibai",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_lakshmibai_enemy.png"
+   },
+   "bytes": 925,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.lakshmibai.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.ibn_sina.ally.64.sheet",
+   "path": "assets/sprites/64/hero_ibn_sina_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.ibn_sina.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_ibn_sina_ally_sheet.png"
+   },
+   "bytes": 7855,
+   "hero": "ibn_sina",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#ibn_sina",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#ibn_sina",
+   "raw": "docker/gemini/hero_v3_raw/ibn_sina.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.4
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x62",
+     "left": "25x60",
+     "up": "36x62"
+    },
+    "outline": "#020128",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 흰 터번",
+     "beard": "O 회색 턱수염",
+     "clothes": "O 녹색 겉옷·청회색 속옷",
+     "item": "O 책",
+     "gender_age": "O 노년 남성"
+    },
+    "issues": [
+     "적 스왑 시 청회색 속옷이 분홍빛(공통 규칙)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/ibn_sina_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.ibn_sina.ally.64",
+   "path": "assets/sprites/64/hero_ibn_sina_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "ibn_sina",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_ibn_sina_ally.png"
+   },
+   "bytes": 1129,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.ibn_sina.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.ibn_sina.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_ibn_sina_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.ibn_sina.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_ibn_sina_enemy_sheet.png"
+   },
+   "bytes": 7855,
+   "hero": "ibn_sina",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#ibn_sina",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#ibn_sina",
+   "raw": "docker/gemini/hero_v3_raw/ibn_sina.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.4
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x62",
+     "left": "25x60",
+     "up": "36x62"
+    },
+    "outline": "#020128",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 흰 터번",
+     "beard": "O 회색 턱수염",
+     "clothes": "O 녹색 겉옷·청회색 속옷",
+     "item": "O 책",
+     "gender_age": "O 노년 남성"
+    },
+    "issues": [
+     "적 스왑 시 청회색 속옷이 분홍빛(공통 규칙)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/ibn_sina_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.ibn_sina.enemy.64",
+   "path": "assets/sprites/64/hero_ibn_sina_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "ibn_sina",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_ibn_sina_enemy.png"
+   },
+   "bytes": 1129,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.ibn_sina.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.ashoka.ally.64.sheet",
+   "path": "assets/sprites/64/hero_ashoka_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.ashoka.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_ashoka_ally_sheet.png"
+   },
+   "bytes": 8523,
+   "hero": "ashoka",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#ashoka",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#ashoka",
+   "raw": "docker/gemini/hero_v3_raw/ashoka.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.62
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "42x63",
+     "left": "37x61",
+     "up": "44x62"
+    },
+    "outline": "#020129",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 줄무늬 터번형 관",
+     "beard": "O",
+     "clothes": "O 흰 숄·도티·금 장신구",
+     "item": "O 연꽃",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/ashoka_compare.png"
+   },
+   "verify": true,
+   "verify_note": "마우리아 왕 복식 고증(터번형 관)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.ashoka.ally.64",
+   "path": "assets/sprites/64/hero_ashoka_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "ashoka",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_ashoka_ally.png"
+   },
+   "bytes": 1199,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.ashoka.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.ashoka.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_ashoka_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.ashoka.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_ashoka_enemy_sheet.png"
+   },
+   "bytes": 8523,
+   "hero": "ashoka",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#ashoka",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#ashoka",
+   "raw": "docker/gemini/hero_v3_raw/ashoka.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.62
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "42x63",
+     "left": "37x61",
+     "up": "44x62"
+    },
+    "outline": "#020129",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 줄무늬 터번형 관",
+     "beard": "O",
+     "clothes": "O 흰 숄·도티·금 장신구",
+     "item": "O 연꽃",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/ashoka_compare.png"
+   },
+   "verify": true,
+   "verify_note": "마우리아 왕 복식 고증(터번형 관)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.ashoka.enemy.64",
+   "path": "assets/sprites/64/hero_ashoka_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "ashoka",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_ashoka_enemy.png"
+   },
+   "bytes": 1199,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.ashoka.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.alexander_nevsky.ally.64.sheet",
+   "path": "assets/sprites/64/hero_alexander_nevsky_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.alexander_nevsky.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_alexander_nevsky_ally_sheet.png"
+   },
+   "bytes": 9082,
+   "hero": "alexander_nevsky",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#alexander_nevsky",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#alexander_nevsky",
+   "raw": "docker/gemini/hero_v3_raw/alexander_nevsky.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.25
+    },
+    "colors": 32,
+    "clipped_px": 51,
+    "idle_size": {
+     "down": "41x64",
+     "left": "41x64",
+     "up": "32x64"
+    },
+    "outline": "#02011b",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 원뿔 투구·사슬 드림",
+     "beard": "O 적갈색",
+     "clothes": "O 사슬·적갈색 망토",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [
+     "측면 idle 이 3/4 각도에 가까움(경미)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/alexander_nevsky_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.alexander_nevsky.ally.64",
+   "path": "assets/sprites/64/hero_alexander_nevsky_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "alexander_nevsky",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_alexander_nevsky_ally.png"
+   },
+   "bytes": 1276,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.alexander_nevsky.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.alexander_nevsky.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_alexander_nevsky_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.alexander_nevsky.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_alexander_nevsky_enemy_sheet.png"
+   },
+   "bytes": 9082,
+   "hero": "alexander_nevsky",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#alexander_nevsky",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#alexander_nevsky",
+   "raw": "docker/gemini/hero_v3_raw/alexander_nevsky.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.25
+    },
+    "colors": 32,
+    "clipped_px": 51,
+    "idle_size": {
+     "down": "41x64",
+     "left": "41x64",
+     "up": "32x64"
+    },
+    "outline": "#02011b",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 원뿔 투구·사슬 드림",
+     "beard": "O 적갈색",
+     "clothes": "O 사슬·적갈색 망토",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [
+     "측면 idle 이 3/4 각도에 가까움(경미)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/alexander_nevsky_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.alexander_nevsky.enemy.64",
+   "path": "assets/sprites/64/hero_alexander_nevsky_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "alexander_nevsky",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_alexander_nevsky_enemy.png"
+   },
+   "bytes": 1276,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.alexander_nevsky.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.jose_rizal.ally.64.sheet",
+   "path": "assets/sprites/64/hero_jose_rizal_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.jose_rizal.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jose_rizal_ally_sheet.png"
+   },
+   "bytes": 7776,
+   "hero": "jose_rizal",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#jose_rizal",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#jose_rizal",
+   "raw": "docker/gemini/hero_v3_raw/jose_rizal.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.94
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "33x63",
+     "left": "25x60",
+     "up": "32x62"
+    },
+    "outline": "#02011f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 옆가르마 단발",
+     "beard": "O 콧수염만",
+     "clothes": "O 짙은 회색 프록코트·조끼·흰 칼라·남색 타이(도트에선 남회색 쪽으로 약간 푸름)",
+     "item": "O 갈색 책(정면·측면·후면 모두)",
+     "gender_age": "O 30대 남성"
+    },
+    "issues": [
+     "파일럿(43px) 대비 63px 로 재제작",
+     "적 스왑 시 코트가 적갈색으로 바뀜(공통 규칙)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/jose_rizal_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.jose_rizal.ally.64",
+   "path": "assets/sprites/64/hero_jose_rizal_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "jose_rizal",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jose_rizal_ally.png"
+   },
+   "bytes": 1114,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.jose_rizal.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.jose_rizal.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_jose_rizal_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.jose_rizal.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jose_rizal_enemy_sheet.png"
+   },
+   "bytes": 7776,
+   "hero": "jose_rizal",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#jose_rizal",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#jose_rizal",
+   "raw": "docker/gemini/hero_v3_raw/jose_rizal.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.94
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "33x63",
+     "left": "25x60",
+     "up": "32x62"
+    },
+    "outline": "#02011f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 옆가르마 단발",
+     "beard": "O 콧수염만",
+     "clothes": "O 짙은 회색 프록코트·조끼·흰 칼라·남색 타이(도트에선 남회색 쪽으로 약간 푸름)",
+     "item": "O 갈색 책(정면·측면·후면 모두)",
+     "gender_age": "O 30대 남성"
+    },
+    "issues": [
+     "파일럿(43px) 대비 63px 로 재제작",
+     "적 스왑 시 코트가 적갈색으로 바뀜(공통 규칙)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/jose_rizal_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.jose_rizal.enemy.64",
+   "path": "assets/sprites/64/hero_jose_rizal_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "jose_rizal",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jose_rizal_enemy.png"
+   },
+   "bytes": 1114,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.jose_rizal.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.philip_ii.ally.64.sheet",
+   "path": "assets/sprites/64/hero_philip_ii_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.philip_ii.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_philip_ii_ally_sheet.png"
+   },
+   "bytes": 9145,
+   "hero": "philip_ii",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#philip_ii",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#philip_ii",
+   "raw": "docker/gemini/hero_v3_raw/philip_ii.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.19
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x63",
+     "left": "37x62",
+     "up": "34x61"
+    },
+    "outline": "#030217",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 곱슬·금 머리띠",
+     "beard": "O",
+     "clothes": "O 청동 흉갑·붉은 망토",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/philip_ii_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.philip_ii.ally.64",
+   "path": "assets/sprites/64/hero_philip_ii_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "philip_ii",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_philip_ii_ally.png"
+   },
+   "bytes": 1260,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.philip_ii.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.philip_ii.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_philip_ii_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.philip_ii.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_philip_ii_enemy_sheet.png"
+   },
+   "bytes": 9145,
+   "hero": "philip_ii",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#philip_ii",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#philip_ii",
+   "raw": "docker/gemini/hero_v3_raw/philip_ii.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.19
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x63",
+     "left": "37x62",
+     "up": "34x61"
+    },
+    "outline": "#030217",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 곱슬·금 머리띠",
+     "beard": "O",
+     "clothes": "O 청동 흉갑·붉은 망토",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/philip_ii_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.philip_ii.enemy.64",
+   "path": "assets/sprites/64/hero_philip_ii_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "philip_ii",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_philip_ii_enemy.png"
+   },
+   "bytes": 1260,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.philip_ii.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.socrates.ally.64.sheet",
+   "path": "assets/sprites/64/hero_socrates_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.socrates.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_socrates_ally_sheet.png"
+   },
+   "bytes": 8641,
+   "hero": "socrates",
+   "unit_type": "heavy",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#socrates",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#socrates",
+   "raw": "docker/gemini/hero_v3_raw/socrates.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.39
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x61",
+     "left": "36x62",
+     "up": "43x62"
+    },
+    "outline": "#030222",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 대머리·회색 옆머리",
+     "beard": "O",
+     "clothes": "O 황토색 히마티온",
+     "item": "O 둥근 방패·지팡이(중갑 병종 표현, 초상화엔 없음)",
+     "gender_age": "O 노년"
+    },
+    "issues": [
+     "방패 추가는 의도된 변경(verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/socrates_compare.png"
+   },
+   "verify": true,
+   "verify_note": "중갑 병종을 방패로 표현(실제 중장보병 복무 근거, 초상화엔 방패 없음)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.socrates.ally.64",
+   "path": "assets/sprites/64/hero_socrates_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "socrates",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_socrates_ally.png"
+   },
+   "bytes": 1151,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.socrates.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.socrates.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_socrates_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.socrates.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_socrates_enemy_sheet.png"
+   },
+   "bytes": 8641,
+   "hero": "socrates",
+   "unit_type": "heavy",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#socrates",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#socrates",
+   "raw": "docker/gemini/hero_v3_raw/socrates.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.39
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x61",
+     "left": "36x62",
+     "up": "43x62"
+    },
+    "outline": "#030222",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 대머리·회색 옆머리",
+     "beard": "O",
+     "clothes": "O 황토색 히마티온",
+     "item": "O 둥근 방패·지팡이(중갑 병종 표현, 초상화엔 없음)",
+     "gender_age": "O 노년"
+    },
+    "issues": [
+     "방패 추가는 의도된 변경(verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/socrates_compare.png"
+   },
+   "verify": true,
+   "verify_note": "중갑 병종을 방패로 표현(실제 중장보병 복무 근거, 초상화엔 방패 없음)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.socrates.enemy.64",
+   "path": "assets/sprites/64/hero_socrates_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "socrates",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_socrates_enemy.png"
+   },
+   "bytes": 1151,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.socrates.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.fabius_maximus.ally.64.sheet",
+   "path": "assets/sprites/64/hero_fabius_maximus_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.fabius_maximus.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_fabius_maximus_ally_sheet.png"
+   },
+   "bytes": 8974,
+   "hero": "fabius_maximus",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#fabius_maximus",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#fabius_maximus",
+   "raw": "docker/gemini/hero_v3_raw/fabius_maximus.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.37
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x63",
+     "left": "39x63",
+     "up": "37x62"
+    },
+    "outline": "#050222",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 흰머리",
+     "hair_shape": "O",
+     "beard": "O 없음",
+     "clothes": "O 흰 토가·붉은 망토·X자 끈",
+     "item": "O 창",
+     "gender_age": "O 노년"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/fabius_maximus_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.fabius_maximus.ally.64",
+   "path": "assets/sprites/64/hero_fabius_maximus_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "fabius_maximus",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_fabius_maximus_ally.png"
+   },
+   "bytes": 1238,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.fabius_maximus.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.fabius_maximus.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_fabius_maximus_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.fabius_maximus.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_fabius_maximus_enemy_sheet.png"
+   },
+   "bytes": 8974,
+   "hero": "fabius_maximus",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#fabius_maximus",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#fabius_maximus",
+   "raw": "docker/gemini/hero_v3_raw/fabius_maximus.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.37
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x63",
+     "left": "39x63",
+     "up": "37x62"
+    },
+    "outline": "#050222",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 흰머리",
+     "hair_shape": "O",
+     "beard": "O 없음",
+     "clothes": "O 흰 토가·붉은 망토·X자 끈",
+     "item": "O 창",
+     "gender_age": "O 노년"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/fabius_maximus_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.fabius_maximus.enemy.64",
+   "path": "assets/sprites/64/hero_fabius_maximus_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "fabius_maximus",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_fabius_maximus_enemy.png"
+   },
+   "bytes": 1238,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.fabius_maximus.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.eleanor_aquitaine.ally.64.sheet",
+   "path": "assets/sprites/64/hero_eleanor_aquitaine_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.eleanor_aquitaine.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_eleanor_aquitaine_ally_sheet.png"
+   },
+   "bytes": 8459,
+   "hero": "eleanor_aquitaine",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#eleanor_aquitaine",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#eleanor_aquitaine",
+   "raw": "docker/gemini/hero_v3_raw/eleanor_aquitaine.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.48
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x62",
+     "left": "33x60",
+     "up": "36x61"
+    },
+    "outline": "#020126",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O(베일)",
+     "hair_shape": "O 흰 베일·금관",
+     "beard": "O 없음",
+     "clothes": "O 남색 드레스·녹색 망토",
+     "item": "O 없음(손 모음)",
+     "gender_age": "O 여성"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/eleanor_aquitaine_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.eleanor_aquitaine.ally.64",
+   "path": "assets/sprites/64/hero_eleanor_aquitaine_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "eleanor_aquitaine",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_eleanor_aquitaine_ally.png"
+   },
+   "bytes": 1214,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.eleanor_aquitaine.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.eleanor_aquitaine.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_eleanor_aquitaine_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.eleanor_aquitaine.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_eleanor_aquitaine_enemy_sheet.png"
+   },
+   "bytes": 8459,
+   "hero": "eleanor_aquitaine",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#eleanor_aquitaine",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#eleanor_aquitaine",
+   "raw": "docker/gemini/hero_v3_raw/eleanor_aquitaine.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.48
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x62",
+     "left": "33x60",
+     "up": "36x61"
+    },
+    "outline": "#020126",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O(베일)",
+     "hair_shape": "O 흰 베일·금관",
+     "beard": "O 없음",
+     "clothes": "O 남색 드레스·녹색 망토",
+     "item": "O 없음(손 모음)",
+     "gender_age": "O 여성"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/eleanor_aquitaine_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.eleanor_aquitaine.enemy.64",
+   "path": "assets/sprites/64/hero_eleanor_aquitaine_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "eleanor_aquitaine",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_eleanor_aquitaine_enemy.png"
+   },
+   "bytes": 1214,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.eleanor_aquitaine.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.maria_theresa.ally.64.sheet",
+   "path": "assets/sprites/64/hero_maria_theresa_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.maria_theresa.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_maria_theresa_ally_sheet.png"
+   },
+   "bytes": 8896,
+   "hero": "maria_theresa",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#maria_theresa",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#maria_theresa",
+   "raw": "docker/gemini/hero_v3_raw/maria_theresa.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.72
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x64",
+     "left": "36x62",
+     "up": "44x63"
+    },
+    "outline": "#03012c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 금발",
+     "hair_shape": "O 올림머리·금관",
+     "beard": "O",
+     "clothes": "O 하늘색 드레스·담비털 망토",
+     "item": "O 없음",
+     "gender_age": "O 여성"
+    },
+    "issues": [
+     "적 스왑 시 하늘색 드레스가 분홍으로 바뀜(공통 규칙, 적으로 쓸 때 어색할 수 있음)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/maria_theresa_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.maria_theresa.ally.64",
+   "path": "assets/sprites/64/hero_maria_theresa_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "maria_theresa",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_maria_theresa_ally.png"
+   },
+   "bytes": 1281,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.maria_theresa.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.maria_theresa.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_maria_theresa_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.maria_theresa.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_maria_theresa_enemy_sheet.png"
+   },
+   "bytes": 8896,
+   "hero": "maria_theresa",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#maria_theresa",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#maria_theresa",
+   "raw": "docker/gemini/hero_v3_raw/maria_theresa.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.72
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x64",
+     "left": "36x62",
+     "up": "44x63"
+    },
+    "outline": "#03012c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 금발",
+     "hair_shape": "O 올림머리·금관",
+     "beard": "O",
+     "clothes": "O 하늘색 드레스·담비털 망토",
+     "item": "O 없음",
+     "gender_age": "O 여성"
+    },
+    "issues": [
+     "적 스왑 시 하늘색 드레스가 분홍으로 바뀜(공통 규칙, 적으로 쓸 때 어색할 수 있음)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/maria_theresa_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.maria_theresa.enemy.64",
+   "path": "assets/sprites/64/hero_maria_theresa_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "maria_theresa",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_maria_theresa_enemy.png"
+   },
+   "bytes": 1281,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.maria_theresa.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.frederick_great.ally.64.sheet",
+   "path": "assets/sprites/64/hero_frederick_great_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.frederick_great.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_frederick_great_ally_sheet.png"
+   },
+   "bytes": 7958,
+   "hero": "frederick_great",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#frederick_great",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#frederick_great",
+   "raw": "docker/gemini/hero_v3_raw/frederick_great.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.3
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x63",
+     "left": "37x61",
+     "up": "36x62"
+    },
+    "outline": "#00001c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 회색",
+     "hair_shape": "△ 삼각모 추가(초상화엔 모자 없음)",
+     "beard": "O 없음",
+     "clothes": "O 남색 군복·흰 목도리·은 훈장",
+     "item": "O 스폰툰(병종 표현)",
+     "gender_age": "O 노년"
+    },
+    "issues": [
+     "삼각모·스폰툰은 의도된 추가(verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/frederick_great_compare.png"
+   },
+   "verify": true,
+   "verify_note": "스폰툰은 병종(창) 표현용 — 초상화엔 무기 없음. 삼각모 추가(초상화엔 없음)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.frederick_great.ally.64",
+   "path": "assets/sprites/64/hero_frederick_great_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "frederick_great",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_frederick_great_ally.png"
+   },
+   "bytes": 1124,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.frederick_great.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.frederick_great.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_frederick_great_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.frederick_great.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_frederick_great_enemy_sheet.png"
+   },
+   "bytes": 7958,
+   "hero": "frederick_great",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#frederick_great",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#frederick_great",
+   "raw": "docker/gemini/hero_v3_raw/frederick_great.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.3
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x63",
+     "left": "37x61",
+     "up": "36x62"
+    },
+    "outline": "#00001c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 회색",
+     "hair_shape": "△ 삼각모 추가(초상화엔 모자 없음)",
+     "beard": "O 없음",
+     "clothes": "O 남색 군복·흰 목도리·은 훈장",
+     "item": "O 스폰툰(병종 표현)",
+     "gender_age": "O 노년"
+    },
+    "issues": [
+     "삼각모·스폰툰은 의도된 추가(verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/frederick_great_compare.png"
+   },
+   "verify": true,
+   "verify_note": "스폰툰은 병종(창) 표현용 — 초상화엔 무기 없음. 삼각모 추가(초상화엔 없음)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.frederick_great.enemy.64",
+   "path": "assets/sprites/64/hero_frederick_great_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "frederick_great",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_frederick_great_enemy.png"
+   },
+   "bytes": 1124,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.frederick_great.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.empress_jito.ally.64.sheet",
+   "path": "assets/sprites/64/hero_empress_jito_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.empress_jito.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_empress_jito_ally_sheet.png"
+   },
+   "bytes": 8183,
+   "hero": "empress_jito",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#empress_jito",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#empress_jito",
+   "raw": "docker/gemini/hero_v3_raw/empress_jito.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.32
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "32x64",
+     "left": "30x61",
+     "up": "36x62"
+    },
+    "outline": "#02011e",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 틀어 올림·금 비녀",
+     "beard": "O",
+     "clothes": "O 녹색 겉옷·황토 치마",
+     "item": "O 없음",
+     "gender_age": "O 여성"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/empress_jito_compare.png"
+   },
+   "verify": true,
+   "verify_note": "아스카 시대 궁중 복식 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.empress_jito.ally.64",
+   "path": "assets/sprites/64/hero_empress_jito_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "empress_jito",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_empress_jito_ally.png"
+   },
+   "bytes": 1128,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.empress_jito.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.empress_jito.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_empress_jito_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.empress_jito.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_empress_jito_enemy_sheet.png"
+   },
+   "bytes": 8183,
+   "hero": "empress_jito",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#empress_jito",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#empress_jito",
+   "raw": "docker/gemini/hero_v3_raw/empress_jito.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.32
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "32x64",
+     "left": "30x61",
+     "up": "36x62"
+    },
+    "outline": "#02011e",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 틀어 올림·금 비녀",
+     "beard": "O",
+     "clothes": "O 녹색 겉옷·황토 치마",
+     "item": "O 없음",
+     "gender_age": "O 여성"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/empress_jito_compare.png"
+   },
+   "verify": true,
+   "verify_note": "아스카 시대 궁중 복식 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.empress_jito.enemy.64",
+   "path": "assets/sprites/64/hero_empress_jito_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "empress_jito",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_empress_jito_enemy.png"
+   },
+   "bytes": 1128,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.empress_jito.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.uesugi_kenshin.ally.64.sheet",
+   "path": "assets/sprites/64/hero_uesugi_kenshin_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.uesugi_kenshin.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_uesugi_kenshin_ally_sheet.png"
+   },
+   "bytes": 9353,
+   "hero": "uesugi_kenshin",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#uesugi_kenshin",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#uesugi_kenshin",
+   "raw": "docker/gemini/hero_v3_raw/uesugi_kenshin.jpg",
+   "calls": 2,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.38
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "36x63",
+     "up": "36x62"
+    },
+    "outline": "#060223",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O(두건)",
+     "hair_shape": "O 흰 두건",
+     "beard": "O 없음",
+     "clothes": "O 남색 갑옷·흰 진바오리",
+     "item": "O 창(9칸 수직 일관)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "1차본 걷기 프레임마다 창 각도 변화 → 재생성 1회로 해결"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/uesugi_kenshin_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.uesugi_kenshin.ally.64",
+   "path": "assets/sprites/64/hero_uesugi_kenshin_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "uesugi_kenshin",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_uesugi_kenshin_ally.png"
+   },
+   "bytes": 1142,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.uesugi_kenshin.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.uesugi_kenshin.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_uesugi_kenshin_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.uesugi_kenshin.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_uesugi_kenshin_enemy_sheet.png"
+   },
+   "bytes": 9353,
+   "hero": "uesugi_kenshin",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#uesugi_kenshin",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#uesugi_kenshin",
+   "raw": "docker/gemini/hero_v3_raw/uesugi_kenshin.jpg",
+   "calls": 2,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.38
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "36x63",
+     "up": "36x62"
+    },
+    "outline": "#060223",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O(두건)",
+     "hair_shape": "O 흰 두건",
+     "beard": "O 없음",
+     "clothes": "O 남색 갑옷·흰 진바오리",
+     "item": "O 창(9칸 수직 일관)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "1차본 걷기 프레임마다 창 각도 변화 → 재생성 1회로 해결"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/uesugi_kenshin_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.uesugi_kenshin.enemy.64",
+   "path": "assets/sprites/64/hero_uesugi_kenshin_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "uesugi_kenshin",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_uesugi_kenshin_enemy.png"
+   },
+   "bytes": 1143,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.uesugi_kenshin.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.sanada_yukimura.ally.64.sheet",
+   "path": "assets/sprites/64/hero_sanada_yukimura_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.sanada_yukimura.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_sanada_yukimura_ally_sheet.png"
+   },
+   "bytes": 9908,
+   "hero": "sanada_yukimura",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#sanada_yukimura",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#sanada_yukimura",
+   "raw": "docker/gemini/hero_v3_raw/sanada_yukimura.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.11
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "62x64",
+     "left": "44x62",
+     "up": "40x63"
+    },
+    "outline": "#020014",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 높이 묶은 머리·붉은 머리띠",
+     "beard": "O",
+     "clothes": "O 붉은 갑옷·진바오리",
+     "item": "O 십자 창",
+     "gender_age": "O"
+    },
+    "issues": [
+     "정면 창이 대각선이라 정면 idle 폭 62px(칸 거의 가득)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/sanada_yukimura_compare.png"
+   },
+   "verify": true,
+   "verify_note": "십자 창은 전승 상징(고증 확인 필요)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.sanada_yukimura.ally.64",
+   "path": "assets/sprites/64/hero_sanada_yukimura_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "sanada_yukimura",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_sanada_yukimura_ally.png"
+   },
+   "bytes": 1287,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.sanada_yukimura.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.sanada_yukimura.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_sanada_yukimura_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.sanada_yukimura.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_sanada_yukimura_enemy_sheet.png"
+   },
+   "bytes": 9908,
+   "hero": "sanada_yukimura",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#sanada_yukimura",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#sanada_yukimura",
+   "raw": "docker/gemini/hero_v3_raw/sanada_yukimura.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.11
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "62x64",
+     "left": "44x62",
+     "up": "40x63"
+    },
+    "outline": "#020014",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 높이 묶은 머리·붉은 머리띠",
+     "beard": "O",
+     "clothes": "O 붉은 갑옷·진바오리",
+     "item": "O 십자 창",
+     "gender_age": "O"
+    },
+    "issues": [
+     "정면 창이 대각선이라 정면 idle 폭 62px(칸 거의 가득)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/sanada_yukimura_compare.png"
+   },
+   "verify": true,
+   "verify_note": "십자 창은 전승 상징(고증 확인 필요)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.sanada_yukimura.enemy.64",
+   "path": "assets/sprites/64/hero_sanada_yukimura_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "sanada_yukimura",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_sanada_yukimura_enemy.png"
+   },
+   "bytes": 1287,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.sanada_yukimura.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.eulji_mundeok.ally.64.sheet",
+   "path": "assets/sprites/64/hero_eulji_mundeok_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.eulji_mundeok.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_eulji_mundeok_ally_sheet.png"
+   },
+   "bytes": 8588,
+   "hero": "eulji_mundeok",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#eulji_mundeok",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#eulji_mundeok",
+   "raw": "docker/gemini/hero_v3_raw/eulji_mundeok.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.23
+    },
+    "colors": 32,
+    "clipped_px": 85,
+    "idle_size": {
+     "down": "42x64",
+     "left": "41x64",
+     "up": "42x64"
+    },
+    "outline": "#02031d",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 원뿔 투구·미늘 드림",
+     "beard": "O",
+     "clothes": "O 미늘 갑옷·붉은 소매·남색 망토",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/eulji_mundeok_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고구려 찰갑·투구 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.eulji_mundeok.ally.64",
+   "path": "assets/sprites/64/hero_eulji_mundeok_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "eulji_mundeok",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_eulji_mundeok_ally.png"
+   },
+   "bytes": 1255,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.eulji_mundeok.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.eulji_mundeok.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_eulji_mundeok_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.eulji_mundeok.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_eulji_mundeok_enemy_sheet.png"
+   },
+   "bytes": 8588,
+   "hero": "eulji_mundeok",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#eulji_mundeok",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#eulji_mundeok",
+   "raw": "docker/gemini/hero_v3_raw/eulji_mundeok.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.23
+    },
+    "colors": 32,
+    "clipped_px": 85,
+    "idle_size": {
+     "down": "42x64",
+     "left": "41x64",
+     "up": "42x64"
+    },
+    "outline": "#02031d",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 원뿔 투구·미늘 드림",
+     "beard": "O",
+     "clothes": "O 미늘 갑옷·붉은 소매·남색 망토",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/eulji_mundeok_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고구려 찰갑·투구 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.eulji_mundeok.enemy.64",
+   "path": "assets/sprites/64/hero_eulji_mundeok_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "eulji_mundeok",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_eulji_mundeok_enemy.png"
+   },
+   "bytes": 1255,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.eulji_mundeok.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.seondeok.ally.64.sheet",
+   "path": "assets/sprites/64/hero_seondeok_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.seondeok.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_seondeok_ally_sheet.png"
+   },
+   "bytes": 7738,
+   "hero": "seondeok",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#seondeok",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#seondeok",
+   "raw": "docker/gemini/hero_v3_raw/seondeok.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.35
+    },
+    "colors": 32,
+    "clipped_px": 81,
+    "idle_size": {
+     "down": "31x64",
+     "left": "24x62",
+     "up": "40x62"
+    },
+    "outline": "#040123",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 신라 금관(세움 장식)",
+     "beard": "O",
+     "clothes": "O 청록 포·노란 덧옷",
+     "item": "O 없음",
+     "gender_age": "O 젊은 여성"
+    },
+    "issues": [
+     "파일럿(43px) 대비 64px 로 재제작",
+     "적 스왑 시 청록이 진홍으로"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/seondeok_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.seondeok.ally.64",
+   "path": "assets/sprites/64/hero_seondeok_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "seondeok",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_seondeok_ally.png"
+   },
+   "bytes": 1128,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.seondeok.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.seondeok.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_seondeok_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.seondeok.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_seondeok_enemy_sheet.png"
+   },
+   "bytes": 7738,
+   "hero": "seondeok",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#seondeok",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#seondeok",
+   "raw": "docker/gemini/hero_v3_raw/seondeok.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.35
+    },
+    "colors": 32,
+    "clipped_px": 81,
+    "idle_size": {
+     "down": "31x64",
+     "left": "24x62",
+     "up": "40x62"
+    },
+    "outline": "#040123",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 신라 금관(세움 장식)",
+     "beard": "O",
+     "clothes": "O 청록 포·노란 덧옷",
+     "item": "O 없음",
+     "gender_age": "O 젊은 여성"
+    },
+    "issues": [
+     "파일럿(43px) 대비 64px 로 재제작",
+     "적 스왑 시 청록이 진홍으로"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/seondeok_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.seondeok.enemy.64",
+   "path": "assets/sprites/64/hero_seondeok_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "seondeok",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_seondeok_enemy.png"
+   },
+   "bytes": 1128,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.seondeok.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.gang_gamchan.ally.64.sheet",
+   "path": "assets/sprites/64/hero_gang_gamchan_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.gang_gamchan.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_gang_gamchan_ally_sheet.png"
+   },
+   "bytes": 8399,
+   "hero": "gang_gamchan",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#gang_gamchan",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#gang_gamchan",
+   "raw": "docker/gemini/hero_v3_raw/gang_gamchan.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.12
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "42x63",
+     "left": "37x63",
+     "up": "39x63"
+    },
+    "outline": "#02021b",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 흰 수염",
+     "hair_shape": "O 검은 모자형 투구",
+     "beard": "O",
+     "clothes": "O 철 흉갑·남색",
+     "item": "O 창",
+     "gender_age": "O 노장"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/gang_gamchan_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고려 갑주 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.gang_gamchan.ally.64",
+   "path": "assets/sprites/64/hero_gang_gamchan_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "gang_gamchan",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_gang_gamchan_ally.png"
+   },
+   "bytes": 1168,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.gang_gamchan.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.gang_gamchan.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_gang_gamchan_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.gang_gamchan.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_gang_gamchan_enemy_sheet.png"
+   },
+   "bytes": 8399,
+   "hero": "gang_gamchan",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#gang_gamchan",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#gang_gamchan",
+   "raw": "docker/gemini/hero_v3_raw/gang_gamchan.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.12
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "42x63",
+     "left": "37x63",
+     "up": "39x63"
+    },
+    "outline": "#02021b",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 흰 수염",
+     "hair_shape": "O 검은 모자형 투구",
+     "beard": "O",
+     "clothes": "O 철 흉갑·남색",
+     "item": "O 창",
+     "gender_age": "O 노장"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/gang_gamchan_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고려 갑주 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.gang_gamchan.enemy.64",
+   "path": "assets/sprites/64/hero_gang_gamchan_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "gang_gamchan",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_gang_gamchan_enemy.png"
+   },
+   "bytes": 1168,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.gang_gamchan.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.wang_geon.ally.64.sheet",
+   "path": "assets/sprites/64/hero_wang_geon_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.wang_geon.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wang_geon_ally_sheet.png"
+   },
+   "bytes": 8478,
+   "hero": "wang_geon",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#wang_geon",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#wang_geon",
+   "raw": "docker/gemini/hero_v3_raw/wang_geon.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.21
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "42x64",
+     "left": "44x64",
+     "up": "39x63"
+    },
+    "outline": "#020219",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 남색 투구",
+     "beard": "O",
+     "clothes": "O 은 미늘·남색 망토",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/wang_geon_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고려 갑주 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.wang_geon.ally.64",
+   "path": "assets/sprites/64/hero_wang_geon_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "wang_geon",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wang_geon_ally.png"
+   },
+   "bytes": 1202,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.wang_geon.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.wang_geon.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_wang_geon_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.wang_geon.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wang_geon_enemy_sheet.png"
+   },
+   "bytes": 8478,
+   "hero": "wang_geon",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#wang_geon",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#wang_geon",
+   "raw": "docker/gemini/hero_v3_raw/wang_geon.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.21
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "42x64",
+     "left": "44x64",
+     "up": "39x63"
+    },
+    "outline": "#020219",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 남색 투구",
+     "beard": "O",
+     "clothes": "O 은 미늘·남색 망토",
+     "item": "O 창",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/wang_geon_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고려 갑주 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.wang_geon.enemy.64",
+   "path": "assets/sprites/64/hero_wang_geon_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "wang_geon",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wang_geon_enemy.png"
+   },
+   "bytes": 1202,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.wang_geon.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.liu_bang.ally.64.sheet",
+   "path": "assets/sprites/64/hero_liu_bang_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.liu_bang.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_liu_bang_ally_sheet.png"
+   },
+   "bytes": 9300,
+   "hero": "liu_bang",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#liu_bang",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#liu_bang",
+   "raw": "docker/gemini/hero_v3_raw/liu_bang.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.24
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "41x63",
+     "left": "44x62",
+     "up": "42x62"
+    },
+    "outline": "#01011d",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 상투·관모",
+     "beard": "O",
+     "clothes": "O 갈색 찰갑·붉은 포·황토 망토",
+     "item": "O 극",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/liu_bang_compare.png"
+   },
+   "verify": true,
+   "verify_note": "진한 교체기 갑주 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.liu_bang.ally.64",
+   "path": "assets/sprites/64/hero_liu_bang_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "liu_bang",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_liu_bang_ally.png"
+   },
+   "bytes": 1239,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.liu_bang.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.liu_bang.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_liu_bang_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.liu_bang.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_liu_bang_enemy_sheet.png"
+   },
+   "bytes": 9300,
+   "hero": "liu_bang",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#liu_bang",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#liu_bang",
+   "raw": "docker/gemini/hero_v3_raw/liu_bang.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.24
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "41x63",
+     "left": "44x62",
+     "up": "42x62"
+    },
+    "outline": "#01011d",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 상투·관모",
+     "beard": "O",
+     "clothes": "O 갈색 찰갑·붉은 포·황토 망토",
+     "item": "O 극",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/liu_bang_compare.png"
+   },
+   "verify": true,
+   "verify_note": "진한 교체기 갑주 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.liu_bang.enemy.64",
+   "path": "assets/sprites/64/hero_liu_bang_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "liu_bang",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_liu_bang_enemy.png"
+   },
+   "bytes": 1239,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.liu_bang.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.wu_zetian.ally.64.sheet",
+   "path": "assets/sprites/64/hero_wu_zetian_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.wu_zetian.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wu_zetian_ally_sheet.png"
+   },
+   "bytes": 8781,
+   "hero": "wu_zetian",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#wu_zetian",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#wu_zetian",
+   "raw": "docker/gemini/hero_v3_raw/wu_zetian.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.49
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x64",
+     "left": "31x62",
+     "up": "34x63"
+    },
+    "outline": "#02021f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 큰 올림머리·금 비녀",
+     "beard": "O",
+     "clothes": "O 노란 겉옷·녹색 치마",
+     "item": "O 없음",
+     "gender_age": "O 여성"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/wu_zetian_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.wu_zetian.ally.64",
+   "path": "assets/sprites/64/hero_wu_zetian_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "wu_zetian",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wu_zetian_ally.png"
+   },
+   "bytes": 1193,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.wu_zetian.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.wu_zetian.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_wu_zetian_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.wu_zetian.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wu_zetian_enemy_sheet.png"
+   },
+   "bytes": 8781,
+   "hero": "wu_zetian",
+   "unit_type": "mage",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#wu_zetian",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#wu_zetian",
+   "raw": "docker/gemini/hero_v3_raw/wu_zetian.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.49
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x64",
+     "left": "31x62",
+     "up": "34x63"
+    },
+    "outline": "#02021f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 큰 올림머리·금 비녀",
+     "beard": "O",
+     "clothes": "O 노란 겉옷·녹색 치마",
+     "item": "O 없음",
+     "gender_age": "O 여성"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/wu_zetian_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.wu_zetian.enemy.64",
+   "path": "assets/sprites/64/hero_wu_zetian_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "wu_zetian",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_wu_zetian_enemy.png"
+   },
+   "bytes": 1193,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.wu_zetian.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.confucius.ally.64.sheet",
+   "path": "assets/sprites/64/hero_confucius_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.confucius.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_confucius_ally_sheet.png"
+   },
+   "bytes": 7826,
+   "hero": "confucius",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#confucius",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#confucius",
+   "raw": "docker/gemini/hero_v3_raw/confucius.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.34
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "36x63",
+     "left": "27x61",
+     "up": "38x62"
+    },
+    "outline": "#010127",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 회색",
+     "hair_shape": "O 상투·관",
+     "beard": "O 긴 회색 수염",
+     "clothes": "O 갈색 겉옷·흰 포",
+     "item": "O 죽간",
+     "gender_age": "O 노년"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/confucius_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.confucius.ally.64",
+   "path": "assets/sprites/64/hero_confucius_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "confucius",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_confucius_ally.png"
+   },
+   "bytes": 1118,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.confucius.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.confucius.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_confucius_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.confucius.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_confucius_enemy_sheet.png"
+   },
+   "bytes": 7826,
+   "hero": "confucius",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#confucius",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#confucius",
+   "raw": "docker/gemini/hero_v3_raw/confucius.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.34
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "36x63",
+     "left": "27x61",
+     "up": "38x62"
+    },
+    "outline": "#010127",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 회색",
+     "hair_shape": "O 상투·관",
+     "beard": "O 긴 회색 수염",
+     "clothes": "O 갈색 겉옷·흰 포",
+     "item": "O 죽간",
+     "gender_age": "O 노년"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/confucius_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.confucius.enemy.64",
+   "path": "assets/sprites/64/hero_confucius_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "confucius",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_confucius_enemy.png"
+   },
+   "bytes": 1118,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.confucius.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.cyrus_ii.ally.64.sheet",
+   "path": "assets/sprites/64/hero_cyrus_ii_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.cyrus_ii.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_cyrus_ii_ally_sheet.png"
+   },
+   "bytes": 8246,
+   "hero": "cyrus_ii",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#cyrus_ii",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#cyrus_ii",
+   "raw": "docker/gemini/hero_v3_raw/cyrus_ii.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.53
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x62",
+     "left": "26x61",
+     "up": "34x63"
+    },
+    "outline": "#030124",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 남색 원통형 관",
+     "beard": "O",
+     "clothes": "O 남색 옷·금빛 겉옷",
+     "item": "O 없음",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/cyrus_ii_compare.png"
+   },
+   "verify": true,
+   "verify_note": "아케메네스 왕관 형태 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.cyrus_ii.ally.64",
+   "path": "assets/sprites/64/hero_cyrus_ii_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "cyrus_ii",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_cyrus_ii_ally.png"
+   },
+   "bytes": 1178,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.cyrus_ii.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.cyrus_ii.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_cyrus_ii_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.cyrus_ii.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_cyrus_ii_enemy_sheet.png"
+   },
+   "bytes": 8246,
+   "hero": "cyrus_ii",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#cyrus_ii",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#cyrus_ii",
+   "raw": "docker/gemini/hero_v3_raw/cyrus_ii.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.53
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x62",
+     "left": "26x61",
+     "up": "34x63"
+    },
+    "outline": "#030124",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 남색 원통형 관",
+     "beard": "O",
+     "clothes": "O 남색 옷·금빛 겉옷",
+     "item": "O 없음",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/cyrus_ii_compare.png"
+   },
+   "verify": true,
+   "verify_note": "아케메네스 왕관 형태 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.cyrus_ii.enemy.64",
+   "path": "assets/sprites/64/hero_cyrus_ii_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "cyrus_ii",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_cyrus_ii_enemy.png"
+   },
+   "bytes": 1178,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.cyrus_ii.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.darius_i.ally.64.sheet",
+   "path": "assets/sprites/64/hero_darius_i_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.darius_i.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_darius_i_ally_sheet.png"
+   },
+   "bytes": 6843,
+   "hero": "darius_i",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#darius_i",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#darius_i",
+   "raw": "docker/gemini/hero_v3_raw/darius_i.jpg",
+   "calls": 3,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.33
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "41x63",
+     "left": "35x62",
+     "up": "39x62"
+    },
+    "outline": "#03010b",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 금관·곱슬 장발",
+     "beard": "O 긴 턱수염",
+     "clothes": "O 남색 겉옷·붉은 옷",
+     "item": "△ 금 홀 → 금 구슬 창(병종 표현, verify)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "후면 행은 idle 1프레임 고정(재생성 2회 모두 후면 걷기 칸에서 창 위치가 좌우로 튐) — 위로 걸을 때 다리 움직임 없음. 개선하려면 후면 행만 추가 생성 또는 사람 보정"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/darius_i_compare.png"
+   },
+   "verify": true,
+   "verify_note": "초상화의 금 홀을 '금 구슬 달린 창'으로 대체(아케메네스 근위대 창 형태, 고증 확인)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.darius_i.ally.64",
+   "path": "assets/sprites/64/hero_darius_i_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "darius_i",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_darius_i_ally.png"
+   },
+   "bytes": 1145,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.darius_i.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.darius_i.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_darius_i_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.darius_i.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_darius_i_enemy_sheet.png"
+   },
+   "bytes": 6843,
+   "hero": "darius_i",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#darius_i",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#darius_i",
+   "raw": "docker/gemini/hero_v3_raw/darius_i.jpg",
+   "calls": 3,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.33
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "41x63",
+     "left": "35x62",
+     "up": "39x62"
+    },
+    "outline": "#03010b",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 금관·곱슬 장발",
+     "beard": "O 긴 턱수염",
+     "clothes": "O 남색 겉옷·붉은 옷",
+     "item": "△ 금 홀 → 금 구슬 창(병종 표현, verify)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "후면 행은 idle 1프레임 고정(재생성 2회 모두 후면 걷기 칸에서 창 위치가 좌우로 튐) — 위로 걸을 때 다리 움직임 없음. 개선하려면 후면 행만 추가 생성 또는 사람 보정"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/darius_i_compare.png"
+   },
+   "verify": true,
+   "verify_note": "초상화의 금 홀을 '금 구슬 달린 창'으로 대체(아케메네스 근위대 창 형태, 고증 확인)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.darius_i.enemy.64",
+   "path": "assets/sprites/64/hero_darius_i_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "darius_i",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_darius_i_enemy.png"
+   },
+   "bytes": 1145,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.darius_i.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.harun_rashid.ally.64.sheet",
+   "path": "assets/sprites/64/hero_harun_rashid_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.harun_rashid.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_harun_rashid_ally_sheet.png"
+   },
+   "bytes": 8246,
+   "hero": "harun_rashid",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#harun_rashid",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#harun_rashid",
+   "raw": "docker/gemini/hero_v3_raw/harun_rashid.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.06
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x63",
+     "left": "26x60",
+     "up": "36x62"
+    },
+    "outline": "#01000c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 검은 터번",
+     "beard": "O",
+     "clothes": "O 검은 겉옷·남색·금 테두리",
+     "item": "O 책",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/harun_rashid_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.harun_rashid.ally.64",
+   "path": "assets/sprites/64/hero_harun_rashid_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "harun_rashid",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_harun_rashid_ally.png"
+   },
+   "bytes": 1186,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.harun_rashid.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.harun_rashid.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_harun_rashid_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.harun_rashid.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_harun_rashid_enemy_sheet.png"
+   },
+   "bytes": 8246,
+   "hero": "harun_rashid",
+   "unit_type": "healer",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#harun_rashid",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#harun_rashid",
+   "raw": "docker/gemini/hero_v3_raw/harun_rashid.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.06
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x63",
+     "left": "26x60",
+     "up": "36x62"
+    },
+    "outline": "#01000c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 검은 터번",
+     "beard": "O",
+     "clothes": "O 검은 겉옷·남색·금 테두리",
+     "item": "O 책",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/harun_rashid_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.harun_rashid.enemy.64",
+   "path": "assets/sprites/64/hero_harun_rashid_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "harun_rashid",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_harun_rashid_enemy.png"
+   },
+   "bytes": 1186,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.harun_rashid.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.toyotomi_hideyoshi.ally.64.sheet",
+   "path": "assets/sprites/64/hero_toyotomi_hideyoshi_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.toyotomi_hideyoshi.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_toyotomi_hideyoshi_ally_sheet.png"
+   },
+   "bytes": 7816,
+   "hero": "toyotomi_hideyoshi",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#toyotomi_hideyoshi",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#toyotomi_hideyoshi",
+   "raw": "docker/gemini/hero_v3_raw/toyotomi_hideyoshi.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.34
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x63",
+     "left": "42x63",
+     "up": "45x63"
+    },
+    "outline": "#02011c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 검은 관모",
+     "beard": "O",
+     "clothes": "O 황록 진바오리·노란 테두리",
+     "item": "O 쥘부채·칼",
+     "gender_age": "O"
+    },
+    "issues": [
+     "병종(창)과 달리 부채(초상화 기준, verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/toyotomi_hideyoshi_compare.png"
+   },
+   "verify": true,
+   "verify_note": "병종(창)과 달리 부채 — 초상화 기준",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.toyotomi_hideyoshi.ally.64",
+   "path": "assets/sprites/64/hero_toyotomi_hideyoshi_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "toyotomi_hideyoshi",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_toyotomi_hideyoshi_ally.png"
+   },
+   "bytes": 1130,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.toyotomi_hideyoshi.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.toyotomi_hideyoshi.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_toyotomi_hideyoshi_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.toyotomi_hideyoshi.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_toyotomi_hideyoshi_enemy_sheet.png"
+   },
+   "bytes": 7816,
+   "hero": "toyotomi_hideyoshi",
+   "unit_type": "spear",
+   "enemy_commander": false,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#toyotomi_hideyoshi",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#toyotomi_hideyoshi",
+   "raw": "docker/gemini/hero_v3_raw/toyotomi_hideyoshi.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.34
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x63",
+     "left": "42x63",
+     "up": "45x63"
+    },
+    "outline": "#02011c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 검은 관모",
+     "beard": "O",
+     "clothes": "O 황록 진바오리·노란 테두리",
+     "item": "O 쥘부채·칼",
+     "gender_age": "O"
+    },
+    "issues": [
+     "병종(창)과 달리 부채(초상화 기준, verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/toyotomi_hideyoshi_compare.png"
+   },
+   "verify": true,
+   "verify_note": "병종(창)과 달리 부채 — 초상화 기준",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.toyotomi_hideyoshi.enemy.64",
+   "path": "assets/sprites/64/hero_toyotomi_hideyoshi_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "toyotomi_hideyoshi",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_toyotomi_hideyoshi_enemy.png"
+   },
+   "bytes": 1130,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.toyotomi_hideyoshi.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.napoleon.ally.64.sheet",
+   "path": "assets/sprites/64/hero_napoleon_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.napoleon.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_napoleon_ally_sheet.png"
+   },
+   "bytes": 7018,
+   "hero": "napoleon",
+   "unit_type": "archer",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#napoleon",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#napoleon",
+   "raw": "docker/gemini/hero_v3_raw/napoleon.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.99
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x61",
+     "left": "29x61",
+     "up": "34x60"
+    },
+    "outline": "#07041e",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "△ 이각모 추가(초상화엔 모자 없음, 인물 상징)",
+     "beard": "O 없음",
+     "clothes": "O 녹색 군복·흰 조끼·금 견장·남색 망토",
+     "item": "△ 망원경(작게 읽힘)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "병종(궁)과 달리 망원경(verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/napoleon_compare.png"
+   },
+   "verify": true,
+   "verify_note": "병종(궁)과 달리 망원경 — 초상화·인물 상징 기준. 이각모 추가(초상화엔 없음)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.napoleon.ally.64",
+   "path": "assets/sprites/64/hero_napoleon_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "napoleon",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_napoleon_ally.png"
+   },
+   "bytes": 1122,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.napoleon.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.napoleon.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_napoleon_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.napoleon.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_napoleon_enemy_sheet.png"
+   },
+   "bytes": 7018,
+   "hero": "napoleon",
+   "unit_type": "archer",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#napoleon",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#napoleon",
+   "raw": "docker/gemini/hero_v3_raw/napoleon.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.99
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x61",
+     "left": "29x61",
+     "up": "34x60"
+    },
+    "outline": "#07041e",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "△ 이각모 추가(초상화엔 모자 없음, 인물 상징)",
+     "beard": "O 없음",
+     "clothes": "O 녹색 군복·흰 조끼·금 견장·남색 망토",
+     "item": "△ 망원경(작게 읽힘)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "병종(궁)과 달리 망원경(verify)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/napoleon_compare.png"
+   },
+   "verify": true,
+   "verify_note": "병종(궁)과 달리 망원경 — 초상화·인물 상징 기준. 이각모 추가(초상화엔 없음)",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.napoleon.enemy.64",
+   "path": "assets/sprites/64/hero_napoleon_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "napoleon",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_napoleon_enemy.png"
+   },
+   "bytes": 1122,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.napoleon.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.black_prince.ally.64.sheet",
+   "path": "assets/sprites/64/hero_black_prince_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.black_prince.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_black_prince_ally_sheet.png"
+   },
+   "bytes": 7701,
+   "hero": "black_prince",
+   "unit_type": "cavalry",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#black_prince",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#black_prince",
+   "raw": "docker/gemini/hero_v3_raw/black_prince.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.04
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x54",
+     "left": "53x54",
+     "up": "29x64"
+    },
+    "outline": "#05021f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 금 머리띠",
+     "beard": "O 없음",
+     "clothes": "O 은 판금·남색 망토",
+     "item": "O 장검·검은 말",
+     "gender_age": "O 젊은 남성"
+    },
+    "issues": [
+     "검은 말이라 어두운 지형에서 실루엣 약함(경미)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/black_prince_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.black_prince.ally.64",
+   "path": "assets/sprites/64/hero_black_prince_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "black_prince",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_black_prince_ally.png"
+   },
+   "bytes": 1002,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.black_prince.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.black_prince.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_black_prince_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.black_prince.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_black_prince_enemy_sheet.png"
+   },
+   "bytes": 7701,
+   "hero": "black_prince",
+   "unit_type": "cavalry",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#black_prince",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#black_prince",
+   "raw": "docker/gemini/hero_v3_raw/black_prince.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.04
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x54",
+     "left": "53x54",
+     "up": "29x64"
+    },
+    "outline": "#05021f",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 금 머리띠",
+     "beard": "O 없음",
+     "clothes": "O 은 판금·남색 망토",
+     "item": "O 장검·검은 말",
+     "gender_age": "O 젊은 남성"
+    },
+    "issues": [
+     "검은 말이라 어두운 지형에서 실루엣 약함(경미)"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/black_prince_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.black_prince.enemy.64",
+   "path": "assets/sprites/64/hero_black_prince_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "black_prince",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_black_prince_enemy.png"
+   },
+   "bytes": 1002,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.black_prince.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.jangsu.ally.64.sheet",
+   "path": "assets/sprites/64/hero_jangsu_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.jangsu.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jangsu_ally_sheet.png"
+   },
+   "bytes": 7841,
+   "hero": "jangsu",
+   "unit_type": "mage",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#jangsu",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#jangsu",
+   "raw": "docker/gemini/hero_v3_raw/jangsu.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.42
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x60",
+     "left": "37x60",
+     "up": "40x60"
+    },
+    "outline": "#03011c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 날개 금관",
+     "beard": "O",
+     "clothes": "O 남색 포·붉은/금 테두리",
+     "item": "O 금 홀",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/jangsu_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고구려 금관(새 날개 장식) 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.jangsu.ally.64",
+   "path": "assets/sprites/64/hero_jangsu_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "jangsu",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jangsu_ally.png"
+   },
+   "bytes": 1191,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.jangsu.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.jangsu.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_jangsu_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.jangsu.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jangsu_enemy_sheet.png"
+   },
+   "bytes": 7841,
+   "hero": "jangsu",
+   "unit_type": "mage",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#jangsu",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#jangsu",
+   "raw": "docker/gemini/hero_v3_raw/jangsu.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.42
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x60",
+     "left": "37x60",
+     "up": "40x60"
+    },
+    "outline": "#03011c",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 날개 금관",
+     "beard": "O",
+     "clothes": "O 남색 포·붉은/금 테두리",
+     "item": "O 금 홀",
+     "gender_age": "O"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/jangsu_compare.png"
+   },
+   "verify": true,
+   "verify_note": "고구려 금관(새 날개 장식) 고증",
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.jangsu.enemy.64",
+   "path": "assets/sprites/64/hero_jangsu_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "jangsu",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_jangsu_enemy.png"
+   },
+   "bytes": 1191,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.jangsu.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.el_cid.ally.64.sheet",
+   "path": "assets/sprites/64/hero_el_cid_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.el_cid.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_el_cid_ally_sheet.png"
+   },
+   "bytes": 8414,
+   "hero": "el_cid",
+   "unit_type": "cavalry",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#el_cid",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#el_cid",
+   "raw": "docker/gemini/hero_v3_raw/el_cid.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.39
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "37x59",
+     "left": "54x58",
+     "up": "29x64"
+    },
+    "outline": "#060626",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 회색",
+     "hair_shape": "O 코 가리개 원뿔 투구",
+     "beard": "O 긴 회색 수염",
+     "clothes": "O 사슬·남색 겉옷·갈색 망토",
+     "item": "O 장검·흰 말",
+     "gender_age": "O 노년"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/el_cid_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.el_cid.ally.64",
+   "path": "assets/sprites/64/hero_el_cid_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "el_cid",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_el_cid_ally.png"
+   },
+   "bytes": 993,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.el_cid.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.el_cid.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_el_cid_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.el_cid.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_el_cid_enemy_sheet.png"
+   },
+   "bytes": 8414,
+   "hero": "el_cid",
+   "unit_type": "cavalry",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#el_cid",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#el_cid",
+   "raw": "docker/gemini/hero_v3_raw/el_cid.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.39
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "37x59",
+     "left": "54x58",
+     "up": "29x64"
+    },
+    "outline": "#060626",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 회색",
+     "hair_shape": "O 코 가리개 원뿔 투구",
+     "beard": "O 긴 회색 수염",
+     "clothes": "O 사슬·남색 겉옷·갈색 망토",
+     "item": "O 장검·흰 말",
+     "gender_age": "O 노년"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/el_cid_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.el_cid.enemy.64",
+   "path": "assets/sprites/64/hero_el_cid_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "el_cid",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_el_cid_enemy.png"
+   },
+   "bytes": 993,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.el_cid.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.elizabeth_i.ally.64.sheet",
+   "path": "assets/sprites/64/hero_elizabeth_i_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.elizabeth_i.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_elizabeth_i_ally_sheet.png"
+   },
+   "bytes": 8243,
+   "hero": "elizabeth_i",
+   "unit_type": "healer",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#elizabeth_i",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#elizabeth_i",
+   "raw": "docker/gemini/hero_v3_raw/elizabeth_i.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.44
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x64",
+     "left": "31x63",
+     "up": "38x63"
+    },
+    "outline": "#010119",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 붉은 주황",
+     "hair_shape": "O 곱슬 올림머리·금관",
+     "beard": "O",
+     "clothes": "O 흰 러프·검은 금무늬 드레스",
+     "item": "O 없음",
+     "gender_age": "O 여성"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/elizabeth_i_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.elizabeth_i.ally.64",
+   "path": "assets/sprites/64/hero_elizabeth_i_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "elizabeth_i",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_elizabeth_i_ally.png"
+   },
+   "bytes": 1270,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.elizabeth_i.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.elizabeth_i.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_elizabeth_i_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.elizabeth_i.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_elizabeth_i_enemy_sheet.png"
+   },
+   "bytes": 8243,
+   "hero": "elizabeth_i",
+   "unit_type": "healer",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#elizabeth_i",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#elizabeth_i",
+   "raw": "docker/gemini/hero_v3_raw/elizabeth_i.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.44
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x64",
+     "left": "31x63",
+     "up": "38x63"
+    },
+    "outline": "#010119",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 붉은 주황",
+     "hair_shape": "O 곱슬 올림머리·금관",
+     "beard": "O",
+     "clothes": "O 흰 러프·검은 금무늬 드레스",
+     "item": "O 없음",
+     "gender_age": "O 여성"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/elizabeth_i_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.elizabeth_i.enemy.64",
+   "path": "assets/sprites/64/hero_elizabeth_i_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "elizabeth_i",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_elizabeth_i_enemy.png"
+   },
+   "bytes": 1270,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.elizabeth_i.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.sun_quan.ally.64.sheet",
+   "path": "assets/sprites/64/hero_sun_quan_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.sun_quan.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_sun_quan_ally_sheet.png"
+   },
+   "bytes": 8512,
+   "hero": "sun_quan",
+   "unit_type": "archer",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#sun_quan",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#sun_quan",
+   "raw": "docker/gemini/hero_v3_raw/sun_quan.jpg",
+   "calls": 2,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.15
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x63",
+     "left": "48x62",
+     "up": "41x61"
+    },
+    "outline": "#090826",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 상투·관",
+     "beard": "O",
+     "clothes": "O 은 미늘·녹색 포·남색 망토",
+     "item": "O 활·화살통(9칸)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "1차본 정면 활 누락 → 재생성 1회로 해결"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/sun_quan_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.sun_quan.ally.64",
+   "path": "assets/sprites/64/hero_sun_quan_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "sun_quan",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_sun_quan_ally.png"
+   },
+   "bytes": 1058,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.sun_quan.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.sun_quan.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_sun_quan_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.sun_quan.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_sun_quan_enemy_sheet.png"
+   },
+   "bytes": 8512,
+   "hero": "sun_quan",
+   "unit_type": "archer",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#sun_quan",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#sun_quan",
+   "raw": "docker/gemini/hero_v3_raw/sun_quan.jpg",
+   "calls": 2,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.15
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x63",
+     "left": "48x62",
+     "up": "41x61"
+    },
+    "outline": "#090826",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O",
+     "hair_shape": "O 상투·관",
+     "beard": "O",
+     "clothes": "O 은 미늘·녹색 포·남색 망토",
+     "item": "O 활·화살통(9칸)",
+     "gender_age": "O"
+    },
+    "issues": [
+     "1차본 정면 활 누락 → 재생성 1회로 해결"
+    ],
+    "compare": "docker/gemini/hero_v3_preview/compare/sun_quan_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.sun_quan.enemy.64",
+   "path": "assets/sprites/64/hero_sun_quan_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "sun_quan",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_sun_quan_enemy.png"
+   },
+   "bytes": 1058,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.sun_quan.enemy.64.sheet"
+  },
+  {
+   "key": "unit.hero.toussaint_louverture.ally.64.sheet",
+   "path": "assets/sprites/64/hero_toussaint_louverture_ally_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "ally: 원색 + 발밑 파랑 받침(A안)",
+   "fallback_key": "unit.hero.toussaint_louverture.ally.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_toussaint_louverture_ally_sheet.png"
+   },
+   "bytes": 7828,
+   "hero": "toussaint_louverture",
+   "unit_type": "sword",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#toussaint_louverture",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#toussaint_louverture",
+   "raw": "docker/gemini/hero_v3_raw/toussaint_louverture.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.16
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x61",
+     "left": "31x62",
+     "up": "46x62"
+    },
+    "outline": "#01011e",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 회색",
+     "hair_shape": "O 짧은 곱슬",
+     "beard": "O 회색 콧수염",
+     "clothes": "O 남색 정복·금 견장·흰 띠·망토",
+     "item": "O 사브르",
+     "gender_age": "O 노년"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/toussaint_louverture_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.toussaint_louverture.ally.64",
+   "path": "assets/sprites/64/hero_toussaint_louverture_ally.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "toussaint_louverture",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_toussaint_louverture_ally.png"
+   },
+   "bytes": 1149,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.toussaint_louverture.ally.64.sheet"
+  },
+  {
+   "key": "unit.hero.toussaint_louverture.enemy.64.sheet",
+   "path": "assets/sprites/64/hero_toussaint_louverture_enemy_sheet.png",
+   "type": "spritesheet",
+   "size": "192x256",
+   "frame": [
+    64,
+    64
+   ],
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "layout": {
+    "cols": [
+     "walk1",
+     "idle",
+     "walk2"
+    ],
+    "rows": [
+     "down",
+     "left",
+     "right",
+     "up"
+    ]
+   },
+   "alpha": "binary(0/255)",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "team": "enemy: 파랑 계열 슬롯 → 빨강 스왑 + 발밑 빨강 받침",
+   "fallback_key": "unit.hero.toussaint_louverture.enemy.64",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_toussaint_louverture_enemy_sheet.png"
+   },
+   "bytes": 7828,
+   "hero": "toussaint_louverture",
+   "unit_type": "sword",
+   "enemy_commander": true,
+   "generator": "gemini interactions",
+   "model": "gemini-nano-banana-2.1",
+   "script": "docker/gemini/hero_v3_gen.mjs → hero_dir_pp.mjs(HERO_FACE=hero_v3_facing.json) → hero_v3_compare.mjs",
+   "prompt_ref": "docker/gemini/hero_v3_prompts.json#toussaint_louverture",
+   "facing_ref": "docker/gemini/hero_v3_facing.json#toussaint_louverture",
+   "raw": "docker/gemini/hero_v3_raw/toussaint_louverture.jpg",
+   "calls": 1,
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.16
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x61",
+     "left": "31x62",
+     "up": "46x62"
+    },
+    "outline": "#01011e",
+    "right": "mirror"
+   },
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": {
+     "hair_color": "O 회색",
+     "hair_shape": "O 짧은 곱슬",
+     "beard": "O 회색 콧수염",
+     "clothes": "O 남색 정복·금 견장·흰 띠·망토",
+     "item": "O 사브르",
+     "gender_age": "O 노년"
+    },
+    "issues": [],
+    "compare": "docker/gemini/hero_v3_preview/compare/toussaint_louverture_compare.png"
+   },
+   "verify": false,
+   "license": "AI 생성(내부 제작, 모델 이용약관 따름) — 외부 배포 전 확인 필요",
+   "provenance": "refs: 병종 방향 시트 raw(좌향 보정본, 배치·도트 크기만) + 정식 초상화 PNG"
+  },
+  {
+   "key": "unit.hero.toussaint_louverture.enemy.64",
+   "path": "assets/sprites/64/hero_toussaint_louverture_enemy.png",
+   "type": "sprite",
+   "size": "64x64",
+   "alpha": "binary(0/255)",
+   "hero": "toussaint_louverture",
+   "variants": {
+    "x2": "assets/sprites/64_x2/hero_toussaint_louverture_enemy.png"
+   },
+   "bytes": 1149,
+   "pose": "front idle(시트 down idle 프레임)",
+   "qa": {
+    "checked": true,
+    "verdict": "pass"
+   },
+   "source": "unit.hero.toussaint_louverture.enemy.64.sheet"
+  }
+ ]
+}

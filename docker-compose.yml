@@ -1,0 +1,66 @@
+# 폴더명(legendary_war)과 무관하게 기존 컨테이너·볼륨(laravel-app_*) 이름을 유지한다
+name: laravel-app
+
+services:
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/var/www/html
+      # vendor는 컨테이너 내부 볼륨 유지 (Windows bind mount I/O 성능 문제 회피)
+      - vendor:/var/www/html/vendor
+      # 개발 속도 개선(Windows bind mount I/O 회피): 캐시·세션·로그·SQLite를 named volume으로
+      - fw_cache:/var/www/html/storage/framework/cache
+      - fw_sessions:/var/www/html/storage/framework/sessions
+      - app_logs:/var/www/html/storage/logs
+      - dbdata:/var/www/dbdata
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      # .env는 건드리지 않고 compose 수준에서만 지정 (CACHE_STORE/SESSION_DRIVER는 이미 file이라 변경 불필요)
+      # 컨테이너 전용 변수(config/database.php가 DB_DATABASE 미지정일 때만 사용). DB_DATABASE로 주면 phpunit의 :memory: 설정을 이겨 개발 DB가 테스트로 초기화된다
+      DEV_SQLITE_PATH: /var/www/dbdata/database.sqlite
+      # artisan serve 동시 처리 워커 수(--no-reload 일 때만 적용; Dockerfile CMD). .env 변경 시 자동 재시작 없음 -> 설정 변경 후 수동 재기동
+      PHP_CLI_SERVER_WORKERS: "6"
+      # 신전투 확인용(개발 한정). 롤백: 이 줄 삭제 후 app 재기동
+      GAME_MICRO_MODE: "on"
+
+  # 개발 한정 스케줄러(시즌 전쟁 war:tick 시간당 배치 등). 기본 `up`에는 포함되지 않고 `docker compose up -d scheduler`로만 기동.
+  # app과 같은 소스·볼륨(dbdata 포함)·환경변수를 써서 웹/CLI와 같은 DB(/var/www/dbdata/database.sqlite)를 본다.
+  # 로그: docker compose logs -f scheduler   /   중지: docker compose stop scheduler   /   제거: docker compose rm -sf scheduler
+  scheduler:
+    build: .
+    profiles: ["scheduler"]
+    restart: unless-stopped
+    volumes:
+      - .:/var/www/html
+      - vendor:/var/www/html/vendor
+      - fw_cache:/var/www/html/storage/framework/cache
+      - fw_sessions:/var/www/html/storage/framework/sessions
+      - app_logs:/var/www/html/storage/logs
+      - dbdata:/var/www/dbdata
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      DEV_SQLITE_PATH: /var/www/dbdata/database.sqlite
+    command: php artisan schedule:work
+
+  vite:
+    profiles: ["dev"]  # 일상은 build 산출물로 서빙, HMR 필요 시: docker compose --profile dev up -d vite
+    image: node:22-alpine
+    working_dir: /app
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    command: sh -c "npm install && npm run dev"
+
+volumes:
+  vendor:
+  node_modules:
+  fw_cache:
+  fw_sessions:
+  app_logs:
+  dbdata:

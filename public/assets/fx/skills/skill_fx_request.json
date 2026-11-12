@@ -1,0 +1,4711 @@
+{
+ "_note": "윤프론 연결 요청서(안아트 2026-11-06). 앱 코드 미수정. 서빙 DB skills(액티브 180·패시브 368) 읽기 전용 덤프 기준. 생성 docker/gemini/skill_fx_request.py",
+ "key_rule": "fx.skill.<fx_family>.<variant>. fx_family = 서버 skill_use.fx_family(strike/aoe/pierce/buff/heal/surge/stance) + decoy·passive(서버 FAMILY 표 미포함). variant = fx_variant(fire/thunder/water_ice/poison) 또는 base/하위 연출",
+ "resolve_order": [
+  "1) by_skill[skill_id].fx_key (이름 기반 추천 포함, 이 표가 우선)",
+  "2) fx.skill.<fx_family>.<fx_variant> (fx_variant 가 있고 manifest 에 키가 있으면)",
+  "3) family_default[fx_family] (buff 는 params.stat, heal 은 params.radius 로 분기)",
+  "4) 키가 없거나 로드 실패면 기존 SkillFx.js 코드 드로잉(현행 유지)"
+ ],
+ "family_default": {
+  "strike": "fx.skill.strike.base",
+  "aoe": "fx.skill.aoe.base",
+  "pierce": "fx.skill.pierce.base",
+  "buff": {
+   "atk": "fx.skill.buff.atk",
+   "def": "fx.skill.buff.def",
+   "move": "fx.skill.surge.base",
+   "*": "fx.skill.buff.holy"
+  },
+  "heal": {
+   "radius0": "fx.skill.heal.single",
+   "radius1+": "fx.skill.heal.area"
+  },
+  "surge": "fx.skill.surge.base",
+  "stance": "fx.skill.stance.base",
+  "decoy": "fx.skill.decoy.base"
+ },
+ "family_variant_matrix": {
+  "strike": {
+   "base": "fx.skill.strike.base",
+   "fire": "fx.skill.strike.fire",
+   "thunder": "fx.skill.strike.thunder",
+   "water_ice": "fx.skill.strike.water_ice",
+   "poison": "fx.skill.strike.poison"
+  },
+  "aoe": {
+   "base": "fx.skill.aoe.base",
+   "fire": "fx.skill.aoe.fire",
+   "thunder": "fx.skill.aoe.thunder",
+   "water_ice": "fx.skill.aoe.water_ice",
+   "poison": "fx.skill.aoe.poison"
+  },
+  "pierce": {
+   "base": "fx.skill.pierce.base",
+   "fire": "fx.skill.pierce.fire",
+   "thunder": "fx.skill.pierce.thunder",
+   "water_ice": "fx.skill.pierce.water_ice",
+   "poison": "fx.skill.pierce.poison"
+  },
+  "surge": {
+   "base": "fx.skill.surge.base",
+   "fire": "fx.skill.surge.fire",
+   "thunder": "fx.skill.surge.thunder",
+   "water_ice": "fx.skill.surge.water_ice",
+   "poison": "fx.skill.surge.poison"
+  },
+  "stance": {
+   "base": "fx.skill.stance.base",
+   "fire": "fx.skill.stance.fire",
+   "thunder": "fx.skill.stance.thunder",
+   "water_ice": "fx.skill.stance.water_ice",
+   "poison": "fx.skill.stance.poison"
+  }
+ },
+ "extra_variants": [
+  "fx.skill.strike.charge",
+  "fx.skill.strike.water",
+  "fx.skill.aoe.shot",
+  "fx.skill.aoe.scheme",
+  "fx.skill.buff.atk",
+  "fx.skill.buff.def",
+  "fx.skill.buff.rally",
+  "fx.skill.buff.holy",
+  "fx.skill.heal.single",
+  "fx.skill.heal.area"
+ ],
+ "playback": {
+  "strike": {
+   "at": "target",
+   "anchor": "시트 anchor 를 대상 유닛 몸통(발밑 -26px) 또는 발밑(thunder·water_ice·water)에 맞춤",
+   "start": "공격 모션 타격 프레임(FxManager.hit 직전)",
+   "layer": "유닛 위",
+   "flip": "strike.base·charge 는 시전자가 왼쪽을 볼 때 flipX"
+  },
+  "pierce": {
+   "at": "target",
+   "anchor": "타격점 = 대상 몸통 왼쪽면(시전자 쪽). 창끝 선이 시전자 쪽으로 약 60px 뻗음",
+   "start": "돌진 완료 순간",
+   "layer": "유닛 위",
+   "flip": "시전자가 왼쪽을 보면 flipX"
+  },
+  "aoe": {
+   "at": "target_tile_center",
+   "anchor": "중심 칸 몸통 높이(발밑 -12px). 160px 캔버스가 3x3 칸(52px x3 = 156)을 덮음",
+   "start": "skill_use 직후, 첫 착탄 프레임(약 0.1초)에 피해 숫자",
+   "layer": "유닛 위(지면 고리 포함 1장)",
+   "flip": "aoe.base 는 시전자가 오른쪽에 있으면 flipX"
+  },
+  "buff": {
+   "at": "caster",
+   "anchor": "시전자 발밑(buff.rally 만 머리 = 발밑 -26px)",
+   "start": "skill_use 즉시(모으기 링 대신 또는 뒤)",
+   "layer": "유닛 위(기둥 반투명)",
+   "flip": "없음",
+   "area": "radius 내 아군에는 passive.atk/def 를 0~120ms 엇갈려 재생(선택)"
+  },
+  "heal": {
+   "at": "target(heal.single) / target_tile_center(heal.area)",
+   "anchor": "대상 발밑 / 중심 칸 발밑",
+   "start": "치유 숫자 팝업 200ms 전",
+   "layer": "유닛 위",
+   "flip": "없음"
+  },
+  "surge": {
+   "at": "caster",
+   "anchor": "시전자 발밑",
+   "start": "이동 시작 직전 1회(이동 중 따라가지 않음)",
+   "layer": "유닛 위",
+   "flip": "없음"
+  },
+  "stance": {
+   "at": "caster",
+   "anchor": "시전자 발밑",
+   "start": "skill_use 즉시",
+   "layer": "지면 고리는 유닛 뒤가 이상적이나 1장이므로 유닛 위 + 알파 유지",
+   "flip": "없음"
+  },
+  "decoy": {
+   "at": "caster",
+   "anchor": "시전자 발밑",
+   "start": "skill_use 즉시",
+   "layer": "유닛 위",
+   "flip": "없음"
+  },
+  "passive": {
+   "at": "unit",
+   "anchor": "유닛 머리끝(발밑 -56px)",
+   "start": "패시브 발동 팝업과 동시(기존 이름 텍스트 유지)",
+   "layer": "유닛 위",
+   "flip": "없음"
+  }
+ },
+ "timing_common": {
+  "fps": "각 manifest 항목 fps_hint(12~20). 배속(settings speeds)은 fps 에 곱함",
+  "fxLevel": "풀 = 전체 재생 / 축약 = 시트 그대로 1회(모으기 링 생략) / 끄기 = 재생 안 함",
+  "once": "모든 시트 1회 재생(loop false), 마지막 프레임이 빈칸이라 끝나면 destroy",
+  "scale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 전장 유닛이 52px 로 축소 표시되면 같은 배율(52/64)을 이펙트에도 적용해 도트 크기를 맞춤",
+  "hitstop": "피해 숫자는 기존 충돌 시점에서 한 번만(SkillFx.js 원칙 유지). 시트 재생 중 히트스톱이 걸리면 시트도 멈춤",
+  "cutscene": "BattleCutscene(풀+컷신)에서는 무대 배율에 맞춰 정수 배율 x2~x3 NEAREST 로 같은 시트 재사용 가능"
+ },
+ "load": "scope battle. 전투 진입 시 편성 영웅 스킬의 fx_key 만 지연 로드 권장(전체 39장 PNG 합계 약 0.38MB)",
+ "counts": {
+  "active_total": 180,
+  "active_mapped": 180,
+  "by_key": {
+   "fx.skill.buff.def": 31,
+   "fx.skill.strike.base": 23,
+   "fx.skill.aoe.base": 17,
+   "fx.skill.buff.rally": 13,
+   "fx.skill.surge.base": 13,
+   "fx.skill.strike.charge": 12,
+   "fx.skill.heal.single": 12,
+   "fx.skill.pierce.base": 12,
+   "fx.skill.aoe.shot": 10,
+   "fx.skill.stance.base": 6,
+   "fx.skill.buff.atk": 5,
+   "fx.skill.aoe.scheme": 5,
+   "fx.skill.heal.area": 4,
+   "fx.skill.buff.holy": 3,
+   "fx.skill.strike.water": 2,
+   "fx.skill.surge.thunder": 2,
+   "fx.skill.surge.water_ice": 2,
+   "fx.skill.strike.fire": 2,
+   "fx.skill.stance.water_ice": 2,
+   "fx.skill.decoy.base": 1,
+   "fx.skill.aoe.fire": 1,
+   "fx.skill.strike.thunder": 1,
+   "fx.skill.pierce.water_ice": 1
+  },
+  "passive_total": 368,
+  "passive_mapped": 362
+ },
+ "backend_notes": [
+  "decoy(T_ACTIVE_DECOY, empty_fort 1건)는 SkillFx.php FAMILY 표에 없어 fx_family 가 null 로 나감 -> decoy 추가 요청(박백엔)",
+  "element 가 실린 액티브는 현재 1건(zy_fire_aoe=fire). 이름 기반 속성 추천(불꽃의 일격 등)은 by_skill 표로만 반영 — 판정 속성으로 바꿀지는 임밸런·송서사 결정",
+  "패시브는 최소 연출: passive.atk/def/heal 3종(32px)만, T_MOVE_UP 등 null 은 이펙트 없음"
+ ],
+ "by_skill": [
+  {
+   "skill_id": 1,
+   "code": "naval_barrage",
+   "name": "해전 포격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.water",
+   "by": "이름 기반 추천: 이름: 물·수전",
+   "heroes": []
+  },
+  {
+   "skill_id": 2,
+   "code": "cannae_encirclement",
+   "name": "칸나이 포위",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 4,
+   "code": "cavalry_charge",
+   "name": "기병 돌격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": []
+  },
+  {
+   "skill_id": 5,
+   "code": "horde_arrows",
+   "name": "기마 궁술",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 기마 궁술: 단일 대상 STRIKE 라 돌격 충격으로(화살 단일 시트 없음, verify)",
+   "heroes": []
+  },
+  {
+   "skill_id": 8,
+   "code": "empty_fort",
+   "name": "공성계",
+   "template": "T_ACTIVE_DECOY",
+   "fx_family": "decoy",
+   "fx_variant": null,
+   "fx_key": "fx.skill.decoy.base",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 1797,
+   "code": "np_artillery_aoe",
+   "name": "포병 집중 사격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": [
+    "napoleon"
+   ]
+  },
+  {
+   "skill_id": 1798,
+   "code": "m2_bombard_aoe",
+   "name": "공성포 포격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": [
+    "mehmed_ii"
+   ]
+  },
+  {
+   "skill_id": 1799,
+   "code": "on_arquebus_aoe",
+   "name": "화승총 집중 사격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": [
+    "oda_nobunaga"
+   ]
+  },
+  {
+   "skill_id": 1800,
+   "code": "h5_longbow_aoe",
+   "name": "장궁 일제 사격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "henry_v"
+   ]
+  },
+  {
+   "skill_id": 1801,
+   "code": "zy_fire_aoe",
+   "name": "적벽의 불길",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": "fire",
+   "fx_key": "fx.skill.aoe.fire",
+   "by": "element",
+   "heroes": [
+    "zhou_yu"
+   ]
+  },
+  {
+   "skill_id": 1802,
+   "code": "sa_rally_atk",
+   "name": "군단 독려",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "scipio_africanus"
+   ]
+  },
+  {
+   "skill_id": 1803,
+   "code": "ky_rally_atk",
+   "name": "전군 독려",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "kim_yusin"
+   ]
+  },
+  {
+   "skill_id": 1804,
+   "code": "lb_rally_atk",
+   "name": "연합 독려",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "liu_bang"
+   ]
+  },
+  {
+   "skill_id": 1805,
+   "code": "cc_rally_atk",
+   "name": "대군 지휘",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "cao_cao"
+   ]
+  },
+  {
+   "skill_id": 1806,
+   "code": "ja_morale_atk",
+   "name": "사기 고취",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "joan_of_arc"
+   ]
+  },
+  {
+   "skill_id": 1807,
+   "code": "ld_wall_def",
+   "name": "방패 대열",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "leonidas"
+   ]
+  },
+  {
+   "skill_id": 1808,
+   "code": "wl_line_def",
+   "name": "횡대 방어",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "wellington"
+   ]
+  },
+  {
+   "skill_id": 1809,
+   "code": "vb_bastion_def",
+   "name": "보루 구축",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "vauban"
+   ]
+  },
+  {
+   "skill_id": 1810,
+   "code": "thd_stake_def",
+   "name": "방어 진지",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "tran_hung_dao"
+   ]
+  },
+  {
+   "skill_id": 1811,
+   "code": "gg2_hold_def",
+   "name": "방어 태세",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "gang_gamchan"
+   ]
+  },
+  {
+   "skill_id": 1812,
+   "code": "sm_column_move",
+   "name": "삼단노선의 기동",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "이름 기반 추천: stat move -> 기동 연출",
+   "heroes": [
+    "san_martin",
+    "themistocles"
+   ]
+  },
+  {
+   "skill_id": 1813,
+   "code": "hj_medicine_heal",
+   "name": "동의보감 처방",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "heo_jun"
+   ]
+  },
+  {
+   "skill_id": 1814,
+   "code": "is_canon_heal",
+   "name": "의학정전 처방",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "ibn_sina"
+   ]
+  },
+  {
+   "skill_id": 1815,
+   "code": "hg_herbs_heal",
+   "name": "약초 처방",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "hildegard"
+   ]
+  },
+  {
+   "skill_id": 1816,
+   "code": "jr_clinic_heal",
+   "name": "진료소 처방",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "jose_rizal"
+   ]
+  },
+  {
+   "skill_id": 1817,
+   "code": "kw_desert_surge",
+   "name": "사막 횡단 기동",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "khalid_ibn_walid"
+   ]
+  },
+  {
+   "skill_id": 1818,
+   "code": "my_raid_surge",
+   "name": "기습 강습",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "minamoto_yoshitsune"
+   ]
+  },
+  {
+   "skill_id": 1819,
+   "code": "xy_resolve_strike",
+   "name": "결사 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "xiang_yu"
+   ]
+  },
+  {
+   "skill_id": 1820,
+   "code": "r1_vanguard_strike",
+   "name": "선두 돌격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": [
+    "richard_i"
+   ]
+  },
+  {
+   "skill_id": 1821,
+   "code": "sy_breakthrough_strike",
+   "name": "본진 돌파",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": [
+    "sanada_yukimura"
+   ]
+  },
+  {
+   "skill_id": 4382,
+   "code": "rd_yi_sun_sin_a1",
+   "name": "학익일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.water",
+   "by": "이름 기반 추천: 이름: 물·수전",
+   "heroes": [
+    "yi_sun_sin"
+   ]
+  },
+  {
+   "skill_id": 4383,
+   "code": "rd_yi_sun_sin_a2",
+   "name": "학익포격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": []
+  },
+  {
+   "skill_id": 4385,
+   "code": "rd_hannibal_a1",
+   "name": "날개 닫기",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 4386,
+   "code": "rd_hannibal_a2",
+   "name": "코끼리 돌파",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": [
+    "hannibal"
+   ]
+  },
+  {
+   "skill_id": 4388,
+   "code": "rd_joan_of_arc_a1",
+   "name": "성문 앞 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": []
+  },
+  {
+   "skill_id": 4389,
+   "code": "rd_alexander_a1",
+   "name": "친위 기병 돌격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": [
+    "alexander"
+   ]
+  },
+  {
+   "skill_id": 4390,
+   "code": "rd_alexander_a2",
+   "name": "전광석화 진군",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.thunder",
+   "by": "이름 기반 추천: 이름: 번개·바람",
+   "heroes": []
+  },
+  {
+   "skill_id": 4391,
+   "code": "rd_genghis_khan_a1",
+   "name": "초원의 호령",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "genghis_khan"
+   ]
+  },
+  {
+   "skill_id": 4392,
+   "code": "rd_genghis_khan_a2",
+   "name": "말발굽의 파도",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 4393,
+   "code": "rd_gwanggaeto_a1",
+   "name": "태왕의 진형",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 4394,
+   "code": "rd_gwanggaeto_a2",
+   "name": "철기 질주",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "gwanggaeto"
+   ]
+  },
+  {
+   "skill_id": 4395,
+   "code": "rd_zhuge_liang_a1",
+   "name": "허를 찌르는 계책",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "zhuge_liang"
+   ]
+  },
+  {
+   "skill_id": 4396,
+   "code": "rd_zhuge_liang_a2",
+   "name": "원융 연노",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "zhuge_liang"
+   ]
+  },
+  {
+   "skill_id": 4402,
+   "code": "rd_scipio_africanus_a1",
+   "name": "반격의 창",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "scipio_africanus"
+   ]
+  },
+  {
+   "skill_id": 4403,
+   "code": "rd_mehmed_ii_a1",
+   "name": "성벽을 향한 진군",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "mehmed_ii"
+   ]
+  },
+  {
+   "skill_id": 4404,
+   "code": "rd_san_martin_a1",
+   "name": "살라미스의 물길",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.water_ice",
+   "by": "이름 기반 추천: 이름: 물길·상륙",
+   "heroes": [
+    "san_martin",
+    "themistocles"
+   ]
+  },
+  {
+   "skill_id": 4406,
+   "code": "rd_vauban_a1",
+   "name": "보루 보강",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "vauban"
+   ]
+  },
+  {
+   "skill_id": 4409,
+   "code": "rd_julius_caesar_a1",
+   "name": "던져진 주사위",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "julius_caesar"
+   ]
+  },
+  {
+   "skill_id": 4410,
+   "code": "rd_julius_caesar_a2",
+   "name": "병사를 부르는 말",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "julius_caesar"
+   ]
+  },
+  {
+   "skill_id": 4411,
+   "code": "rd_philip_ii_a1",
+   "name": "긴 창의 정렬",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "philip_ii"
+   ]
+  },
+  {
+   "skill_id": 4412,
+   "code": "rd_philip_ii_a2",
+   "name": "마케도니아 창끝",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "philip_ii"
+   ]
+  },
+  {
+   "skill_id": 4414,
+   "code": "rd_richard_i_a1",
+   "name": "맞받아치는 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 4415,
+   "code": "rd_minamoto_yoshitsune_a1",
+   "name": "비탈 기습",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 4416,
+   "code": "rd_oda_nobunaga_a1",
+   "name": "불꽃의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.fire",
+   "by": "이름 기반 추천: 이름: 불",
+   "heroes": [
+    "oda_nobunaga"
+   ]
+  },
+  {
+   "skill_id": 4417,
+   "code": "rd_takeda_shingen_a1",
+   "name": "바람 같은 진군",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.thunder",
+   "by": "이름 기반 추천: 이름: 번개·바람",
+   "heroes": [
+    "takeda_shingen"
+   ]
+  },
+  {
+   "skill_id": 4418,
+   "code": "rd_takeda_shingen_a2",
+   "name": "불과 산의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.fire",
+   "by": "이름 기반 추천: 이름: 불",
+   "heroes": [
+    "takeda_shingen"
+   ]
+  },
+  {
+   "skill_id": 4419,
+   "code": "rd_uesugi_kenshin_a1",
+   "name": "비사문의 돌격",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "uesugi_kenshin"
+   ]
+  },
+  {
+   "skill_id": 4420,
+   "code": "rd_uesugi_kenshin_a2",
+   "name": "군기 아래의 결속",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "uesugi_kenshin"
+   ]
+  },
+  {
+   "skill_id": 4422,
+   "code": "rd_eulji_mundeok_a1",
+   "name": "청야의 대열",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.atk",
+   "by": "기본 규칙",
+   "heroes": [
+    "eulji_mundeok"
+   ]
+  },
+  {
+   "skill_id": 4423,
+   "code": "rd_eulji_mundeok_a2",
+   "name": "물러남의 계책",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "eulji_mundeok"
+   ]
+  },
+  {
+   "skill_id": 4425,
+   "code": "rd_kim_yusin_a1",
+   "name": "삼한의 검",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "kim_yusin"
+   ]
+  },
+  {
+   "skill_id": 4426,
+   "code": "rd_yi_seonggye_a1",
+   "name": "활 든 대열",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 4427,
+   "code": "rd_yi_seonggye_a2",
+   "name": "연속 사격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "yi_seonggye"
+   ]
+  },
+  {
+   "skill_id": 4429,
+   "code": "rd_cao_cao_a1",
+   "name": "선수의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "cao_cao"
+   ]
+  },
+  {
+   "skill_id": 4430,
+   "code": "rd_liu_bang_a1",
+   "name": "관중의 방비",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.atk",
+   "by": "기본 규칙",
+   "heroes": [
+    "liu_bang"
+   ]
+  },
+  {
+   "skill_id": 4431,
+   "code": "rd_han_xin_a1",
+   "name": "숨은 길 진군",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "han_xin"
+   ]
+  },
+  {
+   "skill_id": 4432,
+   "code": "rd_han_xin_a2",
+   "name": "다다익선의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "han_xin"
+   ]
+  },
+  {
+   "skill_id": 4433,
+   "code": "rd_toyotomi_hideyoshi_a1",
+   "name": "제방 공사",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "toyotomi_hideyoshi"
+   ]
+  },
+  {
+   "skill_id": 4434,
+   "code": "rd_toyotomi_hideyoshi_a2",
+   "name": "속전속결",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.thunder",
+   "by": "이름 기반 추천: 이름: 번개·질풍",
+   "heroes": [
+    "toyotomi_hideyoshi"
+   ]
+  },
+  {
+   "skill_id": 4435,
+   "code": "rd_napoleon_a1",
+   "name": "중앙 돌파의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": []
+  },
+  {
+   "skill_id": 4437,
+   "code": "rd_chandragupta_maurya_a1",
+   "name": "마우리아의 정비",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "chandragupta_maurya"
+   ]
+  },
+  {
+   "skill_id": 4438,
+   "code": "rd_chandragupta_maurya_a2",
+   "name": "코끼리 군단 돌진",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": [
+    "chandragupta_maurya"
+   ]
+  },
+  {
+   "skill_id": 4442,
+   "code": "rd_shivaji_a1",
+   "name": "호랑이 발톱",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "shivaji"
+   ]
+  },
+  {
+   "skill_id": 4443,
+   "code": "rd_shivaji_a2",
+   "name": "산중 매복",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.atk",
+   "by": "기본 규칙",
+   "heroes": [
+    "shivaji"
+   ]
+  },
+  {
+   "skill_id": 4448,
+   "code": "rd_le_loi_a1",
+   "name": "산림의 은신",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "le_loi"
+   ]
+  },
+  {
+   "skill_id": 4449,
+   "code": "rd_le_loi_a2",
+   "name": "골짜기의 매복",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "le_loi"
+   ]
+  },
+  {
+   "skill_id": 4455,
+   "code": "rd_nguyen_hue_a1",
+   "name": "급행군",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "nguyen_hue"
+   ]
+  },
+  {
+   "skill_id": 4456,
+   "code": "rd_nguyen_hue_a2",
+   "name": "도성 앞의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 4459,
+   "code": "rd_sundiata_keita_a1",
+   "name": "화살비",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "sundiata_keita",
+    "odysseus"
+   ]
+  },
+  {
+   "skill_id": 4460,
+   "code": "rd_sundiata_keita_a2",
+   "name": "꾀 많은 설계",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.atk",
+   "by": "기본 규칙",
+   "heroes": [
+    "sundiata_keita",
+    "odysseus"
+   ]
+  },
+  {
+   "skill_id": 4467,
+   "code": "rd_shaka_zulu_a1",
+   "name": "함성의 선봉",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "shaka_zulu",
+    "achilles"
+   ]
+  },
+  {
+   "skill_id": 4468,
+   "code": "rd_shaka_zulu_a2",
+   "name": "뿔의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": []
+  },
+  {
+   "skill_id": 4470,
+   "code": "rd_pachacuti_a1",
+   "name": "사선 진형",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "pachacuti",
+    "epaminondas"
+   ]
+  },
+  {
+   "skill_id": 4471,
+   "code": "rd_pachacuti_a2",
+   "name": "측면 집중 돌격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": [
+    "pachacuti",
+    "epaminondas"
+   ]
+  },
+  {
+   "skill_id": 4479,
+   "code": "rd_simon_bolivar_a1",
+   "name": "마르살라 상륙",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.water_ice",
+   "by": "이름 기반 추천: 이름: 물길·상륙",
+   "heroes": [
+    "simon_bolivar",
+    "garibaldi"
+   ]
+  },
+  {
+   "skill_id": 4480,
+   "code": "rd_simon_bolivar_a2",
+   "name": "시칠리아의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "simon_bolivar",
+    "garibaldi"
+   ]
+  },
+  {
+   "skill_id": 4482,
+   "code": "rd_yi_sun_sin_a_stance",
+   "name": "학익진 반격",
+   "template": "T_ACTIVE_STANCE",
+   "fx_family": "stance",
+   "fx_variant": null,
+   "fx_key": "fx.skill.stance.water_ice",
+   "by": "이름 기반 추천: 이름: 학익(수전)",
+   "heroes": []
+  },
+  {
+   "skill_id": 4484,
+   "code": "rd_alexander_a_pierce",
+   "name": "쐐기 돌격",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 4486,
+   "code": "rd_genghis_khan_a_pierce",
+   "name": "기마 궁술 일제",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": []
+  },
+  {
+   "skill_id": 5000,
+   "code": "rd_yi_sun_sin_a3",
+   "name": "학익의 반격태세",
+   "template": "T_ACTIVE_STANCE",
+   "fx_family": "stance",
+   "fx_variant": null,
+   "fx_key": "fx.skill.stance.water_ice",
+   "by": "이름 기반 추천: 이름: 학익(수전)",
+   "heroes": [
+    "yi_sun_sin"
+   ]
+  },
+  {
+   "skill_id": 5002,
+   "code": "rd_hannibal_a3",
+   "name": "반원 방진",
+   "template": "T_ACTIVE_STANCE",
+   "fx_family": "stance",
+   "fx_variant": null,
+   "fx_key": "fx.skill.stance.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "hannibal"
+   ]
+  },
+  {
+   "skill_id": 5003,
+   "code": "rd_joan_of_arc_a2",
+   "name": "성벽 위의 반격",
+   "template": "T_ACTIVE_STANCE",
+   "fx_family": "stance",
+   "fx_variant": null,
+   "fx_key": "fx.skill.stance.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "joan_of_arc"
+   ]
+  },
+  {
+   "skill_id": 5005,
+   "code": "rd_alexander_a3",
+   "name": "결전의 돌파",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "alexander"
+   ]
+  },
+  {
+   "skill_id": 5007,
+   "code": "rd_genghis_khan_a3",
+   "name": "화살비 관통",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "genghis_khan"
+   ]
+  },
+  {
+   "skill_id": 5008,
+   "code": "rd_gwanggaeto_a3",
+   "name": "태왕의 관통",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "gwanggaeto"
+   ]
+  },
+  {
+   "skill_id": 5010,
+   "code": "rd_hildegard_a1",
+   "name": "수도원의 약초",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.area",
+   "by": "기본 규칙",
+   "heroes": [
+    "hildegard"
+   ]
+  },
+  {
+   "skill_id": 5011,
+   "code": "rd_gwon_yul_a1",
+   "name": "산성 일제 사격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "gwon_yul"
+   ]
+  },
+  {
+   "skill_id": 5012,
+   "code": "rd_gwak_jae_u_a1",
+   "name": "붉은 옷의 기습 사격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "gwak_jae_u"
+   ]
+  },
+  {
+   "skill_id": 5015,
+   "code": "rd_hyujeong_a1",
+   "name": "승병의 일제 공격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "hyujeong"
+   ]
+  },
+  {
+   "skill_id": 5019,
+   "code": "rd_saladin_a1",
+   "name": "사막의 질주",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "saladin"
+   ]
+  },
+  {
+   "skill_id": 5020,
+   "code": "rd_saladin_a2",
+   "name": "연합 기병의 관통",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "saladin"
+   ]
+  },
+  {
+   "skill_id": 5022,
+   "code": "rd_xiang_yu_a1",
+   "name": "배를 부순 결의",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "xiang_yu"
+   ]
+  },
+  {
+   "skill_id": 5027,
+   "code": "rd_ibn_sina_a1",
+   "name": "의학정전의 처방",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.area",
+   "by": "기본 규칙",
+   "heroes": [
+    "ibn_sina"
+   ]
+  },
+  {
+   "skill_id": 5028,
+   "code": "rd_ibn_khaldun_a1",
+   "name": "역사의 일격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.scheme",
+   "by": "이름 기반 추천: 책략·논증류(병기 없음)",
+   "heroes": [
+    "ibn_khaldun"
+   ]
+  },
+  {
+   "skill_id": 5029,
+   "code": "rd_ibn_khaldun_a2",
+   "name": "흥망의 통찰",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "ibn_khaldun"
+   ]
+  },
+  {
+   "skill_id": 5033,
+   "code": "rd_ashoka_a1",
+   "name": "자비의 손길",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "ashoka"
+   ]
+  },
+  {
+   "skill_id": 5034,
+   "code": "rd_ashoka_a2",
+   "name": "법륜의 돌봄",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.area",
+   "by": "기본 규칙",
+   "heroes": [
+    "ashoka"
+   ]
+  },
+  {
+   "skill_id": 5035,
+   "code": "rd_archimedes_a1",
+   "name": "투석기의 일제",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": [
+    "archimedes"
+   ]
+  },
+  {
+   "skill_id": 5036,
+   "code": "rd_ramesses_ii_a1",
+   "name": "전차 궁수의 비",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "ramesses_ii"
+   ]
+  },
+  {
+   "skill_id": 5037,
+   "code": "rd_ramesses_ii_a2",
+   "name": "파라오의 호령",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "ramesses_ii"
+   ]
+  },
+  {
+   "skill_id": 5039,
+   "code": "rd_amanirenas_a1",
+   "name": "초원의 화살비",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "amanirenas",
+    "tomyris"
+   ]
+  },
+  {
+   "skill_id": 5041,
+   "code": "rd_jose_rizal_a1",
+   "name": "계몽의 울타리",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "jose_rizal"
+   ]
+  },
+  {
+   "skill_id": 5045,
+   "code": "rd_aristotle_a1",
+   "name": "논증의 일격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.scheme",
+   "by": "이름 기반 추천: 책략·논증류(병기 없음)",
+   "heroes": [
+    "aristotle"
+   ]
+  },
+  {
+   "skill_id": 5046,
+   "code": "rd_aristotle_a2",
+   "name": "체계의 가르침",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.atk",
+   "by": "기본 규칙",
+   "heroes": [
+    "aristotle"
+   ]
+  },
+  {
+   "skill_id": 5050,
+   "code": "rd_socrates_a1",
+   "name": "물음의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "socrates"
+   ]
+  },
+  {
+   "skill_id": 5051,
+   "code": "rd_socrates_a2",
+   "name": "성찰의 방벽",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.holy",
+   "by": "이름 기반 추천: 2턴 강화 방벽 -> 금빛",
+   "heroes": [
+    "socrates"
+   ]
+  },
+  {
+   "skill_id": 5053,
+   "code": "rd_marcus_aurelius_a1",
+   "name": "스토아의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "marcus_aurelius"
+   ]
+  },
+  {
+   "skill_id": 5054,
+   "code": "rd_marcus_aurelius_a2",
+   "name": "황제의 격려",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "marcus_aurelius"
+   ]
+  },
+  {
+   "skill_id": 5056,
+   "code": "rd_fabius_maximus_a1",
+   "name": "소모전의 대열",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "fabius_maximus"
+   ]
+  },
+  {
+   "skill_id": 5057,
+   "code": "rd_fabius_maximus_a2",
+   "name": "때를 기다린 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "fabius_maximus"
+   ]
+  },
+  {
+   "skill_id": 5058,
+   "code": "rd_richard_i_a2",
+   "name": "아크레의 돌격",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "richard_i"
+   ]
+  },
+  {
+   "skill_id": 5059,
+   "code": "rd_eleanor_aquitaine_a1",
+   "name": "궁정의 책략",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "eleanor_aquitaine"
+   ]
+  },
+  {
+   "skill_id": 5060,
+   "code": "rd_eleanor_aquitaine_a2",
+   "name": "영지의 방비",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "eleanor_aquitaine"
+   ]
+  },
+  {
+   "skill_id": 5063,
+   "code": "rd_elizabeth_i_a1",
+   "name": "여왕의 위로",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "elizabeth_i"
+   ]
+  },
+  {
+   "skill_id": 5064,
+   "code": "rd_elizabeth_i_a2",
+   "name": "군 앞의 연설",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "elizabeth_i"
+   ]
+  },
+  {
+   "skill_id": 5068,
+   "code": "rd_leonardo_da_vinci_a1",
+   "name": "비밀 설계의 포",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": [
+    "leonardo_da_vinci"
+   ]
+  },
+  {
+   "skill_id": 5069,
+   "code": "rd_leonardo_da_vinci_a2",
+   "name": "거대한 석궁",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": [
+    "leonardo_da_vinci"
+   ]
+  },
+  {
+   "skill_id": 5070,
+   "code": "rd_maria_theresa_a1",
+   "name": "제국의 포화",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": [
+    "maria_theresa"
+   ]
+  },
+  {
+   "skill_id": 5071,
+   "code": "rd_maria_theresa_a2",
+   "name": "개혁의 방벽",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "maria_theresa"
+   ]
+  },
+  {
+   "skill_id": 5072,
+   "code": "rd_nelson_a1",
+   "name": "함포 일제 사격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": [
+    "nelson"
+   ]
+  },
+  {
+   "skill_id": 5075,
+   "code": "rd_empress_jito_a1",
+   "name": "황실의 일제 공격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "empress_jito"
+   ]
+  },
+  {
+   "skill_id": 5076,
+   "code": "rd_empress_jito_a2",
+   "name": "궁성의 보호",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "empress_jito"
+   ]
+  },
+  {
+   "skill_id": 5077,
+   "code": "rd_minamoto_yoshitsune_a2",
+   "name": "해협의 관통",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.water_ice",
+   "by": "이름 기반 추천: 이름: 해협",
+   "heroes": [
+    "minamoto_yoshitsune"
+   ]
+  },
+  {
+   "skill_id": 5081,
+   "code": "rd_murasaki_shikibu_a1",
+   "name": "붓끝의 위로",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "murasaki_shikibu"
+   ]
+  },
+  {
+   "skill_id": 5082,
+   "code": "rd_murasaki_shikibu_a2",
+   "name": "긴 밤의 이야기",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.holy",
+   "by": "이름 기반 추천: 2턴 강화 방벽 -> 금빛",
+   "heroes": [
+    "murasaki_shikibu"
+   ]
+  },
+  {
+   "skill_id": 5084,
+   "code": "rd_tokugawa_ieyasu_a1",
+   "name": "결정적인 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "tokugawa_ieyasu"
+   ]
+  },
+  {
+   "skill_id": 5085,
+   "code": "rd_tokugawa_ieyasu_a2",
+   "name": "가신단의 호령",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "tokugawa_ieyasu"
+   ]
+  },
+  {
+   "skill_id": 5086,
+   "code": "rd_jangsu_a1",
+   "name": "남진의 대군",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "jangsu"
+   ]
+  },
+  {
+   "skill_id": 5087,
+   "code": "rd_jangsu_a2",
+   "name": "평양성의 방비",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "jangsu"
+   ]
+  },
+  {
+   "skill_id": 5088,
+   "code": "rd_seo_hui_a1",
+   "name": "담판의 압박",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.scheme",
+   "by": "이름 기반 추천: 책략·논증류(병기 없음)",
+   "heroes": [
+    "seo_hui"
+   ]
+  },
+  {
+   "skill_id": 5089,
+   "code": "rd_yi_seonggye_a3",
+   "name": "신궁의 방진태세",
+   "template": "T_ACTIVE_STANCE",
+   "fx_family": "stance",
+   "fx_variant": null,
+   "fx_key": "fx.skill.stance.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "yi_seonggye"
+   ]
+  },
+  {
+   "skill_id": 5093,
+   "code": "rd_sejong_a1",
+   "name": "민본의 손길",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "sejong"
+   ]
+  },
+  {
+   "skill_id": 5094,
+   "code": "rd_sejong_a2",
+   "name": "집현의 돌봄",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.area",
+   "by": "기본 규칙",
+   "heroes": [
+    "sejong"
+   ]
+  },
+  {
+   "skill_id": 5096,
+   "code": "rd_heo_jun_a1",
+   "name": "섭생의 가르침",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "heo_jun"
+   ]
+  },
+  {
+   "skill_id": 5098,
+   "code": "rd_jeong_yakyong_a1",
+   "name": "실학의 처방",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "jeong_yakyong"
+   ]
+  },
+  {
+   "skill_id": 5099,
+   "code": "rd_jeong_yakyong_a2",
+   "name": "성곽의 설계",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "jeong_yakyong"
+   ]
+  },
+  {
+   "skill_id": 5101,
+   "code": "rd_guan_yu_a1",
+   "name": "긴 칼의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "guan_yu"
+   ]
+  },
+  {
+   "skill_id": 5102,
+   "code": "rd_guan_yu_a2",
+   "name": "의리의 방벽 태세",
+   "template": "T_ACTIVE_STANCE",
+   "fx_family": "stance",
+   "fx_variant": null,
+   "fx_key": "fx.skill.stance.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "guan_yu"
+   ]
+  },
+  {
+   "skill_id": 5103,
+   "code": "rd_sima_yi_a1",
+   "name": "기다림 끝의 일제",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "sima_yi"
+   ]
+  },
+  {
+   "skill_id": 5104,
+   "code": "rd_sun_quan_a1",
+   "name": "강동의 일제 사격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "sun_quan"
+   ]
+  },
+  {
+   "skill_id": 5105,
+   "code": "rd_sun_quan_a2",
+   "name": "강동의 결속",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "sun_quan"
+   ]
+  },
+  {
+   "skill_id": 5107,
+   "code": "rd_zhang_liang_a1",
+   "name": "장막 안의 계책",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.scheme",
+   "by": "이름 기반 추천: 책략·논증류(병기 없음)",
+   "heroes": [
+    "zhang_liang"
+   ]
+  },
+  {
+   "skill_id": 5108,
+   "code": "rd_zhang_liang_a2",
+   "name": "참모의 방비",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "zhang_liang"
+   ]
+  },
+  {
+   "skill_id": 5109,
+   "code": "rd_taizong_tang_a1",
+   "name": "현갑 기병 돌격",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "taizong_tang"
+   ]
+  },
+  {
+   "skill_id": 5110,
+   "code": "rd_taizong_tang_a2",
+   "name": "천책의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "taizong_tang"
+   ]
+  },
+  {
+   "skill_id": 5111,
+   "code": "rd_wu_zetian_a1",
+   "name": "조정의 일격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.scheme",
+   "by": "이름 기반 추천: 책략·논증류(병기 없음)",
+   "heroes": [
+    "wu_zetian"
+   ]
+  },
+  {
+   "skill_id": 5112,
+   "code": "rd_wu_zetian_a2",
+   "name": "관료의 방벽",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "wu_zetian"
+   ]
+  },
+  {
+   "skill_id": 5116,
+   "code": "rd_confucius_a1",
+   "name": "예악의 위로",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "confucius"
+   ]
+  },
+  {
+   "skill_id": 5117,
+   "code": "rd_confucius_a2",
+   "name": "예의 큰 울타리",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.holy",
+   "by": "이름 기반 추천: 2턴 강화 방벽 -> 금빛",
+   "heroes": [
+    "confucius"
+   ]
+  },
+  {
+   "skill_id": 5119,
+   "code": "rd_cyrus_ii_a1",
+   "name": "관용의 돌봄",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "cyrus_ii"
+   ]
+  },
+  {
+   "skill_id": 5120,
+   "code": "rd_cyrus_ii_a2",
+   "name": "관용의 울타리",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "cyrus_ii"
+   ]
+  },
+  {
+   "skill_id": 5123,
+   "code": "rd_artemisia_i_a1",
+   "name": "해전의 일제 공격",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.shot",
+   "by": "이름 기반 추천: 이름: 화포·사격",
+   "heroes": [
+    "artemisia_i"
+   ]
+  },
+  {
+   "skill_id": 5125,
+   "code": "rd_harun_rashid_a1",
+   "name": "학문 후원의 돌봄",
+   "template": "T_ACTIVE_HEAL",
+   "fx_family": "heal",
+   "fx_variant": null,
+   "fx_key": "fx.skill.heal.single",
+   "by": "기본 규칙",
+   "heroes": [
+    "harun_rashid"
+   ]
+  },
+  {
+   "skill_id": 5126,
+   "code": "rd_harun_rashid_a2",
+   "name": "바그다드의 방비",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.def",
+   "by": "기본 규칙",
+   "heroes": [
+    "harun_rashid"
+   ]
+  },
+  {
+   "skill_id": 5127,
+   "code": "rd_napoleon_a2",
+   "name": "대육군의 호령",
+   "template": "T_ACTIVE_BUFF",
+   "fx_family": "buff",
+   "fx_variant": null,
+   "fx_key": "fx.skill.buff.rally",
+   "by": "이름 기반 추천: 이름: 호령·독려",
+   "heroes": [
+    "napoleon"
+   ]
+  },
+  {
+   "skill_id": 5128,
+   "code": "rd_ramkhamhaeng_a1",
+   "name": "왕의 활",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "ramkhamhaeng"
+   ]
+  },
+  {
+   "skill_id": 5130,
+   "code": "rd_nguyen_hue_a3",
+   "name": "급습 관통",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "nguyen_hue"
+   ]
+  },
+  {
+   "skill_id": 5132,
+   "code": "rd_shaka_zulu_a3",
+   "name": "날개 진형 태세",
+   "template": "T_ACTIVE_STANCE",
+   "fx_family": "stance",
+   "fx_variant": null,
+   "fx_key": "fx.skill.stance.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "shaka_zulu",
+    "achilles"
+   ]
+  },
+  {
+   "skill_id": 5136,
+   "code": "rd_shimazu_yoshihiro_a1",
+   "name": "퇴로를 여는 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "npc_shimazu_yoshihiro"
+   ]
+  },
+  {
+   "skill_id": 5137,
+   "code": "rd_shimazu_yoshihiro_a2",
+   "name": "적진 중앙의 관통",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "npc_shimazu_yoshihiro"
+   ]
+  },
+  {
+   "skill_id": 5141,
+   "code": "rd_subutai_a1",
+   "name": "원정군의 화살비",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "npc_subutai"
+   ]
+  },
+  {
+   "skill_id": 5142,
+   "code": "rd_subutai_a2",
+   "name": "원정의 관통",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "npc_subutai"
+   ]
+  },
+  {
+   "skill_id": 5146,
+   "code": "rd_chok_jun_gyeong_a1",
+   "name": "선봉의 일도",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.charge",
+   "by": "이름 기반 추천: 이름: 돌격",
+   "heroes": [
+    "chok_jun_gyeong"
+   ]
+  },
+  {
+   "skill_id": 5147,
+   "code": "rd_chok_jun_gyeong_a2",
+   "name": "성문 부수기",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "chok_jun_gyeong"
+   ]
+  },
+  {
+   "skill_id": 5151,
+   "code": "rd_belisarius_a1",
+   "name": "기병 포위 기동",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "belisarius"
+   ]
+  },
+  {
+   "skill_id": 5152,
+   "code": "rd_belisarius_a2",
+   "name": "방어 진지의 반격",
+   "template": "T_ACTIVE_STANCE",
+   "fx_family": "stance",
+   "fx_variant": null,
+   "fx_key": "fx.skill.stance.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "belisarius"
+   ]
+  },
+  {
+   "skill_id": 5156,
+   "code": "rd_baibars_a1",
+   "name": "화살 소나기",
+   "template": "T_ACTIVE_AOE",
+   "fx_family": "aoe",
+   "fx_variant": null,
+   "fx_key": "fx.skill.aoe.base",
+   "by": "이름 기반 추천: 이름: 화살·일제",
+   "heroes": [
+    "baibars"
+   ]
+  },
+  {
+   "skill_id": 5157,
+   "code": "rd_baibars_a2",
+   "name": "기습 관통",
+   "template": "T_ACTIVE_PIERCE",
+   "fx_family": "pierce",
+   "fx_variant": null,
+   "fx_key": "fx.skill.pierce.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "baibars"
+   ]
+  },
+  {
+   "skill_id": 5670,
+   "code": "rd_akbar_a1",
+   "name": "무굴의 돌격",
+   "template": "T_ACTIVE_SURGE",
+   "fx_family": "surge",
+   "fx_variant": null,
+   "fx_key": "fx.skill.surge.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "akbar"
+   ]
+  },
+  {
+   "skill_id": 5671,
+   "code": "rd_akbar_a2",
+   "name": "황제의 일격",
+   "template": "T_ACTIVE_STRIKE",
+   "fx_family": "strike",
+   "fx_variant": null,
+   "fx_key": "fx.skill.strike.base",
+   "by": "기본 규칙",
+   "heroes": [
+    "akbar"
+   ]
+  }
+ ],
+ "passive_by_skill": [
+  {
+   "skill_id": 3,
+   "code": "divine_banner",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 6,
+   "code": "conquest_spear",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 7,
+   "code": "healing_herbs",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 105,
+   "code": "sh_atk_w",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 106,
+   "code": "sh_atk_m",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 107,
+   "code": "sh_atk_s",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 108,
+   "code": "sh_def_w",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 109,
+   "code": "sh_def_m",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 110,
+   "code": "sh_def_s",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 111,
+   "code": "sh_hyb_w",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 112,
+   "code": "sh_hyb_m",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 113,
+   "code": "sh_hyb_s",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 114,
+   "code": "sh_heal_w",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 115,
+   "code": "sh_heal_m",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 116,
+   "code": "sh_heal_s",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 536,
+   "code": "ys_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 537,
+   "code": "ys_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 538,
+   "code": "ys_form_strong",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 539,
+   "code": "ys_last_strong",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 540,
+   "code": "al_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 541,
+   "code": "al_charge_strong",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 542,
+   "code": "al_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 543,
+   "code": "al_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 544,
+   "code": "gk_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 545,
+   "code": "gk_charge_strong",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 546,
+   "code": "gk_siege_mid",
+   "template": "T_SIEGE_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 547,
+   "code": "gk_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 548,
+   "code": "hb_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 549,
+   "code": "hb_move_mid",
+   "template": "T_MOVE_UP",
+   "fx_key": null
+  },
+  {
+   "skill_id": 550,
+   "code": "ja_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 551,
+   "code": "ja_last_mid",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 552,
+   "code": "ja_pur_weak",
+   "template": "T_PURSUIT",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 553,
+   "code": "gg_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 554,
+   "code": "gg_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 555,
+   "code": "gg_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 556,
+   "code": "zl_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 557,
+   "code": "zl_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 558,
+   "code": "zl_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 559,
+   "code": "sa_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 560,
+   "code": "sa_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 561,
+   "code": "sa_pur_mid",
+   "template": "T_PURSUIT",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 562,
+   "code": "m2_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 563,
+   "code": "m2_siege_strong",
+   "template": "T_SIEGE_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 564,
+   "code": "m2_move_mid",
+   "template": "T_MOVE_UP",
+   "fx_key": null
+  },
+  {
+   "skill_id": 565,
+   "code": "sm_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 566,
+   "code": "sm_move_mid",
+   "template": "T_MOVE_UP",
+   "fx_key": null
+  },
+  {
+   "skill_id": 567,
+   "code": "sm_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 568,
+   "code": "vb_def_mid",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 569,
+   "code": "vb_tdef_mid",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 570,
+   "code": "vb_siege_strong",
+   "template": "T_SIEGE_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 571,
+   "code": "jc_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 572,
+   "code": "jc_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 573,
+   "code": "jc_pur_mid",
+   "template": "T_PURSUIT",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 574,
+   "code": "p2_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 575,
+   "code": "p2_form_strong",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 576,
+   "code": "p2_last_mid",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 577,
+   "code": "r1_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 578,
+   "code": "r1_ctr_mid",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 579,
+   "code": "r1_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 580,
+   "code": "my_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 581,
+   "code": "my_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 582,
+   "code": "my_pur_mid",
+   "template": "T_PURSUIT",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 583,
+   "code": "on_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 584,
+   "code": "on_vs_mid",
+   "template": "T_VS_TYPE_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 585,
+   "code": "on_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 586,
+   "code": "ts_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 587,
+   "code": "ts_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 588,
+   "code": "ts_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 589,
+   "code": "uk_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 590,
+   "code": "uk_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 591,
+   "code": "uk_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 592,
+   "code": "em_def_mid",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 593,
+   "code": "em_pur_mid",
+   "template": "T_PURSUIT",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 594,
+   "code": "em_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 595,
+   "code": "ky_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 596,
+   "code": "ky_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 597,
+   "code": "ky_pur_weak",
+   "template": "T_PURSUIT",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 598,
+   "code": "ysg_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 599,
+   "code": "ysg_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 600,
+   "code": "ysg_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 601,
+   "code": "cc_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 602,
+   "code": "cc_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 603,
+   "code": "cc_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 604,
+   "code": "lb_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 605,
+   "code": "lb_form_strong",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 606,
+   "code": "hx_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 607,
+   "code": "hx_last_strong",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 608,
+   "code": "hx_move_mid",
+   "template": "T_MOVE_UP",
+   "fx_key": null
+  },
+  {
+   "skill_id": 609,
+   "code": "th_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 610,
+   "code": "th_siege_mid",
+   "template": "T_SIEGE_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 611,
+   "code": "th_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 612,
+   "code": "np_atk_mid",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 613,
+   "code": "np_move_mid",
+   "template": "T_MOVE_UP",
+   "fx_key": null
+  },
+  {
+   "skill_id": 614,
+   "code": "np_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 615,
+   "code": "hg_heal_mid",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 616,
+   "code": "hg_reg_weak",
+   "template": "T_REGEN",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 617,
+   "code": "hg_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 618,
+   "code": "sl_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 619,
+   "code": "sl_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 620,
+   "code": "wl_def_mid",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 621,
+   "code": "wl_ctr_mid",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 622,
+   "code": "thd_def_mid",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 623,
+   "code": "thd_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 624,
+   "code": "thd_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 625,
+   "code": "tl_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 626,
+   "code": "tl_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 627,
+   "code": "tl_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 628,
+   "code": "ar_tdef_mid",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 629,
+   "code": "ar_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 630,
+   "code": "an_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 631,
+   "code": "an_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 632,
+   "code": "an_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 633,
+   "code": "w1_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 634,
+   "code": "w1_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 635,
+   "code": "w1_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 636,
+   "code": "ec_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 637,
+   "code": "ec_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 638,
+   "code": "ec_last_weak",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 639,
+   "code": "bp_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 640,
+   "code": "bp_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 641,
+   "code": "bp_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 642,
+   "code": "h5_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 643,
+   "code": "h5_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 644,
+   "code": "h5_last_weak",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 645,
+   "code": "ga_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 646,
+   "code": "ga_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 647,
+   "code": "ga_move_mid",
+   "template": "T_MOVE_UP",
+   "fx_key": null
+  },
+  {
+   "skill_id": 648,
+   "code": "fg_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 649,
+   "code": "fg_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 650,
+   "code": "fg_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 651,
+   "code": "pg_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 652,
+   "code": "pg_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 653,
+   "code": "pg_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 654,
+   "code": "ns_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 655,
+   "code": "ns_last_mid",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 656,
+   "code": "ns_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 657,
+   "code": "yr_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 658,
+   "code": "yr_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 659,
+   "code": "ti_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 660,
+   "code": "ti_form_strong",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 661,
+   "code": "sy_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 662,
+   "code": "sy_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 663,
+   "code": "sy_tdef_mid",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 664,
+   "code": "ht_def_mid",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 665,
+   "code": "ht_ctr_weak",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 666,
+   "code": "dm_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 667,
+   "code": "dm_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 668,
+   "code": "dm_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 669,
+   "code": "sr_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 670,
+   "code": "sr_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 671,
+   "code": "st_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 672,
+   "code": "st_form_strong",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 673,
+   "code": "gb_last_mid",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 674,
+   "code": "gm_def_mid",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 675,
+   "code": "gm_ctr_mid",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 676,
+   "code": "gm_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 677,
+   "code": "wg_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 678,
+   "code": "wg_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 679,
+   "code": "wg_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 680,
+   "code": "lbei_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 681,
+   "code": "lbei_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 682,
+   "code": "gy_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 683,
+   "code": "gy_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 684,
+   "code": "gy_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 685,
+   "code": "sy2_def_mid",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 686,
+   "code": "sy2_ctr_mid",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 687,
+   "code": "sy2_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 688,
+   "code": "zy_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 689,
+   "code": "zy_fs_mid",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 690,
+   "code": "zy_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 691,
+   "code": "tz_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 692,
+   "code": "tz_form_strong",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 693,
+   "code": "su_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 694,
+   "code": "su_siege_mid",
+   "template": "T_SIEGE_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 695,
+   "code": "su_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 696,
+   "code": "d1_hyb_mid",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 697,
+   "code": "d1_form_mid",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 698,
+   "code": "kw_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 699,
+   "code": "kw_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 700,
+   "code": "kw_pur_weak",
+   "template": "T_PURSUIT",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 701,
+   "code": "aa_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 702,
+   "code": "aa_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 703,
+   "code": "aa_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 704,
+   "code": "jd_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 705,
+   "code": "jd_charge_mid",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 706,
+   "code": "jd_pur_weak",
+   "template": "T_PURSUIT",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 707,
+   "code": "gy2_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 708,
+   "code": "gy2_tdef_weak",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 709,
+   "code": "ksm_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 710,
+   "code": "ksm_tdef_weak",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 711,
+   "code": "ld_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 712,
+   "code": "ld_last_weak",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 713,
+   "code": "xy_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 714,
+   "code": "xy_charge_weak",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 715,
+   "code": "cm_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 716,
+   "code": "cm_ctr_weak",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 717,
+   "code": "ww_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 718,
+   "code": "ww_ctr_weak",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 719,
+   "code": "lk_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 720,
+   "code": "lk_last_weak",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 721,
+   "code": "is_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 722,
+   "code": "is_reg_weak",
+   "template": "T_REGEN",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 723,
+   "code": "ik_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 724,
+   "code": "ik_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 725,
+   "code": "as_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 726,
+   "code": "as_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 727,
+   "code": "rm_atk_weak",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 728,
+   "code": "rm_last_weak",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 729,
+   "code": "jr_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 730,
+   "code": "jr_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 731,
+   "code": "ao_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 732,
+   "code": "ao_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 733,
+   "code": "sc_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 734,
+   "code": "sc_last_weak",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 735,
+   "code": "ma_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 736,
+   "code": "ma_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 737,
+   "code": "fm_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 738,
+   "code": "fm_ctr_weak",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 739,
+   "code": "ea_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 740,
+   "code": "ea_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 741,
+   "code": "cp_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 742,
+   "code": "cp_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 743,
+   "code": "e1_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 744,
+   "code": "e1_reg_weak",
+   "template": "T_REGEN",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 745,
+   "code": "ld2_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 746,
+   "code": "ld2_siege_weak",
+   "template": "T_SIEGE_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 747,
+   "code": "mt_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 748,
+   "code": "mt_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 749,
+   "code": "js_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 750,
+   "code": "js_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 751,
+   "code": "sd_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 752,
+   "code": "sd_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 753,
+   "code": "sh2_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 754,
+   "code": "sh2_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 755,
+   "code": "sj_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 756,
+   "code": "sj_reg_weak",
+   "template": "T_REGEN",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 757,
+   "code": "hj_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 758,
+   "code": "hj_reg_weak",
+   "template": "T_REGEN",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 759,
+   "code": "jy_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 760,
+   "code": "jy_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 761,
+   "code": "sq_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 762,
+   "code": "sq_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 763,
+   "code": "zlg_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 764,
+   "code": "zlg_fs_weak",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 765,
+   "code": "wz_hyb_weak",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 766,
+   "code": "wz_form_weak",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 767,
+   "code": "cf_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 768,
+   "code": "cf_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 769,
+   "code": "c2_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 770,
+   "code": "c2_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 771,
+   "code": "hr_heal_weak",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 772,
+   "code": "hr_def_weak",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4384,
+   "code": "rd_hannibal_p1",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4387,
+   "code": "rd_joan_of_arc_p1",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4397,
+   "code": "rd_gwon_yul_p1",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4398,
+   "code": "rd_gwak_jae_u_p1",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4399,
+   "code": "rd_kim_si_min_p1",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4400,
+   "code": "rd_yujeong_p1",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4401,
+   "code": "rd_scipio_africanus_p1",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4405,
+   "code": "rd_william_wallace_p1",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4407,
+   "code": "rd_archimedes_p1",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4408,
+   "code": "rd_julius_caesar_p1",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4413,
+   "code": "rd_richard_i_p1",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4421,
+   "code": "rd_sanada_yukimura_p1",
+   "template": "T_TERRAIN_DEF",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4424,
+   "code": "rd_kim_yusin_p1",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4428,
+   "code": "rd_cao_cao_p1",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4436,
+   "code": "rd_chandragupta_maurya_p1",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4439,
+   "code": "rd_rajaraja_i_p1",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4440,
+   "code": "rd_shivaji_p1",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4441,
+   "code": "rd_shivaji_p2",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4444,
+   "code": "rd_prithviraj_iii_p1",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4445,
+   "code": "rd_anawrahta_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4446,
+   "code": "rd_jayavarman_vii_p1",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4447,
+   "code": "rd_le_loi_p1",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4450,
+   "code": "rd_ramkhamhaeng_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4451,
+   "code": "rd_hayam_wuruk_p1",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4452,
+   "code": "rd_trung_trac_p1",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4453,
+   "code": "rd_nguyen_hue_p1",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4454,
+   "code": "rd_nguyen_hue_p2",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4457,
+   "code": "rd_ezana_p1",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4458,
+   "code": "rd_sundiata_keita_p1",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4461,
+   "code": "rd_mansa_musa_p1",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4462,
+   "code": "rd_sonni_ali_p1",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4463,
+   "code": "rd_nzinga_mbande_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4464,
+   "code": "rd_amina_of_zazzau_p1",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4465,
+   "code": "rd_shaka_zulu_p1",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4466,
+   "code": "rd_shaka_zulu_p2",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4469,
+   "code": "rd_pachacuti_p1",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4472,
+   "code": "rd_cuauhtemoc_p1",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4473,
+   "code": "rd_lautaro_p1",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4474,
+   "code": "rd_tupac_amaru_ii_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4475,
+   "code": "rd_tecumseh_p1",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4476,
+   "code": "rd_crazy_horse_p1",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4477,
+   "code": "rd_simon_bolivar_p1",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4478,
+   "code": "rd_simon_bolivar_p2",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 4481,
+   "code": "rd_yi_sun_sin_p2",
+   "template": "T_TERRAIN_MASTER",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4483,
+   "code": "rd_alexander_p2",
+   "template": "T_MATCHUP_NEGATE",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4485,
+   "code": "rd_genghis_khan_p2",
+   "template": "T_TERRAIN_MASTER",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 4999,
+   "code": "rd_yi_sun_sin_p1",
+   "template": "T_TERRAIN_MASTER",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5001,
+   "code": "rd_hannibal_p2",
+   "template": "T_MATCHUP_NEGATE",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5004,
+   "code": "rd_alexander_p1",
+   "template": "T_MATCHUP_NEGATE",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5006,
+   "code": "rd_genghis_khan_p1",
+   "template": "T_TERRAIN_MASTER",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5009,
+   "code": "rd_hildegard_p1",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5013,
+   "code": "rd_hyujeong_p1",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5014,
+   "code": "rd_hyujeong_p2",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5016,
+   "code": "rd_yujeong_p2",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5017,
+   "code": "rd_yujeong_p3",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5018,
+   "code": "rd_saladin_p1",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5021,
+   "code": "rd_xiang_yu_p1",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5023,
+   "code": "rd_william_wallace_p2",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5024,
+   "code": "rd_ibn_sina_p1",
+   "template": "T_REGEN",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5025,
+   "code": "rd_ibn_sina_p2",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5026,
+   "code": "rd_ibn_sina_p3",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5030,
+   "code": "rd_ashoka_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5031,
+   "code": "rd_ashoka_p2",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5032,
+   "code": "rd_ashoka_p3",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5038,
+   "code": "rd_amanirenas_p1",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5040,
+   "code": "rd_jose_rizal_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5042,
+   "code": "rd_aristotle_p1",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5043,
+   "code": "rd_aristotle_p2",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5044,
+   "code": "rd_aristotle_p3",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5047,
+   "code": "rd_socrates_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5048,
+   "code": "rd_socrates_p2",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5049,
+   "code": "rd_socrates_p3",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5052,
+   "code": "rd_marcus_aurelius_p1",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5055,
+   "code": "rd_fabius_maximus_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5061,
+   "code": "rd_black_prince_p1",
+   "template": "T_COUNTER_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5062,
+   "code": "rd_elizabeth_i_p1",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5065,
+   "code": "rd_leonardo_da_vinci_p1",
+   "template": "T_SIEGE_ATK",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5066,
+   "code": "rd_leonardo_da_vinci_p2",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5067,
+   "code": "rd_leonardo_da_vinci_p3",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5073,
+   "code": "rd_empress_jito_p1",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5074,
+   "code": "rd_empress_jito_p2",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5078,
+   "code": "rd_murasaki_shikibu_p1",
+   "template": "T_ATKDEF_HYBRID",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5079,
+   "code": "rd_murasaki_shikibu_p2",
+   "template": "T_REGEN",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5080,
+   "code": "rd_murasaki_shikibu_p3",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5083,
+   "code": "rd_oda_nobunaga_p1",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5090,
+   "code": "rd_sejong_p1",
+   "template": "T_REGEN",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5091,
+   "code": "rd_sejong_p2",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5092,
+   "code": "rd_sejong_p3",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5095,
+   "code": "rd_heo_jun_p1",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5097,
+   "code": "rd_jeong_yakyong_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5100,
+   "code": "rd_guan_yu_p1",
+   "template": "T_MATCHUP_NEGATE",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5106,
+   "code": "rd_liu_bang_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5113,
+   "code": "rd_confucius_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5114,
+   "code": "rd_confucius_p2",
+   "template": "T_HEAL_UP",
+   "fx_key": "fx.skill.passive.heal"
+  },
+  {
+   "skill_id": 5115,
+   "code": "rd_confucius_p3",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5118,
+   "code": "rd_cyrus_ii_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5121,
+   "code": "rd_artemisia_i_p1",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5122,
+   "code": "rd_artemisia_i_p2",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5124,
+   "code": "rd_harun_rashid_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5129,
+   "code": "rd_nguyen_hue_p3",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5131,
+   "code": "rd_shaka_zulu_p3",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5133,
+   "code": "rd_shimazu_yoshihiro_p1",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5134,
+   "code": "rd_shimazu_yoshihiro_p2",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5135,
+   "code": "rd_shimazu_yoshihiro_p3",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5138,
+   "code": "rd_subutai_p1",
+   "template": "T_DEF_UP",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5139,
+   "code": "rd_subutai_p2",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5140,
+   "code": "rd_subutai_p3",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5143,
+   "code": "rd_chok_jun_gyeong_p1",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5144,
+   "code": "rd_chok_jun_gyeong_p2",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5145,
+   "code": "rd_chok_jun_gyeong_p3",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5148,
+   "code": "rd_belisarius_p1",
+   "template": "T_CHARGE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5149,
+   "code": "rd_belisarius_p2",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5150,
+   "code": "rd_belisarius_p3",
+   "template": "T_FIRST_STRIKE",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5153,
+   "code": "rd_baibars_p1",
+   "template": "T_FORMATION",
+   "fx_key": "fx.skill.passive.def"
+  },
+  {
+   "skill_id": 5154,
+   "code": "rd_baibars_p2",
+   "template": "T_ATK_UP",
+   "fx_key": "fx.skill.passive.atk"
+  },
+  {
+   "skill_id": 5155,
+   "code": "rd_baibars_p3",
+   "template": "T_LAST_STAND",
+   "fx_key": "fx.skill.passive.def"
+  }
+ ]
+}

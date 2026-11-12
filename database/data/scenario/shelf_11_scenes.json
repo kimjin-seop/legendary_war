@@ -1,0 +1,616 @@
+{
+  "_note": "서가 11(고려-거란) 스테이지별 전/후 장면과 전투 이벤트 초안. 스키마는 campaign_ch1_scenes.json(scenes)과 battle_events_ch6_10.json(battle_events, 제안 스키마 proposal-0.1)을 따른다. speaker: shiori | protagonist | hero:<code>(seo_hui, gang_gamchan, wang_geon) | npc:<npc_code>. 거란 측 인물도 짧은 대사를 가진다(중립 어조, 존엄 유지, 전부 is_invented=true, WRITING_RULES.md 준수). is_invented=true는 창작 대사(실존 인물의 실제 발언 아님, 주인공 대사 전부 포함). evidence: confirmed/accepted/verify/invented/n-a. verify=true는 사람 확인 필요. 주인공 호칭 {protagonist_name} 님 고정. 시오리는 지휘관님 호칭. 병력·사상자 수치, 대량 사상 묘사, 거란 비하 표현 금지. 수치(턴수 외)는 임밸런 확정. 이 파일은 신규 제안이며 JSON 파서 검증은 실행 도구 부재로 수행하지 못했고 직접 재검토만 했다.",
+  "version": 1,
+  "author": "송서사",
+  "generated": "2026-11-01",
+  "shelf": "shelf_11_goryeo_khitan",
+  "sources": [
+    "https://en.wikipedia.org/wiki/Goryeo%E2%80%93Khitan_War",
+    "https://ko.wikipedia.org/wiki/서희",
+    "https://ko.wikipedia.org/wiki/강감찬",
+    "database/data/hero_fact_checks.json",
+    "database/data/scenario/SCENARIO_03_CH5-10_AND_OPEN.md 13-2"
+  ],
+  "speaker_profile": {
+    "protagonist": { "name": "{protagonist_name}", "note": "허구 인물, 대사 전부 is_invented=true" },
+    "shiori": { "name": "시오리" },
+    "hero:seo_hui": { "name": "서희" },
+    "hero:gang_gamchan": { "name": "강감찬" },
+    "hero:wang_geon": { "name": "왕건" },
+    "npc:npc_dae_dosu": { "name": "대도수" },
+    "npc:npc_yu_bang": { "name": "유방" },
+    "npc:npc_gang_min_cheom": { "name": "강민첨" },
+    "npc:npc_kim_jong_hyeon": { "name": "김종현" },
+    "npc:npc_nameless_scribe": { "name": "무명 기록관" },
+    "npc:npc_so_sonnyeong": { "name": "소손녕" },
+    "npc:npc_so_baeap": { "name": "소배압" },
+    "npc:npc_khitan_vanguard": { "name": "거란 선봉 기병대장" },
+    "npc:npc_khitan_archer_captain": { "name": "거란 궁병대 지휘관" },
+    "npc:npc_khitan_rearguard": { "name": "거란 후위 지휘관" }
+  },
+  "relation_proposals": [
+    { "a": "seo_hui", "b": "gang_gamchan", "type": "same_event", "evidence_level": "accepted", "reason": "고려-거란 전쟁이라는 같은 사건의 외교와 군사 양면에서 각각 대응한 인물. 서로 만난 기록은 없음(시대가 다름, 993과 1018~1019).", "source": "https://en.wikipedia.org/wiki/Goryeo%E2%80%93Khitan_War", "note": "hero_relations.json에 없음, 이 문서는 수정하지 않음. 추가 여부는 팀장 결정." },
+    { "a": "wang_geon", "b": "seo_hui", "type": "lineage", "evidence_level": "verify", "reason": "고구려 계승 의식과 북진 정책이라는 맥락 연결(서희의 논거는 verify).", "source": "https://ko.wikipedia.org/wiki/서희 ; https://ko.wikipedia.org/wiki/태조_(고려)", "note": "서희 담판 논거의 원전 대조 전에는 flavor 용도로만." }
+  ],
+  "entry_conditions": {
+    "key_bookmark": "seo_hui (서희 책갈피, 서가 문을 여는 열쇠)",
+    "required_party": ["seo_hui"],
+    "optional_party_synergy": ["wang_geon (고려 계열 대사)", "gang_gamchan (S2부터 NPC 동행, 서가 클리어 시 지급 제안)"],
+    "unlock": "강감찬은 shelf11_s5 클리어 시 지급 제안(SCENARIO_03 시스템 전제 4번과 정합, 11장 첫 클리어 보상). 서희는 10장 클리어 보상. 확정은 팀장/임밸런."
+  },
+  "scenes": [
+    {
+      "id": "shelf11_open",
+      "stage_code": null,
+      "timing": "shelf_start",
+      "bg": "서고 북쪽 서가 앞. 서희의 책갈피를 꽂자 책장 사이로 차가운 바람이 분다",
+      "what_if": true,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "지휘관님, 책갈피가 반응했습니다. 서희 장군의 이름에 서가의 문이 열렸습니다.", "is_invented": false, "verify": false, "evidence": "n-a" },
+        { "speaker": "shiori", "expr": "serious", "text": "먼저 말씀드립니다. 이 서가는 두 시대를 한 칸에 꽂았습니다. 993년의 담판과 1018~1019년의 귀주입니다.", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "shiori", "expr": "neutral", "text": "서희 장군과 강감찬 장군은 같은 전쟁의 다른 시기를 살았고 함께 싸운 기록은 없습니다. 여기서는 '만약에' 한 자리에 모십니다.", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "hero:seo_hui", "expr": "neutral", "text": "말로 하는 일을 칼의 서가에 꽂다니, 서고도 짓궂구려.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "그런데 이 서가에도 번짐이 있나요? 먼저 어디부터 보면 되죠?", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:seo_hui", "expr": "smile", "text": "먼저 묻는 이로군. 좋소. 묻는 이가 있어야 말이 길을 찾소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "번짐은 한 줄 요약 아래에서 시작되었습니다. 안융진부터 가겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "relation_ref": []
+    },
+    {
+      "id": "shelf11_s1_pre",
+      "stage_code": "shelf11_s1",
+      "timing": "before_battle",
+      "bg": "993년 안융진. 강가 낮은 구릉 위의 작은 성채. 새벽 안개 너머로 말 울음이 들린다",
+      "what_if": true,
+      "lines": [
+        { "speaker": "shiori", "expr": "serious", "text": "'만약에' 전장입니다. 담판은 이 싸움 뒤에 있었고, 서희 장군이 안융진 성벽에 서 있었다는 기록은 없습니다.", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "shiori", "expr": "neutral", "text": "993년, 거란이 고려에 1차로 군사를 내었습니다. 안융진은 그 길목의 작은 성입니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "npc:npc_dae_dosu", "expr": "serious", "text": "성은 작고 길목은 좁소. 버티는 데 쓸 것은 시간뿐이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_yu_bang", "expr": "smile", "text": "시간이라면 화살로도 벌 수 있지요. 사거리 안에 오는 것은 책임지겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:seo_hui", "expr": "neutral", "text": "이곳이 버텨 주어야 입을 열 자리가 생기오. 성을 부탁하오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_so_sonnyeong", "expr": "serious", "text": "작은 성 하나에 발이 묶일 수는 없소. 길을 열어라.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:wang_geon", "expr": "serious", "text": "옛 땅의 길목은 작은 성 하나가 가른다고 했소. 늦지 않게 대열을 갖추시오.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "wang_geon 편성" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "여섯 턴을 버티면 되는 거죠? 앞줄은 성문 쪽, 궁수는 성벽 뒤에 두겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "6턴을 버티면 승리입니다. 화면의 목표 표시를 확인해 주십시오. 사서는 시간을 버는 일에도 익숙합니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "relation_ref": ["seo_hui:wang_geon"]
+    },
+    {
+      "id": "shelf11_s1_post",
+      "stage_code": "shelf11_s1",
+      "timing": "after_clear",
+      "bg": "안개가 걷힌 안융진. 서가 한복판에 천막과 두 개의 빈 자리가 놓여 있다(담판 컷신)",
+      "what_if": true,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "성은 지켜졌습니다. 기록은 이 다음 장면을 한 줄로 적었습니다. '서희가 소손녕과 담판해 강동 6주를 얻었다.'", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "shiori", "expr": "serious", "text": "한 줄 아래가 번져 있습니다. 두 분이 마주 앉은 자리의 말은 많이 전하지 않습니다. 이 서가에서는 마주 앉았다는 데까지만 담겠습니다.", "is_invented": false, "verify": true, "evidence": "verify" },
+        { "speaker": "npc:npc_so_sonnyeong", "expr": "neutral", "text": "마주 앉겠소. 할 말이 있다면 들어 보겠소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:seo_hui", "expr": "neutral", "text": "들어 주겠다니 다행이오. 한 줄이라니, 그 말을 꺼내기까지 내가 무엇을 헤아렸는지는 없구려.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "그 헤아림을 따라가 봐도 될까요? 어떤 점을 먼저 보셨는지가 궁금합니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "선택지가 하나 나옵니다. 어느 쪽이든 역사의 결말은 바뀌지 않습니다. 달라지는 것은 서고에 남는 주석뿐입니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "choice": {
+        "id": "shelf11_choice_1", "prompt": "서희의 담판을 어떻게 서가에 꽂으시겠습니까?", "default": "A",
+        "note": "분기 1. 역사 결과(담판 성립, 강동 6주 확보)는 두 안 모두 동일. 보상(기록 조각 종류)과 서희 호감 대사만 다름. 스킵 시 A.",
+        "options": [
+          {
+            "id": "A", "label": "상대의 사정을 먼저 듣는다",
+            "lines": [
+              { "speaker": "protagonist", "expr": "neutral", "text": "상대가 무엇을 원했는지부터 적어 두겠습니다. 이유를 알아야 말이 길을 찾으니까요.", "is_invented": true },
+              { "speaker": "hero:seo_hui", "expr": "smile", "text": "그것이 담판의 절반이오. 나머지 절반은 내 쪽의 사정을 숨기지 않는 일이오.", "is_invented": true }
+            ],
+            "captions": [{ "text": "책장에 주석이 한 줄 붙습니다. '거란 측이 무엇을 요구했는지는 해석이 갈린다.'", "is_invented": false, "evidence": "accepted" }],
+            "effects": [{ "op": "reward", "item": "record_fragment", "count": 1, "value": "TBD(임밸런)" }, { "op": "set_flag", "key": "shelf11_s1_heard_first", "value": true }]
+          },
+          {
+            "id": "B", "label": "서희의 논거를 먼저 정리한다",
+            "lines": [
+              { "speaker": "protagonist", "expr": "neutral", "text": "서희 님의 논거를 먼저 정리해 두겠습니다. 어떻게 설득하셨는지 순서대로 남기고 싶어요.", "is_invented": true },
+              { "speaker": "hero:seo_hui", "expr": "neutral", "text": "정리하는 이가 있으니 든든하구려. 다만 빠진 곳은 비워 두시오. 모르는 곳을 메우면 그게 번짐이오.", "is_invented": true }
+            ],
+            "captions": [{ "text": "책장에 주석이 한 줄 붙습니다. '서희가 무엇을 근거로 삼았는지는 더 읽어야 한다.'", "is_invented": false, "evidence": "verify" }],
+            "effects": [{ "op": "reward", "item": "record_fragment", "count": 1, "value": "TBD(임밸런)" }, { "op": "set_flag", "key": "shelf11_s1_logic_first", "value": true }]
+          }
+        ]
+      },
+      "unlock_hero": null, "relation_ref": []
+    },
+    {
+      "id": "shelf11_s2_pre",
+      "stage_code": "shelf11_s2",
+      "timing": "before_battle",
+      "bg": "1018년 흥화진 동쪽 물줄기. 겨울 직전의 얕은 강, 양안 산악과 갈대밭",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "1018년 말, 거란의 3차 침입입니다. 압록강을 건넌 군이 흥화진 앞에 다다릅니다.", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "shiori", "expr": "serious", "text": "강감찬 장군이 상원수로서 이 일대를 맡았고, 흥화진 동쪽의 물줄기를 막았다가 거란군이 건널 때 열었다고 전해집니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "hero:gang_gamchan", "expr": "serious", "text": "문신이 전장에 서는 것을 탓하는 이도 있소. 탓은 나중에 듣겠소. 오늘은 물길부터 보겠소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:seo_hui", "expr": "neutral", "text": "두 시대가 한 강가에 서는 것은 처음이구려. 장군의 말을 먼저 듣겠소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_so_baeap", "expr": "neutral", "text": "흥화진이 길을 막는다면 돌아가면 그만이오. 목적지는 개경이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_nameless_scribe", "expr": "neutral", "text": "저는 이름이 전하지 않는 기록관입니다. 이곳에서 건너간 이들의 이름이 비어 있어서, 비어 있는 쪽을 적고 있습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "허구의 인물입니다. 서고의 번짐이 만든 존재라서, 지휘관님 편에서 쪽수를 읽어 주실 겁니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "물이 불어나는 칸이 어디인지 먼저 확인할게요. 아군은 그 칸에서 떨어져 있어야 하죠?", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "예, 적 지휘관을 물러나게 하면 승리입니다. 물길의 타이밍이 핵심이라는 것만 말씀드리겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "relation_ref": ["seo_hui:gang_gamchan"]
+    },
+    {
+      "id": "shelf11_s2_post",
+      "stage_code": "shelf11_s2",
+      "timing": "after_clear",
+      "bg": "물이 빠진 강바닥, 갈대가 누운 둔덕. 건너편에서 연기가 가늘게 오른다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "거란군은 흥화진을 통과하지 못하고 다른 길로 방향을 틀었습니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "물은 한 번만 쓸 수 있소. 두 번째 길은 사람이 열어야 하오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_nameless_scribe", "expr": "neutral", "text": "책에는 '물을 열었다' 한 줄입니다. 그 한 줄 뒤에 서 있던 이들의 이름은 비어 있습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "비어 있는 칸은 그대로 두겠습니다. 모르는 것을 채우지 않는 것도 기록이니까요.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "서가에 새 규칙이 하나 생겼군요. 다음은 퇴각하는 쪽의 길목입니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "relation_ref": []
+    },
+    {
+      "id": "shelf11_s3_pre",
+      "stage_code": "shelf11_s3",
+      "timing": "before_battle",
+      "bg": "귀주 가는 산길. 안개 낀 능선 사이로 좁은 길목 둘, 눈이 섞인 바람",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "거란군은 개경 방면으로 나아가다 저항에 부딪혀 북쪽으로 물러났습니다. 퇴각로 곳곳에서 고려군이 맞섰다고 전합니다.", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "shiori", "expr": "serious", "text": "자주와 신은현 일대에서 협공이 있었다고 전합니다. 오늘은 그 길목 두 곳을 차지하는 전투입니다.", "is_invented": false, "verify": true, "evidence": "verify" },
+        { "speaker": "npc:npc_gang_min_cheom", "expr": "serious", "text": "강민첨이오. 퇴각하는 군은 등을 보이는 만큼 빠르오. 길목을 먼저 쥐어야 하오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_kim_jong_hyeon", "expr": "neutral", "text": "안개가 짙소. 소리가 나는 쪽을 따라가지 말고 깃발 쪽을 따르시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_khitan_archer_captain", "expr": "serious", "text": "안개 속에서는 눈이 소용없다. 소리를 듣고 쏘아라.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "서두르지 마시오. 쫓는 쪽이 더 지친 법이오. 두 길목을 동시에 쥐는 것이 전부요.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "점령할 길목이 두 곳이네요. 한 곳을 먼저 잡고 다른 곳은 시간을 맞추겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "두 길목 점령이 목표입니다. 안개 속 시야가 좁다는 점을 기억해 주십시오.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "relation_ref": []
+    },
+    {
+      "id": "shelf11_s3_post",
+      "stage_code": "shelf11_s3",
+      "timing": "after_clear",
+      "bg": "안개가 걷힌 능선. 멀리 귀주 방면의 넓은 벌판이 보인다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "길목은 닫혔습니다. 이제 거란군의 주력이 향한 곳, 귀주로 넘어갑니다.", "is_invented": false, "verify": false, "evidence": "accepted" },
+        { "speaker": "npc:npc_so_baeap", "expr": "neutral", "text": "길목 둘은 내주었다. 그러나 승부는 귀주에서 난다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_gang_min_cheom", "expr": "neutral", "text": "벌판에서의 싸움은 속도가 아니라 버티는 쪽이 이기오. 우리 몫은 두 번째 줄이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:seo_hui", "expr": "neutral", "text": "말은 싸움이 끝난 뒤에 쓰이는 경우가 많소. 이번엔 장군의 일이 먼저 끝나야 하오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_nameless_scribe", "expr": "neutral", "text": "귀주는 '크게 이겼다' 한 줄이 가장 크게 번진 곳입니다. 아래 쪽이 비어 있습니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "relation_ref": []
+    },
+    {
+      "id": "shelf11_s4_pre",
+      "stage_code": "shelf11_s4",
+      "timing": "before_battle",
+      "bg": "귀주 벌판. 낮은 구릉과 얕은 하천, 아침 안개와 찬 바람",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "귀주입니다. 강감찬 장군이 대기하다가 접근하는 거란군을 공격해 큰 타격을 주었다고 전합니다. 1018년에서 이듬해로 이어진 전쟁의 마지막 큰 싸움입니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "shiori", "expr": "serious", "text": "전투 중 바람 방향이 바뀌었다는 이야기도 전해집니다. 어디까지가 사실인지는 알 수 없으니, 날씨 정도로만 보아 주십시오.", "is_invented": false, "verify": true, "evidence": "verify" },
+        { "speaker": "hero:gang_gamchan", "expr": "serious", "text": "이 칸이 마지막이오. 물러설 곳도, 우리가 이곳에 오래 머무를 이유도 없소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_so_baeap", "expr": "serious", "text": "돌아가는 길을 막아선 군이 있다. 돌파하여 북으로 간다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_kim_jong_hyeon", "expr": "neutral", "text": "우익은 맡겠소. 바람이 어느 쪽으로 불든 활은 제 갈 길을 아오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_gang_min_cheom", "expr": "serious", "text": "좌익은 내가 맡겠소. 중앙은 장군과 서희 공이 정하시오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:seo_hui", "expr": "neutral", "text": "나는 전열 뒤에서 흐름을 읽겠소. 끝나는 순간을 알려 주는 것이 내 몫이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "전열을 정하기 전에 한 가지만 여쭐게요. 어느 쪽이 먼저 흔들릴까요?", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "선택지가 나옵니다. 어느 쪽이든 귀주의 결과는 바뀌지 않습니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "choice": {
+        "id": "shelf11_choice_2", "prompt": "귀주의 진형을 어떻게 짜시겠습니까?", "default": "A",
+        "note": "분기 2. 전투 시작 배치와 첫 턴 버프만 다름(TBD 임밸런). 역사 결과 불변. 스킵 시 A.",
+        "options": [
+          {
+            "id": "A", "label": "중앙을 두껍게 세운다",
+            "lines": [
+              { "speaker": "protagonist", "expr": "neutral", "text": "중앙에 중보병을 모아 버티겠습니다. 양 날개는 빈틈만 막고요.", "is_invented": true },
+              { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "버티는 진은 지루하오. 그래서 믿을 만하오.", "is_invented": true }
+            ],
+            "captions": [],
+            "effects": [{ "op": "set_start_formation", "preset": "center_heavy", "value": "TBD(임밸런)" }, { "op": "set_flag", "key": "shelf11_s4_center", "value": true }]
+          },
+          {
+            "id": "B", "label": "좌우를 넓게 벌려 협공한다",
+            "lines": [
+              { "speaker": "protagonist", "expr": "neutral", "text": "양 날개를 넓게 벌릴게요. 중앙이 얇아지는 대신 조여 들 수 있어요.", "is_invented": true },
+              { "speaker": "npc:npc_gang_min_cheom", "expr": "serious", "text": "좌익은 책임지겠소. 타이밍만 어긋나지 않으면 되오.", "is_invented": true }
+            ],
+            "captions": [],
+            "effects": [{ "op": "set_start_formation", "preset": "wide_flanks", "value": "TBD(임밸런)" }, { "op": "set_flag", "key": "shelf11_s4_flanks", "value": true }]
+          }
+        ]
+      },
+      "unlock_hero": null, "relation_ref": []
+    },
+    {
+      "id": "shelf11_s4_post",
+      "stage_code": "shelf11_s4",
+      "timing": "after_clear",
+      "bg": "해 질 무렵 귀주 벌판. 구릉 위에 깃발만 남아 있고 사람의 그림자는 보이지 않는다",
+      "what_if": false,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "거란은 이후 고려 침입을 이어 가지 않았습니다. 기록은 이 전투를 귀주대첩으로 부릅니다.", "is_invented": false, "verify": true, "evidence": "accepted" },
+        { "speaker": "npc:npc_so_baeap", "expr": "neutral", "text": "오늘은 우리가 졌소. 돌아가 전할 말을 고르겠소.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "크게 이겼다고 적히는 날이 가장 조심할 날이오. 이름 없는 이들의 몫이 그 아래 묻히기 때문이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "npc:npc_nameless_scribe", "expr": "neutral", "text": "그 말씀, 적어 두겠습니다. 장군의 말씀이 아니라 제 해석으로요.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "serious", "text": "서가 안쪽에서 번짐이 한 곳으로 모이고 있습니다. 마지막 칸입니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:seo_hui", "expr": "neutral", "text": "내가 말하던 그 한 줄이 이 끝에 서 있는 것 같소.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "relation_ref": []
+    },
+    {
+      "id": "shelf11_s5_pre",
+      "stage_code": "shelf11_s5",
+      "timing": "before_battle",
+      "bg": "서가 맨 안쪽. 두 시대의 책등이 맞닿은 자리에서 먹물이 말풍선 모양으로 일어난다",
+      "what_if": true,
+      "lines": [
+        { "speaker": "shiori", "expr": "serious", "text": "이번에는 '만약에'조차 아닙니다. 이곳의 적은 사람이 아니라 기록의 번짐입니다.", "is_invented": false, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "neutral", "text": "'요약된 담판의 그림자'. 문장이 끊긴 채 겹쳐 울리는 형체입니다. 사람의 모습도, 어느 편의 모습도 아닙니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:seo_hui", "expr": "serious", "text": "저것은 내 말의 빈자리요. 말이 한 줄로 접히면 저렇게 되는 법이오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "쓸모란 이긴 뒤에 적히는 것이 아니오. 쓸모 있는 만큼 일하면 되오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:wang_geon", "expr": "neutral", "text": "나라의 이름을 세운 것도 한 줄이오. 그 줄 아래를 읽는 자가 필요하오.", "is_invented": true, "verify": false, "evidence": "invented", "only_if": "wang_geon 편성" },
+        { "speaker": "npc:npc_nameless_scribe", "expr": "neutral", "text": "그림자는 저를 닮은 곳에서 시작되었습니다. 비워 둔 칸을 지우지 말고 이어 적어 주세요.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "닦는 게 아니라 이어 쓰러 왔어요. 끊긴 문장이 어디서 끊겼는지부터 확인하겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": null, "relation_ref": []
+    },
+    {
+      "id": "shelf11_s5_post",
+      "stage_code": "shelf11_s5",
+      "timing": "after_clear",
+      "bg": "먹물이 가라앉은 서가. 두 시대의 책등 사이에 빈 한 줄이 남아 있다",
+      "what_if": true,
+      "lines": [
+        { "speaker": "shiori", "expr": "neutral", "text": "서가의 번짐이 가라앉았습니다. 서희 장군의 기록 탭에 한 줄이 추가되었습니다.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:seo_hui", "expr": "smile", "text": "한 줄이 둘이 되었구려. 하나는 사실이고 하나는 모름이오. 그것이면 되오.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "이번 서가에서는 서희 공 곁에서 한 줄 보탰소. 다음에 어느 책에서 마주칠지는 책장이 정할 일이오. 늙은이는 불러 주는 데로 가면 되는 법이지.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "protagonist", "expr": "neutral", "text": "마지막 줄은 비워 둘까요? 다음 사서가 채울 수 있도록요.", "is_invented": true, "verify": false, "evidence": "invented" },
+        { "speaker": "shiori", "expr": "smile", "text": "비워 두지요. 사서의 규칙입니다. ……이 서가 안쪽 한 장에 제 필적과 닮은 글씨가 남아 있었습니다. 우연이라 해 두겠습니다.", "is_invented": true, "verify": false, "evidence": "invented" }
+      ],
+      "unlock_hero": "gang_gamchan",
+      "unlock_note": "강감찬 지급 제안(서가 클리어 보상). 확정은 팀장/임밸런. 서희는 이미 열쇠로 보유.",
+      "relation_ref": ["seo_hui:gang_gamchan"]
+    }
+  ],
+  "battle_events": {
+    "schema_version": "proposal-0.1",
+    "policy_default": { "once": true, "skippable": true, "pause_input": true, "max_sec": 20, "replay": "short_after_first_clear", "effects_apply_on_skip": true, "multiplayer": false, "enabled": true },
+    "stages": [
+      {
+        "stage_id": "shelf11_s1", "title": "안융진", "goal": "survive_turns 6", "classification": "사실 기반 각색",
+        "events": [
+          {
+            "id": "shelf11_s1_e01", "name": "작은 성, 좁은 길목", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "npc_dae_dosu", "npc_yu_bang"],
+            "scene": {
+              "captions": [{ "text": "993년, 안융진.", "is_invented": false }],
+              "lines": [
+                { "speaker": "shiori", "text": "6턴을 버티면 됩니다. 성문 쪽이 먼저 눌릴 것입니다.", "expr": "neutral", "is_invented": true },
+                { "speaker": "npc:npc_dae_dosu", "text": "성문은 내가 맡겠소. 활은 뒤에서 거들어 주시오.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "안융진: 6턴을 버텨라."
+            },
+            "effects": [{ "op": "show_objective", "type": "survive_turns", "value": 6 }, { "op": "show_marker", "zone": "main_gate", "kind": "danger" }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "verify", "fact_refs": ["993 안융진 방어: ko.wikipedia 고려-거란 전쟁"], "engine_support": "기본(확인 필요)" }
+          },
+          {
+            "id": "shelf11_s1_e02", "name": "선봉의 돌파", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "enemy", "turn": 2 }, "when_text": "2턴째 적군 페이즈 시작",
+            "priority": 60, "requires": { "engine_support": "확장 필요(AI 패턴)" },
+            "cast": ["shiori", "npc_khitan_vanguard"],
+            "scene": {
+              "captions": [{ "text": "거란 선봉 기병이 성문 앞 길목을 가른다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_khitan_vanguard", "text": "길목이 좁다. 한 번에 성문까지 간다. 나를 따르라.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "기병이 정면으로 달려듭니다. 창병을 앞줄로 모아 주십시오.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "2턴: 기병이 성문으로 달려든다."
+            },
+            "effects": [{ "op": "ai_pattern", "side": "enemy", "pattern": "assault_zone", "zone": "main_gate", "turns": 2 }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "확장 필요(AI 패턴)" }
+          },
+          {
+            "id": "shelf11_s1_e03", "name": "화살 뒤의 한 박자", "types": ["A"],
+            "trigger": { "type": "unit_enter_zone", "unit": "npc_yu_bang", "zone": "wall_top", "first_time": true }, "when_text": "유방이 성벽 위 구역에 처음 들어갔을 때",
+            "priority": 40, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["npc_yu_bang", "protagonist"],
+            "scene": {
+              "captions": [],
+              "lines": [
+                { "speaker": "npc:npc_yu_bang", "text": "벽 위에서 보니 평원이 다 보이오. 오는 것은 모두 세어 두겠소.", "expr": "smile", "is_invented": true },
+                { "speaker": "protagonist", "text": "세어 주신 숫자를 알려 주세요. 제가 턴마다 적어 둘게요.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "성벽 위 궁병이 자리를 잡았다."
+            },
+            "effects": [{ "op": "buff", "unit": "npc_yu_bang", "stat": "range", "value": "TBD(임밸런)", "turns": 3 }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "확장 필요" }
+          },
+          {
+            "id": "shelf11_s1_e04", "name": "물러서는 말머리", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "enemy", "turn": 6 }, "when_text": "6턴째 적군 페이즈 시작",
+            "priority": 70, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "hero:seo_hui", "npc_so_sonnyeong"],
+            "scene": {
+              "captions": [{ "text": "성문 앞에서 거란군이 대열을 늦춘다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_so_sonnyeong", "text": "더는 이 성에 시간을 쓸 수 없소. 대열을 거두어라.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "적의 공세가 느려졌습니다. 조금만 더 버티면 승리입니다.", "expr": "neutral", "is_invented": true },
+                { "speaker": "hero:seo_hui", "text": "싸움이 멎는 자리에서 말이 시작되오. 거의 다 왔소.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "6턴: 공세가 느려진다."
+            },
+            "effects": [{ "op": "ai_pattern", "side": "enemy", "pattern": "hold", "turns": 1 }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["안융진 전투 이후 담판으로 이어짐: ko.wikipedia 고려-거란 전쟁"], "engine_support": "확장 필요" }
+          }
+        ]
+      },
+      {
+        "stage_id": "shelf11_s2", "title": "흥화진 물길", "goal": "commander_defeat (거란 지휘관 퇴각 처리)", "classification": "사실 기반 각색",
+        "events": [
+          {
+            "id": "shelf11_s2_e01", "name": "물길을 막다", "types": ["A", "C"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "신규 필요(tile_patch)" },
+            "cast": ["shiori", "hero:gang_gamchan"],
+            "scene": {
+              "captions": [{ "text": "흥화진 동쪽 물줄기는 이미 막혀 있습니다.", "is_invented": false }],
+              "lines": [
+                { "speaker": "hero:gang_gamchan", "text": "물이 높아지는 칸에서 아군은 물러나 있어야 하오. 때가 되면 내가 알리겠소.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "수문이 열리는 턴은 화면에 표시됩니다. 그 구역의 타일을 확인해 주십시오.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "물길이 막혀 있다. 열리는 턴을 확인하라."
+            },
+            "effects": [{ "op": "show_marker", "zone": "river_ford", "kind": "danger" }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["흥화진 동쪽 물줄기 막았다 터뜨림: en.wikipedia Goryeo-Khitan War"], "engine_support": "신규 필요(tile_patch)" }
+          },
+          {
+            "id": "shelf11_s2_e02", "name": "건너는 대열", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "enemy", "turn": 3 }, "when_text": "3턴째 적군 페이즈 시작",
+            "priority": 70, "requires": { "engine_support": "확장 필요(AI 패턴)" },
+            "cast": ["shiori", "npc_khitan_archer_captain"],
+            "scene": {
+              "captions": [{ "text": "거란군 선봉이 강 가운데 얕은 곳으로 들어선다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_khitan_archer_captain", "text": "활을 들어라. 선봉이 건너는 동안 맞은편을 눌러 둔다.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "적이 얕은 여울에 모입니다. 물길이 열릴 때까지 한 턴이 남았습니다.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "3턴: 적이 여울에 모인다."
+            },
+            "effects": [{ "op": "ai_pattern", "side": "enemy", "pattern": "move_to_zone", "zone": "river_ford", "turns": 1 }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "확장 필요(AI 패턴)" }
+          },
+          {
+            "id": "shelf11_s2_e03", "name": "수문이 열린다", "types": ["A", "C"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 4 }, "when_text": "4턴째 아군 페이즈 시작",
+            "priority": 95, "requires": { "engine_support": "신규 필요(tile_patch, 연출)" },
+            "cast": ["shiori", "hero:gang_gamchan", "protagonist"],
+            "scene": {
+              "captions": [{ "text": "막혀 있던 물줄기가 열립니다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "hero:gang_gamchan", "text": "지금이오. 물이 닿는 칸으로는 들어가지 마시오.", "expr": "serious", "is_invented": true },
+                { "speaker": "protagonist", "text": "물이 닿는 칸 바깥에서 기다리겠습니다. 빠져나오는 쪽을 노릴게요.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "4턴: 수문이 열린다."
+            },
+            "effects": [{ "op": "tile_patch", "patch_id": "flood_ford", "zone": "river_ford", "from": "shallow", "to": "deep_water", "revert": false, "turns": 2 }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["수공 주체와 세부는 verify"], "engine_support": "신규 필요(tile_patch, 연출)" }
+          },
+          {
+            "id": "shelf11_s2_e04", "name": "지휘관이 물러서다", "types": ["E"],
+            "trigger": { "type": "hp_threshold", "unit": "npc_so_baeap", "lte_tenths": 3, "first_time": true, "after": "action" }, "when_text": "소배압 유닛 HP가 30% 이하가 된 직후",
+            "priority": 80, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "npc_so_baeap"],
+            "scene": {
+              "captions": [{ "text": "거란 지휘관이 기수를 돌린다. 퇴각이다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_so_baeap", "text": "이 길은 오늘 닫혔다. 기수를 돌려라.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "지휘관이 물러납니다. 격파로 처리됩니다. 사서는 이것을 퇴각이라고 적습니다.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "소배압 부대가 물러난다."
+            },
+            "effects": [{ "op": "unit_retreat", "unit": "npc_so_baeap" }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)", "note": "commander_defeat 판정을 퇴각 연출로 처리(사망 묘사 회피)" }
+          }
+        ]
+      },
+      {
+        "stage_id": "shelf11_s3", "title": "귀주 가는 길목", "goal": "capture_points 2 (길목 점령)", "classification": "사실 기반 각색(verify 포함)",
+        "events": [
+          {
+            "id": "shelf11_s3_e01", "name": "안개 속 깃발", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "신규 필요(시야 제한 연출)" },
+            "cast": ["shiori", "npc_kim_jong_hyeon"],
+            "scene": {
+              "captions": [{ "text": "안개로 시야가 좁아집니다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "shiori", "text": "점령할 길목은 두 곳입니다. 시야가 좁으니 서두르지 마십시오.", "expr": "neutral", "is_invented": true },
+                { "speaker": "npc:npc_kim_jong_hyeon", "text": "깃발이 보이는 곳이 길목이오. 놓치지 마시오.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "안개: 두 길목을 점령하라."
+            },
+            "effects": [{ "op": "show_objective", "type": "capture_points", "value": 2 }, { "op": "weather", "preset": "fog", "value": "TBD(임밸런)" }],
+            "meta": { "classification": "각색", "evidence_level": "verify", "fact_refs": ["자주·신은현 협공: ko.wikipedia 강감찬 (본문 열람 필요)"], "engine_support": "신규 필요" }
+          },
+          {
+            "id": "shelf11_s3_e02", "name": "첫 번째 길목", "types": ["E"],
+            "trigger": { "type": "unit_enter_zone", "unit": "any_ally", "zone": "pass_a", "first_time": true }, "when_text": "아군이 첫 길목에 처음 들어섰을 때",
+            "priority": 60, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["npc_gang_min_cheom", "hero:gang_gamchan"],
+            "scene": {
+              "captions": [],
+              "lines": [
+                { "speaker": "npc:npc_gang_min_cheom", "text": "한 곳은 쥐었소. 남은 길목은 저쪽이오.", "expr": "serious", "is_invented": true },
+                { "speaker": "hero:gang_gamchan", "text": "서두르면 반대쪽이 열리오. 순서를 맞추시오.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "첫 길목 확보."
+            },
+            "effects": [{ "op": "capture_progress", "value": 1 }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)" }
+          },
+          {
+            "id": "shelf11_s3_e03", "name": "후위의 방패", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "enemy", "turn": 4 }, "when_text": "4턴째 적군 페이즈 시작",
+            "priority": 65, "requires": { "engine_support": "확장 필요(AI 패턴)" },
+            "cast": ["shiori", "npc_khitan_rearguard"],
+            "scene": {
+              "captions": [{ "text": "거란군 후위가 방패를 세워 퇴각로를 지킨다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_khitan_rearguard", "text": "방패를 세워라. 우리가 버텨야 본대가 돌아간다.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "후위 부대는 방어를 굳혔습니다. 정면 돌파는 비용이 큽니다.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "4턴: 후위가 방어를 굳힌다."
+            },
+            "effects": [{ "op": "ai_pattern", "side": "enemy", "pattern": "defend_zone", "zone": "pass_b", "turns": 3 }],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "확장 필요(AI 패턴)" }
+          }
+        ]
+      },
+      {
+        "stage_id": "shelf11_s4", "title": "귀주대첩", "goal": "commander_defeat (거란 지휘관 퇴각 처리)", "classification": "사실 기반 각색(연도·바람 전승 verify)",
+        "events": [
+          {
+            "id": "shelf11_s4_e01", "name": "벌판에서 마주 서다", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "hero:gang_gamchan", "hero:seo_hui"],
+            "scene": {
+              "captions": [{ "text": "귀주 벌판. 1018~1019년.", "is_invented": false }],
+              "lines": [
+                { "speaker": "hero:gang_gamchan", "text": "대열을 흩지 마시오. 먼저 움직이는 쪽이 진다.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "거란 지휘관을 물러나게 하면 승리입니다. 양 날개의 아군 장수들을 잊지 마십시오.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "귀주: 적 지휘관을 물러나게 하라."
+            },
+            "effects": [{ "op": "show_objective", "type": "commander_defeat", "value": 1 }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["귀주 전투: en.wikipedia Goryeo-Khitan War"], "engine_support": "기본(확인 필요)" }
+          },
+          {
+            "id": "shelf11_s4_e02", "name": "바람의 방향", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 3 }, "when_text": "3턴째 아군 페이즈 시작",
+            "priority": 70, "requires": { "engine_support": "신규 필요(바람 연출)" },
+            "cast": ["shiori", "npc_kim_jong_hyeon"],
+            "scene": {
+              "captions": [{ "text": "이 무렵 바람의 방향이 바뀌었다고 전한다.", "is_invented": false }],
+              "lines": [
+                { "speaker": "shiori", "text": "바람이 바뀝니다. 활이 순풍을 받는 쪽이 유리해집니다.", "expr": "neutral", "is_invented": true },
+                { "speaker": "npc:npc_kim_jong_hyeon", "text": "바람이 우리 쪽으로 오는구려. 활을 높이 들어라.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "3턴: 바람이 바뀐다."
+            },
+            "effects": [{ "op": "weather", "preset": "wind_shift", "value": "TBD(임밸런)" }, { "op": "buff", "side": "ally", "stat": "range_archer", "value": "TBD(임밸런)", "turns": 2 }],
+            "meta": { "classification": "각색(전승)", "evidence_level": "verify", "fact_refs": ["바람 방향 전승: 사료 미확인"], "engine_support": "신규 필요" }
+          },
+          {
+            "id": "shelf11_s4_e03", "name": "좌익의 추격", "types": ["E"],
+            "trigger": { "type": "unit_distance", "a": "npc_gang_min_cheom", "b": "npc_khitan_rearguard", "lte": 2, "first_time": true, "after": "action" }, "when_text": "강민첨 유닛이 거란 후위 지휘관과 2칸 이내가 된 직후",
+            "priority": 50, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["npc_gang_min_cheom", "npc_khitan_rearguard", "shiori"],
+            "scene": {
+              "captions": [],
+              "lines": [
+                { "speaker": "npc:npc_khitan_rearguard", "text": "뒤를 끊기게 둘 수는 없다. 방패를 모아라.", "expr": "serious", "is_invented": true },
+                { "speaker": "npc:npc_gang_min_cheom", "text": "후위를 끊으면 중앙이 열리오. 따라오시오.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "강민첨 장군이 후위를 붙잡습니다. 이때 중앙을 밀어 주십시오.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "좌익이 후위를 붙잡는다."
+            },
+            "effects": [{ "op": "buff", "side": "ally", "stat": "attack", "value": "TBD(임밸런)", "turns": 1 }],
+            "meta": { "classification": "사실 기반 각색", "evidence_level": "accepted", "fact_refs": ["강민첨의 퇴각 거란군 추격: en.wikipedia Goryeo-Khitan War"], "engine_support": "확장 필요" }
+          },
+          {
+            "id": "shelf11_s4_e04", "name": "저녁의 깃발", "types": ["E"],
+            "trigger": { "type": "stage_victory" }, "when_text": "승리 판정 직후",
+            "priority": 100, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "npc_nameless_scribe"],
+            "scene": {
+              "captions": [{ "text": "벌판에 깃발만 남았습니다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "shiori", "text": "귀주의 한 줄 '크게 이겼다'. 그 아래는 비어 있습니다.", "expr": "neutral", "is_invented": true },
+                { "speaker": "npc:npc_nameless_scribe", "text": "비어 있는 칸은 건드리지 않겠습니다. 이름을 지어 붙이는 것도 번짐이니까요.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "귀주: 승리. 비어 있는 칸은 그대로 둔다."
+            },
+            "effects": [],
+            "meta": { "classification": "각색", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)" }
+          }
+        ]
+      },
+      {
+        "stage_id": "shelf11_s5", "title": "요약된 담판의 그림자", "goal": "commander_defeat (보스: npc_shadow_summary)", "classification": "허구",
+        "events": [
+          {
+            "id": "shelf11_s5_e01", "name": "끊긴 문장", "types": ["A"],
+            "trigger": { "type": "turn_start", "phase": "player", "turn": 1 }, "when_text": "1턴째 아군 페이즈 시작",
+            "priority": 90, "requires": { "engine_support": "신규 필요(보스 연출)" },
+            "cast": ["shiori", "hero:seo_hui"],
+            "scene": {
+              "captions": [{ "text": "……한 줄로 전한다. ……라고만 전한다. ……", "is_invented": true }],
+              "lines": [
+                { "speaker": "shiori", "text": "그림자가 말을 흉내 냅니다. 끊어진 곳을 노려 주십시오.", "expr": "serious", "is_invented": true },
+                { "speaker": "hero:seo_hui", "text": "끊어진 곳이 약점이오. 말은 끊겨도 뜻은 이어 붙일 수 있소.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "보스: 끊긴 문장 지점을 공격하라."
+            },
+            "effects": [{ "op": "show_objective", "type": "commander_defeat", "value": 1 }, { "op": "show_marker", "zone": "ink_breaks", "kind": "target" }],
+            "meta": { "classification": "허구", "evidence_level": "invented", "fact_refs": [], "engine_support": "신규 필요" }
+          },
+          {
+            "id": "shelf11_s5_e02", "name": "한 줄로 접히다", "types": ["A", "D"],
+            "trigger": { "type": "hp_threshold", "unit": "npc_shadow_summary", "lte_tenths": 6, "first_time": true, "after": "action" }, "when_text": "그림자 HP 60% 이하",
+            "priority": 85, "requires": { "engine_support": "신규 필요(보스 페이즈)" },
+            "cast": ["shiori", "npc_nameless_scribe"],
+            "scene": {
+              "captions": [{ "text": "……그 이상은 전하지 않는다. ……", "is_invented": true }],
+              "lines": [
+                { "speaker": "npc:npc_nameless_scribe", "text": "접힌 문장이 퍼집니다. 비어 있는 칸이 넓어지고 있습니다.", "expr": "serious", "is_invented": true },
+                { "speaker": "shiori", "text": "2페이즈입니다. 번짐이 넓어지니 아군 사이를 좁히십시오.", "expr": "serious", "is_invented": true }
+              ],
+              "short": "2페이즈: 번짐이 넓어진다."
+            },
+            "effects": [{ "op": "boss_phase", "phase": 2, "value": "TBD(임밸런)" }],
+            "meta": { "classification": "허구", "evidence_level": "invented", "fact_refs": [], "engine_support": "신규 필요(보스 페이즈)" }
+          },
+          {
+            "id": "shelf11_s5_e03", "name": "두 사람의 말", "types": ["E"],
+            "trigger": { "type": "unit_adjacent", "unit": "seo_hui", "fallback_unit": "gang_gamchan", "target": "npc_shadow_summary", "first_time": true, "after": "action" }, "when_text": "서희 또는 강감찬이 그림자와 처음 인접한 직후",
+            "priority": 60, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["hero:seo_hui", "hero:gang_gamchan"],
+            "scene": {
+              "captions": [],
+              "lines": [
+                { "speaker": "hero:seo_hui", "text": "내가 한 말은 이 줄에 다 담기지 않소. 담기지 않은 부분까지 읽어 주시오.", "expr": "serious", "is_invented": true },
+                { "speaker": "hero:gang_gamchan", "text": "읽는 이가 있는 한 줄은 줄로 끝나지 않소.", "expr": "neutral", "is_invented": true }
+              ],
+              "short": "두 시대의 말이 그림자에 닿는다."
+            },
+            "effects": [{ "op": "buff", "unit": "adjacent_ally", "stat": "attack", "value": "TBD(임밸런)", "turns": 1 }],
+            "meta": { "classification": "허구", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)" }
+          },
+          {
+            "id": "shelf11_s5_e04", "name": "이어 쓰기", "types": ["E"],
+            "trigger": { "type": "stage_victory" }, "when_text": "승리 판정 직후",
+            "priority": 100, "requires": { "engine_support": "기본(확인 필요)" },
+            "cast": ["shiori", "protagonist"],
+            "scene": {
+              "captions": [{ "text": "먹물이 책등으로 스며들고, 마지막 줄만 비어 남습니다.", "is_invented": true }],
+              "lines": [
+                { "speaker": "protagonist", "text": "끊긴 문장이 이어졌어요. 마지막 줄은 비워 두겠습니다.", "expr": "neutral", "is_invented": true },
+                { "speaker": "shiori", "text": "예. 사서의 방식입니다.", "expr": "smile", "is_invented": true }
+              ],
+              "short": "서가 복원: 마지막 줄은 비워 둔다."
+            },
+            "effects": [],
+            "meta": { "classification": "허구", "evidence_level": "invented", "fact_refs": [], "engine_support": "기본(확인 필요)" }
+          }
+        ]
+      }
+    ]
+  }
+}

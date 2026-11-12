@@ -1,0 +1,924 @@
+{
+ "note": "시즌 전쟁 화면 UI(안아트 2026-11-04, 호출 0, 재가공·벡터 드로잉). 키 ui.season.*. 스펙 season_ui_spec.json, 거점 표 season_map_nodes.json",
+ "assets": [
+  {
+   "key": "ui.season.map.base",
+   "path": "assets/ui/season/map_base@2x.webp",
+   "type": "image",
+   "size": [
+    1062,
+    1732
+   ],
+   "alpha": true,
+   "format": "webp",
+   "bytes": 211896,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    531,
+    866
+   ],
+   "variants": {
+    "x1": "assets/ui/season/map_base.webp"
+   },
+   "note": "시즌 전쟁 중앙 지도(한반도 + 제주 + 쓰시마, 바다 투명, 중간 명도 양피지 지형 + 금빛 해안선·글로우, 남쪽 여백 20px@1x). 영토 색은 cell 마스크를 FE 가 진영색으로 칠해 위에 얹음",
+   "src": "map.battle.imjin_battle + landmask",
+   "geo": {
+    "lonMin": 124.3,
+    "lonMax": 130.2,
+    "latMin": 33.0,
+    "latMax": 42.4,
+    "projection": "equirectangular, px@1x = ((lon-124.3)*90, (42.4-lat)*90)",
+    "revision": "r3(2026-11-04): r2(남쪽 33.0 확장·규슈 제거) + 땅 명도 상향·산세 대비·해안 금선, 캔버스 아래 여백 20px@1x(좌표 변환식 불변)"
+   }
+  },
+  {
+   "key": "ui.season.map.cell.hanyang",
+   "path": "assets/ui/season/cell/hanyang.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 13327,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/hanyang@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "hanyang",
+   "note": "한양 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음"
+  },
+  {
+   "key": "ui.season.map.cell.pyeongyang",
+   "path": "assets/ui/season/cell/pyeongyang.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 14416,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/pyeongyang@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "pyeongyang",
+   "note": "평양 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음"
+  },
+  {
+   "key": "ui.season.map.cell.uiju",
+   "path": "assets/ui/season/cell/uiju.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 6026,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/uiju@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "uiju",
+   "note": "의주 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음"
+  },
+  {
+   "key": "ui.season.map.cell.chungju",
+   "path": "assets/ui/season/cell/chungju.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 6867,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/chungju@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "chungju",
+   "note": "충주 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음"
+  },
+  {
+   "key": "ui.season.map.cell.jeonju",
+   "path": "assets/ui/season/cell/jeonju.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 11100,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/jeonju@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "jeonju",
+   "note": "전주 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음"
+  },
+  {
+   "key": "ui.season.map.cell.jinju",
+   "path": "assets/ui/season/cell/jinju.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 8877,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/jinju@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "jinju",
+   "note": "진주 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음"
+  },
+  {
+   "key": "ui.season.map.cell.jeju",
+   "path": "assets/ui/season/cell/jeju.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 4509,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/jeju@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "jeju",
+   "note": "제주 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음 — 섬 전체가 이 거점 영역"
+  },
+  {
+   "key": "ui.season.map.cell.daegu",
+   "path": "assets/ui/season/cell/daegu.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 5510,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/daegu@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "daegu",
+   "note": "대구 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음"
+  },
+  {
+   "key": "ui.season.map.cell.busan",
+   "path": "assets/ui/season/cell/busan.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 6215,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/busan@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "busan",
+   "note": "부산 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음"
+  },
+  {
+   "key": "ui.season.map.cell.tsushima",
+   "path": "assets/ui/season/cell/tsushima.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 4640,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x(지도 @1x 와 같은 크기)",
+   "variants": {
+    "x2": "assets/ui/season/cell/tsushima@2x.png"
+   },
+   "mode": "RGBA(흰색 RGB + 알파 = 영역 마스크, 밖 알파 0) — FE 는 tint(진영색)만 곱함",
+   "revision": "r4",
+   "territory": "tsushima",
+   "note": "쓰시마 영토 셀 마스크(서버 거점 id). FE 가 점령 진영색(조선 #2E6FD8 · 일본 #C8322E · 중립 #6B7280, 알파 0.55)으로 칠해 지도 위에 얹음 — 섬 전체가 이 거점 영역"
+  },
+  {
+   "key": "ui.season.map.cell_edges",
+   "path": "assets/ui/season/cell/edges.png",
+   "type": "image",
+   "size": [
+    531,
+    866
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 11943,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@1x",
+   "note": "영토 셀 경계선(옅은 크림, 지도 위·영토색 위에 얹음)"
+  },
+  {
+   "key": "ui.season.map.cell.hamhung",
+   "path": "assets/ui/season/cell/hamhung.png",
+   "type": "image",
+   "size": [
+    531,
+    756
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 6229,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "deprecated": true,
+   "note": "r1 제안 거점용(서버 거점 아님). 구 크롭(위도 34.0~42.4) 기준이라 현재 ui.season.map.base 와 정렬 안 됨 — 사용 금지, 정리 시 삭제 대상"
+  },
+  {
+   "key": "ui.season.map.cell.kaesong",
+   "path": "assets/ui/season/cell/kaesong.png",
+   "type": "image",
+   "size": [
+    531,
+    756
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 3685,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "deprecated": true,
+   "note": "r1 제안 거점용(서버 거점 아님). 구 크롭(위도 34.0~42.4) 기준이라 현재 ui.season.map.base 와 정렬 안 됨 — 사용 금지, 정리 시 삭제 대상"
+  },
+  {
+   "key": "ui.season.map.cell.gangneung",
+   "path": "assets/ui/season/cell/gangneung.png",
+   "type": "image",
+   "size": [
+    531,
+    756
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 3326,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "deprecated": true,
+   "note": "r1 제안 거점용(서버 거점 아님). 구 크롭(위도 34.0~42.4) 기준이라 현재 ui.season.map.base 와 정렬 안 됨 — 사용 금지, 정리 시 삭제 대상"
+  },
+  {
+   "key": "ui.season.map.cell.sangju",
+   "path": "assets/ui/season/cell/sangju.png",
+   "type": "image",
+   "size": [
+    531,
+    756
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 2461,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "deprecated": true,
+   "note": "r1 제안 거점용(서버 거점 아님). 구 크롭(위도 34.0~42.4) 기준이라 현재 ui.season.map.base 와 정렬 안 됨 — 사용 금지, 정리 시 삭제 대상"
+  },
+  {
+   "key": "ui.season.map.cell.mokpo",
+   "path": "assets/ui/season/cell/mokpo.png",
+   "type": "image",
+   "size": [
+    531,
+    756
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 4399,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "deprecated": true,
+   "note": "r1 제안 거점용(서버 거점 아님). 구 크롭(위도 34.0~42.4) 기준이라 현재 ui.season.map.base 와 정렬 안 됨 — 사용 금지, 정리 시 삭제 대상"
+  },
+  {
+   "key": "ui.season.map.cell.pyongyang",
+   "path": "assets/ui/season/cell/pyongyang.png",
+   "type": "image",
+   "size": [
+    531,
+    756
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 4920,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "deprecated": true,
+   "note": "r1 제안 거점용(서버 거점 아님). 구 크롭(위도 34.0~42.4) 기준이라 현재 ui.season.map.base 와 정렬 안 됨 — 사용 금지, 정리 시 삭제 대상 · 서버 id 는 pyeongyang"
+  },
+  {
+   "key": "ui.season.pin.normal.ally",
+   "path": "assets/ui/season/pin_normal_ally@2x.png",
+   "type": "image",
+   "size": [
+    128,
+    128
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 23451,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    64,
+    64
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pin_normal_ally.png"
+   },
+   "anchor": [
+    0.5,
+    0.5
+   ],
+   "note": "일반 거점(금테 링 + 진영색 구슬) — ally"
+  },
+  {
+   "key": "ui.season.pin.major.ally",
+   "path": "assets/ui/season/pin_major_ally@2x.png",
+   "type": "image",
+   "size": [
+    128,
+    150
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 29723,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    64,
+    75
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pin_major_ally.png"
+   },
+   "anchor": [
+    0.5,
+    0.57
+   ],
+   "note": "주요 거점(전각 + 진영색 구슬) — ally"
+  },
+  {
+   "key": "ui.season.pin.normal.enemy",
+   "path": "assets/ui/season/pin_normal_enemy@2x.png",
+   "type": "image",
+   "size": [
+    128,
+    128
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 22910,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    64,
+    64
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pin_normal_enemy.png"
+   },
+   "anchor": [
+    0.5,
+    0.5
+   ],
+   "note": "일반 거점(금테 링 + 진영색 구슬) — enemy"
+  },
+  {
+   "key": "ui.season.pin.major.enemy",
+   "path": "assets/ui/season/pin_major_enemy@2x.png",
+   "type": "image",
+   "size": [
+    128,
+    150
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 29159,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    64,
+    75
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pin_major_enemy.png"
+   },
+   "anchor": [
+    0.5,
+    0.57
+   ],
+   "note": "주요 거점(전각 + 진영색 구슬) — enemy"
+  },
+  {
+   "key": "ui.season.pin.normal.neutral",
+   "path": "assets/ui/season/pin_normal_neutral@2x.png",
+   "type": "image",
+   "size": [
+    128,
+    128
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 23172,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    64,
+    64
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pin_normal_neutral.png"
+   },
+   "anchor": [
+    0.5,
+    0.5
+   ],
+   "note": "일반 거점(금테 링 + 진영색 구슬) — neutral"
+  },
+  {
+   "key": "ui.season.pin.major.neutral",
+   "path": "assets/ui/season/pin_major_neutral@2x.png",
+   "type": "image",
+   "size": [
+    128,
+    150
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 29588,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    64,
+    75
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pin_major_neutral.png"
+   },
+   "anchor": [
+    0.5,
+    0.57
+   ],
+   "note": "주요 거점(전각 + 진영색 구슬) — neutral"
+  },
+  {
+   "key": "ui.season.pin.selected",
+   "path": "assets/ui/season/pin_selected@2x.png",
+   "type": "image",
+   "size": [
+    160,
+    160
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 12393,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    80,
+    80
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pin_selected.png"
+   },
+   "anchor": [
+    0.5,
+    0.5
+   ],
+   "note": "선택 거점 표시 링(핀 뒤에 깔고 크기 0.9↔1.15·알파 맥동)"
+  },
+  {
+   "key": "ui.season.pill.ally",
+   "path": "assets/ui/season/pill_ally@2x.png",
+   "type": "image",
+   "size": [
+    220,
+    52
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 4028,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    110,
+    26
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pill_ally.png"
+   },
+   "slice_mode": "3h",
+   "slice_px_at_2x": {
+    "l": 28,
+    "r": 28,
+    "t": 0,
+    "b": 0
+   },
+   "note": "조선 점령 상태 pill(글자 FE, 흰색 + 짙은 외곽선)"
+  },
+  {
+   "key": "ui.season.pill.enemy",
+   "path": "assets/ui/season/pill_enemy@2x.png",
+   "type": "image",
+   "size": [
+    220,
+    52
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 3861,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    110,
+    26
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pill_enemy.png"
+   },
+   "slice_mode": "3h",
+   "slice_px_at_2x": {
+    "l": 28,
+    "r": 28,
+    "t": 0,
+    "b": 0
+   },
+   "note": "일본 점령 상태 pill(글자 FE, 흰색 + 짙은 외곽선)"
+  },
+  {
+   "key": "ui.season.pill.neutral",
+   "path": "assets/ui/season/pill_neutral@2x.png",
+   "type": "image",
+   "size": [
+    220,
+    52
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 3954,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    110,
+    26
+   ],
+   "variants": {
+    "x1": "assets/ui/season/pill_neutral.png"
+   },
+   "slice_mode": "3h",
+   "slice_px_at_2x": {
+    "l": 28,
+    "r": 28,
+    "t": 0,
+    "b": 0
+   },
+   "note": "중립 상태 pill(글자 FE, 흰색 + 짙은 외곽선)"
+  },
+  {
+   "key": "ui.season.label",
+   "path": "assets/ui/season/label@2x.png",
+   "type": "image",
+   "size": [
+    140,
+    44
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 3151,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    70,
+    22
+   ],
+   "variants": {
+    "x1": "assets/ui/season/label.png"
+   },
+   "slice_mode": "3h",
+   "slice_px_at_2x": {
+    "l": 22,
+    "r": 22,
+    "t": 0,
+    "b": 0
+   },
+   "note": "지도 거점 이름표(글자 FE #F4E6C0)"
+  },
+  {
+   "key": "ui.season.arrow.ally",
+   "path": "assets/ui/season/arrow_ally@2x.png",
+   "type": "image",
+   "size": [
+    320,
+    200
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 15585,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    100
+   ],
+   "variants": {
+    "x1": "assets/ui/season/arrow_ally.png"
+   },
+   "note": "진격 화살표(왼쪽 아래 → 오른쪽 위로 휘는 붓 곡선 + 빛). 방향은 FE 회전·좌우 반전, 0.9 알파 권장"
+  },
+  {
+   "key": "ui.season.arrow.enemy",
+   "path": "assets/ui/season/arrow_enemy@2x.png",
+   "type": "image",
+   "size": [
+    320,
+    200
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 17096,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    160,
+    100
+   ],
+   "variants": {
+    "x1": "assets/ui/season/arrow_enemy.png"
+   },
+   "note": "진격 화살표(왼쪽 아래 → 오른쪽 위로 휘는 붓 곡선 + 빛). 방향은 FE 회전·좌우 반전, 0.9 알파 권장"
+  },
+  {
+   "key": "ui.season.emblem.joseon",
+   "path": "assets/ui/season/emblem_joseon@2x.png",
+   "type": "image",
+   "size": [
+    192,
+    192
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 68313,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    96,
+    96
+   ],
+   "variants": {
+    "x1": "assets/ui/season/emblem_joseon.png"
+   },
+   "note": "조선 진영 문장(조선 깃발 용을 금빛으로, 남색 바탕 원형 메달). 특정 가문·현대 문장 아님",
+   "src": "ui.flag.joseon"
+  },
+  {
+   "key": "ui.season.emblem.japan",
+   "path": "assets/ui/season/emblem_japan@2x.png",
+   "type": "image",
+   "size": [
+    192,
+    192
+   ],
+   "alpha": true,
+   "format": "png",
+   "bytes": 58275,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "scale": "@2x",
+   "display": [
+    96,
+    96
+   ],
+   "variants": {
+    "x1": "assets/ui/season/emblem_japan.png"
+   },
+   "note": "일본 진영 문장(붉은 바탕에 금빛 해 + 물결 3줄, 국화·오동 등 실존 가문·황실 문장 미사용)",
+   "src": "벡터 드로잉"
+  },
+  {
+   "key": "ui.season.bg",
+   "path": "assets/ui/season/bg_1920.webp",
+   "type": "image",
+   "size": [
+    1920,
+    1080
+   ],
+   "alpha": false,
+   "format": "webp",
+   "bytes": 12796,
+   "scope": "lazy",
+   "generator": {
+    "script": "docker/gemini/season_ui_pp.py(후처리·벡터 드로잉만)",
+    "calls": 0
+   },
+   "license": "자체 생성 에셋 재가공",
+   "note": "시즌 전쟁 화면 배경(bg.imjin.night_sea 어둡게 + 비네팅). 진영별 시즌이 생기면 같은 규칙으로 bg.<서가>.* 에서 파생",
+   "src": "bg.imjin.night_sea"
+  }
+ ]
+}

@@ -1,0 +1,94 @@
+{
+ "_note": "적 지휘관·부장 대사 초안 (송서사, 2026-11-01). 방침: 적 측도 스테이지마다 개전·조우·퇴각·패배 때 1~3줄의 짧은 인 월드 대사를 가진다. 모든 대사는 창작이므로 is_invented=true(실존 인물의 실제 발언이 아님). 인물의 참전 근거는 line 이 아니라 speakers[].evidence_level 과 각 줄의 evidence 에만 적고 text 에는 노출하지 않는다. 삽입 규칙: 각 lines[] 항목은 stage 의 event_id 이벤트(ch1~5 는 dialogue, ch6~10 은 scene.lines 배열)에 삽입한다. position 이 'after_captions' 이면 그 이벤트의 caption 줄들 바로 뒤, 'append' 이면 배열 맨 끝, 'before_last' 이면 마지막 줄 바로 앞이다. 같은 position 에 여러 줄이면 파일 순서를 유지한다. speaker 는 npc_* 코드이며 표시 이름은 speakers[].name_ko. FE/서버가 npc_* 화자의 이름표·초상(없으면 이름표+실루엣)을 지원하는지는 윤프론·박백엔이 확인해야 한다. 톤: 적도 임무를 지키는 군인으로 쓰고 조롱·비하·민족 고정관념·잔혹 묘사를 쓰지 않는다. 승패 평가는 중립. 번진 그림자(npc_ink_*)는 끊어진 문장 조각으로만 말한다. 코드 충돌 점검: scenario/shelf_11_npcs.json 의 코드(npc_dae_dosu, npc_yu_bang, npc_gang_min_cheom, npc_kim_jong_hyeon, npc_nameless_scribe, npc_so_sonnyeong, npc_so_baeap, npc_khitan_vanguard, npc_khitan_archer_captain, npc_khitan_rearguard, npc_yelu_bage, npc_shadow_summary)와 겹치는 코드는 없다. 임밸런 NPC 로스터(stages_ch1_enemy_v3 계열)는 저장소에서 찾지 못해 대조하지 못했다(database/data/stages_ch1_proposal_v2.json 의 적 편성 code 는 e_ch1_s1~s7 형식이라 겹치지 않음). 로스터 확정 시 npc_jp_*/npc_ink_* 접두 충돌만 확인하면 된다. 실행 도구가 없어 JSON 파서 검증은 하지 못했고 육안으로 두 번 검토했다.",
+ "version": 1,
+ "author": "송서사",
+ "sources": [
+  "https://en.wikipedia.org/wiki/Battle_of_Okpo (도도 다카토라, infobox)",
+  "https://ko.wikipedia.org/wiki/정암진_전투 (안코쿠지 에케이, 출처 경고 문서)",
+  "https://en.wikipedia.org/wiki/Battle_of_Hansando (와키자카 야스하루, 김해로 퇴각)",
+  "https://en.wikipedia.org/wiki/Siege_of_Pyongyang_(1593) (고니시 유키나가)",
+  "https://en.wikipedia.org/wiki/Battle_of_Haengju (우키타 히데이에·고니시 유키나가 등, infobox 열거)",
+  "https://en.wikipedia.org/wiki/Battle_of_Noryang (시마즈 요시히로, 기존 outline 인용)",
+  "https://en.wikipedia.org/wiki/Battle_of_Myeongnyang (도도 다카토라·구루시마 미치후사, 기존 outline 인용)",
+  "scenario/battle_events_ch1_5.json, scenario/battle_events_ch6_10.json (event id)"
+ ],
+ "speakers": [
+  { "code": "npc_jp_todo_takatora", "name_ko": "도도 다카토라", "side": "enemy", "faction": "일본 수군", "stages": ["ch1_s1", "ch1_s9"], "historical": true, "evidence_level": "accepted", "evidence_note": "옥포 en.wikipedia infobox. 명량 참전은 기존 outline 인용으로 사람 확인 요청" },
+  { "code": "npc_jp_okpo_lieutenant", "name_ko": "일본 수군 부장", "side": "enemy", "faction": "일본 수군", "stages": ["ch1_s1"], "historical": false, "evidence_level": "invented", "evidence_note": "이름 없는 허구 편성. 실존 인물로 표기하지 않음" },
+  { "code": "npc_jp_ankokuji_ekei", "name_ko": "안코쿠지 에케이", "side": "enemy", "faction": "일본군 육군", "stages": ["ch1_s2"], "historical": true, "evidence_level": "accepted", "evidence_note": "ko.wikipedia 정암진 전투(출처 경고 문서). 사람 확인 요청" },
+  { "code": "npc_jp_wakizaka_yasuharu", "name_ko": "와키자카 야스하루", "side": "enemy", "faction": "일본 수군", "stages": ["ch1_s3"], "historical": true, "evidence_level": "confirmed", "evidence_note": "en.wikipedia Battle of Hansando" },
+  { "code": "npc_jp_hasegawa_hidekazu", "name_ko": "하세가와 히데카즈", "side": "enemy", "faction": "일본군 육군", "stages": ["ch1_s4"], "historical": true, "evidence_level": "accepted", "evidence_note": "기존 설정집 인용, 이번에 재열람하지 않음. 사람 확인 요청" },
+  { "code": "npc_jp_konishi_yukinaga", "name_ko": "고니시 유키나가", "side": "enemy", "faction": "일본군 육군", "stages": ["ch1_s5"], "historical": true, "evidence_level": "confirmed", "evidence_note": "en.wikipedia Siege of Pyongyang (1593)" },
+  { "code": "npc_jp_ukita_hideie", "name_ko": "우키타 히데이에", "side": "enemy", "faction": "일본군 육군", "stages": ["ch1_s6"], "historical": true, "evidence_level": "accepted", "evidence_note": "en.wikipedia Battle of Haengju infobox. 총대장 여부는 단정하지 않음(verify)" },
+  { "code": "npc_jp_shimazu_yoshihiro", "name_ko": "시마즈 요시히로", "side": "enemy", "faction": "일본 수군(구원 함대)", "stages": ["ch1_s7"], "historical": true, "evidence_level": "confirmed", "evidence_note": "기존 outline, en.wikipedia Battle of Noryang" },
+  { "code": "npc_ink_shadow_s8", "name_ko": "번진 기록의 그림자", "side": "shadow", "faction": "허구(번진 먹물)", "stages": ["ch1_s8"], "historical": false, "evidence_level": "invented", "evidence_note": "허구. 사람 형상 아님. 끊어진 문장으로만 말함" },
+  { "code": "npc_jp_kurushima_michifusa", "name_ko": "구루시마 미치후사", "side": "enemy", "faction": "일본 수군", "stages": ["ch1_s9"], "historical": true, "evidence_level": "accepted", "evidence_note": "en.wikipedia Battle of Myeongnyang. 이번 세션에서 재열람하지 않음, 사람 확인 요청. 전사 장면은 다루지 않음" },
+  { "code": "npc_ink_shadow_final", "name_ko": "마지막 그림자", "side": "shadow", "faction": "허구(번진 먹물)", "stages": ["ch1_s10"], "historical": false, "evidence_level": "invented", "evidence_note": "허구. 사람 형상 아님. 끊어진 문장으로만 말함" }
+ ],
+ "stage_gap_table": [
+  { "stage": "ch1_s1", "before": "캡션 2줄에 '대사는 없다/적은 말이 없다'", "after": "도도 다카토라 + 부장, 4개 이벤트" },
+  { "stage": "ch1_s2", "before": "적 지휘관 이름 공란('기록 확인 중')", "after": "안코쿠지 에케이, 5개 이벤트" },
+  { "stage": "ch1_s3", "before": "캡션만, '말은 없다'", "after": "와키자카 야스하루, 5개 이벤트" },
+  { "stage": "ch1_s4", "before": "캡션만, '적은 말이 없다'", "after": "하세가와 히데카즈, 4개 이벤트" },
+  { "stage": "ch1_s5", "before": "캡션만, '말은 없다'", "after": "고니시 유키나가, 5개 이벤트" },
+  { "stage": "ch1_s6", "before": "'(대사 없음)'과 '자료마다 다르게 전합니다'", "after": "우키타 히데이에, 3개 이벤트" },
+  { "stage": "ch1_s7", "before": "'(대사 없음)'", "after": "시마즈 요시히로, 5개 이벤트" },
+  { "stage": "ch1_s8", "before": "'대사 없음'", "after": "번진 기록의 그림자, 3개 이벤트(끊어진 문장)" },
+  { "stage": "ch1_s9", "before": "'(대표 표기). 대사 없음'", "after": "도도 다카토라 + 구루시마 미치후사, 4개 이벤트" },
+  { "stage": "ch1_s10", "before": "'(허구)... 사람의 형상이 아닙니다'", "after": "마지막 그림자, 3개 이벤트(끊어진 문장)" }
+ ],
+ "lines": [
+  { "stage": "ch1_s1", "event_id": "ch1_s1_e04", "when": "개전", "position": "after_captions", "speaker": "npc_jp_todo_takatora", "expr": "serious", "text": "포구 앞에서 물러서지 마라. 조총을 먼저 들고 대열을 지켜라.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s1", "event_id": "ch1_s1_e04", "when": "개전", "position": "after_captions", "speaker": "npc_jp_okpo_lieutenant", "expr": "neutral", "text": "알겠습니다. 저쪽 대열이 단단합니다. 서두르면 흐트러질 것입니다.", "is_invented": true, "evidence": "invented" },
+  { "stage": "ch1_s1", "event_id": "ch1_s1_e05", "when": "조우", "position": "append", "speaker": "npc_jp_todo_takatora", "expr": "serious", "text": "저 중군이 이 함대의 중심인가. 눈을 떼지 마라.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s1", "event_id": "ch1_s1_e03", "when": "퇴각", "position": "before_last", "speaker": "npc_jp_todo_takatora", "expr": "regret", "text": "더는 버티기 어렵다. 남은 배를 모아 물러난다.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s1", "event_id": "ch1_s1_e06", "when": "패배", "position": "after_captions", "speaker": "npc_jp_todo_takatora", "expr": "regret", "text": "오늘은 졌다. 이 바다를 잊지 않겠다.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+
+  { "stage": "ch1_s2", "event_id": "ch1_s2_e04", "when": "개전", "position": "after_captions", "speaker": "npc_jp_ankokuji_ekei", "expr": "neutral", "text": "강이 얕다고 쉬운 길은 아니다. 나루를 살피며 건너라.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s2", "event_id": "ch1_s2_e05", "when": "조우(복병 출현)", "position": "append", "speaker": "npc_jp_ankokuji_ekei", "expr": "serious", "text": "숲에서 사람이 나온다! 대열을 지켜라, 흩어지지 마라!", "is_invented": true, "evidence": "accepted(인물). 복병 상황은 ko.wikipedia 서술에 근거하나 대사는 창작" },
+  { "stage": "ch1_s2", "event_id": "ch1_s2_e06", "when": "조우", "position": "append", "speaker": "npc_jp_ankokuji_ekei", "expr": "serious", "text": "강가의 숲이 너무 조용하다. 이 고요가 마음에 걸린다.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s2", "event_id": "ch1_s2_e03", "when": "퇴각", "position": "before_last", "speaker": "npc_jp_ankokuji_ekei", "expr": "regret", "text": "길이 막혔다. 물러나 전열을 다시 세운다.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s2", "event_id": "ch1_s2_e07", "when": "패배", "position": "after_captions", "speaker": "npc_jp_ankokuji_ekei", "expr": "regret", "text": "건너지 못한 강이 되었군. 군을 거두어라.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+
+  { "stage": "ch1_s3", "event_id": "ch1_s3_e03", "when": "개전", "position": "after_captions", "speaker": "npc_jp_wakizaka_yasuharu", "expr": "serious", "text": "견내량의 좁은 물목은 우리 쪽이 쥐고 있다. 물러나는 배를 놓치지 마라.", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s3", "event_id": "ch1_s3_e01", "when": "유인 해역 진입", "position": "append", "speaker": "npc_jp_wakizaka_yasuharu", "expr": "serious", "text": "넓은 바다까지 따라 나왔다. 이대로 몰아붙인다!", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s3", "event_id": "ch1_s3_e06", "when": "조우", "position": "append", "speaker": "npc_jp_wakizaka_yasuharu", "expr": "serious", "text": "양쪽에서 날개가 좁혀 온다. 한가운데를 뚫어라!", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s3", "event_id": "ch1_s3_e05", "when": "퇴각", "position": "before_last", "speaker": "npc_jp_wakizaka_yasuharu", "expr": "regret", "text": "이 바다는 불리하다. 배를 돌려라.", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s3", "event_id": "ch1_s3_e07", "when": "패배", "position": "after_captions", "speaker": "npc_jp_wakizaka_yasuharu", "expr": "regret", "text": "남은 배를 이끌고 김해로 물러난다. 이 패배를 가볍게 넘기지 않겠다.", "is_invented": true, "evidence": "confirmed(인물, 김해로 퇴각은 en.wikipedia Battle of Hansando). 대사는 창작" },
+
+  { "stage": "ch1_s4", "event_id": "ch1_s4_e01", "when": "개전", "position": "after_captions", "speaker": "npc_jp_hasegawa_hidekazu", "expr": "serious", "text": "성은 크지 않다. 서두르지 말고 사방을 에워싸라.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s4", "event_id": "ch1_s4_e02", "when": "증원 투입", "position": "append", "speaker": "npc_jp_hasegawa_hidekazu", "expr": "serious", "text": "예비 부대를 동쪽으로 돌려라. 성벽이 얇은 곳을 두드려라.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s4", "event_id": "ch1_s4_e06", "when": "조우", "position": "append", "speaker": "npc_jp_hasegawa_hidekazu", "expr": "neutral", "text": "성문 위의 깃발이 아직 흔들리지 않는다. 끈질기구나.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s4", "event_id": "ch1_s4_e07", "when": "패배(퇴각)", "position": "after_captions", "speaker": "npc_jp_hasegawa_hidekazu", "expr": "regret", "text": "엿새를 두드렸으나 성은 서 있다. 군을 물려라.", "is_invented": true, "evidence": "accepted(인물, 공방 엿새는 기존 outline). 대사는 창작" },
+
+  { "stage": "ch1_s5", "event_id": "ch1_s5_e01", "when": "개전", "position": "after_captions", "speaker": "npc_jp_konishi_yukinaga", "expr": "serious", "text": "성벽을 믿어라. 성문 안으로는 한 발도 들이지 마라.", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s5", "event_id": "ch1_s5_e03", "when": "성문 균열", "position": "append", "speaker": "npc_jp_konishi_yukinaga", "expr": "serious", "text": "성문이 열렸다! 안쪽 골목에서 막아라.", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s5", "event_id": "ch1_s5_e06", "when": "조우", "position": "append", "speaker": "npc_jp_konishi_yukinaga", "expr": "neutral", "text": "성 밖의 군세가 만만치 않군. 그래도 이 성은 지킨다.", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s5", "event_id": "ch1_s5_e07", "when": "퇴각", "position": "before_last", "speaker": "npc_jp_konishi_yukinaga", "expr": "regret", "text": "더는 안 되겠다. 대동강 쪽으로 군을 빼라.", "is_invented": true, "evidence": "confirmed(인물, 대동강 철수는 en.wikipedia Siege of Pyongyang). 대사는 창작" },
+  { "stage": "ch1_s5", "event_id": "ch1_s5_e08", "when": "패배", "position": "after_captions", "speaker": "npc_jp_konishi_yukinaga", "expr": "regret", "text": "밤을 틈타 강을 건넌다. 횃불은 켜지 마라.", "is_invented": true, "evidence": "confirmed(인물, 밤 철수는 기존 outline). 대사는 창작" },
+
+  { "stage": "ch1_s6", "event_id": "ch1_s6_e02", "when": "첫 공세", "position": "append", "speaker": "npc_jp_ukita_hideie", "expr": "serious", "text": "산성이라 한들 작은 성이다. 남쪽 문 앞에 병력을 모아 한 번에 밀어라.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s6", "event_id": "ch1_s6_e06", "when": "마지막 공세", "position": "append", "speaker": "npc_jp_ukita_hideie", "expr": "serious", "text": "해가 기울기 전에 끝낸다. 모두 나가라!", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s6", "event_id": "ch1_s6_e07", "when": "퇴각", "position": "after_captions", "speaker": "npc_jp_ukita_hideie", "expr": "regret", "text": "성은 아직 서 있다. 군을 물려라, 오늘은 여기까지다.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+
+  { "stage": "ch1_s7", "event_id": "ch1_s7_e01", "when": "개전", "position": "append", "speaker": "npc_jp_shimazu_yoshihiro", "expr": "serious", "text": "물러나는 동료의 길을 열러 왔다. 어둠이 걷히기 전에 대열을 갖추어라.", "is_invented": true, "evidence": "confirmed(인물, 구원 함대). 대사는 창작" },
+  { "stage": "ch1_s7", "event_id": "ch1_s7_e02", "when": "해협 진입", "position": "append", "speaker": "npc_jp_shimazu_yoshihiro", "expr": "neutral", "text": "해협이다. 암초를 피해 한 줄로 들어가라.", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s7", "event_id": "ch1_s7_e06", "when": "조우", "position": "append", "speaker": "npc_jp_shimazu_yoshihiro", "expr": "serious", "text": "저 지휘선이 상대의 중심이다. 정면으로 간다.", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s7", "event_id": "ch1_s7_e07", "when": "퇴각 조짐", "position": "append", "speaker": "npc_jp_shimazu_yoshihiro", "expr": "regret", "text": "지휘선이 흔들린다. 그래도 길을 열어야 한다, 물러서지 마라.", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+  { "stage": "ch1_s7", "event_id": "ch1_s7_e09", "when": "패배", "position": "after_captions", "speaker": "npc_jp_shimazu_yoshihiro", "expr": "regret", "text": "남은 배를 모아 물러난다. 이 바다는 오래 기억될 것이다.", "is_invented": true, "evidence": "confirmed(인물). 대사는 창작" },
+
+  { "stage": "ch1_s8", "event_id": "ch1_s8_e01", "when": "등장 전조", "position": "append", "speaker": "npc_ink_shadow_s8", "expr": "neutral", "text": "……적다 만 자리……", "is_invented": true, "evidence": "invented(허구)" },
+  { "stage": "ch1_s8", "event_id": "ch1_s8_e07", "when": "조우", "position": "append", "speaker": "npc_ink_shadow_s8", "expr": "serious", "text": "……이름이……번져……지워지기 전에……", "is_invented": true, "evidence": "invented(허구)" },
+  { "stage": "ch1_s8", "event_id": "ch1_s8_e08", "when": "패배", "position": "after_captions", "speaker": "npc_ink_shadow_s8", "expr": "regret", "text": "……다시……쓰이기를……", "is_invented": true, "evidence": "invented(허구)" },
+
+  { "stage": "ch1_s9", "event_id": "ch1_s9_e01", "when": "개전", "position": "after_captions", "speaker": "npc_jp_kurushima_michifusa", "expr": "serious", "text": "물길이 좁다 한들 저쪽은 열세 척이다. 앞장서서 밀고 들어간다.", "is_invented": true, "evidence": "accepted(인물, 열세 척은 기존 outline). 대사는 창작" },
+  { "stage": "ch1_s9", "event_id": "ch1_s9_e01", "when": "개전", "position": "after_captions", "speaker": "npc_jp_todo_takatora", "expr": "neutral", "text": "선봉이 길을 트면 뒤를 잇겠다. 물살부터 읽어라.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s9", "event_id": "ch1_s9_e05", "when": "물살 전환", "position": "append", "speaker": "npc_jp_todo_takatora", "expr": "serious", "text": "물살이 우리를 거스른다! 배를 붙들어라!", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s9", "event_id": "ch1_s9_e06", "when": "조우", "position": "append", "speaker": "npc_jp_todo_takatora", "expr": "serious", "text": "저 앞이 상대의 대장선인가. 물러서지 마라.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+  { "stage": "ch1_s9", "event_id": "ch1_s9_e07", "when": "패배(퇴각)", "position": "after_captions", "speaker": "npc_jp_todo_takatora", "expr": "regret", "text": "수가 많다고 이기는 바다가 아니었다. 물러난다.", "is_invented": true, "evidence": "accepted(인물). 대사는 창작" },
+
+  { "stage": "ch1_s10", "event_id": "ch1_s10_e03", "when": "등장", "position": "append", "speaker": "npc_ink_shadow_final", "expr": "serious", "text": "……한 줄로……접힌……모든 이름이……", "is_invented": true, "evidence": "invented(허구)" },
+  { "stage": "ch1_s10", "event_id": "ch1_s10_e06", "when": "조우", "position": "append", "speaker": "npc_ink_shadow_final", "expr": "serious", "text": "……불러 보라……무엇을……적었느냐……", "is_invented": true, "evidence": "invented(허구)" },
+  { "stage": "ch1_s10", "event_id": "ch1_s10_e07", "when": "패배", "position": "after_captions", "speaker": "npc_ink_shadow_final", "expr": "regret", "text": "……비어 있어도……된다……", "is_invented": true, "evidence": "invented(허구)" }
+ ]
+}

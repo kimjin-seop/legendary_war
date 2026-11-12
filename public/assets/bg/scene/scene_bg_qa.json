@@ -1,0 +1,1435 @@
+{
+ "_note": "자체 QA. manual = 육안 판정(안아트), metrics = 자동 지표",
+ "checklist": [
+  "글자·숫자·간판·깃발 문양 없음",
+  "사람·얼굴·실루엣 인물 없음(멀리 배의 형체는 허용, 승무원 식별 불가)",
+  "종교 상징 없음",
+  "하단 30%(대사창) 평균 휘도 낮고 디테일 적음 — 흰 글자 대비 확보",
+  "좌우 1/3 중간 높이 과밀하지 않음(초상화 뒤)",
+  "광원 왼쪽 위, 남색·금 톤 일관",
+  "번짐·뭉개짐·이상한 구조물(떠다니는 파편·왜곡된 기와) 없음",
+  "시대·문화 고증: 조선 중기 성곽·전선(판옥선) 형태, 불확실 항목 verify"
+ ],
+ "manual": {
+  "bg.archive.hall": {
+   "verdict": "pass(메모)",
+   "issues": [
+    "1차 채택(참조 il01_hall 그림체)",
+    "좌우 서가·사다리 디테일이 다소 많음 → 좌우 22% 비네팅으로 완화",
+    "문 아래 바닥 빛줄 때문에 대사창 영역 최악 대비 4.3:1(패널이 덮으므로 실사용 문제 없음)",
+    "글자·사람 없음"
+   ]
+  },
+  "bg.archive.aisle": {
+   "verdict": "pass(메모)",
+   "issues": [
+    "1차 채택",
+    "복도 끝 둥근 창이 4분할 창살(건축 창살, 종교 상징으로 읽힐 가능성 낮음 — 민감하면 교체)",
+    "가장 어둡고 단순: 튜토리얼 반복 배경으로 적합"
+   ]
+  },
+  "bg.archive.deep": {
+   "verdict": "pass",
+   "issues": [
+    "1차 채택",
+    "먹물 그림자는 추상 연기 형태(사람·얼굴·손 없음)",
+    "떠다니는 종이는 빈 종이(글자 없음)",
+    "하단 모서리 부서진 판자는 대사창 아래·어둡게 처리"
+   ]
+  },
+  "bg.archive.ink": {
+   "verdict": "pass",
+   "issues": [
+    "1차 채택",
+    "먹물 번짐·공허·떠 있는 발판 표현 명확",
+    "좌측 하단 먹물 줄기는 초상화 하단에 가려짐"
+   ]
+  },
+  "bg.archive.dusk": {
+   "verdict": "pass",
+   "issues": [
+    "2차 채택(archive_dusk2)",
+    "1차 기각: 참조 이미지 구도 복제로 hall 과 구분 불가, 노을색 약함",
+    "주황 노을 창 3개 + 열람 책상, 창살은 격자(종교 상징 아님)"
+   ]
+  },
+  "bg.imjin.fleet_dawn": {
+   "verdict": "pass(verify)",
+   "issues": [
+    "1차 채택",
+    "판옥선은 작은 실루엣(2층 갑판·누각 형태, 고증 verify)",
+    "깃발 무늬 없음, 사람 없음",
+    "정보량이 적어 22KB — 대사 가독 최상"
+   ]
+  },
+  "bg.imjin.night_sea": {
+   "verdict": "pass(메모)",
+   "issues": [
+    "2차 채택(imjin_night_sea2) + 크롭",
+    "1차 기각: 상단·75% 높이 수평 띠",
+    "2차도 위 11.8%·아래 11.9% 검은 띠 → 크롭(원본 2752x1152 영역 → 1920x1080, 해상도 충분)",
+    "배는 어두운 실루엣과 등불만"
+   ]
+  },
+  "bg.imjin.strait": {
+   "verdict": "pass(verify)",
+   "issues": [
+    "1차 채택",
+    "원경 배 2척의 살대 돛(동아시아식 돛) — 판옥선 형태와 차이 verify, 크기 작음",
+    "우측 절벽이 초상화 슬롯 뒤에 크지만 어둡고 단순"
+   ]
+  },
+  "bg.imjin.river": {
+   "verdict": "pass(메모)",
+   "issues": [
+    "2차 채택(imjin_river2)",
+    "1차 기각: 수면 75% 높이 칼같은 어두운 띠",
+    "세트 중 가장 밝음(좌측 나무·하늘) — 실화면에서 초상화 가독 확인 권장, 필요 시 FE 에서 남색 오버레이 10~20%",
+    "정암진은 구체 지형이 아닌 일반 강변"
+   ]
+  },
+  "bg.imjin.fortress": {
+   "verdict": "pass(verify)",
+   "issues": [
+    "1차 채택",
+    "현판 빈 판(글자 없음)",
+    "성가퀴는 일반 동아시아 철(凸)형 — 조선 읍성 여장 형태 verify",
+    "노을 하늘에 장밋빛 기운(보라·마젠타는 아님)",
+    "가는 연기·부러진 사다리만(유혈·시신 없음)"
+   ]
+  },
+  "bg.imjin.pyongyang_winter": {
+   "verdict": "pass(verify)",
+   "issues": [
+    "1차 채택",
+    "현판 빈 판, 깃발 무늬 없음",
+    "2층 문루·관아 지붕은 일반화된 조선 성곽 표현(대동문 실제 형태와 다름, verify)",
+    "좌측 슬롯 뒤 하늘이 밝음(휘도 0.37) — 은청색 머리 초상화 대비 실화면 확인 권장"
+   ]
+  },
+  "bg.imjin.haengju_sunset": {
+   "verdict": "pass(verify)",
+   "issues": [
+    "1차 채택 + 크롭(상단 13% 제거: 단색 띠)",
+    "토성+석축+목책 혼재 표현 — 실제 행주산성은 토성·목책 중심(verify)",
+    "깃발 무늬 없음"
+   ]
+  },
+  "bg.hastings.harbor": {
+   "verdict": "pass",
+   "issues": [
+    "하단 23% 검은 띠 크롭(호출 없음)",
+    "롱십 1척 위주(지정은 여러 척)"
+   ]
+  },
+  "bg.hastings.pevensey": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.hastings.camp_night": {
+   "verdict": "pass",
+   "issues": [
+    "하단 검은 띠 크롭"
+   ]
+  },
+  "bg.hastings.ridge": {
+   "verdict": "pass",
+   "issues": [
+    "하단 검은 띠 크롭",
+    "좌측 측면이 밝은 편(0.46) — 초상 뒤 가독 실화면 확인 권장"
+   ]
+  },
+  "bg.hastings.thames": {
+   "verdict": "pass",
+   "issues": [
+    "상하 검은 띠 크롭"
+   ]
+  },
+  "bg.hastings.tent": {
+   "verdict": "minor",
+   "issues": [
+    "하단 띠 크롭",
+    "천막 입구 눈밭이 밝아 대사창 최악 대비 2.95(반투명 패널 전제, 평균은 충분)"
+   ]
+  },
+  "bg.tours.vienne_ford": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.tours.roman_road": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.tours.oak_slope": {
+   "verdict": "pass",
+   "issues": [
+    "서리 표현이 눈처럼 보임(10월 서리 장면과 일치)"
+   ]
+  },
+  "bg.tours.night_slope": {
+   "verdict": "pass",
+   "issues": [
+    "하단 띠 크롭"
+   ]
+  },
+  "bg.legnica.muddy_plain": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.legnica.river_fog": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.legnica.castle_plain": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.legnica.danube_fortress": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.legnica.dalmatia": {
+   "verdict": "minor",
+   "issues": [
+    "하단 석회암 길이 밝아 대사창 최악 대비 2.67(반투명 패널 전제)"
+   ]
+  },
+  "bg.legnica.mountain_road": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.panipat.kabul": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.panipat.fort_gate": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.panipat.lahore_river": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.panipat.dry_plain": {
+   "verdict": "pass",
+   "issues": [
+    "아카시아형 나무 — 북인도 건조 평원 일반화(verify)"
+   ]
+  },
+  "bg.panipat.wagon_laager": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.panipat.ghaghra": {
+   "verdict": "pass",
+   "issues": [
+    "강배가 유럽식 코그에 가까움(verify)"
+   ]
+  },
+  "bg.mongol.onon": {
+   "verdict": "pass",
+   "issues": [
+    "1차는 화면 가운데 밝기가 다른 사각 패널 경계가 생겨 기각(raw mongol_onon_r0_reject.jpg) → 재생성 1회",
+    "밤에 가까운 저녁 톤 — 칼카 낮 장면(ch18_s7_pre)과 시간대 불일치(공용 재사용 결정에 따른 한계)"
+   ]
+  },
+  "bg.mongol.hexi_canyon": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.mongol.pass": {
+   "verdict": "pass",
+   "issues": [
+    "상하 띠 크롭"
+   ]
+  },
+  "bg.mongol.tianshan": {
+   "verdict": "pass",
+   "issues": [
+    "하단 띠 크롭"
+   ]
+  },
+  "bg.mongol.syr_river": {
+   "verdict": "pass",
+   "issues": [
+    "상하 띠 크롭"
+   ]
+  },
+  "bg.mongol.indus_cliff": {
+   "verdict": "minor",
+   "issues": [
+    "하단 띠 크롭",
+    "대사창 영역에 흰 급류 거품이 밝음(p99 0.73) — 반투명 패널 전제"
+   ]
+  },
+  "bg.mongol.winter_steppe": {
+   "verdict": "pass",
+   "issues": [
+    "하단 띠 크롭"
+   ]
+  },
+  "bg.goryeo_khitan.camp": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.goryeo_khitan.fortress_wall": {
+   "verdict": "pass",
+   "issues": [
+    "1차는 화면 가운데 밝기가 다른 사각 패널 → 재생성 1회(raw goryeo_fortress_r0_reject.jpg)",
+    "상하 띠 크롭"
+   ]
+  },
+  "bg.goryeo_khitan.icedam": {
+   "verdict": "pass",
+   "issues": [
+    "상하 띠 크롭",
+    "소가죽 둑 전승 일반화(verify)"
+   ]
+  },
+  "bg.goryeo_khitan.gwiju_plain": {
+   "verdict": "minor",
+   "issues": [
+    "원경 구릉에 아주 작은 군대 실루엣 점(인물 식별 불가)"
+   ]
+  },
+  "bg.redcliff.river_road": {
+   "verdict": "pass",
+   "issues": [
+    "원본 상하 11.8% 단색 띠 → CROP2 로 제거"
+   ]
+  },
+  "bg.redcliff.wu_fleet": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.redcliff.north_bank": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.redcliff.burning_river": {
+   "verdict": "minor",
+   "issues": [
+    "불타는 배 형태가 원경 불길로만 보임(선단 실루엣 약함)"
+   ]
+  },
+  "bg.redcliff.yiling_gate": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.nagashino.night_road": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.nagashino.oda_camp": {
+   "verdict": "minor",
+   "issues": [
+    "1차·재생성 모두 하단 어두운 사각 띠 → CROP2 로 하단 28% 잘라냄(좌우도 16:9 맞춤으로 좁아짐)"
+   ]
+  },
+  "bg.nagashino.shitara_field": {
+   "verdict": "pass",
+   "issues": [
+    "하단 5.7% 단색 띠 CROP2 제거"
+   ]
+  },
+  "bg.nagashino.mountain_fort": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.hwangsanbeol.silla_camp": {
+   "verdict": "pass",
+   "issues": [
+    "하단 28% 가 어둡게 가라앉음(경계 없는 그라데이션, 대사창 자리)"
+   ]
+  },
+  "bg.hwangsanbeol.plain": {
+   "verdict": "pass",
+   "issues": [
+    "상하 단색 띠 CROP2 제거"
+   ]
+  },
+  "bg.hwangsanbeol.sabi_river": {
+   "verdict": "pass",
+   "issues": [
+    "언덕 위 성곽 형태 일반화(verify)"
+   ]
+  },
+  "bg.salsu.liao_field": {
+   "verdict": "pass",
+   "issues": [
+    "상하 단색 띠 CROP2 제거"
+   ]
+  },
+  "bg.salsu.hill_road": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.salsu.salsu_river": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.mediterranean.italy_ridge": {
+   "verdict": "minor",
+   "issues": [
+    "하단 31% 어두운 사각 패널 → CROP2 로 잘라냄(16:9 맞춤으로 좌우 좁아짐)"
+   ]
+  },
+  "bg.mediterranean.carthago_lagoon": {
+   "verdict": "pass",
+   "issues": [
+    "상하 단색 띠 CROP2 제거"
+   ]
+  },
+  "bg.mediterranean.africa_coast": {
+   "verdict": "pass",
+   "issues": [
+    "1차 가운데 사각 패널로 기각 → 재생성 1회 통과"
+   ]
+  },
+  "bg.mediterranean.zama_plain": {
+   "verdict": "pass",
+   "issues": [
+    "상하 단색 띠 CROP2 제거"
+   ]
+  },
+  "bg.orleans.muster": {
+   "verdict": "minor",
+   "issues": [
+    "상단 띠·하단 28% 패널 → CROP2(남는 높이 61%, 좌우 크게 좁아짐)"
+   ]
+  },
+  "bg.orleans.city_gate": {
+   "verdict": "minor",
+   "issues": [
+    "상단 띠·하단 28% 패널 → CROP2(남는 높이 58%)"
+   ]
+  },
+  "bg.orleans.fort_field": {
+   "verdict": "minor",
+   "issues": [
+    "하단 26% 단색 → CROP2"
+   ]
+  },
+  "bg.orleans.tourelles_bridge": {
+   "verdict": "pass",
+   "issues": [
+    "하단 4.4% 띠 CROP2"
+   ]
+  },
+  "bg.orleans.patay_field": {
+   "verdict": "pass",
+   "issues": []
+  },
+  "bg.gaugamela.tigris_ford": {
+   "verdict": "pass",
+   "issues": [
+    "1차 가운데 패널로 기각 → 재생성 1회 통과"
+   ]
+  },
+  "bg.gaugamela.camp_night": {
+   "verdict": "pass",
+   "issues": [
+    "하단 28% 단색 CROP2"
+   ]
+  },
+  "bg.gaugamela.plain": {
+   "verdict": "pass",
+   "issues": [
+    "1차 가운데 패널로 기각 → 재생성 1회, 하단 띠 CROP2"
+   ]
+  },
+  "bg.gaugamela.retreat_road": {
+   "verdict": "minor",
+   "issues": [
+    "1차·재생성 모두 가운데 사각 패널 → 패널 안쪽만 잘라 사용, 약 1.4배 확대로 선이 조금 부드러움"
+   ]
+  },
+  "bg.holy_land.hattin_field": {
+   "verdict": "pass",
+   "issues": [
+    "1차 가운데 패널로 기각 → 재생성 1회 통과"
+   ]
+  },
+  "bg.holy_land.jerusalem_gate": {
+   "verdict": "minor",
+   "issues": [
+    "상단 띠·하단 29% 패널 → CROP2(남는 높이 60%)",
+    "성문 형태 일반화(verify)"
+   ]
+  },
+  "bg.holy_land.arsuf_coast": {
+   "verdict": "pass",
+   "issues": [
+    "하단 26% 단색 CROP2"
+   ]
+  },
+  "bg.holy_land.jaffa_harbor": {
+   "verdict": "minor",
+   "issues": [
+    "상단 띠·하단 25% 단색 → CROP2(남는 높이 65%)"
+   ]
+  },
+  "bg.finale.signal_room": {
+   "verdict": "pass",
+   "issues": [
+    "상하 띠 CROP2"
+   ]
+  },
+  "bg.finale.white_room": {
+   "verdict": "pass",
+   "issues": [
+    "가운데 빈 종이는 장면 의도(흰 방의 빈 쪽)"
+   ]
+  }
+ },
+ "metrics": {
+  "bg.archive.hall": {
+   "dialog_luma_mean": 0.126,
+   "dialog_luma_p99": 0.426,
+   "dialog_luma_pre_grade": 0.144,
+   "white_text_contrast_mean": 13.25,
+   "white_text_contrast_worst_p99": 4.33,
+   "side_luma_l": 0.179,
+   "side_luma_r": 0.172,
+   "side_detail_l": 0.0233,
+   "side_detail_r": 0.0231,
+   "center_detail": 0.0172
+  },
+  "bg.archive.aisle": {
+   "dialog_luma_mean": 0.06,
+   "dialog_luma_p99": 0.127,
+   "dialog_luma_pre_grade": 0.073,
+   "white_text_contrast_mean": 16.61,
+   "white_text_contrast_worst_p99": 14.23,
+   "side_luma_l": 0.079,
+   "side_luma_r": 0.078,
+   "side_detail_l": 0.0135,
+   "side_detail_r": 0.0133,
+   "center_detail": 0.0206
+  },
+  "bg.archive.deep": {
+   "dialog_luma_mean": 0.063,
+   "dialog_luma_p99": 0.261,
+   "dialog_luma_pre_grade": 0.085,
+   "white_text_contrast_mean": 16.22,
+   "white_text_contrast_worst_p99": 8.73,
+   "side_luma_l": 0.142,
+   "side_luma_r": 0.112,
+   "side_detail_l": 0.01,
+   "side_detail_r": 0.0104,
+   "center_detail": 0.0184
+  },
+  "bg.archive.ink": {
+   "dialog_luma_mean": 0.086,
+   "dialog_luma_p99": 0.247,
+   "dialog_luma_pre_grade": 0.095,
+   "white_text_contrast_mean": 15.23,
+   "white_text_contrast_worst_p99": 9.07,
+   "side_luma_l": 0.113,
+   "side_luma_r": 0.079,
+   "side_detail_l": 0.017,
+   "side_detail_r": 0.0158,
+   "center_detail": 0.021
+  },
+  "bg.archive.dusk": {
+   "dialog_luma_mean": 0.098,
+   "dialog_luma_p99": 0.198,
+   "dialog_luma_pre_grade": 0.099,
+   "white_text_contrast_mean": 15.01,
+   "white_text_contrast_worst_p99": 11.17,
+   "side_luma_l": 0.141,
+   "side_luma_r": 0.143,
+   "side_detail_l": 0.0155,
+   "side_detail_r": 0.0158,
+   "center_detail": 0.0322
+  },
+  "bg.imjin.fleet_dawn": {
+   "dialog_luma_mean": 0.041,
+   "dialog_luma_p99": 0.093,
+   "dialog_luma_pre_grade": 0.052,
+   "white_text_contrast_mean": 17.23,
+   "white_text_contrast_worst_p99": 15.48,
+   "side_luma_l": 0.19,
+   "side_luma_r": 0.171,
+   "side_detail_l": 0.0026,
+   "side_detail_r": 0.003,
+   "center_detail": 0.0061
+  },
+  "bg.imjin.night_sea": {
+   "dialog_luma_mean": 0.036,
+   "dialog_luma_p99": 0.079,
+   "dialog_luma_pre_grade": 0.048,
+   "white_text_contrast_mean": 17.37,
+   "white_text_contrast_worst_p99": 16.0,
+   "side_luma_l": 0.102,
+   "side_luma_r": 0.106,
+   "side_detail_l": 0.0029,
+   "side_detail_r": 0.0028,
+   "center_detail": 0.0059
+  },
+  "bg.imjin.strait": {
+   "dialog_luma_mean": 0.079,
+   "dialog_luma_p99": 0.247,
+   "dialog_luma_pre_grade": 0.095,
+   "white_text_contrast_mean": 15.14,
+   "white_text_contrast_worst_p99": 8.72,
+   "side_luma_l": 0.138,
+   "side_luma_r": 0.109,
+   "side_detail_l": 0.005,
+   "side_detail_r": 0.0062,
+   "center_detail": 0.0096
+  },
+  "bg.imjin.river": {
+   "dialog_luma_mean": 0.105,
+   "dialog_luma_p99": 0.603,
+   "dialog_luma_pre_grade": 0.105,
+   "white_text_contrast_mean": 12.71,
+   "white_text_contrast_worst_p99": 2.46,
+   "side_luma_l": 0.183,
+   "side_luma_r": 0.278,
+   "side_detail_l": 0.0163,
+   "side_detail_r": 0.016,
+   "center_detail": 0.011
+  },
+  "bg.imjin.fortress": {
+   "dialog_luma_mean": 0.05,
+   "dialog_luma_p99": 0.153,
+   "dialog_luma_pre_grade": 0.061,
+   "white_text_contrast_mean": 16.87,
+   "white_text_contrast_worst_p99": 13.07,
+   "side_luma_l": 0.147,
+   "side_luma_r": 0.135,
+   "side_detail_l": 0.0074,
+   "side_detail_r": 0.0052,
+   "center_detail": 0.0177
+  },
+  "bg.imjin.pyongyang_winter": {
+   "dialog_luma_mean": 0.086,
+   "dialog_luma_p99": 0.317,
+   "dialog_luma_pre_grade": 0.11,
+   "white_text_contrast_mean": 15.31,
+   "white_text_contrast_worst_p99": 6.93,
+   "side_luma_l": 0.373,
+   "side_luma_r": 0.261,
+   "side_detail_l": 0.0061,
+   "side_detail_r": 0.007,
+   "center_detail": 0.0157
+  },
+  "bg.imjin.haengju_sunset": {
+   "dialog_luma_mean": 0.105,
+   "dialog_luma_p99": 0.194,
+   "dialog_luma_pre_grade": 0.134,
+   "white_text_contrast_mean": 14.87,
+   "white_text_contrast_worst_p99": 11.3,
+   "side_luma_l": 0.154,
+   "side_luma_r": 0.308,
+   "side_detail_l": 0.007,
+   "side_detail_r": 0.0045,
+   "center_detail": 0.012
+  },
+  "bg.hastings.harbor": {
+   "dialog_luma_mean": 0.086,
+   "dialog_luma_p99": 0.268,
+   "dialog_luma_pre_grade": 0.115,
+   "white_text_contrast_mean": 15.46,
+   "white_text_contrast_worst_p99": 8.5,
+   "side_luma_l": 0.365,
+   "side_luma_r": 0.16,
+   "side_detail_l": 0.0045,
+   "side_detail_r": 0.01,
+   "center_detail": 0.007
+  },
+  "bg.hastings.pevensey": {
+   "dialog_luma_mean": 0.18,
+   "dialog_luma_p99": 0.31,
+   "dialog_luma_pre_grade": 0.237,
+   "white_text_contrast_mean": 11.35,
+   "white_text_contrast_worst_p99": 7.14,
+   "side_luma_l": 0.273,
+   "side_luma_r": 0.251,
+   "side_detail_l": 0.004,
+   "side_detail_r": 0.0034,
+   "center_detail": 0.0135
+  },
+  "bg.hastings.camp_night": {
+   "dialog_luma_mean": 0.097,
+   "dialog_luma_p99": 0.211,
+   "dialog_luma_pre_grade": 0.121,
+   "white_text_contrast_mean": 15.17,
+   "white_text_contrast_worst_p99": 10.6,
+   "side_luma_l": 0.13,
+   "side_luma_r": 0.112,
+   "side_detail_l": 0.0043,
+   "side_detail_r": 0.0062,
+   "center_detail": 0.0078
+  },
+  "bg.hastings.ridge": {
+   "dialog_luma_mean": 0.153,
+   "dialog_luma_p99": 0.365,
+   "dialog_luma_pre_grade": 0.187,
+   "white_text_contrast_mean": 11.88,
+   "white_text_contrast_worst_p99": 5.72,
+   "side_luma_l": 0.457,
+   "side_luma_r": 0.257,
+   "side_detail_l": 0.005,
+   "side_detail_r": 0.0085,
+   "center_detail": 0.0178
+  },
+  "bg.hastings.thames": {
+   "dialog_luma_mean": 0.141,
+   "dialog_luma_p99": 0.353,
+   "dialog_luma_pre_grade": 0.17,
+   "white_text_contrast_mean": 12.21,
+   "white_text_contrast_worst_p99": 5.9,
+   "side_luma_l": 0.227,
+   "side_luma_r": 0.265,
+   "side_detail_l": 0.011,
+   "side_detail_r": 0.0092,
+   "center_detail": 0.0133
+  },
+  "bg.hastings.tent": {
+   "dialog_luma_mean": 0.128,
+   "dialog_luma_p99": 0.547,
+   "dialog_luma_pre_grade": 0.136,
+   "white_text_contrast_mean": 11.8,
+   "white_text_contrast_worst_p99": 2.95,
+   "side_luma_l": 0.14,
+   "side_luma_r": 0.143,
+   "side_detail_l": 0.0085,
+   "side_detail_r": 0.0112,
+   "center_detail": 0.0184
+  },
+  "bg.tours.vienne_ford": {
+   "dialog_luma_mean": 0.127,
+   "dialog_luma_p99": 0.37,
+   "dialog_luma_pre_grade": 0.144,
+   "white_text_contrast_mean": 13.16,
+   "white_text_contrast_worst_p99": 5.56,
+   "side_luma_l": 0.228,
+   "side_luma_r": 0.265,
+   "side_detail_l": 0.0326,
+   "side_detail_r": 0.0277,
+   "center_detail": 0.0136
+  },
+  "bg.tours.roman_road": {
+   "dialog_luma_mean": 0.088,
+   "dialog_luma_p99": 0.326,
+   "dialog_luma_pre_grade": 0.088,
+   "white_text_contrast_mean": 14.86,
+   "white_text_contrast_worst_p99": 6.7,
+   "side_luma_l": 0.174,
+   "side_luma_r": 0.09,
+   "side_detail_l": 0.0146,
+   "side_detail_r": 0.0081,
+   "center_detail": 0.0132
+  },
+  "bg.tours.oak_slope": {
+   "dialog_luma_mean": 0.057,
+   "dialog_luma_p99": 0.096,
+   "dialog_luma_pre_grade": 0.076,
+   "white_text_contrast_mean": 16.75,
+   "white_text_contrast_worst_p99": 15.36,
+   "side_luma_l": 0.158,
+   "side_luma_r": 0.196,
+   "side_detail_l": 0.0148,
+   "side_detail_r": 0.0198,
+   "center_detail": 0.0126
+  },
+  "bg.tours.night_slope": {
+   "dialog_luma_mean": 0.134,
+   "dialog_luma_p99": 0.426,
+   "dialog_luma_pre_grade": 0.149,
+   "white_text_contrast_mean": 12.44,
+   "white_text_contrast_worst_p99": 4.53,
+   "side_luma_l": 0.14,
+   "side_luma_r": 0.138,
+   "side_detail_l": 0.0135,
+   "side_detail_r": 0.0135,
+   "center_detail": 0.006
+  },
+  "bg.legnica.muddy_plain": {
+   "dialog_luma_mean": 0.106,
+   "dialog_luma_p99": 0.362,
+   "dialog_luma_pre_grade": 0.144,
+   "white_text_contrast_mean": 14.1,
+   "white_text_contrast_worst_p99": 5.76,
+   "side_luma_l": 0.35,
+   "side_luma_r": 0.261,
+   "side_detail_l": 0.0052,
+   "side_detail_r": 0.0054,
+   "center_detail": 0.0072
+  },
+  "bg.legnica.river_fog": {
+   "dialog_luma_mean": 0.067,
+   "dialog_luma_p99": 0.166,
+   "dialog_luma_pre_grade": 0.07,
+   "white_text_contrast_mean": 16.26,
+   "white_text_contrast_worst_p99": 12.48,
+   "side_luma_l": 0.203,
+   "side_luma_r": 0.168,
+   "side_detail_l": 0.0085,
+   "side_detail_r": 0.0106,
+   "center_detail": 0.0124
+  },
+  "bg.legnica.castle_plain": {
+   "dialog_luma_mean": 0.087,
+   "dialog_luma_p99": 0.162,
+   "dialog_luma_pre_grade": 0.103,
+   "white_text_contrast_mean": 15.59,
+   "white_text_contrast_worst_p99": 12.67,
+   "side_luma_l": 0.257,
+   "side_luma_r": 0.262,
+   "side_detail_l": 0.0037,
+   "side_detail_r": 0.0033,
+   "center_detail": 0.01
+  },
+  "bg.legnica.danube_fortress": {
+   "dialog_luma_mean": 0.114,
+   "dialog_luma_p99": 0.405,
+   "dialog_luma_pre_grade": 0.148,
+   "white_text_contrast_mean": 13.49,
+   "white_text_contrast_worst_p99": 4.9,
+   "side_luma_l": 0.367,
+   "side_luma_r": 0.273,
+   "side_detail_l": 0.0035,
+   "side_detail_r": 0.0044,
+   "center_detail": 0.0106
+  },
+  "bg.legnica.dalmatia": {
+   "dialog_luma_mean": 0.154,
+   "dialog_luma_p99": 0.578,
+   "dialog_luma_pre_grade": 0.164,
+   "white_text_contrast_mean": 11.05,
+   "white_text_contrast_worst_p99": 2.67,
+   "side_luma_l": 0.272,
+   "side_luma_r": 0.263,
+   "side_detail_l": 0.0135,
+   "side_detail_r": 0.0122,
+   "center_detail": 0.0189
+  },
+  "bg.legnica.mountain_road": {
+   "dialog_luma_mean": 0.077,
+   "dialog_luma_p99": 0.194,
+   "dialog_luma_pre_grade": 0.096,
+   "white_text_contrast_mean": 16.0,
+   "white_text_contrast_worst_p99": 11.31,
+   "side_luma_l": 0.156,
+   "side_luma_r": 0.248,
+   "side_detail_l": 0.0121,
+   "side_detail_r": 0.0175,
+   "center_detail": 0.0282
+  },
+  "bg.panipat.kabul": {
+   "dialog_luma_mean": 0.097,
+   "dialog_luma_p99": 0.226,
+   "dialog_luma_pre_grade": 0.113,
+   "white_text_contrast_mean": 14.97,
+   "white_text_contrast_worst_p99": 9.72,
+   "side_luma_l": 0.296,
+   "side_luma_r": 0.144,
+   "side_detail_l": 0.01,
+   "side_detail_r": 0.0079,
+   "center_detail": 0.0172
+  },
+  "bg.panipat.fort_gate": {
+   "dialog_luma_mean": 0.093,
+   "dialog_luma_p99": 0.236,
+   "dialog_luma_pre_grade": 0.115,
+   "white_text_contrast_mean": 15.01,
+   "white_text_contrast_worst_p99": 9.55,
+   "side_luma_l": 0.165,
+   "side_luma_r": 0.149,
+   "side_detail_l": 0.008,
+   "side_detail_r": 0.0082,
+   "center_detail": 0.0219
+  },
+  "bg.panipat.lahore_river": {
+   "dialog_luma_mean": 0.091,
+   "dialog_luma_p99": 0.214,
+   "dialog_luma_pre_grade": 0.111,
+   "white_text_contrast_mean": 15.18,
+   "white_text_contrast_worst_p99": 10.35,
+   "side_luma_l": 0.247,
+   "side_luma_r": 0.167,
+   "side_detail_l": 0.0065,
+   "side_detail_r": 0.0092,
+   "center_detail": 0.0074
+  },
+  "bg.panipat.dry_plain": {
+   "dialog_luma_mean": 0.098,
+   "dialog_luma_p99": 0.148,
+   "dialog_luma_pre_grade": 0.122,
+   "white_text_contrast_mean": 15.19,
+   "white_text_contrast_worst_p99": 13.28,
+   "side_luma_l": 0.2,
+   "side_luma_r": 0.218,
+   "side_detail_l": 0.012,
+   "side_detail_r": 0.0091,
+   "center_detail": 0.006
+  },
+  "bg.panipat.wagon_laager": {
+   "dialog_luma_mean": 0.085,
+   "dialog_luma_p99": 0.167,
+   "dialog_luma_pre_grade": 0.104,
+   "white_text_contrast_mean": 15.65,
+   "white_text_contrast_worst_p99": 12.43,
+   "side_luma_l": 0.204,
+   "side_luma_r": 0.164,
+   "side_detail_l": 0.013,
+   "side_detail_r": 0.009,
+   "center_detail": 0.0128
+  },
+  "bg.panipat.ghaghra": {
+   "dialog_luma_mean": 0.086,
+   "dialog_luma_p99": 0.312,
+   "dialog_luma_pre_grade": 0.086,
+   "white_text_contrast_mean": 14.76,
+   "white_text_contrast_worst_p99": 6.92,
+   "side_luma_l": 0.27,
+   "side_luma_r": 0.204,
+   "side_detail_l": 0.0195,
+   "side_detail_r": 0.0206,
+   "center_detail": 0.0192
+  },
+  "bg.mongol.onon": {
+   "dialog_luma_mean": 0.039,
+   "dialog_luma_p99": 0.121,
+   "dialog_luma_pre_grade": 0.053,
+   "white_text_contrast_mean": 17.27,
+   "white_text_contrast_worst_p99": 14.38,
+   "side_luma_l": 0.094,
+   "side_luma_r": 0.132,
+   "side_detail_l": 0.0029,
+   "side_detail_r": 0.0036,
+   "center_detail": 0.01
+  },
+  "bg.mongol.hexi_canyon": {
+   "dialog_luma_mean": 0.119,
+   "dialog_luma_p99": 0.247,
+   "dialog_luma_pre_grade": 0.132,
+   "white_text_contrast_mean": 14.13,
+   "white_text_contrast_worst_p99": 9.2,
+   "side_luma_l": 0.154,
+   "side_luma_r": 0.138,
+   "side_detail_l": 0.0068,
+   "side_detail_r": 0.0076,
+   "center_detail": 0.0107
+  },
+  "bg.mongol.pass": {
+   "dialog_luma_mean": 0.063,
+   "dialog_luma_p99": 0.281,
+   "dialog_luma_pre_grade": 0.065,
+   "white_text_contrast_mean": 16.06,
+   "white_text_contrast_worst_p99": 8.05,
+   "side_luma_l": 0.134,
+   "side_luma_r": 0.153,
+   "side_detail_l": 0.0084,
+   "side_detail_r": 0.0111,
+   "center_detail": 0.0129
+  },
+  "bg.mongol.tianshan": {
+   "dialog_luma_mean": 0.079,
+   "dialog_luma_p99": 0.273,
+   "dialog_luma_pre_grade": 0.084,
+   "white_text_contrast_mean": 15.27,
+   "white_text_contrast_worst_p99": 8.3,
+   "side_luma_l": 0.189,
+   "side_luma_r": 0.132,
+   "side_detail_l": 0.0039,
+   "side_detail_r": 0.0035,
+   "center_detail": 0.0107
+  },
+  "bg.mongol.syr_river": {
+   "dialog_luma_mean": 0.225,
+   "dialog_luma_p99": 0.481,
+   "dialog_luma_pre_grade": 0.263,
+   "white_text_contrast_mean": 8.56,
+   "white_text_contrast_worst_p99": 3.68,
+   "side_luma_l": 0.322,
+   "side_luma_r": 0.179,
+   "side_detail_l": 0.0171,
+   "side_detail_r": 0.0189,
+   "center_detail": 0.0204
+  },
+  "bg.mongol.indus_cliff": {
+   "dialog_luma_mean": 0.161,
+   "dialog_luma_p99": 0.733,
+   "dialog_luma_pre_grade": 0.169,
+   "white_text_contrast_mean": 9.51,
+   "white_text_contrast_worst_p99": 1.69,
+   "side_luma_l": 0.192,
+   "side_luma_r": 0.191,
+   "side_detail_l": 0.0083,
+   "side_detail_r": 0.0064,
+   "center_detail": 0.0101
+  },
+  "bg.mongol.winter_steppe": {
+   "dialog_luma_mean": 0.143,
+   "dialog_luma_p99": 0.337,
+   "dialog_luma_pre_grade": 0.167,
+   "white_text_contrast_mean": 12.69,
+   "white_text_contrast_worst_p99": 6.42,
+   "side_luma_l": 0.381,
+   "side_luma_r": 0.371,
+   "side_detail_l": 0.004,
+   "side_detail_r": 0.0067,
+   "center_detail": 0.0039
+  },
+  "bg.goryeo_khitan.camp": {
+   "dialog_luma_mean": 0.094,
+   "dialog_luma_p99": 0.22,
+   "dialog_luma_pre_grade": 0.126,
+   "white_text_contrast_mean": 15.24,
+   "white_text_contrast_worst_p99": 10.18,
+   "side_luma_l": 0.197,
+   "side_luma_r": 0.16,
+   "side_detail_l": 0.0204,
+   "side_detail_r": 0.0098,
+   "center_detail": 0.0164
+  },
+  "bg.goryeo_khitan.fortress_wall": {
+   "dialog_luma_mean": 0.114,
+   "dialog_luma_p99": 0.209,
+   "dialog_luma_pre_grade": 0.14,
+   "white_text_contrast_mean": 14.48,
+   "white_text_contrast_worst_p99": 10.69,
+   "side_luma_l": 0.181,
+   "side_luma_r": 0.185,
+   "side_detail_l": 0.0089,
+   "side_detail_r": 0.007,
+   "center_detail": 0.0089
+  },
+  "bg.goryeo_khitan.icedam": {
+   "dialog_luma_mean": 0.097,
+   "dialog_luma_p99": 0.237,
+   "dialog_luma_pre_grade": 0.12,
+   "white_text_contrast_mean": 15.02,
+   "white_text_contrast_worst_p99": 9.47,
+   "side_luma_l": 0.244,
+   "side_luma_r": 0.201,
+   "side_detail_l": 0.0095,
+   "side_detail_r": 0.0081,
+   "center_detail": 0.0103
+  },
+  "bg.goryeo_khitan.gwiju_plain": {
+   "dialog_luma_mean": 0.104,
+   "dialog_luma_p99": 0.213,
+   "dialog_luma_pre_grade": 0.139,
+   "white_text_contrast_mean": 14.75,
+   "white_text_contrast_worst_p99": 10.41,
+   "side_luma_l": 0.362,
+   "side_luma_r": 0.26,
+   "side_detail_l": 0.0054,
+   "side_detail_r": 0.0089,
+   "center_detail": 0.0132
+  },
+  "bg.redcliff.river_road": {
+   "dialog_luma_mean": 0.086,
+   "dialog_luma_p99": 0.218,
+   "dialog_luma_pre_grade": 0.101,
+   "white_text_contrast_mean": 15.52,
+   "white_text_contrast_worst_p99": 10.36,
+   "side_luma_l": 0.338,
+   "side_luma_r": 0.229,
+   "side_detail_l": 0.017,
+   "side_detail_r": 0.0109,
+   "center_detail": 0.0104
+  },
+  "bg.redcliff.wu_fleet": {
+   "dialog_luma_mean": 0.064,
+   "dialog_luma_p99": 0.165,
+   "dialog_luma_pre_grade": 0.078,
+   "white_text_contrast_mean": 16.31,
+   "white_text_contrast_worst_p99": 12.32,
+   "side_luma_l": 0.214,
+   "side_luma_r": 0.138,
+   "side_detail_l": 0.0042,
+   "side_detail_r": 0.0055,
+   "center_detail": 0.0205
+  },
+  "bg.redcliff.north_bank": {
+   "dialog_luma_mean": 0.071,
+   "dialog_luma_p99": 0.186,
+   "dialog_luma_pre_grade": 0.081,
+   "white_text_contrast_mean": 16.05,
+   "white_text_contrast_worst_p99": 11.57,
+   "side_luma_l": 0.185,
+   "side_luma_r": 0.164,
+   "side_detail_l": 0.0102,
+   "side_detail_r": 0.0091,
+   "center_detail": 0.0145
+  },
+  "bg.redcliff.burning_river": {
+   "dialog_luma_mean": 0.052,
+   "dialog_luma_p99": 0.106,
+   "dialog_luma_pre_grade": 0.068,
+   "white_text_contrast_mean": 16.86,
+   "white_text_contrast_worst_p99": 14.85,
+   "side_luma_l": 0.135,
+   "side_luma_r": 0.107,
+   "side_detail_l": 0.0028,
+   "side_detail_r": 0.0041,
+   "center_detail": 0.0056
+  },
+  "bg.redcliff.yiling_gate": {
+   "dialog_luma_mean": 0.088,
+   "dialog_luma_p99": 0.246,
+   "dialog_luma_pre_grade": 0.091,
+   "white_text_contrast_mean": 15.21,
+   "white_text_contrast_worst_p99": 9.26,
+   "side_luma_l": 0.185,
+   "side_luma_r": 0.165,
+   "side_detail_l": 0.0094,
+   "side_detail_r": 0.01,
+   "center_detail": 0.0235
+  },
+  "bg.nagashino.night_road": {
+   "dialog_luma_mean": 0.07,
+   "dialog_luma_p99": 0.197,
+   "dialog_luma_pre_grade": 0.075,
+   "white_text_contrast_mean": 16.14,
+   "white_text_contrast_worst_p99": 11.17,
+   "side_luma_l": 0.1,
+   "side_luma_r": 0.11,
+   "side_detail_l": 0.0072,
+   "side_detail_r": 0.0077,
+   "center_detail": 0.0057
+  },
+  "bg.nagashino.oda_camp": {
+   "dialog_luma_mean": 0.169,
+   "dialog_luma_p99": 0.473,
+   "dialog_luma_pre_grade": 0.213,
+   "white_text_contrast_mean": 11.42,
+   "white_text_contrast_worst_p99": 3.82,
+   "side_luma_l": 0.258,
+   "side_luma_r": 0.29,
+   "side_detail_l": 0.0098,
+   "side_detail_r": 0.0153,
+   "center_detail": 0.0055
+  },
+  "bg.nagashino.shitara_field": {
+   "dialog_luma_mean": 0.076,
+   "dialog_luma_p99": 0.146,
+   "dialog_luma_pre_grade": 0.092,
+   "white_text_contrast_mean": 15.97,
+   "white_text_contrast_worst_p99": 13.36,
+   "side_luma_l": 0.144,
+   "side_luma_r": 0.176,
+   "side_detail_l": 0.0066,
+   "side_detail_r": 0.0069,
+   "center_detail": 0.0129
+  },
+  "bg.nagashino.mountain_fort": {
+   "dialog_luma_mean": 0.083,
+   "dialog_luma_p99": 0.26,
+   "dialog_luma_pre_grade": 0.092,
+   "white_text_contrast_mean": 15.59,
+   "white_text_contrast_worst_p99": 8.7,
+   "side_luma_l": 0.164,
+   "side_luma_r": 0.128,
+   "side_detail_l": 0.0055,
+   "side_detail_r": 0.0064,
+   "center_detail": 0.0178
+  },
+  "bg.orleans.muster": {
+   "dialog_luma_mean": 0.242,
+   "dialog_luma_p99": 0.494,
+   "dialog_luma_pre_grade": 0.287,
+   "white_text_contrast_mean": 8.54,
+   "white_text_contrast_worst_p99": 3.51,
+   "side_luma_l": 0.372,
+   "side_luma_r": 0.304,
+   "side_detail_l": 0.0152,
+   "side_detail_r": 0.0149,
+   "center_detail": 0.0065
+  },
+  "bg.orleans.city_gate": {
+   "dialog_luma_mean": 0.229,
+   "dialog_luma_p99": 0.555,
+   "dialog_luma_pre_grade": 0.253,
+   "white_text_contrast_mean": 9.08,
+   "white_text_contrast_worst_p99": 2.82,
+   "side_luma_l": 0.259,
+   "side_luma_r": 0.21,
+   "side_detail_l": 0.0124,
+   "side_detail_r": 0.0089,
+   "center_detail": 0.0195
+  },
+  "bg.orleans.fort_field": {
+   "dialog_luma_mean": 0.098,
+   "dialog_luma_p99": 0.171,
+   "dialog_luma_pre_grade": 0.128,
+   "white_text_contrast_mean": 15.27,
+   "white_text_contrast_worst_p99": 12.27,
+   "side_luma_l": 0.214,
+   "side_luma_r": 0.207,
+   "side_detail_l": 0.0061,
+   "side_detail_r": 0.0037,
+   "center_detail": 0.0069
+  },
+  "bg.orleans.tourelles_bridge": {
+   "dialog_luma_mean": 0.101,
+   "dialog_luma_p99": 0.319,
+   "dialog_luma_pre_grade": 0.11,
+   "white_text_contrast_mean": 14.18,
+   "white_text_contrast_worst_p99": 6.86,
+   "side_luma_l": 0.206,
+   "side_luma_r": 0.197,
+   "side_detail_l": 0.004,
+   "side_detail_r": 0.0056,
+   "center_detail": 0.0098
+  },
+  "bg.orleans.patay_field": {
+   "dialog_luma_mean": 0.093,
+   "dialog_luma_p99": 0.255,
+   "dialog_luma_pre_grade": 0.096,
+   "white_text_contrast_mean": 14.89,
+   "white_text_contrast_worst_p99": 8.84,
+   "side_luma_l": 0.153,
+   "side_luma_r": 0.136,
+   "side_detail_l": 0.0102,
+   "side_detail_r": 0.0097,
+   "center_detail": 0.0054
+  },
+  "bg.hwangsanbeol.silla_camp": {
+   "dialog_luma_mean": 0.053,
+   "dialog_luma_p99": 0.121,
+   "dialog_luma_pre_grade": 0.061,
+   "white_text_contrast_mean": 16.81,
+   "white_text_contrast_worst_p99": 14.47,
+   "side_luma_l": 0.107,
+   "side_luma_r": 0.111,
+   "side_detail_l": 0.0051,
+   "side_detail_r": 0.009,
+   "center_detail": 0.0121
+  },
+  "bg.hwangsanbeol.plain": {
+   "dialog_luma_mean": 0.085,
+   "dialog_luma_p99": 0.168,
+   "dialog_luma_pre_grade": 0.111,
+   "white_text_contrast_mean": 15.62,
+   "white_text_contrast_worst_p99": 12.4,
+   "side_luma_l": 0.264,
+   "side_luma_r": 0.183,
+   "side_detail_l": 0.005,
+   "side_detail_r": 0.0045,
+   "center_detail": 0.0184
+  },
+  "bg.hwangsanbeol.sabi_river": {
+   "dialog_luma_mean": 0.132,
+   "dialog_luma_p99": 0.321,
+   "dialog_luma_pre_grade": 0.161,
+   "white_text_contrast_mean": 13.06,
+   "white_text_contrast_worst_p99": 6.68,
+   "side_luma_l": 0.318,
+   "side_luma_r": 0.272,
+   "side_detail_l": 0.0092,
+   "side_detail_r": 0.008,
+   "center_detail": 0.012
+  },
+  "bg.salsu.liao_field": {
+   "dialog_luma_mean": 0.104,
+   "dialog_luma_p99": 0.179,
+   "dialog_luma_pre_grade": 0.128,
+   "white_text_contrast_mean": 14.94,
+   "white_text_contrast_worst_p99": 11.98,
+   "side_luma_l": 0.151,
+   "side_luma_r": 0.247,
+   "side_detail_l": 0.0186,
+   "side_detail_r": 0.0166,
+   "center_detail": 0.0348
+  },
+  "bg.salsu.hill_road": {
+   "dialog_luma_mean": 0.076,
+   "dialog_luma_p99": 0.18,
+   "dialog_luma_pre_grade": 0.086,
+   "white_text_contrast_mean": 15.96,
+   "white_text_contrast_worst_p99": 11.94,
+   "side_luma_l": 0.13,
+   "side_luma_r": 0.145,
+   "side_detail_l": 0.0055,
+   "side_detail_r": 0.0057,
+   "center_detail": 0.0052
+  },
+  "bg.salsu.salsu_river": {
+   "dialog_luma_mean": 0.064,
+   "dialog_luma_p99": 0.138,
+   "dialog_luma_pre_grade": 0.082,
+   "white_text_contrast_mean": 16.52,
+   "white_text_contrast_worst_p99": 13.62,
+   "side_luma_l": 0.228,
+   "side_luma_r": 0.195,
+   "side_detail_l": 0.0083,
+   "side_detail_r": 0.0101,
+   "center_detail": 0.0059
+  },
+  "bg.mediterranean.italy_ridge": {
+   "dialog_luma_mean": 0.131,
+   "dialog_luma_p99": 0.386,
+   "dialog_luma_pre_grade": 0.185,
+   "white_text_contrast_mean": 13.43,
+   "white_text_contrast_worst_p99": 5.28,
+   "side_luma_l": 0.285,
+   "side_luma_r": 0.378,
+   "side_detail_l": 0.0118,
+   "side_detail_r": 0.0042,
+   "center_detail": 0.0094
+  },
+  "bg.mediterranean.carthago_lagoon": {
+   "dialog_luma_mean": 0.094,
+   "dialog_luma_p99": 0.255,
+   "dialog_luma_pre_grade": 0.106,
+   "white_text_contrast_mean": 14.74,
+   "white_text_contrast_worst_p99": 8.7,
+   "side_luma_l": 0.339,
+   "side_luma_r": 0.213,
+   "side_detail_l": 0.0083,
+   "side_detail_r": 0.005,
+   "center_detail": 0.0101
+  },
+  "bg.mediterranean.africa_coast": {
+   "dialog_luma_mean": 0.089,
+   "dialog_luma_p99": 0.167,
+   "dialog_luma_pre_grade": 0.117,
+   "white_text_contrast_mean": 15.55,
+   "white_text_contrast_worst_p99": 12.4,
+   "side_luma_l": 0.306,
+   "side_luma_r": 0.176,
+   "side_detail_l": 0.003,
+   "side_detail_r": 0.0057,
+   "center_detail": 0.0127
+  },
+  "bg.mediterranean.zama_plain": {
+   "dialog_luma_mean": 0.057,
+   "dialog_luma_p99": 0.13,
+   "dialog_luma_pre_grade": 0.068,
+   "white_text_contrast_mean": 16.71,
+   "white_text_contrast_worst_p99": 13.99,
+   "side_luma_l": 0.223,
+   "side_luma_r": 0.172,
+   "side_detail_l": 0.0059,
+   "side_detail_r": 0.0074,
+   "center_detail": 0.0079
+  },
+  "bg.gaugamela.tigris_ford": {
+   "dialog_luma_mean": 0.097,
+   "dialog_luma_p99": 0.281,
+   "dialog_luma_pre_grade": 0.114,
+   "white_text_contrast_mean": 14.82,
+   "white_text_contrast_worst_p99": 8.04,
+   "side_luma_l": 0.184,
+   "side_luma_r": 0.17,
+   "side_detail_l": 0.0053,
+   "side_detail_r": 0.0107,
+   "center_detail": 0.0101
+  },
+  "bg.gaugamela.camp_night": {
+   "dialog_luma_mean": 0.134,
+   "dialog_luma_p99": 0.397,
+   "dialog_luma_pre_grade": 0.154,
+   "white_text_contrast_mean": 12.61,
+   "white_text_contrast_worst_p99": 5.02,
+   "side_luma_l": 0.174,
+   "side_luma_r": 0.187,
+   "side_detail_l": 0.0061,
+   "side_detail_r": 0.0083,
+   "center_detail": 0.0048
+  },
+  "bg.gaugamela.plain": {
+   "dialog_luma_mean": 0.087,
+   "dialog_luma_p99": 0.17,
+   "dialog_luma_pre_grade": 0.109,
+   "white_text_contrast_mean": 15.61,
+   "white_text_contrast_worst_p99": 12.35,
+   "side_luma_l": 0.373,
+   "side_luma_r": 0.268,
+   "side_detail_l": 0.0083,
+   "side_detail_r": 0.0059,
+   "center_detail": 0.0105
+  },
+  "bg.gaugamela.retreat_road": {
+   "dialog_luma_mean": 0.186,
+   "dialog_luma_p99": 0.303,
+   "dialog_luma_pre_grade": 0.246,
+   "white_text_contrast_mean": 11.18,
+   "white_text_contrast_worst_p99": 7.35,
+   "side_luma_l": 0.329,
+   "side_luma_r": 0.176,
+   "side_detail_l": 0.0065,
+   "side_detail_r": 0.01,
+   "center_detail": 0.0116
+  },
+  "bg.holy_land.hattin_field": {
+   "dialog_luma_mean": 0.074,
+   "dialog_luma_p99": 0.206,
+   "dialog_luma_pre_grade": 0.087,
+   "white_text_contrast_mean": 15.94,
+   "white_text_contrast_worst_p99": 10.82,
+   "side_luma_l": 0.277,
+   "side_luma_r": 0.27,
+   "side_detail_l": 0.0059,
+   "side_detail_r": 0.0076,
+   "center_detail": 0.0071
+  },
+  "bg.holy_land.jerusalem_gate": {
+   "dialog_luma_mean": 0.187,
+   "dialog_luma_p99": 0.437,
+   "dialog_luma_pre_grade": 0.227,
+   "white_text_contrast_mean": 10.68,
+   "white_text_contrast_worst_p99": 4.37,
+   "side_luma_l": 0.424,
+   "side_luma_r": 0.283,
+   "side_detail_l": 0.0082,
+   "side_detail_r": 0.0133,
+   "center_detail": 0.0234
+  },
+  "bg.holy_land.arsuf_coast": {
+   "dialog_luma_mean": 0.131,
+   "dialog_luma_p99": 0.335,
+   "dialog_luma_pre_grade": 0.159,
+   "white_text_contrast_mean": 13.25,
+   "white_text_contrast_worst_p99": 6.39,
+   "side_luma_l": 0.235,
+   "side_luma_r": 0.292,
+   "side_detail_l": 0.0088,
+   "side_detail_r": 0.0029,
+   "center_detail": 0.007
+  },
+  "bg.holy_land.jaffa_harbor": {
+   "dialog_luma_mean": 0.114,
+   "dialog_luma_p99": 0.248,
+   "dialog_luma_pre_grade": 0.152,
+   "white_text_contrast_mean": 14.09,
+   "white_text_contrast_worst_p99": 9.06,
+   "side_luma_l": 0.347,
+   "side_luma_r": 0.195,
+   "side_detail_l": 0.006,
+   "side_detail_r": 0.0103,
+   "center_detail": 0.0154
+  },
+  "bg.finale.signal_room": {
+   "dialog_luma_mean": 0.16,
+   "dialog_luma_p99": 0.46,
+   "dialog_luma_pre_grade": 0.201,
+   "white_text_contrast_mean": 11.63,
+   "white_text_contrast_worst_p99": 3.88,
+   "side_luma_l": 0.206,
+   "side_luma_r": 0.166,
+   "side_detail_l": 0.0152,
+   "side_detail_r": 0.0164,
+   "center_detail": 0.0193
+  },
+  "bg.finale.white_room": {
+   "dialog_luma_mean": 0.476,
+   "dialog_luma_p99": 0.839,
+   "dialog_luma_pre_grade": 0.517,
+   "white_text_contrast_mean": 2.86,
+   "white_text_contrast_worst_p99": 1.28,
+   "side_luma_l": 0.38,
+   "side_luma_r": 0.35,
+   "side_detail_l": 0.0142,
+   "side_detail_r": 0.0183,
+   "center_detail": 0.0081
+  }
+ }
+}

@@ -1,0 +1,1745 @@
+{
+ "_note": "영웅 스킬 1차(P1) 추가분(임밸런 2026-11-08). hero_skill_redistribution.json v3와 같은 스키마(heroes + new_skills)의 병합용 조각이다. 대상: 스킬 전무 수집형 NPC 12명, 액티브 없는 C 3명, 주인공 10행(공유 액티브 5종). 기존 템플릿만 사용, 수치는 동급 기존 스킬 범위 안 시작값(미측정). 병합·시드 절차는 docs/HERO_SKILLS_P1_20261108.md.",
+ "version": 1,
+ "rules": {
+  "S": {
+   "passive": 3,
+   "active": 2
+  },
+  "A": {
+   "passive": 2,
+   "active": 2
+  },
+  "B": {
+   "passive": 2,
+   "active": 1
+  },
+  "C": {
+   "passive": 1,
+   "active": 1
+  }
+ },
+ "heroes": {
+  "npc_jebe": {
+   "name_ko": "제베",
+   "rarity": "A",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 2
+   },
+   "passives": [
+    {
+     "code": "p1_jebe_p1",
+     "action": "add",
+     "template": "T_CHARGE",
+     "grade": "A"
+    },
+    {
+     "code": "p1_jebe_p2",
+     "action": "add",
+     "template": "T_FIRST_STRIKE",
+     "grade": "A"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_jebe_a1",
+     "action": "add",
+     "template": "T_ACTIVE_STRIKE",
+     "grade": "A"
+    },
+    {
+     "code": "p1_jebe_a2",
+     "action": "add",
+     "template": "T_ACTIVE_SURGE",
+     "grade": "A"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_baidar": {
+   "name_ko": "바이다르",
+   "rarity": "A",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 2
+   },
+   "passives": [
+    {
+     "code": "p1_baidar_p1",
+     "action": "add",
+     "template": "T_ATK_UP",
+     "grade": "A"
+    },
+    {
+     "code": "p1_baidar_p2",
+     "action": "add",
+     "template": "T_CHARGE",
+     "grade": "A"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_baidar_a1",
+     "action": "add",
+     "template": "T_ACTIVE_SURGE",
+     "grade": "A"
+    },
+    {
+     "code": "p1_baidar_a2",
+     "action": "add",
+     "template": "T_ACTIVE_STRIKE",
+     "grade": "A"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_kadan": {
+   "name_ko": "카단",
+   "rarity": "A",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 2
+   },
+   "passives": [
+    {
+     "code": "p1_kadan_p1",
+     "action": "add",
+     "template": "T_ATKDEF_HYBRID",
+     "grade": "A"
+    },
+    {
+     "code": "p1_kadan_p2",
+     "action": "add",
+     "template": "T_ATK_UP",
+     "grade": "A"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_kadan_a1",
+     "action": "add",
+     "template": "T_ACTIVE_AOE",
+     "grade": "A"
+    },
+    {
+     "code": "p1_kadan_a2",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "A"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_batu": {
+   "name_ko": "바투",
+   "rarity": "A",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 2
+   },
+   "passives": [
+    {
+     "code": "p1_batu_p1",
+     "action": "add",
+     "template": "T_FORMATION",
+     "grade": "A"
+    },
+    {
+     "code": "p1_batu_p2",
+     "action": "add",
+     "template": "T_CHARGE",
+     "grade": "A"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_batu_a1",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "A"
+    },
+    {
+     "code": "p1_batu_a2",
+     "action": "add",
+     "template": "T_ACTIVE_SURGE",
+     "grade": "A"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_babur": {
+   "name_ko": "바부르",
+   "rarity": "A",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 2
+   },
+   "passives": [
+    {
+     "code": "p1_babur_p1",
+     "action": "add",
+     "template": "T_SIEGE_ATK",
+     "grade": "A"
+    },
+    {
+     "code": "p1_babur_p2",
+     "action": "add",
+     "template": "T_LAST_STAND",
+     "grade": "A"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_babur_a1",
+     "action": "add",
+     "template": "T_ACTIVE_AOE",
+     "grade": "A"
+    },
+    {
+     "code": "p1_babur_a2",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "A"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_rana_sanga": {
+   "name_ko": "라나 상가",
+   "rarity": "A",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 2
+   },
+   "passives": [
+    {
+     "code": "p1_rana_sanga_p1",
+     "action": "add",
+     "template": "T_COUNTER_ATK",
+     "grade": "A"
+    },
+    {
+     "code": "p1_rana_sanga_p2",
+     "action": "add",
+     "template": "T_CHARGE",
+     "grade": "A"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_rana_sanga_a1",
+     "action": "add",
+     "template": "T_ACTIVE_STRIKE",
+     "grade": "A"
+    },
+    {
+     "code": "p1_rana_sanga_a2",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "A"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_boorchu": {
+   "name_ko": "보르추",
+   "rarity": "B",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "p1_boorchu_p1",
+     "action": "add",
+     "template": "T_DEF_UP",
+     "grade": "B"
+    },
+    {
+     "code": "p1_boorchu_p2",
+     "action": "add",
+     "template": "T_FORMATION",
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_boorchu_a1",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_qasar": {
+   "name_ko": "카사르",
+   "rarity": "B",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "p1_qasar_p1",
+     "action": "add",
+     "template": "T_ATK_UP",
+     "grade": "B"
+    },
+    {
+     "code": "p1_qasar_p2",
+     "action": "add",
+     "template": "T_FIRST_STRIKE",
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_qasar_a1",
+     "action": "add",
+     "template": "T_ACTIVE_STRIKE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_jelme": {
+   "name_ko": "젤메",
+   "rarity": "B",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "p1_jelme_p1",
+     "action": "add",
+     "template": "T_REGEN",
+     "grade": "B"
+    },
+    {
+     "code": "p1_jelme_p2",
+     "action": "add",
+     "template": "T_DEF_UP",
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_jelme_a1",
+     "action": "add",
+     "template": "T_ACTIVE_SURGE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_jochi": {
+   "name_ko": "주치",
+   "rarity": "B",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "p1_jochi_p1",
+     "action": "add",
+     "template": "T_ATK_UP",
+     "grade": "B"
+    },
+    {
+     "code": "p1_jochi_p2",
+     "action": "add",
+     "template": "T_CHARGE",
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_jochi_a1",
+     "action": "add",
+     "template": "T_ACTIVE_STRIKE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_humayun": {
+   "name_ko": "후마윤",
+   "rarity": "B",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "p1_humayun_p1",
+     "action": "add",
+     "template": "T_LAST_STAND",
+     "grade": "B"
+    },
+    {
+     "code": "p1_humayun_p2",
+     "action": "add",
+     "template": "T_ATKDEF_HYBRID",
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_humayun_a1",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "npc_ibrahim_lodi": {
+   "name_ko": "이브라힘 로디",
+   "rarity": "B",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "npc_collectible",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "p1_ibrahim_lodi_p1",
+     "action": "add",
+     "template": "T_DEF_UP",
+     "grade": "B"
+    },
+    {
+     "code": "p1_ibrahim_lodi_p2",
+     "action": "add",
+     "template": "T_COUNTER_ATK",
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_ibrahim_lodi_a1",
+     "action": "add",
+     "template": "T_ACTIVE_STRIKE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "diponegoro": {
+   "name_ko": "디포네고로",
+   "rarity": "C",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "player",
+   "target": {
+    "passive": 1,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "C"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_diponegoro_a1",
+     "action": "add",
+     "template": "T_ACTIVE_SURGE",
+     "grade": "C"
+    }
+   ],
+   "dormant": []
+  },
+  "jan_zizka": {
+   "name_ko": "얀 지슈카",
+   "rarity": "C",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "source": "player",
+   "target": {
+    "passive": 1,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "C"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_jan_zizka_a1",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "C"
+    }
+   ],
+   "dormant": []
+  },
+  "rostam": {
+   "name_ko": "로스탐",
+   "rarity": "C",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "source": "player",
+   "target": {
+    "passive": 1,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_hyb_w",
+     "action": "keep",
+     "template": null,
+     "grade": "C"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_rostam_a1",
+     "action": "add",
+     "template": "T_ACTIVE_STRIKE",
+     "grade": "C"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_male_sword": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_atk_m",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_sword_a1",
+     "action": "add",
+     "template": "T_ACTIVE_STRIKE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_male_spear": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_atk_m",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_spear_a1",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_male_archer": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_atk_m",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_archer_a1",
+     "action": "add",
+     "template": "T_ACTIVE_AOE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_male_cavalry": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_atk_m",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_cavalry_a1",
+     "action": "add",
+     "template": "T_ACTIVE_SURGE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_male_heavy": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "p1_pr_heavy_p2",
+     "action": "add",
+     "template": "T_REGEN",
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_heavy_a1",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_female_sword": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_atk_m",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_sword_a1",
+     "action": "add",
+     "template": "T_ACTIVE_STRIKE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_female_spear": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "spear",
+   "troop_type": "spear",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_atk_m",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_spear_a1",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_female_archer": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "archer",
+   "troop_type": "archer",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_atk_m",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_archer_a1",
+     "action": "add",
+     "template": "T_ACTIVE_AOE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_female_cavalry": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "cavalry",
+   "troop_type": "cavalry",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_atk_m",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_cavalry_a1",
+     "action": "add",
+     "template": "T_ACTIVE_SURGE",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  },
+  "protagonist_female_heavy": {
+   "name_ko": "주인공",
+   "rarity": "B",
+   "unit_type": "sword",
+   "troop_type": "sword",
+   "source": "protagonist",
+   "target": {
+    "passive": 2,
+    "active": 1
+   },
+   "passives": [
+    {
+     "code": "sh_def_w",
+     "action": "keep",
+     "template": null,
+     "grade": "B"
+    },
+    {
+     "code": "p1_pr_heavy_p2",
+     "action": "add",
+     "template": "T_REGEN",
+     "grade": "B"
+    }
+   ],
+   "actives": [
+    {
+     "code": "p1_pr_heavy_a1",
+     "action": "add",
+     "template": "T_ACTIVE_BUFF",
+     "grade": "B"
+    }
+   ],
+   "dormant": []
+  }
+ },
+ "new_skills": {
+  "p1_jebe_p1": {
+   "type": "passive",
+   "template": "T_CHARGE",
+   "params": {
+    "tier": "strong",
+    "effects": [
+     {
+      "atk_pct": 15,
+      "when": {
+       "moved": true
+      }
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "질주하는 화살",
+   "flavor": "말을 몰아 거리를 좁힌 뒤 쏜 화살이 더 깊이 박힌다.",
+   "provisional_name": false
+  },
+  "p1_jebe_p2": {
+   "type": "passive",
+   "template": "T_FIRST_STRIKE",
+   "params": {
+    "tier": "strong",
+    "effects": [
+     {
+      "atk_pct": 15,
+      "when": {
+       "target_full_hp": true
+      }
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "첫 화살",
+   "flavor": "상처 없는 적을 가장 먼저 꿰뚫는다.",
+   "provisional_name": false
+  },
+  "p1_jebe_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 130,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "장수 저격",
+   "flavor": "가장 중요한 한 사람만 노려 시위를 당긴다.",
+   "provisional_name": false
+  },
+  "p1_jebe_a2": {
+   "type": "active",
+   "template": "T_ACTIVE_SURGE",
+   "params": {
+    "move_bonus": 2,
+    "attack_pct": 105,
+    "min_turn": 2,
+    "leap": false,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "쾌속 우회",
+   "flavor": "적이 눈치채기 전에 옆구리까지 돌아 들어간다.",
+   "provisional_name": false
+  },
+  "p1_baidar_p1": {
+   "type": "passive",
+   "template": "T_ATK_UP",
+   "params": {
+    "tier": "strong",
+    "effects": [
+     {
+      "atk_pct": 9
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "서진의 선봉",
+   "flavor": "서쪽으로 향하는 군세의 맨 앞에서 칼날이 가장 날카롭다.",
+   "provisional_name": false
+  },
+  "p1_baidar_p2": {
+   "type": "passive",
+   "template": "T_CHARGE",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 11,
+      "when": {
+       "moved": true
+      }
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "철기의 쇄도",
+   "flavor": "달려든 기세가 그대로 일격이 된다.",
+   "provisional_name": false
+  },
+  "p1_baidar_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_SURGE",
+   "params": {
+    "move_bonus": 2,
+    "attack_pct": 110,
+    "min_turn": 2,
+    "leap": false,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "서방 진격",
+   "flavor": "먼 거리를 단숨에 지나 적진 앞에 선다.",
+   "provisional_name": false
+  },
+  "p1_baidar_a2": {
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 125,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "철기 일격",
+   "flavor": "말발굽의 무게를 실어 내리친다.",
+   "provisional_name": false
+  },
+  "p1_kadan_p1": {
+   "type": "passive",
+   "template": "T_ATKDEF_HYBRID",
+   "params": {
+    "tier": "strong",
+    "effects": [
+     {
+      "atk_pct": 6,
+      "def_pct": 12
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "끈질긴 추격대",
+   "flavor": "쫓는 동안에도 대열을 흐트러뜨리지 않는다.",
+   "provisional_name": false
+  },
+  "p1_kadan_p2": {
+   "type": "passive",
+   "template": "T_ATK_UP",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 6
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "추격자의 활",
+   "flavor": "도망치는 등 뒤를 겨눈 활은 빗나가지 않는다.",
+   "provisional_name": false
+  },
+  "p1_kadan_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_AOE",
+   "params": {
+    "power_pct": 100,
+    "radius": 1,
+    "splash_pct": 60,
+    "friendly_fire": false,
+    "cooldown": 4,
+    "uses": 1
+   },
+   "grade": "A",
+   "name_ko": "화살 장막",
+   "flavor": "쏘아 올린 화살이 한 구역을 덮는다.",
+   "provisional_name": false
+  },
+  "p1_kadan_a2": {
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "atk",
+    "amount": 11,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "추격 호령",
+   "flavor": "추격을 외치는 소리에 주변 병사의 공격이 거세진다.",
+   "provisional_name": false
+  },
+  "p1_batu_p1": {
+   "type": "passive",
+   "template": "T_FORMATION",
+   "params": {
+    "tier": "strong",
+    "effects": [
+     {
+      "atk_pct": 3,
+      "def_pct": 8,
+      "when": {
+       "adjacent_allies": 3
+      }
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "총사령의 군진",
+   "flavor": "곁에 아군이 많을수록 대열이 단단해진다.",
+   "provisional_name": false
+  },
+  "p1_batu_p2": {
+   "type": "passive",
+   "template": "T_CHARGE",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 11,
+      "when": {
+       "moved": true
+      }
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "서방 대원정",
+   "flavor": "먼 길을 달려온 기세가 그대로 칼끝에 실린다.",
+   "provisional_name": false
+  },
+  "p1_batu_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "atk",
+    "amount": 11,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "총사령의 호령",
+   "flavor": "군막에서 떨어진 호령에 전군의 사기가 오른다.",
+   "provisional_name": false
+  },
+  "p1_batu_a2": {
+   "type": "active",
+   "template": "T_ACTIVE_SURGE",
+   "params": {
+    "move_bonus": 2,
+    "attack_pct": 110,
+    "min_turn": 2,
+    "leap": false,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "서진의 철기",
+   "flavor": "대군이 한 방향으로 쏟아져 나간다.",
+   "provisional_name": false
+  },
+  "p1_babur_p1": {
+   "type": "passive",
+   "template": "T_SIEGE_ATK",
+   "params": {
+    "tier": "strong",
+    "effects": [
+     {
+      "atk_pct": 20,
+      "when": {
+       "target_terrain": [
+        "castle"
+       ]
+      }
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "화약의 위력",
+   "flavor": "성채를 향해 쏘면 화약의 위력이 한층 크다.",
+   "provisional_name": false
+  },
+  "p1_babur_p2": {
+   "type": "passive",
+   "template": "T_LAST_STAND",
+   "params": {
+    "tier": "strong",
+    "effects": [
+     {
+      "atk_pct": 15,
+      "def_pct": 20,
+      "when": {
+       "hp_below_pct": 50
+      }
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "잃고도 일어서는 뜻",
+   "flavor": "궁지에 몰릴수록 더 질기게 맞선다.",
+   "provisional_name": false
+  },
+  "p1_babur_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_AOE",
+   "params": {
+    "power_pct": 100,
+    "radius": 1,
+    "splash_pct": 60,
+    "friendly_fire": false,
+    "cooldown": 4,
+    "uses": 1
+   },
+   "grade": "A",
+   "name_ko": "화포와 총의 일제 사격",
+   "flavor": "화포와 총이 한꺼번에 불을 뿜는다.",
+   "provisional_name": false
+  },
+  "p1_babur_a2": {
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "def",
+    "amount": 20,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "수레 방어진",
+   "flavor": "수레를 이어 세운 진지 뒤에서 방어를 굳힌다.",
+   "provisional_name": false
+  },
+  "p1_rana_sanga_p1": {
+   "type": "passive",
+   "template": "T_COUNTER_ATK",
+   "params": {
+    "tier": "strong",
+    "effects": [
+     {
+      "atk_pct": 15,
+      "when": {
+       "counter": true
+      }
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "상처가 가르친 반격",
+   "flavor": "숱한 싸움에서 얻은 상처가 반격의 눈을 틔운다.",
+   "provisional_name": false
+  },
+  "p1_rana_sanga_p2": {
+   "type": "passive",
+   "template": "T_CHARGE",
+   "params": {
+    "tier": "strong",
+    "effects": [
+     {
+      "atk_pct": 15,
+      "when": {
+       "moved": true
+      }
+     }
+    ]
+   },
+   "grade": "A",
+   "name_ko": "라지푸트의 돌격",
+   "flavor": "명예를 걸고 정면으로 달려든다.",
+   "provisional_name": false
+  },
+  "p1_rana_sanga_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 130,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "카누아의 일격",
+   "flavor": "정면 승부를 피하지 않고 가장 강한 한 방을 낸다.",
+   "provisional_name": false
+  },
+  "p1_rana_sanga_a2": {
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "atk",
+    "amount": 11,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "A",
+   "name_ko": "라지푸트 연합의 결의",
+   "flavor": "여러 가문이 한 깃발 아래 모여 칼날을 세운다.",
+   "provisional_name": false
+  },
+  "p1_boorchu_p1": {
+   "type": "passive",
+   "template": "T_DEF_UP",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "def_pct": 20
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "변치 않는 벗",
+   "flavor": "어떤 싸움에서도 곁을 떠나지 않는 이는 쉽게 쓰러지지 않는다.",
+   "provisional_name": false
+  },
+  "p1_boorchu_p2": {
+   "type": "passive",
+   "template": "T_FORMATION",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 2,
+      "def_pct": 5,
+      "when": {
+       "adjacent_allies": 3
+      }
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "곁을 지키는 진형",
+   "flavor": "아군과 나란히 설수록 든든하다.",
+   "provisional_name": false
+  },
+  "p1_boorchu_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "def",
+    "amount": 20,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "곁을 지키는 방패",
+   "flavor": "가장 가까운 곳에서 동료를 막아 선다.",
+   "provisional_name": false
+  },
+  "p1_qasar_p1": {
+   "type": "passive",
+   "template": "T_ATK_UP",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 6
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "장사의 힘",
+   "flavor": "타고난 힘으로 시위를 끝까지 당긴다.",
+   "provisional_name": false
+  },
+  "p1_qasar_p2": {
+   "type": "passive",
+   "template": "T_FIRST_STRIKE",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 14,
+      "when": {
+       "target_full_hp": true
+      }
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "강궁의 기선",
+   "flavor": "먼저 쏜 한 발이 승부를 가른다.",
+   "provisional_name": false
+  },
+  "p1_qasar_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 125,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "강궁 일격",
+   "flavor": "당길 수 있는 가장 센 활로 한 점을 꿰뚫는다.",
+   "provisional_name": false
+  },
+  "p1_jelme_p1": {
+   "type": "passive",
+   "template": "T_REGEN",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "regen_hp": 7
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "충직한 간호",
+   "flavor": "곁에서 끝까지 돌보는 손길이 상처를 아물게 한다.",
+   "provisional_name": false
+  },
+  "p1_jelme_p2": {
+   "type": "passive",
+   "template": "T_DEF_UP",
+   "params": {
+    "tier": "weak",
+    "effects": [
+     {
+      "def_pct": 10
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "충신의 각오",
+   "flavor": "주군 앞에 서면 몸이 먼저 움직인다.",
+   "provisional_name": false
+  },
+  "p1_jelme_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_SURGE",
+   "params": {
+    "move_bonus": 2,
+    "attack_pct": 105,
+    "min_turn": 2,
+    "leap": false,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "충신의 질주",
+   "flavor": "위급한 곳으로 가장 먼저 달려간다.",
+   "provisional_name": false
+  },
+  "p1_jochi_p1": {
+   "type": "passive",
+   "template": "T_ATK_UP",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 6
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "장자의 기개",
+   "flavor": "맏이의 이름에 걸맞게 앞서 칼을 든다.",
+   "provisional_name": false
+  },
+  "p1_jochi_p2": {
+   "type": "passive",
+   "template": "T_CHARGE",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 11,
+      "when": {
+       "moved": true
+      }
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "서방 개척",
+   "flavor": "새 땅을 향해 달려 나갈수록 기세가 오른다.",
+   "provisional_name": false
+  },
+  "p1_jochi_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 125,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "도성 돌파",
+   "flavor": "굳게 닫힌 도시 앞에서도 물러서지 않고 부딪친다.",
+   "provisional_name": false
+  },
+  "p1_humayun_p1": {
+   "type": "passive",
+   "template": "T_LAST_STAND",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 12,
+      "def_pct": 10,
+      "when": {
+       "hp_below_pct": 50
+      }
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "유랑 끝의 귀환",
+   "flavor": "쫓겨난 뒤 돌아온 이는 몰릴수록 더 매섭다.",
+   "provisional_name": false
+  },
+  "p1_humayun_p2": {
+   "type": "passive",
+   "template": "T_ATKDEF_HYBRID",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 4,
+      "def_pct": 8
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "재기의 의지",
+   "flavor": "잃은 것을 되찾으려는 뜻이 공수 모두를 받친다.",
+   "provisional_name": false
+  },
+  "p1_humayun_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "atk",
+    "amount": 10,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "재기의 호령",
+   "flavor": "다시 일어서자는 외침에 주변 병사의 공격이 오른다.",
+   "provisional_name": false
+  },
+  "p1_ibrahim_lodi_p1": {
+   "type": "passive",
+   "template": "T_DEF_UP",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "def_pct": 20
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "술탄의 대군",
+   "flavor": "수에서 오는 두터움이 방어를 받친다.",
+   "provisional_name": false
+  },
+  "p1_ibrahim_lodi_p2": {
+   "type": "passive",
+   "template": "T_COUNTER_ATK",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "atk_pct": 13,
+      "when": {
+       "counter": true
+      }
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "굳게 버티는 반격",
+   "flavor": "밀려도 받아치는 한 수를 잊지 않는다.",
+   "provisional_name": false
+  },
+  "p1_ibrahim_lodi_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 125,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "코끼리 부대 돌진",
+   "flavor": "덩치 큰 짐승들이 앞줄을 짓밟고 나아간다.",
+   "provisional_name": false
+  },
+  "p1_diponegoro_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_SURGE",
+   "params": {
+    "move_bonus": 1,
+    "attack_pct": 100,
+    "min_turn": 2,
+    "leap": false,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "C",
+   "name_ko": "밀림의 기습",
+   "flavor": "숲길로 소리 없이 다가와 허를 찌른다.",
+   "provisional_name": false
+  },
+  "p1_jan_zizka_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "def",
+    "amount": 15,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "C",
+   "name_ko": "마차 요새",
+   "flavor": "마차를 둘러 세운 진지가 그대로 방벽이 된다.",
+   "provisional_name": false
+  },
+  "p1_rostam_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 120,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "grade": "C",
+   "name_ko": "칠난을 넘은 일격",
+   "flavor": "일곱 번의 시련을 넘어온 팔이 단 한 번에 내리친다.",
+   "provisional_name": false
+  },
+  "p1_pr_sword_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_STRIKE",
+   "params": {
+    "power_pct": 120,
+    "cooldown": 3,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "결단의 일격",
+   "flavor": "망설임 없이 내딛는 한 걸음에 힘을 실어 벤다.",
+   "provisional_name": false
+  },
+  "p1_pr_spear_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "def",
+    "amount": 15,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "굳건한 창진",
+   "flavor": "창끝을 모아 세운 대열이 쉽게 뚫리지 않는다.",
+   "provisional_name": false
+  },
+  "p1_pr_archer_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_AOE",
+   "params": {
+    "power_pct": 95,
+    "radius": 1,
+    "splash_pct": 55,
+    "friendly_fire": false,
+    "cooldown": 4,
+    "uses": 1
+   },
+   "grade": "B",
+   "name_ko": "먼 곳의 일제 사격",
+   "flavor": "멀리서 쏘아 올린 화살이 한 구역에 쏟아진다.",
+   "provisional_name": false
+  },
+  "p1_pr_cavalry_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_SURGE",
+   "params": {
+    "move_bonus": 2,
+    "attack_pct": 105,
+    "min_turn": 2,
+    "leap": false,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "역사를 가르는 돌격",
+   "flavor": "시대의 흐름을 가르듯 적진으로 달려 든다.",
+   "provisional_name": false
+  },
+  "p1_pr_heavy_p2": {
+   "type": "passive",
+   "template": "T_REGEN",
+   "params": {
+    "tier": "mid",
+    "effects": [
+     {
+      "regen_hp": 6
+     }
+    ]
+   },
+   "grade": "B",
+   "name_ko": "중갑의 인내",
+   "flavor": "무거운 갑옷 속에서도 숨을 고르며 상처를 견딘다.",
+   "provisional_name": false
+  },
+  "p1_pr_heavy_a1": {
+   "type": "active",
+   "template": "T_ACTIVE_BUFF",
+   "params": {
+    "stat": "def",
+    "amount": 20,
+    "duration": 1,
+    "target_mode": "self_area",
+    "radius": 2,
+    "cooldown": 4,
+    "uses": 2
+   },
+   "grade": "B",
+   "name_ko": "버티는 자의 방벽",
+   "flavor": "한 발도 물러서지 않는 자 곁에서 모두의 방어가 굳어진다.",
+   "provisional_name": false
+  }
+ }
+}

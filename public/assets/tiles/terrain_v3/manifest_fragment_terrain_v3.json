@@ -1,0 +1,33 @@
+{
+ "_note": "terrain_v3 시범(안아트 terrain_pilot 자체 제작). 본 manifest 미병합: 지형 시트는 manifest 와 분리 로드(assets.queueRmTiles, settings.terrainStyle === 'v3' 일 때만). 키·경로 원본은 resources/js/game/data/terrainV3.js",
+ "tileset.terrain_v3_base": {
+  "type": "tileset",
+  "textureKey": "tv3_base",
+  "path": "/assets/tiles/terrain_v3/textures/terrain_base_sheet.png",
+  "frame": [32, 32],
+  "layout": "96x224, 행 = grass forest water shallow sand dirt rock, 열 = 변형 v0 v1 v2 (가중 50/25/25)",
+  "scope": "battle",
+  "spec": "/assets/tiles/terrain_v3/terrain_pilot_spec.json"
+ },
+ "tileset.terrain_v3_autotile": {
+  "type": "tileset",
+  "textureKey": "tv3_at_<set>",
+  "path": "/assets/tiles/terrain_v3/autotile/at47_<set>.png",
+  "sets_used": ["grass_water", "sand_water", "shallow_deep", "grass_shallow", "grass_sand", "grass_dirt", "grass_forest", "grass_rock"],
+  "sets_unused": ["cliff_grass (절벽 k 와 의미 차이로 미사용)"],
+  "frame": [32, 32],
+  "layout": "256x192, 8열x6행, 슬롯 i = masks_order[i] (47개), autotile/at47_spec.json",
+  "scope": "battle"
+ },
+ "sprite.terrain_v3_objects": {
+  "type": "image",
+  "textureKey": "tv3_obj_<name>",
+  "path": "/assets/tiles/terrain_v3/objects/<name>.png",
+  "used": ["pine_a_s", "pine_b_s", "pine_c_s", "peak_a", "peak_a_l"],
+  "copied_unused": ["pine_a", "pine_b", "pine_c", "rock_a", "bush_a"],
+  "anchor": "bottom-center, 좌우 반전 금지(빛 왼쪽 위)",
+  "spec": "/assets/tiles/terrain_v3/objects/objects_spec.json",
+  "scope": "battle"
+ },
+ "license": "자체 제작(코드 생성 + fal Recraft v3 후처리, rembg MIT). 공개 전 확인 메모: 생성 모델 약관"
+}

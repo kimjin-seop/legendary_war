@@ -1,0 +1,347 @@
+{
+ "_note": "전투 이벤트 서사-지형 정정 패치 v5 (송서사, 2026-11-01). 원본 battle_events_ch1_5.json / battle_events_ch6_10.json은 수정하지 않았다. 병합 규칙: target 파일의 stages[]에서 stage로, events[]에서 event_id로 찾아 'set'의 필드를 통째로 교체한다(dialogue/lines는 배열 전체 교체). 이벤트 id·trigger.type·policy는 유지한다. 'verify' 필드가 없는 줄은 원본과 같다(생략=false). 영웅·주인공 대사는 모두 창작(is_invented=true). 일본·적 화자 금지 유지. tile_tag/zone 이름은 새 제안이며 좌표는 임밸런 확정(원본 문서 좌표 (x,y), 1-based 제안값을 주석 필드 coords_hint에 기록). cosmetic_overlay는 타일 종류·통행을 바꾸지 않는 시각 효과. 근거 상세는 IMJIN10_NARRATIVE_FIXES.md. 실행 도구가 없어 JSON 파서 검증은 하지 못했다.",
+ "version": 5,
+ "tag_definitions": {
+  "sandbar": "2번 맵 모래톱 3곳 (11~15,5), (10~12,11), (7~11,16)",
+  "ford": "2번 맵 강 전체(얕은 물+모래톱) — 원본 태그 유지, 정의만 변경",
+  "lure_zone": "3번 맵 바다 중앙 해역 제안 x9~17,y8~14 (목표 O (13,11) 포함)",
+  "gate_west": "5번 맵 남쪽 성벽 서쪽 성문 (8~9,16)",
+  "gate_east": "5번 맵 남쪽 성벽 동쪽 성문 (16~17,16)",
+  "gate_south": "4번 맵 남쪽 성문 (11~14,15)",
+  "south_gate": "6번 맵 남쪽 성문 (12,13) — 원본 zone north_gate의 대체",
+  "inner_fort": "6번 맵 성벽 안 구역 (7~17,6~12 제안)",
+  "reef_belt_sw": "7번 맵 남서 암초 군집 (6~10,15~17)",
+  "sea_center": "7번 맵 바다 중앙 해역 (원본 zone strait_center 대체)"
+ },
+ "battle_events_ch1_5": {
+  "target": "database/data/scenario/battle_events_ch1_5.json",
+  "cutscenes_set": [
+   { "stage": "ch1_s1", "attached_event": "ch1_s1_e04", "frames": [ { "key": "cutscene.ch1_s1.1.a", "desc": "새벽 안개 낀 바다. 서쪽 항구를 등진 아군 함선 대열과 맞은편 적선 실루엣(얼굴 없음)", "asset": "IL-07 재사용 여부는 안아트 확인(평원 시안이면 신규 필요)" } ], "fallback": "맵 전경 + 안개 오버레이(코드)" },
+   { "stage": "ch1_s3", "attached_event": "ch1_s3_e04", "frames": [ { "key": "cutscene.ch1_s3.1.a", "desc": "넓은 바다 한가운데를 향해 양쪽으로 펼쳐지는 아군 함선 날개 하이앵글, 가운데 섬 실루엣", "asset": "IL-08 재사용 여부는 안아트 확인(호수 시안이면 신규 필요)" }, { "key": "cutscene.ch1_s3.1.b", "desc": "양 날개가 가운데로 좁혀지는 구도(같은 시트 크롭)", "asset": "IL-08 크롭(호출 0)" } ], "fallback": "날개형 라인 오버레이(코드)" },
+   { "stage": "ch1_s5", "attached_event": "ch1_s5_e03", "frames": [ { "key": "cutscene.ch1_s5.1.a", "desc": "겨울 성벽 전경, 포연이 오르는 성문 앞. 해자 없음. 인물 얼굴 없음", "asset": "신규 IL-11(선택, 호출 예산 밖, 승인 필요)" }, { "key": "cutscene.ch1_s5.1.b", "desc": "균열이 간 성문이 열리는 클로즈업(같은 시트 크롭)", "asset": "IL-11 크롭(호출 0)" } ], "fallback": "화면 흔들림 + 먼지 파티클 + 타일 전환 이펙트(코드)" }
+  ],
+  "stage_set": [
+   { "stage": "ch1_s1", "set": { "map": "im_01_okpo" } },
+   { "stage": "ch1_s2", "set": { "map": "im_02_jeongamjin" } },
+   { "stage": "ch1_s3", "set": { "map": "im_03_hansando" } },
+   { "stage": "ch1_s4", "set": { "map": "im_04_jinju" } },
+   { "stage": "ch1_s5", "set": { "map": "im_05_pyeongyang" } }
+  ],
+  "events_set": [
+   {
+    "stage": "ch1_s1", "event_id": "ch1_s1_e04",
+    "set": {
+     "dialogue": [
+      { "speaker": "caption", "expr": null, "text": "1592년 음력 5월 7일, 거제 옥포. 임진왜란에서 조선 수군이 처음 승리를 거둔 전투로 꼽힌다. 항구 앞바다의 해전을 게임 맵에 맞춰 압축했다.", "is_invented": false },
+      { "speaker": "caption", "expr": null, "text": "이 전장의 병사들은 모두 배에 올라 이동한다. 물 위에서는 멀리 가지 못한다.", "is_invented": false },
+      { "speaker": "caption", "expr": null, "text": "적 지휘관: 도도 다카토라(기록상 표기). 일본 측 대사는 없다.", "is_invented": false },
+      { "speaker": "hero:142", "expr": "serious", "text": "각자의 위치를 지키시오. 신호 전에는 움직이지 마시오.", "is_invented": true },
+      { "speaker": "hero:144", "expr": "smile", "text": "뭍의 사람이 배에 오르게 되었구려. 서고다운 일이오. 해 보겠소.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "먼저 대열부터 보겠습니다. 시작하겠습니다.", "is_invented": true }
+     ]
+    }
+   },
+   {
+    "stage": "ch1_s1", "event_id": "ch1_s1_e07",
+    "set": {
+     "dialogue": [
+      { "speaker": "hero:142", "expr": "neutral", "text": "배 위에서도 길은 읽을 수 있구려, 곽재우 장군.", "is_invented": true },
+      { "speaker": "hero:144", "expr": "smile", "text": "바다든 뭍이든 먼저 보는 이가 앞서는 법이오.", "is_invented": true },
+      { "speaker": "hero:142", "expr": "neutral", "text": "그렇다면 이쪽은 내가 보겠소. 그쪽을 보시오.", "is_invented": true }
+     ]
+    }
+   },
+   {
+    "stage": "ch1_s2", "event_id": "ch1_s2_e04",
+    "set": {
+     "scene": { "camera": ["건너편 전경에서 모래톱으로 팬", "모래톱 3곳 순차 강조", "곽재우 클로즈업"], "motion": ["수면 물결 루프"], "fx": ["아침 안개", "물 반사"], "sound": ["bgm.battle_ch1_s2", "sfx.river_loop"], "cutscene": null },
+     "dialogue": [
+      { "speaker": "caption", "expr": null, "text": "1592년 여름 초, 의령 정암진. 남강 도하를 막은 곽재우 의병의 싸움으로 전한다(세부 일자·전과는 자료마다 달라 생략). 도하점 3곳은 맵 연출이다.", "is_invented": false },
+      { "speaker": "caption", "expr": null, "text": "적 지휘관의 이름은 기록을 확인 중이라 비워 둔다.", "is_invented": false },
+      { "speaker": "hero:144", "expr": "serious", "text": "모래톱이 셋이오. 한 곳만 보지 마시오.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "건널 곳이 세 군데나 되네요. 한 곳만 지킬 수는 없겠어요.", "is_invented": true },
+      { "speaker": "hero:142", "expr": "neutral", "text": "이 전장의 장수는 곽재우 장군이오. 나는 따르겠소.", "is_invented": true }
+     ],
+     "short": "정암진. 모래톱이 셋이다."
+    }
+   },
+   {
+    "stage": "ch1_s2", "event_id": "ch1_s2_e01",
+    "set": {
+     "name": "모래톱의 첫 부딪침",
+     "trigger": { "type": "unit_enter_tile", "timing": "after_action", "text": "적 유닛이 tile_tag=sandbar(모래톱) 타일에 처음 진입한 직후", "side": "enemy", "tile_tag": "sandbar", "first": true },
+     "scene": { "camera": ["모래톱 타일 줌인(1초)"], "motion": ["적 선두 정지"], "fx": ["모래톱 타일 노란 테두리"], "sound": ["sfx.sand_step", "sfx.clash_short"], "cutscene": null },
+     "dialogue": [
+      { "speaker": "hero:144", "expr": "smile", "text": "왔구려. 모래톱은 얕아도 발이 늦소. 건너오는 순간이 가장 약하오.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "건너오는 순간을 노리면 되겠네요. 맞나요?", "is_invented": true },
+      { "speaker": "hero:144", "expr": "smile", "text": "맞소. 그대는 눈이 빠르구려.", "is_invented": true }
+     ],
+     "effects": [ { "type": "highlight_tiles", "desc": "모래톱 도하점 타일 강조", "tag": "sandbar" } ],
+     "short": "모래톱을 건너는 순간을 노려라."
+    }
+   },
+   {
+    "stage": "ch1_s2", "event_id": "ch1_s2_e02",
+    "set": {
+     "dialogue": [
+      { "speaker": "shiori", "expr": "serious", "text": "다른 모래톱에서 적이 움직입니다. 처음 보인 건너는 곳은 미끼였습니다.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "모래톱이 셋이니 한 곳에 몰리면 안 되겠네요. 장군님들은 가까운 쪽을 맡아 주세요.", "is_invented": true },
+      { "speaker": "hero:144", "expr": "neutral", "text": "괜찮은지는 그대가 정하시오. 나는 어느 쪽이든 서겠소.", "is_invented": true },
+      { "speaker": "hero:142", "expr": "neutral", "text": "판단을 말하시오. 틀리면 내가 알려 주겠소.", "is_invented": true }
+     ],
+     "short": "처음 보인 모래톱은 미끼. 다른 길이 열린다."
+    }
+   },
+   {
+    "stage": "ch1_s3", "event_id": "ch1_s3_e03",
+    "set": {
+     "scene": { "camera": ["바다 하이앵글 전경(2초)", "유인 경로와 목표 지점 점등", "이순신 클로즈업"], "motion": ["수면 잔물결"], "fx": ["유인 경로 점선", "목표 배너"], "sound": ["bgm.battle_ch1_s3", "sfx.waves_far"], "cutscene": null },
+     "dialogue": [
+      { "speaker": "caption", "expr": null, "text": "1592년 음력 7월 8일, 견내량과 한산도 앞바다. 조선 수군은 좁은 견내량의 적을 넓은 바다로 유인한 뒤 학익진으로 맞섰다. 이 전장은 넓은 바다 위 진형으로 옮긴 각색이다.", "is_invented": false },
+      { "speaker": "hero:142", "expr": "serious", "text": "미끼는 가볍게, 날개는 넓게 펴시오.", "is_invented": true },
+      { "speaker": "hero:144", "expr": "neutral", "text": "물길은 모르나, 길을 열어 두는 뜻은 알겠소.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "먼저 적을 넓은 바다로 끌어내야 하는군요.", "is_invented": true }
+     ],
+     "effects": [ { "type": "set_objective", "desc": "초기 목표: 적 지휘관 격파(서브 힌트: 적을 바다 한가운데 유인 지점으로 유인)", "objective": "defeat_commander" }, { "type": "unlock_input", "desc": "행동 가능" } ],
+     "short": "한산도. 적을 넓은 바다로 끌어내라."
+    }
+   },
+   {
+    "stage": "ch1_s3", "event_id": "ch1_s3_e01",
+    "set": {
+     "name": "적이 바다로 들어서다",
+     "trigger": { "type": "unit_enter_tile", "timing": "after_action", "text": "적 유닛이 tile_tag=lure_zone(바다 중앙 유인 해역)에 처음 진입한 직후", "side": "enemy", "tile_tag": "lure_zone", "first": true },
+     "scene": { "camera": ["유인 해역 진입 지점 줌인", "양 날개 해역 강조 후 복귀"], "motion": ["적 선두 정지"], "fx": ["양 날개 해역 청색 하이라이트"], "sound": ["sfx.horn_short"], "cutscene": null },
+     "dialogue": [
+      { "speaker": "shiori", "expr": "serious", "text": "적이 넓은 바다로 들어왔습니다. 기록대로입니다.", "is_invented": false },
+      { "speaker": "hero:142", "expr": "serious", "text": "지금이오. 양 날개를 펼치시오.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "왼쪽은 곽재우 장군님, 오른쪽은 제가 직접 챙기겠습니다. 가운데를 비워 두면 되죠?", "is_invented": true },
+      { "speaker": "hero:142", "expr": "neutral", "text": "비워 두는 것이 아니라 열어 두는 것이오. 그 차이를 아는구려.", "is_invented": true }
+     ],
+     "short": "적이 바다로 나왔다. 날개를 펴라."
+    }
+   },
+   {
+    "stage": "ch1_s3", "event_id": "ch1_s3_e06",
+    "set": { "scene": { "camera": ["두 지휘관 사이 줌인(1초)"], "motion": ["적 지휘관 정지"], "fx": ["대치 빛줄기"], "sound": ["sfx.waves_far"], "cutscene": null } }
+   },
+   {
+    "stage": "ch1_s3", "event_id": "ch1_s3_e07",
+    "set": {
+     "dialogue": [
+      { "speaker": "caption", "expr": null, "text": "한산도 대첩은 임진왜란 3대첩 중 하나로 꼽힌다.", "is_invented": false },
+      { "speaker": "hero:144", "expr": "smile", "text": "물 위의 일은 모르나, 끌어내어 감싸는 싸움이라는 건 알겠소.", "is_invented": true }
+     ]
+    }
+   },
+   {
+    "stage": "ch1_s4", "event_id": "ch1_s4_e02",
+    "set": {
+     "dialogue": [
+      { "speaker": "shiori", "expr": "serious", "text": "적 병력이 늘어납니다. 서고의 기록에도 이 대목에서 쪽이 두꺼워집니다.", "is_invented": true },
+      { "speaker": "hero:144", "expr": "serious", "text": "성 밖에서도 보이오. 동쪽 성벽이 얇아지고 있소.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "동쪽에 병력을 늘리면 남문이 비는데요. 어느 쪽이 더 오래 버틸까요?", "is_invented": true },
+      { "speaker": "hero:145", "expr": "serious", "text": "판단은 지휘관이 하는 것이오. 나는 성문에 서겠소.", "is_invented": true }
+     ],
+     "effects": [ { "type": "enemy_ai", "desc": "대기 중이던 적 예비 유닛 AI를 '접근'으로 전환(신규 스폰 아님)", "mode": "advance", "group": "enemy_reserve" }, { "type": "highlight_tiles", "desc": "동쪽 성벽 구간과 남문 강조", "tag": "wall_east,gate_south" } ],
+     "short": "적이 늘어난다. 동쪽이 얇다."
+    }
+   },
+   {
+    "stage": "ch1_s4", "event_id": "ch1_s4_e03",
+    "set": {
+     "scene": { "camera": ["동쪽 성벽 줌인", "신호 연기가 한 박자 늦게 오르는 컷(1.5초)"], "motion": ["신호 연기 상승 지연"], "fx": ["신호 연기 파티클(지연)", "약한 화면 흔들림"], "sound": ["sfx.rumble_wall", "sfx.horn_late"], "cutscene": null },
+     "dialogue": [
+      { "speaker": "hero:144", "expr": "serious", "text": "지금이 신호를 보낼 때요. 성 안이 흔들리고 있소.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "조금만 더 지켜보면 안 될까요? 아직 성문은 버티고 있는데.", "is_invented": true },
+      { "speaker": "hero:144", "expr": "serious", "text": "때를 놓치면 성 밖 군사는 갈 곳을 잃소.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "알겠습니다. ...그럼 한 턴만 더요.", "is_invented": true },
+      { "speaker": "caption", "expr": null, "text": "동쪽 성벽에서 소리가 커진다. 신호가 한 박자 늦게 오른다.", "is_invented": true },
+      { "speaker": "protagonist", "expr": "neutral", "text": "제가 신호를 늦췄습니다. 이러면 안 되는 거였는데.", "is_invented": true },
+      { "speaker": "hero:144", "expr": "neutral", "text": "이미 지난 일이오. 다음 일에 쓰시오.", "is_invented": true }
+     ]
+    }
+   },
+   {
+    "stage": "ch1_s4", "event_id": "ch1_s4_e06",
+    "set": { "scene": { "camera": ["성 밖 동쪽 강가 줌인(1.5초)"], "motion": ["적 군기 상승"], "fx": ["군기 실루엣"], "sound": ["sfx.horn_far"], "cutscene": null } }
+   },
+   {
+    "stage": "ch1_s5", "event_id": "ch1_s5_e01",
+    "set": { "scene": { "camera": ["성벽 전경 하이앵글(2초)", "두 성문 순차 강조", "휴정 클로즈업"], "motion": ["성벽 군기 펄럭임", "눈발"], "fx": ["겨울 안개", "성벽 서리 반사"], "sound": ["bgm.battle_ch1_s5", "sfx.wind_cold", "sfx.drum_low"], "cutscene": null } }
+   },
+   {
+    "stage": "ch1_s5", "event_id": "ch1_s5_e02",
+    "set": {
+     "dialogue": [
+      { "speaker": "shiori", "expr": "serious", "text": "남쪽 성벽에 성문이 둘입니다. 서쪽 문은 가깝고, 동쪽 문은 멉니다.", "is_invented": true },
+      { "speaker": "hero:144", "expr": "smile", "text": "가까운 문이 늘 쉬운 문은 아니오.", "is_invented": true },
+      { "speaker": "hero:142", "expr": "neutral", "text": "판단은 그대가 하시오.", "is_invented": true }
+     ],
+     "choice_option_patch": {
+      "prompt": "어느 성문으로 접근하시겠습니까?",
+      "front": { "label": "가까운 서쪽 성문으로 밀어붙인다", "hint": "빠르지만 수비가 두텁다", "dialogue_after": [
+       { "speaker": "protagonist", "expr": "neutral", "text": "서쪽 문으로 가겠습니다. 시간이 가장 중요한 것 같아요.", "is_invented": true },
+       { "speaker": "hero:144", "expr": "smile", "text": "좋소. 붉은 옷이 앞에 서겠소.", "is_invented": true },
+       { "speaker": "shiori", "expr": "serious", "text": "서쪽 문은 가깝습니다. 대신 수비가 두껍습니다.", "is_invented": true }
+      ] },
+      "flank": { "label": "먼 동쪽 성문으로 우회한다", "hint": "느리지만 안정적이다" },
+      "note": "옵션 id(front, flank)와 flag ch1_s5_route 값은 유지. flank의 dialogue_after는 원본 그대로. tile_tag gate_front->gate_west, gate_flank->gate_east"
+     },
+     "short": "두 문 중 하나를 고른다."
+    }
+   }
+  ]
+ },
+ "battle_events_ch6_10": {
+  "target": "database/data/scenario/battle_events_ch6_10.json",
+  "note": "이 파일은 현재 앱 코드가 로드하지 않는다(BattleStory는 1~5장만). 연결 시 이 패치를 먼저 병합할 것.",
+  "stage_set": [
+   { "stage_id": "ch1_s6", "set": { "map": "im_06_haengju" } },
+   { "stage_id": "ch1_s7", "set": { "map": "im_07_noryang" } },
+   { "stage_id": "ch1_s8", "set": { "map": "im_08_seoga_collapse" } },
+   { "stage_id": "ch1_s9", "set": { "map": "im_09_myeongnyang" } },
+   { "stage_id": "ch1_s10", "set": { "map": "im_10_last_seoga" } }
+  ],
+  "global_rule": "모든 tile_patch / schedule_patch / telegraph_patch / tile_patch_revert_all 중 지형 종류를 바꾸는 항목(patch_id: ink_front_1, clean_center, open_side_path, page_turn_east, tide_flip, collapse_ring, open_center_bridge, core_expand)은 op를 cosmetic_overlay로 바꾸고 from/to/mode/layout_ref/relocate_units 필드를 제거한다. 맵 지형은 사용자 원본에 고정이다. 발판 붕괴(j->V)는 WATER_RULES_SPEC 7절 선택 기능이며 채택 시에만 별도 op로 추가.",
+  "events_set": [
+   {
+    "stage_id": "ch1_s6", "event_id": "ch1_s6_e01",
+    "set": {
+     "scene_lines": [
+      { "speaker": "shiori", "text": "지휘관님, 이번 성은 산성입니다. 가운데 고지를 성벽이 에워싸고 문은 남쪽에 하나뿐입니다. 진주성과는 짜임이 다릅니다.", "expr": "neutral", "is_invented": true },
+      { "speaker": "gwon_yul", "text": "성은 낮고 병력은 적소. 해가 질 때까지만 버티면 되오.", "expr": "serious", "is_invented": true },
+      { "speaker": "yi_sun_sin", "text": "성을 지키는 방식은 장군께 배우겠소.", "expr": "neutral", "is_invented": true },
+      { "speaker": "gwak_jae_u", "text": "성벽 위에서 보니 하늘이 바다보다 낮구려.", "expr": "smile", "is_invented": true, "only_if": "gwak_jae_u 편성" },
+      { "speaker": "protagonist", "text": "열 턴을 버티면 되는 거죠? 어느 쪽이 먼저 뚫릴 것 같으세요?", "expr": "neutral", "is_invented": true },
+      { "speaker": "gwon_yul", "text": "남쪽 성문이오. 첫 물결은 거기서 올 것이오.", "expr": "neutral", "is_invented": true },
+      { "speaker": "shiori", "text": "10턴을 버텨 내면 승리입니다. 화면의 목표 표시를 확인해 주십시오.", "expr": "neutral", "is_invented": true }
+     ],
+     "scene_direction": "카메라: 성 밖 전경 -> 남문 -> 성루 위 권율 버스트업(3초) -> 전체. 이펙트: 아침 안개. 사운드: bgm_haengju_dawn, sfx_gate_creak",
+     "scene_short": "행주산성: 10턴을 버텨라. 첫 물결은 남문.",
+     "effects": [ { "op": "show_objective", "type": "survive_turns", "value": 10 }, { "op": "show_marker", "zone": "south_gate", "kind": "danger" } ]
+    }
+   },
+   {
+    "stage_id": "ch1_s6", "event_id": "ch1_s6_e02",
+    "set": {
+     "scene_captions": [ { "text": "일본군 선봉이 남쪽 성문 앞에 닿습니다. (대사 없음)", "is_invented": true } ],
+     "scene_short": "2턴: 첫 번째 물결이 남문에 집중된다.",
+     "effects": [ { "op": "ai_pattern", "side": "enemy", "pattern": "assault_zone", "zone": "south_gate", "turns": 2 }, { "op": "show_marker", "zone": "south_gate", "kind": "target" } ]
+    }
+   },
+   {
+    "stage_id": "ch1_s6", "event_id": "ch1_s6_e04",
+    "set": { "effects": [ { "op": "buff", "target": "allies_on_zone:inner_fort", "stat": "def", "value": "TBD(임밸런)", "turns": 2 }, { "op": "show_marker", "zone": "retreat_cells", "kind": "path" } ] }
+   },
+   {
+    "stage_id": "ch1_s6", "event_id": "ch1_s6_e05",
+    "set": { "scene_direction": "카메라: 성 뒤쪽 후방(화면 밖) -> 성 안 궁병 부대 팬 2초. 이펙트: 궁병 위 녹색 회복 아이콘. 사운드: sfx_supply_arrive. 맵에 강 타일은 없다(보급 경로는 사실 서술만)" }
+   },
+   {
+    "stage_id": "ch1_s6", "event_id": "ch1_s6_e06",
+    "set": { "effects": [ { "op": "ai_pattern", "side": "enemy", "pattern": "all_in", "zone": "south_gate", "turns": 1 }, { "op": "lighting", "preset": "sunset_begin", "blend_sec": 3 } ] }
+   },
+   {
+    "stage_id": "ch1_s6", "event_id": "ch1_s6_e07",
+    "set": {
+     "scene_lines": [
+      { "speaker": "gwon_yul", "text": "물러가는 것은 저들이오. 성은 서 있소.", "expr": "neutral", "is_invented": true },
+      { "speaker": "gwak_jae_u", "text": "해가 지니 성이 붉게 보이는구려. 붉은 것이 내 옷만은 아니었소.", "expr": "smile", "is_invented": true, "only_if": "gwak_jae_u 편성" },
+      { "speaker": "shiori", "text": "10턴을 버텨 냈습니다. 행주대첩은 임진왜란 3대첩 중 하나로 꼽힙니다.", "expr": "cheer", "is_invented": false },
+      { "speaker": "shiori", "text": "{protagonist_name} 님, 4장과는 다른 얼굴의 성이었습니다.", "expr": "neutral", "is_invented": true },
+      { "speaker": "protagonist", "text": "높은 곳에서 버티니 4장과는 느낌이 달랐어요. 성이 지켜 준 게 아니라 사람들이 서 있었던 거겠죠.", "expr": "neutral", "is_invented": true },
+      { "speaker": "yi_sun_sin", "text": "지키는 싸움은 이기고도 조용하구려.", "expr": "neutral", "is_invented": true, "only_if": "yi_sun_sin 편성" }
+     ]
+    }
+   },
+   {
+    "stage_id": "ch1_s7", "event_id": "ch1_s7_e01",
+    "set": {
+     "scene_lines": [
+      { "speaker": "shiori", "text": "1598년 음력 11월 19일, 노량입니다. 철수하려는 일본군을 조선과 명의 연합 함대가 바다에서 막았습니다.", "expr": "serious", "is_invented": false },
+      { "speaker": "yi_sun_sin", "text": "바다는 넓어도 길은 암초 사이에 있소. 대열을 흩지 마시오.", "expr": "serious", "is_invented": true },
+      { "speaker": "gwak_jae_u", "text": "어둠 속에서는 붉은 옷도 소용이 없겠구려.", "expr": "smile", "is_invented": true, "only_if": "gwak_jae_u 편성" },
+      { "speaker": "protagonist", "text": "보이지 않는 쪽이 어디로 올지부터 생각해 보겠습니다.", "expr": "neutral", "is_invented": true },
+      { "speaker": "yi_sun_sin", "text": "그것이 첫걸음이오.", "expr": "neutral", "is_invented": true }
+     ]
+    }
+   },
+   {
+    "stage_id": "ch1_s7", "event_id": "ch1_s7_e04",
+    "set": {
+     "name": "암초목을 아오",
+     "trigger": { "type": "unit_enter_zone", "unit": "gwak_jae_u", "zone": "reef_belt_sw", "first_time": true, "after": "action" },
+     "when_text": "곽재우 유닛이 남서 암초 지대에 처음 진입한 행동 직후",
+     "scene_lines": [
+      { "speaker": "gwak_jae_u", "text": "물은 몰라도 암초 사이 길목은 아오. 이 자리는 내가 맡겠소.", "expr": "smile", "is_invented": true },
+      { "speaker": "protagonist", "text": "암초를 낀 자리를 잡으면 적이 지나는 길이 한눈에 보이네요.", "expr": "neutral", "is_invented": true },
+      { "speaker": "yi_sun_sin", "text": "그렇소. 암초는 물 위의 성벽이오.", "expr": "neutral", "is_invented": true }
+     ],
+     "scene_direction": "카메라: 곽재우 클로즈업 0.8초 -> 암초 지대 와이드. 이펙트: 암초 타일 황색 점등. 사운드: sfx_flag_plant",
+     "scene_short": "곽재우가 암초 지대를 잡았다.",
+     "effects": [ { "op": "buff", "target": "allies_on_zone:reef_belt_sw", "stat": "def", "value": "TBD(임밸런)", "turns": 2, "once": true } ]
+    }
+   },
+   {
+    "stage_id": "ch1_s7", "event_id": "ch1_s7_e05",
+    "set": { "effects": [ { "op": "weather", "type": "smoke", "zone": "sea_center", "turns": 2, "stat": "ranged_accuracy", "value": "TBD(임밸런)", "applies_to": "all" } ] }
+   },
+   {
+    "stage_id": "ch1_s8", "event_id": "ch1_s8_e03",
+    "set": {
+     "scene_lines": [
+      { "speaker": "shiori", "text": "먹물이 중앙 발판 쪽으로 번졌습니다. 닦아 내면 발판이 단단해지지만 손이 젖습니다. 샛길로 돌아가면 시간이 더 듭니다.", "expr": "serious", "is_invented": true },
+      { "speaker": "gwak_jae_u", "text": "벗이 정하시오. 나는 어느 길이든 먼저 서겠소.", "expr": "smile", "is_invented": true, "only_if": "gwak_jae_u 편성" }
+     ],
+     "choice_effects_patch": {
+      "A": [ { "op": "cosmetic_overlay", "patch_id": "clean_center", "zone": "center_corridor", "skin": "ink", "revert": true }, { "op": "consume_action", "unit": "selected_unit", "turns": 1 }, { "op": "reward", "item": "record_fragment", "count": 1, "value": "TBD(임밸런)" }, { "op": "set_flag", "key": "ch8_cleaned", "value": true } ],
+      "B": [ { "op": "hint", "text": "샛길로 돌아가 번짐 속도를 늦추지 못합니다. 번짐 예고가 한 턴 앞당겨집니다." }, { "op": "reschedule_patch", "patch_id": "ink_front_2", "turn": 4, "phase": "enemy" }, { "op": "set_flag", "key": "ch8_cleaned", "value": false } ]
+     }
+    }
+   },
+   {
+    "stage_id": "ch1_s8", "event_id": "ch1_s8_e05",
+    "set": {
+     "scene_lines": [
+      { "speaker": "shiori", "text": "쪽이 넘어갑니다. 서가가 흔들립니다. 발판 위에서 자리를 잃지 않게 하십시오.", "expr": "serious", "is_invented": true },
+      { "speaker": "yi_sun_sin", "text": "발판이 흔들려도 깃발은 그대로 두시오.", "expr": "serious", "is_invented": true }
+     ],
+     "scene_short": "6턴: 쪽이 넘어가며 서가가 흔들린다.",
+     "effects": [ { "op": "telegraph_patch", "patch_id": "page_turn_east", "turn": 5, "phase": "player" }, { "op": "cosmetic_overlay", "patch_id": "page_turn_east", "zone": "east_block", "skin": "page_flip" } ]
+    }
+   },
+   {
+    "stage_id": "ch1_s9", "event_id": "ch1_s9_e01",
+    "set": {
+     "scene_lines": [
+      { "speaker": "shiori", "text": "조선 전선은 열세 척으로 전해집니다. 일본 수군은 최소 열 배 이상으로 보는 것이 일반적이며 정확한 수는 자료마다 다릅니다.", "expr": "serious", "is_invented": false },
+      { "speaker": "yi_sun_sin", "text": "양쪽이 바위벽이오. 좁다는 것은 우리에게 쓸모가 있소.", "expr": "serious", "is_invented": true },
+      { "speaker": "protagonist", "text": "수는 저쪽이 훨씬 많은데, 길이 좁으면 한꺼번에 오지 못하겠네요.", "expr": "neutral", "is_invented": true },
+      { "speaker": "yi_sun_sin", "text": "길을 읽었다면 싸울 준비가 된 것이오.", "expr": "neutral", "is_invented": true }
+     ]
+    }
+   },
+   {
+    "stage_id": "ch1_s9", "event_id": "ch1_s9_e05",
+    "set": {
+     "scene_direction": "카메라: 이순신 부대 -> 적 선단이 밀려나는 와이드 3초 -> 적 대열. 이펙트: 항적(wake) 방향 반전, 물보라, 적 혼란 아이콘. 물 타일 화살표 없음. 사운드: sfx_tide_shift, bgm 클라이맥스",
+     "effects": [ { "op": "buff", "target": "enemies", "stat": "move", "value": -1, "turns": 3, "note": "조류 전환 연출용 전장 전체 버프. 타일 변경 없음. 수치 TBD(임밸런)" }, { "op": "buff", "target": "allies", "stat": "move", "value": 1, "turns": 3, "note": "수치 TBD(임밸런)" }, { "op": "ai_pattern", "side": "enemy", "pattern": "partial_retreat", "turns": 3 } ],
+     "engine_support_note": "확장 필요(전장 전체 버프, AI 후퇴). 흐름 방향 타일은 불필요"
+    }
+   },
+   {
+    "stage_id": "ch1_s10", "event_id": "ch1_s10_e01",
+    "set": { "effects": [ { "op": "show_objective", "type": "defeat_commander" }, { "op": "schedule_patch", "patch_id": "collapse_ring", "mode": "ring_inward", "start_turn": 2, "phase": "enemy", "interval_turns": 2, "telegraph_turns": 1, "cosmetic": true, "skin": "ink" } ] }
+   },
+   {
+    "stage_id": "ch1_s10", "event_id": "ch1_s10_e02",
+    "set": { "choice_effects_patch": {
+      "A": [ { "op": "consume_action", "unit": "selected_unit", "turns": 1 }, { "op": "reward", "item": "record_fragment", "count": 1, "value": "TBD(임밸런)" }, { "op": "set_flag", "key": "ch10_route", "value": "hold" } ],
+      "B": [ { "op": "hint", "text": "중앙 평지로 곧장 이동합니다." }, { "op": "set_flag", "key": "ch10_route", "value": "rush" } ],
+      "note": "tile_patch open_center_bridge 삭제(중앙은 이미 평지). 두 선택의 난이도 차이는 임밸런이 수치로 재정의"
+    } }
+   }
+  ]
+ }
+}

@@ -1,0 +1,2177 @@
+{
+ "_note": "[임밸런 / 초안] ch11 고려와 거란 스테이지 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 좌표 채움 완료(2026-11-03, maps_ch11_goryeo_khitan.json): cells/x/y/tiles/waypoints 채움, zone_ref 는 tiles/rect 로 치환(엔진 규칙), spawn 후보 칸 <=12. map_requirements 의 zone_ref 문구는 설명용. 시드 미적재.",
+ "version": 1,
+ "chapter": 11,
+ "shelf_code": "ch11",
+ "status": "map_filled",
+ "items": [
+  {
+   "code": "ch11_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "seo_hui",
+      "x": 10,
+      "y": 20,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         10,
+         12
+        ],
+        [
+         10,
+         6
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 3
+      }
+     }
+    ],
+    "enemy_commander": {
+     "name": "거란 순찰 기병대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          18,
+          10
+         ],
+         [
+          18,
+          9
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "road_open",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "not": {
+         "type": "flag",
+         "key": "road_open"
+        }
+       }
+      },
+      "do": "spawn",
+      "side": "b",
+      "tiles": [
+       [
+        2,
+        12
+       ],
+       [
+        3,
+        12
+       ],
+       [
+        2,
+        13
+       ]
+      ],
+      "tag": "ambush",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 3
+     },
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "type": "flag",
+        "key": "road_open"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        7,
+        17
+       ],
+       [
+        7,
+        16
+       ]
+      ],
+      "tag": "escort",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "seo_hui",
+      "type": "unit_survive",
+      "unit": "hero:seo_hui",
+      "label": "서희를 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "서희를 합류 구역까지 안내한다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:seo_hui",
+       "tiles": [
+        [
+         8,
+         5
+        ],
+        [
+         9,
+         5
+        ],
+        [
+         10,
+         5
+        ],
+        [
+         8,
+         6
+        ],
+        [
+         9,
+         6
+        ],
+        [
+         10,
+         6
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "seo_down",
+      "label": "서희가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:seo_hui"
+      }
+     }
+    ]
+   },
+   "name": "담판 길",
+   "year_label": "993년",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_ch11_s1_parley_road",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 14,
+   "enemy_level": 14,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 11,
+   "difficulty": 5,
+   "culture": "korea",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "seo_hui"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 순찰 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       20,
+       12
+      ],
+      [
+       20,
+       13
+      ],
+      [
+       20,
+       11
+      ],
+      [
+       19,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "거란 순찰 기병",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 척후 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       20,
+       5
+      ],
+      [
+       21,
+       5
+      ],
+      [
+       20,
+       4
+      ]
+     ],
+     "soldier_display_name_ko": "거란 척후 궁병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_sonnyeong",
+      "display_name_ko": "소손녕",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       3,
+       6
+      ],
+      [
+       3,
+       7
+      ],
+      [
+       3,
+       5
+      ],
+      [
+       2,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "거란 순찰 보병",
+     "hold_until_turn": 2
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 11,
+   "enemy_units_peak": 11,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      12
+     ],
+     "name": "거란 순찰 기병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      20,
+      5
+     ],
+     "name": "거란 척후 궁병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      21,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      20,
+      4
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      3,
+      6
+     ],
+     "ref": "npc_so_sonnyeong",
+     "kind": "npc",
+     "name": "소손녕"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      3,
+      7
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      3,
+      5
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      2,
+      6
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 970,
+    "exp": 1406,
+    "gold": 1261,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "seo_hui"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "72~85 (신호 달성 중앙 약 78, 미달성 약 62)",
+   "sort_order": 1101,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal": "청천강 이북 길 신호 타일 1~2칸",
+     "join_zone": "합류 구역 6칸",
+     "west_road": "서쪽 우회로(서희 route)",
+     "ambush_forest": "매복 기병 3 출현 후보칸(서쪽 길 옆 숲)",
+     "reinforce_escort": "호위 창 2 출현칸",
+     "seo_start": "서희 시작",
+     "enemy_deploy": "동쪽 길 2구역 + 숲 1"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal",
+     "join_zone"
+    ],
+    "path_cost": "seo_start -> join_zone(서쪽 우회) <= 24; protagonist_start -> signal <= 12"
+   },
+   "design_notes": [
+    "Lv14 offset -3(eff 11). 적 11기(순찰 기병 4·보병 4 advance / 척후 궁 3). 서희 NPC(seo_hui, 신규 행: mage 대신 sword 로 표현) route 턴2 출발 move_cap 3, 서쪽 돌아가는 길로 합류 구역까지 비용 <= 24. 신호(zone_ref 'signal', 대사 cue 와 동일 이름) 도달 -> flag road_open -> 턴4 호위 창 2기; 미도달이면 턴4 서쪽 길 숲에서 매복 기병 3기 출현 = 아웃라인 '신호 도달 시 매복 길 해제'의 역구현(hold_until_turn 이 정수라 해제 불가).",
+    "무행동 2턴 즉사 점검(거리·이동력 계산): 엔진은 ai 이름(hold_until_contact 등)을 읽지 않고 hold_until_turn 만 반영하므로, 아군 NPC 첫 피격 >= 적 행동 4번째, 배치 구역 첫 피격 >= 3번째가 되도록 분대 hold_until_turn 을 올림: A None->3, B None->2",
+    "무행동 3턴 점검(재시드 결과 보정): 엔진 실측이 계산보다 적 행동 1회 빠름 -> 아군 NPC 첫 피격 >= 5번째, 배치 구역 첫 피격 >= 4번째 기준으로 hold_until_turn 재조정: A 3->4, B 2->3, C None->2"
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch11_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_dae_dosu",
+      "x": 10,
+      "y": 13,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_yu_bang",
+      "x": 9,
+      "y": 12,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "소손녕",
+     "hero": "npc_so_sonnyeong"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          5,
+          9
+         ],
+         [
+          5,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "west_called",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "west_called"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        6,
+        12
+       ],
+       [
+        6,
+        11
+       ],
+       [
+        5,
+        12
+       ],
+       [
+        7,
+        12
+       ],
+       [
+        6,
+        13
+       ],
+       [
+        5,
+        11
+       ],
+       [
+        7,
+        11
+       ],
+       [
+        5,
+        13
+       ],
+       [
+        7,
+        13
+       ]
+      ],
+      "tag": "aid",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "west_called"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        6,
+        12
+       ],
+       [
+        6,
+        11
+       ],
+       [
+        5,
+        12
+       ],
+       [
+        7,
+        12
+       ],
+       [
+        6,
+        13
+       ],
+       [
+        5,
+        11
+       ],
+       [
+        7,
+        11
+       ],
+       [
+        5,
+        13
+       ],
+       [
+        7,
+        13
+       ]
+      ],
+      "tag": "aid",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "west_called"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        6,
+        12
+       ],
+       [
+        6,
+        11
+       ],
+       [
+        5,
+        12
+       ],
+       [
+        7,
+        12
+       ],
+       [
+        6,
+        13
+       ],
+       [
+        5,
+        11
+       ],
+       [
+        7,
+        11
+       ],
+       [
+        5,
+        13
+       ],
+       [
+        7,
+        13
+       ]
+      ],
+      "tag": "aid",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "wall_hold",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        5,
+        9
+       ],
+       [
+        6,
+        9
+       ],
+       [
+        7,
+        9
+       ],
+       [
+        8,
+        9
+       ],
+       [
+        9,
+        9
+       ],
+       [
+        10,
+        9
+       ],
+       [
+        11,
+        9
+       ],
+       [
+        12,
+        9
+       ],
+       [
+        13,
+        9
+       ],
+       [
+        14,
+        9
+       ],
+       [
+        17,
+        9
+       ],
+       [
+        18,
+        9
+       ],
+       [
+        19,
+        9
+       ],
+       [
+        20,
+        9
+       ],
+       [
+        21,
+        9
+       ],
+       [
+        22,
+        9
+       ],
+       [
+        23,
+        9
+       ],
+       [
+        24,
+        9
+       ],
+       [
+        25,
+        9
+       ],
+       [
+        26,
+        9
+       ]
+      ],
+      "turns": 8,
+      "label": "성벽 구역을 8턴 지킨다"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "열 번째 턴까지 성문을 지킨다",
+      "latch": false,
+      "when": {
+       "type": "turn_gte",
+       "value": 10
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "gate_lost",
+      "label": "성문 구역을 빼앗김",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "tiles": [
+        [
+         15,
+         9
+        ],
+        [
+         16,
+         9
+        ],
+        [
+         15,
+         10
+        ],
+        [
+         16,
+         10
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "안융진",
+   "year_label": "993년",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_ch11_s2_anyungjin",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 10
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 15,
+   "enemy_level": 15,
+   "enemy_level_offset": -7,
+   "effective_enemy_level": 8,
+   "difficulty": 6,
+   "culture": "korea",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_so_sonnyeong",
+     "npc_dae_dosu",
+     "npc_yu_bang"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_sonnyeong",
+      "display_name_ko": "소손녕",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 2
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       7,
+       3
+      ],
+      [
+       8,
+       3
+      ],
+      [
+       7,
+       2
+      ]
+     ],
+     "soldier_display_name_ko": "거란 공성 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 공성 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       15,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "거란 공성 궁병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 공성 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       23,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "거란 공성 창병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 공성 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       30,
+       12
+      ],
+      [
+       30,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "거란 공성 기병",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 공성 후속 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       15,
+       0
+      ],
+      [
+       16,
+       0
+      ]
+     ],
+     "soldier_display_name_ko": "거란 공성 후속 보병",
+     "hold_until_turn": 6
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 9,
+   "enemy_units_peak": 9,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      7,
+      3
+     ],
+     "ref": "npc_so_sonnyeong",
+     "kind": "npc",
+     "name": "소손녕"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      8,
+      3
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      7,
+      2
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      15,
+      3
+     ],
+     "name": "거란 공성 궁병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      23,
+      3
+     ],
+     "name": "거란 공성 창병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      30,
+      12
+     ],
+     "name": "거란 공성 기병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      15,
+      0
+     ],
+     "name": "거란 공성 후속 보병대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      0
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1060,
+    "exp": 1537,
+    "gold": 1378,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "wall_hold"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "65~80 (중앙 약 72)",
+   "sort_order": 1102,
+   "prerequisite": "ch11_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "gate_zone": "성문 구역 4칸(적이 서면 패배)",
+     "wall_zone": "성벽 위 구역 <= 20칸(hold_zone)",
+     "signal": "서쪽 모퉁이 신호 타일 1~2칸(성벽 서쪽 끝, 성 밖이 아니라 성벽 위 또는 바로 아래)",
+     "reinforce_west": "증원 출현 후보칸 6~12(서쪽 모퉁이 안쪽)",
+     "enemy_deploy": "성벽 북쪽 평지 3구역 + 동쪽 1 + 후속 1",
+     "castle": "성벽 castle/wall 구조"
+    },
+    "deploy_zone_count": 5,
+    "tile_tags": [
+     "signal",
+     "gate_zone"
+    ],
+    "path_cost": "protagonist_start -> signal <= 12(성벽 위 이동 포함)"
+   },
+   "design_notes": [
+    "Lv15 offset -2(eff 13). 적 17기(소손녕 분대 3 hp2.0 / 궁 3 / 창 4 / 기병 3 hold 4 / 후속 보병 3 hold 6). 방어 스테이지: 승리 = 턴10 도달(생존), 패배 = 적이 성문 구역(gate_zone)에 서는 순간. 서쪽 모퉁이 신호 도달 -> 증원 spawn(검 2·창 2·궁 2) = 대사 '증원을 청합니다'. 6기 증원은 스테이지 핵심(적 17기 대 아군 파티 + 6): 신호 미달성이면 하락 -> 두 봇 측정. gate_zone 은 적이 서면 즉시 패배라 사다리(성벽 접근)에 서는 적 처리가 급함; 상향/하향 노브는 소손녕 분대와 후속 보병 수.",
+    "hold_zone 서브(<=20칸, turns 8)는 별 조건. 승리 turn_gte 10 은 max_turns 12 안에서 판정.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_dae_dosu(ally_npcs), npc_yu_bang(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정1회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->-4, 일반 부대 병사/부대 5기 축소(초기 16->11), 증원 0기 감소, 대장 hp_mult 2->2. 시작값/needs tuning.",
+    "[2026-11-04 보정2회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -4->-7, 일반 부대 병사/부대 2기 축소(초기 11->9), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 2->2. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch11_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "gang_gamchan",
+      "x": 4,
+      "y": 13,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_yang_gyu",
+      "x": 3,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_kim_suk_heung",
+      "x": 4,
+      "y": 12,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "거란 기병 선두대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          13,
+          3
+         ],
+         [
+          13,
+          5
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "dam_cut",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "dam_cut"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        14,
+        10
+       ],
+       [
+        15,
+        10
+       ],
+       [
+        16,
+        10
+       ],
+       [
+        17,
+        10
+       ],
+       [
+        14,
+        11
+       ],
+       [
+        15,
+        11
+       ],
+       [
+        16,
+        11
+       ],
+       [
+        17,
+        11
+       ],
+       [
+        14,
+        12
+       ],
+       [
+        15,
+        12
+       ],
+       [
+        16,
+        12
+       ],
+       [
+        17,
+        12
+       ],
+       [
+        14,
+        13
+       ],
+       [
+        15,
+        13
+       ],
+       [
+        16,
+        13
+       ],
+       [
+        17,
+        13
+       ]
+      ],
+      "to": "shallows",
+      "fx": "water_rise",
+      "ms": 1000,
+      "dir": "right"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "dam_cut"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        14,
+        16
+       ],
+       [
+        15,
+        16
+       ],
+       [
+        16,
+        16
+       ],
+       [
+        17,
+        16
+       ],
+       [
+        14,
+        17
+       ],
+       [
+        15,
+        17
+       ],
+       [
+        16,
+        17
+       ],
+       [
+        17,
+        17
+       ]
+      ],
+      "to": "sea"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "gamchan",
+      "type": "unit_survive",
+      "unit": "hero:gang_gamchan",
+      "label": "강감찬을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "거란 기병 선두대장을 쓰러뜨린다",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     },
+     {
+      "label": "기병 선두 분대를 격퇴한다",
+      "latch": false,
+      "when": {
+       "type": "alive_count",
+       "side": "b",
+       "op": "lte",
+       "value": 4,
+       "kind": "any"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "gamchan_down",
+      "label": "강감찬이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:gang_gamchan"
+      }
+     }
+    ]
+   },
+   "name": "흥화진",
+   "year_label": "1018년",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_ch11_s3_heunghwajin",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -11,
+   "effective_enemy_level": 6,
+   "difficulty": 7,
+   "culture": "korea",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "gang_gamchan",
+     "npc_gang_min_cheom",
+     "npc_yang_gyu",
+     "npc_kim_suk_heung"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 기병 선두대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       22,
+       11
+      ],
+      [
+       21,
+       10
+      ],
+      [
+       22,
+       10
+      ],
+      [
+       20,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "거란 기병 선두"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_sonnyeong",
+      "display_name_ko": "소손녕",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       25,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "거란 도하 보병"
+    }
+   ],
+   "enemy_squads_count": 2,
+   "enemy_units_initial": 8,
+   "enemy_units_peak": 8,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      21,
+      11
+     ],
+     "name": "거란 기병 선두대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      22,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      22,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      20,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      12
+     ],
+     "ref": "npc_so_sonnyeong",
+     "kind": "npc",
+     "name": "소손녕"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      11
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1270,
+    "exp": 1842,
+    "gold": 1651,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "gamchan"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "62~75 (신호 달성 중앙 약 68, 미달성 약 52)",
+   "sort_order": 1103,
+   "prerequisite": "ch11_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal": "강 상류 물막이 신호 타일 1~2칸",
+     "ford_zone": "강 얕은 구간 평지 칸 12~20(terrain_change 대상, 적 기병이 건너는 곳)",
+     "cut_line": "깊은 물 변경 칸 6~10(퇴로 차단)",
+     "river": "강(sea/shallows)",
+     "stake": "중앙 말뚝(연출 타일)",
+     "gamchan_start": "강감찬 시작",
+     "enemy_deploy": "강 건너 3구역 + 보병/궁 1"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal",
+     "ford_zone"
+    ],
+    "path_cost": "protagonist_start -> signal <= 12"
+   },
+   "design_notes": [
+    "Lv17 offset -2(eff 15). 적 16기 기병 중심(선두 기병 5 hp1.5 / 2진 기병 4 hold 3 / 보병 4 / 궁 3). 신호 = 물막이를 끊는 행위: 신호 도달(zone_ref 'signal', sfx_water_rise 와 같은 cue) -> flag dam_cut -> ford_zone plain->shallows(기병 이동 비용↑, 방어 하락 가능) + cut_line -> sea(퇴로를 끊는 깊은 물, 점유 칸은 건너뜀). 신호가 효과의 유일한 조건 -> 미달성이면 기병 5+4가 평지에서 전열을 가로질러 승률 하락. 승리: 선두대장 격파 + 적 잔존 4 이하.",
+    "강감찬 NPC 는 신규 행(gang_gamchan, gang_gamchan 영웅 행과 동일 스탯). terrain_change 'sea' 허용 여부(to 값 목록) 확인 요청: 안 되면 'water' 로.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_yang_gyu(ally_npcs), npc_kim_suk_heung(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정1회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->-4, 일반 부대 병사/부대 5기 축소(초기 16->11), 증원 0기 감소, 대장 hp_mult 1.5->1.5. 시작값/needs tuning.",
+    "[2026-11-04 보정2회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -4->-7, 일반 부대 병사/부대 2기 축소(초기 11->9), 증원 0기 감소, advance 부대 0개 hold_until_turn 3, 대장 hp_mult 1.5->1.5. 시작값/needs tuning.",
+    "[2026-11-04 보정3회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -7->-11, 일반 부대 병사/부대 1기 축소(초기 9->8), 증원 0기 감소, advance 부대 0개 hold_until_turn 4, 대장 hp_mult 1->1. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch11_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "gang_gamchan",
+      "x": 21,
+      "y": 24,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_kim_jong_hyeon",
+      "x": 20,
+      "y": 23,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "소배압",
+     "hero": "npc_so_baeap"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          8,
+          9
+         ],
+         [
+          8,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "attack_signal",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "attack_signal"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        20,
+        1
+       ]
+      ],
+      "tag": "grand_attack",
+      "ready": true,
+      "hero": "npc_gang_min_cheom"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "attack_signal"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        20,
+        1
+       ],
+       [
+        20,
+        0
+       ],
+       [
+        19,
+        1
+       ],
+       [
+        21,
+        1
+       ],
+       [
+        20,
+        2
+       ],
+       [
+        19,
+        0
+       ],
+       [
+        21,
+        0
+       ],
+       [
+        18,
+        1
+       ],
+       [
+        22,
+        1
+       ],
+       [
+        19,
+        2
+       ]
+      ],
+      "tag": "grand_attack",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 3
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "attack_signal"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        20,
+        1
+       ],
+       [
+        20,
+        0
+       ],
+       [
+        19,
+        1
+       ],
+       [
+        21,
+        1
+       ],
+       [
+        20,
+        2
+       ],
+       [
+        19,
+        0
+       ],
+       [
+        21,
+        0
+       ],
+       [
+        18,
+        1
+       ],
+       [
+        22,
+        1
+       ],
+       [
+        19,
+        2
+       ]
+      ],
+      "tag": "grand_attack",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 3
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "attack_signal"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        20,
+        1
+       ],
+       [
+        20,
+        0
+       ],
+       [
+        19,
+        1
+       ],
+       [
+        21,
+        1
+       ],
+       [
+        20,
+        2
+       ],
+       [
+        19,
+        0
+       ],
+       [
+        21,
+        0
+       ],
+       [
+        18,
+        1
+       ],
+       [
+        22,
+        1
+       ],
+       [
+        19,
+        2
+       ]
+      ],
+      "tag": "grand_attack",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "gamchan",
+      "type": "unit_survive",
+      "unit": "hero:gang_gamchan",
+      "label": "강감찬을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "후위 지휘관 소배압을 쓰러뜨린다",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "gamchan_down",
+      "label": "강감찬이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:gang_gamchan"
+      }
+     }
+    ]
+   },
+   "name": "귀주",
+   "year_label": "1019년",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_ch11_s4_gwiju",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -10,
+   "effective_enemy_level": 9,
+   "difficulty": 9,
+   "culture": "korea",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "gang_gamchan",
+     "npc_gang_min_cheom",
+     "npc_kim_jong_hyeon"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_baeap",
+      "display_name_ko": "소배압",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 2
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       16,
+       14
+      ],
+      [
+       16,
+       13
+      ],
+      [
+       15,
+       14
+      ],
+      [
+       17,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "소배압 친위 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yelu_bage",
+      "display_name_ko": "야율팔가",
+      "evidence_level": "verify",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       24,
+       14
+      ],
+      [
+       24,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "거란 기병",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_jeokryeol",
+      "display_name_ko": "소적렬",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       23,
+       7
+      ],
+      [
+       24,
+       7
+      ],
+      [
+       23,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "거란 후위 보병",
+     "hold_until_turn": 5
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 9,
+   "enemy_units_peak": 9,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      16,
+      14
+     ],
+     "ref": "npc_so_baeap",
+     "kind": "npc",
+     "name": "소배압"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      14
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      24,
+      14
+     ],
+     "ref": "npc_yelu_bage",
+     "kind": "npc",
+     "name": "야율팔가"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      13
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      23,
+      7
+     ],
+     "ref": "npc_so_jeokryeol",
+     "kind": "npc",
+     "name": "소적렬"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      7
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      6
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1480,
+    "exp": 2146,
+    "gold": 1924,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "gamchan"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "55~70 (신호 달성 중앙 약 62)",
+   "sort_order": 1104,
+   "prerequisite": "ch11_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "signal": "북쪽 언덕 신호 타일 1~2칸(hill)",
+     "reinforce_h": "강민첨 출현 1칸",
+     "reinforce_main": "총공격 증원 후보칸 8~12(북쪽)",
+     "gamchan_start": "강감찬 시작(남쪽 본진)",
+     "enemy_deploy": "전열 2구역 + 궁 1 + 후위 2"
+    },
+    "deploy_zone_count": 9,
+    "tile_tags": [
+     "signal",
+     "hill"
+    ],
+    "path_cost": "protagonist_start -> signal <= 18"
+   },
+   "design_notes": [
+    "Lv19 offset -1(eff 18). 적 23기(소배압 분대 4 hp2.5 / 기병 4 / 창 4 / 궁 4 / 후위 보병 4 hold 5 / 후위 기병 3 hold 3). 증원 없음. 신호(북쪽 언덕, 대사 cue 'signal') -> 총공격 증원: 강민첨(NPC hero)+기병 3·창 3·궁 2 spawn. 바람 방향은 narrator 연출뿐(판정 없음). 미달성이면 아군 병력 부족으로 승률 하락 -> 두 봇 측정.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_kim_jong_hyeon(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정1회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -1->-4, 일반 부대 병사/부대 8기 축소(초기 23->15), 증원 0기 감소, 대장 hp_mult 2->2. 시작값/needs tuning.",
+    "[2026-11-04 보정2회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -4->-7, 일반 부대 병사/부대 4기 축소(초기 15->11), 증원 0기 감소, advance 부대 1개 hold_until_turn 3, 대장 hp_mult 2->2. 시작값/needs tuning.",
+    "[2026-11-04 보정3회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -7->-10, 일반 부대 병사/부대 2기 축소(초기 11->9), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 2->2. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  }
+ ],
+ "npc_needed": {
+  "existing_db": [],
+  "new_rows": [
+   "seo_hui",
+   "gang_gamchan",
+   "npc_gang_min_cheom",
+   "npc_so_baeap",
+   "npc_so_sonnyeong",
+   "npc_goryeo_seongjong(scene_only)"
+  ],
+  "proposal_file": "npc_roster_shelf_ch11_stats.json"
+ },
+ "engine_checks": [
+  "terrain_change to:'sea' 허용 여부",
+  "when: not flag + 적측 spawn(side b)",
+  "win_conditions 에 turn_gte 단독 조건(방어 승리) 지원 확인",
+  "spawn hero(npc_gang_min_cheom) + unit_type count"
+ ]
+}

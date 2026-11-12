@@ -1,0 +1,60 @@
+{
+ "region": "legnica_battle",
+ "desc": "레그니차 시즌 전장(보헤미아·실레지아·소폴스카·헝가리 평원·루스 서부)",
+ "geo": {
+  "lonMin": 12.0,
+  "lonMax": 33.0,
+  "latMin": 45.5,
+  "latMax": 53.5
+ },
+ "normalized": {
+  "x0": 0.5333333333333333,
+  "x1": 0.5916666666666667,
+  "y0": 0.20277777777777778,
+  "y1": 0.24722222222222223,
+  "w": 0.058333333333333334,
+  "h": 0.044444444444444446
+ },
+ "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+ "desktop": {
+  "path": "assets/map_world/regional/legnica_battle_2520.webp",
+  "size": "2520x960",
+  "ppd": 120,
+  "bytes": 201824,
+  "sharpnessVsWorld4096": 10.55
+ },
+ "mobile": {
+  "path": "assets/map_world/regional/legnica_battle_1260.webp",
+  "size": "1260x480",
+  "ppd": 60.0,
+  "bytes": 43470,
+  "sharpnessVsWorld2048": 10.55
+ },
+ "placement": "세계판 이미지 위 정규화 사각형 [x0*Ww, y0*Hw, w*Ww, h*Hw] 에 그대로 늘려 덮으면 해안이 일치(가로·세로 같은 배율)",
+ "landmask": {
+  "desktop": {
+   "path": "assets/map_world/regional/legnica_battle_landmask_2520.png",
+   "size": "2520x960",
+   "bytes": 18954,
+   "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+  },
+  "mobile": {
+   "path": "assets/map_world/regional/legnica_battle_landmask_1260.png",
+   "size": "1260x480",
+   "bytes": 6669,
+   "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+  }
+ },
+ "qa_metrics": {
+  "land_iou_vs_world4096_datamask": 0.9953,
+  "soft_centroid_offset_world4096_px": [
+   -0.189,
+   -0.141
+  ],
+  "land_area_ratio": 0.9963,
+  "soft_mask_mae": 0.0045,
+  "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+  "land_iou_vs_world4096_image_estimate": 0.9905,
+  "lowfreq_color_mae_0_255": 15.87
+ }
+}

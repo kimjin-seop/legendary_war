@@ -1,0 +1,7756 @@
+{
+ "_note": "[임밸런/밸런스 디자이너] ch26 카이사르와 루비콘(기원전 58~44) 10스테이지 배치(2026-11-08, 맵디자이너 확정 맵 maps_ch26_caesar.json 좌표 반영). 근거: docs/CAMPAIGN_CAESAR_RUBICON_20261108.md, docs/DEPLOY_SLOTS_20261108.md. 모든 수치는 시작값(needs tuning), 맵·신규 NPC 개발 DB 미적재라 game:simulate 미측정. optional 챕터. 형식은 stages_ch25_bachdang.json(EnemyV3Adapter::convert 입력). 대사는 ch26_caesar.json(송서사) battle_cues.<stage_code>(요청 목록=각 item.battle_cue_requests). 시드 미실행.",
+ "version": 2,
+ "chapter": 26,
+ "shelf_code": "ch26",
+ "status": "draft_map_filled",
+ "placeholder_fields": [],
+ "chapter_scene_keys": [
+  "ch26_open",
+  "ch26_end"
+ ],
+ "items": [
+  {
+   "code": "ch26_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르 군단",
+     "enemy": "수에비 연합"
+    },
+    "ally_npcs": [
+     {
+      "hero": "julius_caesar",
+      "x": 7,
+      "y": 15,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_labienus",
+      "x": 8,
+      "y": 9,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "아리오비스투스",
+     "hero": "npc_ariovistus"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_publius_crassus",
+      "tiles": [
+       [
+        2,
+        4
+       ],
+       [
+        3,
+        4
+       ],
+       [
+        2,
+        5
+       ],
+       [
+        3,
+        5
+       ],
+       [
+        2,
+        6
+       ],
+       [
+        3,
+        6
+       ]
+      ],
+      "tag": "crassus",
+      "ready": true
+     }
+    ],
+    "sub_objectives": [],
+    "lose_conditions": [],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 7,
+       "y": 13,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": [
+      {
+       "id": "s1",
+       "x": 7,
+       "y": 11
+      },
+      {
+       "id": "s2",
+       "x": 7,
+       "y": 10
+      }
+     ]
+    }
+   },
+   "name": "보게사이 평원",
+   "year_label": "기원전 58년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s1_bogesai",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -10,
+   "effective_enemy_level": 10,
+   "difficulty": 6,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "julius_caesar",
+     "npc_labienus",
+     "npc_publius_crassus"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 원칙 준용. named=아군 NPC. 크라수스는 turn 4 spawn"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {
+    "npc_labienus": "B",
+    "npc_publius_crassus": "C"
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ariovistus",
+      "display_name_ko": "아리오비스투스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       12
+      ],
+      [
+       32,
+       11
+      ],
+      [
+       32,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "수에비 전사"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수레 앞 창병장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 5,
+     "units_total": 6,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       9
+      ],
+      [
+       27,
+       11
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       26,
+       10
+      ],
+      [
+       26,
+       14
+      ],
+      [
+       28,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "수에비 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수레 안 투창병 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       9
+      ],
+      [
+       31,
+       14
+      ],
+      [
+       31,
+       6
+      ],
+      [
+       31,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "수에비 투창병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수에비 측면 기병장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       24,
+       4
+      ],
+      [
+       25,
+       5
+      ],
+      [
+       24,
+       19
+      ],
+      [
+       25,
+       18
+      ]
+     ],
+     "soldier_display_name_ko": "수에비 기병",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 17,
+   "enemy_units_peak": 17,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      33,
+      12
+     ],
+     "ref": "npc_ariovistus",
+     "kind": "npc",
+     "name": "아리오비스투스"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      32,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      32,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      27,
+      9
+     ],
+     "name": "수레 앞 창병장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      27,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      27,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      28,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      31,
+      9
+     ],
+     "name": "수레 안 투창병 대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      31,
+      14
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      31,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      31,
+      17
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      24,
+      4
+     ],
+     "name": "수에비 측면 기병장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      5
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      19
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      18
+     ]
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 3,
+    "troops": 12,
+    "npc": 2,
+    "total": 17
+   },
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1844,
+    "gold": 1654,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2601,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s1_e1_start",
+     "on": {
+      "battle_start": true
+     },
+     "do": "say",
+     "speaker": "hero:julius_caesar",
+     "purpose": "공포 대신 행동: 3열 전선을 세우라는 한 줄(승부수 성향 복선)"
+    },
+    {
+     "id": "ch26_s1_e2_crassus",
+     "on": {
+      "turn": 4
+     },
+     "do": "camera",
+     "speaker": null,
+     "purpose": "좌익 focus [7,6] 로 제3열 증원 spawn 연출",
+     "tile": [
+      7,
+      6
+     ],
+     "ms": 600
+    },
+    {
+     "id": "ch26_s1_e2_crassus_say",
+     "on": {
+      "turn": 4
+     },
+     "do": "say",
+     "speaker": "hero:npc_publius_crassus",
+     "purpose": "제3열 투입 한 줄"
+    },
+    {
+     "id": "ch26_s1_e3_ario_low",
+     "on": {
+      "turn": 2,
+      "when": {
+       "type": "hp_pct_lte",
+       "unit": "enemy_commander",
+       "pct": 40
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_ariovistus",
+     "purpose": "아리오비스투스가 밀리며 수레 쪽을 돌아봄(지휘관 퇴각 불가라 대사만)"
+    }
+   ],
+   "scene_keys": [
+    "ch26_s1_pre",
+    "ch26_s1_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s1_bogesai",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     36,
+     24
+    ],
+    "deploy_zone_a_bbox": [
+     4,
+     4,
+     10,
+     19
+    ],
+    "zone_refs_used": [
+     "reinforce_crassus",
+     "wagon_laager(통행불가 k)",
+     "laager_gaps"
+    ],
+    "tile_tags": [
+     "laager_gaps",
+     "left_wing",
+     "reinforce_crassus",
+     "wagon_laager"
+    ]
+   },
+   "design_notes": [
+    "맵 36x24. 수레 방벽(x=30, 문 4칸 laager_gaps) 안쪽에 아리오비스투스(지휘관)와 투창병, 문 앞 창병 6, 측면 기병 4(hold 3).",
+    "지휘관 격파형: 사료상 아리오비스투스는 도주하나 엔진상 지휘관 퇴각 불가 -> 격파로 처리. hp 40% 이하 대사만 요청.",
+    "적 17 = 맵 앵커 17 = 아군 최대 17(영웅3+부대12+NPC2, 동반 0). 오프셋 -6(앵커 ch24_s4 defeat 16기 -5 → 58.3% 보다 카이사르(S) NPC 보정 -1).",
+    "크라수스(턴 4 spawn)는 필수 편입 시 spawn cue 제거 + deploy_slots fixed 로 이동 필요."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "julius_caesar": 0,
+     "npc_labienus": 0
+    },
+    "_reason": "아군 NPC 수만큼 적 병력 보장: 적 17 >= 아군 최대 17"
+   }
+  },
+  {
+   "code": "ch26_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르 군단",
+     "enemy": "수감브리 부족"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_roman_engineer_squad",
+      "x": 17,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_roman_engineer_foreman",
+      "x": 17,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_labienus",
+      "x": 20,
+      "y": 7,
+      "must_survive": false
+     },
+     {
+      "hero": "julius_caesar",
+      "x": 19,
+      "y": 7,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "수감브리 정찰 기수",
+     "hero": "npc_sugambri_scout_captain"
+    },
+    "max_turns": 9,
+    "commander_guard": null,
+    "cues": [],
+    "sub_objectives": [
+     {
+      "id": "gate",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        18,
+        9
+       ],
+       [
+        19,
+        9
+       ],
+       [
+        20,
+        9
+       ],
+       [
+        21,
+        9
+       ],
+       [
+        18,
+        10
+       ],
+       [
+        19,
+        10
+       ],
+       [
+        20,
+        10
+       ],
+       [
+        21,
+        10
+       ],
+       [
+        18,
+        11
+       ],
+       [
+        19,
+        11
+       ],
+       [
+        20,
+        11
+       ],
+       [
+        21,
+        11
+       ],
+       [
+        18,
+        12
+       ],
+       [
+        19,
+        12
+       ],
+       [
+        20,
+        12
+       ],
+       [
+        21,
+        12
+       ],
+       [
+        18,
+        13
+       ],
+       [
+        19,
+        13
+       ],
+       [
+        20,
+        13
+       ],
+       [
+        21,
+        13
+       ]
+      ],
+      "zone_ref": "bridgehead",
+      "label": "다리 입구를 지켜라",
+      "turns": 7
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "일곱 라운드를 버틴다",
+      "latch": true,
+      "when": {
+       "type": "turn_gte",
+       "value": 8
+      }
+     },
+     {
+      "label": "공병이 한 명 이상 살아 있다",
+      "latch": false,
+      "when": {
+       "not": {
+        "all": [
+         {
+          "type": "defeated",
+          "unit": "ally_npc:npc_roman_engineer_squad"
+         },
+         {
+          "type": "defeated",
+          "unit": "ally_npc:npc_roman_engineer_foreman"
+         }
+        ]
+       }
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "engineers_lost",
+      "label": "공병 둘 다 격파됨",
+      "when": {
+       "any": [
+        {
+         "all": [
+          {
+           "type": "defeated",
+           "unit": "ally_npc:npc_roman_engineer_squad"
+          },
+          {
+           "type": "defeated",
+           "unit": "ally_npc:npc_roman_engineer_foreman"
+          }
+         ]
+        }
+       ]
+      }
+     },
+     {
+      "id": "bridge_breached",
+      "label": "적이 다리 위로 넘어옴(입구 3턴 연속 점유의 근사)",
+      "when": {
+       "any": [
+        {
+         "type": "in_zone",
+         "side": "b",
+         "tiles": [
+          [
+           12,
+           11
+          ],
+          [
+           13,
+           11
+          ],
+          [
+           14,
+           11
+          ],
+          [
+           15,
+           11
+          ],
+          [
+           16,
+           11
+          ],
+          [
+           17,
+           11
+          ],
+          [
+           12,
+           12
+          ],
+          [
+           13,
+           12
+          ],
+          [
+           14,
+           12
+          ],
+          [
+           15,
+           12
+          ],
+          [
+           16,
+           12
+          ],
+          [
+           17,
+           12
+          ]
+         ],
+         "zone_ref": "bridge"
+        }
+       ]
+      }
+     }
+    ],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 20,
+       "y": 12,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": [
+      {
+       "id": "s1",
+       "x": 20,
+       "y": 10
+      }
+     ]
+    }
+   },
+   "name": "라인 다리",
+   "year_label": "기원전 55년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s2_rhine_bridge",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 7
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -12,
+   "effective_enemy_level": 8,
+   "difficulty": 6,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_labienus",
+     "npc_roman_engineer_squad",
+     "npc_roman_engineer_foreman",
+     "julius_caesar"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "라비에누스 NPC. 공병 2명 NPC(필수 목표: 라비에누스, 설계서 s2)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {
+    "npc_labienus": "B"
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_sugambri_scout_captain",
+      "display_name_ko": "수감브리 정찰 기수",
+      "evidence_level": "invented",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       12
+      ],
+      [
+       27,
+       11
+      ],
+      [
+       27,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "수감브리 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수감브리 창병장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       8
+      ],
+      [
+       26,
+       15
+      ],
+      [
+       25,
+       10
+      ],
+      [
+       25,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "수감브리 창병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수감브리 전사장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       5
+      ],
+      [
+       29,
+       18
+      ],
+      [
+       28,
+       7
+      ],
+      [
+       28,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "수감브리 전사",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수감브리 투창 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       12
+      ],
+      [
+       25,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "수감브리 투창병"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 13,
+   "enemy_units_peak": 19,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 4
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "북쪽 갈대 기병장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 2,
+      "units_total": 3,
+      "ai": "advance",
+      "soldier_display_name_ko": "갈대밭 매복 기병",
+      "spawn_cell": [
+       24,
+       4
+      ]
+     }
+    },
+    {
+     "id": "t_R2",
+     "on": {
+      "turn": 4
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R2",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "남쪽 갈대 기병장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 2,
+      "units_total": 3,
+      "ai": "advance",
+      "soldier_display_name_ko": "갈대밭 매복 기병",
+      "spawn_cell": [
+       24,
+       19
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      12
+     ],
+     "ref": "npc_sugambri_scout_captain",
+     "kind": "npc",
+     "name": "수감브리 정찰 기수"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      26,
+      8
+     ],
+     "name": "수감브리 창병장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      15
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      5
+     ],
+     "name": "수감브리 전사장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      18
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      7
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      17
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      12
+     ],
+     "name": "수감브리 투창 대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      12
+     ]
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 2,
+    "troops": 8,
+    "npc": 4,
+    "total": 14
+   },
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1844,
+    "gold": 1654,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "gate"
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2602,
+   "prerequisite": "ch26_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s2_e1_warn",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:npc_labienus",
+     "purpose": "강 건너 갈대밭 기병 예고(턴 4 spawn 전 경보)"
+    },
+    {
+     "id": "ch26_s2_e2_cavalry",
+     "on": {
+      "turn": 4
+     },
+     "do": "camera",
+     "speaker": null,
+     "purpose": "갈대밭 북 [24,4] focus",
+     "tile": [
+      24,
+      4
+     ],
+     "ms": 600
+    }
+   ],
+   "scene_keys": [
+    "ch26_s2_pre",
+    "ch26_s2_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s2_rhine_bridge",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     32,
+     24
+    ],
+    "deploy_zone_a_bbox": [
+     18,
+     8,
+     22,
+     15
+    ],
+    "zone_refs_used": [
+     "bridgehead(앞 20칸 y9~13: hold_zone 20칸 상한)",
+     "bridge(12칸: 적 점유 시 패배)",
+     "reeds_spawn_north [24,4]",
+     "reeds_spawn_south [24,19]"
+    ],
+    "tile_tags": [
+     "bridge",
+     "bridgehead",
+     "reeds_spawn_north",
+     "reeds_spawn_south"
+    ]
+   },
+   "design_notes": [
+    "맵 32x24. 다리(x12~17,y11~12)는 공병 2명 작업장, 입구(bridgehead) 아군 / 동쪽 적. 공병 2기(roster 코드 npc_roman_engineer_squad/foreman; 맵 npc_tiles 의 _1~_3 중 [17,11],[17,12] 사용, [16,11]은 미사용).",
+    "카이사르는 맵에 NPC 칸이 없어 s2 필드에서 제외(설계서 '조언 컷만'은 전·후 대사로). 라비에누스는 배치 영역 밖 평지 [20,7]에 배치(맵디자이너 권고·팀장 승인).",
+    "[밸런스 메모] s2/s3 는 win_mode only(survive 라운드 경과 조건)로 전환: 엔진은 win_mode all 에서 적 지휘관 격파를 즉시 승리로 확정하므로(StageRules::gate) 생존 스테이지에선 only 가 필요. 이전 s2 오프셋 +5 는 이 때문에 올라간 임시값이었음. 전환 후 시뮬 봇은 다리 입구를 지키지 않고 전진해 지휘관을 잃는 편향이라 오프셋 -14(적 Lv6 상당)에서야 +0 56%(현재 임시 -7 = 시뮬 +0 18.8%): 사람 플레이(입구 고수)보다 훨씬 어렵게 측정되므로 실플레이(하플레이)에서 오프셋·적 수 재조정 필요, 시뮬 봇에 방어 행동 추가 요청. [임시값 -7: 방어형 봇/하플레이 후 재조정] 적 수 증감·입구 지형(엄폐)으로 지휘관 조기 격파를 줄이는 방안 필요. 하플레이 실플레이 확인 대상(미확정).",
+    "hold_zone tiles 상한 20 때문에 bridgehead 24칸 중 y9~13(20칸)만 사용.",
+    "'입구 3턴 연속 점유' 연속 카운터가 없어 '적이 다리 위(bridge)에 서면 패배'로 근사(더 엄격). 박백엔 요청 목록 참조.",
+    "적 13 = 맵 앵커 11 + 궁수 2(아군 최대 13: 영웅2+부대8+공병2+라비에누스1). 증원 2부대(각 3기) 포함 피크 19.",
+    "[임밸런 2026-11-09] enemy_level_offset -7->-12(realistic +0 54.2%, 48판).",
+    "[박백엔 2026-11-09 화자 참전 1차] 카이사르 아군 NPC (19,7) 추가(라비에누스 20,7 서쪽 인접). 문서 잠정치 (19,8)은 cliff 통행불가라 (19,7) plain 으로 보정. must_survive false."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "npc_roman_engineer_squad": 0,
+     "npc_roman_engineer_foreman": 0,
+     "npc_labienus": 0
+    },
+    "_reason": "적 13 >= 아군 최대 13"
+   }
+  },
+  {
+   "code": "ch26_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르 군단",
+     "enemy": "갈리아 연합"
+    },
+    "ally_npcs": [
+     {
+      "hero": "julius_caesar",
+      "x": 20,
+      "y": 23,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_labienus",
+      "x": 20,
+      "y": 5,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "베르킨게토릭스",
+     "hero": "vercingetorix"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "열 라운드를 버틴다",
+      "latch": true,
+      "when": {
+       "type": "turn_gte",
+       "value": 11
+      }
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "walls",
+      "type": "protect_tiles",
+      "tiles": [
+       [
+        19,
+        3
+       ],
+       [
+        20,
+        3
+       ],
+       [
+        21,
+        3
+       ],
+       [
+        4,
+        13
+       ],
+       [
+        4,
+        14
+       ],
+       [
+        4,
+        15
+       ],
+       [
+        29,
+        13
+       ],
+       [
+        29,
+        14
+       ],
+       [
+        29,
+        15
+       ]
+      ],
+      "zone_ref": "walls_all",
+      "max_breach": 2,
+      "label": "이중 방벽을 지켜라"
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "walls_broken",
+      "label": "방벽 3구역 모두 돌파됨",
+      "when": {
+       "all": [
+        {
+         "type": "in_zone",
+         "side": "b",
+         "tiles": [
+          [
+           19,
+           3
+          ],
+          [
+           20,
+           3
+          ],
+          [
+           21,
+           3
+          ]
+         ],
+         "zone_ref": "wall_north"
+        },
+        {
+         "type": "in_zone",
+         "side": "b",
+         "tiles": [
+          [
+           4,
+           13
+          ],
+          [
+           4,
+           14
+          ],
+          [
+           4,
+           15
+          ]
+         ],
+         "zone_ref": "wall_west"
+        },
+        {
+         "type": "in_zone",
+         "side": "b",
+         "tiles": [
+          [
+           29,
+           13
+          ],
+          [
+           29,
+           14
+          ],
+          [
+           29,
+           15
+          ]
+         ],
+         "zone_ref": "wall_inner_east"
+        }
+       ]
+      }
+     }
+    ],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 19,
+       "y": 24,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": [
+      {
+       "id": "s1",
+       "x": 21,
+       "y": 24
+      },
+      {
+       "id": "s2",
+       "x": 22,
+       "y": 23
+      }
+     ]
+    }
+   },
+   "name": "알레시아",
+   "year_label": "기원전 52년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s3_alesia",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    30
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 10
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": 0,
+   "effective_enemy_level": 21,
+   "difficulty": 8,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "julius_caesar",
+     "npc_labienus"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "필수 목표: 라비에누스(설계서 s3). 베르킨게토릭스 적 지휘관"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {
+    "npc_labienus": "B"
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "vercingetorix",
+      "display_name_ko": "베르킨게토릭스",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1.1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       20,
+       14
+      ],
+      [
+       19,
+       14
+      ],
+      [
+       21,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "갈리아 창병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "성안 창병장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       15
+      ],
+      [
+       22,
+       15
+      ],
+      [
+       17,
+       13
+      ],
+      [
+       23,
+       13
+      ],
+      [
+       20,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "갈리아 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이중 방벽 사이 궁수장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       14
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       16
+      ],
+      [
+       24,
+       19
+      ],
+      [
+       16,
+       19
+      ]
+     ],
+     "soldier_display_name_ko": "갈리아 궁수",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "갈리아 외곽 기병장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       1,
+       13
+      ],
+      [
+       1,
+       15
+      ],
+      [
+       19,
+       1
+      ],
+      [
+       21,
+       1
+      ]
+     ],
+     "soldier_display_name_ko": "갈리아 기병",
+     "hold_until_turn": 4
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 17,
+   "enemy_units_peak": 22,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 5
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "npc",
+       "ref": "npc_vercassivellaunus",
+       "display_name_ko": "베르카시벨라우노스",
+       "evidence_level": "accepted",
+       "troop_type": "spear",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "spear",
+      "soldiers": 4,
+      "units_total": 5,
+      "ai": "advance",
+      "soldier_display_name_ko": "구원군 창병",
+      "spawn_cell": [
+       20,
+       0
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      20,
+      14
+     ],
+     "ref": "vercingetorix",
+     "kind": "npc",
+     "name": "베르킨게토릭스"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      19,
+      14
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      18,
+      15
+     ],
+     "name": "성안 창병장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      15
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      17,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      20,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      14
+     ],
+     "name": "이중 방벽 사이 궁수장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      24,
+      19
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      16,
+      19
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      1,
+      13
+     ],
+     "name": "갈리아 외곽 기병장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      1,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      1
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      1
+     ]
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 3,
+    "troops": 12,
+    "npc": 2,
+    "total": 17
+   },
+   "reward_proposal": {
+    "user_exp": 1360,
+    "exp": 1972,
+    "gold": 1768,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "walls"
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2603,
+   "prerequisite": "ch26_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s3_e1_relief",
+     "on": {
+      "turn": 5
+     },
+     "do": "camera",
+     "speaker": null,
+     "purpose": "구원군 spawn [20,0] focus",
+     "tile": [
+      20,
+      0
+     ],
+     "ms": 700
+    },
+    {
+     "id": "ch26_s3_e1_relief_say",
+     "on": {
+      "turn": 5
+     },
+     "do": "say",
+     "speaker": "hero:npc_vercassivellaunus",
+     "purpose": "바깥에서 구원군 도착 한 줄"
+    },
+    {
+     "id": "ch26_s3_e2_caesar_front",
+     "on": {
+      "turn": 2,
+      "when": {
+       "type": "hp_pct_lte",
+       "unit": "hero:julius_caesar",
+       "pct": 60
+      }
+     },
+     "do": "say",
+     "speaker": "hero:julius_caesar",
+     "purpose": "붉은 외투로 직접 전열에 나선다는 한 줄(대사로만)"
+    },
+    {
+     "id": "ch26_s3_e3_vercingetorix_low",
+     "on": {
+      "turn": 6,
+      "when": {
+       "type": "hp_pct_lte",
+       "unit": "enemy_commander",
+       "pct": 40
+      }
+     },
+     "do": "say",
+     "speaker": "hero:vercingetorix",
+     "purpose": "항복 암시 한 줄(항복 장면은 post)"
+    }
+   ],
+   "scene_keys": [
+    "ch26_s3_pre",
+    "ch26_s3_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s3_alesia",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     40,
+     30
+    ],
+    "deploy_zone_a_bbox": [
+     6,
+     22,
+     33,
+     25
+    ],
+    "zone_refs_used": [
+     "wall_north[19-21,3]",
+     "wall_west[4,13-15]",
+     "wall_inner_east[29,13-15] (맵 설계 제약: 3구역 9칸 합)",
+     "relief_spawn_north [20,0]",
+     "caesar_camp / labienus_camp"
+    ],
+    "tile_tags": [
+     "caesar_camp",
+     "labienus_camp",
+     "oppidum_gates",
+     "relief_spawn_north",
+     "relief_spawn_nw",
+     "relief_spawn_west",
+     "wall_inner_east",
+     "wall_north",
+     "wall_west"
+    ]
+   },
+   "design_notes": [
+    "맵 40x30(최대). 방벽 3구역 = protect_tiles 9칸 합(맵 제약), max_breach 2, 패배는 3구역 모두에 적이 서 있을 때(근사). 구원군은 turn 5 relief_spawn_north 에서 spawn.",
+    "초기 적 17 = 맵 앵커 17 = 아군 최대 17(영웅3+부대12+NPC2, 동반 0). 외곽 기병 D(4)는 맵의 가장자리(1,13),(1,15),(19,1),(21,1)에 있고 turn 4 까지 대기.",
+    "survive_turns 10, max_turns 12. vercingetorix 는 hero_expansion_stats.json 에 존재(B), DB 적재 확인 필요."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "julius_caesar": 0,
+     "npc_labienus": 0
+    },
+    "_reason": "적 초기 17 >= 아군 최대 17, 피크 22"
+   }
+  },
+  {
+   "code": "ch26_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르파 호민관",
+     "enemy": "공화파 경비대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_mark_antony",
+      "x": 16,
+      "y": 21,
+      "must_survive": false,
+      "route": {
+       "waypoints": [
+        [
+         16,
+         10
+        ],
+        [
+         16,
+         4
+        ],
+        [
+         15,
+         1
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 3
+      }
+     },
+     {
+      "hero": "npc_curio",
+      "x": 14,
+      "y": 21,
+      "must_survive": false,
+      "route": {
+       "waypoints": [
+        [
+         15,
+         10
+        ],
+        [
+         17,
+         4
+        ],
+        [
+         14,
+         1
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 3
+      }
+     },
+     {
+      "hero": "npc_quintus_cassius",
+      "x": 17,
+      "y": 21,
+      "must_survive": false,
+      "route": {
+       "waypoints": [
+        [
+         16,
+         10
+        ],
+        [
+         16,
+         4
+        ],
+        [
+         17,
+         1
+        ]
+       ],
+       "from_turn": 3,
+       "move_cap": 3
+      }
+     }
+    ],
+    "enemy_commander": {
+     "name": "공화파 경비대장",
+     "hero": "npc_republican_guard_captain"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [],
+    "sub_objectives": [
+     {
+      "id": "antony",
+      "type": "unit_survive",
+      "unit": "hero:npc_mark_antony",
+      "label": "안토니우스를 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "주인공이 북쪽 가도 밖에 선다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         13,
+         0
+        ],
+        [
+         14,
+         0
+        ],
+        [
+         15,
+         0
+        ],
+        [
+         16,
+         0
+        ],
+        [
+         17,
+         0
+        ],
+        [
+         18,
+         0
+        ],
+        [
+         19,
+         0
+        ],
+        [
+         20,
+         0
+        ],
+        [
+         13,
+         1
+        ],
+        [
+         14,
+         1
+        ],
+        [
+         15,
+         1
+        ],
+        [
+         16,
+         1
+        ],
+        [
+         17,
+         1
+        ],
+        [
+         18,
+         1
+        ],
+        [
+         19,
+         1
+        ],
+        [
+         20,
+         1
+        ],
+        [
+         13,
+         2
+        ],
+        [
+         14,
+         2
+        ],
+        [
+         15,
+         2
+        ],
+        [
+         16,
+         2
+        ],
+        [
+         17,
+         2
+        ],
+        [
+         18,
+         2
+        ],
+        [
+         19,
+         2
+        ],
+        [
+         20,
+         2
+        ]
+       ],
+       "zone_ref": "via_flaminia_exit"
+      }
+     },
+     {
+      "label": "호민관 두 명 이상이 같은 곳에 닿는다",
+      "latch": true,
+      "when": {
+       "any": [
+        {
+         "all": [
+          {
+           "type": "in_zone",
+           "unit": "hero:npc_mark_antony",
+           "tiles": [
+            [
+             13,
+             0
+            ],
+            [
+             14,
+             0
+            ],
+            [
+             15,
+             0
+            ],
+            [
+             16,
+             0
+            ],
+            [
+             17,
+             0
+            ],
+            [
+             18,
+             0
+            ],
+            [
+             19,
+             0
+            ],
+            [
+             20,
+             0
+            ],
+            [
+             13,
+             1
+            ],
+            [
+             14,
+             1
+            ],
+            [
+             15,
+             1
+            ],
+            [
+             16,
+             1
+            ],
+            [
+             17,
+             1
+            ],
+            [
+             18,
+             1
+            ],
+            [
+             19,
+             1
+            ],
+            [
+             20,
+             1
+            ],
+            [
+             13,
+             2
+            ],
+            [
+             14,
+             2
+            ],
+            [
+             15,
+             2
+            ],
+            [
+             16,
+             2
+            ],
+            [
+             17,
+             2
+            ],
+            [
+             18,
+             2
+            ],
+            [
+             19,
+             2
+            ],
+            [
+             20,
+             2
+            ]
+           ],
+           "zone_ref": "via_flaminia_exit"
+          },
+          {
+           "type": "in_zone",
+           "unit": "hero:npc_curio",
+           "tiles": [
+            [
+             13,
+             0
+            ],
+            [
+             14,
+             0
+            ],
+            [
+             15,
+             0
+            ],
+            [
+             16,
+             0
+            ],
+            [
+             17,
+             0
+            ],
+            [
+             18,
+             0
+            ],
+            [
+             19,
+             0
+            ],
+            [
+             20,
+             0
+            ],
+            [
+             13,
+             1
+            ],
+            [
+             14,
+             1
+            ],
+            [
+             15,
+             1
+            ],
+            [
+             16,
+             1
+            ],
+            [
+             17,
+             1
+            ],
+            [
+             18,
+             1
+            ],
+            [
+             19,
+             1
+            ],
+            [
+             20,
+             1
+            ],
+            [
+             13,
+             2
+            ],
+            [
+             14,
+             2
+            ],
+            [
+             15,
+             2
+            ],
+            [
+             16,
+             2
+            ],
+            [
+             17,
+             2
+            ],
+            [
+             18,
+             2
+            ],
+            [
+             19,
+             2
+            ],
+            [
+             20,
+             2
+            ]
+           ],
+           "zone_ref": "via_flaminia_exit"
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "type": "in_zone",
+           "unit": "hero:npc_mark_antony",
+           "tiles": [
+            [
+             13,
+             0
+            ],
+            [
+             14,
+             0
+            ],
+            [
+             15,
+             0
+            ],
+            [
+             16,
+             0
+            ],
+            [
+             17,
+             0
+            ],
+            [
+             18,
+             0
+            ],
+            [
+             19,
+             0
+            ],
+            [
+             20,
+             0
+            ],
+            [
+             13,
+             1
+            ],
+            [
+             14,
+             1
+            ],
+            [
+             15,
+             1
+            ],
+            [
+             16,
+             1
+            ],
+            [
+             17,
+             1
+            ],
+            [
+             18,
+             1
+            ],
+            [
+             19,
+             1
+            ],
+            [
+             20,
+             1
+            ],
+            [
+             13,
+             2
+            ],
+            [
+             14,
+             2
+            ],
+            [
+             15,
+             2
+            ],
+            [
+             16,
+             2
+            ],
+            [
+             17,
+             2
+            ],
+            [
+             18,
+             2
+            ],
+            [
+             19,
+             2
+            ],
+            [
+             20,
+             2
+            ]
+           ],
+           "zone_ref": "via_flaminia_exit"
+          },
+          {
+           "type": "in_zone",
+           "unit": "hero:npc_quintus_cassius",
+           "tiles": [
+            [
+             13,
+             0
+            ],
+            [
+             14,
+             0
+            ],
+            [
+             15,
+             0
+            ],
+            [
+             16,
+             0
+            ],
+            [
+             17,
+             0
+            ],
+            [
+             18,
+             0
+            ],
+            [
+             19,
+             0
+            ],
+            [
+             20,
+             0
+            ],
+            [
+             13,
+             1
+            ],
+            [
+             14,
+             1
+            ],
+            [
+             15,
+             1
+            ],
+            [
+             16,
+             1
+            ],
+            [
+             17,
+             1
+            ],
+            [
+             18,
+             1
+            ],
+            [
+             19,
+             1
+            ],
+            [
+             20,
+             1
+            ],
+            [
+             13,
+             2
+            ],
+            [
+             14,
+             2
+            ],
+            [
+             15,
+             2
+            ],
+            [
+             16,
+             2
+            ],
+            [
+             17,
+             2
+            ],
+            [
+             18,
+             2
+            ],
+            [
+             19,
+             2
+            ],
+            [
+             20,
+             2
+            ]
+           ],
+           "zone_ref": "via_flaminia_exit"
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "type": "in_zone",
+           "unit": "hero:npc_curio",
+           "tiles": [
+            [
+             13,
+             0
+            ],
+            [
+             14,
+             0
+            ],
+            [
+             15,
+             0
+            ],
+            [
+             16,
+             0
+            ],
+            [
+             17,
+             0
+            ],
+            [
+             18,
+             0
+            ],
+            [
+             19,
+             0
+            ],
+            [
+             20,
+             0
+            ],
+            [
+             13,
+             1
+            ],
+            [
+             14,
+             1
+            ],
+            [
+             15,
+             1
+            ],
+            [
+             16,
+             1
+            ],
+            [
+             17,
+             1
+            ],
+            [
+             18,
+             1
+            ],
+            [
+             19,
+             1
+            ],
+            [
+             20,
+             1
+            ],
+            [
+             13,
+             2
+            ],
+            [
+             14,
+             2
+            ],
+            [
+             15,
+             2
+            ],
+            [
+             16,
+             2
+            ],
+            [
+             17,
+             2
+            ],
+            [
+             18,
+             2
+            ],
+            [
+             19,
+             2
+            ],
+            [
+             20,
+             2
+            ]
+           ],
+           "zone_ref": "via_flaminia_exit"
+          },
+          {
+           "type": "in_zone",
+           "unit": "hero:npc_quintus_cassius",
+           "tiles": [
+            [
+             13,
+             0
+            ],
+            [
+             14,
+             0
+            ],
+            [
+             15,
+             0
+            ],
+            [
+             16,
+             0
+            ],
+            [
+             17,
+             0
+            ],
+            [
+             18,
+             0
+            ],
+            [
+             19,
+             0
+            ],
+            [
+             20,
+             0
+            ],
+            [
+             13,
+             1
+            ],
+            [
+             14,
+             1
+            ],
+            [
+             15,
+             1
+            ],
+            [
+             16,
+             1
+            ],
+            [
+             17,
+             1
+            ],
+            [
+             18,
+             1
+            ],
+            [
+             19,
+             1
+            ],
+            [
+             20,
+             1
+            ],
+            [
+             13,
+             2
+            ],
+            [
+             14,
+             2
+            ],
+            [
+             15,
+             2
+            ],
+            [
+             16,
+             2
+            ],
+            [
+             17,
+             2
+            ],
+            [
+             18,
+             2
+            ],
+            [
+             19,
+             2
+            ],
+            [
+             20,
+             2
+            ]
+           ],
+           "zone_ref": "via_flaminia_exit"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "tribunes_lost",
+      "label": "호민관 두 명 이상 격파됨",
+      "when": {
+       "any": [
+        {
+         "all": [
+          {
+           "type": "defeated",
+           "unit": "ally_npc:npc_mark_antony"
+          },
+          {
+           "type": "defeated",
+           "unit": "ally_npc:npc_curio"
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "type": "defeated",
+           "unit": "ally_npc:npc_mark_antony"
+          },
+          {
+           "type": "defeated",
+           "unit": "ally_npc:npc_quintus_cassius"
+          }
+         ]
+        },
+        {
+         "all": [
+          {
+           "type": "defeated",
+           "unit": "ally_npc:npc_curio"
+          },
+          {
+           "type": "defeated",
+           "unit": "ally_npc:npc_quintus_cassius"
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 15,
+       "y": 20,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": [
+      {
+       "id": "s1",
+       "x": 15,
+       "y": 19
+      }
+     ]
+    }
+   },
+   "name": "로마 탈출",
+   "year_label": "기원전 49년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s4_rome_escape",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -20,
+   "effective_enemy_level": 1,
+   "difficulty": 8,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_mark_antony",
+     "npc_curio",
+     "npc_quintus_cassius"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "호민관 3인 NPC. 필수 목표: 쿠리오(설계서 s4)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {
+    "npc_curio": "C"
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_republican_guard_captain",
+      "display_name_ko": "공화파 경비대장",
+      "evidence_level": "invented",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       6
+      ],
+      [
+       16,
+       6
+      ],
+      [
+       18,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "공화파 경비병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "아르길레툼 경비대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       11
+      ],
+      [
+       16,
+       12
+      ],
+      [
+       18,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "도시 경비병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서문 궁수장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       5,
+       6
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       8,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "도시 궁수",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "동문 순찰대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       6
+      ],
+      [
+       27,
+       9
+      ],
+      [
+       23,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "도시 순찰병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "광장 보조 경비병",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "도시 경비병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 13,
+   "enemy_units_peak": 17,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 3
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "동쪽 추가 순찰대장",
+       "evidence_level": "generic",
+       "troop_type": "sword",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "sword",
+      "soldiers": 1,
+      "units_total": 2,
+      "ai": "advance",
+      "soldier_display_name_ko": "추가 순찰병",
+      "spawn_cell": [
+       24,
+       9
+      ]
+     }
+    },
+    {
+     "id": "t_R2",
+     "on": {
+      "turn": 3
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R2",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "서쪽 추가 순찰대장",
+       "evidence_level": "generic",
+       "troop_type": "sword",
+       "hp_mult": 1.0
+      },
+      "soldier_type": "sword",
+      "soldiers": 1,
+      "units_total": 2,
+      "ai": "advance",
+      "soldier_display_name_ko": "추가 순찰병",
+      "spawn_cell": [
+       8,
+       11
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      17,
+      6
+     ],
+     "ref": "npc_republican_guard_captain",
+     "kind": "npc",
+     "name": "공화파 경비대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      6
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      18,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      17,
+      11
+     ],
+     "name": "아르길레툼 경비대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      18,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      5,
+      6
+     ],
+     "name": "서문 궁수장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      6,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      8,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      28,
+      6
+     ],
+     "name": "동문 순찰대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      27,
+      9
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      17,
+      8
+     ],
+     "name": "광장 보조 경비병"
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 2,
+    "troops": 8,
+    "npc": 3,
+    "total": 13
+   },
+   "reward_proposal": {
+    "user_exp": 1360,
+    "exp": 1972,
+    "gold": 1768,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "antony"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2604,
+   "prerequisite": "ch26_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s4_e1_minutes",
+     "on": {
+      "battle_start": true
+     },
+     "do": "say",
+     "speaker": "narrator",
+     "purpose": "원로원 복도에서 들은 조문 낭독 2줄(주인공 증언)"
+    },
+    {
+     "id": "ch26_s4_e2_patrol",
+     "on": {
+      "turn": 3
+     },
+     "do": "camera",
+     "speaker": null,
+     "purpose": "순찰대 spawn [24,9] focus",
+     "tile": [
+      24,
+      9
+     ],
+     "ms": 500
+    },
+    {
+     "id": "ch26_s4_e2_patrol_say",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:npc_republican_guard_captain",
+     "purpose": "추가 순찰대 호령 한 줄"
+    },
+    {
+     "id": "ch26_s4_e3_cart",
+     "on": {
+      "turn": 2
+     },
+     "do": "say",
+     "speaker": "hero:npc_mark_antony",
+     "purpose": "마차 move 연출 대신 route 이동 중 안토니우스의 농담 한 줄"
+    }
+   ],
+   "scene_keys": [
+    "ch26_s4_pre",
+    "ch26_s4_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s4_rome_escape",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     32,
+     24
+    ],
+    "deploy_zone_a_bbox": [
+     12,
+     19,
+     19,
+     22
+    ],
+    "zone_refs_used": [
+     "via_flaminia_exit(24칸)",
+     "patrol_spawn [24,9],[8,11]",
+     "argiletum 중앙 통로 x15~17",
+     "gates porta_fontinalis [16,4],[17,4]"
+    ],
+    "tile_tags": [
+     "curia_steps",
+     "patrol_spawn",
+     "porta_fontinalis",
+     "via_flaminia_exit"
+    ]
+   },
+   "design_notes": [
+    "맵 32x24. 도달형(win_mode only): 주인공 + 호민관 2인 이상이 via_flaminia_exit 에 선다(둘 다 latch). 호민관은 route 로 아르길레툼→푸오르타 폰티날리스(16·17,4)→출구로 이동. move cue 미사용.",
+    "맵 cart_route(마차 move 경로)는 사용하지 않음: 적 칸을 통과하는 경로라 정적 점검 불가하여 route(동적 충돌 회피)로 대체.",
+    "유일한 호위 서브(안토니우스 unit_survive). 적 13 = 앵커 12 + 1, 증원 2부대(각 2기) 포함 피크 17. 아군 최대 13(영웅2+부대8+호민관3).",
+    "npc_mark_antony 는 데이터에 없음(신규 A 영웅 예정). 현재 NPC.",
+    "[임밸런 2026-11-09] enemy_level_offset -16->-20(realistic +0 41.7%, 48판; 레벨 하한 1 도달이라 더 낮출 수 없음)."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "npc_mark_antony": 0,
+     "npc_curio": 0,
+     "npc_quintus_cassius": 0
+    },
+    "_reason": "잠입: 호민관 동반병 0. 적 13 >= 아군 13"
+   }
+  },
+  {
+   "code": "ch26_s5",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르 군단",
+     "enemy": "국경 방위대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "julius_caesar",
+      "x": 15,
+      "y": 5,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_asinius_pollio",
+      "x": 14,
+      "y": 5,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_mark_antony",
+      "x": 16,
+      "y": 5,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_labienus",
+      "x": 13,
+      "y": 5,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "방위대 지휘관",
+     "hero": null
+    },
+    "max_turns": 8,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "retreat",
+      "unit": "hero:npc_border_post_commander"
+     }
+    ],
+    "sub_objectives": [],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "주인공이 남쪽 기슭에 선다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         1,
+         14
+        ],
+        [
+         2,
+         14
+        ],
+        [
+         3,
+         14
+        ],
+        [
+         4,
+         14
+        ],
+        [
+         5,
+         14
+        ],
+        [
+         6,
+         14
+        ],
+        [
+         7,
+         14
+        ],
+        [
+         8,
+         14
+        ],
+        [
+         9,
+         14
+        ],
+        [
+         10,
+         14
+        ],
+        [
+         11,
+         14
+        ],
+        [
+         12,
+         14
+        ],
+        [
+         13,
+         14
+        ],
+        [
+         14,
+         14
+        ],
+        [
+         15,
+         14
+        ],
+        [
+         16,
+         14
+        ],
+        [
+         17,
+         14
+        ],
+        [
+         18,
+         14
+        ],
+        [
+         19,
+         14
+        ],
+        [
+         20,
+         14
+        ],
+        [
+         21,
+         14
+        ],
+        [
+         22,
+         14
+        ],
+        [
+         23,
+         14
+        ],
+        [
+         24,
+         14
+        ],
+        [
+         25,
+         14
+        ],
+        [
+         26,
+         14
+        ],
+        [
+         27,
+         14
+        ],
+        [
+         1,
+         15
+        ],
+        [
+         2,
+         15
+        ],
+        [
+         3,
+         15
+        ],
+        [
+         4,
+         15
+        ],
+        [
+         5,
+         15
+        ],
+        [
+         6,
+         15
+        ],
+        [
+         7,
+         15
+        ],
+        [
+         8,
+         15
+        ],
+        [
+         9,
+         15
+        ],
+        [
+         10,
+         15
+        ],
+        [
+         11,
+         15
+        ],
+        [
+         12,
+         15
+        ],
+        [
+         13,
+         15
+        ],
+        [
+         14,
+         15
+        ],
+        [
+         15,
+         15
+        ],
+        [
+         16,
+         15
+        ],
+        [
+         17,
+         15
+        ],
+        [
+         18,
+         15
+        ],
+        [
+         19,
+         15
+        ],
+        [
+         20,
+         15
+        ],
+        [
+         21,
+         15
+        ],
+        [
+         22,
+         15
+        ],
+        [
+         23,
+         15
+        ],
+        [
+         24,
+         15
+        ],
+        [
+         25,
+         15
+        ],
+        [
+         26,
+         15
+        ],
+        [
+         27,
+         15
+        ]
+       ],
+       "zone_ref": "south_bank"
+      }
+     },
+     {
+      "label": "카이사르가 남쪽 기슭에 선다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:julius_caesar",
+       "tiles": [
+        [
+         1,
+         14
+        ],
+        [
+         2,
+         14
+        ],
+        [
+         3,
+         14
+        ],
+        [
+         4,
+         14
+        ],
+        [
+         5,
+         14
+        ],
+        [
+         6,
+         14
+        ],
+        [
+         7,
+         14
+        ],
+        [
+         8,
+         14
+        ],
+        [
+         9,
+         14
+        ],
+        [
+         10,
+         14
+        ],
+        [
+         11,
+         14
+        ],
+        [
+         12,
+         14
+        ],
+        [
+         13,
+         14
+        ],
+        [
+         14,
+         14
+        ],
+        [
+         15,
+         14
+        ],
+        [
+         16,
+         14
+        ],
+        [
+         17,
+         14
+        ],
+        [
+         18,
+         14
+        ],
+        [
+         19,
+         14
+        ],
+        [
+         20,
+         14
+        ],
+        [
+         21,
+         14
+        ],
+        [
+         22,
+         14
+        ],
+        [
+         23,
+         14
+        ],
+        [
+         24,
+         14
+        ],
+        [
+         25,
+         14
+        ],
+        [
+         26,
+         14
+        ],
+        [
+         27,
+         14
+        ],
+        [
+         1,
+         15
+        ],
+        [
+         2,
+         15
+        ],
+        [
+         3,
+         15
+        ],
+        [
+         4,
+         15
+        ],
+        [
+         5,
+         15
+        ],
+        [
+         6,
+         15
+        ],
+        [
+         7,
+         15
+        ],
+        [
+         8,
+         15
+        ],
+        [
+         9,
+         15
+        ],
+        [
+         10,
+         15
+        ],
+        [
+         11,
+         15
+        ],
+        [
+         12,
+         15
+        ],
+        [
+         13,
+         15
+        ],
+        [
+         14,
+         15
+        ],
+        [
+         15,
+         15
+        ],
+        [
+         16,
+         15
+        ],
+        [
+         17,
+         15
+        ],
+        [
+         18,
+         15
+        ],
+        [
+         19,
+         15
+        ],
+        [
+         20,
+         15
+        ],
+        [
+         21,
+         15
+        ],
+        [
+         22,
+         15
+        ],
+        [
+         23,
+         15
+        ],
+        [
+         24,
+         15
+        ],
+        [
+         25,
+         15
+        ],
+        [
+         26,
+         15
+        ],
+        [
+         27,
+         15
+        ]
+       ],
+       "zone_ref": "south_bank"
+      }
+     }
+    ],
+    "lose_conditions": [],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 15,
+       "y": 3,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": [
+      {
+       "id": "s1",
+       "x": 14,
+       "y": 3
+      }
+     ]
+    }
+   },
+   "name": "루비콘",
+   "year_label": "기원전 49년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s5_rubicon",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": 1,
+   "effective_enemy_level": 23,
+   "difficulty": 6,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "julius_caesar",
+     "npc_mark_antony",
+     "npc_labienus",
+     "npc_asinius_pollio"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "카이사르 필수 도달. 필수 목표: 폴리오(설계서 s5)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {
+    "npc_asinius_pollio": "C"
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "방위대 지휘관",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       18
+      ],
+      [
+       17,
+       18
+      ],
+      [
+       19,
+       18
+      ]
+     ],
+     "soldier_display_name_ko": "방위대 창병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "국경 궁수장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       19
+      ],
+      [
+       13,
+       18
+      ],
+      [
+       16,
+       20
+      ]
+     ],
+     "soldier_display_name_ko": "국경 궁수"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "정찰 기병장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       6,
+       16
+      ],
+      [
+       24,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "정찰 기병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_border_post_commander",
+      "display_name_ko": "초소장",
+      "evidence_level": "invented",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       22
+      ]
+     ],
+     "soldier_display_name_ko": "초소 병사"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 9,
+   "enemy_units_peak": 9,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      18,
+      18
+     ],
+     "name": "방위대 지휘관"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      17,
+      18
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      19,
+      18
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      15,
+      19
+     ],
+     "name": "국경 궁수장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      13,
+      18
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      16,
+      20
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      6,
+      16
+     ],
+     "name": "정찰 기병장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      22
+     ],
+     "ref": "npc_border_post_commander",
+     "kind": "npc",
+     "name": "초소장"
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 2,
+    "troops": 8,
+    "npc": 4,
+    "total": 14
+   },
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 6
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2605,
+   "prerequisite": "ch26_s4",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s5_e1_focus",
+     "on": {
+      "battle_start": true
+     },
+     "do": "camera",
+     "speaker": null,
+     "purpose": "강 중앙 focus [15,11] (river_focus_center)",
+     "tile": [
+      15,
+      11
+     ],
+     "ms": 700
+    },
+    {
+     "id": "ch26_s5_e2_dice",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "unit_enter_tile",
+       "side": "a",
+       "tile_tag": "rubicon_ford"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:julius_caesar",
+     "purpose": "주사위는 던져졌다(여울 칸 첫 진입 직후 한 줄, 설계서 7.2절)"
+    },
+    {
+     "id": "ch26_s5_e2_trumpet",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "unit_enter_tile",
+       "side": "a",
+       "tile_tag": "rubicon_ford"
+      }
+     },
+     "do": "sfx",
+     "speaker": null,
+     "purpose": "나팔 sfx + camera 강 중앙 500ms",
+     "key": "sfx_horn"
+    },
+    {
+     "id": "ch26_s5_e2_antony",
+     "on": {
+      "turn": 1,
+      "when": {
+       "type": "unit_enter_tile",
+       "side": "a",
+       "tile_tag": "rubicon_ford"
+      }
+     },
+     "do": "say",
+     "speaker": "hero:npc_mark_antony",
+     "purpose": "안토니우스 농담 한 줄"
+    },
+    {
+     "id": "ch26_s5_e3_retreat",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:npc_border_post_commander",
+     "purpose": "방위대가 싸우지 않고 물러나며 한 줄(retreat cue 와 짝)"
+    }
+   ],
+   "scene_keys": [
+    "ch26_s5_pre",
+    "ch26_s5_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s5_rubicon",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     32,
+     24
+    ],
+    "deploy_zone_a_bbox": [
+     9,
+     1,
+     21,
+     6
+    ],
+    "zone_refs_used": [
+     "south_bank(71칸 중 y14~15 54칸: in_zone 상한 60)",
+     "rubicon_ford(27칸 s 여울, unit_enter_tile 태그)",
+     "ariminum_gate [26~28,21~23]"
+    ],
+    "tile_tags": [
+     "ariminum_gate",
+     "rubicon_ford",
+     "rubicon_water",
+     "south_bank"
+    ]
+   },
+   "design_notes": [
+    "맵 32x24. 강(rubicon_water 87칸)은 통행 불가 w, 건너는 길은 여울 3곳(ford_west/ford_aemilia/ford_coast, rubicon_ford 27칸). 승리: 주인공과 카이사르가 모두 남쪽 기슭(8턴).",
+    "맵 제약 반영: unit_enter_tile 태그 rubicon_ford(내 초안 rubicon_water 에서 변경). 초소장(D)은 성문 쪽(ariminum_gate) 5기이고 turn 3 retreat.",
+    "적 14 = 맵 앵커 11 + 3(초소장 D 에 보충), 아군 최대 14(영웅2+부대8+NPC 4). 오프셋 -9(저강도 소규모 정찰 컨셉).",
+    "카이사르 봇 AI 가 여울 병목에서 늦으면 8턴 초과 위험(미측정). 안토니우스·라비에누스는 map npc_tiles 에 없어 deploy a 빈 칸 [16,5],[13,5]에 배치(맵디자이너 확인).",
+    "[임밸런 2026-11-09] enemy_level_offset -3->1, 초소장 D 보병 4->0, 정찰 기병 C 2->1(적 14->9). realistic +0 58.3%(48판). 레벨 오프셋 0=87.5%/+1=6.2% 급경사라 편성으로 보정."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "julius_caesar": 0,
+     "npc_mark_antony": 0,
+     "npc_labienus": 0,
+     "npc_asinius_pollio": 0
+    },
+    "_reason": "적 14 >= 아군 최대 14"
+   }
+  },
+  {
+   "code": "ch26_s6",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르 군단",
+     "enemy": "코르피니움 수비대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_mark_antony",
+      "x": 13,
+      "y": 2,
+      "must_survive": false
+     },
+     {
+      "hero": "julius_caesar",
+      "x": 15,
+      "y": 1,
+      "must_survive": false,
+      "route": {
+       "waypoints": [
+        [
+         15,
+         1
+        ]
+       ],
+       "from_turn": 1
+      }
+     }
+    ],
+    "enemy_commander": {
+     "name": "도미티우스 아헤노바르부스",
+     "hero": "npc_domitius_ahenobarbus"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          14,
+          10
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          10
+         ],
+         [
+          17,
+          10
+         ],
+         [
+          14,
+          11
+         ],
+         [
+          15,
+          11
+         ],
+         [
+          16,
+          11
+         ],
+         [
+          17,
+          11
+         ],
+         [
+          14,
+          12
+         ],
+         [
+          15,
+          12
+         ],
+         [
+          16,
+          12
+         ],
+         [
+          17,
+          12
+         ],
+         [
+          14,
+          13
+         ],
+         [
+          15,
+          13
+         ],
+         [
+          16,
+          13
+         ],
+         [
+          17,
+          13
+         ]
+        ],
+        "zone_ref": "cap_forum"
+       }
+      },
+      "do": "defect",
+      "unit": "hero:npc_corfinium_officer",
+      "to": "a"
+     },
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          14,
+          10
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          10
+         ],
+         [
+          17,
+          10
+         ],
+         [
+          14,
+          11
+         ],
+         [
+          15,
+          11
+         ],
+         [
+          16,
+          11
+         ],
+         [
+          17,
+          11
+         ],
+         [
+          14,
+          12
+         ],
+         [
+          15,
+          12
+         ],
+         [
+          16,
+          12
+         ],
+         [
+          17,
+          12
+         ],
+         [
+          14,
+          13
+         ],
+         [
+          15,
+          13
+         ],
+         [
+          16,
+          13
+         ],
+         [
+          17,
+          13
+         ]
+        ],
+        "zone_ref": "cap_forum"
+       }
+      },
+      "do": "set_flag",
+      "key": "garrison_defected",
+      "value": true
+     }
+    ],
+    "sub_objectives": [],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "수비대가 창을 내려놓는다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "garrison_defected",
+       "value": true
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "points_held",
+      "label": "10턴이 넘도록 거점 2곳 이상이 적 손에 있음",
+      "when": {
+       "all": [
+        {
+         "type": "turn_gte",
+         "value": 10
+        },
+        {
+         "any": [
+          {
+           "all": [
+            {
+             "type": "in_zone",
+             "side": "b",
+             "tiles": [
+              [
+               14,
+               10
+              ],
+              [
+               15,
+               10
+              ],
+              [
+               16,
+               10
+              ],
+              [
+               17,
+               10
+              ],
+              [
+               14,
+               11
+              ],
+              [
+               15,
+               11
+              ],
+              [
+               16,
+               11
+              ],
+              [
+               17,
+               11
+              ],
+              [
+               14,
+               12
+              ],
+              [
+               15,
+               12
+              ],
+              [
+               16,
+               12
+              ],
+              [
+               17,
+               12
+              ],
+              [
+               14,
+               13
+              ],
+              [
+               15,
+               13
+              ],
+              [
+               16,
+               13
+              ],
+              [
+               17,
+               13
+              ]
+             ],
+             "zone_ref": "cap_forum"
+            },
+            {
+             "type": "in_zone",
+             "side": "b",
+             "tiles": [
+              [
+               15,
+               5
+              ],
+              [
+               16,
+               5
+              ],
+              [
+               15,
+               6
+              ],
+              [
+               16,
+               6
+              ]
+             ],
+             "zone_ref": "cap_gate_north"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "type": "in_zone",
+             "side": "b",
+             "tiles": [
+              [
+               14,
+               10
+              ],
+              [
+               15,
+               10
+              ],
+              [
+               16,
+               10
+              ],
+              [
+               17,
+               10
+              ],
+              [
+               14,
+               11
+              ],
+              [
+               15,
+               11
+              ],
+              [
+               16,
+               11
+              ],
+              [
+               17,
+               11
+              ],
+              [
+               14,
+               12
+              ],
+              [
+               15,
+               12
+              ],
+              [
+               16,
+               12
+              ],
+              [
+               17,
+               12
+              ],
+              [
+               14,
+               13
+              ],
+              [
+               15,
+               13
+              ],
+              [
+               16,
+               13
+              ],
+              [
+               17,
+               13
+              ]
+             ],
+             "zone_ref": "cap_forum"
+            },
+            {
+             "type": "in_zone",
+             "side": "b",
+             "tiles": [
+              [
+               15,
+               17
+              ],
+              [
+               16,
+               17
+              ],
+              [
+               15,
+               18
+              ],
+              [
+               16,
+               18
+              ]
+             ],
+             "zone_ref": "cap_gate_south"
+            }
+           ]
+          },
+          {
+           "all": [
+            {
+             "type": "in_zone",
+             "side": "b",
+             "tiles": [
+              [
+               15,
+               5
+              ],
+              [
+               16,
+               5
+              ],
+              [
+               15,
+               6
+              ],
+              [
+               16,
+               6
+              ]
+             ],
+             "zone_ref": "cap_gate_north"
+            },
+            {
+             "type": "in_zone",
+             "side": "b",
+             "tiles": [
+              [
+               15,
+               17
+              ],
+              [
+               16,
+               17
+              ],
+              [
+               15,
+               18
+              ],
+              [
+               16,
+               18
+              ]
+             ],
+             "zone_ref": "cap_gate_south"
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 15,
+       "y": 2,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": [
+      {
+       "id": "s1",
+       "x": 16,
+       "y": 2
+      }
+     ]
+    }
+   },
+   "name": "코르피니움",
+   "year_label": "기원전 49년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s6_corfinium",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      15,
+      11
+     ],
+     [
+      15,
+      5
+     ],
+     [
+      15,
+      17
+     ]
+    ],
+    "mode": "all",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -7,
+   "effective_enemy_level": 15,
+   "difficulty": 7,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_mark_antony",
+     "julius_caesar"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "필수 목표: 안토니우스(설계서 s6, A등급 소프트락 위험)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {
+    "npc_mark_antony": "A"
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_domitius_ahenobarbus",
+      "display_name_ko": "도미티우스 아헤노바르부스",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       11
+      ],
+      [
+       16,
+       12
+      ],
+      [
+       14,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "코르피니움 수비병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "북문 궁수장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       7
+      ],
+      [
+       16,
+       7
+      ],
+      [
+       14,
+       6
+      ],
+      [
+       17,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "성벽 궁수"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "남문 창병장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       16
+      ],
+      [
+       16,
+       16
+      ],
+      [
+       14,
+       17
+      ],
+      [
+       17,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "남문 창병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_corfinium_officer",
+      "display_name_ko": "투항을 주도하는 장교",
+      "evidence_level": "invented",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       10,
+       11
+      ],
+      [
+       11,
+       12
+      ],
+      [
+       20,
+       13
+      ],
+      [
+       13,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "동요한 수비병"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 15,
+   "enemy_units_peak": 15,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      15,
+      11
+     ],
+     "ref": "npc_domitius_ahenobarbus",
+     "kind": "npc",
+     "name": "도미티우스 아헤노바르부스"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      14,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      15,
+      7
+     ],
+     "name": "북문 궁수장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      16,
+      7
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      14,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      17,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      15,
+      16
+     ],
+     "name": "남문 창병장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      14,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      17,
+      17
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      10,
+      11
+     ],
+     "ref": "npc_corfinium_officer",
+     "kind": "npc",
+     "name": "투항을 주도하는 장교"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      13
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      13,
+      8
+     ]
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 2,
+    "troops": 8,
+    "npc": 2,
+    "total": 12
+   },
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2606,
+   "prerequisite": "ch26_s5",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s6_e1_defect",
+     "on": {
+      "turn": 4
+     },
+     "do": "say",
+     "speaker": "hero:npc_corfinium_officer",
+     "purpose": "수비대 투항 선언 한 줄(defect cue 와 짝)"
+    },
+    {
+     "id": "ch26_s6_e2_key",
+     "on": {
+      "turn": 6
+     },
+     "do": "say",
+     "speaker": "hero:npc_domitius_ahenobarbus",
+     "purpose": "장교가 성문 열쇠를 가져옴을 알아챈 도미티우스 한 줄"
+    },
+    {
+     "id": "ch26_s6_e3_advice",
+     "on": {
+      "turn": 2
+     },
+     "do": "say",
+     "speaker": "hero:julius_caesar",
+     "purpose": "카이사르 조언 컷(해치지 말라는 한 줄)"
+    }
+   ],
+   "scene_keys": [
+    "ch26_s6_pre",
+    "ch26_s6_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s6_corfinium",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     32,
+     24
+    ],
+    "deploy_zone_a_bbox": [
+     8,
+     0,
+     23,
+     3
+    ],
+    "zone_refs_used": [
+     "cap_forum[14-17,10-13] 점령점 [15,11]",
+     "cap_gate_north 점령점 [15,5]",
+     "cap_gate_south 점령점 [15,17]",
+     "defect_cells(D 부대 시작칸 [10,11],[11,12],[20,13],[13,8])"
+    ],
+    "tile_tags": [
+     "aternus_bridge",
+     "cap_forum",
+     "cap_gate_north",
+     "cap_gate_south"
+    ]
+   },
+   "design_notes": [
+    "맵 32x24. 점령 3거점(광장·북문·남문) all hold 2. 맵 거점이 북·남 문(내 초안의 서·동문에서 변경). 투항 부대 D(4)는 맵 defect_cells 에서 시작하고 turn 4 아군 전환.",
+    "적 15 = 맵 앵커 15(투항 4 포함 → 실질 11). 아군 최대 12(영웅2+부대8+NPC 2). 투항(defect+flag)은 turn>=4 이면서 아군이 광장을 점유한 첫 시점에 발동(점령 진행과 결합; 점령 없이 턴 경과만으로 승리 불가).",
+    "도미티우스는 광장 중심(15,11)에서 시작: 광장 점령에는 도미티우스 부대 격파가 필요. 카이사르 구경꾼 route 제자리, must_survive false(설계서 예외). 안토니우스는 deploy a 빈 칸 [13,2]."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "npc_mark_antony": 0,
+     "julius_caesar": 0
+    },
+    "_reason": "적 15 >= 아군 12"
+   }
+  },
+  {
+   "code": "ch26_s7",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르 군단",
+     "enemy": "국고 수비대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_mark_antony",
+      "x": 29,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "julius_caesar",
+      "x": 28,
+      "y": 12,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "메텔루스",
+     "hero": "npc_caecilius_metellus"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [],
+    "sub_objectives": [
+     {
+      "id": "market",
+      "type": "protect_tiles",
+      "tiles": [
+       [
+        14,
+        15
+       ],
+       [
+        15,
+        15
+       ],
+       [
+        16,
+        15
+       ],
+       [
+        17,
+        15
+       ],
+       [
+        18,
+        15
+       ],
+       [
+        19,
+        15
+       ],
+       [
+        20,
+        15
+       ],
+       [
+        14,
+        16
+       ],
+       [
+        15,
+        16
+       ],
+       [
+        16,
+        16
+       ],
+       [
+        17,
+        16
+       ],
+       [
+        18,
+        16
+       ],
+       [
+        19,
+        16
+       ],
+       [
+        20,
+        16
+       ],
+       [
+        14,
+        17
+       ],
+       [
+        15,
+        17
+       ],
+       [
+        16,
+        17
+       ],
+       [
+        17,
+        17
+       ],
+       [
+        18,
+        17
+       ],
+       [
+        19,
+        17
+       ]
+      ],
+      "zone_ref": "market",
+      "max_breach": 0,
+      "label": "시장을 지켜라"
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "market_breached",
+      "label": "시민 구역(시장 중심)에 적이 들어섬(침범 3회의 근사)",
+      "when": {
+       "any": [
+        {
+         "type": "in_zone",
+         "side": "b",
+         "tiles": [
+          [
+           16,
+           16
+          ],
+          [
+           17,
+           16
+          ],
+          [
+           18,
+           16
+          ],
+          [
+           17,
+           15
+          ],
+          [
+           17,
+           17
+          ]
+         ],
+         "zone_ref": "market"
+        }
+       ]
+      }
+     }
+    ],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 29,
+       "y": 12,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": [
+      {
+       "id": "s1",
+       "x": 29,
+       "y": 13
+      }
+     ]
+    }
+   },
+   "name": "로마 입성",
+   "year_label": "기원전 49년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s7_saturn_temple",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      9,
+      10
+     ],
+     [
+      12,
+      8
+     ],
+     [
+      25,
+      12
+     ]
+    ],
+    "mode": "all",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -9,
+   "effective_enemy_level": 13,
+   "difficulty": 5,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_mark_antony",
+     "julius_caesar"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "필수 목표: 안토니우스(설계서 s7)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {
+    "npc_mark_antony": "A"
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_caecilius_metellus",
+      "display_name_ko": "메텔루스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 0.9
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       12,
+       9
+      ],
+      [
+       12,
+       8
+      ],
+      [
+       11,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "국고 수비병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "신전 앞뜰 창병장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       9,
+       11
+      ],
+      [
+       10,
+       11
+      ],
+      [
+       8,
+       12
+      ],
+      [
+       11,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "신전 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "포룸 입구 궁수장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       24,
+       12
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       13
+      ],
+      [
+       23,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "포룸 궁수"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "포룸 잔류 경비대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       7
+      ],
+      [
+       18,
+       6
+      ],
+      [
+       22,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "포룸 경비병"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 14,
+   "enemy_units_peak": 14,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      12,
+      9
+     ],
+     "ref": "npc_caecilius_metellus",
+     "kind": "npc",
+     "name": "메텔루스"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      8
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      9,
+      11
+     ],
+     "name": "신전 앞뜰 창병장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      10,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      8,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      11,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      24,
+      12
+     ],
+     "name": "포룸 입구 궁수장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      13
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      23,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      17,
+      7
+     ],
+     "name": "포룸 잔류 경비대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      18,
+      6
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      9
+     ]
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 2,
+    "troops": 8,
+    "npc": 2,
+    "total": 12
+   },
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "market"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2607,
+   "prerequisite": "ch26_s6",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s7_e1_metellus",
+     "on": {
+      "battle_start": true
+     },
+     "do": "say",
+     "speaker": "hero:npc_caecilius_metellus",
+     "purpose": "국고를 막으려는 호민관의 저지 한 줄"
+    },
+    {
+     "id": "ch26_s7_e2_gate",
+     "on": {
+      "turn": 4
+     },
+     "do": "sfx",
+     "speaker": null,
+     "purpose": "국고 문 개방 효과음",
+     "key": "sfx_gate"
+    },
+    {
+     "id": "ch26_s7_e2_gate_say",
+     "on": {
+      "turn": 4
+     },
+     "do": "say",
+     "speaker": "narrator",
+     "purpose": "국고 문이 열리는 소리 한 줄"
+    }
+   ],
+   "scene_keys": [
+    "ch26_s7_pre",
+    "ch26_s7_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s7_saturn_temple",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     32,
+     24
+    ],
+    "deploy_zone_a_bbox": [
+     27,
+     8,
+     31,
+     16
+    ],
+    "zone_refs_used": [
+     "cap_temple_court 점령점 [9,10]",
+     "cap_aerarium_door 점령점 [12,8] (메텔루스 시작 [12,9])",
+     "cap_forum_entry 점령점 [25,12]",
+     "market(21칸 중 20칸 protect)",
+     "market 중심 5칸 lose"
+    ],
+    "tile_tags": [
+     "cap_aerarium_door",
+     "cap_forum_entry",
+     "cap_temple_court",
+     "market"
+    ]
+   },
+   "design_notes": [
+    "맵 32x24. 아군 동쪽(x27~31) 시작, 서쪽 신전으로 진격하는 구조. 맵 제약: 메텔루스는 국고 문(aerarium door [12,8],[12,9]) 거점에서 시작.",
+    "저강도: 적 14 = 맵 앵커 14, 아군 최대 11(영웅2+부대8+안토니우스1). 오프셋 -9. 시장 protect_tiles 21칸 중 20칸(상한 20), 중심 5칸 적 점령 시 패배(침범 3회 근사).",
+    "군중(npc_forum_crowd, 맵 crowd_cells)은 중립 유닛 미지원이라 미사용.",
+    "[박백엔 2026-11-09 화자 참전 1차] 카이사르 아군 NPC (28,12) road 추가(안토니우스 29,11 인접, 문서 좌표 그대로 통행 가능). must_survive false."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "npc_mark_antony": 0
+    },
+    "_reason": "적 14 >= 아군 11"
+   }
+  },
+  {
+   "code": "ch26_s8",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르 군단",
+     "enemy": "폼페이우스군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "julius_caesar",
+      "x": 6,
+      "y": 13,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_mark_antony",
+      "x": 7,
+      "y": 8,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "메텔루스 스키피오",
+     "hero": "npc_metellus_scipio"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "spear",
+      "count": 6,
+      "tiles": [
+       [
+        7,
+        19
+       ],
+       [
+        8,
+        19
+       ],
+       [
+        9,
+        19
+       ],
+       [
+        10,
+        19
+       ],
+       [
+        7,
+        20
+       ],
+       [
+        8,
+        20
+       ],
+       [
+        9,
+        20
+       ],
+       [
+        10,
+        20
+       ],
+       [
+        7,
+        21
+       ],
+       [
+        8,
+        21
+       ],
+       [
+        9,
+        21
+       ],
+       [
+        10,
+        21
+       ]
+      ],
+      "tag": "reserve",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "retreat",
+      "unit": "hero:npc_pompey_magnus"
+     },
+     {
+      "on": {
+       "turn": 8
+      },
+      "do": "retreat",
+      "unit": "hero:npc_marcus_brutus"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "brutus",
+      "type": "unit_survive",
+      "unit": "hero:npc_marcus_brutus",
+      "label": "브루투스를 살려 둔다"
+     }
+    ],
+    "lose_conditions": [],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 7,
+       "y": 11,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": [
+      {
+       "id": "s1",
+       "x": 7,
+       "y": 13
+      },
+      {
+       "id": "s2",
+       "x": 8,
+       "y": 12
+      }
+     ]
+    }
+   },
+   "name": "파르살루스",
+   "year_label": "기원전 48년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s8_pharsalus",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 23,
+   "enemy_level": 23,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 21,
+   "difficulty": 8,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "julius_caesar",
+     "npc_mark_antony"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "필수 목표: 안토니우스(설계서 s8)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {
+    "npc_mark_antony": "A"
+   },
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_metellus_scipio",
+      "display_name_ko": "메텔루스 스키피오",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       30,
+       11
+      ],
+      [
+       30,
+       13
+      ],
+      [
+       31,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "폼페이우스군 창병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "폼페이우스군 중보병장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       7
+      ],
+      [
+       28,
+       9
+      ],
+      [
+       28,
+       15
+      ],
+      [
+       28,
+       17
+      ],
+      [
+       27,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "폼페이우스군 보병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_labienus",
+      "display_name_ko": "라비에누스",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       30,
+       20
+      ],
+      [
+       31,
+       21
+      ],
+      [
+       32,
+       19
+      ],
+      [
+       30,
+       22
+      ],
+      [
+       33,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "폼페이우스군 기병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_pompey_magnus",
+      "display_name_ko": "폼페이우스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       12
+      ],
+      [
+       32,
+       12
+      ],
+      [
+       33,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "폼페이우스 친위병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_marcus_brutus",
+      "display_name_ko": "마르쿠스 브루투스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       6
+      ],
+      [
+       29,
+       4
+      ]
+     ],
+     "soldier_display_name_ko": "브루투스 휘하 보병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 18,
+   "enemy_units_peak": 18,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      30,
+      11
+     ],
+     "ref": "npc_metellus_scipio",
+     "kind": "npc",
+     "name": "메텔루스 스키피오"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      30,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      31,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      28,
+      7
+     ],
+     "name": "폼페이우스군 중보병장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      15
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      17
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      30,
+      20
+     ],
+     "ref": "npc_labienus",
+     "kind": "npc",
+     "name": "라비에누스"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      31,
+      21
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      19
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      22
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      33,
+      21
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      33,
+      12
+     ],
+     "ref": "npc_pompey_magnus",
+     "kind": "npc",
+     "name": "폼페이우스"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      32,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      33,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      6
+     ],
+     "ref": "npc_marcus_brutus",
+     "kind": "npc",
+     "name": "마르쿠스 브루투스"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      4
+     ]
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 3,
+    "troops": 12,
+    "npc": 2,
+    "total": 17
+   },
+   "reward_proposal": {
+    "user_exp": 1552,
+    "exp": 2250,
+    "gold": 2018,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "brutus"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2608,
+   "prerequisite": "ch26_s7",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s8_e1_reserve",
+     "on": {
+      "turn": 3
+     },
+     "do": "camera",
+     "speaker": null,
+     "purpose": "우익 예비 대대 spawn [8,20] focus",
+     "tile": [
+      8,
+      20
+     ],
+     "ms": 600
+    },
+    {
+     "id": "ch26_s8_e1_reserve_say",
+     "on": {
+      "turn": 3
+     },
+     "do": "say",
+     "speaker": "hero:julius_caesar",
+     "purpose": "예비 6개 대대 투입 지시 한 줄"
+    },
+    {
+     "id": "ch26_s8_e2_pompey",
+     "on": {
+      "turn": 7
+     },
+     "do": "say",
+     "speaker": "hero:npc_pompey_magnus",
+     "purpose": "진영을 버리고 빠지는 폼페이우스 한 줄(retreat cue 직전)"
+    },
+    {
+     "id": "ch26_s8_e3_brutus",
+     "on": {
+      "turn": 8
+     },
+     "do": "say",
+     "speaker": "hero:npc_marcus_brutus",
+     "purpose": "브루투스 퇴각 한 줄(retreat cue 와 짝)"
+    },
+    {
+     "id": "ch26_s8_e3_order",
+     "on": {
+      "turn": 8
+     },
+     "do": "say",
+     "speaker": "hero:julius_caesar",
+     "purpose": "브루투스를 해치지 말라는 명령 재확인 한 줄"
+    }
+   ],
+   "scene_keys": [
+    "ch26_s8_pre",
+    "ch26_s8_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s8_pharsalus",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     40,
+     26
+    ],
+    "deploy_zone_a_bbox": [
+     4,
+     6,
+     10,
+     18
+    ],
+    "zone_refs_used": [
+     "reserve_cohorts [7~10,19~21] 12칸(spawn tiles)",
+     "cavalry_lane y18~23(라비에누스 기병)",
+     "pompey_camp / brutus_retreat"
+    ],
+    "tile_tags": [
+     "brutus_retreat",
+     "cavalry_lane",
+     "pompey_camp",
+     "reserve_cohorts"
+    ]
+   },
+   "design_notes": [
+    "맵 40x26. 라비에누스 기병 C 5기가 cavalry_lane(y18~23)에서 우익을 노리고 예비 6기가 reserve_cohorts 에 spawn 되는 구조(맵 제약 일치).",
+    "적 18 = 맵 앵커 16 + 폼페이우스 친위병 2(D 3기로 확대). 아군 최대 17(영웅3+부대12+NPC2) + 예비 6(audit 비산입). 오프셋 -6(적 18/아군 23 규모).",
+    "폼페이우스(턴 7)·브루투스(턴 8) retreat: 부대장(비 지휘관)이라 가능. 브루투스 부대(E)는 [32,6],[29,4] 2기.",
+    "unit_survive(브루투스) 설계서 지정 서브 + s4 와 합쳐 호위형 서브 2개."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "julius_caesar": 0,
+     "npc_mark_antony": 0
+    },
+    "_reason": "적 18 >= 아군 최대 17(예비 6 별도)"
+   }
+  },
+  {
+   "code": "ch26_s9",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르 군단",
+     "enemy": "폼페이우스파 잔당"
+    },
+    "ally_npcs": [
+     {
+      "hero": "julius_caesar",
+      "x": 6,
+      "y": 12,
+      "must_survive": true
+     }
+    ],
+    "enemy_commander": {
+     "name": "그나이우스 폼페이우스",
+     "hero": "npc_gnaeus_pompey_younger"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [],
+    "sub_objectives": [],
+    "lose_conditions": [],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 6,
+       "y": 11,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": [
+      {
+       "id": "s1",
+       "x": 6,
+       "y": 9
+      },
+      {
+       "id": "s2",
+       "x": 6,
+       "y": 13
+      }
+     ]
+    }
+   },
+   "name": "문다 평원",
+   "year_label": "기원전 45년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s9_munda",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 24,
+   "enemy_level": 24,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 19,
+   "difficulty": 8,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "julius_caesar"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "필수 없음(설계서 s9)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {},
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_gnaeus_pompey_younger",
+      "display_name_ko": "그나이우스 폼페이우스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       24,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "폼페이우스파 군단병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "비탈 창병장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       8
+      ],
+      [
+       21,
+       11
+      ],
+      [
+       21,
+       14
+      ],
+      [
+       22,
+       6
+      ],
+      [
+       22,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "비탈 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "문다 기병 대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       7
+      ],
+      [
+       26,
+       16
+      ],
+      [
+       27,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "문다 기병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "성문 궁수장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       11
+      ],
+      [
+       31,
+       12
+      ],
+      [
+       31,
+       11
+      ],
+      [
+       32,
+       10
+      ],
+      [
+       32,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "성문 궁수"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 16,
+   "enemy_units_peak": 16,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      11
+     ],
+     "ref": "npc_gnaeus_pompey_younger",
+     "kind": "npc",
+     "name": "그나이우스 폼페이우스"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      21,
+      8
+     ],
+     "name": "비탈 창병장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      26,
+      7
+     ],
+     "name": "문다 기병 대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      32,
+      11
+     ],
+     "name": "성문 궁수장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      31,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      31,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      32,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      32,
+      12
+     ]
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 3,
+    "troops": 12,
+    "npc": 1,
+    "total": 16
+   },
+   "reward_proposal": {
+    "user_exp": 1656,
+    "exp": 2401,
+    "gold": 2153,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    },
+    {
+     "type": "commander_hp_pct_min",
+     "value": 30
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2609,
+   "prerequisite": "ch26_s8",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s9_e1_push",
+     "on": {
+      "turn": 6
+     },
+     "do": "say",
+     "speaker": "hero:julius_caesar",
+     "purpose": "방패를 들고 앞에 선다는 한 줄(set_hp 로 약화시키지 않음)"
+    },
+    {
+     "id": "ch26_s9_e1_push_cam",
+     "on": {
+      "turn": 6
+     },
+     "do": "camera",
+     "speaker": null,
+     "purpose": "카이사르 follow focus",
+     "unit": "hero:julius_caesar",
+     "ms": 600
+    }
+   ],
+   "scene_keys": [
+    "ch26_s9_pre",
+    "ch26_s9_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s9_munda",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     36,
+     24
+    ],
+    "deploy_zone_a_bbox": [
+     3,
+     7,
+     9,
+     16
+    ],
+    "zone_refs_used": [
+     "brook(48칸 개울 x11~14)",
+     "slope_line 비탈",
+     "enemy_center(12칸)",
+     "caesar_front"
+    ],
+    "tile_tags": [
+     "brook",
+     "caesar_front",
+     "enemy_center"
+    ]
+   },
+   "design_notes": [
+    "맵 36x24. 아군 서쪽, 개울(brook, 얕은 여울 s) 건너 비탈 위 적. 적 16 = 맵 앵커 13 + 성문 궁수 3(D 5기). 아군 최대 16(영웅3+부대12+카이사르1).",
+    "설계서 '카이사르 hp 30% 이하 보호(별 조건)'는 NPC hp 별 조건이 없어 commander_hp_pct_min(주인공 HP 30% 이상)로 대체 + 카이사르 must_survive.",
+    "set_hp 미사용(설계서 지시). 적 오프셋 -6."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "julius_caesar": 0
+    },
+    "_reason": "적 16 >= 아군 16"
+   }
+  },
+  {
+   "code": "ch26_s10",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "카이사르 군단",
+     "enemy": "검투사 무리"
+    },
+    "ally_npcs": [
+     {
+      "hero": "julius_caesar",
+      "x": 7,
+      "y": 10,
+      "must_survive": false,
+      "route": {
+       "waypoints": [
+        [
+         18,
+         10
+        ],
+        [
+         29,
+         10
+        ],
+        [
+         30,
+         10
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 6
+      }
+     }
+    ],
+    "enemy_commander": {
+     "name": "검투사 두목",
+     "hero": "npc_gladiator_captain"
+    },
+    "max_turns": 8,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          26,
+          8
+         ],
+         [
+          26,
+          9
+         ],
+         [
+          26,
+          10
+         ],
+         [
+          26,
+          11
+         ],
+         [
+          26,
+          12
+         ],
+         [
+          26,
+          13
+         ],
+         [
+          27,
+          8
+         ],
+         [
+          27,
+          9
+         ],
+         [
+          27,
+          10
+         ],
+         [
+          27,
+          11
+         ],
+         [
+          27,
+          12
+         ],
+         [
+          27,
+          13
+         ],
+         [
+          28,
+          8
+         ],
+         [
+          28,
+          9
+         ],
+         [
+          28,
+          10
+         ],
+         [
+          28,
+          11
+         ],
+         [
+          28,
+          12
+         ],
+         [
+          28,
+          13
+         ],
+         [
+          29,
+          8
+         ],
+         [
+          29,
+          9
+         ],
+         [
+          29,
+          10
+         ],
+         [
+          29,
+          11
+         ],
+         [
+          29,
+          12
+         ],
+         [
+          29,
+          13
+         ],
+         [
+          30,
+          8
+         ],
+         [
+          30,
+          9
+         ],
+         [
+          30,
+          10
+         ],
+         [
+          30,
+          11
+         ],
+         [
+          30,
+          12
+         ],
+         [
+          30,
+          13
+         ]
+        ],
+        "zone_ref": "curia_approach"
+       }
+      },
+      "do": "set_flag",
+      "key": "warning_delivered",
+      "value": true
+     }
+    ],
+    "sub_objectives": [],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "경고문을 카이사르에게 건넨다(회의장 계단에 선다)",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         30,
+         9
+        ],
+        [
+         30,
+         10
+        ],
+        [
+         30,
+         11
+        ],
+        [
+         30,
+         12
+        ]
+       ],
+       "zone_ref": "curia_steps"
+      }
+     }
+    ],
+    "lose_conditions": [],
+    "deploy_slots": {
+     "fixed_slots": [
+      {
+       "id": "f1",
+       "x": 10,
+       "y": 1,
+       "hero": "@protagonist"
+      }
+     ],
+     "free_slots": []
+    }
+   },
+   "name": "3월 15일",
+   "year_label": "기원전 44년",
+   "chapter": 26,
+   "shelf_code": "ch26",
+   "map": "su_ch26_s10_pompey_theatre",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    22
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 24,
+   "enemy_level": 24,
+   "enemy_level_offset": 10,
+   "effective_enemy_level": 34,
+   "difficulty": 6,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "julius_caesar"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "필수 없음(설계서 s10)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "required_when_obtainable": {},
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_gladiator_captain",
+      "display_name_ko": "검투사 두목",
+      "evidence_level": "invented",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       10
+      ],
+      [
+       27,
+       11
+      ],
+      [
+       28,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "검투사"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "회랑 검투사 조장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       10
+      ],
+      [
+       18,
+       11
+      ],
+      [
+       16,
+       7
+      ],
+      [
+       17,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "검투사 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "회랑 순찰 검투사 조장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       23,
+       4
+      ],
+      [
+       24,
+       4
+      ],
+      [
+       21,
+       17
+      ],
+      [
+       12,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "검투사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "계단 투척수 조장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       7
+      ],
+      [
+       29,
+       15
+      ],
+      [
+       28,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "투척수"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_decimus_brutus",
+      "display_name_ko": "데키무스 브루투스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "hold_until_turn": 99,
+     "cells": [
+      [
+       32,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "데키무스 브루투스"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_marcus_brutus",
+      "display_name_ko": "마르쿠스 브루투스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "hold_until_turn": 99,
+     "cells": [
+      [
+       32,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "마르쿠스 브루투스"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_cassius_longinus",
+      "display_name_ko": "카시우스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.0
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "hold_until_turn": 99,
+     "cells": [
+      [
+       32,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "카시우스"
+    }
+   ],
+   "enemy_squads_count": 7,
+   "enemy_units_initial": 17,
+   "enemy_units_peak": 17,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      10
+     ],
+     "ref": "npc_gladiator_captain",
+     "kind": "npc",
+     "name": "검투사 두목"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      17,
+      10
+     ],
+     "name": "회랑 검투사 조장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      18,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      7
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      17,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      23,
+      4
+     ],
+     "name": "회랑 순찰 검투사 조장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      4
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      17
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      29,
+      7
+     ],
+     "name": "계단 투척수 조장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      29,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      28,
+      12
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      6
+     ],
+     "ref": "npc_decimus_brutus",
+     "kind": "npc",
+     "name": "데키무스 브루투스"
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      15
+     ],
+     "ref": "npc_marcus_brutus",
+     "kind": "npc",
+     "name": "마르쿠스 브루투스"
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      32,
+      16
+     ],
+     "ref": "npc_cassius_longinus",
+     "kind": "npc",
+     "name": "카시우스"
+    }
+   ],
+   "ally_unit_estimate": {
+    "heroes": 1,
+    "troops": 4,
+    "npc": 1,
+    "total": 6
+   },
+   "reward_proposal": {
+    "user_exp": 1656,
+    "exp": 2401,
+    "gold": 2153,
+    "basis": "ch25 보상표 동일 레벨 값 준용(Lv20~24), 시작값"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 6
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "시작값 40~60 (+0 목표, 미측정)",
+   "sort_order": 2610,
+   "prerequisite": "ch26_s9",
+   "pvp_listing": "excluded",
+   "cue_text_status": "rules.cues 에는 구조적 cue(spawn/set_flag/retreat/defect)만 둔다. say/camera/sfx 본문은 송서사가 ch26_caesar.json battle_cues 에 작성(요청 목록=battle_cue_requests, 시드는 이 필드를 읽지 않음). move cue 는 ch26 에서 사용하지 않음(ally_npcs.route 로 대체).",
+   "battle_cue_requests": [
+    {
+     "id": "ch26_s10_e1_antony",
+     "on": {
+      "turn": 2
+     },
+     "do": "say",
+     "speaker": "narrator",
+     "purpose": "문 앞에서 안토니우스가 트레보니우스에게 붙들림(안토니우스는 필드 유닛이 아님)"
+    },
+    {
+     "id": "ch26_s10_e2_enter",
+     "on": {
+      "turn": 4
+     },
+     "do": "camera",
+     "speaker": null,
+     "purpose": "회의장 입구 focus [29,10]",
+     "tile": [
+      29,
+      10
+     ],
+     "ms": 600
+    }
+   ],
+   "scene_keys": [
+    "ch26_s10_pre",
+    "ch26_s10_post"
+   ],
+   "map_requirements": {
+    "map_code": "su_ch26_s10_pompey_theatre",
+    "source": "database/data/maps_ch26_caesar.json (맵디자이너 확정)",
+    "size": [
+     36,
+     22
+    ],
+    "deploy_zone_a_bbox": [
+     1,
+     0,
+     13,
+     2
+    ],
+    "zone_refs_used": [
+     "curia_steps [30,9~12] (승리 구역)",
+     "curia_approach: 계단 앞 x26~30,y8~13 통행 가능 칸(flag 구역)",
+     "caesar_route [7,10]->[18,10]->[29,10]->[30,10]"
+    ],
+    "tile_tags": [
+     "caesar_route",
+     "curia_door_out",
+     "curia_steps",
+     "theatre_exit"
+    ]
+   },
+   "design_notes": [
+    "맵 36x22. 맵 제약: 아군 시작 4(deploy a 스폰 4) → 선택 슬롯 0, 주인공 단독 + 부대. 아군 최대 6(영웅1+부대4+카이사르1) vs 적 14: 숫자 열세는 오프셋 -9 와 도달형 목표로 보정.",
+    "주인공 시작 [10,1] 에서 계단 [30,9~12] 까지 맨해튼 28~31칸: 이동력 6 기준 5턴 → max_turns 8 은 빠듯. 측정 후 10턴 확대 검토.",
+    "카이사르: route(이동력 6, turn 2~)로 계단으로 이동, must_survive false. 승리 구역과 분리한 curia_approach 에서 flag warning_delivered 세팅.",
+    "군중(맵 crowd_cells)은 중립 유닛 미지원이라 미사용. 전투 후 flag 분기는 FE 미구현.",
+    "[박백엔 2026-11-09 화자 참전 1차] 암살단 적 NPC 3기(G 데키무스 32,6 / H 마르쿠스 32,15 / I 카시우스 32,16) 추가, soldiers 0. 문서 잠정치(32,9)(33,10)(33,12)는 회의장 건물 벽(W) 통행불가라 건물 옆 북·남 뜰(plain)로 보정. 승리 구역 curia_steps(30,9~12)와 분리. 엔진은 ai 이름을 읽지 않아 hold_until_contact 만으로는 전진하므로 부대 hold_until_turn 99 로 제자리 고정(격파 대상 아님, win_mode only 유지). 적 초기 14->17기."
+   ],
+   "companion_proposal": {
+    "enemy": 0,
+    "ally": 0,
+    "ally_by_hero": {
+     "julius_caesar": 0
+    },
+    "_reason": "적 14 >= 아군 6"
+   }
+  }
+ ],
+ "engine_requests": [
+  "1) 연속 점유 패배(s2 '입구 3턴 연속 적 점유'): in_zone 은 순간 판정이라 '적이 다리 위에 서면 패배'로 근사. lose_conditions 에 held_turns 형 조건 요청.",
+  "2) NPC HP 별 조건(s9 '카이사르 hp 30% 이하 보호'): star_conditions 에 ally_npc_hp_pct_min 형이 없어 commander_hp_pct_min(주인공)로 대체.",
+  "3) 중립 군중 유닛(npc_forum_crowd; 맵 crowd_cells): 중립 진영 미지원 -> 미사용.",
+  "4) 전투 후 flag 분기·컷인 초상(s10 post): FE/백엔드 미구현(설계서 부록 C).",
+  "5) stage_companions.json ch26 10개 엔트리 필요(이 작업에서 백업 후 추가·갱신함, 박백엔 확인).",
+  "6) 대사 화자 allowlist: s10 e1 안토니우스는 필드 유닛이 아니라 narrator 로 요청.",
+  "7) 신규 코드 등록: roster 신규 npc_*, npc_mark_antony(A 플레이어블 예정), npc_pompey_magnus·npc_marcus_brutus(승격 대비).",
+  "8) 맵 meta.tile_tags 가 stage 시드의 zone_ref 치환에 쓰이는 곳은 battle_cues(on.when.zone_ref)뿐. 스테이지 rules 의 tiles 는 리터럴 좌표이므로 맵이 바뀌면 이 파일 재생성 필요."
+ ]
+}

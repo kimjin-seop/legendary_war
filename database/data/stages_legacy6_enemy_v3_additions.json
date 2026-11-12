@@ -1,0 +1,1476 @@
+{
+ "_note": "[초안 additions] stages_legacy6_enemy_v3.json (stage_01~06) 의 적 편성 수정안. 기존 파일은 수정하지 않았다. 각 항목의 enemy_squads 는 해당 코드의 enemy_squads 전체를 대체한다(triggers·맵·레벨·보상 불변). 치환 규칙: 부대 말미 병사 1기 + 그 셀을 이름 있는 부장 단독 부대(soldiers 0, units_total 1, 같은 병종, hp_mult 1.0)로 바꾼다 -> 유닛 수·병종 구성·셀 좌표 불변이라 지형 통행 검증 결과 유지. scene_cast 는 전장 유닛이 아닌 대사/컷인 화자(송서사가 대사 작성, 안아트가 초상 제작). 로스터는 npc_roster_v3_additions.json 병합 전제.",
+ "version": 1,
+ "status": "draft",
+ "author": "임밸런",
+ "date": "2026-11-02",
+ "base_file": "stages_legacy6_enemy_v3.json",
+ "roster_additions": "npc_roster_v3_additions.json",
+ "items": [
+  {
+   "code": "stage_01",
+   "map": "river_02",
+   "name": "첫 전초전",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 6,
+   "units_after": 6,
+   "enemy_squads_count": 4,
+   "named_before_total": 3,
+   "named_after_total": 10,
+   "ally_named_counted": [],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_richardis_stade",
+     "name_ko": "리하르디스 폰 슈타데",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_jutta_sponheim",
+     "name_ko": "유타 폰 슈폰하임",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_kuno_disibodenberg",
+     "name_ko": "쿠노",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_eugenius_iii",
+     "name_ko": "교황 에우제니우스 3세",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_conrad_iii",
+     "name_ko": "콘라트 3세",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_frederick_barbarossa",
+     "name_ko": "프리드리히 1세 바르바로사",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_guibert_gembloux",
+     "name_ko": "기베르 드 젬블루",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "accepted"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "hildegard",
+      "display_name_ko": "힐데가르트",
+      "evidence_level": "hero_db",
+      "troop_type": "sword",
+      "hp_mult": 0.8
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       6
+      ],
+      [
+       16,
+       6
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_volmar",
+      "display_name_ko": "폴마르",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       8
+      ],
+      [
+       15,
+       8
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_bernard_clairvaux",
+      "display_name_ko": "베르나르",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       3
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "수도원 사수 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       10
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "stage_02",
+   "map": "plain_01",
+   "name": "동방의 창",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 9,
+   "units_after": 9,
+   "enemy_squads_count": 5,
+   "named_before_total": 3,
+   "named_after_total": 10,
+   "ally_named_counted": [],
+   "converted": [
+    {
+     "squad": "C1",
+     "from": "C",
+     "ref": "npc_yeom_mo"
+    }
+   ],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_gogukyang",
+     "name_ko": "고국양왕",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_asin",
+     "name_ko": "아신왕",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_naemul",
+     "name_ko": "내물 마립간",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_murong_chui",
+     "name_ko": "모용수",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_murong_sheng",
+     "name_ko": "모용성",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_murong_xi",
+     "name_ko": "모용희",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "gwanggaeto",
+      "display_name_ko": "광개토대왕",
+      "evidence_level": "hero_db",
+      "troop_type": "sword",
+      "hp_mult": 1.15
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       7
+      ],
+      [
+       16,
+       7
+      ],
+      [
+       17,
+       6
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "hero",
+      "ref": "jangsu",
+      "display_name_ko": "장수왕",
+      "evidence_level": "hero_db",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "hold_until_turn": 2,
+     "cells": [
+      [
+       17,
+       3
+      ],
+      [
+       16,
+       3
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_moduru",
+      "display_name_ko": "모두루",
+      "evidence_level": "verify",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "hold_until_turn": 2,
+     "cells": [
+      [
+       17,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "고구려 맥궁 부대 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "hold_range": 6,
+     "cells": [
+      [
+       18,
+       12
+      ],
+      [
+       17,
+       12
+      ]
+     ]
+    },
+    {
+     "id": "C1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yeom_mo",
+      "display_name_ko": "염모",
+      "evidence_level": "verify",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "hold_until_turn": 2,
+     "cells": [
+      [
+       16,
+       10
+      ]
+     ],
+     "converted_from": "C 병사 1기"
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "stage_03",
+   "map": "forest_01",
+   "name": "책사의 계략",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 12,
+   "units_after": 12,
+   "enemy_squads_count": 8,
+   "named_before_total": 4,
+   "named_after_total": 10,
+   "ally_named_counted": [],
+   "converted": [
+    {
+     "squad": "A1",
+     "from": "A",
+     "ref": "npc_huang_zhong"
+    },
+    {
+     "squad": "B1",
+     "from": "B",
+     "ref": "npc_zhao_yun"
+    },
+    {
+     "squad": "C1",
+     "from": "C",
+     "ref": "npc_ma_dai"
+    },
+    {
+     "squad": "D1",
+     "from": "D",
+     "ref": "npc_ma_su"
+    }
+   ],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_jiang_wan",
+     "name_ko": "장완",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "hero",
+     "ref": "liu_bei",
+     "name_ko": "유비",
+     "battle_role": "scene_only"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "zhuge_liang",
+      "display_name_ko": "제갈량",
+      "evidence_level": "hero_db",
+      "troop_type": "archer",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       7
+      ],
+      [
+       16,
+       7
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_jiang_wei",
+      "display_name_ko": "강유",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       10
+      ],
+      [
+       15,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_wei_yan",
+      "display_name_ko": "위연",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_ambush",
+     "hold_range": 5,
+     "cells": [
+      [
+       17,
+       2
+      ],
+      [
+       16,
+       2
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_fa_zheng",
+      "display_name_ko": "법정",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       12
+      ],
+      [
+       16,
+       12
+      ]
+     ]
+    },
+    {
+     "id": "A1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_huang_zhong",
+      "display_name_ko": "황충",
+      "evidence_level": "confirmed",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       6
+      ]
+     ],
+     "converted_from": "A 병사 1기"
+    },
+    {
+     "id": "B1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_zhao_yun",
+      "display_name_ko": "조운",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       9
+      ]
+     ],
+     "converted_from": "B 병사 1기"
+    },
+    {
+     "id": "C1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ma_dai",
+      "display_name_ko": "마대",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_ambush",
+     "cells": [
+      [
+       17,
+       1
+      ]
+     ],
+     "converted_from": "C 병사 1기"
+    },
+    {
+     "id": "D1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ma_su",
+      "display_name_ko": "마속",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       11
+      ]
+     ],
+     "converted_from": "D 병사 1기"
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "stage_04",
+   "map": "plain_01",
+   "name": "코끼리 군단",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 24,
+   "units_after": 24,
+   "enemy_squads_count": 9,
+   "named_before_total": 3,
+   "named_after_total": 10,
+   "ally_named_counted": [],
+   "converted": [
+    {
+     "squad": "B1",
+     "from": "B",
+     "ref": "npc_mago_barca"
+    },
+    {
+     "squad": "A1",
+     "from": "A",
+     "ref": "npc_carthalo"
+    },
+    {
+     "squad": "C1",
+     "from": "C",
+     "ref": "npc_gisgo"
+    },
+    {
+     "squad": "C2",
+     "from": "C",
+     "ref": "npc_hanno_bomilcar"
+    }
+   ],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_aemilius_paullus",
+     "name_ko": "루키우스 아이밀리우스 파울루스",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_gaius_terentius_varro",
+     "name_ko": "가이우스 테렌티우스 바로",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "hero",
+     "ref": "fabius_maximus",
+     "name_ko": "파비우스 막시무스",
+     "battle_role": "scene_only"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "hannibal",
+      "display_name_ko": "한니발",
+      "evidence_level": "hero_db",
+      "troop_type": "cavalry",
+      "hp_mult": 1.6
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       7
+      ],
+      [
+       16,
+       7
+      ],
+      [
+       17,
+       6
+      ],
+      [
+       17,
+       8
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_maharbal",
+      "display_name_ko": "마하르발",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       2
+      ],
+      [
+       15,
+       2
+      ],
+      [
+       16,
+       1
+      ],
+      [
+       16,
+       3
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hasdrubal_cannae",
+      "display_name_ko": "하스드루발",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       14,
+       7
+      ],
+      [
+       13,
+       7
+      ],
+      [
+       14,
+       6
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 코끼리 부대 사령관",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       10
+      ],
+      [
+       17,
+       10
+      ],
+      [
+       18,
+       9
+      ],
+      [
+       18,
+       11
+      ],
+      [
+       19,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "발레아레스 투석병 대장",
+      "evidence_level": "verify",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       12
+      ],
+      [
+       16,
+       12
+      ],
+      [
+       17,
+       11
+      ],
+      [
+       17,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "B1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_mago_barca",
+      "display_name_ko": "마고 바르카",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       2
+      ]
+     ],
+     "converted_from": "B 병사 1기"
+    },
+    {
+     "id": "A1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_carthalo",
+      "display_name_ko": "카르탈로",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       7
+      ]
+     ],
+     "converted_from": "A 병사 1기"
+    },
+    {
+     "id": "C1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_gisgo",
+      "display_name_ko": "기스코",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       7
+      ]
+     ],
+     "converted_from": "C 병사 1기"
+    },
+    {
+     "id": "C2",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hanno_bomilcar",
+      "display_name_ko": "한노",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       14,
+       8
+      ]
+     ],
+     "converted_from": "C 병사 1기"
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "stage_05",
+   "map": "desert_01",
+   "name": "초원의 폭풍",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 24,
+   "units_after": 24,
+   "enemy_squads_count": 5,
+   "named_before_total": 5,
+   "named_after_total": 11,
+   "ally_named_counted": [],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_qasar",
+     "name_ko": "카사르",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_jelme",
+     "name_ko": "젤메",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_jochi",
+     "name_ko": "주치",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_boroqul",
+     "name_ko": "보로쿨",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_ogedei",
+     "name_ko": "오고타이",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_hoelun",
+     "name_ko": "후엘룬",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "genghis_khan",
+      "display_name_ko": "칭기즈 칸",
+      "evidence_level": "hero_db",
+      "troop_type": "cavalry",
+      "hp_mult": 1.7
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       8
+      ],
+      [
+       19,
+       8
+      ],
+      [
+       20,
+       7
+      ],
+      [
+       20,
+       9
+      ],
+      [
+       21,
+       8
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_jebe",
+      "display_name_ko": "제베",
+      "evidence_level": "confirmed",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       19,
+       2
+      ],
+      [
+       18,
+       2
+      ],
+      [
+       19,
+       1
+      ],
+      [
+       19,
+       3
+      ],
+      [
+       20,
+       2
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_subutai",
+      "display_name_ko": "수부타이",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       19,
+       14
+      ],
+      [
+       18,
+       14
+      ],
+      [
+       19,
+       13
+      ],
+      [
+       19,
+       15
+      ],
+      [
+       20,
+       14
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_muqali",
+      "display_name_ko": "무칼리",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       5
+      ],
+      [
+       20,
+       5
+      ],
+      [
+       21,
+       4
+      ],
+      [
+       21,
+       6
+      ],
+      [
+       22,
+       5
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_boorchu",
+      "display_name_ko": "보르추",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       20,
+       11
+      ],
+      [
+       21,
+       10
+      ],
+      [
+       21,
+       12
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "stage_06",
+   "map": "castle_01",
+   "name": "대왕의 원정",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 23,
+   "units_after": 23,
+   "enemy_squads_count": 6,
+   "named_before_total": 5,
+   "named_after_total": 11,
+   "ally_named_counted": [],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_cleitus_black",
+     "name_ko": "클레이토스",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_philotas",
+     "name_ko": "필로타스",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_seleucus",
+     "name_ko": "셀레우코스",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_perdiccas",
+     "name_ko": "페르디카스",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_antipater",
+     "name_ko": "안티파트로스",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_eumenes",
+     "name_ko": "에우메네스",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "hero",
+      "ref": "alexander",
+      "display_name_ko": "알렉산드로스",
+      "evidence_level": "hero_db",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       8
+      ],
+      [
+       19,
+       8
+      ],
+      [
+       20,
+       7
+      ],
+      [
+       20,
+       9
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hephaestion",
+      "display_name_ko": "헤파이스티온",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       5
+      ],
+      [
+       17,
+       5
+      ],
+      [
+       18,
+       4
+      ],
+      [
+       18,
+       6
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_parmenion",
+      "display_name_ko": "파르메니온",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       11
+      ],
+      [
+       17,
+       11
+      ],
+      [
+       18,
+       10
+      ],
+      [
+       19,
+       11
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_craterus",
+      "display_name_ko": "크라테로스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_gate",
+     "hold_range": 4,
+     "cells": [
+      [
+       18,
+       8
+      ],
+      [
+       17,
+       8
+      ],
+      [
+       18,
+       7
+      ],
+      [
+       18,
+       9
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ptolemy",
+      "display_name_ko": "프톨레마이오스",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       5
+      ],
+      [
+       20,
+       5
+      ],
+      [
+       21,
+       4
+      ],
+      [
+       21,
+       6
+      ]
+     ]
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "크레타 궁수 대장",
+      "evidence_level": "verify",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       20,
+       11
+      ],
+      [
+       21,
+       10
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  }
+ ]
+}

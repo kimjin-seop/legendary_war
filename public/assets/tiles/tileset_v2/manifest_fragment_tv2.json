@@ -1,0 +1,701 @@
+{
+ "tileset.tv2_static": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "1000~1618 불투명 / 1619~1676 맵 오브젝트 투명(alpha 0/255만, 반투명 0)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/bake.py (RM2003 칩셋 오토타일 블록 8px 쿼터 합성 47형 + x2 최근접, rg_* = 기존 타일 풀 픽셀 교체). 이미지 모델 호출 0회 + bake_ext.py(1619~ 오브젝트: 칩셋 단일 칸 x2, 마젠타 키 -> 알파 0) + bake_ext2.py(1626~1676 오브젝트 obj2_* 51칸: 칩셋 단일·다타일 조각 x2)",
+  "source": "D:/다운로드/...Exclusive Tilesets 2.png (sha256 4f98e356..e7bf63), 분석 docs/TILESET_V2_SPEC.md",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "제3자 저작물 가능성(RPG Maker 2003 계열 칩셋) — 라이선스 미확인, 개발 한정. 공개 전 권리 확인 필요",
+  "verify": true,
+  "scope": "battle",
+  "path": "/assets/tiles/tileset_v2/tv2_static.png",
+  "size": [
+   512,
+   1376
+  ],
+  "cols": 16,
+  "count": 677,
+  "global_index_start": 1000,
+  "load_hint": "this.load.spritesheet('tv2_static', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 1000",
+  "qa": {
+   "checked": true,
+   "verdict": "pass(조건부)",
+   "issues": [
+    "FE 미연결(윤프론 요청서 docs/TILESET_V2_SPEC.md 8절)",
+    "서양식 세트: 한옥·성곽·여울·늪은 기존 타일 폴백",
+    "rg_* 는 기존 그림 + 새 풀 바탕(화풍 차이 남음)",
+    "1619~1625 오브젝트 FE 미연결(U32_TV2.static.count 619 -> 626 필요)",
+    "obj_crate_a/b 는 칸 전체 불투명(칩셋 하층 원본) — 상자가 칸을 꽉 채움",
+    "서양식 소품(통·상자·이정표) 화풍 — 임진왜란 고증 verify",
+    "ext2: 1626~1676 FE 미연결(U32_TV2.static.count 626 -> 677, tv2_map_to_js.mjs 구간 1625 -> 1676 + chip_index_ext2 병합 필요)"
+   ]
+  },
+  "ext": {
+   "objects": "1619 obj_well(C:87=D:382) 1620 obj_brazier(D:318) 1621 obj_signpost(D:440) 1622 obj_firewood(D:349) 1623 obj_barrel(D:177) 1624 obj_crate_a(D:202) 1625 obj_crate_b(D:203)",
+   "chip_index": "tileset_v2_map.json chip_index",
+   "layer_hint": "tile_layer.v2 building/object 레이어(유닛 아래) 투명 합성",
+   "objects_ext2": "1626~1676 obj2_*(바위·잔해·나무·덤불·꽃·침엽수1x2·고목1x2·큰나무2x2·선돌1x2·비석·뼈·모닥불·항아리·들통·사다리·방·나무기둥1x2·울타리 8조각·탁자·의자·긴의자2x1·무너진 돌담2x2·나무 문틀3x1), chip_index_ext2"
+  }
+ },
+ "tileset.tv2_anim": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "전부 불투명(qa nonopaque 0, 키색 0)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/bake.py (RM2003 칩셋 오토타일 블록 8px 쿼터 합성 47형 + x2 최근접, rg_* = 기존 타일 풀 픽셀 교체). 이미지 모델 호출 0회",
+  "source": "D:/다운로드/...Exclusive Tilesets 2.png (sha256 4f98e356..e7bf63), 분석 docs/TILESET_V2_SPEC.md",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "제3자 저작물 가능성(RPG Maker 2003 계열 칩셋) — 라이선스 미확인, 개발 한정. 공개 전 권리 확인 필요",
+  "verify": true,
+  "scope": "battle",
+  "path": "/assets/tiles/tileset_v2/tv2_anim.png",
+  "size": [
+   512,
+   384
+  ],
+  "cols": 16,
+  "count": 48,
+  "frames": 4,
+  "stride": 48,
+  "global_index_start": 1700,
+  "fps_hint": 4,
+  "load_hint": "this.load.spritesheet('tv2_anim', path, {frameWidth:32, frameHeight:32}) — 프레임 = (전역-1700) + f*stride, f = u32AnimFrame(t) (RM 3프레임을 [0,1,2,1] 로 구움)",
+  "qa": {
+   "checked": true,
+   "verdict": "pass(조건부)",
+   "issues": [
+    "FE 미연결",
+    "sea_deep 은 표에 미사용(예비)"
+   ]
+  }
+ },
+ "tileset.tv2_anim2": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "전부 불투명(qa nonopaque 0, 키색 0)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/bake_ext.py: ford47(C b1 모래 + C:120~122 수면 반투명, 밝게·채도 낮게) / sandwater47(C water_A 물가 풀·흙둑 -> 모래) / tv2reef(기존 ws_anim reef 바위·포말 + tv2 바다). 이미지 모델 호출 0회 + bake_ext2.py(1898~1908 tv2fx_*: 칩셋 애니 칸 세로 4프레임 그대로 — 폭포·소용돌이·모닥불(배경 알파 0))",
+  "source": "D:/다운로드/...Exclusive Tilesets 2.png (sha256 4f98e356..e7bf63), 분석 docs/TILESET_V2_SPEC.md + 기존 public/assets/tiles/water_set/ws_anim.png(reef 302~305, 이 프로젝트 기존 에셋)",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "제3자 저작물 가능성(RPG Maker 2003 계열 칩셋) — 라이선스 미확인, 개발 한정. 공개 전 권리 확인 필요",
+  "verify": true,
+  "scope": "battle",
+  "path": "/assets/tiles/tileset_v2/tv2_anim2.png",
+  "size": [
+   512,
+   896
+  ],
+  "cols": 16,
+  "count": 109,
+  "frames": 4,
+  "stride": 112,
+  "global_index_start": 1800,
+  "fps_hint": 4,
+  "load_hint": "this.load.spritesheet('tv2_anim2', path, {frameWidth:32, frameHeight:32}) — 프레임 = (전역-1800) + f*112, f = u32AnimFrame(t)",
+  "qa": {
+   "checked": true,
+   "verdict": "pass(조건부)",
+   "issues": [
+    "FE 미연결(U32_TV2 에 anim2 구간 추가 필요)",
+    "tv2reef 바위는 기존 32px 도트(1px 선) — RM 16px x2 화풍과 픽셀 크기 차이",
+    "index_map_ext 는 선택 표(tv2_map_to_js.mjs 미반영)",
+    "ext2: 1898~1908 FE 미연결(anim2.count 98 -> 109). tv2fx_campfire_a 만 투명(오브젝트용), 나머지 불투명 지면"
+   ]
+  },
+  "capacity": [
+   1800,
+   1999
+  ],
+  "ranges": {
+   "ford47": [
+    1800,
+    1846
+   ],
+   "sandwater47": [
+    1847,
+    1893
+   ],
+   "tv2reef_a..d": [
+    1894,
+    1897
+   ],
+   "tv2fx_*": [
+    1898,
+    1908
+   ]
+  }
+ },
+ "tileset.tv2_static2": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "전부 불투명(qa nonopaque 0, 키색 0)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/bake_ext2.py: swamp47(C b0 흙길 + C:120 수면을 어두운 올리브로 바꿔 반투명 합성, 정적) / void47(B b3 구덩이 블록, 바위 바닥 픽셀 -> D:172 판자 바닥). 이미지 모델 호출 0회",
+  "source": "D:/다운로드/...Exclusive Tilesets 2.png (sha256 4f98e356..e7bf63), 분석 docs/TILESET_V2_SPEC.md",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "제3자 저작물 가능성(RPG Maker 2003 계열 칩셋) — 라이선스 미확인, 개발 한정. 공개 전 권리 확인 필요",
+  "verify": true,
+  "scope": "battle",
+  "path": "/assets/tiles/tileset_v2/tv2_static2.png",
+  "size": [
+   512,
+   192
+  ],
+  "cols": 16,
+  "count": 96,
+  "global_index_start": 2000,
+  "load_hint": "this.load.spritesheet('tv2_static2', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 2000",
+  "qa": {
+   "checked": true,
+   "verdict": "pass(조건부)",
+   "issues": [
+    "FE 미연결(새 시트 등록 + index_map_ext2 병합 필요)",
+    "void 는 검정 구덩이(기존 별 무늬 허공과 분위기 다름, 아트 방향 verify)",
+    "늪은 절차 합성(갈대·수초 없음)",
+    "rift_plank_a/b 는 기존 타일 유지 -> 검정 허공 옆에서 별 무늬 칸이 남음"
+   ]
+  },
+  "capacity": [
+   2000,
+   2199
+  ],
+  "ranges": {
+   "swamp_single": 2000,
+   "swamp47": [
+    2001,
+    2047
+   ],
+   "void47": [
+    2048,
+    2094
+   ],
+   "void_single": 2095
+  }
+ },
+ "tileset.tv2_static3": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "2200~2231 지면 불투명 / 2232~2264 실내 오브젝트 투명(alpha 0/255만, 반투명 0)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/bake_ext3.py(맵디자이너 2026-11-03): 칩셋 A 실내 칸(서가 3x3·회벽 벽면 2행·사암·카운터 4x1·붉은 카펫 3x4·문턱 석판 / 책상·의자·책·촛대·등잔·지도 액자·시계·문·소형 서가·장롱·긴 탁자·창) x2 최근접 복사. 이미지 모델 호출 0회",
+  "source": "D:/다운로드/...Exclusive Tilesets 2.png (sha256 4f98e356..e7bf63), 분석 docs/TILESET_V2_SPEC.md",
+  "prompt_ref": "없음(칩셋 복사)",
+  "license": "제3자 저작물 가능성(RPG Maker 2003 계열 칩셋) — 라이선스 미확인, 개발 한정. 공개 전 권리 확인 필요",
+  "verify": true,
+  "scope": "battle",
+  "path": "/assets/tiles/tileset_v2/tv2_static3.png",
+  "size": [
+   512,
+   160
+  ],
+  "cols": 16,
+  "count": 65,
+  "global_index_start": 2200,
+  "load_hint": "this.load.spritesheet('tv2_static3', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 2200",
+  "qa": {
+   "checked": true,
+   "verdict": "pass(조건부)",
+   "issues": [
+    "FE 미연결(U32_TV2 에 static3 시트 등록 + u32Src 분기를 static2 보다 먼저 + tv2_map_to_js.mjs 구간 2200~2399, chip_index_ext3·index_map_ext3 병합 필요)",
+    "벽 윗면 47형·붉은 줄 서가·종이 번짐은 칩셋에 없음 -> placeholder(예약 2300~2363, tileset_v2_map.json interior_placeholders), 안아트 신규 그림 대기",
+    "서양식 서고 소품(촛대·지도 액자·시계) 화풍 — 오리지널 서고 설정에는 문제 없음"
+   ]
+  },
+  "capacity": [
+   2200,
+   2399
+  ],
+  "ranges": {
+   "int_ground": [
+    2200,
+    2231
+   ],
+   "obj3": [
+    2232,
+    2264
+   ],
+   "reserved_walltop47": [
+    2300,
+    2347
+   ],
+   "reserved_shelfred": [
+    2350,
+    2358
+   ],
+   "reserved_bleed": [
+    2360,
+    2363
+   ]
+  }
+ },
+ "tileset.tv2_static3_art": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "2300~2347 벽 윗면·2350~2358 붉은 줄 서가 불투명 / 2360~2363 종이 번짐 반투명 오브젝트",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_ext3.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회). bake_ext3.py 체인 끝에서 --apply 로 등록",
+  "source": "D:/다운로드/...Exclusive Tilesets 2.png (sha256 4f98e356..e7bf63), 분석 docs/TILESET_V2_SPEC.md",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 서가 붉은 줄 변형은 칩셋 서가(A:18~80, 라이선스 미확인) 위 덧그림",
+  "verify": true,
+  "scope": "battle",
+  "path": "/assets/tiles/tileset_v2/tv2_static3_art.png",
+  "size": [
+   512,
+   128
+  ],
+  "cols": 16,
+  "count": 64,
+  "global_index_start": 2300,
+  "load_hint": "this.load.spritesheet('tv2_static3_art', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 2300",
+  "qa": {
+   "checked": true,
+   "verdict": "pass(조건부)",
+   "issues": [
+    "FE 미연결(U32_TV2.static3_art start 2300 count 64, u32Src 2300 분기를 static3 보다 먼저)",
+    "빈 프레임 2348~2349·2359 이름 없음"
+   ]
+  },
+  "capacity": [
+   2300,
+   2399
+  ],
+  "ranges": {
+   "int_walltop47": [
+    2300,
+    2346
+   ],
+   "int_walltop_single": 2347,
+   "int_shelfred": [
+    2350,
+    2358
+   ],
+   "obj3_bleed_a~d": [
+    2360,
+    2363
+   ]
+  }
+ },
+ "tileset.tv2_static3_a2": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "2364~2365·2370~2377 오브젝트 투명(alpha 0/255) / 2366~2369 연기 반투명 오버레이(alpha 0~170) / 2378~2384 지면 불투명",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_a2.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회). 풀 바탕만 칩셋 grass_a 픽셀 재사용",
+  "source": "자체 제작(지면 7칸의 풀 바탕 = tv2_static grass_a 1000)",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 지면 칸 풀 바탕은 칩셋(라이선스 미확인) 픽셀 재사용 — 공개 전 권리 확인 필요",
+  "verify": true,
+  "verify_items": [
+   "봉수대 연조 형태(원통 석축, 지역별 차이)",
+   "조선 두바퀴 수레 형태·바퀴살 수",
+   "곡식 섬(짚 가마) 묶음 방식"
+  ],
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static3_a2.png",
+  "width": 512,
+  "height": 64,
+  "cols": 16,
+  "start": 2364,
+  "count": 21,
+  "bytes": 4456,
+  "load_hint": "this.load.spritesheet('tv2_static3_a2', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 2364",
+  "notes": [
+   "FE 미연결(U32_TV2.static3_a2 start 2364 count 21, u32Src 2364 분기를 static3_art 보다 먼저 또는 2364~2384 범위 분기)",
+   "tmv2.py src() 에 i>=2364 -> tv2_static3_a2 분기 필요(맵디자이너)",
+   "연기 2366~2369 는 정적. 흔들림은 FE tween(알파 0.7~1, y -2px) 권장"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_a2/art_a2_qa.json"
+ },
+ "tileset.tv2_static4_mtn": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면(mtn47·cliff47·snowmtn47·mtnpk*·cliff_stair) 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_mtn.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회). 바탕 풀·눈만 칩셋 grass_a·snow47_255 픽셀 재사용",
+  "source": "자체 제작(바탕 풀·눈 = tv2_static 칩셋 픽셀)",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀·눈은 칩셋(라이선스 미확인) 픽셀 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": false,
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static4_mtn.png",
+  "width": 512,
+  "height": 384,
+  "cols": 16,
+  "start": 2400,
+  "count": 190,
+  "bytes": 20781,
+  "load_hint": "this.load.spritesheet('tv2_static4_mtn', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 2400",
+  "notes": [
+   "FE 미연결(U32_TV2.static4_mtn start 2400 count 187, u32Src 에 idx >= 2400 분기를 static3_a2(2364) 보다 먼저)",
+   "tmv2.py src() 에 i>=2400 -> tv2_static4_mtn 분기 + fe_valid 구간 필요(맵디자이너)",
+   "사용 규칙: docker/maps/tilemap_v2/mtn_tiles_mapping.json",
+   "2026-11-03 art_camp.py: mtn_fill_d/e/f = 2587~2589(프레임 187~189) 추가 — FE U32_TV2.static4_mtn count 187 -> 190"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_mtn/art_mtn_qa.json"
+ },
+ "tileset.tv2_static5_camp": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면(steppe_*·camp_*·steppe_drybush_*) 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_camp.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회). 바탕 풀만 칩셋 grass_a 픽셀 재사용(스텝 = 같은 픽셀 구조 색 치환)",
+  "source": "자체 제작(바탕 풀 = tv2_static 칩셋 픽셀)",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀은 칩셋(라이선스 미확인) 픽셀 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "천막 2색(생무명 백색/적갈)·대형 장막 휘장 형태는 시대·지역 일반화(고증 verify). 게르 남향 문·천창·펠트·밧줄은 일반 형태",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static5_camp.png",
+  "width": 512,
+  "height": 128,
+  "cols": 16,
+  "start": 2600,
+  "count": 57,
+  "bytes": 7707,
+  "load_hint": "this.load.spritesheet('tv2_static5_camp', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 2600",
+  "notes": [
+   "FE 미연결(U32_TV2.static5_camp start 2600 count 57, u32Src 에 idx >= 2600 분기를 static4_mtn(2400) 보다 먼저)",
+   "tv2_map_to_js.mjs ok() 구간에 2600~2663 + index_map_camp 병합 필요",
+   "tmv2.py src() 에 i>=2600 -> tv2_static5_camp 분기 + fe_valid 구간(맵디자이너)",
+   "사용 규칙: docker/maps/tilemap_v2/camp_tiles_mapping.json"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_camp/art_camp_qa.json"
+ },
+ "tileset.tv2_static6_west": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면(ridge*) 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_west.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회). 바탕 풀만 칩셋 grass_a 픽셀 재사용",
+  "source": "자체 제작(바탕 풀 = tv2_static 칩셋 픽셀)",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀은 칩셋(라이선스 미확인) 픽셀 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "11세기 노르만·8세기 프랑크 건축·선박은 일반화(롱십 계열 수송선·초가 민가·석조 장원). 안달루스 천막 줄무늬는 각색",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static6_west.png",
+  "width": 512,
+  "height": 864,
+  "cols": 16,
+  "start": 2700,
+  "count": 432,
+  "bytes": 14626,
+  "load_hint": "this.load.spritesheet('tv2_static6_west', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 2700",
+  "notes": [
+   "FE 미연결(U32_TV2.static6_west start 2700 count 432, u32Src 에서 idx >= 2700 분기를 static5_camp(2600) 보다 먼저)",
+   "tv2_map_to_js.mjs ok() 구간에 2700~3699 + index_map_west 병합 필요",
+   "tmv2.py src() 에 i>=2700 -> tv2_static6_west 분기 + fe_valid 구간(맵디자이너)",
+   "사용 규칙: docker/gemini/tileset_v2/art_west/west_tiles_mapping.json"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_west/art_west_qa.json"
+ },
+ "tileset.tv2_static7_china": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면(redcliff*) 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_china.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회). 바탕 풀만 칩셋 grass_a 픽셀 재사용",
+  "source": "자체 제작",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀은 칩셋(라이선스 미확인) 픽셀 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "후한 말 누선·몽충 형태는 일반화(낮은 박공·난간, 당·명대 장식 배제). 적벽 붉은 절벽은 지명 연상 각색",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static7_china.png",
+  "width": 512,
+  "height": 320,
+  "cols": 16,
+  "start": 3200,
+  "count": 151,
+  "bytes": 11161,
+  "load_hint": "this.load.spritesheet('tv2_static7_china', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 3200",
+  "notes": [
+   "FE 미연결(U32_TV2.static7_china start 3200 count 151, u32Src 에서 idx >= 3200 분기를 static6_west(2700) 보다 먼저)",
+   "tv2_map_to_js.mjs ok() 에 3200~3399 + index_map_china 병합",
+   "tmv2.py src() 에 i>=3200 분기(맵디자이너)"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_china/art_china_qa.json"
+ },
+ "tileset.tv2_static8_japan": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_japan.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회)",
+  "source": "자체 제작",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀·물 픽셀은 칩셋(라이선스 미확인) 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "16세기 후반 일본 성곽·진지 일반화(마방책 = 말뚝+가로대, 돌담 + 흰 토담·검은 기와). 가문 문장 없음",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static8_japan.png",
+  "width": 512,
+  "height": 512,
+  "cols": 16,
+  "start": 3400,
+  "count": 251,
+  "bytes": 14477,
+  "load_hint": "this.load.spritesheet('tv2_static8_japan', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 3400",
+  "notes": [
+   "FE 미연결(U32_TV2.static8_japan start 3400 count 251, u32Src 에서 idx >= 3400 분기를 더 작은 시작 구간보다 먼저)",
+   "tv2_map_to_js.mjs ok() 에 3400~3699 + index_map_static8_japan 병합",
+   "tmv2.py src() 에 i>=3400 분기(맵디자이너)"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_japan/art_japan_qa.json"
+ },
+ "tileset.tv2_static9_desert": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_world.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회)",
+  "source": "자체 제작",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀·물 픽셀은 칩셋(라이선스 미확인) 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "아케메네스·아이유브 시대 흙벽·장막 일반화(문장 없음)",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static9_desert.png",
+  "width": 512,
+  "height": 512,
+  "cols": 16,
+  "start": 3700,
+  "count": 247,
+  "bytes": 9909,
+  "load_hint": "this.load.spritesheet('tv2_static9_desert', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 3700",
+  "notes": [
+   "FE 미연결(U32_TV2.static9_desert start 3700 count 247, u32Src 에서 idx >= 3700 분기를 더 작은 시작 구간보다 먼저)",
+   "tv2_map_to_js.mjs ok() 에 3700~3999 + index_map_static9_desert 병합",
+   "tmv2.py src() 에 i>=3700 분기(맵디자이너)"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_world/art_world_desert_qa.json"
+ },
+ "tileset.tv2_static10_crusader": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_world.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회)",
+  "source": "자체 제작",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀·물 픽셀은 칩셋(라이선스 미확인) 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "12세기 레반트 십자군·아이유브 성곽 일반화(십자가·문장 없음)",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static10_crusader.png",
+  "width": 512,
+  "height": 96,
+  "cols": 16,
+  "start": 4000,
+  "count": 45,
+  "bytes": 2933,
+  "load_hint": "this.load.spritesheet('tv2_static10_crusader', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 4000",
+  "notes": [
+   "FE 미연결(U32_TV2.static10_crusader start 4000 count 45, u32Src 에서 idx >= 4000 분기를 더 작은 시작 구간보다 먼저)",
+   "tv2_map_to_js.mjs ok() 에 4000~4099 + index_map_static10_crusader 병합",
+   "tmv2.py src() 에 i>=4000 분기(맵디자이너)"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_world/art_world_crusader_qa.json"
+ },
+ "tileset.tv2_static11_med": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_world.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회)",
+  "source": "자체 제작",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀·물 픽셀은 칩셋(라이선스 미확인) 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "고대~중세 지중해 갤리·항구 일반화",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static11_med.png",
+  "width": 512,
+  "height": 320,
+  "cols": 16,
+  "start": 4100,
+  "count": 147,
+  "bytes": 6966,
+  "load_hint": "this.load.spritesheet('tv2_static11_med', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 4100",
+  "notes": [
+   "FE 미연결(U32_TV2.static11_med start 4100 count 147, u32Src 에서 idx >= 4100 분기를 더 작은 시작 구간보다 먼저)",
+   "tv2_map_to_js.mjs ok() 에 4100~4299 + index_map_static11_med 병합",
+   "tmv2.py src() 에 i>=4100 분기(맵디자이너)"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_world/art_world_med_qa.json"
+ },
+ "tileset.tv2_static12_levee": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_world.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회)",
+  "source": "자체 제작",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀·물 픽셀은 칩셋(라이선스 미확인) 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "1019 귀주 대첩 강 물막이 전승의 소가죽 둑 일반화",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static12_levee.png",
+  "width": 512,
+  "height": 64,
+  "cols": 16,
+  "start": 4300,
+  "count": 18,
+  "bytes": 1382,
+  "load_hint": "this.load.spritesheet('tv2_static12_levee', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 4300",
+  "notes": [
+   "FE 미연결(U32_TV2.static12_levee start 4300 count 18, u32Src 에서 idx >= 4300 분기를 더 작은 시작 구간보다 먼저)",
+   "tv2_map_to_js.mjs ok() 에 4300~4399 + index_map_static12_levee 병합",
+   "tmv2.py src() 에 i>=4300 분기(맵디자이너)"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_world/art_world_levee_qa.json"
+ },
+ "tileset.tv2_static13_archive": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_world.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회)",
+  "source": "자체 제작",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀·물 픽셀은 칩셋(라이선스 미확인) 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "창작 공간(글자 없음)",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static13_archive.png",
+  "width": 512,
+  "height": 64,
+  "cols": 16,
+  "start": 4400,
+  "count": 26,
+  "bytes": 1553,
+  "load_hint": "this.load.spritesheet('tv2_static13_archive', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 4400",
+  "notes": [
+   "FE 미연결(U32_TV2.static13_archive start 4400 count 26, u32Src 에서 idx >= 4400 분기를 더 작은 시작 구간보다 먼저)",
+   "tv2_map_to_js.mjs ok() 에 4400~4499 + index_map_static13_archive 병합",
+   "tmv2.py src() 에 i>=4400 분기(맵디자이너)"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_world/art_world_archive_qa.json"
+ },
+ "tileset.tv2_static14_india": {
+  "type": "tileset",
+  "frame": [
+   32,
+   32
+  ],
+  "alpha": "지면 불투명 / ov_* 투명 오버레이(alpha 0/255)",
+  "filter": "nearest(Point), pixelArt=true, 정수 배율만",
+  "names": "/assets/tiles/tileset_v2/tv2_names.json",
+  "name_map": "/assets/tiles/tileset_v2/tileset_v2_map.json",
+  "generator": "docker/gemini/tileset_v2/art_india.py(안아트 2026-11-03, Pillow 절차 도트 16px x2, 이미지 모델 호출 0회)",
+  "source": "자체 제작",
+  "prompt_ref": "없음(절차 합성)",
+  "license": "이 프로젝트 자체 제작(안아트). 바탕 풀·물 픽셀은 칩셋(라이선스 미확인) 재사용 — 공개 전 권리 확인 필요(비차단)",
+  "verify": true,
+  "verify_note": "16세기 무굴·로디 건축 일반화(붉은 사암·대리석 테, 돔 꼭대기 상징 없음). 무굴과 로디 양식 구분은 하지 않음. 코끼리·수레벽은 파니파트 전승 일반화",
+  "scope": "battle",
+  "path": "assets/tiles/tileset_v2/tv2_static14_india.png",
+  "width": 512,
+  "height": 416,
+  "cols": 16,
+  "start": 4500,
+  "count": 199,
+  "bytes": 14869,
+  "load_hint": "this.load.spritesheet('tv2_static14_india', path, {frameWidth:32, frameHeight:32}) — 프레임 = 전역 인덱스 - 4500",
+  "notes": [
+   "FE 미연결(U32_TV2.static14_india start 4500 count 199, u32Src 에서 idx >= 4500 분기를 더 작은 시작 구간보다 먼저)",
+   "tv2_map_to_js.mjs ok() 에 4500~4699 + index_map_static14_india 병합",
+   "tmv2.py src() 에 i>=4500 분기(맵디자이너)"
+  ],
+  "qa": "docker/gemini/tileset_v2/art_india/art_india_qa.json"
+ }
+}

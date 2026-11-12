@@ -1,0 +1,408 @@
+{
+  "_meta": {
+    "title": "스테이지별 필수 영웅(플레이어가 조작하는 고정 슬롯 후보) 제안 v1",
+    "date": "2026-11-08",
+    "author": "송서사(scenario-writer)",
+    "status": "proposal - 앱 코드/DB 미적용. 적용 시 stages.forced_heroes 로 옮기고, 같은 영웅이 rules.ally_npcs 에 있으면 제거해야 한다(StageRulesMerge 가 forced_heroes 와 ally_npcs 중복을 오류 처리).",
+    "format": "스테이지코드 -> [hero_code,...]. 주인공(@protagonist)은 모든 스테이지에 항상 출전하므로 목록에서 제외. 빈 배열 = 이 스테이지는 필수 영웅 없음(주인공만).",
+    "rules": [
+      "필수 영웅은 '그 스테이지(시나리오)의 이야기 주체가 되는 플레이어 진영 영웅'만 0~3명(이 파일은 최대 2명). 스테이지에만 나오는 조연, 적 지휘관, 서민/수레/무명 직함형은 제외.",
+      "옴니버스 = 시나리오끼리 독립된 이야기, 스테이지는 prerequisite 순서대로 진행. 같은 시나리오(독립 이야기)를 이루는 연속 스테이지끼리는 같은 주체 영웅, 시나리오가 바뀌면 세트가 바뀔 수 있다. 시나리오 경계는 _scenario_groups 참조.",
+      "필수 영웅은 플레이어가 보유할 수 있는 영웅이어야 한다. 가챠 풀(gacha_pool.json v7: hero_codes + named_npc.ready_codes + 확장/3차 신규 + roster playable:true 승격)에 없는 인물은 stages 에 넣지 않고 unobtainable_story_figures 에 기록하며, 풀 편입 시 채울 후보는 required_when_obtainable 에 둔다.",
+      "영웅 획득은 오직 가챠(사용자 확정 2026-11-08): 스테이지 클리어 보상/시작 지급/대여로 영웅을 주지 않는다. 따라서 필수 영웅은 가챠 풀(gacha_pool.json v7)에 있는 영웅만 허용하고, 풀에 없는 인물은 unobtainable_story_figures 로 분리한다. 가챠 운으로 막히는 구간은 gacha_softlock_estimate 와 보고서 참조.",
+      "기존 stages.join_hero(first_clear 영입) 스테이지는 제거 대상이다: ch1_s2(곽재우), ch1_s4(김시민), ch1_s5(휴정·유정), ch1_s6(권율) [stages_ch1_proposal(_v2).json], ch102_s5(허준), ch103_s5(잔 다르크), ch104_s2(살라딘), ch999_s4(바하 앗딘, 풀 제외 인물이라 제거 시 획득 경로 소멸 - 별도 결정 필요).",
+      "화면/대사 문구에는 근거 수준(confirmed/accepted/verify/invented)이나 각색 표기를 넣지 않는다. 이 파일의 _meta 는 제작용이며 화면 비표시."
+    ],
+    "evidence_basis": {
+      "dialogue_and_stage_verified": "ch1(대사+ally_npcs+forced_heroes), ch11 전체 대사 화자, ch12 s1~s5 화자, ch13 전체 화자, ch15 전체 화자, ch16 전체 화자, ch17 s1~s6 화자, ch19 전체 화자",
+      "inferred_from_ally_npcs_and_stage_title_only": "ch14 s1/s5~s10, ch12 s6~s10, ch17 s7~s10, ch18 전체, ch20 전체, ch21~ch25 전체(확장 ext 스테이지는 대사 파일 없음), ch102~ch104, ch999 - 확인 필요 목록(uncertain) 참조",
+      "note": "개발 DB(heroes.campaign_only/rarity)는 이번 작업 환경에서 조회할 수 없어(셸 도구 없음) 데이터 파일(gacha_pool.json, heroes.json, npc_roster*.json)로 대조했다. DB 실측과 다를 수 있으므로 팀장이 docker 로 재확인 필요."
+    },
+    "obtainability_legend": {
+      "core": "gacha_pool.json hero_codes 에 있는 기본 영웅(heroes.json 등급)",
+      "named": "gacha_pool.json named_npc.ready_codes (v7 풀 편입, 등급은 npc_roster)",
+      "promoted": "npc_roster playable:true -> game:npc-promote 로 campaign_only=0 (DB에서 승격 실행 여부 확인 필요)"
+    },
+    "rarity_rates_pct": {"S": 2, "A": 10, "B": 30, "C": 58, "note": "등급 안 균등 추첨이라 영웅 1명의 확률 = 등급 확률 / 풀 내 해당 등급 인원수(DB 집계 필요). 10연 A 이상 1회 보장."},
+    "gacha_softlock_estimate": {
+      "assumption": "풀 503명의 등급별 인원은 DB 집계 전이라 추정: S 28 / A 60 / B 160 / C 255 (heroes.json S22·A35 + 확장·named 추정). 영웅 1명 1회당 확률 = S 0.071%, A 0.167%, B 0.188%, C 0.227%. 10연 A 이상 1회 보장은 S 대상에 거의 영향 없음. 아래 값은 추정치이며 DB 집계 후 재계산 필요.",
+      "single_target_expected_pulls": {"S": 1400, "A": 600, "B": 533, "C": 439},
+      "required_distinct_total": {"S": 6, "A": 14, "B": 22, "C": 4, "all": 46, "S_list": ["yi_sun_sin", "guan_yu", "joan_of_arc", "alexander", "genghis_khan", "saladin"]},
+      "cumulative_by_chapter_in_numeric_order_SABC": {"ch1": [1, 0, 5, 0], "ch11": [1, 0, 8, 1], "ch12": [2, 2, 10, 1], "ch13": [2, 3, 11, 3], "ch14": [2, 4, 11, 3], "ch15": [2, 6, 12, 3], "ch16": [3, 6, 13, 3], "ch17": [4, 6, 13, 3], "ch18": [5, 8, 13, 3], "ch19": [6, 8, 15, 3], "ch20": [6, 10, 17, 4], "ch21": [6, 13, 18, 5], "ch22": [6, 14, 19, 5], "ch23": [6, 14, 20, 5], "ch24": [6, 14, 22, 5], "ch25": [6, 14, 23, 5]},
+      "note": "챕터 진행 순서는 ch1 -> ch11 -> ... -> ch25 로 가정(서가 해금 순서 미확정). 기대 뽑기 수는 등급 그룹별 H_k/p 의 최댓값(하한)이며 실제는 약 10~25% 더 크다."
+    },
+    "uncertain": [
+      "ch1 s5(평양성 탈환)의 주체: 승병 휴정·유정으로 정함(ally_npcs/join_hero/화자 148·149 근거). 이여송(npc_i_yeoseong, 명군)은 조연으로 제외. 휴정 단독으로 줄일 수도 있음.",
+      "ch1 s8·s10 은 서고 메타(what_if) 스테이지라 필수 영웅 없음으로 둠. s8 화자에 이순신이 나오나 전투 주체가 아님.",
+      "ch11 s5~s8 은 양규(npc_yang_gyu)가 화자·주체인데 풀 미편입(3차 확장 promote 후보). 현재 [] 로 두고 required_when_obtainable 에 후보 기록. 대사 파일 코드는 npc_yang_gyu, 김종현은 대사 npc_kim_jonghyeon / 로스터 npc_kim_jong_hyeon 불일치(확인 필요).",
+      "ch11 s10(마탄 도하 추격)은 ext 스테이지라 대사 미확인. 강감찬/강민첨/김종현 중 김종현으로 추정.",
+      "ch12 s5(장판파 호위)는 조운·장비가 주체이나 둘 다 풀 미확인(promote/new 후보). 대사 화자 코드는 npc_zhang_fei, 스테이지 ally 코드는 zhang_fei 로 불일치. s6~s10 주체는 ally_npcs 로만 판단(s8 화용도는 제갈량 vs 관우 가능).",
+      "ch13 s9·s10: 대사 화자는 유인궤(npc_liu_rengui), 스테이지 ally 는 법민(s9). 유인궤로 정함.",
+      "ch14 s1: ally 가 연태조·연자유(npc, 풀 편입)와 수레뿐이고 을지문덕은 시나리오 일관성으로 넣음. s5~s8(요동성/신성 방어, 수군 매복, 군량 차단)은 무명 직함형만 있어 []. s9·s10(일곱 번째 후퇴/퇴각로 추격)은 을지문덕 책략 서사로 추정.",
+      "ch16 s7(묑 다리)은 대사에 잔 다르크가 없고 라이르·알랑송만 나와 npc_la_hire 로 정함.",
+      "ch18 s1~s10 은 대사 미확인. 칭기즈 칸을 기본으로, s4=제베, s7=제베·수베에데이(ally_npcs 기준). 제베·수베에데이·보오르추는 roster playable:true 로 승격 여부를 DB 에서 확인해야 한다.",
+      "ch19 s2 는 발리앙(npc_balian_ibelin)이 ally 이나 풀 미확인이라 살라딘으로 둠. s10 은 알아딜/리처드 대사가 중심이라 살라딘 대신 npc_al_adil 로 바꿀 수 있음. 바하 앗딘(baha_ad_din)은 exclude_codes 이고 ch999 join_hero 로만 지급.",
+      "ch20 s4~s10 확장 스테이지는 ally_npcs 로만 판단(s4 하시바 히데요시, s6 혼다 다다카쓰, s8 마에다 도시이).",
+      "ch21 s1~s10: 대사 화자 기준으로 정정(2026-11-08): s7·s8=카단, s9=바투, s10=바이다르·카단. 구육(s8)·보롤다이(s9)는 대사 화자가 아니라 ally_npcs 조연이라 필수에서 제외. 바이다르·카단·바투는 roster playable:true.",
+      "ch22: 바부르 일관, s4 만 후마윤(ally_npcs 기준). 바부르/후마윤은 roster playable:true.",
+      "ch24 s5~s7: 외드 일관으로 추정(ally_npcs 가 무명 직함형/childebrand 뿐).",
+      "ch25: 쩐흥다오(tran_hung_dao)가 s1,s5,s6,s10 ally 이고 나머지는 무명·획득 불가 인물이라 시나리오 일관성 규칙으로 전 스테이지 쩐흥다오로 정함. 대사 파일 ch25_bachdang.json 의 화자 재확인 필요.",
+      "ch102(허준 합류)·ch103(잔 다르크 합류)·ch104(살라딘 합류): 합류 영웅은 해당 막 클리어 보상이므로 같은 막 안에서는 필수로 두지 않음(순환 소프트락 방지). 본편은 주인공 중심 설계(메모리 규칙)와도 일치.",
+      "ch999: 이순신·잔 다르크 등은 종장 도달 시점에 보유 가정이 불가능하므로 필수에서 제외(ally_npcs 로 지원)."
+    ]
+  },
+
+  "_scenario_groups": {
+    "ch1": [
+      {"scenario": "옥포 해전", "stages": ["ch1_s1"], "hero": ["yi_sun_sin"]},
+      {"scenario": "정암진 의병전", "stages": ["ch1_s2"], "hero": ["gwak_jae_u"]},
+      {"scenario": "한산도 대첩", "stages": ["ch1_s3"], "hero": ["yi_sun_sin"]},
+      {"scenario": "진주성 전투", "stages": ["ch1_s4"], "hero": ["kim_si_min"]},
+      {"scenario": "평양성 탈환", "stages": ["ch1_s5"], "hero": ["hyujeong", "yujeong"]},
+      {"scenario": "행주산성", "stages": ["ch1_s6"], "hero": ["gwon_yul"]},
+      {"scenario": "노량 해전", "stages": ["ch1_s7"], "hero": ["yi_sun_sin"]},
+      {"scenario": "서고 메타(번진 기록~마지막 기록, 명량 포함)", "stages": ["ch1_s8", "ch1_s9", "ch1_s10"], "hero": ["(s9 만 yi_sun_sin)"]}
+    ],
+    "ch11": [
+      {"scenario": "993 서희 담판·안융진", "stages": ["ch11_s1", "ch11_s2"], "hero": ["seo_hui"]},
+      {"scenario": "1018 흥화진·귀주", "stages": ["ch11_s3", "ch11_s4"], "hero": ["gang_gamchan", "npc_gang_min_cheom"]},
+      {"scenario": "1010~11 양규의 항전(대사는 양규 중심, 풀 미편입)", "stages": ["ch11_s5", "ch11_s6", "ch11_s7", "ch11_s8"], "hero": []},
+      {"scenario": "1019 자주·마탄", "stages": ["ch11_s9", "ch11_s10"], "hero": ["npc_gang_min_cheom", "npc_kim_jong_hyeon"]}
+    ],
+    "ch12": [
+      {"scenario": "적벽 전야(유비·제갈량)", "stages": ["ch12_s1"], "hero": ["liu_bei", "zhuge_liang"]},
+      {"scenario": "적벽 오군(주유)", "stages": ["ch12_s2", "ch12_s3", "ch12_s4"], "hero": ["zhou_yu"]},
+      {"scenario": "장판파(조운·장비, 풀 미편입)", "stages": ["ch12_s5"], "hero": []},
+      {"scenario": "적벽 이후(관우·제갈량·주유)", "stages": ["ch12_s6", "ch12_s7", "ch12_s8", "ch12_s9"], "hero": ["guan_yu", "zhuge_liang", "zhou_yu"]},
+      {"scenario": "유수구(손권)", "stages": ["ch12_s10"], "hero": ["sun_quan"]}
+    ],
+    "ch13": [
+      {"scenario": "황산벌·사비(김유신)", "stages": ["ch13_s1", "ch13_s2", "ch13_s3", "ch13_s5", "ch13_s6", "ch13_s7"], "hero": ["kim_yusin"]},
+      {"scenario": "소정방 합류(s4)", "stages": ["ch13_s4"], "hero": ["npc_so_jeongbang"]},
+      {"scenario": "부흥전쟁·백강(김품일·유인궤)", "stages": ["ch13_s8", "ch13_s9", "ch13_s10"], "hero": ["npc_kim_pumil", "npc_liu_rengui"]}
+    ],
+    "ch14": [
+      {"scenario": "612 을지문덕(살수)", "stages": ["ch14_s1", "ch14_s2", "ch14_s3", "ch14_s4"], "hero": ["eulji_mundeok"]},
+      {"scenario": "612 성 방어·매복(무명 직함형, 주체 없음)", "stages": ["ch14_s5", "ch14_s6", "ch14_s7", "ch14_s8"], "hero": []},
+      {"scenario": "612 일곱 번째 후퇴·추격", "stages": ["ch14_s9", "ch14_s10"], "hero": ["eulji_mundeok"]}
+    ],
+    "ch15": [
+      {"scenario": "파비우스 지연전", "stages": ["ch15_s1"], "hero": ["fabius_maximus"]},
+      {"scenario": "스키피오(신카르타고~자마, 칸나이 회상 포함)", "stages": ["ch15_s2", "ch15_s3", "ch15_s4", "ch15_s6", "ch15_s7", "ch15_s8", "ch15_s9", "ch15_s10"], "hero": ["scipio_africanus"]},
+      {"scenario": "티키누스(대 스키피오)", "stages": ["ch15_s5"], "hero": ["npc_publius_scipio"]}
+    ],
+    "ch16": [
+      {"scenario": "오를레앙~랭스·파리(잔 다르크)", "stages": ["ch16_s1", "ch16_s2", "ch16_s3", "ch16_s4", "ch16_s5", "ch16_s6", "ch16_s8", "ch16_s9", "ch16_s10"], "hero": ["joan_of_arc"]},
+      {"scenario": "묑 다리(라이르)", "stages": ["ch16_s7"], "hero": ["npc_la_hire"]}
+    ],
+    "ch17": [{"scenario": "알렉산드로스 원정(그라니코스~히다스페스, 가우가멜라)", "stages": ["ch17_s1~s10"], "hero": ["alexander"]}],
+    "ch18": [{"scenario": "칭기즈 칸 통일·원정(제베/수베에데이 서브)", "stages": ["ch18_s1~s10"], "hero": ["genghis_khan", "npc_jebe", "npc_subutai"]}],
+    "ch19": [
+      {"scenario": "살라딘(하틴~다룸)", "stages": ["ch19_s1", "ch19_s2", "ch19_s3", "ch19_s4", "ch19_s6", "ch19_s8", "ch19_s9", "ch19_s10"], "hero": ["saladin"]},
+      {"scenario": "크레송 샘(고크보리)", "stages": ["ch19_s5"], "hero": ["npc_gokbori"]},
+      {"scenario": "아크레 보급(카라쿠시)", "stages": ["ch19_s7"], "hero": ["npc_qaraqush"]}
+    ],
+    "ch20": [
+      {"scenario": "나가시노(도리이 스네에몬 사자 -> 노부나가)", "stages": ["ch20_s1", "ch20_s2", "ch20_s3"], "hero": ["npc_torii_suneemon", "oda_nobunaga"]},
+      {"scenario": "확장 스테이지(개별 주체)", "stages": ["ch20_s4", "ch20_s5", "ch20_s6", "ch20_s7", "ch20_s8", "ch20_s9", "ch20_s10"], "hero": ["toyotomi_hideyoshi", "npc_torii_suneemon", "honda_tadakatsu", "oda_nobunaga", "npc_maeda_toshiie"]}
+    ],
+    "ch21": [
+      {"scenario": "몽골 선봉 바이다르", "stages": ["ch21_s1", "ch21_s2", "ch21_s3", "ch21_s4"], "hero": ["npc_baidar"]},
+      {"scenario": "바투 본대", "stages": ["ch21_s5", "ch21_s6"], "hero": ["npc_batu"]},
+      {"scenario": "카단 후위(아드리아~후위)", "stages": ["ch21_s7", "ch21_s8"], "hero": ["npc_kadan"]},
+      {"scenario": "바투 철수(모라비아 이전)", "stages": ["ch21_s9"], "hero": ["npc_batu"]},
+      {"scenario": "모라비아 연락 호송(바이다르·카단)", "stages": ["ch21_s10"], "hero": ["npc_baidar", "npc_kadan"]}
+    ],
+    "ch22": [{"scenario": "바부르 파니파트(s4 후마윤)", "stages": ["ch22_s1~s10"], "hero": ["npc_babur", "npc_humayun"]}],
+    "ch23": [{"scenario": "정복왕 윌리엄(헤이스팅스~대관식)", "stages": ["ch23_s1~s10"], "hero": ["william_i"]}],
+    "ch24": [
+      {"scenario": "투르 전투(카를 마르텔)", "stages": ["ch24_s1", "ch24_s2", "ch24_s3", "ch24_s4"], "hero": ["npc_eudes_aquitaine", "charles_martel"]},
+      {"scenario": "아키텐 외드의 피난·회견", "stages": ["ch24_s5", "ch24_s6", "ch24_s7"], "hero": ["npc_eudes_aquitaine"]},
+      {"scenario": "737 남프랑스 원정", "stages": ["ch24_s8", "ch24_s9", "ch24_s10"], "hero": ["charles_martel"]}
+    ],
+    "ch25": [{"scenario": "바익당강(쩐흥다오)", "stages": ["ch25_s1~s10"], "hero": ["tran_hung_dao"]}],
+    "ch26": [
+      {"scenario": "갈리아 전쟁 전반(보게사이·라인)", "stages": ["ch26_s1", "ch26_s2"], "hero": ["npc_labienus", "npc_publius_crassus"]},
+      {"scenario": "알레시아", "stages": ["ch26_s3"], "hero": ["npc_labienus"]},
+      {"scenario": "소환과 호민관의 탈출", "stages": ["ch26_s4"], "hero": ["npc_curio"]},
+      {"scenario": "루비콘 도하", "stages": ["ch26_s5"], "hero": ["npc_asinius_pollio"]},
+      {"scenario": "이탈리아 진군과 로마 입성", "stages": ["ch26_s6", "ch26_s7"], "hero": ["npc_mark_antony"]},
+      {"scenario": "폼페이우스 추격(파르살루스)", "stages": ["ch26_s8"], "hero": ["npc_mark_antony"]},
+      {"scenario": "마지막 내전과 3월 15일", "stages": ["ch26_s9", "ch26_s10"], "hero": []}
+    ],
+    "main_ch101_104": [{"scenario": "오리지널 본편(서고 순회원 중심, 서민 NPC만)", "stages": ["ch101_s1~ch104_s5"], "hero": []}],
+    "ch999": [{"scenario": "종장", "stages": ["ch999_s1~s4"], "hero": []}]
+  },
+
+  "unobtainable_story_figures": {
+    "_note": "이야기 주체/아군 화자이나 뽑기 풀·보상으로 얻을 수 없다고 판단한 인물(데이터 파일 기준, DB campaign_only 재확인 필요). 필수 영웅으로 넣지 않음.",
+    "ch1": [
+      {"hero": "(없음)", "note": "ch1 주체 전원 풀 포함(yi_sun_sin,gwak_jae_u,kim_si_min,hyujeong,yujeong,gwon_yul = hero_codes). 조연 npc_jeong_un,npc_won_gyun,npc_i_yeoseong,npc_jin_rin 은 named ready."}
+    ],
+    "ch11": [
+      {"hero": "npc_yu_bang", "stage": "ch11_s2", "reason": "gacha_pool.named_npc.excluded (동명 중복 처리, 한 고조 유방과 다른 인물일 가능성)"},
+      {"hero": "npc_yang_gyu", "stage": "ch11_s3, s5~s8(화자·주체)", "reason": "ready_codes/playable 목록에 없음. 3차 확장 promote 후보(hero_expansion_wave3_candidates) - DB campaign_only 확인 필요. 풀 편입 시 s5~s8 필수로 채움"},
+      {"hero": "npc_captive_headman", "stage": "ch11_s7", "reason": "무명 포로 대표"}
+    ],
+    "ch12": [
+      {"hero": "npc_zhao_yun", "stage": "ch12_s5", "reason": "3차 확장 promote 후보, 풀 편입 미확인"},
+      {"hero": "zhang_fei / npc_zhang_fei", "stage": "ch12_s5", "reason": "3차 확장 new 후보(zhang_fei), 대사는 npc_zhang_fei 로 코드 불일치 - 확인 필요"},
+      {"hero": "npc_lu_su", "stage": "ch12_s1", "reason": "3차 확장 promote 후보(roster 에는 있으나 playable 미지정)"},
+      {"hero": "npc_huang_gai", "stage": "ch12_s2~s3 화자", "reason": "3차 확장 promote 후보"},
+      {"hero": "npc_liu_qi", "stage": "ch12_s6", "reason": "roster 전용(campaign_only), 풀 미포함"}
+    ],
+    "ch13": [
+      {"hero": "npc_heukchi_sangji, npc_boksin 등", "stage": "ch13_s7~s8 화자", "reason": "3차 확장 promote 후보 또는 roster 전용(확인 필요), 적/조연이라 필수 아님"}
+    ],
+    "ch14": [
+      {"hero": "npc_goguryeo_* (선봉·수성 장수 등 무명 직함형)", "stage": "ch14_s2~s10 ally_npcs", "reason": "gacha_pool.named_npc.excluded: 무명 직함형"}
+    ],
+    "ch18": [
+      {"hero": "npc_muqali", "stage": "ch18 (필요 시)", "reason": "3차 확장 promote 후보, 풀 미확인"},
+      {"hero": "npc_boorchu, npc_jebe, npc_subutai", "stage": "ch18_s1,s4,s6,s7,s8", "reason": "roster playable:true 라 승격 시 획득 가능. 승격 실행 여부 DB 확인 필요(제베/수베에데이는 필수 후보로 포함 중)"}
+    ],
+    "ch19": [
+      {"hero": "npc_balian_ibelin", "stage": "ch19_s2", "reason": "3차 확장 promote 후보, 풀 미확인 -> 필수에서 제외"},
+      {"hero": "baha_ad_din", "stage": "ch19_s8 등", "reason": "gacha_pool.exclude_codes. ch999 join_hero(first_clear)로만 지급"}
+    ],
+    "ch21": [
+      {"hero": "npc_mongol_vanguard", "stage": "ch21_s2", "reason": "무명 직함형(excluded)"}
+    ],
+    "ch24": [
+      {"hero": "npc_frankish_* / npc_aquitaine_cavalry_captain / npc_andalus_* 등", "stage": "ch24_s1~s10", "reason": "무명 직함형(excluded)"}
+    ],
+    "ch25": [
+      {"hero": "npc_pham_ngu_lao, npc_tran_nhat_duat, npc_tran_quang_khai, npc_tran_khanh_du, npc_yet_kieu, npc_da_tuong, npc_nguyen_khoai", "stage": "ch25_s2~s10 ally_npcs", "reason": "npc_roster_shelf_ch25_dai_viet_add 전용(ready_codes/playable 목록 모두에 없음). 풀 편입하면 해당 스테이지 필수 후보"},
+      {"hero": "npc_dai_viet_boat_captain, npc_dai_viet_scout_captain", "stage": "ch25", "reason": "무명 직함형"}
+    ],
+    "main_ch101_104": [
+      {"hero": "npc_jieum, npc_jjogi, npc_bonggun, npc_sagong, npc_jimkkun, npc_dol_ajumeoni, npc_mabu, npc_bobyeong, npc_baetsagong, npc_ilkkun, npc_gilzabi, npc_sangin, npc_yumokmin, npc_gyojeong", "stage": "ch102~ch104", "reason": "서민/시스템/메타 NPC(gacha_pool.excluded), 의도적으로 획득 불가"},
+      {"hero": "npc_cart_front, npc_cart_rear, npc_cart_1, npc_cart_2, npc_boat_2", "stage": "ch102~ch104 등", "reason": "수레/나룻배 장애물 NPC(exclude_patterns)"}
+    ],
+    "ch999": [
+      {"hero": "npc_shadow_*, npc_blank_page, npc_erased_line", "stage": "ch999", "reason": "적/메타 NPC(excluded)"}
+    ],
+    "cross_chapter_generic": "수레(npc_cart_*), 나룻배(npc_boat_*), 기병대장/궁병대장 등 무명 직함형은 모든 챕터에서 필수 대상이 아님."
+  },
+
+  "required_when_obtainable": {
+    "_note": "풀 편입(또는 승격) 확정 시 해당 스테이지 필수에 추가할 후보. 현재 stages 에는 반영하지 않음.",
+    "ch11_s5": ["npc_yang_gyu"],
+    "ch11_s6": ["npc_yang_gyu"],
+    "ch11_s7": ["npc_yang_gyu"],
+    "ch11_s8": ["npc_yang_gyu"],
+    "ch12_s5": ["npc_zhao_yun", "zhang_fei"],
+    "ch19_s2": ["npc_balian_ibelin"],
+    "ch25_s1": ["npc_pham_ngu_lao"],
+    "ch25_s2": ["npc_tran_nhat_duat"],
+    "ch25_s3": ["npc_tran_quang_khai"],
+    "ch25_s4": ["npc_tran_nhat_duat", "npc_pham_ngu_lao"],
+    "ch25_s7": ["npc_tran_khanh_du"],
+    "ch25_s8": ["npc_pham_ngu_lao"],
+    "ch25_s9": ["npc_tran_khanh_du"],
+    "ch26_s1": ["npc_labienus", "npc_publius_crassus"],
+    "ch26_s2": ["npc_labienus"],
+    "ch26_s3": ["npc_labienus"],
+    "ch26_s4": ["npc_curio"],
+    "ch26_s5": ["npc_asinius_pollio"],
+    "ch26_s6": ["npc_mark_antony"],
+    "ch26_s7": ["npc_mark_antony"],
+    "ch26_s8": ["npc_mark_antony"]
+  },
+
+  "stage_01": [],
+  "stage_02": [],
+  "stage_03": [],
+  "stage_04": [],
+  "stage_05": [],
+  "stage_06": [],
+
+  "ch1_s1": ["yi_sun_sin"],
+  "ch1_s2": ["gwak_jae_u"],
+  "ch1_s3": ["yi_sun_sin"],
+  "ch1_s4": ["kim_si_min"],
+  "ch1_s5": ["hyujeong", "yujeong"],
+  "ch1_s6": ["gwon_yul"],
+  "ch1_s7": ["yi_sun_sin"],
+  "ch1_s8": [],
+  "ch1_s9": ["yi_sun_sin"],
+  "ch1_s10": [],
+
+  "ch101_s1": [], "ch101_s2": [], "ch101_s3": [], "ch101_s4": [], "ch101_s5": [],
+  "ch102_s1": [], "ch102_s2": [], "ch102_s3": [], "ch102_s4": [], "ch102_s5": [],
+  "ch103_s1": [], "ch103_s2": [], "ch103_s3": [], "ch103_s4": [], "ch103_s5": [],
+  "ch104_s1": [], "ch104_s2": [], "ch104_s3": [], "ch104_s4": [], "ch104_s5": [],
+
+  "ch11_s1": ["seo_hui"],
+  "ch11_s2": ["seo_hui"],
+  "ch11_s3": ["gang_gamchan"],
+  "ch11_s4": ["gang_gamchan", "npc_gang_min_cheom"],
+  "ch11_s5": [],
+  "ch11_s6": [],
+  "ch11_s7": [],
+  "ch11_s8": [],
+  "ch11_s9": ["npc_gang_min_cheom"],
+  "ch11_s10": ["npc_kim_jong_hyeon"],
+
+  "ch12_s1": ["liu_bei", "zhuge_liang"],
+  "ch12_s2": ["zhou_yu"],
+  "ch12_s3": ["zhou_yu"],
+  "ch12_s4": ["zhou_yu"],
+  "ch12_s5": [],
+  "ch12_s6": ["guan_yu"],
+  "ch12_s7": ["zhou_yu", "zhuge_liang"],
+  "ch12_s8": ["zhuge_liang"],
+  "ch12_s9": ["zhou_yu"],
+  "ch12_s10": ["sun_quan"],
+
+  "ch13_s1": ["kim_yusin"],
+  "ch13_s2": ["kim_yusin"],
+  "ch13_s3": ["kim_yusin"],
+  "ch13_s4": ["npc_so_jeongbang"],
+  "ch13_s5": ["kim_yusin"],
+  "ch13_s6": ["kim_yusin"],
+  "ch13_s7": ["kim_yusin"],
+  "ch13_s8": ["npc_kim_pumil"],
+  "ch13_s9": ["npc_liu_rengui"],
+  "ch13_s10": ["npc_liu_rengui"],
+
+  "ch14_s1": ["eulji_mundeok"],
+  "ch14_s2": ["eulji_mundeok"],
+  "ch14_s3": ["eulji_mundeok"],
+  "ch14_s4": ["eulji_mundeok"],
+  "ch14_s5": [],
+  "ch14_s6": [],
+  "ch14_s7": [],
+  "ch14_s8": [],
+  "ch14_s9": ["eulji_mundeok"],
+  "ch14_s10": ["eulji_mundeok"],
+
+  "ch15_s1": ["fabius_maximus"],
+  "ch15_s2": ["scipio_africanus"],
+  "ch15_s3": ["scipio_africanus"],
+  "ch15_s4": ["scipio_africanus"],
+  "ch15_s5": ["npc_publius_scipio"],
+  "ch15_s6": ["scipio_africanus"],
+  "ch15_s7": ["scipio_africanus"],
+  "ch15_s8": ["scipio_africanus"],
+  "ch15_s9": ["scipio_africanus"],
+  "ch15_s10": ["scipio_africanus"],
+
+  "ch16_s1": ["joan_of_arc"],
+  "ch16_s2": ["joan_of_arc"],
+  "ch16_s3": ["joan_of_arc"],
+  "ch16_s4": ["joan_of_arc"],
+  "ch16_s5": ["joan_of_arc"],
+  "ch16_s6": ["joan_of_arc"],
+  "ch16_s7": ["npc_la_hire"],
+  "ch16_s8": ["joan_of_arc"],
+  "ch16_s9": ["joan_of_arc"],
+  "ch16_s10": ["joan_of_arc"],
+
+  "ch17_s1": ["alexander"],
+  "ch17_s2": ["alexander"],
+  "ch17_s3": ["alexander"],
+  "ch17_s4": ["alexander"],
+  "ch17_s5": ["alexander"],
+  "ch17_s6": ["alexander"],
+  "ch17_s7": ["alexander"],
+  "ch17_s8": ["alexander"],
+  "ch17_s9": ["alexander"],
+  "ch17_s10": ["alexander"],
+
+  "ch18_s1": ["genghis_khan"],
+  "ch18_s2": ["genghis_khan"],
+  "ch18_s3": ["genghis_khan"],
+  "ch18_s4": ["npc_jebe"],
+  "ch18_s5": ["genghis_khan"],
+  "ch18_s6": ["genghis_khan"],
+  "ch18_s7": ["npc_jebe", "npc_subutai"],
+  "ch18_s8": ["genghis_khan"],
+  "ch18_s9": ["genghis_khan"],
+  "ch18_s10": ["genghis_khan"],
+
+  "ch19_s1": ["saladin"],
+  "ch19_s2": ["saladin"],
+  "ch19_s3": ["saladin"],
+  "ch19_s4": ["saladin"],
+  "ch19_s5": ["npc_gokbori"],
+  "ch19_s6": ["saladin"],
+  "ch19_s7": ["npc_qaraqush"],
+  "ch19_s8": ["saladin"],
+  "ch19_s9": ["saladin"],
+  "ch19_s10": ["saladin"],
+
+  "ch20_s1": ["npc_torii_suneemon"],
+  "ch20_s2": ["oda_nobunaga"],
+  "ch20_s3": ["oda_nobunaga"],
+  "ch20_s4": ["toyotomi_hideyoshi"],
+  "ch20_s5": ["npc_torii_suneemon"],
+  "ch20_s6": ["honda_tadakatsu"],
+  "ch20_s7": ["oda_nobunaga"],
+  "ch20_s8": ["npc_maeda_toshiie"],
+  "ch20_s9": ["oda_nobunaga"],
+  "ch20_s10": ["oda_nobunaga"],
+
+  "ch21_s1": ["npc_baidar"],
+  "ch21_s2": ["npc_baidar"],
+  "ch21_s3": ["npc_baidar"],
+  "ch21_s4": ["npc_baidar"],
+  "ch21_s5": ["npc_batu"],
+  "ch21_s6": ["npc_batu"],
+  "ch21_s7": ["npc_kadan"],
+  "ch21_s8": ["npc_kadan"],
+  "ch21_s9": ["npc_batu"],
+  "ch21_s10": ["npc_baidar", "npc_kadan"],
+
+  "ch22_s1": ["npc_babur"],
+  "ch22_s2": ["npc_babur"],
+  "ch22_s3": ["npc_babur"],
+  "ch22_s4": ["npc_humayun"],
+  "ch22_s5": ["npc_babur"],
+  "ch22_s6": ["npc_babur"],
+  "ch22_s7": ["npc_babur"],
+  "ch22_s8": ["npc_babur"],
+  "ch22_s9": ["npc_babur"],
+  "ch22_s10": ["npc_babur"],
+
+  "ch23_s1": ["william_i"],
+  "ch23_s2": ["william_i"],
+  "ch23_s3": ["william_i"],
+  "ch23_s4": ["william_i"],
+  "ch23_s5": ["william_i"],
+  "ch23_s6": ["william_i"],
+  "ch23_s7": ["william_i"],
+  "ch23_s8": ["william_i"],
+  "ch23_s9": ["william_i"],
+  "ch23_s10": ["william_i"],
+
+  "ch24_s1": ["npc_eudes_aquitaine"],
+  "ch24_s2": ["charles_martel"],
+  "ch24_s3": ["charles_martel"],
+  "ch24_s4": ["charles_martel"],
+  "ch24_s5": ["npc_eudes_aquitaine"],
+  "ch24_s6": ["npc_eudes_aquitaine"],
+  "ch24_s7": ["npc_eudes_aquitaine"],
+  "ch24_s8": ["charles_martel"],
+  "ch24_s9": ["charles_martel"],
+  "ch24_s10": ["charles_martel"],
+
+  "ch25_s1": ["tran_hung_dao"],
+  "ch25_s2": ["tran_hung_dao"],
+  "ch25_s3": ["tran_hung_dao"],
+  "ch25_s4": ["tran_hung_dao"],
+  "ch25_s5": ["tran_hung_dao"],
+  "ch25_s6": ["tran_hung_dao"],
+  "ch25_s7": ["tran_hung_dao"],
+  "ch25_s8": ["tran_hung_dao"],
+  "ch25_s9": ["tran_hung_dao"],
+  "ch25_s10": ["tran_hung_dao"],
+
+  "ch26_s1": [], "ch26_s2": [], "ch26_s3": [], "ch26_s4": [], "ch26_s5": [],
+  "ch26_s6": [], "ch26_s7": [], "ch26_s8": [], "ch26_s9": [], "ch26_s10": [],
+
+  "ch999_s1": [],
+  "ch999_s2": [],
+  "ch999_s3": [],
+  "ch999_s4": []
+}

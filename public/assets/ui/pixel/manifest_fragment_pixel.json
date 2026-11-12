@@ -1,0 +1,1953 @@
+{
+ "_note": "도트(픽셀아트) 뱃지·표식 manifest 조각(병합 대기). 영웅 카드의 코드 생성 뱃지(HeroVisual.troopBadges: 원형 금테/방패 은테 + 글리프 글자)와 등급 텍스트(S★★★★)를 대체. 구버전(코드 그리기)은 폴백으로 보존.",
+ "generated": "2026-11-01T09:17:27.463Z",
+ "basePath": "public",
+ "keyRule": "badge.hero.<troop>(원형 금테 32x32, 영웅 본체 병종) / badge.troop.<troop>(방패 은테 30x32, 병사 병종) / sym.troop.<troop>(프레임 없는 심볼 24x24) / badge.rarity.<S|A|B|C>(20x20) / badge.rank.<bronze|silver|gold|platinum|diamond|master>(32x32) / pix.<star|star_empty|star_half|star.16|cost|level|crown|heart|atk|def|move|lock|settings|tab_rank|tab_quest>  troop: sword|spear|cavalry|naval|archer|mage|healer|monster|assassin|gunner",
+ "troopAlias": {
+  "infantry": "sword",
+  "lance": "spear",
+  "bow": "archer",
+  "heavy": "sword",
+  "flyer": "flyer"
+ },
+ "load": "Phaser: load.atlas(\"pixel_badges\", @3x.png, @3x.json) 1회(부팅, 3x 기준 약 50KB). 텍스처 setFilter(NEAREST) 필수. 표시 크기는 원본의 정수배(32→32/64/96, 24 표시가 필요하면 sym.troop 24x24 또는 x1 그대로)",
+ "atlas": {
+  "textureKey": "pixel_badges",
+  "1x": {
+   "path": "assets/ui/pixel/pixel_badges@1x.png",
+   "json": "assets/ui/pixel/pixel_badges@1x.json",
+   "bytes": 36494
+  },
+  "2x": {
+   "path": "assets/ui/pixel/pixel_badges@2x.png",
+   "json": "assets/ui/pixel/pixel_badges@2x.json",
+   "bytes": 44744
+  },
+  "3x": {
+   "path": "assets/ui/pixel/pixel_badges@3x.png",
+   "json": "assets/ui/pixel/pixel_badges@3x.json",
+   "bytes": 53567
+  }
+ },
+ "icoAtlas": {
+  "textureKey": "ui_pixel_ico",
+  "note": "ico.tab_rank·ico.tab_quest·ico.settings 의 도트 버전(같은 frame 키, 108px@3x = 36px x3). skin.atlasOf 목록에 추가하면 기존 ui_skin 키와 교체 가능. 단, 다른 하단 탭(ico.tab_stage 등)은 회화풍이라 섞이면 화풍 불일치 — 탭 전체를 도트로 바꿀지 결정 필요",
+  "3x": {
+   "path": "assets/ui/pixel/ui_pixel_ico@3x.png",
+   "json": "assets/ui/pixel/ui_pixel_ico@3x.json",
+   "bytes": 4670
+  },
+  "1.5x": {
+   "path": "assets/ui/pixel/ui_pixel_ico@1.5x.png",
+   "json": "assets/ui/pixel/ui_pixel_ico@1.5x.json",
+   "bytes": 4057,
+   "note": "1.5배 nearest(비정수, 픽셀 두께 불균일)"
+  }
+ },
+ "colors": {
+  "troopFill": "병종 고유색: 보병 청 / 창병 녹 / 기병 적 / 수병 청록 / 궁병 황 / 마법사 보라 / 승려 흰·금 / 마물 암적 / 암살자 회",
+  "heroRing": "금(#6A4410~#FFF0A8 4단)",
+  "soldierRing": "은청(#3C4A6A~#F0F6FF 4단)",
+  "rarity": "rarity.js RARITY_COLOR 와 동일 계열(S 금 #F0B23C, A 보라 #B06AD8, B 청록 #2FB5A6, C 회청 #8B97A8)"
+ },
+ "generator": {
+  "model": "gemini-nano-banana-2.1",
+  "api": "Interactions API",
+  "size": "2K",
+  "sheets": "raw/pix/pix_a1·a2·b1·b2·c1·c2.jpg(4x4 도트 심볼 시트, 6회)",
+  "script": "docker/gemini/gen_b.mjs + style_b.mjs(PIX_*) → pp_pixel_badges.py(격자 재표본·팔레트 양자화·1px 외곽선, 프레임·글자 코드 조립)",
+  "picks": "docker/gemini/pix_picks.json"
+ },
+ "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모). 프레임·등급 글자는 코드 생성(라이선스 문제 없음)",
+ "qaChecklist": [
+  "24px 축소에서 병종 9종 상호 구분",
+  "병종색 채움 대비 심볼 가독",
+  "투명 배경·반투명 0·마젠타 0",
+  "1px 외곽선 연속",
+  "정수 배율 x1/x2/x3"
+ ],
+ "qaPanel": "assets/ui/pixel/qa/badges_panel.png",
+ "count": 58,
+ "items": [
+  {
+   "key": "badge.hero.sword",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "sword",
+   "label": "보병",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_sword.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_sword.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_sword.png"
+   },
+   "atlasFrame": "badge.hero.sword",
+   "bytes": {
+    "x1": 1047,
+    "x3": 1300
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "badge.troop.sword",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "sword",
+   "label": "보병",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_sword.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_sword.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_sword.png"
+   },
+   "atlasFrame": "badge.troop.sword",
+   "bytes": {
+    "x1": 853,
+    "x3": 1067
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "sym.troop.sword",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "sword",
+   "label": "보병",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_sword.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_sword.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_sword.png"
+   },
+   "atlasFrame": "sym.troop.sword",
+   "bytes": {
+    "x1": 741,
+    "x3": 911
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 13
+    }
+   }
+  },
+  {
+   "key": "badge.hero.spear",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "spear",
+   "label": "창병",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_spear.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_spear.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_spear.png"
+   },
+   "atlasFrame": "badge.hero.spear",
+   "bytes": {
+    "x1": 853,
+    "x3": 1124
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "badge.troop.spear",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "spear",
+   "label": "창병",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_spear.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_spear.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_spear.png"
+   },
+   "atlasFrame": "badge.troop.spear",
+   "bytes": {
+    "x1": 706,
+    "x3": 908
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "sym.troop.spear",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "spear",
+   "label": "창병",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_spear.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_spear.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_spear.png"
+   },
+   "atlasFrame": "sym.troop.spear",
+   "bytes": {
+    "x1": 464,
+    "x3": 668
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "badge.hero.cavalry",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "cavalry",
+   "label": "기병",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_cavalry.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_cavalry.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_cavalry.png"
+   },
+   "atlasFrame": "badge.hero.cavalry",
+   "bytes": {
+    "x1": 1205,
+    "x3": 1537
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 21
+    }
+   }
+  },
+  {
+   "key": "badge.troop.cavalry",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "cavalry",
+   "label": "기병",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_cavalry.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_cavalry.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_cavalry.png"
+   },
+   "atlasFrame": "badge.troop.cavalry",
+   "bytes": {
+    "x1": 972,
+    "x3": 1237
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 19
+    }
+   }
+  },
+  {
+   "key": "sym.troop.cavalry",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "cavalry",
+   "label": "기병",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_cavalry.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_cavalry.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_cavalry.png"
+   },
+   "atlasFrame": "sym.troop.cavalry",
+   "bytes": {
+    "x1": 968,
+    "x3": 1154
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 13
+    }
+   }
+  },
+  {
+   "key": "badge.hero.naval",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "naval",
+   "label": "수병",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_naval.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_naval.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_naval.png"
+   },
+   "atlasFrame": "badge.hero.naval",
+   "bytes": {
+    "x1": 1155,
+    "x3": 1426
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "badge.troop.naval",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "naval",
+   "label": "수병",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_naval.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_naval.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_naval.png"
+   },
+   "atlasFrame": "badge.troop.naval",
+   "bytes": {
+    "x1": 886,
+    "x3": 1142
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "sym.troop.naval",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "naval",
+   "label": "수병",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_naval.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_naval.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_naval.png"
+   },
+   "atlasFrame": "sym.troop.naval",
+   "bytes": {
+    "x1": 708,
+    "x3": 994
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "badge.hero.archer",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "archer",
+   "label": "궁병",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_archer.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_archer.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_archer.png"
+   },
+   "atlasFrame": "badge.hero.archer",
+   "bytes": {
+    "x1": 911,
+    "x3": 1208
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "badge.troop.archer",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "archer",
+   "label": "궁병",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_archer.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_archer.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_archer.png"
+   },
+   "atlasFrame": "badge.troop.archer",
+   "bytes": {
+    "x1": 751,
+    "x3": 989
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "sym.troop.archer",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "archer",
+   "label": "궁병",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_archer.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_archer.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_archer.png"
+   },
+   "atlasFrame": "sym.troop.archer",
+   "bytes": {
+    "x1": 506,
+    "x3": 774
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 11
+    }
+   }
+  },
+  {
+   "key": "badge.hero.mage",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "mage",
+   "label": "마법사",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_mage.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_mage.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_mage.png"
+   },
+   "atlasFrame": "badge.hero.mage",
+   "bytes": {
+    "x1": 829,
+    "x3": 1085
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass_minor",
+    "issues": [
+     "지팡이 자루가 가늘어 24px 이하에서 보라 구슬로만 읽힘(구분에는 지장 없음)"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 21
+    }
+   }
+  },
+  {
+   "key": "badge.troop.mage",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "mage",
+   "label": "마법사",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_mage.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_mage.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_mage.png"
+   },
+   "atlasFrame": "badge.troop.mage",
+   "bytes": {
+    "x1": 716,
+    "x3": 901
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass_minor",
+    "issues": [
+     "같음"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 18
+    }
+   }
+  },
+  {
+   "key": "sym.troop.mage",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "mage",
+   "label": "마법사",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_mage.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_mage.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_mage.png"
+   },
+   "atlasFrame": "sym.troop.mage",
+   "bytes": {
+    "x1": 497,
+    "x3": 713
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 13
+    }
+   }
+  },
+  {
+   "key": "badge.hero.healer",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "healer",
+   "label": "승려",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_healer.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_healer.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_healer.png"
+   },
+   "atlasFrame": "badge.hero.healer",
+   "bytes": {
+    "x1": 1097,
+    "x3": 1339
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass_minor",
+    "issues": [
+     "석장 고리 형태가 24px 에서 열쇠처럼 보일 여지(색 흰/금으로 구분)"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 19
+    }
+   }
+  },
+  {
+   "key": "badge.troop.healer",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "healer",
+   "label": "승려",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_healer.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_healer.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_healer.png"
+   },
+   "atlasFrame": "badge.troop.healer",
+   "bytes": {
+    "x1": 885,
+    "x3": 1091
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "sym.troop.healer",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "healer",
+   "label": "승려",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_healer.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_healer.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_healer.png"
+   },
+   "atlasFrame": "sym.troop.healer",
+   "bytes": {
+    "x1": 768,
+    "x3": 1031
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "badge.hero.monster",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "monster",
+   "label": "마물",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_monster.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_monster.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_monster.png"
+   },
+   "atlasFrame": "badge.hero.monster",
+   "bytes": {
+    "x1": 1218,
+    "x3": 1472
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 21
+    }
+   }
+  },
+  {
+   "key": "badge.troop.monster",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "monster",
+   "label": "마물",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_monster.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_monster.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_monster.png"
+   },
+   "atlasFrame": "badge.troop.monster",
+   "bytes": {
+    "x1": 1004,
+    "x3": 1211
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "sym.troop.monster",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "monster",
+   "label": "마물",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_monster.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_monster.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_monster.png"
+   },
+   "atlasFrame": "sym.troop.monster",
+   "bytes": {
+    "x1": 1009,
+    "x3": 1148
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 13
+    }
+   }
+  },
+  {
+   "key": "badge.hero.assassin",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "assassin",
+   "label": "암살자",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_assassin.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_assassin.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_assassin.png"
+   },
+   "atlasFrame": "badge.hero.assassin",
+   "bytes": {
+    "x1": 1178,
+    "x3": 1412
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass_minor",
+    "issues": [
+     "복면 머리(회색) 위 흰 눈 2px 가 핵심 단서 — 16px 이하 표시 금지 권장"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "badge.troop.assassin",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "assassin",
+   "label": "암살자",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_assassin.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_assassin.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_assassin.png"
+   },
+   "atlasFrame": "badge.troop.assassin",
+   "bytes": {
+    "x1": 961,
+    "x3": 1167
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass_minor",
+    "issues": [
+     "같음"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 20
+    }
+   }
+  },
+  {
+   "key": "sym.troop.assassin",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "assassin",
+   "label": "암살자",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_assassin.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_assassin.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_assassin.png"
+   },
+   "atlasFrame": "sym.troop.assassin",
+   "bytes": {
+    "x1": 861,
+    "x3": 1034
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "badge.rarity.S",
+   "type": "pixel-icon",
+   "kind": "rarity_badge",
+   "size": [
+    20,
+    20
+   ],
+   "path": "assets/ui/pixel/x1/badge_rarity_S.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rarity_S.png",
+    "3x": "assets/ui/pixel/x3/badge_rarity_S.png"
+   },
+   "atlasFrame": "badge.rarity.S",
+   "bytes": {
+    "x1": 411,
+    "x3": 510
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 9
+    }
+   }
+  },
+  {
+   "key": "badge.rarity.A",
+   "type": "pixel-icon",
+   "kind": "rarity_badge",
+   "size": [
+    20,
+    20
+   ],
+   "path": "assets/ui/pixel/x1/badge_rarity_A.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rarity_A.png",
+    "3x": "assets/ui/pixel/x3/badge_rarity_A.png"
+   },
+   "atlasFrame": "badge.rarity.A",
+   "bytes": {
+    "x1": 380,
+    "x3": 485
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 9
+    }
+   }
+  },
+  {
+   "key": "badge.rarity.B",
+   "type": "pixel-icon",
+   "kind": "rarity_badge",
+   "size": [
+    20,
+    20
+   ],
+   "path": "assets/ui/pixel/x1/badge_rarity_B.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rarity_B.png",
+    "3x": "assets/ui/pixel/x3/badge_rarity_B.png"
+   },
+   "atlasFrame": "badge.rarity.B",
+   "bytes": {
+    "x1": 404,
+    "x3": 486
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 8
+    }
+   }
+  },
+  {
+   "key": "badge.rarity.C",
+   "type": "pixel-icon",
+   "kind": "rarity_badge",
+   "size": [
+    20,
+    20
+   ],
+   "path": "assets/ui/pixel/x1/badge_rarity_C.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rarity_C.png",
+    "3x": "assets/ui/pixel/x3/badge_rarity_C.png"
+   },
+   "atlasFrame": "badge.rarity.C",
+   "bytes": {
+    "x1": 414,
+    "x3": 475
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 8
+    }
+   }
+  },
+  {
+   "key": "pix.star",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    12,
+    12
+   ],
+   "path": "assets/ui/pixel/x1/pix_star.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_star.png",
+    "3x": "assets/ui/pixel/x3/pix_star.png"
+   },
+   "atlasFrame": "pix.star",
+   "bytes": {
+    "x1": 320,
+    "x3": 399
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "pix.star_empty",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    12,
+    12
+   ],
+   "path": "assets/ui/pixel/x1/pix_star_empty.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_star_empty.png",
+    "3x": "assets/ui/pixel/x3/pix_star_empty.png"
+   },
+   "atlasFrame": "pix.star_empty",
+   "bytes": {
+    "x1": 372,
+    "x3": 444
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "pix.star.16",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    16,
+    16
+   ],
+   "path": "assets/ui/pixel/x1/pix_star_16.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_star_16.png",
+    "3x": "assets/ui/pixel/x3/pix_star_16.png"
+   },
+   "atlasFrame": "pix.star.16",
+   "bytes": {
+    "x1": 443,
+    "x3": 565
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 11
+    }
+   }
+  },
+  {
+   "key": "pix.cost",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    14,
+    14
+   ],
+   "path": "assets/ui/pixel/x1/pix_cost.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_cost.png",
+    "3x": "assets/ui/pixel/x3/pix_cost.png"
+   },
+   "atlasFrame": "pix.cost",
+   "bytes": {
+    "x1": 322,
+    "x3": 405
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "pix.level",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    14,
+    14
+   ],
+   "path": "assets/ui/pixel/x1/pix_level.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_level.png",
+    "3x": "assets/ui/pixel/x3/pix_level.png"
+   },
+   "atlasFrame": "pix.level",
+   "bytes": {
+    "x1": 376,
+    "x3": 489
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 10
+    }
+   }
+  },
+  {
+   "key": "pix.crown",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    16,
+    16
+   ],
+   "path": "assets/ui/pixel/x1/pix_crown.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_crown.png",
+    "3x": "assets/ui/pixel/x3/pix_crown.png"
+   },
+   "atlasFrame": "pix.crown",
+   "bytes": {
+    "x1": 401,
+    "x3": 541
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 11
+    }
+   }
+  },
+  {
+   "key": "pix.heart",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    14,
+    14
+   ],
+   "path": "assets/ui/pixel/x1/pix_heart.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_heart.png",
+    "3x": "assets/ui/pixel/x3/pix_heart.png"
+   },
+   "atlasFrame": "pix.heart",
+   "bytes": {
+    "x1": 381,
+    "x3": 465
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 11
+    }
+   }
+  },
+  {
+   "key": "pix.atk",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    14,
+    14
+   ],
+   "path": "assets/ui/pixel/x1/pix_atk.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_atk.png",
+    "3x": "assets/ui/pixel/x3/pix_atk.png"
+   },
+   "atlasFrame": "pix.atk",
+   "bytes": {
+    "x1": 385,
+    "x3": 575
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 11
+    }
+   }
+  },
+  {
+   "key": "pix.def",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    14,
+    14
+   ],
+   "path": "assets/ui/pixel/x1/pix_def.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_def.png",
+    "3x": "assets/ui/pixel/x3/pix_def.png"
+   },
+   "atlasFrame": "pix.def",
+   "bytes": {
+    "x1": 393,
+    "x3": 477
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 9
+    }
+   }
+  },
+  {
+   "key": "pix.move",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    14,
+    14
+   ],
+   "path": "assets/ui/pixel/x1/pix_move.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_move.png",
+    "3x": "assets/ui/pixel/x3/pix_move.png"
+   },
+   "atlasFrame": "pix.move",
+   "bytes": {
+    "x1": 434,
+    "x3": 517
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "pix.lock",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    14,
+    14
+   ],
+   "path": "assets/ui/pixel/x1/pix_lock.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_lock.png",
+    "3x": "assets/ui/pixel/x3/pix_lock.png"
+   },
+   "atlasFrame": "pix.lock",
+   "bytes": {
+    "x1": 333,
+    "x3": 416
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 11
+    }
+   }
+  },
+  {
+   "key": "pix.star_half",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    12,
+    12
+   ],
+   "path": "assets/ui/pixel/x1/pix_star_half.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_star_half.png",
+    "3x": "assets/ui/pixel/x3/pix_star_half.png"
+   },
+   "atlasFrame": "pix.star_half",
+   "bytes": {
+    "x1": 286,
+    "x3": 360
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "pix.tab_rank",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/pix_tab_rank.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_tab_rank.png",
+    "3x": "assets/ui/pixel/x3/pix_tab_rank.png"
+   },
+   "atlasFrame": "pix.tab_rank",
+   "bytes": {
+    "x1": 1079,
+    "x3": 1418
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 13
+    }
+   }
+  },
+  {
+   "key": "pix.tab_quest",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/pix_tab_quest.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_tab_quest.png",
+    "3x": "assets/ui/pixel/x3/pix_tab_quest.png"
+   },
+   "atlasFrame": "pix.tab_quest",
+   "bytes": {
+    "x1": 905,
+    "x3": 1194
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 13
+    }
+   }
+  },
+  {
+   "key": "badge.rank.bronze",
+   "type": "pixel-icon",
+   "kind": "rank_badge",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_rank_bronze.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rank_bronze.png",
+    "3x": "assets/ui/pixel/x3/badge_rank_bronze.png"
+   },
+   "atlasFrame": "badge.rank.bronze",
+   "bytes": {
+    "x1": 1057,
+    "x3": 1331
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 13
+    }
+   }
+  },
+  {
+   "key": "badge.rank.silver",
+   "type": "pixel-icon",
+   "kind": "rank_badge",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_rank_silver.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rank_silver.png",
+    "3x": "assets/ui/pixel/x3/badge_rank_silver.png"
+   },
+   "atlasFrame": "badge.rank.silver",
+   "bytes": {
+    "x1": 1056,
+    "x3": 1268
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 11
+    }
+   }
+  },
+  {
+   "key": "badge.rank.gold",
+   "type": "pixel-icon",
+   "kind": "rank_badge",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_rank_gold.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rank_gold.png",
+    "3x": "assets/ui/pixel/x3/badge_rank_gold.png"
+   },
+   "atlasFrame": "badge.rank.gold",
+   "bytes": {
+    "x1": 1157,
+    "x3": 1469
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 13
+    }
+   }
+  },
+  {
+   "key": "badge.rank.platinum",
+   "type": "pixel-icon",
+   "kind": "rank_badge",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_rank_platinum.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rank_platinum.png",
+    "3x": "assets/ui/pixel/x3/badge_rank_platinum.png"
+   },
+   "atlasFrame": "badge.rank.platinum",
+   "bytes": {
+    "x1": 1276,
+    "x3": 1521
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "badge.rank.diamond",
+   "type": "pixel-icon",
+   "kind": "rank_badge",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_rank_diamond.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rank_diamond.png",
+    "3x": "assets/ui/pixel/x3/badge_rank_diamond.png"
+   },
+   "atlasFrame": "badge.rank.diamond",
+   "bytes": {
+    "x1": 1111,
+    "x3": 1361
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 12
+    }
+   }
+  },
+  {
+   "key": "badge.rank.master",
+   "type": "pixel-icon",
+   "kind": "rank_badge",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_rank_master.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_rank_master.png",
+    "3x": "assets/ui/pixel/x3/badge_rank_master.png"
+   },
+   "atlasFrame": "badge.rank.master",
+   "bytes": {
+    "x1": 1131,
+    "x3": 1469
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 13
+    }
+   }
+  },
+  {
+   "key": "pix.settings",
+   "type": "pixel-icon",
+   "kind": "mark",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/pix_settings.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/pix_settings.png",
+    "3x": "assets/ui/pixel/x3/pix_settings.png"
+   },
+   "atlasFrame": "pix.settings",
+   "bytes": {
+    "x1": 1083,
+    "x3": 1271
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0,
+     "colors": 11
+    }
+   }
+  },
+  {
+   "key": "badge.hero.gunner",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "gunner",
+   "label": "총병",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_gunner.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_gunner.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_gunner.png"
+   },
+   "atlasFrame": "badge.hero.gunner",
+   "bytes": {
+    "x1": 684,
+    "x3": 929
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "2026-11-03 안아트: 코드로 그린 화승총 심볼(proc_symbol, 호출 없음). 병종색 주황(#C86418)"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0
+    }
+   }
+  },
+  {
+   "key": "badge.hero.flyer",
+   "type": "pixel-icon",
+   "kind": "hero_troop_badge",
+   "troop": "flyer",
+   "label": "비행",
+   "size": [
+    32,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_hero_flyer.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_hero_flyer.png",
+    "3x": "assets/ui/pixel/x3/badge_hero_flyer.png"
+   },
+   "atlasFrame": "badge.hero.flyer",
+   "bytes": {
+    "x1": 817,
+    "x3": 1029
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "2026-11-08 안아트: 코드로 그린 펼친 날개 심볼(docker/gemini/add_flyer_badge.py, 호출 없음). 병종색 하늘색(#3486C4). 아틀라스 끝에 추가(기존 프레임 좌표 불변)"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0
+    }
+   }
+  },
+  {
+   "key": "badge.troop.gunner",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "gunner",
+   "label": "총병",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_gunner.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_gunner.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_gunner.png"
+   },
+   "atlasFrame": "badge.troop.gunner",
+   "bytes": {
+    "x1": 584,
+    "x3": 778
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "2026-11-03 안아트: 코드로 그린 화승총 심볼(proc_symbol, 호출 없음). 병종색 주황(#C86418)"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0
+    }
+   }
+  },
+  {
+   "key": "badge.troop.flyer",
+   "type": "pixel-icon",
+   "kind": "soldier_troop_badge",
+   "troop": "flyer",
+   "label": "비행",
+   "size": [
+    30,
+    32
+   ],
+   "path": "assets/ui/pixel/x1/badge_troop_flyer.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/badge_troop_flyer.png",
+    "3x": "assets/ui/pixel/x3/badge_troop_flyer.png"
+   },
+   "atlasFrame": "badge.troop.flyer",
+   "bytes": {
+    "x1": 671,
+    "x3": 847
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "2026-11-08 안아트: 코드로 그린 펼친 날개 심볼(docker/gemini/add_flyer_badge.py, 호출 없음). 병종색 하늘색(#3486C4). 아틀라스 끝에 추가(기존 프레임 좌표 불변)"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0
+    }
+   }
+  },
+  {
+   "key": "sym.troop.gunner",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "gunner",
+   "label": "총병",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_gunner.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_gunner.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_gunner.png"
+   },
+   "atlasFrame": "sym.troop.gunner",
+   "bytes": {
+    "x1": 318,
+    "x3": 451
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "2026-11-03 안아트: 코드로 그린 화승총 심볼(proc_symbol, 호출 없음). 병종색 주황(#C86418)"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0
+    }
+   }
+  },
+  {
+   "key": "sym.troop.flyer",
+   "type": "pixel-icon",
+   "kind": "troop_symbol",
+   "troop": "flyer",
+   "label": "비행",
+   "size": [
+    24,
+    24
+   ],
+   "path": "assets/ui/pixel/x1/sym_troop_flyer.png",
+   "variants": {
+    "2x": "assets/ui/pixel/x2/sym_troop_flyer.png",
+    "3x": "assets/ui/pixel/x3/sym_troop_flyer.png"
+   },
+   "atlasFrame": "sym.troop.flyer",
+   "bytes": {
+    "x1": 457,
+    "x3": 607
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "2026-11-08 안아트: 코드로 그린 펼친 날개 심볼(docker/gemini/add_flyer_badge.py, 호출 없음). 병종색 하늘색(#3486C4). 아틀라스 끝에 추가(기존 프레임 좌표 불변)"
+    ],
+    "auto": {
+     "magenta_px": 0,
+     "semi_alpha_px": 0
+    }
+   }
+  }
+ ]
+}

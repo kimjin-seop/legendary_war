@@ -1,0 +1,287 @@
+{
+ "note": "종장(ch999) 적 2종: 지워진 줄(npc_erased_line, 일반 적 시트) + 백지(npc_blank_page, 보스 초상·시트). 안아트 2026-11-03. 코드는 안아트 제안 — 로스터 enemy 행(박백엔)과 맞출 것",
+ "generated": "2026-11-03T10:25:44.007Z",
+ "keyRules": {
+  "npc_sprite": "unit.npc.<npc_code>.<ally|enemy>.64.sheet",
+  "reuse_map": {}
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "unit.npc.npc_erased_line.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_erased_line_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_erased_line_ally_sheet.png"
+   },
+   "bytes": 10044,
+   "npc": "npc_erased_line",
+   "name_ko": "지워진 줄",
+   "side": "ally",
+   "npc_default_side": "enemy",
+   "culture": "default",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.npc.npc_ink_shadow_s8.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b6_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b6_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b6/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b6_style.mjs S_B4.npc_erased_line",
+   "ref_portrait": "public/assets/portraits/npc/npc_erased_line.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_erased_line.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "뒷모습 걷기 칸 종이 결이 칸마다 조금 다름"
+    ]
+   },
+   "verify": true,
+   "verify_note": "창작 존재",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  },
+  {
+   "key": "unit.npc.npc_erased_line.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_erased_line_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_erased_line_enemy_sheet.png"
+   },
+   "bytes": 10040,
+   "npc": "npc_erased_line",
+   "name_ko": "지워진 줄",
+   "side": "enemy",
+   "npc_default_side": "enemy",
+   "culture": "default",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.npc.npc_ink_shadow_s8.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b6_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b6_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b6/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b6_style.mjs S_B4.npc_erased_line",
+   "ref_portrait": "public/assets/portraits/npc/npc_erased_line.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_erased_line.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "뒷모습 걷기 칸 종이 결이 칸마다 조금 다름"
+    ]
+   },
+   "verify": true,
+   "verify_note": "창작 존재",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  },
+  {
+   "key": "unit.npc.npc_blank_page.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_blank_page_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_blank_page_ally_sheet.png"
+   },
+   "bytes": 13304,
+   "npc": "npc_blank_page",
+   "name_ko": "백지",
+   "side": "ally",
+   "npc_default_side": "enemy",
+   "culture": "default",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.npc.npc_ink_shadow_final.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b6_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b6_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b6/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b6_style.mjs S_B4.npc_blank_page",
+   "ref_portrait": "docker/gemini/portrait_campaign/out/npc_blank_page.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_blank_page.jpg",
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0·r1 회화체 실패 → 절차 시트(이전본 .bak-proc-20261103 보존)",
+     "r2: 절차 시트를 3x3 도트 견본으로 참조시켜 재생성 → 도트 격자 판정 정상(clipped 0), 채택",
+     "측면·뒷모습 걷기 칸이 정지 칸과 종이 결이 조금 다름, 뒷모습 정지 칸이 정면과 거의 같음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "창작 존재(보스)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  },
+  {
+   "key": "unit.npc.npc_blank_page.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_blank_page_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_blank_page_enemy_sheet.png"
+   },
+   "bytes": 13297,
+   "npc": "npc_blank_page",
+   "name_ko": "백지",
+   "side": "enemy",
+   "npc_default_side": "enemy",
+   "culture": "default",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.npc.npc_ink_shadow_final.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b6_gen.mjs sprite(unit_npc_sprite_style.mjs job() + npc_b6_style.mjs S_B4, refs = 병종 견본 + 초상) → hero_dir_pp_v4.mjs(HERO_FACE=npc_b6/facing.json)"
+   },
+   "prompt_ref": "docker/gemini/npc_b6_style.mjs S_B4.npc_blank_page",
+   "ref_portrait": "docker/gemini/portrait_campaign/out/npc_blank_page.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_blank_page.jpg",
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0·r1 회화체 실패 → 절차 시트(이전본 .bak-proc-20261103 보존)",
+     "r2: 절차 시트를 3x3 도트 견본으로 참조시켜 재생성 → 도트 격자 판정 정상(clipped 0), 채택",
+     "측면·뒷모습 걷기 칸이 정지 칸과 종이 결이 조금 다름, 뒷모습 정지 칸이 정면과 거의 같음"
+    ]
+   },
+   "verify": true,
+   "verify_note": "창작 존재(보스)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상"
+  }
+ ]
+}

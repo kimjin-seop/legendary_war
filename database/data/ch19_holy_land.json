@@ -1,0 +1,492 @@
+{
+ "_note": "19장 '성지를 둘러싼 해'(가칭) 장면 대사. 원본(database/data) -> resources/js/game/data/dialogue 동기화 대상(sync FILES 에 ch19_holy_land.json 추가 필요). 옴니버스 규칙: 서고 장면은 ch19_open / ch19_end 뿐, 시오리는 스테이지 장면·battle_cues 에 없다. 서가 개입 없음. 종교 우열 서술과 학살 장면은 쓰지 않는다. 양측을 같은 무게로 쓰고 협상과 퇴거 장면을 중심에 둔다. 유닛 id·좌표가 필요한 cue 는 맵 확정 후 채운다(docs/original_story/ch19_holy_land_outline.md). [감정 개고 2026-11-09] 대사 톤 전면 개고(반응어·되묻기·농담·긴장). 장면·cue 구조와 조건은 불변.",
+ "version": 1,
+ "protagonist_rule": "주인공 호칭은 항상 '{protagonist_name} 님' 형태만 쓴다(이름 뒤 직접 조사 금지).",
+ "speaker_profile": {
+  "protagonist": { "name": "{protagonist_name}", "note": "살라딘 진영 연락 장교 겸 서기. 서신과 신호로 양측의 말을 잇는다. 정중한 합쇼체" },
+  "shiori": { "name": "시오리" },
+  "hero:saladin": { "name": "살라딘", "note": "key. 차분한 하오체, 상대에게 먼저 묻는다. 약속을 말할 때 목소리가 낮아진다" },
+  "hero:richard_i": { "name": "리처드 1세", "note": "대담하고 직설적인 하오체, 농담이 투박하다" },
+  "hero:npc_al_adil": { "name": "알아딜", "note": "살라딘의 동생. 협상 창구, 침착한 하오체" },
+  "hero:baha_ad_din": { "name": "바하 앗딘", "note": "살라딘의 법관이자 기록자. 정돈된 합쇼체" },
+  "hero:npc_balian_ibelin": { "name": "발리앙 디벨랭", "note": "예루살렘 방어 지휘관. 무거운 하오체, 도시 사람을 먼저 말한다" },
+  "hero:npc_guy_lusignan": { "name": "기 드 뤼지냥", "note": "하틴 당시 예루살렘 왕. 짧고 굳은 하오체" },
+  "hero:npc_gokbori": { "name": "고크보리", "note": "살라딘 휘하 기병 지휘관(신규). 침착한 하오체, 숫자를 먼저 말한다" },
+  "hero:npc_gerard_ridefort": { "name": "제라르 드 리드포르", "note": "템플 기사단장(신규). 짧고 단호한 하오체" },
+  "hero:npc_eschiva_tiberias": { "name": "에시바", "note": "티베리아스 영주 부인(신규). 단단한 하오체, 사람의 안전을 먼저 요구한다" },
+  "hero:npc_qaraqush": { "name": "카라쿠시", "note": "아크레 수비 지휘관(신규). 건조한 하오체, 식량과 날짜로 말한다" },
+  "hero:npc_hugh_burgundy": { "name": "부르고뉴 공 위그", "note": "십자군 프랑스 지휘관(신규). 현실적인 하오체" }
+ },
+ "arc": {
+  "chapter_question": "서로를 높이 평가하는 적과 어떻게 협상하는가",
+  "table": [
+   { "phase": "기", "scene": "ch19_open", "what": "서고 입구, 1187년 여름" },
+   { "phase": "기", "scene": "ch19_s1", "what": "하틴. 물과 불" },
+   { "phase": "승", "scene": "ch19_s2", "what": "예루살렘 성 앞. 퇴거 행렬" },
+   { "phase": "전", "scene": "ch19_s3", "what": "아르수프. 후위를 거두는 시각" },
+   { "phase": "결", "scene": "ch19_s4", "what": "야파와 서신. 휴전" },
+   { "phase": "결", "scene": "ch19_end", "what": "서고 퇴장" }
+  ]
+ },
+ "intervention_scene_ids": [],
+ "chapter": 19,
+ "scenes": [
+  {
+   "id": "ch19_open",
+   "stage_code": null,
+   "timing": "chapter_start",
+   "bg": "시간의 서고 입구. 열린 문 너머로 마른 바람과 소금기, 먼 종소리가 번져 온다",
+   "lines": [
+    { "speaker": "shiori", "expr": "serious", "text": "양쪽 서신 모두에 낙관이 찍히지 않은 자리가 하나 있습니다. 1187년부터 1192년까지, 지중해 동쪽 해안에서 편지를 읽고 쓰는 사람의 자리입니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "양쪽 말을 다 읽는 자리군요. 양쪽에서 간첩으로 의심받기 딱 좋겠습니다." },
+    { "speaker": "shiori", "expr": "neutral", "text": "{protagonist_name} 님은 책 속에서 처음부터 살라딘 곁의 연락 장교로 적혀 있습니다. 칼보다 서신을 더 많이 들고 다닙니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "서로를 높이 평가한다는 두 지도자 사이라. 칭찬은 쉬워도 양보는 어렵겠군요." },
+    { "speaker": "shiori", "expr": "smile", "text": "정확합니다. 높이 평가하는 것과 양보하는 것은 다른 일이니까요. 가시지요." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s1_pre",
+   "stage_code": "ch19_s1",
+   "timing": "before_battle",
+   "bg": "하틴 언덕 아래 건조한 들판의 이른 아침. 먼지 속에 군기가 늘어서고 물 항아리를 실은 수레가 멈춰 있다",
+   "lines": [
+    { "speaker": "caption", "text": "1187년 7월. 살라딘의 군은 갈릴리 호수 서쪽 언덕에서 십자군의 야전군을 에워싸려 한다. 십자군은 물을 찾아 이동 중이다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "서신을 읽고 쓸 사람이 왔다고. 이 전쟁은 칼이 시작해도 끝내는 것은 편지요." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "두 언어로 쓴 서신이 열한 통, 낙관이 없는 것이 두 통입니다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "낙관 없는 두 통부터 주시오. 이름 없는 글이 대개 솔직하오." },
+    { "speaker": "hero:saladin", "expr": "serious", "text": "그들은 물을 찾고 있소. 우물을 막고, 호수로 가는 길도 열지 마시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "서쪽 우물 세 곳 중 둘은 이미 막았습니다. 남은 한 곳에 제가 서서 깃발로 알리겠습니다." },
+    { "speaker": "hero:npc_al_adil", "expr": "neutral", "text": "형님, 바람이 십자군 쪽으로 불고 있소. 풀밭에 불을 놓으면 연기가 저들을 덮소. 이만한 기회가 다시 오겠소?" },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "마지막 수단이오. 먼저 물을 막고, 물러설 길을 열어 준다." },
+    { "speaker": "hero:npc_al_adil", "expr": "serious", "text": "적에게 길을 열어 주는 지휘관이 어디 있소." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "여기 있소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "……길을 열어 주면 우리 병사가 다칠 수도 있습니다. 좁혀서 막되, 항복하는 길 하나만 남기겠습니다." },
+    { "speaker": "caption", "text": "목표: 우물 신호 지점에 닿아 수원을 확보하고 적 선두를 고립시킨다. 살라딘이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s1_post",
+   "stage_code": "ch19_s1",
+   "timing": "after_clear",
+   "bg": "저녁 하틴 언덕. 흩어진 깃발과 쓰러진 천막 사이로 바람이 지나간다",
+   "lines": [
+    { "speaker": "hero:npc_guy_lusignan", "expr": "serious", "text": "……물을 주시오. 병사들이 서 있지도 못하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 십자군 왕이 투항 의사를 밝혔습니다. 병사들에게 물부터 내주겠습니다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "그렇게 하시오. 먼저 물을 준다. 이름은 그다음에 적는다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "물이 닿은 병사 수를 세어 적고 있습니다. 숫자는 이긴 쪽에서도 진 쪽에서도 같아야 하니까요." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 오늘 일은 기록에 남습니다. 승리라고 쓸까요, 시작이라고 쓸까요." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "시작이라 쓰시오. 예루살렘이 아직 남아 있소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "……이긴 날인데 손이 떨립니다." },
+    { "speaker": "hero:saladin", "expr": "smile", "text": "나도 오늘 밤 잠은 틀렸소. 둘이서 떨면 덜 외롭겠지." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s2_pre",
+   "stage_code": "ch19_s2",
+   "timing": "before_battle",
+   "bg": "예루살렘 성 앞 이른 아침. 성문 앞에 피난 수레와 사람들이 줄지어 서 있다",
+   "lines": [
+    { "speaker": "caption", "text": "1187년 10월. 예루살렘은 포위 끝에 협상으로 문을 열기로 했다. 시민들은 정해진 몸값을 내고 성 밖으로 나갈 수 있다." },
+    { "speaker": "hero:npc_balian_ibelin", "expr": "serious", "text": "공, 몸값을 낼 수 없는 사람이 수천이오. 그들은 어찌 되는 것이오." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "얼마가 모자라는지 말해 보시오. 모자란 만큼은 내가 대신 낼 방법을 찾겠소." },
+    { "speaker": "hero:npc_balian_ibelin", "expr": "serious", "text": "약속이오? 말이오?" },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "약속이오. 지켜 보시오. 지켜보기 쉽도록 문 앞에 서 있겠소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 퇴거 행렬이 문 앞에서 엉키고 있습니다. 신호 지점 두 곳에 서서 순서를 정하겠습니다. 수레 먼저, 노인과 아이 먼저입니다." },
+    { "speaker": "hero:npc_balian_ibelin", "expr": "neutral", "text": "……그리 해 주시오. 행렬이 엉키면 누군가는 밟히오." },
+    { "speaker": "caption", "text": "목표: 퇴거 행렬 NPC가 정해진 턴 안에 성 밖 안전 구역에 도달하게 한다. 행렬이 전멸하면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s2_post",
+   "stage_code": "ch19_s2",
+   "timing": "after_clear",
+   "bg": "성 밖 들판의 저녁. 퇴거를 마친 사람들이 천막 아래 모여 앉아 있다",
+   "lines": [
+    { "speaker": "protagonist", "expr": "neutral", "text": "마지막 수레가 안전 구역에 닿았습니다. 문 앞에서 다친 사람은 한 명도 없었습니다." },
+    { "speaker": "hero:npc_balian_ibelin", "expr": "neutral", "text": "……아무도 다치지 않았다니. 기억하겠소. 적에게 이런 말을 하게 될 줄은 몰랐소." },
+    { "speaker": "hero:saladin", "expr": "smile", "text": "나도 그대에게 이런 말을 듣게 될 줄은 몰랐소. 서로 놀란 셈이군." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "순서표를 한 부 더 만들어 두겠습니다. 다음에 누가 이 일을 맡더라도 쓸 수 있게요." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "적어 두시오. 이 문서가 이긴 쪽의 표정보다 오래 남을 것이오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s3_pre",
+   "stage_code": "ch19_s3",
+   "timing": "before_battle",
+   "bg": "아르수프 해안 숲 인근 벌판의 이른 아침. 양쪽 군대가 해안선을 따라 길게 늘어서 있다",
+   "lines": [
+    { "speaker": "caption", "text": "1191년 9월. 제3차 십자군이 아크레를 되찾은 뒤 남쪽으로 내려오고 있다. 리처드는 후위를 단단히 지키며 나아간다." },
+    { "speaker": "hero:richard_i", "expr": "neutral", "text": "후위를 지켜라. 적은 후위가 흔들릴 때를 노린다. ……이 더위에 갑옷 속이 삶은 거위 같다만, 흔들리진 마라." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "괴롭히되 대열을 흩뜨리진 못할 것이오. 그래도 계속 건드리시오. 인내가 먼저 바닥나는 쪽이 지는 싸움이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 해안 언덕 신호 지점에서 후위 움직임을 보고 있겠습니다. 벌어지는 폭이 말 세 필쯤 되면 깃발을 올리겠습니다." },
+    { "speaker": "hero:npc_al_adil", "expr": "neutral", "text": "형님, 후위가 길어지는 때가 곧 칠 때요. 말 세 필이면 놓치지 않겠소." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "서두르지 마시오. 이쪽이 먼저 흔들리면 그가 반긴다." },
+    { "speaker": "caption", "text": "목표: 해안 언덕 신호 지점에 닿아 적 후위가 늘어난 시각을 알리고 후위 지휘관을 압박한다. 살라딘이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s3_post",
+   "stage_code": "ch19_s3",
+   "timing": "after_clear",
+   "bg": "해 질 녘 아르수프 해안. 양쪽 군대가 거리를 두고 물러난다",
+   "lines": [
+    { "speaker": "hero:richard_i", "expr": "neutral", "text": "……오늘은 내 후위가 버텼다. 그러나 저 군대는 아직 살아 있다. 그게 마음에 안 드는군." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "오늘은 그가 해안을 지켰소. 그러나 그가 닿으려는 곳은 아직 멀소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 리처드 진영에서 서신이 왔습니다. 협상 의사를 타진하는 내용입니다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "방금 막 싸운 상대가 편지를 보냈소? 배짱이 좋은 자요." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "답서는 동생을 통해 보내시오. 직접 만나는 건 아직 이르오." },
+    { "speaker": "hero:npc_al_adil", "expr": "smile", "text": "나를 또 심부름꾼으로 쓰시는군." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "가장 믿는 심부름꾼이오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s4_pre",
+   "stage_code": "ch19_s4",
+   "timing": "before_battle",
+   "bg": "야파 항구 근처 해안의 새벽. 갑옷을 입지 못한 병사들이 천막 밖으로 뛰어나온다",
+   "lines": [
+    { "speaker": "caption", "text": "1192년 8월. 휴전 협상이 이어지는 동안 야파가 공격받았다. 리처드는 소수의 병력으로 배를 타고 해안에 상륙했다." },
+    { "speaker": "hero:npc_al_adil", "expr": "serious", "text": "형님, 리처드가 직접 상륙했소. 병력이 적소. 지금 치면 결말이 나오." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "그를 치면 협상이 깨진다. 협상이 깨지면 이 싸움은 몇 해를 더 끈다." },
+    { "speaker": "hero:npc_al_adil", "expr": "serious", "text": "그가 우리 입장이라면 벌써 쳤을 것이오." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "그러니 그와 같아지지 않겠다는 것이오. 쉬운 선택이 아니오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 제가 알아딜 공의 부대와 본대 사이를 오가며 움직임을 맞추겠습니다. 신호가 오르지 않으면 부대는 움직이지 않습니다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "그렇게 하시오. 오늘 칼은 협상의 종이오." },
+    { "speaker": "caption", "text": "목표: 신호 지점 두 곳에 닿아 알아딜 부대를 정해진 위치에서 멈추게 하고 해안의 교전을 제한한다. 정해진 턴 안에 양측이 교전선을 정리하면 협상 서신이 열린다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s4_post",
+   "stage_code": "ch19_s4",
+   "timing": "after_clear",
+   "bg": "야파의 저녁. 양쪽 진영 사이에 서신을 든 사자가 걸어간다",
+   "lines": [
+    { "speaker": "hero:richard_i", "expr": "neutral", "text": "……살라딘에게 전하시오. 휴전에 동의하오. 배는 곧 띄우겠소. 싸움도 끝내기 어렵군. 시작은 쉬웠는데." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 서신을 받았습니다. 이 문서는 양측 서기관이 같은 날 같은 문장으로 적습니다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "그의 용기에 경의를 표하오. 그러나 도시는 우리가 지키오." },
+    { "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "공, 이것이 평화인지 휴식인지는 기록자도 알 수 없습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그러면 오늘 일지에는 날짜와 문장만 적겠습니다. 이름 칸은 다음 사람이 붙일 수 있게 비워 두겠습니다." },
+    { "speaker": "hero:saladin", "expr": "smile", "text": "……비워 두시오. 이름은 우리보다 나중 사람이 더 잘 붙이오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s5_pre",
+   "stage_code": "ch19_s5",
+   "timing": "before_battle",
+   "bg": "크레송 샘 부근 건조한 골짜기의 이른 아침. 마른 개울 바닥 위로 가는 물줄기가 흐르고 비탈 위에 기병이 줄지어 서 있다",
+   "lines": [
+    { "speaker": "caption", "text": "서고가 같은 책의 앞 장을 다시 펼친다. 1187년 5월 초. 하틴 두 달 전. 살라딘의 사절단이 갈릴리를 지나는 동안 십자군 기사들이 샘 근처에서 이슬람 기병 부대를 맞닥뜨린다." },
+    { "speaker": "hero:npc_gokbori", "expr": "neutral", "text": "정찰일 뿐이오. 그러나 저들이 먼저 칼을 뽑으면 막아야 하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 샘 근처 골짜기는 좁아서 기병이 한 줄로만 들어옵니다. 비탈 위에서 입구가 열린 시각을 알리겠습니다. 그때 양쪽 비탈에서 쏘면 대열이 흐트러집니다." },
+    { "speaker": "hero:npc_gerard_ridefort", "expr": "serious", "text": "수가 적으니 오히려 쉽다. 한 번에 가른다. 망설일 시간이 없다." },
+    { "speaker": "hero:npc_gokbori", "expr": "neutral", "text": "……저자들, 정말 이 숫자로 오겠다는 거요? 우리가 몇인지 세어 본 적은 있소?" },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 쫓지는 마십시오. 저들이 입구를 지나면 제가 깃발을 내립니다. 그 뒤로는 골짜기 밖에서 기다립니다." },
+    { "speaker": "caption", "text": "목표: 비탈 신호 지점에 닿아 골짜기 입구 개방 시각을 알리고 적 기병 선두를 교란한 뒤 골짜기 출구 구역을 점령한다. 고크보리가 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s5_post",
+   "stage_code": "ch19_s5",
+   "timing": "after_clear",
+   "bg": "낮의 샘 부근. 흩어진 말과 군기가 마른 개울 바닥에 흩어져 있다",
+   "lines": [
+    { "speaker": "hero:npc_gokbori", "expr": "neutral", "text": "생각보다 쉽게 끝났소. 그래서 불안하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 이 일이 알려지면 양쪽 다 움직입니다. 먼저 살라딘 공께 일의 순서를 정확히 써서 보내겠습니다. 이긴 날 쓰는 편지가 제일 어렵습니다." },
+    { "speaker": "hero:npc_gokbori", "expr": "neutral", "text": "그렇게 하시오. 말이 커지기 전에 숫자부터 쓰시오. 말은 날개가 달리지만 숫자는 무겁소." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s6_pre",
+   "stage_code": "ch19_s6",
+   "timing": "before_battle",
+   "bg": "티베리아스 성벽 아래의 이른 아침. 성벽 아래로 굴이 파이고 성 안에서는 사람들이 모여 선다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 앞 장. 1187년 7월 초. 하틴 직전. 살라딘의 군이 티베리아스를 에워쌌다. 성 안에는 에시바 부인과 가족이 있다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "성벽을 무너뜨리는 것이 목적이 아니오. 성 안 사람들이 다치지 않고 나올 길을 여는 것이 목적이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 성벽 한 곳에 굴을 팠습니다. 제가 굴이 무너지는 시각을 알리겠습니다. 그 시각에 서쪽 문을 열면 성 안 사람들이 나올 수 있습니다." },
+    { "speaker": "hero:npc_eschiva_tiberias", "expr": "serious", "text": "성은 내줄 수 있소. 사람은 내줄 수 없소. 아이들이 안전하게 나갈 길을 약속하시오. 말이 아니라 약속으로." },
+    { "speaker": "hero:saladin", "expr": "serious", "text": "……약속하오. 문을 열면 길을 터 주겠소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "부인, 굴이 무너지는 시각은 저희도 정확히 모릅니다. 신호가 오르면 곧바로 문을 열어 주십시오." },
+    { "speaker": "caption", "text": "목표: 성벽 신호 지점에 닿아 굴 붕괴 시각을 알리고 서쪽 문 구역을 점령해 성 안 사람들이 안전하게 나오도록 한다. 성 안 인원이 위험해지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s6_post",
+   "stage_code": "ch19_s6",
+   "timing": "after_clear",
+   "bg": "낮의 티베리아스 서쪽 문. 성 안 사람들이 한 줄로 걸어 나오고 병사들이 길 양쪽에 비켜선다",
+   "lines": [
+    { "speaker": "hero:npc_eschiva_tiberias", "expr": "neutral", "text": "약속을 지키셨소. ……적에게 할 말은 아니지만, 기억하겠소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 행렬은 성문 밖에서 모두 세었습니다. 성 안에 남은 사람은 없습니다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "성은 가졌소. 그러나 성을 얻고 사람을 잃으면 얻은 것이 아니오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s7_pre",
+   "stage_code": "ch19_s7",
+   "timing": "before_battle",
+   "bg": "아크레 항구 인근 해안의 이른 아침. 포위 진영 사이로 좁은 보급로가 이어지고 항구 쪽 성탑에서 연기가 가늘게 오른다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 앞 장. 1190년 가을. 아크레. 십자군이 항구 도시를 에워싸고 살라딘의 군이 그 바깥에서 다시 십자군을 에워싸는 이중 포위가 이어지고 있다. 성 안 수비대에는 식량이 필요하다." },
+    { "speaker": "hero:npc_qaraqush", "expr": "neutral", "text": "곡식 자루를 세는 중이오. 자루 소리가 날마다 가벼워지오. 보급선이 오늘 밤 오지 않으면 곤란해지오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 해안 포위선 사이로 좁은 길이 하나 있습니다. 순찰이 교대하는 시각을 제가 알리겠습니다. 그 틈에 수레를 항구로 보내십시오." },
+    { "speaker": "caption", "text": "살라딘의 법관 바하 앗딘이 곁에 선다. 1188년부터 살라딘을 섬겨 온 기록자다." },
+    { "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "서신은 비둘기에게 맡겼습니다. 성 안에서 답이 오면 시각을 맞출 수 있습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "비둘기가 늦으면 횃불 두 번으로 대신하겠습니다. 신호는 언제나 두 가지를 준비해 둡니다." },
+    { "speaker": "hero:baha_ad_din", "expr": "smile", "text": "비둘기가 들으면 서운해할 말씀입니다." },
+    { "speaker": "caption", "text": "목표: 해안 신호 지점에 닿아 순찰 교대 시각을 알리고 보급 수레를 항구 구역까지 호송한다. 수레 절반 이상을 잃으면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s7_post",
+   "stage_code": "ch19_s7",
+   "timing": "after_clear",
+   "bg": "새벽의 아크레 항구 성문. 수레가 성 안으로 들어가고 병사들이 곡식 자루를 받아 든다",
+   "lines": [
+    { "speaker": "hero:npc_qaraqush", "expr": "neutral", "text": "받았소. 이번 달은 버틸 수 있소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 수레 열두 대 중 열 대가 닿았습니다. 두 대는 돌아가는 길에 해안 숲에 숨겨 두었습니다." },
+    { "speaker": "hero:npc_qaraqush", "expr": "serious", "text": "숨긴 두 대를 잊지 마시오. 다음 달 내 목숨이오." },
+    { "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "닿지 못한 두 대의 숫자도 같이 기록해 두겠습니다. 숫자가 약속을 지켜 줍니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s8_pre",
+   "stage_code": "ch19_s8",
+   "timing": "before_battle",
+   "bg": "아스칼론 성벽 위의 낮. 돌 하나하나에 사람들이 모여 밧줄을 걸고 성벽 한쪽에서 먼지가 오른다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 앞 장. 1191년 9월. 아르수프 직후. 리처드가 남쪽으로 내려오자 살라딘은 아스칼론 성을 스스로 허물기로 한다. 성을 넘겨주느니 쓸모없게 만드는 편이 낫다고 판단했다." },
+    { "speaker": "hero:saladin", "expr": "serious", "text": "이 돌 하나를 허무느니 차라리 자식들을 잃겠다고 한 적이 있소. 그런데 오늘 내 입으로 허물라 하고 있소." },
+    { "speaker": "hero:npc_al_adil", "expr": "serious", "text": "형님, 하루 거리까지 십자군이 닿았소. 시간이 없소. 슬퍼하는 건 나중에 하시오." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "……사람부터 내보내시오. 주민과 짐이 먼저요." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 성문 밖으로 나가는 길이 한 곳뿐입니다. 제가 문 앞에서 행렬 순서와 허무는 시각을 맞추겠습니다. 허무는 구역에는 사람이 없을 때만 밧줄을 당기게 하겠습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "행렬은 둘로 나누겠습니다. 수레와 보행. 두 줄이 서로 걸리지 않게요." },
+    { "speaker": "caption", "text": "목표: 성문 신호 지점에 닿아 주민 행렬이 성 밖 안전 구역으로 나가게 하고 해체 구역 시각을 알린다. 행렬 인원이 위험해지거나 정해진 턴을 넘기면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s8_post",
+   "stage_code": "ch19_s8",
+   "timing": "after_clear",
+   "bg": "저녁의 아스칼론 바깥 들판. 무너진 성벽 위로 먼지가 낮게 내려앉는다",
+   "lines": [
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "성은 사라졌지만 사람들은 남았소. 그걸로 오늘은 족하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 주민 행렬은 한 명도 빠지지 않았습니다. 무너진 구역에서 부상자도 없었습니다." },
+    { "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "공의 결정이 옳았는지는 기록자가 판단할 일이 아닙니다. 다만 일어난 순서는 그대로 적겠습니다." },
+    { "speaker": "hero:saladin", "expr": "serious", "text": "옳았다고 적지 마시오. 필요했다고 적으시오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s9_pre",
+   "stage_code": "ch19_s9",
+   "timing": "before_battle",
+   "bg": "베이트 누바 부근 구릉의 새벽. 비가 줄기차게 내리고 길이 진창이 되어 병사들이 발을 끌고 있다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 앞 장. 1192년 1월. 베이트 누바. 예루살렘 코앞까지 온 십자군은 폭우와 진창 앞에서 멈췄다. 살라딘의 군은 도시를 지키며 상대의 움직임을 읽는다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "그가 예루살렘으로 오는지 돌아가는지 알아야 하오. 정찰은 두 곳이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 구릉 위 두 지점에서 십자군 진영을 봅니다. 천막이 접히면 철수, 서 있으면 대기입니다. 서신보다 먼저 깃발로 알리겠습니다." },
+    { "speaker": "hero:npc_hugh_burgundy", "expr": "neutral", "text": "길이 이 모양이니 공성기도 못 옮기오. 이 진창에서 오래 머물 수도 없소." },
+    { "speaker": "hero:npc_al_adil", "expr": "neutral", "text": "정찰만 하고 건드리지는 마시오. 그가 스스로 돌아가는 길이 우리에게도 이득이오." },
+    { "speaker": "hero:saladin", "expr": "smile", "text": "비가 이렇게 좋은 동맹인 줄 몰랐소." },
+    { "speaker": "caption", "text": "목표: 구릉 신호 지점 두 곳에 닿아 십자군 진영의 움직임을 확인하고 예루살렘 방면 길목 구역을 정해진 턴 동안 지킨다. 길목이 뚫리면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s9_post",
+   "stage_code": "ch19_s9",
+   "timing": "after_clear",
+   "bg": "비 갠 구릉의 아침. 십자군 진영의 천막이 하나씩 접히고 깃발이 줄어든다",
+   "lines": [
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 천막이 접히고 있습니다. 철수입니다. 쫓지 않겠습니다." },
+    { "speaker": "hero:saladin", "expr": "neutral", "text": "그것이 옳소. 그가 돌아가도록 두고 우리는 이 도시를 지킨다." },
+    { "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "비가 이 도시를 지켰다고도, 공이 지켰다고도 쓸 수 있습니다. 둘 다 적겠습니다." },
+    { "speaker": "hero:saladin", "expr": "smile", "text": "비를 앞에 쓰시오. 비는 불평하지 않소." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s10_pre",
+   "stage_code": "ch19_s10",
+   "timing": "before_battle",
+   "bg": "다룸 요새 성벽 아래의 이른 아침. 해안 모래 언덕 위에 작은 성채가 서 있고 성벽 아래로 사다리가 늘어선다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 앞 장. 1192년 5월. 다룸. 리처드가 가자 남쪽의 작은 요새를 공격한다. 수비대는 소수다." },
+    { "speaker": "hero:npc_al_adil", "expr": "neutral", "text": "형님, 다룸은 작소. 오래 버틸 까닭이 없소. 수비대를 살리려면 먼저 빼내야 하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 성 안 수비대에 서신을 전하고 철수로를 알리겠습니다. 성 뒷문 쪽에서 출구가 열린 시각을 알리면 그때 수비대가 나옵니다." },
+    { "speaker": "hero:richard_i", "expr": "neutral", "text": "내가 원하는 것은 성이오. 사람을 쓰러뜨리는 건 목적이 아니오. 문을 열어 주면 서로 편하지 않소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "……같은 뜻이라면 일이 쉬워집니다. 사다리가 오르기 전에 문이 열리면 한 명도 다치지 않습니다." },
+    { "speaker": "hero:richard_i", "expr": "smile", "text": "서기가 협상까지 하는군. 내 휘하에도 한 명 두고 싶소." },
+    { "speaker": "caption", "text": "목표: 뒷문 신호 지점에 닿아 철수로를 열고 정해진 턴 안에 수비대를 안전 구역으로 이끈다. 수비대 절반 이상이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_s10_post",
+   "stage_code": "ch19_s10",
+   "timing": "after_clear",
+   "bg": "다룸 성벽 위의 낮. 성 위에 십자군 깃발이 오르고 수비대가 멀리 모래 언덕을 넘어 걸어간다",
+   "lines": [
+    { "speaker": "hero:richard_i", "expr": "neutral", "text": "성은 얻었소. 사람이 먼저 나갔으니 오늘은 그것으로 충분하오. 병사들은 투덜대겠지만, 투덜거림쯤은 내가 들어 주겠소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 수비대가 모두 안전 구역에 닿았습니다. 이 서신을 살라딘 공께 전하겠습니다." },
+    { "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "내일 일지에는 이 성이 누구의 손에 있는지보다 사람이 어디에 있는지를 먼저 적겠습니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch19_end",
+   "stage_code": null,
+   "timing": "chapter_end",
+   "bg": "시간의 서고. 바닷바람이 가신 복도. 책장 사이에 같은 문장이 두 언어로 적힌 종이 한 장이 꽂혀 있다",
+   "lines": [
+    { "speaker": "shiori", "expr": "neutral", "text": "성지의 해가 책장에 꽂혔습니다. 높이 평가하는 적과의 협상은 같은 날 같은 문장을 두 번 쓰는 일이었습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "비워 둔 이름 칸은 누가 채우게 될까요." },
+    { "speaker": "shiori", "expr": "smile", "text": "다음 책을 펼치는 분이 채울 것입니다. 연필로 쓰시길 권합니다. 가시지요." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  }
+ ],
+ "battle_cues": {
+  "ch19_s1": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "건조한 바람이 풀밭을 훑고 지나간다. 병사들의 입술이 갈라져 있다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gokbori", "expr": "neutral", "text": "우물 셋 중 마지막이오. 저쪽 물통은 오늘 밤이면 바닥이오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:saladin", "expr": "neutral", "text": "마른 입으로 오는 군대는 서두르오. 우리가 서두를 까닭은 없소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "퇴로는 항복하는 길만 남겼습니다. 다만 그 길도 열려 있어야 합니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:saladin", "expr": "neutral", "text": "열어 두시오. 갈 길이 하나뿐인 자는 끝까지 싸우오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "……그 말씀은 적어 두겠습니다. 잊기 싫은 말이라서요." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "마지막 우물에 닿았습니다! 깃발 올립니다. 퇴로는 항복하는 길만 열려 있습니다!" }
+  ],
+  "ch19_s2": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "성문 앞에서 바퀴 소리와 낮은 말소리가 엉겨 있다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_balian_ibelin", "expr": "neutral", "text": "수레가 먼저, 사람은 그다음이다. 순서를 어기는 자는 줄에서 뺀다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "노인과 아이는 수레 사이에 세우겠습니다. 문이 좁아 한 번에 지날 수 없습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_eschiva_tiberias", "expr": "neutral", "text": "서두르면 사람이 다칩니다. 한 줄로 걷게 하십시오. 밀지 마세요!" },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_balian_ibelin", "expr": "neutral", "text": "맞소. 천천히 가도 성문은 닫히지 않소. 약속이 있으니." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "문 앞에서 줄 간격을 알리겠습니다. 소리가 크더라도 놀라지 마십시오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레 먼저 지나가십시오! 노인과 아이가 그다음입니다!" }
+  ],
+  "ch19_s3": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "해안선을 따라 먼지가 길게 이어진다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gokbori", "expr": "neutral", "text": "후위가 늘어졌소. 해안 길이 좁아 앞뒤가 벌어지고 있소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:saladin", "expr": "neutral", "text": "지금 치면 후위만 끊을 수 있소. 그러나 후위를 끊으면 앞이 돌아오오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "후위와 본대 사이가 이천 보입니다. 되돌아오는 데 반 시진이 걸립니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:saladin", "expr": "neutral", "text": "반 시진이면 끊고 물러나기에 충분하오. 끊을 것은 후위 한 토막뿐이오. 욕심내지 마시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gokbori", "expr": "neutral", "text": "신호가 오르면 내가 가겠소. 신호가 없으면 말을 쓰다듬으며 기다리겠소." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "후위가 늘어났습니다! 지금입니다!" }
+  ],
+  "ch19_s4": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "야파 항구 위로 해가 낮게 뜬다. 해안 모래가 젖어 반짝인다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_al_adil", "expr": "neutral", "text": "항구 앞에서 멈추라 하셨소. 형님은 늘 앞에 서라 하시고 정작 당신은 뒤에서 오시는군." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:saladin", "expr": "smile", "text": "앞에 서는 일은 동생이 잘하오. 나는 뒤에서 판을 읽겠소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "신호를 올리면 알아딜 공의 부대는 그 자리에서 멈춥니다. 항구 쪽 배는 해가 높아진 뒤에 닿습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_al_adil", "expr": "serious", "text": "배가 닿기 전에 항구 문을 막고 싶소. 허락해 주시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:saladin", "expr": "neutral", "text": "막지 마시오. 열린 문으로 들어오는 자가 어디를 보는지 먼저 보고 싶소." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "신호 올렸습니다! 알아딜 공의 부대, 그 자리에서 멈추십시오!" }
+  ],
+  "ch19_s5": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "마른 개울 바닥에 말발굽 소리가 울린다. 비탈 위에서 활시위가 조용히 당겨진다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gerard_ridefort", "expr": "serious", "text": "개울 바닥을 한 줄로 간다. 위쪽 비탈은 보지 마라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "비탈 위에 궁수가 보입니다. 입구가 열리기를 기다리고 있습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gokbori", "expr": "neutral", "text": "활시위가 당겨져 있소. 신호가 오르기 전에는 쏘지 마시오. 한 발이라도 새면 다 틀어지오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gerard_ridefort", "expr": "serious", "text": "비탈을 올려다보는 병사는 대열에서 뺀다. 올려다보는 순간 걸음이 늦는다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "신호 지점으로 가겠습니다. 입구가 열리면 바로 알리겠습니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "spring_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "입구가 열렸습니다! 지금 쏘십시오!" },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "spring_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 5 }, "do": "say", "speaker": "hero:npc_gerard_ridefort", "expr": "serious", "text": "대열을 갖춰라. 한 줄로 돌파한다. 물러서는 놈은 내가 직접 본다." }
+  ],
+  "ch19_s6": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "성벽 아래에서 흙 파는 소리가 낮게 들린다. 성 안 광장에 사람들이 모여 선다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "성벽 아래 굴이 이어지고 있습니다. 무너지기까지 반 시진 남았습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_balian_ibelin", "expr": "neutral", "text": "성 안 사람들이 광장에 모였소. 사람이 먼저 나가야 하오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:saladin", "expr": "neutral", "text": "사람은 보내겠소. 성 이야기는 그다음이오. 먼저 문을 말해 보시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "서쪽 문이 가장 넓습니다. 한 줄로 나가기에 알맞습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_balian_ibelin", "expr": "neutral", "text": "서쪽 문을 열겠소. 다만 나가는 사람 이름을 먼저 적어 두시오. 한 사람도 지워지지 않게." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "wall_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "굴이 무너집니다! 서쪽 문을 여십시오!" },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "wall_signal_up" } }, "do": "sfx", "key": "sfx_battle_clash" },
+   { "on": { "turn": 7 }, "do": "say", "speaker": "narrator", "text": "서쪽 문이 열리고 사람들이 한 줄로 걸어 나온다. 병사들이 길 양쪽으로 물러선다." }
+  ],
+  "ch19_s7": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "해안 포위선 사이로 어둠 속에서 수레바퀴에 천을 감는 소리가 난다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_qaraqush", "expr": "neutral", "text": "성 안 식량은 이레 치요. 이레가 지나면 말이 아니라 날짜가 항복하오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "순찰 교대 시각이 세 번 겹칩니다. 그 사이로 수레를 보내겠습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "바퀴에 천을 감았습니다. 소리는 줄었지만 속도도 줄었습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_qaraqush", "expr": "neutral", "text": "속도는 줄어도 좋소. 닿기만 하면 되오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "성 쪽에서 횃불 두 번이 보이면 접안입니다. 눈 깜빡이지 마십시오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "coast_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "순찰이 교대합니다! 지금 수레를 보내십시오!" },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "coast_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 6 }, "do": "say", "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "성 쪽에서 답이 왔습니다. 횃불 두 번입니다." }
+  ],
+  "ch19_s8": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "성벽 위에서 밧줄이 팽팽하게 당겨진다. 먼지 속에서 수레 행렬이 천천히 움직인다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레 행렬이 먼저, 보행 행렬이 그다음입니다. 허무는 구역에는 사람이 없어야 합니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_al_adil", "expr": "neutral", "text": "성벽을 허물어야 한다면 이 성에 남을 까닭도 없소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:saladin", "expr": "neutral", "text": "성벽이 아니라 쓸모를 허무는 것이오. 쓸모가 없으면 누구도 이 성을 두고 싸우지 않소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:baha_ad_din", "expr": "neutral", "text": "밧줄을 두 겹으로 걸었습니다. 신호 전에는 당기지 않습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "구역 안에 사람이 없는지 한 번 더 세어 보겠습니다. 틀려도 되는 숫자가 아니니까요." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "gate_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레 행렬 먼저, 보행 행렬은 그다음! 허무는 구역에는 사람이 없습니다!" },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "gate_signal_up" } }, "do": "sfx", "key": "sfx_battle_clash" },
+   { "on": { "turn": 8 }, "do": "say", "speaker": "narrator", "text": "성벽 한 구역이 천천히 기울어 먼지를 일으킨다." }
+  ],
+  "ch19_s9": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "빗줄기가 길을 가득 메운다. 멀리 구릉 건너편 진영의 불빛이 흐릿하다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_hugh_burgundy", "expr": "neutral", "text": "길이 개울이 되었소. 수레 하나 못 가오. 이래서야 전쟁이 아니라 물놀이요." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 구릉에는 천막이 서 있습니다. 둘째 구릉은 접히는 중입니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:richard_i", "expr": "neutral", "text": "비 오는 날 진군하는 놈은 어리석다. 나도 오늘은 어리석지 않겠다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_hugh_burgundy", "expr": "neutral", "text": "철수 이야기를 왕께서 먼저 꺼내시니 마음이 편하오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:richard_i", "expr": "neutral", "text": "내가 한 말이 아니다. 비가 한 말이다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "ridge_1", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 구릉입니다. 천막은 서 있습니다. 아직 대기입니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "ridge_2", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "둘째 구릉입니다. 천막이 접히고 있습니다. 철수입니다!" },
+   { "on": { "turn": 8 }, "do": "say", "speaker": "hero:npc_hugh_burgundy", "expr": "neutral", "text": "돌아간다. 이 길로는 아무것도 옮길 수 없다." }
+  ],
+  "ch19_s10": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "모래 언덕 위 요새 위로 사다리가 하나씩 걸린다. 성 안에서는 말소리가 낮게 오간다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:richard_i", "expr": "neutral", "text": "사다리가 몇 개나 걸렸나. 뒷문이 열렸다는 소식은 들었나." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "사다리는 열둘입니다. 뒷문은 아직 닫혀 있습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:richard_i", "expr": "neutral", "text": "닫혀 있다면 두드릴 필요 없다. 앞에서 소리를 크게 내라. 문이 알아서 열릴 만큼." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "앞에서 소리가 나는 동안 뒷문으로 사람이 나오게 하겠습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:richard_i", "expr": "neutral", "text": "나오는 사람은 막지 마라. 길을 열어 주는 것도 싸움의 일부다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "back_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "뒷문이 열렸습니다! 지금 나오십시오!" },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "back_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 7 }, "do": "say", "speaker": "hero:richard_i", "expr": "neutral", "text": "사다리를 올려라. 문이 열린 쪽은 건드리지 마라." }
+  ]
+ }
+}

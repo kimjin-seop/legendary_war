@@ -1,0 +1,469 @@
+{
+ "_note": "tileset_v2 3단계 확장(안아트 2026-11-02, bake_ext.py) 적용 안내 데이터. 맵디자이너 tmv2.py / 윤프론 FE 용. 기존 1000~1618·1700~1747 불변",
+ "ranges": {
+  "tv2_static_obj": [
+   1619,
+   1625
+  ],
+  "tv2_anim2": [
+   1800,
+   1897
+  ],
+  "anim2_capacity": [
+   1800,
+   1999
+  ]
+ },
+ "anim2_sheet": {
+  "key": "tv2_anim2",
+  "path": "/assets/tiles/tileset_v2/tv2_anim2.png",
+  "cols": 16,
+  "start": 1800,
+  "count": 98,
+  "stride": 112,
+  "frames": 4,
+  "frame": "(전역-1800) + f*112"
+ },
+ "families": {
+  "ford47": "ford47_<mask> 1800~1846 (47형, 마스크 = tmv2 red())",
+  "sandwater47": "sandwater47_<mask> 1847~1893",
+  "tv2reef": {
+   "tv2reef_a": 1894,
+   "tv2reef_b": 1895,
+   "tv2reef_c": 1896,
+   "tv2reef_d": 1897
+  }
+ },
+ "objects": {
+  "obj_well": 1619,
+  "obj_brazier": 1620,
+  "obj_signpost": 1621,
+  "obj_firewood": 1622,
+  "obj_barrel": 1623,
+  "obj_crate_a": 1624,
+  "obj_crate_b": 1625
+ },
+ "chip_index": {
+  "C:87": 1619,
+  "D:318": 1620,
+  "D:440": 1621,
+  "D:349": 1622,
+  "D:177": 1623,
+  "D:202": 1624,
+  "D:203": 1625,
+  "D:382": 1619
+ },
+ "index_map_ext": {
+  "ford_a": 1846,
+  "ford_b": 1846,
+  "ford_deep_N": 1846,
+  "ford_deep_S": 1846,
+  "grass_ford_E": 1842,
+  "grass_ford_N": 1831,
+  "grass_ford_NE_inner": 1826,
+  "grass_ford_NE_outer": 1845,
+  "grass_ford_NW_inner": 1810,
+  "grass_ford_S": 1836,
+  "grass_ford_SE_inner": 1834,
+  "grass_ford_SW_inner": 1804,
+  "grass_ford_SW_outer": 1841,
+  "grass_ford_W": 1812,
+  "reef_a": 1894,
+  "reef_b": 1895,
+  "reef_c": 1896,
+  "reef_d": 1897,
+  "sand_sea_E": 1889,
+  "sand_sea_NE_inner": 1873,
+  "sand_sea_NE_outer": 1892,
+  "sand_sea_NW_inner": 1857,
+  "sand_sea_NW_outer": 1880,
+  "sand_sea_SE_inner": 1881,
+  "sand_sea_SE_outer": 1891,
+  "sand_sea_SW_inner": 1851,
+  "sand_sea_SW_outer": 1888,
+  "sand_sea_W": 1859
+ },
+ "tmv2_apply": {
+  "ford_one_line": "FAMILY 의 'Y': 'sand47' -> 'Y': 'ford47'",
+  "needed_support": [
+   "SHEETS 에 'tv2_anim2': ('public/assets/tiles/tileset_v2/tv2_anim2.png', 16) 추가",
+   "src(): 맨 앞에 if i >= 1800: k, fr = 'tv2_anim2', (i - 1800) + f * 112",
+   "fe_valid(): tv2 구간을 1000 <= i <= 1625 or 1700 <= i <= 1747 or 1800 <= i <= 1897 로",
+   "build(): cs:<키> 이름의 index_map 값을 None 대신 tileset_v2_map.json chip_index[키] 로(pending_bake 해소), render_layers 는 src(index) 사용 가능"
+  ],
+  "sand_shore_optional": [
+   "JOIN['W'] 에서 'S' 제거, JOIN['S'] 에 'Z' 추가(암초 옆 모래에 풀 조각이 남는 문제 해소)",
+   "ground_names(): c == 'W' 이고 8방 이웃에 'S' 가 있으면 fam = 'sandwater47' (그 외 water47)"
+  ],
+  "reef": "Z 칸 이름 reef_a~d 는 그대로 두고 engine_index() 에서 tv2_on 이면 index_map_ext 를 index_map 보다 먼저 조회(FE 도 같은 순서)",
+  "preview": "docker/gemini/tileset_v2/preview_ext.py 가 위 규칙을 tmv2 를 읽기 전용 import 해 시뮬레이션(파일 쓰기 없음)"
+ },
+ "fe_request": [
+  "U32_TV2.static.count 619 -> 626",
+  "U32_TV2 에 anim2 {key tv2_anim2, start 1800, count 98, stride 112, frames 4} 추가, u32Src 에서 idx >= 1800 을 1700 분기보다 먼저, u32Animated 에 포함, queueRmTiles·NEAREST 목록에 추가",
+  "이름 조회 순서: index_map_ext -> index_map -> (regrounded) -> 맵 index_map. tv2_map_to_js.mjs 구간 검사에 1619~1625·1800~1897 추가 후 index_map_ext 를 TV2_INDEX_MAP_EXT 로 굽기",
+  "tile_layer.v2 building/object 레이어 합성 시 cs:<키> -> chip_index",
+  "ASSET_VERSION 올림(tv2_static.png 같은 파일명 변경)"
+ ],
+ "qa": "docker/gemini/tileset_v2/bake_ext_qa.json",
+ "previews": [
+  "public/assets/tiles/tileset_v2/preview_tv2_ext_river_02.png",
+  "public/assets/tiles/tileset_v2/preview_tv2_ext_im_01_okpo.png",
+  "public/assets/tiles/tileset_v2/preview_tv2_ext_tiles_x2.png",
+  "public/assets/tiles/tileset_v2/preview_tv2_ext_okpo_anim.gif"
+ ],
+ "source": "RM2003 계열 칩셋(docker/gemini/tileset_v2/src/source.png, sha256 4f98e356..e7bf63, 사용자 제공) + 기존 water_set/ws_anim.png reef 302~305. 권리 판단 없음(출처만 기록)",
+ "ext2": {
+  "_note": "4단계 확장(안아트 bake_ext2.py 2026-11-02). 기존 1000~1625·1700~1747·1800~1897 불변(해시 대조). 새 구간은 tileset_v2_map.json 의 chip_index_ext2 / index_map_ext2 에만 있음(FE 변환기 구간 검사 보호)",
+  "ranges": {
+   "tv2_static_obj2": [
+    1626,
+    1676
+   ],
+   "tv2_anim2_fx": [
+    1898,
+    1908
+   ],
+   "tv2_static2": [
+    2000,
+    2095
+   ]
+  },
+  "static2_sheet": {
+   "key": "tv2_static2",
+   "path": "/assets/tiles/tileset_v2/tv2_static2.png",
+   "cols": 16,
+   "start": 2000,
+   "count": 96,
+   "frame": "전역-2000"
+  },
+  "objects": {
+   "obj2_rock_grey": {
+    "index": 1626,
+    "chip": "C:57",
+    "src": "C:57 바위(회색)"
+   },
+   "obj2_rock_pile": {
+    "index": 1627,
+    "chip": "C:59",
+    "src": "C:59 돌무더기"
+   },
+   "obj2_rock_pile_b": {
+    "index": 1628,
+    "chip": "D:178",
+    "src": "D:178 돌무더기(작은 돌)"
+   },
+   "obj2_rubble_a": {
+    "index": 1629,
+    "chip": "D:29",
+    "src": "D:29 잔해 돌(작음)"
+   },
+   "obj2_rubble_b": {
+    "index": 1630,
+    "chip": "D:59",
+    "src": "D:59 잔해 돌(작음, 다른 모양)"
+   },
+   "obj2_tree_small": {
+    "index": 1631,
+    "chip": "C:259",
+    "src": "C:259 둥근 작은 나무"
+   },
+   "obj2_stump": {
+    "index": 1632,
+    "chip": "D:259",
+    "src": "D:259 그루터기"
+   },
+   "obj2_sapling_dead": {
+    "index": 1633,
+    "chip": "C:260",
+    "src": "C:260 마른 묘목"
+   },
+   "obj2_bush": {
+    "index": 1634,
+    "chip": "D:289",
+    "src": "D:289 덤불"
+   },
+   "obj2_bush_flower": {
+    "index": 1635,
+    "chip": "D:288",
+    "src": "D:288 꽃 덤불"
+   },
+   "obj2_bush_red": {
+    "index": 1636,
+    "chip": "D:351",
+    "src": "D:351 붉은 꽃 덤불"
+   },
+   "obj2_flowers": {
+    "index": 1637,
+    "chip": "D:348",
+    "src": "D:348 들꽃"
+   },
+   "obj2_conifer_00": {
+    "index": 1638,
+    "chip": "D:260",
+    "src": "D:260 침엽수 1x2(위/아래) — 조각 x0 y0"
+   },
+   "obj2_conifer_01": {
+    "index": 1639,
+    "chip": "D:290",
+    "src": "D:290 침엽수 1x2(위/아래) — 조각 x0 y1"
+   },
+   "obj2_dead_tree_00": {
+    "index": 1640,
+    "chip": "D:261",
+    "src": "D:261 고목 1x2 — 조각 x0 y0"
+   },
+   "obj2_dead_tree_01": {
+    "index": 1641,
+    "chip": "D:291",
+    "src": "D:291 고목 1x2 — 조각 x0 y1"
+   },
+   "obj2_tree_big_00": {
+    "index": 1642,
+    "chip": "D:262",
+    "src": "D:262 큰 활엽수 2x2 — 조각 x0 y0"
+   },
+   "obj2_tree_big_10": {
+    "index": 1643,
+    "chip": "D:263",
+    "src": "D:263 큰 활엽수 2x2 — 조각 x1 y0"
+   },
+   "obj2_tree_big_01": {
+    "index": 1644,
+    "chip": "D:292",
+    "src": "D:292 큰 활엽수 2x2 — 조각 x0 y1"
+   },
+   "obj2_tree_big_11": {
+    "index": 1645,
+    "chip": "D:293",
+    "src": "D:293 큰 활엽수 2x2 — 조각 x1 y1"
+   },
+   "obj2_menhir_00": {
+    "index": 1646,
+    "chip": "C:89",
+    "src": "C:89 선돌 1x2 — 조각 x0 y0"
+   },
+   "obj2_menhir_01": {
+    "index": 1647,
+    "chip": "C:119",
+    "src": "C:119 선돌 1x2 — 조각 x0 y1"
+   },
+   "obj2_tombstone": {
+    "index": 1648,
+    "chip": "D:353",
+    "src": "D:353 비석"
+   },
+   "obj2_bones": {
+    "index": 1649,
+    "chip": "D:383",
+    "src": "D:383 해골·뼈(전장 흔적)"
+   },
+   "obj2_campfire": {
+    "index": 1650,
+    "chip": "D:381",
+    "src": "D:381 모닥불(정적, 애니는 tv2fx_campfire)"
+   },
+   "obj2_pot": {
+    "index": 1651,
+    "chip": "D:352",
+    "src": "D:352 항아리"
+   },
+   "obj2_bucket": {
+    "index": 1652,
+    "chip": "D:207",
+    "src": "D:207 나무 들통"
+   },
+   "obj2_ladder": {
+    "index": 1653,
+    "chip": "D:322",
+    "src": "D:322 사다리(공성)"
+   },
+   "obj2_notice": {
+    "index": 1654,
+    "chip": "D:320",
+    "src": "D:320 방(종이 쪽지)"
+   },
+   "obj2_wood_pillar_00": {
+    "index": 1655,
+    "chip": "D:358",
+    "src": "D:358 나무 기둥 1x2 — 조각 x0 y0"
+   },
+   "obj2_wood_pillar_01": {
+    "index": 1656,
+    "chip": "D:388",
+    "src": "D:388 나무 기둥 1x2 — 조각 x0 y1"
+   },
+   "obj2_fence_378": {
+    "index": 1657,
+    "chip": "D:378",
+    "src": "D:378 나무 울타리 조각"
+   },
+   "obj2_fence_379": {
+    "index": 1658,
+    "chip": "D:379",
+    "src": "D:379 나무 울타리 조각"
+   },
+   "obj2_fence_380": {
+    "index": 1659,
+    "chip": "D:380",
+    "src": "D:380 나무 울타리 조각"
+   },
+   "obj2_fence_408": {
+    "index": 1660,
+    "chip": "D:408",
+    "src": "D:408 나무 울타리 조각"
+   },
+   "obj2_fence_409": {
+    "index": 1661,
+    "chip": "D:409",
+    "src": "D:409 나무 울타리 조각"
+   },
+   "obj2_fence_410": {
+    "index": 1662,
+    "chip": "D:410",
+    "src": "D:410 나무 울타리 조각"
+   },
+   "obj2_fence_438": {
+    "index": 1663,
+    "chip": "D:438",
+    "src": "D:438 나무 울타리 조각"
+   },
+   "obj2_fence_439": {
+    "index": 1664,
+    "chip": "D:439",
+    "src": "D:439 나무 울타리 조각"
+   },
+   "obj2_table_round": {
+    "index": 1665,
+    "chip": "D:114",
+    "src": "D:114 둥근 탁자"
+   },
+   "obj2_table_small": {
+    "index": 1666,
+    "chip": "D:117",
+    "src": "D:117 작은 탁자"
+   },
+   "obj2_stool": {
+    "index": 1667,
+    "chip": "D:147",
+    "src": "D:147 등받이 없는 의자"
+   },
+   "obj2_bench_00": {
+    "index": 1668,
+    "chip": "D:327",
+    "src": "D:327 긴 의자 2x1 — 조각 x0 y0"
+   },
+   "obj2_bench_10": {
+    "index": 1669,
+    "chip": "D:328",
+    "src": "D:328 긴 의자 2x1 — 조각 x1 y0"
+   },
+   "obj2_wall_crumbled_00": {
+    "index": 1670,
+    "chip": "D:268",
+    "src": "D:268 무너진 돌담 2x2 — 조각 x0 y0"
+   },
+   "obj2_wall_crumbled_10": {
+    "index": 1671,
+    "chip": "D:269",
+    "src": "D:269 무너진 돌담 2x2 — 조각 x1 y0"
+   },
+   "obj2_wall_crumbled_01": {
+    "index": 1672,
+    "chip": "D:298",
+    "src": "D:298 무너진 돌담 2x2 — 조각 x0 y1"
+   },
+   "obj2_wall_crumbled_11": {
+    "index": 1673,
+    "chip": "D:299",
+    "src": "D:299 무너진 돌담 2x2 — 조각 x1 y1"
+   },
+   "obj2_wood_frame_00": {
+    "index": 1674,
+    "chip": "D:468",
+    "src": "D:468 나무 문틀·가대 3x1(verify: 문/교각 판독 불확실) — 조각 x0 y0"
+   },
+   "obj2_wood_frame_10": {
+    "index": 1675,
+    "chip": "D:469",
+    "src": "D:469 나무 문틀·가대 3x1(verify: 문/교각 판독 불확실) — 조각 x1 y0"
+   },
+   "obj2_wood_frame_20": {
+    "index": 1676,
+    "chip": "D:470",
+    "src": "D:470 나무 문틀·가대 3x1(verify: 문/교각 판독 불확실) — 조각 x2 y0"
+   }
+  },
+  "multi_tile": "obj2_<이름>_<x><y> = 조각 위치(왼위 00). 예: tree_big 2x2 = _00 _10 / _01 _11. 1x2 는 _00(위) _01(아래)",
+  "fx": {
+   "tv2fx_waterfall": 1898,
+   "tv2fx_whirl_dark": 1899,
+   "tv2fx_whirlpool": 1900,
+   "tv2fx_waterfall_a": 1901,
+   "tv2fx_campfire_a": 1902,
+   "tv2fx_waterfall_b": 1903,
+   "tv2fx_whirl_dark_b": 1904,
+   "tv2fx_whirlpool_b": 1905,
+   "tv2fx_waterfall_d": 1906,
+   "tv2fx_whirl_dark_d": 1907,
+   "tv2fx_whirlpool_d": 1908
+  },
+  "fx_note": "tv2fx_* 는 불투명 지면 애니(폭포·소용돌이). tv2fx_campfire_a 만 투명(오브젝트 레이어용, 애니). 프레임 = (전역-1800)+f*112, 칩셋 4프레임 순서 그대로",
+  "families": {
+   "swamp47": "swamp47_<mask> 2001~2047, 고립 swamp_single 2000 (정적)",
+   "void47": "void47_<mask> 2048~2094, 고립 void_single 2095 (허공 칸에 칠함, 바닥 쪽 테두리 = D:172 판자 = woodfloor_h 1586 과 이음선 없음)"
+  },
+  "tmv2_apply": {
+   "swamp": "FAMILY 에 'X': 'swamp47' 추가, PAINT_ALLOWED['x'] 에 'X' 추가",
+   "void": "FAMILY 에 'V'(또는 다른 코드): 'void47', 서가 바닥 칸은 woodfloor_h(1586). JOIN: 허공은 허공·rift_plank(기존 이름 유지 시 별 무늬 남음) 와 같은 지형으로",
+   "needed_support": [
+    "SHEETS 에 tv2_static2 추가, src(): i >= 2000 -> tv2_static2 (i-2000) 분기를 맨 앞에",
+    "fe_valid: 1000~1676, 1800~1908, 2000~2095",
+    "G_CHIP 에 chip_index_ext2 병합, engine_index 에 index_map_ext2 (index_map_ext 다음)"
+   ]
+  },
+  "index_map_ext2": {
+   "seoga_floor_a": 1586,
+   "seoga_floor_b": 1586,
+   "swamp_a": 2047,
+   "swamp_b": 2047,
+   "void_a": 2094,
+   "void_b": 2094,
+   "void_edge_E": 2090,
+   "void_edge_EW": 2054,
+   "void_edge_N": 2079,
+   "void_edge_NE_inner": 2074,
+   "void_edge_NE_outer": 2093,
+   "void_edge_NS": 2063,
+   "void_edge_NW_inner": 2058,
+   "void_edge_NW_outer": 2081,
+   "void_edge_S": 2084,
+   "void_edge_SE_inner": 2082,
+   "void_edge_SE_outer": 2092,
+   "void_edge_SW_inner": 2052,
+   "void_edge_SW_outer": 2089,
+   "void_edge_U_E": 2050,
+   "void_edge_U_N": 2049,
+   "void_edge_U_S": 2053,
+   "void_edge_U_W": 2061,
+   "void_edge_W": 2060
+  },
+  "index_map_ext_added": {
+   "ford_deep_E": 1846,
+   "ford_deep_NE_inner": 1846,
+   "ford_deep_NW_inner": 1846,
+   "ford_deep_SE_inner": 1846,
+   "ford_deep_SW_inner": 1846,
+   "ford_deep_W": 1846,
+   "grass_ford_NW_outer": 1833,
+   "grass_ford_SE_outer": 1844,
+   "sand_ford_E": 1846,
+   "sand_ford_N": 1846,
+   "sand_ford_S": 1846,
+   "sand_ford_W": 1846,
+   "shore_S": 1736,
+   "snow_a": 1193,
+   "snow_b": 1193
+  }
+ }
+}

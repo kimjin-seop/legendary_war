@@ -1,0 +1,222 @@
+{
+  "version": 1,
+  "note": "영웅 메뉴 카드 레이아웃 스펙. 모든 rect 는 [x, y, w, h] 이며 단위는 '카드 폭(W) 비율'(y·h 도 W 기준). 카드 높이 = W * 4/3 (portrait 896x1200 과 동일 비율 0.7467 → 1.3393). 픽셀 = 값 * 실제 카드 폭. 좌표 원점은 카드 좌상단.",
+  "master": {
+    "w": 896,
+    "h": 1200,
+    "aspect_h_over_w": 1.3393,
+    "corner_radius": 0.038
+  },
+  "layers_bottom_to_top": [
+    "card.bg.<rarity>  (art_rect, cover)",
+    "portrait          (art_rect, cover: 초상화 896x1200 을 카드에 그대로 1:1 비율로 깐다)",
+    "card.shade        (art_rect 세로 늘림: 위/아래 가독성 그라데이션)",
+    "card.frame.<rarity> (art_rect 전체 오버레이: 테두리+명판+깃발(등급 글자 포함)+스탯 바+코스트 메달이 미리 합성된 투명 PNG)",
+    "텍스트·별·병종 뱃지·스탯 아이콘 (FE 가 아래 rect 에 그림)",
+    "card.locked       (미보유일 때만, 맨 위)"
+  ],
+  "rects": {
+    "art_rect": [
+      0,
+      0,
+      1,
+      1.3393
+    ],
+    "art_safe": [
+      0.035,
+      0.035,
+      0.93,
+      1.2693
+    ],
+    "rank_flag": [
+      0.03,
+      0.006,
+      0.17,
+      0.3058
+    ],
+    "rank_letter": [
+      0.0804,
+      0.0525,
+      0.0692,
+      0.0692
+    ],
+    "name_banner": [
+      0.215,
+      0.04,
+      0.755,
+      0.105
+    ],
+    "name_text": [
+      0.31,
+      0.058,
+      0.565,
+      0.07
+    ],
+    "star_row": [
+      0.3425,
+      0.122,
+      0.5,
+      0.062
+    ],
+    "badge_slot_1": [
+      0.045,
+      0.345,
+      0.1,
+      0.1
+    ],
+    "badge_slot_2": [
+      0.045,
+      0.455,
+      0.1,
+      0.1
+    ],
+    "lv_text": [
+      0.075,
+      1.04,
+      0.3,
+      0.07
+    ],
+    "stat_bar": [
+      0.07,
+      1.125,
+      0.73,
+      0.15
+    ],
+    "cost_medal": [
+      0.765,
+      1.085,
+      0.21,
+      0.21
+    ],
+    "cost_text": [
+      0.8147,
+      1.1362,
+      0.1083,
+      0.1071
+    ]
+  },
+  "stat_rows": [
+    {
+      "key": "atk",
+      "icon": "ico.stat_atk",
+      "icon_rect": [
+        0.115,
+        1.155,
+        0.09,
+        0.09
+      ],
+      "text_rect": [
+        0.215,
+        1.153,
+        0.2,
+        0.095
+      ],
+      "align": "left"
+    },
+    {
+      "key": "hp",
+      "icon": "ico.stat_hp",
+      "icon_rect": [
+        0.43,
+        1.155,
+        0.09,
+        0.09
+      ],
+      "text_rect": [
+        0.53,
+        1.153,
+        0.21,
+        0.095
+      ],
+      "align": "left"
+    }
+  ],
+  "star": {
+    "max": 5,
+    "size": 0.058,
+    "gap": 0.004,
+    "align": "center",
+    "filled": "ico.star",
+    "empty": "ico.star_empty",
+    "rarity_default": {
+      "S": 4,
+      "A": 3,
+      "B": 2,
+      "C": 1
+    }
+  },
+  "text": {
+    "name": {
+      "rect": "name_text",
+      "size": 0.056,
+      "min_px": 11,
+      "weight": 700,
+      "color": "#F3DC8E",
+      "stroke": "#0B1328",
+      "stroke_w": 0.006,
+      "align": "center",
+      "shrink_to_fit": true,
+      "max_lines": 1
+    },
+    "lv": {
+      "rect": "lv_text",
+      "size": 0.048,
+      "min_px": 10,
+      "weight": 700,
+      "color": "#FFFFFF",
+      "stroke": "#0B1328",
+      "stroke_w": 0.006,
+      "align": "left",
+      "format": "Lv.{n}"
+    },
+    "stat": {
+      "size": 0.072,
+      "min_px": 11,
+      "weight": 800,
+      "color": "#FFFFFF",
+      "stroke": "#0B1328",
+      "stroke_w": 0.006,
+      "font_numeric": "tabular-nums"
+    },
+    "cost": {
+      "rect": "cost_text",
+      "size": 0.085,
+      "min_px": 12,
+      "weight": 800,
+      "color": "#FFFFFF",
+      "stroke": "#0B1328",
+      "stroke_w": 0.008,
+      "align": "center"
+    },
+    "rank_letter": {
+      "baked": true,
+      "note": "등급 글자(S/A/B/C)는 card.frame.<rarity> 에 이미 그려져 있음(Cinzel Bold, 금 그라데이션). FE 는 그리지 않는다."
+    }
+  },
+  "contrast_check": {
+    "name #F3DC8E on banner #101C3A": "11.9:1 (AA 통과)",
+    "stat #FFFFFF on stat_bar #101C3A": "17.0:1 (AA 통과)",
+    "cost #FFFFFF on medal center #0E3B4A": "11.4:1 (AA 통과)",
+    "lv #FFFFFF on card.shade bottom(#0B1328 a≈0.8 over portrait)": "약 9:1 이상(초상화 색에 따라 변동, 외곽선 stroke 로 보강)"
+  },
+  "compact_mode": {
+    "when_card_width_px_below": 150,
+    "rule": "카드 폭 150px 미만(예: 390px 화면 3열 120px)에서는 stat_rows 를 숨기고 lv_text 를 stat_bar 중앙(compact_lv_rect)에 표시. name 은 min 11px 유지(넘치면 말줄임), star_row·cost 유지. 150~200px 에서는 텍스트를 min_px 로 고정.",
+    "recommended_card_width_px": {
+      "desktop": 240,
+      "mobile_390": 172
+    },
+    "compact_lv_rect": [
+      0.07,
+      1.153,
+      0.66,
+      0.095
+    ]
+  },
+  "slice9": {
+    "frame_composite": "card.frame.<rarity> 는 명판·깃발·메달이 합성된 3:4 고정 비율 오버레이 → 9-slice 불가(비율 고정, 균등 스케일만).",
+    "border_only": "card.border.<rarity> (테두리만) 는 9-slice 가능: insets 는 manifest_fragment.json 의 slice9 값(px, @3x 기준) 참조.",
+    "stat_bar": "card.part.statbar 는 가로 3-slice 가능(좌우 캡 insets 는 manifest 참조).",
+    "name_banner": "card.part.banner 는 가로 3-slice 가능(리본 꼬리 insets 는 manifest 참조)."
+  }
+}

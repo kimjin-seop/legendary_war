@@ -1,0 +1,1638 @@
+{
+ "version": 1,
+ "date": "2026-11-01",
+ "key": "tileset.unity32_ext",
+ "principle": "Unity 타일맵 가이드 방식: 32x32 격자·여백 0·Pixel Per Unit 32·Point 필터, 팔레트에서 타일을 골라 칸에 직접 배치. 런타임 이웃 판정 규칙은 규정하지 않음(전환 타일은 사람이 골라 칠하는 개별 타일). 회전은 90도 단위만.",
+ "sheets": [
+  {
+   "file": "/assets/third_party/unity_tilemap/TileMap.png",
+   "size": [
+    320,
+    96
+   ],
+   "cols": 10,
+   "rows": 3,
+   "index_range": [
+    0,
+    29
+   ],
+   "modified": false,
+   "license": "미확인(개발 한정, NOTICE.md)"
+  },
+  {
+   "file": "/assets/tiles/legend_tileset/tileset_ext.png",
+   "size": [
+    320,
+    256
+   ],
+   "cols": 10,
+   "rows": 8,
+   "index_range": [
+    30,
+    103
+   ],
+   "local_index": "전역 인덱스 - 30 (Unity 에서 별도 시트로 자를 때 TileMapExt_0 = 전역 30)",
+   "x2": "/assets/tiles/legend_tileset/tileset_ext_x2.png",
+   "source": "generated(procedural) — 이미지 생성 모델 호출 0회. 원본 TileMap.png 의 픽셀·팔레트(0,1,2,3,4,5,6,7,13 번 타일)를 조립·재색해 만든 파생 타일"
+  }
+ ],
+ "conventions": {
+  "shore": "해안 타일은 원본 6번과 같은 규칙으로 \"물 칸\"에 칠한다. 이름의 방향 = 육지가 있는 쪽. inner = 두 변이 육지(만의 구석), outer = 대각 꼭짓점만 육지(곶 바깥). 먼 쪽 가장자리는 깊은 물(0번 색)로 끝나 0번 옆에 이음새 없음, 육지 쪽 가장자리는 모래선(원본 6번 1행 색).",
+  "cliff": "절벽 타일은 \"높은 땅 칸\"에 칠한다. 이름의 방향 = 낮은 땅이 있는 쪽(암벽면 위치). S면이 가장 높게(11px) 보이고 N면은 테두리선만(위에서 본 투영).",
+  "forest": "숲 가장자리 타일은 \"숲 칸\"에 칠한다. 이름의 방향 = 트인 풀밭 쪽. 트인 쪽 바닥색이 풀(3)과 같아져 3번과 이음새 없음.",
+  "jag": "들쭉날쭉 경계는 칸 끝 4px 에서 0이 되도록 만들어 직선·모서리 타일 끝단이 픽셀 단위로 맞물림."
+ },
+ "collider_reference": {
+  "None": "통행 타일(풀·모래·판자·눈·사막·늪·깃발 오버레이)",
+  "Sprite": "벽·물·숲·산·건물·울타리·출입구(원본 .asset 값 기준)",
+  "Grid": "사용 안 함(필요 시 건물 내부 칸)",
+  "note": "이 게임의 이동·방어 판정은 서버 지형 코드가 결정. 충돌 값은 Unity 이식 시 참고용"
+ },
+ "terrain_code_map": {
+  "p": {
+   "base": [
+    3,
+    4
+   ],
+   "variants": [
+    49
+   ],
+   "recommend": "3 가중 7, 4 가중 1, grass_flower 가중 1(좌표 해시)"
+  },
+  "f": {
+   "base": [
+    7
+   ],
+   "edges": [
+    62,
+    63,
+    64,
+    65,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73
+   ],
+   "sparse": [
+    74,
+    75
+   ]
+  },
+  "m": {
+   "base": [
+    18
+   ],
+   "cluster_3x3": [
+    [
+     null,
+     8,
+     null
+    ],
+    [
+     17,
+     18,
+     19
+    ],
+    [
+     27,
+     28,
+     29
+    ]
+   ],
+   "recommend": "단독 칸은 18, 큰 산맥은 3x3 묶음"
+  },
+  "w": {
+   "base": [
+    0
+   ],
+   "shore": [
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41
+   ],
+   "original_shore": 6
+  },
+  "s": {
+   "base": [
+    1
+   ],
+   "river": [
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48
+   ]
+  },
+  "b": {
+   "base": [
+    5
+   ],
+   "note": "세로 판자. 가로 다리는 90도 회전(rot 1)"
+  },
+  "r": {
+   "base": [
+    2
+   ]
+  },
+  "v": {
+   "base": [
+    92
+   ],
+   "alt": [
+    25
+   ],
+   "multi_cell": "buildings_recipes.json"
+  },
+  "c": {
+   "base": [
+    15,
+    26
+   ],
+   "gate": 9,
+   "multi_cell": "buildings_recipes.json"
+  },
+  "W": {
+   "base": [
+    10,
+    13
+   ],
+   "low": [
+    99,
+    100,
+    101,
+    102
+   ]
+  },
+  "k": {
+   "base": [
+    11,
+    12,
+    14
+   ],
+   "edges": [
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61
+   ],
+   "note": "절벽 타일의 고원 윗면은 짙은 풀(4), 낮은 땅은 풀(3). 고원 안쪽 칸은 4번(또는 바위 11/12/14)으로 칠함"
+  },
+  "x": {
+   "base": [
+    97,
+    98
+   ]
+  },
+  "n": {
+   "snow": [
+    93,
+    94
+   ],
+   "desert": [
+    95,
+    96,
+    2
+   ],
+   "note": "map.biome 으로 분기"
+  },
+  "overlay": {
+   "capture_flag": 103
+  }
+ },
+ "original_tiles": [
+  {
+   "index": 0,
+   "name": "SEA",
+   "code": "w",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 1,
+   "name": "WATER",
+   "code": "s",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 2,
+   "name": "SAND",
+   "code": "r|n(desert)",
+   "collider": "None",
+   "source": "original"
+  },
+  {
+   "index": 3,
+   "name": "GRASS",
+   "code": "p",
+   "collider": "None",
+   "source": "original"
+  },
+  {
+   "index": 4,
+   "name": "GRASS_DARK",
+   "code": "p",
+   "collider": "None",
+   "source": "original"
+  },
+  {
+   "index": 5,
+   "name": "PLANK",
+   "code": "b",
+   "collider": "None",
+   "source": "original"
+  },
+  {
+   "index": 6,
+   "name": "SHORE",
+   "code": "w",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 7,
+   "name": "FOREST",
+   "code": "f",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 8,
+   "name": "PEAK_TOP",
+   "code": "m",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 9,
+   "name": "DUNGEON_DOOR",
+   "code": "c",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 10,
+   "name": "STONE_A",
+   "code": "W",
+   "collider": "None",
+   "source": "original"
+  },
+  {
+   "index": 11,
+   "name": "STONE_B",
+   "code": "k",
+   "collider": "None",
+   "source": "original"
+  },
+  {
+   "index": 12,
+   "name": "STONE_C",
+   "code": "k",
+   "collider": "None",
+   "source": "original"
+  },
+  {
+   "index": 13,
+   "name": "STONE_D",
+   "code": "W",
+   "collider": "None",
+   "source": "original"
+  },
+  {
+   "index": 14,
+   "name": "STONE_E",
+   "code": "k",
+   "collider": "None",
+   "source": "original"
+  },
+  {
+   "index": 15,
+   "name": "SLAB",
+   "code": "c",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 16,
+   "name": "PLATE",
+   "code": "c",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 17,
+   "name": "PEAK_L",
+   "code": "m",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 18,
+   "name": "PEAK",
+   "code": "m",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 19,
+   "name": "PEAK_R",
+   "code": "m",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 20,
+   "name": "STAIRS",
+   "code": "-",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 21,
+   "name": "PILLAR_A",
+   "code": "-",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 22,
+   "name": "PILLAR_B",
+   "code": "-",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 23,
+   "name": "PILLAR_C",
+   "code": "-",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 24,
+   "name": "PILLAR_D",
+   "code": "-",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 25,
+   "name": "BRICK",
+   "code": "v",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 26,
+   "name": "FLOOR_GRID",
+   "code": "c",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 27,
+   "name": "PEAK_BL",
+   "code": "m",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 28,
+   "name": "PEAK_B",
+   "code": "m",
+   "collider": "Sprite",
+   "source": "original"
+  },
+  {
+   "index": 29,
+   "name": "PEAK_BR",
+   "code": "m",
+   "collider": "Sprite",
+   "source": "original"
+  }
+ ],
+ "ext_tiles": [
+  {
+   "index": 30,
+   "local": 0,
+   "row": 0,
+   "col": 0,
+   "name": "shore_N",
+   "use": "해안 직선: 물 칸에 칠함, 육지가 N쪽",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽: 풀(3)/모래(2)",
+    "S쪽: 바다(0)"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 31,
+   "local": 1,
+   "row": 0,
+   "col": 1,
+   "name": "shore_E",
+   "use": "해안 직선: 물 칸에 칠함, 육지가 E쪽",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "E쪽: 풀(3)/모래(2)",
+    "W쪽: 바다(0)"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 32,
+   "local": 2,
+   "row": 0,
+   "col": 2,
+   "name": "shore_S",
+   "use": "해안 직선: 물 칸에 칠함, 육지가 S쪽",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽: 풀(3)/모래(2)",
+    "N쪽: 바다(0)"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 33,
+   "local": 3,
+   "row": 0,
+   "col": 3,
+   "name": "shore_W",
+   "use": "해안 직선: 물 칸에 칠함, 육지가 W쪽",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "W쪽: 풀(3)/모래(2)",
+    "E쪽: 바다(0)"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 34,
+   "local": 4,
+   "row": 0,
+   "col": 4,
+   "name": "shore_NW_inner",
+   "use": "해안 안쪽 모서리: 물 칸, 육지가 N·W 두 변에 있음(만의 구석)",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N·W쪽: 육지",
+    "N쪽 이웃 줄은 shore_W, W쪽 이웃 줄은 shore_N 와 이어짐"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 35,
+   "local": 5,
+   "row": 0,
+   "col": 5,
+   "name": "shore_NE_inner",
+   "use": "해안 안쪽 모서리: 물 칸, 육지가 N·E 두 변에 있음(만의 구석)",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N·E쪽: 육지",
+    "N쪽 이웃 줄은 shore_E, E쪽 이웃 줄은 shore_N 와 이어짐"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 36,
+   "local": 6,
+   "row": 0,
+   "col": 6,
+   "name": "shore_SE_inner",
+   "use": "해안 안쪽 모서리: 물 칸, 육지가 S·E 두 변에 있음(만의 구석)",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S·E쪽: 육지",
+    "S쪽 이웃 줄은 shore_E, E쪽 이웃 줄은 shore_S 와 이어짐"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 37,
+   "local": 7,
+   "row": 0,
+   "col": 7,
+   "name": "shore_SW_inner",
+   "use": "해안 안쪽 모서리: 물 칸, 육지가 S·W 두 변에 있음(만의 구석)",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S·W쪽: 육지",
+    "S쪽 이웃 줄은 shore_W, W쪽 이웃 줄은 shore_S 와 이어짐"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 38,
+   "local": 8,
+   "row": 0,
+   "col": 8,
+   "name": "shore_NW_outer",
+   "use": "해안 바깥 모서리: 물 칸, 육지는 NW 대각 꼭짓점에만(곶 끝 바깥)",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽 이웃: shore_W",
+    "W쪽 이웃: shore_N"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 39,
+   "local": 9,
+   "row": 0,
+   "col": 9,
+   "name": "shore_NE_outer",
+   "use": "해안 바깥 모서리: 물 칸, 육지는 NE 대각 꼭짓점에만(곶 끝 바깥)",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽 이웃: shore_E",
+    "E쪽 이웃: shore_N"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 40,
+   "local": 10,
+   "row": 1,
+   "col": 0,
+   "name": "shore_SE_outer",
+   "use": "해안 바깥 모서리: 물 칸, 육지는 SE 대각 꼭짓점에만(곶 끝 바깥)",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽 이웃: shore_E",
+    "E쪽 이웃: shore_S"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 41,
+   "local": 11,
+   "row": 1,
+   "col": 1,
+   "name": "shore_SW_outer",
+   "use": "해안 바깥 모서리: 물 칸, 육지는 SW 대각 꼭짓점에만(곶 끝 바깥)",
+   "code": "w",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽 이웃: shore_W",
+    "W쪽 이웃: shore_S"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 42,
+   "local": 12,
+   "row": 1,
+   "col": 2,
+   "name": "shore_NS",
+   "use": "좁은 물길(가로 강): 육지가 N·S",
+   "code": "w|s",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N·S: 육지",
+    "E·W: shore_NS 또는 얕은 물(1)"
+   ],
+   "source": "generated",
+   "note": "물이 얕은 색(1번 계열)",
+   "alpha": false
+  },
+  {
+   "index": 43,
+   "local": 13,
+   "row": 1,
+   "col": 3,
+   "name": "shore_EW",
+   "use": "좁은 물길(세로 강): 육지가 E·W",
+   "code": "w|s",
+   "collider": "Sprite",
+   "place_next_to": [
+    "E·W: 육지",
+    "N·S: shore_EW 또는 얕은 물(1)"
+   ],
+   "source": "generated",
+   "note": "물이 얕은 색(1번 계열)",
+   "alpha": false
+  },
+  {
+   "index": 44,
+   "local": 14,
+   "row": 1,
+   "col": 4,
+   "name": "shore_end_N",
+   "use": "물길 끝(만 안쪽 끝): 물이 N쪽으로만 이어지고 나머지 3변 육지",
+   "code": "w|s",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽: shore_NS/EW 또는 물",
+    "나머지: 육지"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 45,
+   "local": 15,
+   "row": 1,
+   "col": 5,
+   "name": "shore_end_E",
+   "use": "물길 끝(만 안쪽 끝): 물이 E쪽으로만 이어지고 나머지 3변 육지",
+   "code": "w|s",
+   "collider": "Sprite",
+   "place_next_to": [
+    "E쪽: shore_NS/EW 또는 물",
+    "나머지: 육지"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 46,
+   "local": 16,
+   "row": 1,
+   "col": 6,
+   "name": "shore_end_S",
+   "use": "물길 끝(만 안쪽 끝): 물이 S쪽으로만 이어지고 나머지 3변 육지",
+   "code": "w|s",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽: shore_NS/EW 또는 물",
+    "나머지: 육지"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 47,
+   "local": 17,
+   "row": 1,
+   "col": 7,
+   "name": "shore_end_W",
+   "use": "물길 끝(만 안쪽 끝): 물이 W쪽으로만 이어지고 나머지 3변 육지",
+   "code": "w|s",
+   "collider": "Sprite",
+   "place_next_to": [
+    "W쪽: shore_NS/EW 또는 물",
+    "나머지: 육지"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 48,
+   "local": 18,
+   "row": 1,
+   "col": 8,
+   "name": "shore_pond",
+   "use": "작은 연못: 4변 모두 육지",
+   "code": "w|s",
+   "collider": "Sprite",
+   "place_next_to": [
+    "4변 육지"
+   ],
+   "source": "generated",
+   "alpha": false
+  },
+  {
+   "index": 49,
+   "local": 19,
+   "row": 1,
+   "col": 9,
+   "name": "grass_flower",
+   "use": "풀 변형(들꽃) — 3번과 섞어 반복 완화",
+   "code": "p",
+   "collider": "None",
+   "place_next_to": [
+    "풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 50,
+   "local": 20,
+   "row": 2,
+   "col": 0,
+   "name": "cliff_S",
+   "use": "절벽 직선: 높은 땅 칸에 칠함, S쪽이 낮음(암벽면이 S쪽 가장자리)",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽: 낮은 땅 풀(3)",
+    "N쪽: 높은 땅(cliff_* 또는 짙은 풀 4)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 51,
+   "local": 21,
+   "row": 2,
+   "col": 1,
+   "name": "cliff_N",
+   "use": "절벽 직선: 높은 땅 칸에 칠함, N쪽이 낮음(암벽면이 N쪽 가장자리)",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽: 낮은 땅 풀(3)",
+    "S쪽: 높은 땅(cliff_* 또는 짙은 풀 4)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 52,
+   "local": 22,
+   "row": 2,
+   "col": 2,
+   "name": "cliff_E",
+   "use": "절벽 직선: 높은 땅 칸에 칠함, E쪽이 낮음(암벽면이 E쪽 가장자리)",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "E쪽: 낮은 땅 풀(3)",
+    "W쪽: 높은 땅(cliff_* 또는 짙은 풀 4)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 53,
+   "local": 23,
+   "row": 2,
+   "col": 3,
+   "name": "cliff_W",
+   "use": "절벽 직선: 높은 땅 칸에 칠함, W쪽이 낮음(암벽면이 W쪽 가장자리)",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "W쪽: 낮은 땅 풀(3)",
+    "E쪽: 높은 땅(cliff_* 또는 짙은 풀 4)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 54,
+   "local": 24,
+   "row": 2,
+   "col": 4,
+   "name": "cliff_NW_outer",
+   "use": "절벽 바깥 모서리: 높은 땅의 튀어나온 꼭짓점, N·W쪽이 낮음",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N·W쪽: 낮은 땅"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 55,
+   "local": 25,
+   "row": 2,
+   "col": 5,
+   "name": "cliff_NE_outer",
+   "use": "절벽 바깥 모서리: 높은 땅의 튀어나온 꼭짓점, N·E쪽이 낮음",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N·E쪽: 낮은 땅"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 56,
+   "local": 26,
+   "row": 2,
+   "col": 6,
+   "name": "cliff_SE_outer",
+   "use": "절벽 바깥 모서리: 높은 땅의 튀어나온 꼭짓점, S·E쪽이 낮음",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S·E쪽: 낮은 땅"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 57,
+   "local": 27,
+   "row": 2,
+   "col": 7,
+   "name": "cliff_SW_outer",
+   "use": "절벽 바깥 모서리: 높은 땅의 튀어나온 꼭짓점, S·W쪽이 낮음",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S·W쪽: 낮은 땅"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 58,
+   "local": 28,
+   "row": 2,
+   "col": 8,
+   "name": "cliff_NW_inner",
+   "use": "절벽 안쪽 모서리: 높은 땅 칸, NW 대각만 낮음",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽 이웃: cliff_W",
+    "W쪽 이웃: cliff_N"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 59,
+   "local": 29,
+   "row": 2,
+   "col": 9,
+   "name": "cliff_NE_inner",
+   "use": "절벽 안쪽 모서리: 높은 땅 칸, NE 대각만 낮음",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽 이웃: cliff_E",
+    "E쪽 이웃: cliff_N"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 60,
+   "local": 30,
+   "row": 3,
+   "col": 0,
+   "name": "cliff_SE_inner",
+   "use": "절벽 안쪽 모서리: 높은 땅 칸, SE 대각만 낮음",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽 이웃: cliff_E",
+    "E쪽 이웃: cliff_S"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 61,
+   "local": 31,
+   "row": 3,
+   "col": 1,
+   "name": "cliff_SW_inner",
+   "use": "절벽 안쪽 모서리: 높은 땅 칸, SW 대각만 낮음",
+   "code": "k",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽 이웃: cliff_W",
+    "W쪽 이웃: cliff_S"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 62,
+   "local": 32,
+   "row": 3,
+   "col": 2,
+   "name": "forest_N",
+   "use": "숲 가장자리 직선: 숲 칸, N쪽이 트인 풀밭",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N쪽: 풀(3)",
+    "S쪽: 숲(7)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 63,
+   "local": 33,
+   "row": 3,
+   "col": 3,
+   "name": "forest_E",
+   "use": "숲 가장자리 직선: 숲 칸, E쪽이 트인 풀밭",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "E쪽: 풀(3)",
+    "W쪽: 숲(7)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 64,
+   "local": 34,
+   "row": 3,
+   "col": 4,
+   "name": "forest_S",
+   "use": "숲 가장자리 직선: 숲 칸, S쪽이 트인 풀밭",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S쪽: 풀(3)",
+    "N쪽: 숲(7)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 65,
+   "local": 35,
+   "row": 3,
+   "col": 5,
+   "name": "forest_W",
+   "use": "숲 가장자리 직선: 숲 칸, W쪽이 트인 풀밭",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "W쪽: 풀(3)",
+    "E쪽: 숲(7)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 66,
+   "local": 36,
+   "row": 3,
+   "col": 6,
+   "name": "forest_NW_outer",
+   "use": "숲 바깥 모서리: N·W쪽 트임",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N·W쪽: 풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 67,
+   "local": 37,
+   "row": 3,
+   "col": 7,
+   "name": "forest_NE_outer",
+   "use": "숲 바깥 모서리: N·E쪽 트임",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "N·E쪽: 풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 68,
+   "local": 38,
+   "row": 3,
+   "col": 8,
+   "name": "forest_SE_outer",
+   "use": "숲 바깥 모서리: S·E쪽 트임",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S·E쪽: 풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 69,
+   "local": 39,
+   "row": 3,
+   "col": 9,
+   "name": "forest_SW_outer",
+   "use": "숲 바깥 모서리: S·W쪽 트임",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "S·W쪽: 풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 70,
+   "local": 40,
+   "row": 4,
+   "col": 0,
+   "name": "forest_NW_inner",
+   "use": "숲 안쪽 모서리: 숲 칸, NW 대각만 트임",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "NW 대각: 풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 71,
+   "local": 41,
+   "row": 4,
+   "col": 1,
+   "name": "forest_NE_inner",
+   "use": "숲 안쪽 모서리: 숲 칸, NE 대각만 트임",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "NE 대각: 풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 72,
+   "local": 42,
+   "row": 4,
+   "col": 2,
+   "name": "forest_SE_inner",
+   "use": "숲 안쪽 모서리: 숲 칸, SE 대각만 트임",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "SE 대각: 풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 73,
+   "local": 43,
+   "row": 4,
+   "col": 3,
+   "name": "forest_SW_inner",
+   "use": "숲 안쪽 모서리: 숲 칸, SW 대각만 트임",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "SW 대각: 풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 74,
+   "local": 44,
+   "row": 4,
+   "col": 4,
+   "name": "forest_sparse_a",
+   "use": "듬성한 숲(나무 2그루) — 숲 가장자리·고립 숲",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 75,
+   "local": 45,
+   "row": 4,
+   "col": 5,
+   "name": "forest_sparse_b",
+   "use": "듬성한 숲(나무 2그루, 반대 배치)",
+   "code": "f",
+   "collider": "Sprite",
+   "place_next_to": [
+    "풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 76,
+   "local": 46,
+   "row": 4,
+   "col": 6,
+   "name": "roof_top_L",
+   "use": "회청 기와(조선 기와) 지붕 용마루·왼쪽 조각",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "건물 레시피 참조"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 77,
+   "local": 47,
+   "row": 4,
+   "col": 7,
+   "name": "roof_top_C",
+   "use": "회청 기와(조선 기와) 지붕 용마루·가운데 조각",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "건물 레시피 참조"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 78,
+   "local": 48,
+   "row": 4,
+   "col": 8,
+   "name": "roof_top_R",
+   "use": "회청 기와(조선 기와) 지붕 용마루·오른쪽 조각",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "건물 레시피 참조"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 79,
+   "local": 49,
+   "row": 4,
+   "col": 9,
+   "name": "roof_mid_L",
+   "use": "회청 기와(조선 기와) 지붕 중간·왼쪽 조각",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "건물 레시피 참조"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 80,
+   "local": 50,
+   "row": 5,
+   "col": 0,
+   "name": "roof_mid_C",
+   "use": "회청 기와(조선 기와) 지붕 중간·가운데 조각",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "건물 레시피 참조"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 81,
+   "local": 51,
+   "row": 5,
+   "col": 1,
+   "name": "roof_mid_R",
+   "use": "회청 기와(조선 기와) 지붕 중간·오른쪽 조각",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "건물 레시피 참조"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 82,
+   "local": 52,
+   "row": 5,
+   "col": 2,
+   "name": "roof_bot_L",
+   "use": "회청 기와(조선 기와) 지붕 처마·왼쪽 조각",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "건물 레시피 참조"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 83,
+   "local": 53,
+   "row": 5,
+   "col": 3,
+   "name": "roof_bot_C",
+   "use": "회청 기와(조선 기와) 지붕 처마·가운데 조각",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "건물 레시피 참조"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 84,
+   "local": 54,
+   "row": 5,
+   "col": 4,
+   "name": "roof_bot_R",
+   "use": "회청 기와(조선 기와) 지붕 처마·오른쪽 조각",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "건물 레시피 참조"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 85,
+   "local": 55,
+   "row": 5,
+   "col": 5,
+   "name": "roof_chimney",
+   "use": "지붕 중간 + 석조 굴뚝",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "roof_mid_C 자리에 대체"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 86,
+   "local": 56,
+   "row": 5,
+   "col": 6,
+   "name": "roof_hatch",
+   "use": "지붕 중간 + 어두운 천창(지붕 출입구)",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "roof_mid_C 자리에 대체"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 87,
+   "local": 57,
+   "row": 5,
+   "col": 7,
+   "name": "wall_L",
+   "use": "한옥 벽체(기둥·회벽) 왼쪽 끝(목재 모서리 기둥)",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "roof_bot_L 아래"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 88,
+   "local": 58,
+   "row": 5,
+   "col": 8,
+   "name": "wall_C",
+   "use": "한옥 벽체(기둥·회벽) 가운데",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "roof_bot_C 아래"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 89,
+   "local": 59,
+   "row": 5,
+   "col": 9,
+   "name": "wall_R",
+   "use": "한옥 벽체(기둥·회벽) 오른쪽 끝",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "roof_bot_R 아래"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 90,
+   "local": 60,
+   "row": 6,
+   "col": 0,
+   "name": "wall_window",
+   "use": "벽체 + 창(살창)",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "roof_bot_C 아래"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 91,
+   "local": 61,
+   "row": 6,
+   "col": 1,
+   "name": "wall_door",
+   "use": "벽체 + 나무 문(출입구)",
+   "code": "v|c",
+   "collider": "Sprite",
+   "place_next_to": [
+    "roof_bot_C 아래, 아래쪽: 풀/길"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 92,
+   "local": 62,
+   "row": 6,
+   "col": 2,
+   "name": "house_small",
+   "use": "한 칸짜리 작은 집(지붕+벽+문) — 마을 v 단일 칸용",
+   "code": "v",
+   "collider": "Sprite",
+   "place_next_to": [
+    "풀(3)·길(2)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 93,
+   "local": 63,
+   "row": 6,
+   "col": 3,
+   "name": "snow_a",
+   "use": "눈밭(2번 무늬 재색)",
+   "code": "n(snow)",
+   "collider": "None",
+   "place_next_to": [
+    "snow_b"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 94,
+   "local": 64,
+   "row": 6,
+   "col": 4,
+   "name": "snow_b",
+   "use": "눈밭 변형(눈 둔덕·마른 풀)",
+   "code": "n(snow)",
+   "collider": "None",
+   "place_next_to": [
+    "snow_a"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 95,
+   "local": 65,
+   "row": 6,
+   "col": 5,
+   "name": "desert_a",
+   "use": "사막 모래(바람 물결)",
+   "code": "n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "모래(2)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 96,
+   "local": 66,
+   "row": 6,
+   "col": 6,
+   "name": "desert_b",
+   "use": "사막 모래 + 작은 바위",
+   "code": "n(desert)",
+   "collider": "None",
+   "place_next_to": [
+    "모래(2)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 97,
+   "local": 67,
+   "row": 6,
+   "col": 7,
+   "name": "swamp_a",
+   "use": "늪(짙은 풀 + 탁한 웅덩이·갈대)",
+   "code": "x",
+   "collider": "None",
+   "place_next_to": [
+    "짙은 풀(4)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 98,
+   "local": 68,
+   "row": 6,
+   "col": 8,
+   "name": "swamp_b",
+   "use": "늪 변형",
+   "code": "x",
+   "collider": "None",
+   "place_next_to": [
+    "짙은 풀(4)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 99,
+   "local": 69,
+   "row": 6,
+   "col": 9,
+   "name": "fence_h",
+   "use": "나무 울타리 가로(풀 바탕)",
+   "code": "W",
+   "collider": "Sprite",
+   "place_next_to": [
+    "풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 100,
+   "local": 70,
+   "row": 7,
+   "col": 0,
+   "name": "fence_v",
+   "use": "나무 울타리 세로(풀 바탕)",
+   "code": "W",
+   "collider": "Sprite",
+   "place_next_to": [
+    "풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 101,
+   "local": 71,
+   "row": 7,
+   "col": 1,
+   "name": "lowwall_h",
+   "use": "낮은 돌담 가로(풀 바탕)",
+   "code": "W",
+   "collider": "Sprite",
+   "place_next_to": [
+    "풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 102,
+   "local": 72,
+   "row": 7,
+   "col": 2,
+   "name": "lowwall_v",
+   "use": "낮은 돌담 세로(풀 바탕)",
+   "code": "W",
+   "collider": "Sprite",
+   "place_next_to": [
+    "풀(3)"
+   ],
+   "source": "generated(procedural, land_set 2026-11-01 교체)",
+   "alpha": false,
+   "redrawn": "land_tiles_build.py"
+  },
+  {
+   "index": 103,
+   "local": 73,
+   "row": 7,
+   "col": 3,
+   "name": "flag",
+   "use": "점령 지점 깃발 오버레이(투명 배경) — 지형 타일 위 별도 레이어",
+   "code": "overlay",
+   "collider": "None",
+   "place_next_to": [
+    "모든 지형 위"
+   ],
+   "source": "generated",
+   "note": "투명 PNG 오버레이",
+   "alpha": true
+  }
+ ],
+ "land_set_note": "2026-11-01 안아트: 49~102 육상 타일을 같은 의미·인덱스로 재제작(백업 *.bak-tile-20261101). 30~48 해안·103 깃발 원본 유지."
+}

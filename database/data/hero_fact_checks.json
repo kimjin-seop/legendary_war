@@ -1,0 +1,1559 @@
+{
+ "_note": "사실 검증 파일럿. 대상=시드 8명 + 인연 파일럿(hero_relations.json)에 등장하는 CSV flag=verify 영웅. hero_id=heroes_candidates.csv id. result: confirmed=외부 출처와 일치 / corrected=CSV 값과 다른 정정 제안 / unverifiable=이번 열람 범위로 확정 불가. CSV·heroes.json 본문은 수정하지 않았으며 정정 제안만 기록함. 출처는 대부분 위키백과(2차 자료)이므로 확정 반영 전 원전·학술 자료로 재확인 필요",
+ "version": 1,
+ "checked_at": "2026-10-31",
+ "_note_r5": "r5 추가분(1차 배치 26명: 일본 15, 나폴레옹, 중국 4, 한국 3, 페르시아 3). 기존 항목 수정 없음. hero_id 19·20·21·47(유방·한신·장량·관우)은 r4 이전 생몰 항목이 이미 있어 같은 hero_id의 두 번째 항목으로 추가했으므로 skill_material은 r5 항목을 사용할 것. 출처는 영문 위키백과 WebFetch(대부분 문서 앞 100,000자만 열람, 이후는 unread) + 원전명은 모두 unread(직접 열람 안 함). 논란 인물 항목은 skill_material.tone에 쟁점 분리. 도요토미 히데요시는 campaign_conflict 키, 나폴레옹은 relation_check 키를 신설. 말미 stat_basis_r5는 능력치 근거 참고용(O/W/X 표기)",
+ "_note_r4": "r4 추가분(출시 풀 신규 21명 + 곽재우·휴정·유정 스킬 이름만). 기존 항목은 수정하지 않음. 추가 항목의 checks[].evidence_level=confirmed(원전·주요 사료로 확립)/accepted(통설, 세부 해석 여지)/verify(사람 확인 필요) 신설 키. result 키는 기존 의미 유지. skill_material={safe_facts: 스킬 설명에 써도 되는 사실, forbidden: 쓰면 안 되는 일화·수치, name_candidates: 스킬 이름 후보(confirmed/accepted 고유명 또는 효과 중심 중립명), tone: 논란 인물 서술 지침}. 출처는 영문 위키백과(2차)를 WebFetch로 열람해 대조했고, 열람 요약에 없던 내용은 'unread'로 표시하고 모델 지식 기반이므로 verify 또는 accepted+확인 필요로 낮춰 표기함. 스킬 이름은 UI 라벨·기존 skills.json 이름과 충돌 여부를 적용 단계에서 확인할 것",
+ "items": [
+  {
+   "hero_id": 142,
+   "name_ko": "이순신",
+   "seed_code": "yi_sun_sin",
+   "checks": [
+    { "claim": "생몰년 1545~1598", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Yi_Sun-sin", "note": "1545-04-28 출생, 1598-12-16 노량 해전 중 전사" },
+    { "claim": "한산도 대첩과 명량 해전을 이끎", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Yi_Sun-sin", "note": "한산도 1592, 명량 1597" },
+    { "claim": "노량 해전에서 전사", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Yi_Sun-sin", "note": "명 장수 진린과 연합 작전 중" }
+   ]
+  },
+  {
+   "hero_id": 421,
+   "name_ko": "한니발 바르카",
+   "seed_code": "hannibal",
+   "checks": [
+    { "claim": "출생 기원전 247년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Hannibal", "note": "" },
+    { "claim": "사망 기원전 183년", "result": "unverifiable", "source": "https://en.wikipedia.org/wiki/Hannibal", "note": "183(아티쿠스)·182(폴리비오스)·181(술피키우스 블리토) 설이 병존해 단일 연도 확정 불가. -183 유지 시 화면에 '경' 또는 이설 표기 권장(heroes.json note와 일치)" },
+    { "claim": "자마에서 스키피오에게 패배(기원전 202)", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Hannibal", "note": "" },
+    { "claim": "망명 중 자결", "result": "unverifiable", "source": "모델 지식·확인 필요", "note": "이번 열람 범위(문서 앞부분)에서 확인하지 못함. 통설은 비티니아 망명 중 음독. 사람 확인 필요" }
+   ]
+  },
+  {
+   "hero_id": 248,
+   "name_ko": "잔 다르크",
+   "seed_code": "joan_of_arc",
+   "checks": [
+    { "claim": "출생 1412년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Joan_of_Arc", "note": "c.1412 추정치. 정확한 출생일 미상" },
+    { "claim": "1429년 오를레앙에서 영국군을 물리침", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Joan_of_Arc", "note": "도착 9일 후 영국군 포위 해제. 같은 해 7월 샤를 7세 랭스 축성식" },
+    { "claim": "1431년 화형, 1920년 시성", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Joan_of_Arc", "note": "1431-05-30 루앙, 1920-05-16 시성" }
+   ]
+  },
+  {
+   "hero_id": 213,
+   "name_ko": "알렉산드로스 대왕",
+   "seed_code": "alexander",
+   "checks": [
+    { "claim": "생몰년 기원전 356~323", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Alexander_the_Great", "note": "356-07-20/21 펠라 출생, 323-06-10/11 바빌론 사망" },
+    { "claim": "20세에 즉위, 가우가멜라 전투 승리", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Alexander_the_Great", "note": "기원전 336 즉위, 가우가멜라 기원전 331" },
+    { "claim": "아리스토텔레스의 제자", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Aristotle", "note": "기원전 343년경부터 교육" }
+   ]
+  },
+  {
+   "hero_id": 201,
+   "name_ko": "칭기즈 칸",
+   "seed_code": "genghis_khan",
+   "checks": [
+    { "claim": "출생 1162년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Genghis_Khan", "note": "다수설. 1155(라시드 앗딘 등)·1167(펠리오) 이설 존재. heroes.json note와 일치" },
+    { "claim": "사망 1227년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Genghis_Khan", "note": "1227년 8월 18일 또는 25일" },
+    { "claim": "1206년 칭기즈 칸으로 추대", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Genghis_Khan", "note": "쿠릴타이" }
+   ]
+  },
+  {
+   "hero_id": 107,
+   "name_ko": "광개토대왕",
+   "seed_code": "gwanggaeto",
+   "checks": [
+    { "claim": "출생 374년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Gwanggaeto_the_Great", "note": "" },
+    { "claim": "사망 412년(CSV)", "result": "confirmed", "source": "https://encykorea.aks.ac.kr/Article/E0005057 ; https://en.wikipedia.org/wiki/Gwanggaeto_the_Great", "note": "능비 기준 412, 『삼국사기』 기준 413" },
+    { "claim": "사망 413년(heroes.json died=413)", "result": "corrected", "source": "https://encykorea.aks.ac.kr/Article/E0005057", "note": "데이터 불일치. CSV(412)와 heroes.json(413) 중 하나로 통일 제안. 능비 기준이면 412(재위 391~412), 『삼국사기』 기준이면 413(재위 392~413). 어느 기준을 쓸지 사람 결정 필요" },
+    { "claim": "391년 즉위", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Gwanggaeto_the_Great", "note": "능비 기준. 『삼국사기』는 392" }
+   ]
+  },
+  {
+   "hero_id": 271,
+   "name_ko": "힐데가르트 폰 빙엔",
+   "seed_code": "hildegard",
+   "checks": [
+    { "claim": "생몰년 1098~1179", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Hildegard_of_Bingen", "note": "c.1098 출생, 1179-09-17 사망" },
+    { "claim": "2012년 교회학자로 선포", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Hildegard_of_Bingen", "note": "2012-10-07 베네딕토 16세" }
+   ]
+  },
+  {
+   "hero_id": 46,
+   "name_ko": "제갈량",
+   "seed_code": "zhuge_liang",
+   "checks": [
+    { "claim": "생몰년 181~234", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Zhuge_Liang", "note": "" },
+    { "claim": "유비의 삼고초려로 출사", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Zhuge_Liang", "note": "『자치통감』 기준 207년" },
+    { "claim": "오장원에서 병사", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Battle_of_Wuzhang_Plains", "note": "234년 사마의와 대치 중" },
+    { "claim": "공성계(heroes.json skill=empty_fort)", "result": "unverifiable", "source": "https://en.wikipedia.org/wiki/Zhuge_Liang", "note": "정사 본문이 아닌 배송지 주에 인용된 곽충 일화로 전하며 진위 논란이 있다는 것이 모델 지식. 열람 범위에서 해당 절 미확인. 스킬명으로는 무방하나 스킬 설명에서 사실로 단정하지 말 것" }
+   ]
+  },
+  {
+   "hero_id": 19,
+   "name_ko": "유방",
+   "checks": [
+    { "claim": "출생 기원전 256년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Emperor_Gaozu_of_Han", "note": "256(황보밀 『제왕세기』)·247(『한서』 주석 계열) 두 설. CSV story의 이설 언급과 일치" },
+    { "claim": "사망 기원전 195년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Emperor_Gaozu_of_Han", "note": "기원전 195-06-01 환산" }
+   ]
+  },
+  {
+   "hero_id": 20,
+   "name_ko": "한신",
+   "checks": [
+    { "claim": "출생 기원전 231년", "result": "unverifiable", "source": "https://en.wikipedia.org/wiki/Han_Xin", "note": "같은 문서 안에서 231과 '?'(미상)가 혼재. 생년 미상 표기 검토" },
+    { "claim": "사망 기원전 196년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Han_Xin", "note": "모반 혐의로 처형" },
+    { "claim": "항우 휘하에서 유방에게 귀순해 대장군이 됨", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Han_Xin", "note": "기원전 206년 귀순" }
+   ]
+  },
+  {
+   "hero_id": 21,
+   "name_ko": "장량",
+   "checks": [
+    { "claim": "출생 기원전 262년", "result": "corrected", "source": "https://en.wikipedia.org/wiki/Zhang_Liang_(Western_Han)", "note": "정정 제안: 약 기원전 251년(추정). 262 근거는 확인하지 못함" },
+    { "claim": "사망 기원전 186년", "result": "corrected", "source": "https://en.wikipedia.org/wiki/Zhang_Liang_(Western_Han)", "note": "정정 제안: 기원전 189년(『한서』·『자치통감』). 『사기』 기준이면 약 187년. 186은 분류 태그에만 보임" }
+   ]
+  },
+  {
+   "hero_id": 24,
+   "name_ko": "범증",
+   "checks": [
+    { "claim": "출생 기원전 277년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Fan_Zeng", "note": "『사기』의 기원전 207년 당시 70세 기록에서 역산한 추정치" },
+    { "claim": "사망 기원전 204년, 항우를 떠나던 중 사망", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Fan_Zeng", "note": "팽성 부근에서 병사" }
+   ]
+  },
+  {
+   "hero_id": 28,
+   "name_ko": "위청",
+   "checks": [
+    { "claim": "출생 기원전 160년", "result": "corrected", "source": "https://en.wikipedia.org/wiki/Wei_Qing", "note": "정정 제안: 생년 미상(기원전 150년대 추정). 160은 근거 미확인" },
+    { "claim": "사망 기원전 106년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Wei_Qing", "note": "" },
+    { "claim": "곽거병의 외삼촌", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Wei_Qing", "note": "곽거병의 어머니 위소아가 위청의 누이" }
+   ]
+  },
+  {
+   "hero_id": 47,
+   "name_ko": "관우",
+   "checks": [
+    { "claim": "출생 160년", "result": "unverifiable", "source": "https://en.wikipedia.org/wiki/Guan_Yu", "note": "생년 미상. CSV story의 '생년은 불확실하다'와 일치. born 값 비움 또는 '?' 표기 검토" },
+    { "claim": "사망 220년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Guan_Yu", "note": "220년 1~2월(음력 건안 24년 12월로 219년 표기하는 자료도 있음)" },
+    { "claim": "형주를 지키다 손권 군의 습격으로 사로잡혀 처형", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Guan_Yu", "note": "여몽의 형주 습격 후 퇴각 중 포로" }
+   ]
+  },
+  {
+   "hero_id": 204,
+   "name_ko": "수부타이",
+   "checks": [
+    { "claim": "출생 1175년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Subutai", "note": "c.1175 추정" },
+    { "claim": "사망 1248년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Subutai", "note": "" },
+    { "claim": "칼카강 전투·모히 전투 지휘", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Subutai", "note": "칼카 1223, 모히 1241" }
+   ]
+  },
+  {
+   "hero_id": 422,
+   "name_ko": "하밀카르 바르카",
+   "checks": [
+    { "claim": "출생 기원전 275년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Hamilcar_Barca", "note": "c.275 추정. 같은 문서의 사망 나이(46~47세)와 맞지 않아 원 자료 확인 필요" },
+    { "claim": "사망 기원전 228년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Hamilcar_Barca", "note": "사망 경위는 익사(아피아노스)·전사(폴리비오스)로 갈림" }
+   ]
+  },
+  {
+   "hero_id": 266,
+   "name_ko": "베르트랑 뒤 게클랭",
+   "checks": [
+    { "claim": "출생 1320년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Bertrand_du_Guesclin", "note": "정확한 생년 미상, 1320년경 추정" },
+    { "claim": "사망 1380년", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Bertrand_du_Guesclin", "note": "1380-07-13 병사" },
+    { "claim": "샤를 5세의 총사령관", "result": "confirmed", "source": "https://en.wikipedia.org/wiki/Bertrand_du_Guesclin", "note": "1370-10-02 프랑스 원수(Constable) 임명" }
+   ]
+  },
+  {
+   "hero_id": 215,
+   "name_ko": "스키피오 아프리카누스",
+   "seed_code": "scipio_africanus",
+   "checks": [
+    { "claim": "기원전 202년 자마에서 마시니사의 누미디아 기병 지원으로 한니발을 격파, 제2차 포에니 전쟁 종결", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Scipio_Africanus ; 폴리비오스·리비우스", "note": "코끼리 통로 전술 등 전투 세부는 열람 범위에 없음(unread) → 세부는 verify" },
+    { "claim": "기원전 206년 일리파에서 카르타고군 격파, 이베리아에서 카르타고 세력 축출", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Scipio_Africanus ; Briscoe 1989(문서 인용)", "note": "승패·결과는 일치. 양익 포위(이중 포위) 기동은 문서에 없고 폴리비오스 11권 서술로 알려진 통설(모델 지식) → 확인 필요" },
+    { "claim": "기원전 209년 카르타고 노바 점령(썰물 때 석호 도하)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Scipio_Africanus ; 폴리비오스 10.15", "note": "점령 자체는 확실, 넵투누스 환영 일화는 전설 요소" }
+   ],
+   "skill_material": {
+    "safe_facts": ["자마 전투 승리와 포에니 전쟁 종결", "일리파 전투 승리", "카르타고 노바를 썰물 때 석호를 건너 점령", "말년 정치적 공격 후 리테르눔에서 사망(재판 세부는 제외)"],
+    "forbidden": ["에페소스에서 한니발과 '최고의 장군' 문답(문서가 apocryphal로 분류, 연대 불일치)", "넵투누스 신의 도움을 받았다는 환영 일화(전설)", "카르타고 노바 점령 후 주민 학살·조치 서술", "자마 전 회담 대화문(내용 미확인)", "코끼리 통로 전술의 구체 배치(verify)", "187년 재판 일화(회계장부 찢기 등, 사료 신뢰 낮음)"],
+    "name_candidates": ["일리파의 양익 전개(전투명 confirmed, 전술 서술은 accepted)", "자마의 결전", "썰물의 진군(카르타고 노바 도하, 효과 중심)"],
+    "tone": "중립. 로마 중심 사료(폴리비오스는 스키피오 가문과 친분)라 편향 가능성을 note에 남길 것"
+   }
+  },
+  {
+   "hero_id": 322,
+   "name_ko": "살라딘",
+   "seed_code": "saladin",
+   "checks": [
+    { "claim": "1187년 하틴 전투에서 십자군을 격파하고 같은 해 예루살렘을 점령", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Saladin ; 열람 범위에서는 도입부 서술만 확인", "note": "전투·항복 세부(물 차단 등)는 unread → 스킬 설명에 쓰려면 Battle of Hattin 문서로 재확인" },
+    { "claim": "아이유브 왕조의 창건자, 이집트·시리아의 첫 술탄(쿠르드계 라와디야 가문)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Saladin", "note": "" },
+    { "claim": "1192년 라믈라 조약으로 제3차 십자군 종결", "result": "unverifiable", "evidence_level": "accepted", "source": "모델 지식·확인 필요 (Third Crusade 문서)", "note": "이번 열람 범위에서 내용 미확인" }
+   ],
+   "skill_material": {
+    "safe_facts": ["하틴 승리", "예루살렘 탈환(1187)", "제3차 십자군의 상대역", "전성기 영토(이집트·시리아·상부 메소포타미아·헤자즈·예멘·누비아)", "사망 시 재산 대부분을 나눠 줌(문서 도입부 기술)"],
+    "forbidden": ["리처드 1세와 말·의사를 주고받은 일화(후대 전승, verify)", "레날 드 샤티옹 처형, 하틴 이후 기사단 포로 처리(논쟁 소재)", "'관용의 군주' 일반화(예루살렘 항복 조건은 몸값 체계였음, 확인 필요)", "군대 편성(맘루크 기병·투르크멘 등) 단정"],
+    "name_candidates": ["하틴의 포위(전투명 confirmed, 효과는 포위 중심)", "예루살렘 탈환", "아이유브의 깃발"],
+    "tone": "중립. 서구의 기사도 이미지와 이슬람권의 영웅상을 모두 평가로 분리하고 사실만 서술"
+   }
+  },
+  {
+   "hero_id": 205,
+   "name_ko": "레오니다스 1세",
+   "seed_code": "leonidas",
+   "checks": [
+    { "claim": "기원전 480년 8월 테르모필레에서 그리스 연합군을 이끌고 페르시아군에 맞서다 전사", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Leonidas_I ; 헤로도토스 7권", "note": "전사일 8월 11일은 위키 기술. 문서 내부에 '3일째'와 '7일째' 서술이 엇갈려 전투 일수는 verify" },
+    { "claim": "스파르티아테스 300명 외에 헬로트·테스피아인·테베인 등 연합군이 함께 싸움", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Leonidas_I ; 헤로도토스", "note": "문서: 최후 저항에 스파르타 300·헬로트 900·테스피아 700·테베 400(테베인은 항복). 숫자는 사료별 차이로 verify" },
+    { "claim": "생년 기원전 540년경(CSV -540)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Leonidas_I", "note": "문서에 c.540 BC로 표기되나 근거 제시 없음. '경'·대략값 표기 유지(CSV flag=verify 근거 확인됨)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["좁은 길목(테르모필레)에서 대군을 막는 방어전", "헤로도토스가 쓴 테스피아인에 대한 서술은 'Hence they lived with the Spartans and died with them'(요약만 사용)", "시신 회수를 위해 페르시아군을 네 차례 밀어냈다는 서술(헤로도토스, accepted)"],
+    "forbidden": ["'Molon labe(와서 가져가라)' 대사를 사실로 단정(플루타르코스 Apophthegmata Laconica, 약 5세기 뒤의 기록이라 진위 verify; 쓰려면 창작 대사 표기)", "'화살이 해를 가리면 그늘에서 싸우겠다'를 레오니다스의 말로 표기(헤로도토스는 디에네케스 일화로 전함, 문서 열람 범위에는 없음 → verify)", "'스파르타 300명만 싸웠다' 단정(연합군 존재)", "페르시아군 200만 등 헤로도토스 수치(현대 추정 7만~30만)"],
+    "name_candidates": ["테르모필레의 방벽(전투명 confirmed, 효과 중심)", "방패벽 사수", "마지막 방어선"],
+    "tone": "미화 금지. 전투 규모 신화(300 vs 수백만)를 스킬 설명에서 쓰지 않는다"
+   }
+  },
+  {
+   "hero_id": 18,
+   "name_ko": "항우",
+   "seed_code": "xiang_yu",
+   "checks": [
+    { "claim": "기원전 207년 거록 전투에서 강을 건넌 뒤 배를 가라앉히고 3일치 식량만 남겨 결사 항전, 진군을 격파", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Xiang_Yu ; 『사기』 항우본기", "note": "문서에는 배 침몰·3일 식량만 나옴. 솥을 깼다(파부침주)는 세부는 『사기』 원문에 있으나 이번 열람 요약에 없음(unread) → 고사성어로는 사용 가능, 서술은 확인 필요" },
+    { "claim": "기원전 206년 서초패왕에 즉위(팽성), 기원전 202년 해하에서 패해 오강에서 자결", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Xiang_Yu ; 『사기』", "note": "사면초가·우희 자결 등 세부 서술은 사관 서술 가능성(accepted). CSV 생몰 -232~-202와 일치" }
+   ],
+   "skill_material": {
+    "safe_facts": ["거록 전투 결사 항전과 진군 격파", "홍문연에서 유방을 살려 보낸 일", "해하에서 포위되어 '사면초가'의 고사가 생김", "개인 무용(솥을 들었다는 『사기』 기록)은 '기록에 전한다'로만"],
+    "forbidden": ["신안에서 진나라 항복병 약 20만 생매장(수치 논쟁, 위키 verify 표시. 인연·스킬 소재 금지)", "함양 약탈·아방궁 방화 규모", "의제(회왕) 살해 지시 여부 단정", "우희 생애 서사", "키 8척·겹동공 등 상징적 묘사를 사실로 단정"],
+    "name_candidates": ["거록의 결사(전투명 confirmed)", "배를 가라앉히다(침주, 효과: 후퇴 불가 결의)", "사면초가(고사성어, 디버프 연출용)", "서초패왕의 위세"],
+    "tone": "논란 인물이므로 미화·단죄 모두 피하고 『사기』가 자만을 비판한 점과 무용을 함께 병기"
+   }
+  },
+  {
+   "hero_id": 302,
+   "name_ko": "웰링턴 공작",
+   "seed_code": "wellington",
+   "checks": [
+    { "claim": "1815년 워털루에서 블뤼허의 프로이센군과 함께 나폴레옹을 격파", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Arthur_Wellesley,_1st_Duke_of_Wellington", "note": "생몰 1769-05-01~1852-09-14는 일치" },
+    { "claim": "프랑스군 종대에 맞서 보병 횡대(line)를 사용하는 전술", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Arthur_Wellesley,_1st_Duke_of_Wellington", "note": "문서 원문: lines of infantry against advancing columns. 역사면(reverse slope) 배치는 문서 요약에 없음(unread) → verify. 방어형 지휘관 일반화는 문서와 불일치(인도에서는 공세 선택)" },
+    { "claim": "1803년 아사예 전투에서 마라타 연합군 격파(본인이 최대 승리로 평가했다고 전함)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Arthur_Wellesley,_1st_Duke_of_Wellington", "note": "" },
+    { "claim": "총리 재임 1828~1830(1834년 임시 약 1개월)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Arthur_Wellesley,_1st_Duke_of_Wellington", "note": "" }
+   ],
+   "skill_material": {
+    "safe_facts": ["보병 횡대로 종대에 맞서는 전술(문서 확인)", "반도 전쟁 1813년 비토리아 승리 후 원수 진급", "워털루 연합군 지휘", "총리 경력"],
+    "forbidden": ["'철의 공작' 별명 유래 일화(문서 Nicknames 절 미열람, verify)", "역사면 배치를 확정 사실로 단정(verify)", "'방어 전문가' 단정", "정치 경력 중 개혁법안 평가", "알려진 명언(출처 미확인)"],
+    "name_candidates": ["보병 횡대(효과 중심)", "워털루의 전선(전투명 confirmed)", "아사예의 공세"],
+    "tone": "중립. 정치적 보수 성향 평가는 스킬에 넣지 않는다"
+   }
+  },
+  {
+   "hero_id": 326,
+   "name_ko": "메흐메트 2세",
+   "seed_code": "mehmed_ii",
+   "checks": [
+    { "claim": "1453년 콘스탄티노폴리스 정복(약 57일 포위, 5월 29일 함락), 오르반이 설계한 대포 사용", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Mehmed_the_Conqueror", "note": "병력은 8만~20만으로 자료마다 다름 → 수치 사용 금지" },
+    { "claim": "금각만 방어선을 피해 약 80척의 갈레선을 육로로 끌어 넘김", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Mehmed_the_Conqueror", "note": "목재 길 위로 약 1마일. 선박 수·세부는 자료별 차이 가능" },
+    { "claim": "1456년 베오그라드 공성 중 직접 전투에 참가해 부상", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Mehmed_the_Conqueror", "note": "세르비아 정복 절 서술. 문서는 이 일이 군 사기에 영향을 줬다고 기술" }
+   ],
+   "skill_material": {
+    "safe_facts": ["대형 공성포(오르반 설계)", "함선을 육로로 옮겨 금각만에 진입", "정복 후 수도를 콘스탄티노폴리스로 이전", "학문·예술 후원, 파티흐 모스크"],
+    "forbidden": ["함락 직후 약탈·학살 서술", "형제 살해 관행(Kanunname) 서술(문서 미확인, 논쟁)", "예니체리 궁수·화승총 편성 수치(문서 미확인, verify)", "'정복자' 칭호를 우열 평가로 사용"],
+    "name_candidates": ["오르반의 대포(accepted)", "금각만 육로 이송", "콘스탄티노폴리스 공성"],
+    "tone": "정복 사건을 영광화하지 않고 공학적·전술적 사실 중심으로"
+   }
+  },
+  {
+   "hero_id": 395,
+   "name_ko": "쩐흥다오",
+   "seed_code": "tran_hung_dao",
+   "checks": [
+    { "claim": "1288년 바익당강 전투에서 밀물 때 쇠 끝 말뚝을 숨기고 썰물 때 몽골 함대를 침몰시킴(약 400척 소각, 오마르 포로)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Tr%E1%BA%A7n_H%C6%B0ng_%C4%90%E1%BA%A1o ; 『대월사기전서』(Ngô Sĩ Liên) 196~198쪽(문서 인용)", "note": "척수·포로 서술은 사료 수치이므로 단정 금지" },
+    { "claim": "1285년 몽골 침공에 맞섬(탕롱 함락 후 반격·몽골군 철수)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Tr%E1%BA%A7n_H%C6%B0ng_%C4%90%E1%BA%A1o ; Lien & Sharrock 2014", "note": "문서에 Chương Dương·Hàm Tử 전투명은 없음 → 전투명은 verify" },
+    { "claim": "생년 1228년, 사망 1300년", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Tr%E1%BA%A7n_H%C6%B0ng_%C4%90%E1%BA%A1o", "note": "외부 링크는 1213~1300 표기. 문서 내 사망 나이도 70·71~72·73으로 불일치 → 생년 대략값 표기(CSV flag=verify 근거 확인됨)" },
+    { "claim": "병서 『병서요략』·격문 『격장사문(Hịch tướng sĩ)』의 저자", "result": "unverifiable", "evidence_level": "verify", "source": "문서에 내용 없음(See also 링크만) · 모델 지식·확인 필요", "note": "저자 귀속은 학계 확인 필요" }
+   ],
+   "skill_material": {
+    "safe_facts": ["밀물·썰물을 이용한 말뚝 매복(바익당)", "몽골의 침공을 1285년·1288년에 막아 냄(CSV와 일치)"],
+    "forbidden": ["'폐하, 먼저 신의 목을 베소서' 발언(1285년 황제 면담 맥락의 발언으로 알려지나 문서 미확인, 인용문 verify)", "병력 수치(1287년 몽골 추정 12만 vs 베트남 추정 50만)", "『병서요략』·『격장사문』 저술을 사실로 단정", "창병·해병 편성 단정(문서 미언급)", "부친 정보(쩐 리에우/엔 씨)"],
+    "name_candidates": ["바익당의 말뚝(accepted, 전투명 confirmed)", "썰물의 매복(효과 중심 중립명)"],
+    "tone": "중립. 민족 영웅 서사는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 474,
+   "name_ko": "호세 데 산마르틴",
+   "seed_code": "san_martin",
+   "checks": [
+    { "claim": "1817년 안데스 횡단(약 5,000명 규모 안데스군, 6개 종대 분진)과 차카부코 전투 승리(2월 12일)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_de_San_Mart%C3%ADn", "note": "횡단 연도는 차카부코 서술로 추정(문서 직접 명시 미확인) → 연도는 확인 필요. 병력은 5,000/4,000으로 문서 내 불일치 → 수치 금지" },
+    { "claim": "1818년 마이푸 전투로 칠레 독립 사실상 확정, 1821년 페루 독립 선포", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_de_San_Mart%C3%ADn", "note": "페루 보호자 취임 1821-07-12, 독립 선포 7-28" },
+    { "claim": "1812년 부에노스아이레스에서 기마 척탄병 연대(Regiment of Mounted Grenadiers) 창설", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_de_San_Mart%C3%ADn", "note": "스페인어 명칭 Granaderos a Caballo는 문서 미언급(모델 지식)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["여러 고갯길로 나눠 안데스를 넘는 분진 작전", "차카부코의 포위 기동", "마이푸 승리", "칠레 함대를 이용한 페루 원정(1820)"],
+    "forbidden": ["과야킬 회담(1822) 대화·동기 단정(후대 역사가들 논쟁)", "병력 수치", "노새·보급 세부 수치", "볼리바르와의 우열 평가"],
+    "name_candidates": ["안데스 횡단(confirmed)", "차카부코의 포위 기동", "마이푸의 결전"],
+    "tone": "중립. 남미 독립 영웅 간 경쟁은 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 240,
+   "name_ko": "카를 마르텔",
+   "seed_code": "charles_martel",
+   "checks": [
+    { "claim": "732년 10월 투르(푸아티에) 전투에서 우마이야 군을 격퇴", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Charles_Martel ; Bachrach 인용(주로 기병인 아랍군이 프랑크 보병을 돌파하지 못함)", "note": "문서는 October 732로 표기, 732/733 연대 논쟁 언급은 없음 → 연도 verify. 압드 알라흐만 전사 여부는 문서에 없음" },
+    { "claim": "717년 뱅시, 718년 수아송에서 승리하며 프랑크 궁재로 권력 장악", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Charles_Martel", "note": "" },
+    { "claim": "'마르텔(망치)'은 후대 연대기에서 붙은 별칭", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Charles_Martel", "note": "최초 출현 시점은 문서에 없음 → verify. 생년도 676/686/688/690 등 이설(CSV 688은 대략값)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["투르 전투에서 보병이 아랍군 기병의 돌파를 막음(Bachrach)", "궁재로서 메로빙거 왕조의 실권 장악", "손자 카롤루스 대제의 기반"],
+    "forbidden": ["'유럽(기독교 세계)을 구했다'는 후대 평가를 사실로 서술", "'망치' 별칭을 전투 스타일 근거로 서술", "교회 재산 몰수와 군사 개혁의 인과(Brunner vs Fouracre 논쟁)", "'환영 에우케리우스(Visio Eucherii)' 지옥 일화", "압드 알라흐만 전사 장면(문서 미확인)", "프랑크군 방패벽 편성 세부(verify)", "737 아비뇽 원정 세부(미확인)"],
+    "name_candidates": ["투르의 방벽(전투명 confirmed, 효과 중심)", "뱅시의 승전", "궁재의 권위"],
+    "tone": "중립. 문명 충돌 프레임 금지, 우마이야 측도 존중하는 어조"
+   }
+  },
+  {
+   "hero_id": 262,
+   "name_ko": "윌리엄 월리스",
+   "seed_code": "william_wallace",
+   "checks": [
+    { "claim": "1297년 9월 11일 스털링 브리지에서 안드류 머리와 공동 지휘로 잉글랜드군 격파(좁은 다리로 한꺼번에 건너지 못한 점이 승인)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/William_Wallace", "note": "공동 지휘를 명시할 것(월리스 단독 서사 금지)" },
+    { "claim": "1298년 7월 폴커크에서 창병 방진(schiltron) 4개로 맞섰으나 패배, 같은 해 수호자 직 사임", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/William_Wallace", "note": "장궁병·기병에 밀림. 스털링 브리지에서 schiltron이 쓰였는지는 문서 요약에서 직접 확인되지 않음 → verify" },
+    { "claim": "1305년 8월 23일 런던에서 반역 혐의로 처형", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/William_Wallace", "note": "처형 방식은 서술하지 않음" },
+    { "claim": "출생 1270년경, 출생지 엘더슬리", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/William_Wallace", "note": "c.1270 추정, 엘더슬리는 동시대 자료로 확인 안 됨(CSV flag=verify 근거 확인됨)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["스털링 브리지의 좁은 다리 지형 이용", "창병 방진(schiltron)은 폴커크에서 확인", "폴커크 패배와 사임", "수호자 직위"],
+    "forbidden": ["영화 『브레이브하트』 장면·대사(자유 연설, 얼굴 도색 등)", "란라크 장관 살해의 복수 동기(블라인드 해리 창작)", "키 7피트 묘사", "월리스 검의 진위", "처형 장면", "엘더슬리 출생 단정"],
+    "name_candidates": ["스털링의 좁은 다리(전투명 confirmed)", "시루트론 방진(효과: 창 방진, 용어는 폴커크 근거)"],
+    "tone": "중립. 민족 신화화·영화 이미지 배제, 머리와의 공동 지휘 병기"
+   }
+  },
+  {
+   "hero_id": 384,
+   "name_ko": "락슈미바이",
+   "seed_code": "lakshmibai",
+   "checks": [
+    { "claim": "양자 다모다르 라오의 승계가 인정되지 않아 1854년 잔시가 실권의 원칙에 따라 병합됨", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Rani_of_Jhansi ; Lebra 1986 등 문서 인용", "note": "" },
+    { "claim": "1858년 3월 휴 로즈 군의 공격으로 잔시 함락 후 탈출, 칼피·괄리오르에서 싸우다 1858년 6월 18일 전사", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Rani_of_Jhansi", "note": "정확한 전사 경위는 불명확. 로즈의 보고서 평가 'best and bravest of the rebels'(영국 측 1차 자료)" },
+    { "claim": "생년 1828년(CSV)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Rani_of_Jhansi", "note": "1827~30 또는 1835 이설(영국 측 1827, 인도 측 1835 선호). 연구자는 1828~30 제시 → '경' 표기" }
+   ],
+   "skill_material": {
+    "safe_facts": ["1858년 3월 잔시 방어와 탈출", "칼피·괄리오르로 이어진 항전", "영국 측 지휘관 로즈의 평가('best and bravest')를 인용문으로 표기"],
+    "forbidden": ["'나는 내 잔시를 내주지 않겠다' 대사(문서: 1946년 소설에서 창작된 문구)", "여성 부대 '두르가 달'(문서: 존재 불확실, 명칭도 없음)", "아들을 등에 묶고 성벽에서 도약(탈출 경로 여러 설 중 하나, 전설 혼재)", "1857년 6월 영국인 학살의 책임(증언 상충, 결론 없음)", "말을 타고 쌍검을 휘두르는 서사(출처 미확인)"],
+    "name_candidates": ["잔시 수성(confirmed)", "칼피로의 퇴각", "괄리오르의 마지막 전투"],
+    "tone": "중립. 인도 측 영웅 서사와 영국 측 사료의 관점 차이를 note로 분리"
+   }
+  },
+  {
+   "hero_id": 472,
+   "name_ko": "투생 루베르튀르",
+   "seed_code": "toussaint_louverture",
+   "checks": [
+    { "claim": "1794년 스페인에서 프랑스 공화국 편으로 전환, 영국군·스페인군을 몰아내고 1801년 헌법으로 종신 총독직 선포", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Toussaint_Louverture", "note": "전환 시점·동기는 역사가별 해석 차이" },
+    { "claim": "1802년 르클레르 원정군에 체포되어 프랑스로 압송, 1803년 4월 7일 퐁 드 주 요새에서 옥사", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Toussaint_Louverture", "note": "" },
+    { "claim": "게릴라 전술과 유럽식 훈련을 병행, 프랑스 원정 때는 산악으로 후퇴해 황열병을 기다리는 전략", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Toussaint_Louverture", "note": "실제 실행에는 내부 소통 문제가 있었음" },
+    { "claim": "체포 당시 '나를 쓰러뜨려도 자유의 나무의 줄기만 벴을 뿐'이라 말함", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Toussaint_Louverture (각주 147)", "note": "인용문 자체는 널리 알려졌으나 원 기록과 정확 문장 일치 여부 미확인. 쓰려면 창작 대사 또는 '전해진다'로 표기" }
+   ],
+   "skill_material": {
+    "safe_facts": ["산악 지형을 활용한 게릴라 방어", "스페인·프랑스와 차례로 동맹하며 생도맹그 장악", "1801년 헌법", "자유 신분을 얻은 뒤 농장 경영에 참여한 이력(1776~77년경 기록)"],
+    "forbidden": ["강제 노동 정책의 미화 또는 단죄(평가가 엇갈림, 사실과 평가 분리)", "부두교 신자 탄압 서술", "남부 전쟁(리고와의 내전) 희생자 수(르크루아 약 1만 vs 제임스 수백 명)", "보이스 카이만 의식 참여(본인은 초기 비공개)", "'루베르튀르' 별명 유래 단정(여러 설)", "출생지 브레다 단정"],
+    "name_candidates": ["산악 항전(효과 중심 중립명)", "생도맹그의 총독(직함, 1801년 헌법 confirmed)", "자유 신분의 지휘관(효과 중심)"],
+    "tone": "중립. 노예제 폐지의 의의와 노동 통제 정책 평가를 분리해 병기"
+   }
+  },
+  {
+   "hero_id": 330,
+   "name_ko": "이븐 시나",
+   "seed_code": "ibn_sina",
+   "checks": [
+    { "claim": "『의학정전』 저술(5권, 유럽 대학에서 오랫동안 교재로 사용)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Avicenna", "note": "완성 연도 1025년은 문서에 없음(하마단 체류기 1014년 이후) → 연도 verify" },
+    { "claim": "『치유의 서』(철학·과학 백과) 1014년 집필 시작, 1027년 출간; 플로팅 맨 사고 실험", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Avicenna", "note": "" },
+    { "claim": "980년경 부하라 인근 아프샤나 출생, 1037년 하마단에서 사망, 17세경 사만 왕조 누흐 2세의 의사", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Avicenna", "note": "페르시아계, 저작 대부분은 아랍어" }
+   ],
+   "skill_material": {
+    "safe_facts": ["『의학정전』의 체계적 의학 서술", "환자 격리 권고와 '보이지 않는 오염 유기체' 서술(문서 기술)", "사만 왕조 궁정 의사 경력"],
+    "forbidden": ["'임상시험을 확립'(문서에서 미확인, verify)", "'현대 의학의 아버지' 등 홍보 문구", "『의학정전』 완성 연도 1025 단정", "본문에 없는 치료 일화"],
+    "name_candidates": ["의학정전(confirmed)", "치유의 서", "공중에 뜬 사람(사고 실험, 효과 중심)"],
+    "tone": "중립. 국적(페르시아·아랍·이슬람권) 귀속 논쟁에 끼지 않고 '페르시아계 가문, 아랍어 저술'로만 서술"
+   }
+  },
+  {
+   "hero_id": 333,
+   "name_ko": "이븐 할둔",
+   "seed_code": "ibn_khaldun",
+   "checks": [
+    { "claim": "1377년 『무깟디마(역사서설)』 저술, 아사비야와 왕조 순환 이론 제시", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Ibn_Khaldun", "note": "집필 기간은 자서전의 '6개월'과 은거 '3년 이상' 서술이 병존 → 기간 verify" },
+    { "claim": "튀니스·페스·그라나다·베자이아·카이로(말리키 법관)에서 관직 경력, 1406년 카이로에서 사망", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Ibn_Khaldun", "note": "생일은 5월 26일/27일로 문서 내 불일치" },
+    { "claim": "1401년 다마스쿠스에서 티무르와 약 7주간 면담", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Ibn_Khaldun (자서전 Riḥlat Ibn Khaldūn 인용)", "note": "근거가 본인 자서전뿐, 독립 교차 자료 없음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["아사비야(집단 결속)가 권력을 만들고 쇠퇴의 씨앗도 품는다는 이론", "왕조 흥망의 순환 서술", "여러 궁정에서의 정치·외교 경력"],
+    "forbidden": ["티무르와의 대화 내용·분위기(자서전 의존)", "'사회학의 아버지' 등 평가 슬로건", "『무깟디마』 집필 기간 단정"],
+    "name_candidates": ["아사비야(confirmed)", "무깟디마", "왕조의 순환"],
+    "tone": "중립. 이론의 현대적 평가는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 367,
+   "name_ko": "아소카 대왕",
+   "seed_code": "ashoka",
+   "checks": [
+    { "claim": "칼링가 정복(즉위 8년째, 기원전 260년경)과 암벽 칙령 13호에 전쟁 피해와 후회 서술", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Ashoka", "note": "칙령 13호의 사상자 수치는 과장 가능성(Guruge), 칼링가 현지 칙령에는 13·14호가 다른 내용으로 대체됨, 불교 전승은 전쟁을 언급하지 않음. 수치 사용 금지" },
+    { "claim": "특정 종교에 국한되지 않는 법(담마)을 칙령으로 반포(석주·바위 칙령)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Ashoka", "note": "칙령을 황제 이미지 선전으로 보는 해석도 있음(Strong). 불교 개종은 극적 사건이 아닌 점진적 과정(소칙령 기록)" },
+    { "claim": "사람과 동물의 의료 시설·치료를 칙령에서 언급(암벽 칙령 2호)", "result": "unverifiable", "evidence_level": "verify", "source": "모델 지식·확인 필요 (Edicts of Ashoka 문서)", "note": "문서가 잘려 확인 불가. 병원 네트워크 서술은 금지" },
+    { "claim": "생몰년 기원전 304~232(즉위 269~268경)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Ashoka", "note": "동시대 외국 군주 연대로 추정한 값. CSV flag=verify 근거 확인됨" }
+   ],
+   "skill_material": {
+    "safe_facts": ["칙령으로 법(담마)에 의한 통치를 선포", "특정 종교만이 아닌 포용적 담마(브라만교·자이나교·아지비카 병기)", "칼링가 이후 정책 전환은 '칙령이 그렇게 서술한다'로 한정"],
+    "forbidden": ["칼링가 사상자 수치(10만 전사 등)를 소재·수치로 사용(대규모 인명 사건을 인연·스킬 테마로 삼지 않음)", "99(또는 100)명 형제 살해(마하밤사 전승, 과장)", "『아소카바다나』의 '잔혹한 아소카' 일화", "하룻밤 개종 서술", "3차 결집 주재(스리랑카 전승에만 있음)", "병원·의료 네트워크 단정", "코끼리 부대 편성(미확인)"],
+    "name_candidates": ["담마 칙령(confirmed)", "석주의 칙령", "자애의 정치(효과 중심)"],
+    "tone": "중립. 칼링가 전쟁의 후회와 정책 전환은 칙령의 자기 서술임을 병기하고 미화·단죄 모두 피함"
+   }
+  },
+  {
+   "hero_id": 522,
+   "name_ko": "보방",
+   "seed_code": "vauban",
+   "checks": [
+    { "claim": "1673년 마스트리흐트 공성에서 공성 평행호를 실용화, 1697년 아트 공성은 공격의 걸작으로 평가", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Vauban", "note": "공격 원칙은 'More powder, less blood'로 요약됨(속담식 요약, 직접 발언 여부 verify)" },
+    { "claim": "1703년 프랑스 원수 승진, 노이프-브리작 등 별형 요새 설계, 2008년 요새 12곳 세계유산 등재", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Vauban", "note": "" },
+    { "claim": "『왕의 십일조』(1707)로 조세 불평등 비판, 왕명으로 압수·폐기", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Vauban", "note": "공성 40회 이상(본인 추정), 요새 수는 약 60~300개 이상(집계에 따라), 현대 추정 약 160개 → 수치 사용 금지" }
+   ],
+   "skill_material": {
+    "safe_facts": ["평행호를 파고 접근하는 체계적 공성", "별형 요새의 다층 방어", "북·동부 국경의 요새 방어선 구상", "왕립 군사공병단 창설(1690)"],
+    "forbidden": ["공성 53회·요새 300곳 등 확정 수치(출처 불일치)", "'More powder, less blood'를 직접 발언 대사로 표기(요약 표현, 쓰려면 창작 대사 표기)", "디엔비엔푸에서 베트민이 활용했다는 서술을 스킬 소재로(후대 평가)", "루이 14세 전쟁 전체 평가"],
+    "name_candidates": ["평행호 공성(confirmed)", "별형 요새(trace italienne)", "쇠띠 방어선"],
+    "tone": "중립. 루이 14세 팽창 전쟁에 쓰인 기술이라는 맥락을 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 214,
+   "name_ko": "아르키메데스",
+   "seed_code": "archimedes",
+   "checks": [
+    { "claim": "『부유체에 대하여』에서 부력의 원리 제시(그리스어 원본이 팔림프세스트에 보존)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Archimedes", "note": "본인 저술로 직접 전함" },
+    { "claim": "기원전 212년 시라쿠사 공성 중 로마 병사에게 살해됨; 공성 병기(투석기·기중기·갈고리) 사용", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Archimedes ; 폴리비오스·리비우스·플루타르코스", "note": "사망 기본 사실은 공통, 장면은 출처마다 다름. 병기는 가장 이른 세 사료가 일치하나 본인이 직접 지휘했다는 부분은 allegedly" },
+    { "claim": "'거울 열선(볼록거울로 로마 함선을 불태움)'", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Archimedes", "note": "루키아노스(2세기)가 불붙임, 갈레노스가 거울 언급. 폴리비오스·리비우스·플루타르코스에는 없음. 문서도 개연성 낮음으로 소개, 현대 재현 실험은 엇갈림 → 금지" },
+    { "claim": "생몰 기원전 287~212", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Archimedes", "note": "비잔틴 학자 체체스의 '75년' 서술에서 역산한 추정치 (CSV flag=verify 근거 확인됨)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["부력의 원리(본인 저술)", "지렛대·평형 이론", "시라쿠사 방어에 쓰인 투석기·기중기·갈고리(고대 사가 3인 공통)", "'아르키메데스의 갈고리'는 배를 들어 올려 떨어뜨렸다는 서술(플루타르코스·리비우스·폴리비오스)"],
+    "forbidden": ["거울 열선·태양광 집중(verify, 금지 목록)", "유레카 목욕 일화(비트루비우스, 약 2세기 뒤의 단일 사료)", "'내 원을 건드리지 마라'(고대 사료에 없음)", "아르키메데스 나사를 그의 발명으로 단정(아테나이오스 서술, 신뢰 낮음)", "'발 디딜 곳을 달라, 지구를 움직이겠다' 대사를 직접 인용(파포스 전승, 중간 신뢰 → 쓰려면 '전해진다')", "크기·사거리 등 병기 수치"],
+    "name_candidates": ["아르키메데스의 갈고리(accepted)", "부력의 원리(confirmed)", "지렛대의 원리(confirmed, 평형 이론)", "시라쿠사 방어 병기(효과 중심)"],
+    "tone": "중립. 일화 스킬은 '전해진다'로 한정"
+   }
+  },
+  {
+   "hero_id": 411,
+   "name_ko": "람세스 2세",
+   "seed_code": "ramesses_ii",
+   "checks": [
+    { "claim": "기원전 1274년경 카데시에서 히타이트와 교전(결과는 무승부로 보는 시각이 일반적)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Ramesses_II", "note": "이집트 측 기록은 선전 성격이 강함. 전술적 승패는 학계 논쟁. 전차 대수·사단명(아몬·라·프타·세트)·펜타우르 시는 문서 요약에 없음(unread) → verify" },
+    { "claim": "재위 21년(기원전 1259년경) 이집트–히타이트 평화 조약(상형문자·설형문자 두 판본 전함)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Ramesses_II", "note": "두 판본의 화해 요청 주체 서술이 정반대" },
+    { "claim": "재위 기원전 1279~1213년(66년 이상), 출생 1303년경", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Ramesses_II", "note": "다수 학자가 지지하나 연대 논쟁 여지(CSV flag=verify 근거 확인됨). '경' 표기" },
+    { "claim": "재위 2년 해적 세르덴을 해전으로 제압(타니스 석비)", "result": "unverifiable", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Ramesses_II", "note": "해전 세부는 추정 혼재" }
+   ],
+   "skill_material": {
+    "safe_facts": ["히타이트와의 평화 조약(현존 최고(最古)급 조약 서판)", "아부심벨 신전 건립(기원전 1255년경 봉헌)", "카데시 전투에 직접 참전한 점(전과는 선전 기록이라는 점을 병기)", "신도시 페르-라메세스 건설"],
+    "forbidden": ["카데시 '대승'을 사실로 서술(결과 논쟁)", "전차 수·병력 수치(문서: 군 약 10만 추정, 무기 공장 수치는 supposedly)", "펜타우르 시 인용", "출애굽 파라오와 동일시", "신격화 선전 문구"],
+    "name_candidates": ["이집트–히타이트 조약(confirmed)", "아부심벨의 거상", "카데시 전차전(전투명 confirmed, 승패 미표기)"],
+    "tone": "중립. 이집트 측 선전 사료임을 note에 병기"
+   }
+  },
+  {
+   "hero_id": 426,
+   "name_ko": "아만니레나스",
+   "seed_code": "amanirenas",
+   "checks": [
+    { "claim": "기원전 27~22년경 쿠시가 로마 이집트와 전쟁(스트라본이 '칸다케 여왕'과 페트로니우스의 반격을 서술)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Amanirenas ; 스트라본 『지리지』 17권", "note": "스트라본의 '칸다케'가 아만니레나스인지는 문서가 almost certainly(거의 확실)로 쓰면서도 관계가 not entirely clear라 함 → 동일시 verify. 페트로니우스의 나파타 공격·연도(기원전 23년)는 문서 열람 범위에 없음" },
+    { "claim": "기원전 20~21년경 사모스에서 사절이 아우구스투스를 만나 화평(통칭 사모스 조약)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Amanirenas", "note": "문서에는 사절이 사모스에서 아우구스투스를 만났다고만 있고 '조약' 명칭·연도는 없음" },
+    { "claim": "비문에서 아만니레나스에게 qore(통치자)·kandake 칭호가 붙음 → 독자 통치한 여왕", "result": "confirmed", "evidence_level": "accepted", "source": "Török 1997 The Kingdom of Kush(문서 인용) ; https://en.wikipedia.org/wiki/Amanirenas", "note": "메로이 문자 미해독으로 칭호 해석은 추정 포함" },
+    { "claim": "생몰년(CSV -60~-10)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Amanirenas", "note": "문서 본문은 생몰년을 unknown으로 서술. CSV는 대략값, 화면에서 '생몰년 미상' 표기 권장" }
+   ],
+   "skill_material": {
+    "safe_facts": ["쿠시가 로마 이집트와 맞선 전쟁(스트라본 서술)", "여왕이 독자적으로 통치(qore·kandake 칭호, 학술 추정)", "화평을 위해 사절을 보낸 일(아우구스투스와 사모스에서 면담)"],
+    "forbidden": ["한쪽 눈을 잃은 여왕(스트라본의 '칸다케' 서술. 아만니레나스와의 동일시 verify)", "아우구스투스 조각 머리 매장 일화를 사실로 단정(미열람, verify)", "나파타 공격 연도 단정", "쿠시 궁수 편성·'활의 나라' 서술을 병종 근거로 단정", "생몰년"],
+    "name_candidates": ["남쪽 국경의 기습(효과 중심 중립명)", "화평 사절(효과 중심)", "쿠시의 칸다케(칭호는 accepted이나 인물 동일시 verify이므로 사용 시 주의)"],
+    "tone": "중립. 로마 측 사료(스트라본)만 남아 있다는 한계를 note에 병기"
+   }
+  },
+  {
+   "hero_id": 254,
+   "name_ko": "알렉산드르 네프스키",
+   "seed_code": "alexander_nevsky",
+   "checks": [
+    { "claim": "1240년 네바 전투(스웨덴군 격파), 1242년 페이푸스 호수 전투(리보니아 기사단 격파)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Alexander_Nevsky", "note": "네바 전투는 스웨덴 측 기록이 없고 러시아 사료 2종만 전함, 두 전투 모두 규모·의미가 후대에 과장됐다는 견해. 얼음 깨짐 전설은 문서에 없음" },
+    { "claim": "몽골(킵차크 한국)에 복속하며 1252년 블라디미르 대공 즉위, 1263년 사라 방문 후 귀환 중 사망", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Alexander_Nevsky", "note": "1259년 노브고로드에 군대를 보내 조세 납부 강제. 1547년 시성" },
+    { "claim": "생몰 1221~1263", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Alexander_Nevsky", "note": "전통설은 1220년 출생. CSV 1221은 현대 서술과 일치" }
+   ],
+   "skill_material": {
+    "safe_facts": ["네바 전투와 페이푸스 호수 전투의 승전(전투명)", "몽골에 복속하면서 서방 세력과 맞선 이중 외교", "노브고로드 공·블라디미르 대공 이력"],
+    "forbidden": ["얼음이 깨져 기사들이 빠졌다는 장면(후대 전설·영화)", "참전 병력·사상자 수치", "1938년 영화 『알렉산드르 네프스키』 대사(예: '칼을 들고 오는 자는 칼로 망한다'식 문구는 영화 창작으로 알려짐, 사료 아님 → verify)", "병종 편성(보병·드루지나 기병·노브고로드 민병) 단정(문서 미언급)", "1252년 '네브류에프 군' 서술(원문 용어 미확인)"],
+    "name_candidates": ["네바의 승전(accepted, 별칭 '네프스키'가 이 전투에서 유래)", "얼음 위의 전투(전통 전투명, 효과: 지형 이용)", "호수 전선"],
+    "tone": "중립. 러시아 정교 성인 이미지와 몽골 복속 비판을 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 406,
+   "name_ko": "호세 리살",
+   "seed_code": "jose_rizal",
+   "checks": [
+    { "claim": "1887년 『놀리 메 탄헤레』, 1891년 『엘 필리부스테리스모』 발표", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_Rizal", "note": "" },
+    { "claim": "1892년 라 리가 필리피나 결성(합법적 온건 개혁 지향), 같은 해 다파탄 유배 중 학교·병원·급수 시설 건설", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_Rizal", "note": "" },
+    { "claim": "카티푸난의 무장 봉기에 반대했으나 1896년 12월 30일 바구점바얀에서 총살(반란·선동·음모 유죄)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_Rizal", "note": "문서는 결국 혁명 목표에는 동의했다고 설명. 처형 장면은 서술하지 않음" },
+    { "claim": "안과 전문의(마드리드·하이델베르크 수학)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Jos%C3%A9_Rizal", "note": "어머니 안과 수술 일화는 미확인 → verify" }
+   ],
+   "skill_material": {
+    "safe_facts": ["안과의사로서의 활동", "다파탄에서 학교·병원·급수 시설 건설", "『놀리 메 탄헤레』로 식민 통치를 비판한 저술", "합법적 개혁 단체 라 리가 필리피나"],
+    "forbidden": ["처형 장면", "「마지막 인사(Mi último adiós)」 전문 인용 또는 '램프에 숨겨 전달' 단정(문서: 알코올 스토브, 진위·경위 verify)", "'국가 영웅 공식 선포'(문서: 법령 없음)", "카티푸난을 이끈 것처럼 서술(본인은 봉기에 반대)", "어머니 안과 수술 세부(verify)"],
+    "name_candidates": ["놀리 메 탄헤레(confirmed)", "라 리가 필리피나", "다파탄의 학교"],
+    "tone": "중립. 폭력 혁명에 반대한 입장과 사후 상징화를 분리해 서술"
+   }
+  },
+  {
+   "hero_id": 144,
+   "name_ko": "곽재우",
+   "checks": [],
+   "skill_material": {
+    "safe_facts": ["임진왜란 초기(1592) 경상도에서 의병을 일으킴(문서 인용 Hawley 2005)", "홍의장군이라 불림(별칭 자체는 확립, 붉은 옷 유래는 전승)"],
+    "forbidden": ["붉은 옷 염색 유래 속설(Hawley 2005 p.42: 믿음으로 소개, 사실 아님)", "정암진/의령 남강 도하 저지의 '표지를 깊은 곳으로 옮기는' 서술(citation needed 표시, verify)", "가짜 홍의 병사 미끼 전술(문서에 없음, verify)", "병력 구성(궁수·기병)"],
+    "name_candidates": ["강변 매복(효과 중심 중립명)", "의병 결집(효과 중심)", "보급로 교란(낙동강 일본군 보급로 교란은 문서 서술이나 accepted 수준 → 효과 중심 이름만)"],
+    "tone": "중립. 이순신·권율과 달리 일화 중심 사료라 이름에 '홍의'를 쓸 때도 별칭 표기로 한정"
+   }
+  },
+  {
+   "hero_id": 148,
+   "name_ko": "휴정",
+   "checks": [],
+   "skill_material": {
+    "safe_facts": ["임진왜란 때 선조의 요청으로 승군을 조직(CSV id 148 story)", "평양성 탈환에 승병이 참여(기존 hero_unit_basis의 출처 verify)"],
+    "forbidden": ["본인이 직접 전투를 벌였다는 서술", "승병 수치·무장", "호국불교 상징 평가를 사실로 단정"],
+    "name_candidates": ["승군 소집(효과 중심 중립명)", "격문의 호소(효과 중심, 격문 존재는 미확인이므로 '호소'로 한정)"],
+    "tone": "중립. 종교 인물이므로 마법사 같은 초자연 어감의 이름은 피함"
+   }
+  },
+  {
+   "hero_id": 149,
+   "name_ko": "유정",
+   "checks": [],
+   "skill_material": {
+    "safe_facts": ["임진왜란 때 승병장으로 활약(CSV id 149)", "전쟁 후 일본에 사신으로 가 포로 송환을 교섭(CSV story, verify)"],
+    "forbidden": ["승병 주무기·전투 방식 단정", "일본 측 인물과의 대화 일화(창작이면 창작 대사 표기)", "교섭 성과 수치(송환 인원)"],
+    "name_candidates": ["승병 진군(효과 중심 중립명)", "교섭의 길(효과 중심)"],
+    "tone": "중립"
+   }
+  },
+  {
+   "hero_id": 168,
+   "name_ko": "지토 천황",
+   "seed_code": "empress_jito",
+   "checks": [
+    { "claim": "645년 출생, 703년 1월 13일 사망, 686~697년 재위(제41대, 덴무 천황의 황후), 697년 몬무에게 양위 후 태상천황", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Empress_Jit%C5%8D ; 『일본서기』(unread)", "note": "문서 내부에 즉위 686/687 불일치. 양위·태상천황 칭호는 문서 확인. 재위 시작 연도는 verify" },
+    { "claim": "694년 후지와라쿄 천도", "result": "unverifiable", "evidence_level": "verify", "source": "CSV id 168 story ; 『일본서기』(unread) ; 모델 지식·확인 필요", "note": "영문 문서에 천도 연도가 없음(열람 범위). 통설은 694년이나 이번 검증에서 직접 확인하지 못함" },
+    { "claim": "아스카 기요미하라령 시행·율령 체제 정비, 진신의 난에서 남편 덴무를 도움", "result": "unverifiable", "evidence_level": "verify", "source": "모델 지식·확인 필요 (영문 문서에 두 사안 모두 언급 없음)", "note": "『일본서기』 및 일본 학계 자료로 재확인 필요. 율령 정비는 CSV story 표현일 뿐 열람 근거 없음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["덴무 천황의 황후이자 제41대 천황", "697년 양위 후 태상천황으로 정치에 관여", "야마토의 후지와라 궁에서 통치(문서 확인)"],
+    "forbidden": ["진신의 난 참전·전략 서술(문서 미확인)", "율령 반포 연도·법령명 단정(verify)", "후지와라쿄 천도 연도 단정(verify)", "후계 문제(아들 구사카베 황자 사후 경위)의 동기 추정", "화장 최초 천황 서술(문서 미확인)"],
+    "name_candidates": ["태상천황의 섭정(효과 중심)", "후지와라 궁의 조정(효과 중심)", "황후의 내조(효과 중심)"],
+    "tone": "중립. 전투 근거가 없으므로 통치·계승 소재로만 한정"
+   }
+  },
+  {
+   "hero_id": 172,
+   "name_ko": "미나모토노 요시쓰네",
+   "seed_code": "minamoto_yoshitsune",
+   "checks": [
+    { "claim": "1184년 이치노타니, 1185년 야시마·단노우라에서 헤이케를 격파(겐페이 전쟁)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Minamoto_no_Yoshitsune ; 『아즈마카가미』·『헤이케 모노가타리』(unread)", "note": "전투 사실은 확인되나 문서에 구체적 전술 서술 없음. 히요도리고에 기습·야시마 소수 병력 상륙 등 전술은 군기물 영향이 커 verify" },
+    { "claim": "형 요리토모의 허가 없이 조정 관직을 받아 불화, 1185년 교토를 떠난 뒤 조정이 체포령, 1189년 후지와라노 야스히라의 습격으로 자결", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Minamoto_no_Yoshitsune", "note": "생년 1159/1160 문서 내 불일치. 사망 1189-06-15" },
+    { "claim": "벤케이의 서서 죽음(타치오조)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Minamoto_no_Yoshitsune", "note": "문서가 famous로만 소개하는 전승. 사료 직접 근거 미확인" }
+   ],
+   "skill_material": {
+    "safe_facts": ["이치노타니·야시마·단노우라 승리에 참전한 장수", "형 요리토모의 명으로 사촌 요시나카를 공격(아와즈 전투)", "요리토모와의 불화와 몰락"],
+    "forbidden": ["히요도리고에 절벽 돌격·야시마 부채 맞히기 등 군기물 일화를 사실로 서술(verify)", "벤케이 일화·서서 죽음", "홋카이도 탈출설·칭기즈 칸 동일인설(전승, 문서도 사실과 구분)", "단노우라에서 안토쿠 천황 등 헤이케 일족 익사 장면(대량 인명 사건 소재 금지)", "'판관 편들기' 정서를 사실 평가로 서술"],
+    "name_candidates": ["이치노타니의 기습(전투명 confirmed, 전술 서술은 accepted 이하)", "단노우라의 해전(전투명 confirmed)", "야시마의 상륙(효과 중심)"],
+    "tone": "중립. 비극의 영웅 이미지(호간비이키)는 후대 평가임을 분리"
+   }
+  },
+  {
+   "hero_id": 173,
+   "name_ko": "미나모토노 요리토모",
+   "seed_code": "minamoto_yoritomo",
+   "checks": [
+    { "claim": "1180년 모치히토 왕 호소에 응해 거병, 이시바시야마에서 패배 후 아와로 피신해 재기", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Minamoto_no_Yoritomo ; 『아즈마카가미』(unread)", "note": "문서는 6개월간 재편성으로 서술" },
+    { "claim": "가마쿠라에 군사 본거지를 두고 슈고·지토를 직접 임명, 1192년 세이이다이쇼군에 올라 가마쿠라 막부 성립", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Minamoto_no_Yoritomo", "note": "문서에 1185년 연도는 없음(1185 슈고·지토 설치는 통설이나 이 열람에서는 verify). 막부 성립 시점은 1185/1192 학설 병존(모델 지식)" },
+    { "claim": "생몰 1147~1199, 사인", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Minamoto_no_Yoritomo", "note": "생일은 citation needed, 사인은 문서에 없음(낙마설은 모델 지식, verify)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["1180년 거병과 이시바시야마 패배 후 재기", "가마쿠라 거점 구축과 지방 통치관(슈고·지토) 임명", "1192년 세이이다이쇼군 취임", "요시쓰네·요시나카 등 친족과의 권력 다툼(결과만)"],
+    "forbidden": ["요시쓰네 추격·숙청의 도덕 평가", "소가 형제 복수(1193) 서술", "숙청된 친족·가신 수 서술", "사인(낙마) 단정", "후지가와 전투(문서 미확인, verify)"],
+    "name_candidates": ["가마쿠라의 막부(효과 중심)", "슈고·지토의 배치(효과 중심)", "이시바시야마의 재기(효과 중심)"],
+    "tone": "중립. 무사 정권 수립의 의의는 평가로 분리, 친족 숙청은 사실만 간략히"
+   }
+  },
+  {
+   "hero_id": 177,
+   "name_ko": "무라사키 시키부",
+   "seed_code": "murasaki_shikibu",
+   "checks": [
+    { "claim": "생몰년 973년경~1014년(CSV)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Murasaki_Shikibu", "note": "출생 970~978 범위(Bowring 973, Waley 978), 사망 1014년은 추정치이고 1025년까지 생존설도 있음(CSV flag=verify 근거 확인됨). '경' 표기 필수" },
+    { "claim": "1000~1012년경 『겐지 이야기』(54장) 집필", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Murasaki_Shikibu", "note": "집필 시기는 대략. 후원자 미치나가가 종이·먹·필사가를 제공(문서). 완성 1021년경 서술은 문서 내 표현 차이 있음 → verify" },
+    { "claim": "1005/1006년경 후지와라노 미치나가의 주선으로 쇼시 중궁을 모시는 궁녀가 됨, 『무라사키 시키부 일기』(1008~1010년경 기록)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Murasaki_Shikibu", "note": "입궁 연도 1005/1006 병존. 일기가 세이 쇼나곤을 비판한 서술이 있으나 두 사람은 같은 시기에 궁에 있지 않았음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["『겐지 이야기』 54장", "『무라사키 시키부 일기』", "쇼시 중궁의 궁녀", "아버지 다메토키는 한학에 밝은 학자·관리"],
+    "forbidden": ["이시야마데라에서 달을 보고 집필했다는 전설(학계 신빙성 낮음)", "미치나가와의 연인 관계(Waley vs Bowring 논쟁)", "결혼 생활의 화목/원망 평가", "본명 '후지와라노 가오루코' 단정", "'세계 최초의 소설' 단정(CSV는 '최초급'으로 표기, 평가임)", "세이 쇼나곤과의 직접 대결 서사(동시 재직 아님)"],
+    "name_candidates": ["겐지 이야기(confirmed)", "무라사키의 일기(confirmed)", "궁중의 붓(효과 중심)"],
+    "tone": "중립. 문학사적 평가는 평가로 분리, 사생활 추정은 쓰지 않음"
+   }
+  },
+  {
+   "hero_id": 179,
+   "name_ko": "오다 노부나가",
+   "seed_code": "oda_nobunaga",
+   "checks": [
+    { "claim": "1560년 오케하자마에서 이마가와 요시모토를 기습해 격파", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Oda_Nobunaga ; 『신초코키』(unread) ; 오타 규이치 계열(unread)", "note": "승패·요시모토 전사는 확립. 병력은 이마가와 약 2만5천 vs 오다 2~3천 추정(문서)이나 수치 사용 금지. 우회 기습 vs 정면 공격 학설(모델 지식)은 verify" },
+    { "claim": "1575년 나가시노에서 오다·도쿠가와 연합군이 다케다군을 격파, 화승총 3단 교대 사격 전술", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Oda_Nobunaga", "note": "문서: 3단 사격은 후대 참모본부 계열 정리에 기반하고 이후 연구에서 오류가 지적되며 현재는 보급·병참이 승패 요인이라는 견해가 우세. 승전 자체는 confirmed, 3단 사격은 단정 금지" },
+    { "claim": "아즈치 성 축성(1576~1579), 1582년 혼노지의 변에서 아케치 미쓰히데에게 습격당해 자결", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Oda_Nobunaga", "note": "'적은 혼노지에 있다' 대사는 문서가 후대 창작으로 명시. 아케치의 동기는 문서가 다루지 않음" },
+    { "claim": "생몰 1534~1582, 1573년 무로마치 막부 종식(아시카가 요시아키 추방)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Oda_Nobunaga", "note": "출생지는 나고야성 설과 쇼바타성 설. 막부 종식 연도는 열람 요약에 없음 → 연도 verify. 라쿠이치·라쿠자는 문서 열람 범위 밖(unread)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["오케하자마의 기습 승리(전투명)", "아즈치 성 축성과 교토 방위·적 연락로 차단 목적", "나가시노 전투 연합군 승리(전술 서술 제외)", "화승총을 대규모로 쓴 지휘관이라는 사실은 나가시마 2차 포위(우천으로 화승총 무력화 패배) 서술로 간접 확인"],
+    "forbidden": ["철포 3단 사격을 사실로 서술(후대 이론, 오류 지적)", "히에이산 연력사 소각·나가시마 잇코잇키 진압의 규모·피해 서술(대량 인명 사건, 소재 금지)", "'마왕' 별칭·'울지 않는 새는 죽여라' 식 후대 어록(출처 미확인)", "혼노지 대사·'인생 50년' 춤 일화(전승)", "아케치 동기 단정", "병력·사상자 수치", "천하포무 인장 등 사상 평가"],
+    "name_candidates": ["오케하자마의 기습(전투명 confirmed)", "아즈치 성(건축명)", "화승총 부대 운용(효과 중심, 3단 사격 표현 금지)"],
+    "tone": "논란 인물. 혁신적 통치·군사 운용과 가혹한 진압 평가를 병기하되 미화·단죄 모두 피하고 전술·통치 소재만 사용"
+   }
+  },
+  {
+   "hero_id": 180,
+   "name_ko": "도요토미 히데요시",
+   "seed_code": "toyotomi_hideyoshi",
+   "checks": [
+    { "claim": "1582년 야마자키 전투에서 아케치 미쓰히데를 격파하고 노부나가 권력을 계승, 1583년 시즈가타케에서 시바타 가쓰이에 격파", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Toyotomi_Hideyoshi", "note": "야마자키 1582-07-02(음력/양력 병기 주의)" },
+    { "claim": "1585년 관백 취임, 1590년 오다와라 공략으로 호조씨를 멸하고 전국 통일 완성(1591 구노헤 난 진압)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Toyotomi_Hideyoshi", "note": "1586 태정대신. 통일 완성 시점은 1590/1591 서술 병존" },
+    { "claim": "1588년 검 몰수령, 1587년 선교사 추방령, 1591년 센노 리큐에게 자결 명령", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Toyotomi_Hideyoshi", "note": "검 몰수령이 농민 봉기 억제에 기여했다는 서술은 해석. 리큐 사사 동기는 문서가 단정하지 않음. 태합검지는 문서 열람 범위에서 이름만 확인 → 세부 verify" },
+    { "claim": "1592년 조선 침공(임진왜란), 1597년 재침(정유재란), 1598년 후시미 성에서 사망", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Toyotomi_Hideyoshi ; 『조선왕조실록』(unread)", "note": "1597 재침 지휘 서술은 문서가 citation needed. 한국에서는 침략 전쟁으로 부정 평가(CSV flag=controversial). 사망은 오대로 합의로 한동안 비밀 유지(문서)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["야마자키·시즈가타케 승전과 노부나가 권력 계승", "오사카 성 축성(1583 착공)", "시코쿠·규슈·오다와라 정벌을 통한 전국 통일", "검 몰수령 등 병농분리 정책(정책명 수준)"],
+    "forbidden": ["임진왜란·정유재란 전투·약탈·포로·민간 피해 서술 일체(소재 금지, 한국 사용자 감정 및 대량 인명 사건 규칙)", "조선·명 대상 외교 일화·사절 기만(문서 citation needed)", "1597년 기독교인 처형", "센노 리큐 사사의 동기 단정", "스노마타 일야성·미즈즈메(수공) 등 일화를 사실로 서술(문서 열람 범위 밖, verify)", "'원숭이' 별명·출생 일화·후대 전설", "'천하인' 자기 평가 서술"],
+    "name_candidates": ["야마자키의 승전(전투명 confirmed)", "시즈가타케의 승전(전투명 confirmed)", "오사카 성(건축명)", "병농분리(효과 중심)"],
+    "tone": "논란 인물. 통일 사업·행정 정책(사실)과 대외 침략·종교 정책에 대한 한국 및 국제 평가(평가)를 분리. 스킬·소개문은 통일 전쟁·축성·정책에서만 소재를 택하고 조선 침공은 연표 한 줄 사실로만 언급",
+    "campaign_conflict": "충돌 소지 있음. campaign_ch1_outline은 일본 측 지휘관 CSV 미등재·대사 없음·중립 설계이고 이순신 등 조선 영웅이 플레이어 측이다. 히데요시를 수집 영웅으로 넣을 때 (1) ch1 스테이지의 적/아군 지휘관·대사에 등장시키지 않기 (2) 이순신·곽재우 등 조선 영웅과의 인연(rival 등) 설정 금지 (3) 영웅 소개문에 침공 전과 서술 금지 (4) 임진왜란 스테이지 파티 편성에서 히데요시 사용 가능 여부는 사람(기획) 결정 필요. 시간의 서고 what-if 설정상 허용은 가능하나 정서 리스크는 사람 판단."
+   }
+  },
+  {
+   "hero_id": 181,
+   "name_ko": "도쿠가와 이에야스",
+   "seed_code": "tokugawa_ieyasu",
+   "checks": [
+    { "claim": "1543~1616, 어린 시절 인질 생활(오다·이마가와), 1562년경 오다 노부나가와 동맹(기요스 동맹)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Tokugawa_Ieyasu", "note": "문서는 기요스 동맹 연도를 명시하지 않음(오케하자마 직후). 인질 기간·시점은 나이 기준 추정" },
+    { "claim": "1572~73년 미카타가하라에서 다케다 신겐에게 대패, 1575년 나가시노에서 다케다 가쓰요리 격파", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Tokugawa_Ieyasu", "note": "미카타가하라 연도는 문서에 1572/1573 병존(통설 1572년 12월, 모델 지식). 나가쿠테 1584는 문서에 상세 없음" },
+    { "claim": "1600년 세키가하라 승리, 1603년 쇼군 취임(도쿠가와 막부), 1605년 아들 히데타다에게 양위 후에도 실권 유지, 1614~15 오사카 전투로 도요토미 가문 멸망", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Tokugawa_Ieyasu", "note": "오사카 전투 세부는 문서 열람 범위 밖(unread). 세키가하라 전투일은 문서 미확인(1600-10-21 통설, 모델 지식)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["세키가하라 승리와 1603년 쇼군 취임", "반막부 체제(바쿠한)의 기초", "인질 생활을 거쳐 미카와를 통일", "노부나가와의 동맹을 20년 가까이 유지"],
+    "forbidden": ["미카타가하라에서 겁에 질려 배변했다는 일화·'시카미조' 초상화(후대 전승)", "아들 노부야스·쓰키야마 부인 사건 책임 평가(문서: 여러 해석)", "호리카와 성 학살(문서: 약 700명 참수 기록, 검증 필요)", "오사카 전투 해자 매립의 신의 평가", "'울지 않는 새는 울 때까지 기다린다' 등 후대 어록", "겐지 후예 혈통 단정(문서: 직접 증거 없음)"],
+    "name_candidates": ["세키가하라의 결전(전투명 confirmed)", "미카와의 인내(효과 중심)", "에도 막부(체제명)"],
+    "tone": "중립. 인내·정치력 이미지는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 182,
+   "name_ko": "다케다 신겐",
+   "seed_code": "takeda_shingen",
+   "checks": [
+    { "claim": "1540~41년 부친 노부토라를 스루가로 보내 가문 장악, 1521~1573 생몰", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Takeda_Shingen", "note": "문서는 1540년 장악, 인포박스 가주 재임 1541~1573. 연도는 '1540~41'로 표기 권장" },
+    { "claim": "우에스기 겐신과 가와나카지마에서 5차례 대치(4차 전투가 가장 격렬, 야마모토 간스케·동생 노부시게 전사)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Takeda_Shingen ; https://en.wikipedia.org/wiki/Uesugi_Kenshin", "note": "승패는 학자 간 판정 갈림(Kenshin 문서)" },
+    { "claim": "1572~73년 미카타가하라에서 오다·도쿠가와 연합을 격파, 1573년 5월 13일 노다 성 포위 중 사망(사인 불분명)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Takeda_Shingen", "note": "문서에 전투 연도 명시 없음(통설 1572년 12월, 모델 지식 → verify). 사인은 부상·저격·폐렴 설" },
+    { "claim": "다케다 기마군단(기마 중심 최강 군단)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Takeda_Shingen", "note": "문서는 미카타가하라를 기병 중심 전술 사례로만 언급하고 기마군단 평가는 없음. 혼고 가즈토 견해로 동원력 최대 약 2만. 후대 이미지(군기물·창작) 혼입 가능 → 단정 금지" }
+   ],
+   "skill_material": {
+    "safe_facts": ["가와나카지마에서 우에스기 겐신과 여러 차례 대치", "미카타가하라에서 도쿠가와 이에야스에 승리", "'가이의 호랑이' 별칭(문서)", "스루가 점령 시기 후지강 제방 공사 명령(문서)"],
+    "forbidden": ["기마군단·기마 돌격 중심 군제 서술(단정 금지)", "풍림화산 군기를 신겐의 것으로 서술(문서: 소설·대하드라마 제목으로만 등장)", "코슈법도·신겐 제방 서술(문서 미확인, verify)", "신겐과 겐신의 일기토(후대 창작)", "사인 단정", "'사람은 성, 사람은 돌담' 어록(출처 미확인)", "병력·사상자 수치"],
+    "name_candidates": ["가와나카지마의 대치(전투명 confirmed)", "미카타가하라의 승전(전투명, 연도 verify)", "가이의 호랑이(별칭 accepted)"],
+    "tone": "중립. 전국 최강급이라는 후대 평가는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 183,
+   "name_ko": "우에스기 겐신",
+   "seed_code": "uesugi_kenshin",
+   "checks": [
+    { "claim": "1530~1578, 1548년 형 하루카게에게서 나가오 가 계승, 1561년 간토 간레이직과 우에스기 성을 계승(이름 테루토라)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Uesugi_Kenshin", "note": "1551년 노리마사 양자·간레이직 조건 수락 서술이 있어 계승 절차는 문서 내 시점 병존" },
+    { "claim": "1561년 4차 가와나카지마 전투, 오다와라 포위(본성 미함락, 가마쿠라 점령)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Uesugi_Kenshin", "note": "4차 전투 승패 학자 간 판정 갈림, 피해 규모는 자료마다 20%~70%대로 크게 다름 → 수치 금지" },
+    { "claim": "1577년 테도리가와에서 노부나가군을 격파", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Uesugi_Kenshin", "note": "병력 3만 vs 5만은 기록상 수치. 상대 지휘관이 시바타 가쓰이에였다는 서술이 문서에 있어 노부나가 본인 참전 여부 verify" },
+    { "claim": "비샤몬텐 신앙, 추종자들이 '전쟁의 신'이라 부름, 1578년 사망(식도암설 유력, 암살설 낮음)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Uesugi_Kenshin", "note": "'50여 회 야전 무패'는 said to have 표기의 과장 가능 서술" }
+   ],
+   "skill_material": {
+    "safe_facts": ["가와나카지마에서 다케다 신겐과 대치", "간토 간레이직 계승", "비샤몬텐 신앙과 '전쟁의 신'이라는 별칭(추종자 호칭으로 표기)", "테도리가와에서 오다 측 격파(서술)"],
+    "forbidden": ["무패 신화 단정", "여성 겐신설(야기리 도메오 가설, 사실 아님 표기 불가시 제외)", "'적에게 소금을 보냈다' 일화(동기 논쟁, 문서에서도 논쟁)", "닌자 암살설", "사세구 인용", "병력·피해 수치", "'의(義)의 장수' 평가를 사실로 서술"],
+    "name_candidates": ["가와나카지마의 대치(전투명)", "비샤몬텐의 가호(신앙, 효과 중심)", "테도리가와의 승전(전투명 accepted)"],
+    "tone": "중립. 의장·군신 이미지는 후대 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 185,
+   "name_ko": "사나다 유키무라",
+   "seed_code": "sanada_yukimura",
+   "checks": [
+    { "claim": "본명은 노부시게이며 '유키무라'는 에도 시대 군기물 이후 퍼진 통칭", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Sanada_Yukimura", "note": "문서: 사료·사신에서는 유키무라로 불리지 않음. 표시명은 '사나다 유키무라(노부시게)' 병기 권장. 생몰 1567~1615(CSV flag=verify 해소 근거)" },
+    { "claim": "1600년 우에다 성 방어로 도쿠가와 히데타다 본대를 지연시켜 세키가하라 참전을 막음", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sanada_Yukimura ; 『사나다 가문 문서』(unread)", "note": "문서 수치(약 2천 vs 4만)는 사용 금지. 1585년 제1차 우에다 성 전투는 문서에 없음(verify). 방어 주체는 부친 마사유키(문서 해석)" },
+    { "claim": "1614년 오사카 겨울 전투에서 사나다마루 출성을 구축해 방어(약 7천명, 포위 진지를 3차례 돌파했다고 서술)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sanada_Yukimura ; Turnbull, Osaka 1615(문서 권고, unread)", "note": "문서 내 상당 부분이 citation needed. 사나다마루 축조는 널리 인정되나 규모·성과는 verify" },
+    { "claim": "1615년 오사카 여름 전투(도묘지·덴노지)에서 전사", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sanada_Yukimura", "note": "문서에 날짜 6/3 양력과 음력 5/6·5/7이 혼재. 최신 학설은 창 대결 후 전사 → 사인 서술은 verify" }
+   ],
+   "skill_material": {
+    "safe_facts": ["사나다마루 출성을 이용한 방어전(1614)", "덴노지에서 마쓰다이라 타다나오 전열을 무너뜨림(문서)", "본명 노부시게, 통칭 유키무라", "1600년 우에다 성의 지연전(서술)"],
+    "forbidden": ["십자창(十文字槍) 사용 서술(문서 미언급, 단정 금지)", "붉은 갑옷·'일본 제일의 병'(문서에 별칭만 'Crimson Demon', 후대 평가)", "사나다 십용사·닌자 서사(전설)", "이에야스 본진 돌격으로 이에야스가 자결 직전(후대 군기물)", "가게무샤 오가사와라 설", "시나노 40만 석 회유 일화(출처 부족)", "도요토미 측 해자 매립 기만 평가", "사나다 다이헤이키를 사료로 인용"],
+    "name_candidates": ["사나다마루(출성명, accepted)", "덴노지의 돌격(전투명, 서술은 accepted)", "우에다의 지연전(효과 중심)"],
+    "tone": "중립. 후대 영웅화(일본 제일의 병)는 평가로 분리, 십자창·붉은 갑옷 등 이미지는 스킬에 쓰지 않음"
+   }
+  },
+  {
+   "hero_id": 186,
+   "name_ko": "혼다 다다카쓰",
+   "seed_code": "honda_tadakatsu",
+   "checks": [
+    { "claim": "도쿠가와 사천왕(이이 나오마사·혼다 다다카쓰·사카키바라 야스마사·사카이 다다쓰구)의 한 명", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Honda_Tadakatsu", "note": "'사천왕' 호칭은 후대 편성이라는 견해(모델 지식, verify). 문서는 1586년 교토 방문 때 함께 명성을 얻었다고 서술" },
+    { "claim": "아네가와(1570)·미카타가하라(1573)·나가시노(1575)·세키가하라(1600) 등에 참전, 미카타가하라에서 퇴각 엄호", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Honda_Tadakatsu ; 『도쿠가와 실기』(unread)", "note": "나가시노에서 야마가타 마사카게 격살 관여설은 기록 편차 → 단정 금지" },
+    { "claim": "57회 이상 전투에서 큰 상처를 입지 않았다는 평판, 애창 톤보키리", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Honda_Tadakatsu", "note": "평판·별명 성격. 톤보키리 현존 길이 약 79cm는 기록. 잠자리 일화는 문서가 전설로 표시" },
+    { "claim": "구와나 번주(1601, 문서 본문은 1590 직후로 서술하는 불일치), 1548~1610", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Honda_Tadakatsu", "note": "문서 내 불일치. 오타키(1590)→구와나(1601) 순서가 통설(모델 지식, verify)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["도쿠가와 사천왕의 한 명", "미카타가하라에서 퇴각 엄호", "세키가하라 후 구와나 번주", "톤보키리 창을 애용했다는 기록(무기명 accepted)"],
+    "forbidden": ["무상처(無傷) 단정(평판)", "톤보키리 잠자리 일화(전설)", "노부나가·히데요시의 칭찬 어록('사무라이 중의 사무라이' 등, citation needed)", "나가시노 야마가타 마사카게 격살 단정", "히데요시 본진 도발(코마키) 일화 단정(출처 약함)", "병력·전과 수치"],
+    "name_candidates": ["톤보키리(창명, accepted)", "미카타가하라의 엄호(효과 중심)", "사천왕의 방패(효과 중심)"],
+    "tone": "중립. 무용담은 평판과 사실을 분리"
+   }
+  },
+  {
+   "hero_id": 187,
+   "name_ko": "센노 리큐",
+   "seed_code": "sen_no_rikyu",
+   "checks": [
+    { "claim": "1522년 사카이 상인 가문 출생, 1579년경 오다 노부나가의 다도 스승, 노부나가 사후 도요토미 히데요시를 섬김", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sen_no_Riky%C5%AB ; 『난보로쿠』(저자·진위 논쟁, unread)", "note": "사망 시 나이가 문서 본문 70세, 인포박스 68~69세로 불일치 → 출생 1522는 대략값. 중년기 기록 부족" },
+    { "claim": "와비차 발전, 다실 다이안(待庵, 2첩, 국보, 교토 묘키안)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sen_no_Riky%C5%AB", "note": "다이안이 리큐 설계라는 점은 '알려져 있다'로 표기" },
+    { "claim": "1591년 히데요시의 명으로 교토 자택에서 자결(1591-04-21)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Sen_no_Riky%C5%AB", "note": "동기는 문서도 'may never be known'. 직전 제자 야마노우에 소지 처형(1590). 대덕사 산문 설은 문서에 석상 언급 없음 → 동기 서술 금지" }
+   ],
+   "skill_material": {
+    "safe_facts": ["와비차(소박·직접성·진솔함)를 발전", "다이안 다실", "노부나가·히데요시의 다두", "1591년 자결 명령(동기는 미상)"],
+    "forbidden": ["자결 동기(목상·딸 헌상 거부·정치적 대립 등) 단정", "자결 직전 최후 다회 묘사(오카쿠라 『차의 책』, 검증 필요)", "『난보로쿠』 내용을 사실로 인용(저자 논쟁)", "'일기일회'·'화경청적' 등 후대 격언을 본인 발언으로 표기"],
+    "name_candidates": ["와비차(용어, confirmed)", "다이안(다실명)", "일기일회(격언, 이름 사용은 가능하나 발언 귀속 금지)"],
+    "tone": "중립. 히데요시에 대한 평가 없이 사실만. 교체 후보로 제안됨(보고서 참조)"
+   }
+  },
+  {
+   "hero_id": 189,
+   "name_ko": "다테 마사무네",
+   "seed_code": "date_masamune",
+   "checks": [
+    { "claim": "1567~1636, 1584년 부친 데루무네 은퇴로 17세에 가문 계승, 1589년 스리아게하라에서 아시나 씨 격파", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Date_Masamune", "note": "" },
+    { "claim": "1590년 오다와라 공략에 늦게 합류했으나 히데요시에게 용서받음", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Date_Masamune", "note": "백의 차림 일화는 문서 미확인(verify)" },
+    { "claim": "하세쿠라 쓰네나가를 통한 로마 교황청 사절단(게이초 사절단) 파견, 1604년 센다이로 본거지 이전", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Date_Masamune ; 센다이시박물관 자료(unread)", "note": "사절단 연도(1613 출발)는 문서에 연도 없음, 모델 지식 → verify" },
+    { "claim": "어릴 때 천연두로 오른쪽 눈을 잃음, 안대 착용, 독안룡 별칭, 철포 부대 운용", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Date_Masamune", "note": "실명 원인(스스로 뽑음/가신이 도려냄)은 문서에서 두 설 병기, 안대는 1942년 영화 이후 이미지, 독안룡은 1830년경 라이 산요 시에서 등장, 철포 부대는 문서에 근거 없음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["1584년 17세 가문 계승", "스리아게하라 승리", "센다이 번 건설", "유럽에 사절단 파견", "초승달 장식 투구(문서)"],
+    "forbidden": ["안대·독안룡 별칭을 사실처럼 서술", "철포 부대·검은 갑옷 군단 서술", "눈을 뽑은 일화", "오다와라 백의 일화 단정(verify)", "임진왜란 참전 전과 서술(소재 금지)", "다도·요리 일화(출처 미확인)"],
+    "name_candidates": ["스리아게하라의 승전(전투명 confirmed)", "센다이의 건설(효과 중심)", "초승달 투구(장구명, 문서 확인)", "유럽 사절(효과 중심)"],
+    "tone": "중립. 이미지는 후대 영화·대중문화 영향이 큼을 note에 병기"
+   }
+  },
+  {
+   "hero_id": 196,
+   "name_ko": "사카모토 료마",
+   "seed_code": "sakamoto_ryoma",
+   "checks": [
+    { "claim": "1836~1867, 도사 번 고시(최하급 무사) 출신", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Sakamoto_Ry%C5%8Dma", "note": "생일·기일 모두 11월 15일(음력, 문서 서술)" },
+    { "claim": "나가사키에서 가메야마 샤추를 거쳐 가이엔타이(사설 해군·무역 조직) 결성", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Sakamoto_Ry%C5%8Dma", "note": "사쓰마의 지원(문서)" },
+    { "claim": "1866년 삿초 동맹을 중개", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Sakamoto_Ry%C5%8Dma (닛케이 비즈니스 인용)", "note": "문서: 중립적 외부 중개자라는 통설은 잘못된 인식이고 핵심 역할은 고마쓰 다테와키라는 서술. 참여 자체는 확인되나 주도 역할 단정 금지(CSV '관여' 표현 유지)" },
+    { "claim": "1867년 선중팔책을 고토 쇼지로와 구상(양원제·헌법·국군 등), 같은 해 12월 10일 교토 오미야에서 암살", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sakamoto_Ry%C5%8Dma", "note": "범인은 신센구미설→미마와리구미 자백(1870)이나 신원 입증 안 됨(문서). 대정봉환 구상은 문서에 없음(verify). 시바 료타로 소설 영향은 문서 미언급" }
+   ],
+   "skill_material": {
+    "safe_facts": ["도사 고시 출신", "가이엔타이(해군·무역) 결성", "선중팔책으로 정치 체제 구상을 정리", "삿초 동맹 협상 참여(주도 역할은 논쟁)"],
+    "forbidden": ["삿초 동맹 성사의 주역 단정", "암살 범인 단정", "암살 장면", "신혼여행·검술 일화·권총 일화(출처 미확인)", "시바 료타로 소설 속 묘사를 사실로 서술", "정치 구상의 현대적 평가를 사실로"],
+    "name_candidates": ["선중팔책(문서명 confirmed)", "가이엔타이(조직명 confirmed)", "가메야마 샤추(조직명)"],
+    "tone": "중립. 소설·드라마로 형성된 영웅상과 사료 속 역할을 분리"
+   }
+  },
+  {
+   "hero_id": 197,
+   "name_ko": "사이고 다카모리",
+   "seed_code": "saigo_takamori",
+   "checks": [
+    { "claim": "1828~1877, 보신 전쟁(1868) 중 신정부군 진격 지휘, 가쓰 가이슈와 협상해 에도성 무혈 개성", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Saig%C5%8D_Takamori", "note": "1868년 4월. 협상 세부는 문서에 한 줄" },
+    { "claim": "1871년 번 폐지 지지, 1873년 세이칸론이 부결되자 관직을 모두 내려놓고 가고시마로 귀향", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Saig%C5%8D_Takamori", "note": "세이칸론 동기는 국가 명예·불평 사족 해소·개인적 죽음 추구 등 해석이 갈림(문서). 조선 관련 사안이라 소재 제외" },
+    { "claim": "1877년 세이난 전쟁(구마모토 성 54일 포위, 다바루자카 패배, 시로야마 최후 항전)에서 9월 24일 사망, 할복설", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Saig%C5%8D_Takamori", "note": "부검에서 할복 상처 미확인·총상 후 참수설 병존. 학생들의 무기 탈취 후 떠밀려 지도자가 됐다는 설명과 자발적 선택설 병존" },
+    { "claim": "1889년 사면(복권), 우에노 동상", "result": "unverifiable", "evidence_level": "verify", "source": "모델 지식·확인 필요 (영문 문서 열람 범위 밖 unread)", "note": "일본 정부 기록·일본어 자료로 확인 필요" }
+   ],
+   "skill_material": {
+    "safe_facts": ["에도성 무혈 개성에 이르는 협상", "도바·후시미 이후 신정부군 지휘", "삿초 동맹 가담(료마의 중개는 verify)", "번 폐지를 군사적으로 뒷받침"],
+    "forbidden": ["세이칸론(조선 사절 파견 주장)을 소재·스킬명으로 사용(한국 관련 민감, 평가 엇갈림)", "세이난 전쟁 전투 규모·사상자·시로야마 최후 장면", "할복 장면", "'경천애인' 등 후대 격언을 본인 발언으로 표기", "'마지막 사무라이' 평가를 사실로 서술", "사망 방식 단정"],
+    "name_candidates": ["에도성 개성(효과 중심, 협상)", "도바·후시미의 진군(전투명)", "번 폐지(정책명)"],
+    "tone": "논란 인물. 메이지 유신 공로와 세이칸론·세이난 전쟁에 대한 평가를 분리. 소재는 협상·지휘·통치 개혁에 한정"
+   }
+  },
+  {
+   "hero_id": 301,
+   "name_ko": "나폴레옹 보나파르트",
+   "seed_code": "napoleon",
+   "checks": [
+    { "claim": "1769-08-15 코르시카 아작시오 출생, 1821-05-05 세인트헬레나 사망(51세)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Napoleon", "note": "CSV 1769~1821 일치. 사인은 문서가 위암으로 서술(비소 중독설은 열람 범위에 없음 → 사용 금지)" },
+    { "claim": "1793년 툴롱 탈환 때 포병 지휘, 1796~97 이탈리아 원정(아르콜레·리볼리)으로 오스트리아의 이탈리아 입지 붕괴", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Napoleon", "note": "로디(1796)는 전투 목록에만 언급, 리볼리 오스트리아군 피해율 43%는 Bell 2015 인용 수치 → 사용 금지" },
+    { "claim": "1799년 브뤼메르 18일 쿠데타로 제1통령, 1804년 황제 즉위, 1805년 아우스터리츠에서 제3차 대프랑스 동맹 격파", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Napoleon", "note": "프라첸 고지 기만 후퇴 작전은 문서 열람 범위 밖(unread) → 통설이나 verify. 법전(1804)은 이번 열람에서 미확인(모델 지식, accepted 이하)" },
+    { "claim": "1812년 러시아 침공 후 퇴각, 1813 라이프치히 패배, 1814~15 엘바 유배, 1815년 6월 18일 워털루 패배", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Napoleon ; https://en.wikipedia.org/wiki/Arthur_Wellesley,_1st_Duke_of_Wellington", "note": "워털루 연합군(웰링턴·블뤼허)은 hero 302 기존 항목과 일치" }
+   ],
+   "skill_material": {
+    "safe_facts": ["포병 장교로서의 툴롱 탈환", "이탈리아 원정의 기동전(전투명 수준)", "아우스터리츠에서 제3차 대프랑스 동맹 격파", "브뤼메르 18일 쿠데타와 제1통령 체제", "1815년 워털루 패배"],
+    "forbidden": ["러시아 퇴각 사상자·병사 수치(대량 인명 사건)", "자파 포로 처리(발췌 범위 밖, 대량 살상 쟁점)", "아이티 혁명 진압·1802년 식민지 노예제 복원 서술(평가 쟁점 — 문서는 사실로만 서술, 스킬 소재 금지)", "예술품 약탈", "'불가능이란 단어는 없다' 등 후대 어록(출처 미확인)", "모자·손을 조끼에 넣은 이미지, 키 신화", "사인 비소 중독설", "자유 제한·검열 정책 평가를 스킬로 미화"],
+    "name_candidates": ["툴롱의 포대(효과 중심, 전투명 confirmed)", "아우스터리츠의 결전(전투명 confirmed)", "이탈리아 원정의 기동(효과 중심)", "제1통령(직함 confirmed)"],
+    "tone": "논란 인물. 전술·행정 개혁 성과와 전쟁 피해·노예제 복원·자유 제한에 대한 평가를 분리. 미화(군사 천재 일변도)·단죄 모두 회피",
+    "relation_check": "rel_0029(웰링턴 rival, sensitive=true)는 reason 문장이 웰링턴 항목·본 항목 모두와 일치해 사실 부분은 confirmed. 미완결 사항: ①source가 '모델 지식·확인 필요'라 en.wikipedia 2건으로 교체 필요 ②encounter_lines가 빈 배열(창작 대사 미작성) ③평가 문구 없음 확인됨 ④sensitive 유지. 기존 항목 수정 금지로 이번 배치에서는 수정하지 않음"
+   }
+  },
+  {
+   "hero_id": 19,
+   "name_ko": "유방",
+   "checks": [
+    { "claim": "홍문연에서 항우에게서 벗어남(번쾌·항백의 도움)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Emperor_Gaozu_of_Han ; 『사기』 항우본기·고조본기(unread)", "note": "문서에 연도 없이 함양 입성 직후 사건으로 서술(통설 기원전 206년, verify)" },
+    { "claim": "기원전 204년 성고 대치와 홍구 화약, 203년 화약 파기 후 고릉 패배, 202년 해하에서 한신·팽월과 연합해 항우를 포위, 202년 황제 즉위", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Emperor_Gaozu_of_Han", "note": "팽성 대패는 연도 미명시(기원전 205년 통설). 기원전 200년 백등산에서 흉노에 포위되었다가 진평의 계책으로 탈출 후 화친 정책 시작(문서)" },
+    { "claim": "한신·팽월 처형, 영포 반란 진압 중 부상 후 기원전 195년 6월 1일 사망", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Emperor_Gaozu_of_Han", "note": "문서에 숙청 연도 없음. 한신 처형은 여후·소하 주도로 보는 해석이 병존(Han Xin 문서 참고)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["홍문연을 벗어남", "해하 포위에서 항우를 격파하고 한나라 건국(기원전 202)", "백등산에서 흉노에 포위된 뒤 화친 정책 시행", "인재 활용(소하·장량·한신)에 대한 평가는 『사기』 고조본기의 서술임을 병기"],
+    "forbidden": ["흰 뱀을 벤 일화 등 건국 신화(고조본기 신화적 서술)", "공신 숙청(한신·팽월·영포)의 도덕 평가나 책임 단정", "'세 호걸' 발언을 직접 인용(문서 미확인)", "건달 시절 일화·본인 군사 능력 평가", "병력 수치"],
+    "name_candidates": ["해하의 포위(전투명 confirmed)", "홍문연의 탈출(효과 중심)", "백등의 화친(효과 중심)"],
+    "tone": "중립. 항우와의 대조 평가는 『사기』 관점임을 병기"
+   }
+  },
+  {
+   "hero_id": 20,
+   "name_ko": "한신",
+   "checks": [
+    { "claim": "정형 전투에서 소수 병력으로 대군을 격파(배수진, 기병 매복)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Han_Xin ; 『사기』 회음후열전(unread)", "note": "병력 3만 vs 20만은 수치 사용 금지. 연도 기원전 205/204 병존. 배수진은 고사성어로 사용 가능" },
+    { "claim": "하양에서 나무 항아리로 황하를 건너 위(魏) 평정, 위수 전투에서 제·초 연합군 격파·용저 전사", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Han_Xin", "note": "위수 모래주머니 둑 서술은 문서 열람 범위에서 미확인 → verify" },
+    { "claim": "기원전 196년 처형(모반 혐의), 제왕·초왕을 거쳐 회음후로 강등", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Han_Xin", "note": "『사기』는 모반 모의를 서술하나 다수 학자는 조작 가능성 제기, 사마광은 반란을 꾀했다고 보기 어렵다는 입장(문서). 모반 여부 단정 금지" },
+    { "claim": "과하지욕·표모반신·월하추한신·점병 일화", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Han_Xin", "note": "문서가 전설로 분류. 『사기』 등 후대 사료 의존" }
+   ],
+   "skill_material": {
+    "safe_facts": ["배수진(정형 전투)", "명수잔도 암도진창의 기만 전략(삼십육계의 하나)", "위수 전투에서 제·초 연합군 격파", "제왕·초왕을 거쳐 회음후로 강등"],
+    "forbidden": ["과하지욕·표모반신·월하추한신 일화를 사실로 서술(전설)", "점병(나머지 정리) 일화", "모반 여부 단정, 처형 장면", "제나라 항복 협상 후 공격으로 이기가 삶겨 죽은 일화의 도덕 평가", "'한 번도 패하지 않았다'(문서 리드 서술, 독립 사료 없음)", "병력 수치"],
+    "name_candidates": ["배수진(고사성어 confirmed)", "암도진창(고사성어 accepted)", "위수의 결전(전투명)"],
+    "tone": "중립. 사마천의 자만 평가와 한신 억울설을 평가로 병기"
+   }
+  },
+  {
+   "hero_id": 21,
+   "name_ko": "장량",
+   "checks": [
+    { "claim": "박랑사에서 진시황 암살 시도(쇠망치) 실패 후 도피", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Zhang_Liang_(Western_Han) ; 『사기』 유후세가(unread)", "note": "수레를 잘못 맞힘. 힘센 장사 일화는 열람 범위에서 확인하지 못함(verify). 폭력 시도이므로 스킬 소재로는 제외 권장" },
+    { "claim": "홍문연에서 조언해 유방 탈출을 도움, 한신의 제왕 책봉을 받아들이도록 유방을 설득, 해하 전 진평과 함께 한신·팽월에게 영지를 약속하라고 조언", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Zhang_Liang_(Western_Han)", "note": "문서 내용이므로 『사기』 원문 대조 권장. 한신 추천 서술은 문서에서 명확하지 않음(verify)" },
+    { "claim": "유후에 봉해진 뒤 정치에서 물러나 도가 수련, 여후 측 요청으로 상산사호를 추천해 태자 유영을 지킴", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Zhang_Liang_(Western_Han)", "note": "상산사호 일화는 사기 서술이나 시점·진위는 verify. 사후 시호 문성" },
+    { "claim": "황석공에게서 병법서를 받음", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Zhang_Liang_(Western_Han)", "note": "문서가 전설로 분류. 『태공병법』·『육도』 연관설 등 병존" }
+   ],
+   "skill_material": {
+    "safe_facts": ["홍문연에서 유방의 탈출을 도운 조언", "한신의 제왕 책봉을 받아들이도록 유방을 설득", "한 건국 후 유후에 봉해지고 은퇴", "생몰년은 약 기원전 251~189(기존 항목 정정 제안 유지)"],
+    "forbidden": ["황석공 일화(전설)", "박랑사 암살 시도를 스킬 소재로(폭력 시도, 결과 단정 어려움)", "승천·신선 전설", "상산사호 영입의 정치 평가", "'운주유악 결승천리' 등 유방의 평가 어록 직접 인용(문서 미확인)"],
+    "name_candidates": ["운주유악(고사성어, 『사기』 평가 표현이라 accepted)", "홍문연의 조언(효과 중심)", "유후의 은퇴(효과 중심)"],
+    "tone": "중립. 신비화된 책사 이미지는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 47,
+   "name_ko": "관우",
+   "checks": [
+    { "claim": "200년 백마 전투에서 원소의 장수 안량을 쓰러뜨려 한수정후에 봉해짐(조조의 주청), 이후 조조의 하사품을 봉해 두고 유비에게 돌아감", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Guan_Yu ; 『삼국지』 관우전(unread)", "note": "'천리독행·오관참장'은 연의 서술. 하사품 반환은 정사 서술(accepted)" },
+    { "claim": "219년 번성 전투에서 한수 범람으로 우금의 칠군을 무너뜨림(우금 항복, 방덕 거절 후 처형)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Guan_Yu", "note": "수공은 자연 범람을 이용한 것으로 서술. 병력 수치는 사용 금지" },
+    { "claim": "손권이 여몽을 보내 형주 습격, 220년 초 퇴각 중 사로잡혀 아들 관평과 함께 처형", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Guan_Yu", "note": "여몽의 상인 선박 위장 기만(문서). 사망 시기 219/220 표기 차이" },
+    { "claim": "신격화(수 대부터 신앙, 송·명·청 대 시호 상승, 청 말 '무성')", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Guan_Yu", "note": "사후 숭배는 평가·신앙이므로 생전 업적과 분리. 260년 장무후 추시(촉 유선)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["백마 전투에서 안량을 쓰러뜨림", "번성 전투의 칠군 수공", "형주를 지키다 손권의 습격으로 사로잡혀 처형", "사후 충의의 신으로 숭배(신앙 평가로 병기)"],
+    "forbidden": ["청룡언월도(연의 설정, 문서도 소설 속 무기로 서술)", "붉은 얼굴·긴 수염 묘사를 사실로 서술(연의·경극 이미지)", "화용도에서 조조를 놓아줌(연의)", "화타 치료 일화(문서에 화타 언급 없음, 정사 주석 일화는 의사가 독을 긁어냈다고만)", "오관참장·천리독행·고성 재회(연의)", "도원결의(연의 서사)", "신격화를 생전 사실처럼 서술"],
+    "name_candidates": ["백마의 일격(전투명 accepted, 효과 중심)", "번성의 수공(효과 중심, 칠군 수공)", "형주 방어(효과 중심)"],
+    "tone": "중립. 연의 이미지와 정사 서술, 민간 신앙을 구분"
+   }
+  },
+  {
+   "hero_id": 109,
+   "name_ko": "을지문덕",
+   "seed_code": "eulji_mundeok",
+   "checks": [
+    { "claim": "612년 수 양제의 고구려 침공을 막은 장군, 살수(청천강 추정)에서의 승리", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Eulji_Mundeok ; 『삼국사기』 을지문덕전·『수서』(unread)", "note": "살수대첩이 을지문덕의 공이라는 서술은 『삼국사기』 김부식의 귀속. 『수서』 대조 필요" },
+    { "claim": "거짓 후퇴와 기습으로 수군을 보급에서 멀어지게 유도", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Eulji_Mundeok", "note": "전술 세부는 후대 서술. 수군 병력 113만+보조 200만, 선발 30만5천, 생환 2,800 수치는 출처 불명·과장 가능 → 사용 금지" },
+    { "claim": "생몰년(CSV 550~620) 및 최종 지위(최고 사령관급)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Eulji_Mundeok", "note": "문서 내 사망이 '618년 이후'와 '613년 이후 이름 미확인'으로 상충. 생몰년 미상 표기 권장(CSV flag=verify 근거 확인됨). 출신지는 18세기 『해동명장전』이라 후대 기록. 막리지 직위는 근거 없음" },
+    { "claim": "수 장수 우중문에게 보냈다는 오언시(여수장우중문시)", "result": "unverifiable", "evidence_level": "verify", "source": "『삼국사기』(unread) ; 모델 지식·확인 필요", "note": "문서에는 '을지문덕 한시'가 가장 오래된 한시 중 하나라는 언급만 있음. 시구 인용 전 원문·진위 확인 필요(창작 대사로 쓰지 말고 전승 표기)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["612년 수의 침공을 방어", "거짓 후퇴로 적을 깊이 끌어들인 기만 전술(accepted)", "『삼국사기』가 살수 승리를 그의 공으로 기록"],
+    "forbidden": ["수군 병력·사상자 수치(113만·2,800 등)", "시구 전문 인용(진위 verify, 인용하면 '전해진다' 표기)", "출신·사망 서술", "신채호의 민족주의 평가를 사실로 서술", "수나라의 멸망을 그의 공으로 단정", "적진 정탐 위장 투항 일화 단정(문서 미확인)"],
+    "name_candidates": ["살수의 승전(전투명 accepted)", "거짓 후퇴(전술, 효과 중심)", "청야 기동(효과 중심, 용어는 확인 필요)"],
+    "tone": "중립. 중국 측 사료와 『삼국사기』의 서술 차이와 근대 민족주의 평가를 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 114,
+   "name_ko": "계백",
+   "seed_code": "gyebaek",
+   "checks": [
+    { "claim": "660년 황산벌 전투에서 신라군과 맞서 싸우다 전멸, 660-08-20(음력 7월 9일) 전사", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Gyebaek ; 『삼국사기』 계백전(unread)", "note": "백제는 곧 멸망(660)" },
+    { "claim": "5,000명으로 신라군 5만(문서: 단일 출처 McBride 2024)과 맞서 초기 4차례 싸워 이김", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Gyebaek ; 『삼국사기』(unread)", "note": "병력 수치는 사용 금지. 4회 승리 세부는 문서에 없음. 관창 일화는 문서 미확인 → verify" },
+    { "claim": "출생 연도·출신지·관직(달솔·좌평 등)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Gyebaek", "note": "문서는 출생 불명·사생활 정보 거의 없음이라 서술(CSV flag=verify 근거 확인됨). 생몰 표기에서 출생 미상 권장" },
+    { "claim": "출정 전 처자를 죽였다는 일화", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Gyebaek", "note": "문서가 reportedly로 표기한 전승" }
+   ],
+   "skill_material": {
+    "safe_facts": ["660년 황산벌에서 신라군과 싸운 백제 장군", "초기 접전에서 여러 차례 승리했다고 전함(accepted)", "후대에 충절의 모범으로 평가(성리학 영향, 평가로 병기)"],
+    "forbidden": ["처자 살해 일화(전승, 폭력 서술 소재 금지)", "병력 수치(5천 vs 5만 등)", "관창과의 일화 단정(미확인)", "'결사대' 서사의 미화", "출신·관직 단정", "백제 멸망의 책임·평가"],
+    "name_candidates": ["황산벌의 결전(전투명 confirmed)", "마지막 방어선(효과 중심)", "결사의 방진(효과 중심, 용어 확인 필요)"],
+    "tone": "중립. 충절 평가는 후대 성리학적 평가로 분리, 신라 측 사료 중심 한계를 note에 병기"
+   }
+  },
+  {
+   "hero_id": 115,
+   "name_ko": "선덕여왕",
+   "seed_code": "queen_seondeok",
+   "checks": [
+    { "claim": "632~647년 재위한 신라 최초의 여왕, 647-02-20(음력 1월 8일) 사망", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Queen_Seondeok_of_Silla ; 『삼국사기』 신라본기·『삼국유사』(unread)", "note": "출생 연도 미상(CSV 580은 대략값, flag=verify 근거 확인됨) → 출생 미상 표기 권장" },
+    { "claim": "첨성대 건립(재위 기간), 황룡사 9층목탑 완공(645년경, 자장의 건의)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Queen_Seondeok_of_Silla", "note": "첨성대는 문서에 재위 2년차(632~647 사이)라 정확한 연도 불명확. 탑 완공 645년은 추정(문서). 현존 첨성대 건립 연대는 학계 논쟁(모델 지식, verify)" },
+    { "claim": "642년 백제의 공격으로 서부 40여 성 및 대야성 함락, 643년 당항성 위협으로 대당 교통로 차단, 647년 비담의 난(김유신·김알천 진압)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Queen_Seondeok_of_Silla", "note": "비담의 난 반란 사유('여왕이 통치 불가')는 서술상 주장. 처형 인원 30여 명 수치는 사용 금지" },
+    { "claim": "『삼국유사』의 예언 일화(모란 그림, 옥문지 개구리, 도리천 매장)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Queen_Seondeok_of_Silla ; 『삼국유사』(unread)", "note": "문서가 전설적 일화로 다룸. 『화랑세기』는 진위 논란이 있어 근거로 쓰지 않음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["신라 최초의 여왕", "첨성대와 황룡사 9층목탑 조영(연대는 대략)", "홀아비·과부·고아·노인 구휼과 세금 감면(문서 서술)", "비담의 난을 김유신 등이 진압", "당과 외교하였으나 당 태종은 여왕 즉위를 인정하지 않음(문서)"],
+    "forbidden": ["모란꽃 향기·옥문지 개구리·사망일 예언 등 예지력 일화를 사실로 서술", "『화랑세기』 내용(남편 3인 등)", "선화공주 동일시", "비담 처형 규모", "김춘추 딸 사망 후 감정 서술", "'여왕의 통치 능력 평가'를 사실처럼(긍정/부정 병존)", "도리천 매장 유언 단정"],
+    "name_candidates": ["첨성대(건축명)", "황룡사 9층목탑(건축명)", "백성 구휼(효과 중심)"],
+    "tone": "중립. 정치적 위기(대야성·비담의 난)와 업적을 사실로, 업적 평가(긍정·부정)는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 312,
+   "name_ko": "키루스 2세",
+   "seed_code": "cyrus_the_great",
+   "checks": [
+    { "claim": "기원전 550년경 메디아 정복(아스티아게스), 기원전 546년경 리디아 정복(크로이소스), 기원전 539년 바빌론 무혈 입성(10월 29일)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Cyrus_the_Great ; 나보니두스 연대기·헤로도토스 1권(unread)", "note": "리디아 정복 연도 547/546 병존. 크로이소스의 운명은 헤로도토스(생존) vs 연대기 일부 번역(살해)으로 상충 → 서술 금지. 문서 앞 100,000자까지 열람, 뒷부분 unread" },
+    { "claim": "키루스 원통에 바빌론 신전 복구·추방민 귀환 서술, '인권 헌장' 해석", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Cyrus_the_Great", "note": "문서는 'a form of human rights charter'라는 주장을 소개하고 다수 역사가는 메소포타미아의 즉위 개혁 선언 전통으로 본다고 서술 → 'first human rights charter' 단정 금지" },
+    { "claim": "기원전 530년 사망(마사게타이 원정 중 전사설: 헤로도토스, 다른 사료는 상이)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Cyrus_the_Great", "note": "헤로도토스·크테시아스·베로소스·크세노폰이 서로 다른 사망 서술. 생년 기원전 600~599년경(CSV -600 대략값, flag=verify 근거 확인됨). 576년 설은 문서에 없음" },
+    { "claim": "유대인 귀환을 허용하고 예루살렘 재건을 허락(성서 서술)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Cyrus_the_Great ; 구약 에스라서·이사야서(unread)", "note": "성서 서술 중심. 에스라서는 열람 범위에 없음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["메디아·리디아·바빌로니아를 차례로 복속해 아케메네스 제국 건국", "바빌론 입성은 구바루 부대의 무저항 진입(문서)", "키루스 원통(내용: 신전 복구·추방민 귀환)"],
+    "forbidden": ["'인류 최초의 인권 선언' 단정", "토미리스 일화(머리를 피에 담금)·사망 장면", "유프라테스 물길 우회 바빌론 진입(헤로도토스 서술로만)", "크로이소스 화형·구출 일화", "정복지에 관용적이었다는 일반화(평가)", "정복 전쟁의 피해 서술"],
+    "name_candidates": ["키루스 원통(유물명 confirmed)", "바빌론 입성(효과 중심)", "아케메네스의 건국(효과 중심)"],
+    "tone": "중립. 관용 군주 이미지와 학계 신중론을 평가로 분리. 정복지 통치 방식은 원통 내용으로 한정"
+   }
+  },
+  {
+   "hero_id": 313,
+   "name_ko": "다리우스 1세",
+   "seed_code": "darius_the_great",
+   "checks": [
+    { "claim": "기원전 522년 즉위(스메르디스/바르디야를 제거한 뒤), 베히스툰 비문에 즉위 정당성과 반란 진압을 기록", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Darius_the_Great ; 베히스툰 비문(unread)", "note": "가우마타 사기꾼 서사는 찬탈 은폐를 위한 선전이었다는 견해가 있고, 키루스와의 공통 조상 서술도 조작설이 있음(문서) → 서사 단정 금지. 즉위 1년 내 아홉 '거짓 왕' 진압은 비문 서술" },
+    { "claim": "사트라피(20개) 제도, 왕의 눈과 귀(감찰), 아람어 공용화, 왕도 정비, 다릭 금화 도입", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Darius_the_Great", "note": "20개 사트라피 수와 다릭 도입 시기(기원전 500년 이전)는 문서 서술이나 학계 추정이 섞여 수치·연도 verify. 헤로도토스 3권의 조세 목록은 unread" },
+    { "claim": "기원전 513년 스키타이 원정 실패, 기원전 497년 나일–홍해 운하(다리우스 운하) 개통, 기원전 490년 마라톤 패배, 기원전 486년 사망", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Darius_the_Great", "note": "마라톤은 다리우스가 직접 참전하지 않은 원정(모델 지식, 문서 미확인 → verify). 출생 기원전 550년경은 추정(CSV flag=verify 근거 확인됨)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["사트라피 행정과 감찰 제도", "왕도로·역참", "다릭 금화", "페르세폴리스·수사 건설", "베히스툰 비문"],
+    "forbidden": ["헤로도토스의 말 울음 즉위 일화(신빙성 낮음)", "가우마타 사건을 사실로 단정", "그리스 원정 전투·살상 서술", "20개 사트라피·조세액 수치 단정", "'위대한 왕'의 군사 평가", "이집트·인도 정복의 피해"],
+    "name_candidates": ["왕도로(confirmed)", "사트라피 통치(효과 중심)", "다릭의 금화(효과 중심)"],
+    "tone": "중립. 행정 업적과 즉위 서사의 선전 가능성을 병기"
+   }
+  },
+  {
+   "hero_id": 314,
+   "name_ko": "아르테미시아 1세",
+   "seed_code": "artemisia_i",
+   "checks": [
+    { "claim": "카리아의 할리카르나소스 통치자로 크세르크세스의 동맹이 되어 기원전 480년 살라미스 해전에 5척을 제공해 지휘", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Artemisia_I_of_Caria ; 헤로도토스 7.99·8권(unread)", "note": "헤로도토스가 사실상 유일한 1차 사료이며 플루타르코스는 헤로도토스를 비판. 생몰년 미상(CSV -520~-460 대략값, flag=verify 근거 확인됨)" },
+    { "claim": "크세르크세스에게 해전을 피하라고 조언했으나 받아들여지지 않음", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Artemisia_I_of_Caria", "note": "조언 장면·연설은 헤로도토스의 서술이고 플루타르코스가 정확성에 의문 제기 → 인용 대사 금지" },
+    { "claim": "퇴각 중 아군 칼륀도스 배를 들이받아 침몰시켜 그리스 추격을 피함, 크세르크세스의 '남자는 여자가 되고 여자는 남자가 되었다'", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Artemisia_I_of_Caria ; 헤로도토스 8.87-88(unread)", "note": "헤로도토스는 동기를 확실히 모른다고 서술. 목격자 부재(폴리아이노스: 생존 칼륀도스 선원 없음). 인용문은 헤로도토스 서술로만 전함 → 창작 대사로 쓰지 말고 '전해진다' 표기" },
+    { "claim": "그리스·페르시아 깃발을 번갈아 올려 적을 속임", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Artemisia_I_of_Caria ; 폴리아이노스 『전략서』 8권(unread)", "note": "후대 저자(2세기) 서술. 출처마다 세부가 다름" }
+   ],
+   "skill_material": {
+    "safe_facts": ["카리아의 할리카르나소스 통치자", "살라미스 해전에서 페르시아 함대의 일원으로 5척을 지휘(헤로도토스)", "해전을 피하라는 조언(헤로도토스 서술)"],
+    "forbidden": ["레우카스 절벽 투신 전설(약 1,300년 뒤 포티오스 전승)", "칼륀도스 배 충돌 동기 단정", "크세르크세스 '남자가 되었다' 발언 직접 인용(헤로도토스 서술)", "깃발 기만 전술을 사실로 단정", "그리스 갑옷 하사(전승)", "헤로도토스의 상찬을 객관 평가로 서술", "함선 수·전과 수치"],
+    "name_candidates": ["살라미스의 함대(전투명, 효과 중심)", "할리카르나소스의 여왕(직함 accepted)", "퇴각의 기만(효과 중심, 폴리아이노스 서술임을 note에)"],
+    "tone": "중립. 그리스 사료(헤로도토스)만 남아 있다는 한계와 적대·호의 편향을 note에 병기"
+   }
+  },
+  {
+   "hero_id": 216, "name_ko": "율리우스 카이사르", "seed_code": "julius_caesar",
+   "checks": [
+    { "claim": "기원전 58~52년 갈리아 원정(비브락테·보주 승리)과 52년 알레시아 포위 후 베르킨게토릭스 항복", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Julius_Caesar (r7: 앞 100,000자 열람) ; 『갈리아 전기』(자기 변호적 기록, unread)", "note": "54년 말 군단 1개+대대 5개 전멸, 게르고비아 패배도 사실. 알레시아 이중 성벽 세부·파르살로스 결과는 열람 범위 밖(unread) → verify. 사상자 수치 사용 금지" },
+    { "claim": "기원전 49년 1월 단일 군단(제13군단)을 이끌고 루비콘을 건너 내전 개시, 49~44년 독재관, 44-03-15 암살(55세)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Julius_Caesar", "note": "루비콘 도하 동기는 학계 논쟁. 주사위 발언은 플루타르코스·수에토니우스 인용(진위 verify)" },
+    { "claim": "율리우스력 제정, 퇴역병 식민지 정착, 속주 시민권 확대", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Julius_Caesar", "note": "개혁의 효과 평가는 평가로 분리" }
+   ],
+   "skill_material": {
+    "safe_facts": ["알레시아 포위전에서 포위당하면서도 대승(문서 서술)", "루비콘 도하", "율리우스력", "『갈리아 전기』 저술(자기 변호적 성격 병기)"],
+    "forbidden": ["갈리아 원주민 사망·노예화 수치와 전쟁범죄 평가 서술(대량 인명 사건, 소재 금지)", "'주사위는 던져졌다'를 본인 발언으로 단정", "해적 몸값 50탈렌툼(문학적 과장 견해)", "독재 지향 여부 평가를 사실로 서술", "암살 장면"],
+    "name_candidates": ["알레시아의 포위(전투명 confirmed, 효과 중심)", "루비콘 도하", "율리우스력(효과 중심)"],
+    "tone": "논란 인물. 군사·행정 사실과 독재·공화정 붕괴 평가를 분리하고 미화·단죄 모두 피함"
+   }
+  },
+  {
+   "hero_id": 234, "name_ko": "필리포스 2세", "seed_code": "philip_ii",
+   "checks": [
+    { "claim": "모든 병사가 사리사를 든 마케도니아 방진 도입과 기병 확대(약 600명에서 기원전 334년경 4,000명) 등 군제 개혁의 주체로 귀속", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Philip_II_of_Macedon (r7: 앞 100,000자 열람)", "note": "문서는 개혁을 필리포스에게 credited로만 서술. 필리포스 vs 알렉산드로스 귀속·개혁 시기 논쟁은 문서에 상세 없음 → verify" },
+    { "claim": "기원전 338년 카이로네이아에서 아테네·테베 연합군 격파, 코린트 동맹의 군사 지도자", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Philip_II_of_Macedon", "note": "" },
+    { "claim": "기원전 354년 메토네 공성 중 오른쪽 눈 부상, 336년 10월 아이가이에서 경호병 파우사니아스에게 암살(383/382년 출생)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Philip_II_of_Macedon", "note": "암살 동기와 알렉산드로스·올림피아스 관여 여부는 학자들이 의문 제기(단정 금지). 무덤 식별(Tomb I/II)은 논쟁" }
+   ],
+   "skill_material": {
+    "safe_facts": ["카이로네이아 승리", "사리사 방진과 기병 중심 군제", "혼인 동맹을 활용한 외교", "코린트 동맹 결성"],
+    "forbidden": ["암살 배후 단정", "알렉산드로스와의 갈등 일화 단정", "아내 이름·혼인 날짜(contested)", "무덤 식별 결과"],
+    "name_candidates": ["카이로네이아의 승전(전투명 confirmed)", "사리사 방진(효과 중심)", "코린트 동맹(체제명)"],
+    "tone": "중립. 아들 알렉산드로스의 그늘에 가려진 평가는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 212, "name_ko": "아리스토텔레스", "seed_code": "aristotle",
+   "checks": [
+    { "claim": "기원전 384년 스타게이라 출생, 322년 칼키스 사망. 343/342년 필리포스 2세의 초청으로 펠라에서 13세 알렉산드로스를 교육", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Aristotle (r7: 앞 100,000자 열람)", "note": "생애 세부 대부분 불확실하다고 문서가 명시. 교육 기간은 몇 년 정도" },
+    { "claim": "아테네에서 리케이온을 열고 논리학·형이상학·자연철학·윤리학·정치학·수사학·시학을 다룸(소요학파)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Aristotle", "note": "현존 저작은 전체의 약 1/3이며 대부분 원형 그대로가 아닐 가능성(문서). 322년 불경죄 고발 후 칼키스 피신은 전승(근거 불명확, verify)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["알렉산드로스의 스승", "리케이온 설립", "논리학·생물학·윤리학·정치학 체계화"],
+    "forbidden": ["알렉산드로스 독살 관여설(증거 없음)", "군사적 역할 서술(문서에 없음)", "저작 귀속 단정", "칼키스 피신 동기 단정"],
+    "name_candidates": ["리케이온(학교명)", "삼단논법(효과 중심)", "중용(개념명)"],
+    "tone": "중립. 학문 업적 중심, 군사 소재 금지"
+   }
+  },
+  {
+   "hero_id": 210, "name_ko": "소크라테스", "seed_code": "socrates",
+   "checks": [
+    { "claim": "기원전 470/469년 출생, 399년 아테네에서 독미나리 독약으로 사형(불경·청년 타락 죄목)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Socrates (r7: 앞 100,000자 열람)", "note": "재판 동기(종교 vs 정치)는 견해 갈림" },
+    { "claim": "펠로폰네소스 전쟁 중 포티다이아(432), 델리온 후 퇴각, 암피폴리스(422)에 참전하며 두각을 나타냈다는 플라톤의 서술", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Socrates ; 플라톤 『향연』·『변명』(unread)", "note": "문서에 중무장 보병(hoplite)이라는 표현이 없음 → 병종 근거 verify. 플라톤 기록이 소크라테스 본인인지 플라톤 투영인지 논쟁('소크라테스 문제')" }
+   ],
+   "skill_material": {
+    "safe_facts": ["문답법(엘렌코스)", "펠로폰네소스 전쟁 참전(플라톤의 서술임을 병기)", "399년 재판과 사형"],
+    "forbidden": ["'너 자신을 알라'·'나는 내가 모른다는 것을 안다'를 본인 직접 발언으로 단정", "정치 성향 단정", "처형 장면", "방패·갑옷 무장 묘사 단정"],
+    "name_candidates": ["문답법(효과 중심)", "산파술(비유명)", "무지의 자각(효과 중심)"],
+    "tone": "중립. 플라톤·크세노폰·아리스토파네스 기록이 서로 다르다는 점을 note에 병기"
+   }
+  },
+  {
+   "hero_id": 220, "name_ko": "마르쿠스 아우렐리우스", "seed_code": "marcus_aurelius",
+   "checks": [
+    { "claim": "121-04-26 로마 출생, 180-03-17 사망(빈도보나 또는 시르미움). 161~169년 루키우스 베루스와 공동 황제", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Marcus_Aurelius (r7: 앞 100,000자 열람)", "note": "사망 장소는 기록이 엇갈림" },
+    { "claim": "마르코만니·콰디·야지게스를 격파, 재위 중 165/166년부터 안토니누스 역병(사망 500만~1,000만 추정)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Marcus_Aurelius", "note": "변경에 직접 머문 서술은 열람 범위에서 확인 불가(unread) → verify. 역병 사망 수치는 추정" },
+    { "claim": "그리스어 『명상록』 저술(스토아 철학)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Marcus_Aurelius", "note": "집필 연대 특정 어려움. 세속 사건 언급 적음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["마르코만니 전쟁에서 북방 변경 방어", "『명상록』", "루키우스 베루스와의 공동 통치"],
+    "forbidden": ["기독교 박해 책임 단정(문서는 직접 책임 가능성 낮다고 봄)", "코모두스 승계 평가", "아비디우스 카시우스 반란 세부(unread)", "명상록 문장을 본인 발언 대사로 단정"],
+    "name_candidates": ["명상록(저작명)", "북방 변경 방어(효과 중심)", "스토아의 평정(개념 효과 중심)"],
+    "tone": "중립. 철인 황제 이미지는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 541, "name_ko": "파비우스 막시무스", "seed_code": "fabius_maximus",
+   "checks": [
+    { "claim": "기원전 217년 트라시메누스 호수 패배 후 독재관에 임명되어 한니발과의 정면 회전을 피하고 보급을 차단하는 지구전", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Quintus_Fabius_Maximus_Verrucosus (r7)", "note": "Cunctator(지연자)는 원래 모욕적 별명. 한니발이 이 전략을 두려워했다는 서술은 플루타르코스 의존(verify)" },
+    { "claim": "기원전 209년 타렌툼 재탈환, 203년 사망(출생 약 280년)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Quintus_Fabius_Maximus_Verrucosus", "note": "문서는 본인의 직접 군사 성과를 small로 평가. 221년 독재관 재임은 증거 불충분. 스키피오 원정 반대 동기(방어 우려 vs 질투)는 병기" }
+   ],
+   "skill_material": {
+    "safe_facts": ["지구전(정면 회전 회피)", "타렌툼 재탈환", "미누키우스와의 갈등으로 지구전이 비판받음"],
+    "forbidden": ["'네가 잃지 않았다면…' 대사를 사실로 단정(전승, 창작 대사 표기)", "스키피오 질투 동기 단정", "지구전이 전쟁을 승리로 이끌었다는 단정"],
+    "name_candidates": ["지연 전략(효과 중심)", "타렌툼의 탈환", "보급 차단(효과 중심)"],
+    "tone": "중립. 후대의 '파비우스 전략' 평가와 당대 비판을 병기"
+   }
+  },
+  {
+   "hero_id": 244, "name_ko": "윌리엄 1세", "seed_code": "william_i",
+   "checks": [
+    { "claim": "1066-10-14 헤이스팅스에서 해럴드 고드윈슨의 앵글로색슨군을 격파(해럴드 전사)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/William_the_Conqueror (r7: 앞 100,000자 열람)", "note": "문서는 전투 전개가 상충 기록으로 불분명하다고 명시. 거짓 후퇴 전술의 실제 여부와 해럴드 사망 경위는 verify" },
+    { "claim": "1086년 전국 토지 보유 현황 조사 목록(도메스데이 북) 편찬 명령, 워윅·요크·링컨 등 성 건설로 통치", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/William_the_Conqueror", "note": "" },
+    { "claim": "1069~70년 요크 반란 후 북부 황폐화(소각·파괴 포함)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/William_the_Conqueror", "note": "평가 쟁점·피해 규모는 서술하지 않음. 출생 1027/28, 사망 1087-09-09 루앙" }
+   ],
+   "skill_material": {
+    "safe_facts": ["헤이스팅스 승리", "도메스데이 북 편찬", "성채망을 통한 통치", "바이외 태피스트리는 사료이나 관례적 표현"],
+    "forbidden": ["북부 황폐화 피해·학살 서술(대량 인명 사건, 소재 금지)", "해럴드 눈에 화살(태피스트리 후대 수정 가능성)", "교황 승인 단정(노르만 측 주장)", "거짓 후퇴를 확정 전술로 서술"],
+    "name_candidates": ["헤이스팅스의 결전(전투명 confirmed)", "도메스데이 조사(효과 중심)", "성채 통치(효과 중심)"],
+    "tone": "논란 인물. 정복 사업·행정 사실과 북부 진압 평가를 분리"
+   }
+  },
+  {
+   "hero_id": 245, "name_ko": "엘 시드", "seed_code": "el_cid",
+   "checks": [
+    { "claim": "1092년 발렌시아 봉기 후 포위, 1094년 독립 공국 수립(공식으로는 알폰소 6세의 이름), 1094-10-21 쿠아르테에서 알모라비드에 첫 대규모 패배를 안김", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/El_Cid (r7: 앞 100,000자 열람) ; Historia Roderici(문서 인용, unread)", "note": "문서는 '발렌시아에서 패배하지 않았다'는 한정 표현만 사용. 알모라비드 전투 세부는 verify" },
+    { "claim": "1079년 카브라 후 알폰소 6세의 노여움으로 1081년 추방되어 사라고사 타이파에 복무, 알메나르(1082)·모렐라(1084) 승리", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/El_Cid", "note": "생몰 약 1043~1099-07-10. Historia Roderici가 서사시 『엘 시드의 노래』보다 신뢰도 높음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["발렌시아 포위와 공국 수립", "쿠아르테 승리", "기독교인·무슬림이 함께 군과 행정에 참여한 다원적 사회(문서)"],
+    "forbidden": ["'평생 한 번도 패배하지 않았다'", "사후 시신을 말에 태워 승전(전설)", "티소나·콜라다 검을 본인 것으로 단정", "산타 가데아 맹세(Historia Roderici에 없음)", "종교 전쟁 영웅 서사"],
+    "name_candidates": ["발렌시아 포위(효과 중심)", "쿠아르테의 승전(전투명)", "공존의 도시(효과 중심)"],
+    "tone": "중립. 기독교·이슬람 어느 쪽의 영웅화도 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 246, "name_ko": "리처드 1세", "seed_code": "richard_i",
+   "checks": [
+    { "claim": "제3차 십자군: 1191-06 아크레 합류, 1191-09-07 아르수프에서 살라딘군 격파, 1192년 야파 전투, 예루살렘 미탈환 후 1192-09-02 살라딘과 합의(아스칼론 성벽 철거·순례자 접근·3년 휴전)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Richard_I_of_England (r7: 앞 100,000자 열람)", "note": "문서는 Treaty of Jaffa/Ramla 명칭을 쓰지 않음 → 조약명 verify. 예루살렘 미탈환 원인은 날씨·지휘권 분열·이집트 공격 실패로 제시" },
+    { "claim": "1192~94년 오스트리아 레오폴트에게 붙잡혀 하인리히 6세에게 인도, 15만 마르크 몸값으로 1194-02-04 석방. 1199-04-06 샬뤼에서 쇠뇌 화살 상처로 사망", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Richard_I_of_England", "note": "재위 중 잉글랜드 체류는 약 6개월 정도로 추정" }
+   ],
+   "skill_material": {
+    "safe_facts": ["아르수프 승리", "야파에서 대열 앞을 달렸다는 무슬림 측 기록(바하 알딘)", "3년 휴전 합의", "몸값 석방"],
+    "forbidden": ["아크레 포로 약 2,700명 처형의 평가·장면 서술(대량 인명 사건, 소재 금지)", "성적 지향 추측", "살라딘과의 기사도 일화(후대 전승)", "'사자심왕' 별명 유래 단정", "헨리 2세 시신 일화(citation needed)"],
+    "name_candidates": ["아르수프의 승전(전투명 confirmed)", "야파의 돌격", "3년 휴전(효과 중심)"],
+    "tone": "중립. 서구 기사도 이미지와 이슬람권 사료의 시각 차이를 병기"
+   }
+  },
+  {
+   "hero_id": 247, "name_ko": "아키텐의 엘레오노르", "seed_code": "eleanor_aquitaine",
+   "checks": [
+    { "claim": "1137년 아키텐 공작 지위 상속 후 루이 7세와 혼인(프랑스 왕비 1137~1152), 1152년 혼인 무효 후 앙리(헨리 2세)와 재혼(잉글랜드 왕비 1154~1189)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Eleanor_of_Aquitaine (r7: 앞 100,000자 열람)", "note": "출생은 1122 또는 1124년, 현재는 1124년이 일반적. 사망 1204-04-01 퐁트브로" },
+    { "claim": "헨리 2세·리처드 1세 시기 장기 부재한 왕을 대신해 섭정 또는 공동 섭정, 1173년 반란(아들들) 지지 혐의로 투옥되어 1189년 석방", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Eleanor_of_Aquitaine", "note": "반란 세부와 리처드 포로기 몸값 서술은 열람 범위 밖(unread). 제2차 십자군 책임 논쟁은 아래 forbidden 참고" }
+   ],
+   "skill_material": {
+    "safe_facts": ["아키텐 상속녀", "프랑스·잉글랜드 두 왕국의 왕비", "섭정 활동", "여러 작가가 작품을 헌정"],
+    "forbidden": ["사랑의 궁정(courts of love)·궁정 연애 후원 서사(황금 전설, 문서는 후원 주장이 과장됐다고 평가)", "제2차 십자군 아마존 전사 묘사와 카드무스 산 패배 책임(윌리엄 오브 티레는 수십 년 뒤 기록)", "안티오크 삼촌 염문설", "흑색 전설·황금 전설 양극단 서술"],
+    "name_candidates": ["아키텐의 상속(효과 중심)", "왕의 부재 중 섭정(효과 중심)", "퐁트브로의 말년(효과 중심)"],
+    "tone": "중립. 중세 연대기의 부정적 묘사와 20세기 페미니스트 영웅상을 모두 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 264, "name_ko": "에드워드 흑세자", "seed_code": "black_prince",
+   "checks": [
+    { "claim": "1330-06-15 출생, 1376-06-08 사망(부왕보다 먼저). 1346년 크레시 선봉 지휘(16세), 1356년 푸아티에에서 프랑스군을 격파하고 존 2세를 포로로 잡음", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Edward_the_Black_Prince (r7: 앞 100,000자 열람)", "note": "크레시에서 부왕이 박차를 얻도록 지원을 보내지 않았다는 일화는 verify. 사망 원인(말라리아·브루셀라증·이질 합병증 등)은 불확실" },
+    { "claim": "1355년 아키텐 샤보세(chevauchée)로 여러 도시 약탈, 1367년 나헤라에서 엔리케 트라스타마라 격파, 1370년 리모주 점령·파괴", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Edward_the_Black_Prince", "note": "리모주 희생자는 프루아사르 3,000명 vs 현대 추정 약 300명으로 이견. 영국은 기사도 모범, 프랑스 사료는 잔혹성으로 기억(평가 분리)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["크레시 선봉 지휘", "푸아티에에서 존 2세 포획", "나헤라 승리", "아키텐 샤보세(기동 작전 명칭)"],
+    "forbidden": ["리모주 학살 규모·장면(대량 인명 사건, 소재 금지)", "'흑세자' 별칭 유래 단정", "독살설", "크레시 박차 일화를 사실로 서술"],
+    "name_candidates": ["푸아티에의 승전(전투명 confirmed)", "크레시의 선봉", "아키텐 기동 작전(효과 중심)"],
+    "tone": "논란 인물. 영국의 기사도 이미지와 프랑스 사료의 잔혹성 서술을 평가로 분리, 전술·기동 소재만 사용"
+   }
+  },
+  {
+   "hero_id": 265, "name_ko": "헨리 5세", "seed_code": "henry_v",
+   "checks": [
+    { "claim": "1415-10-25 아쟁쿠르에서 비로 진흙탕이 된 땅에 프랑스 중기병이 발이 묶인 사이 영국 궁수가 측면 공격해 승리(영국군은 지치고 열세)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Henry_V_of_England (r7: 앞 100,000자 열람)", "note": "병력은 영국 1만~1만 2천 추정이나 사상자 수치는 불확실. 사용 금지. 아르플뢰르는 1415-09-22 함락" },
+    { "claim": "1417~19년 노르망디 정복(루앙 1419-01-19 함락), 1420년 트루아 조약으로 샤를 6세의 후계자·섭정 인정, 카트린 드 발루아와 혼인, 1422-08-31 사망(이질 유력)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Henry_V_of_England", "note": "남부 도팽파 지역은 조약을 수용하지 않음. 1403년 슈루즈버리에서 16세에 얼굴에 화살을 맞고 생존" }
+   ],
+   "skill_material": {
+    "safe_facts": ["아쟁쿠르 승리(궁수·진흙 지형)", "노르망디 정복", "트루아 조약", "슈루즈버리 부상 후 생존"],
+    "forbidden": ["아쟁쿠르 포로 살해 명령의 평가·장면(영국 측은 후위 공격 위협, 부르고뉴 측은 몸값 우려로 서술이 엇갈림)", "루앙 포위 중 민간인 방치 서술", "테니스공 일화(진위 불확실)", "병력·사상자 수치", "셰익스피어 대사를 사실로 인용"],
+    "name_candidates": ["아쟁쿠르의 장궁(효과 중심, 전투명 confirmed)", "트루아 조약(조약명)", "노르망디 원정(효과 중심)"],
+    "tone": "중립. 셰익스피어가 만든 영웅상은 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 276, "name_ko": "크리스틴 드 피장", "seed_code": "christine_de_pizan",
+   "checks": [
+    { "claim": "1364년 베네치아 공화국 출생, 약 1430년 포아시 사망. 『도시의 귀부인들의 책』(1405)·『세 가지 덕의 책』(1405)·『무기와 기사도의 행위에 관한 책』(1410)·『잔 다르크 이야기』(1429) 등을 저술", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Christine_de_Pizan (r7: 앞 100,000자 열람)", "note": "사망 연도는 추정. 『잔 다르크 이야기』는 1429년 작품" },
+    { "claim": "1410년 『무기와 기사도의 행위에 관한 책』은 전쟁법을 다루고 결투 재판에 반대하는 기사도 매뉴얼", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Christine_de_Pizan", "note": "의뢰자 불명, 1488년 출판업자 베라르는 베게티우스 번역본이라 주장(귀속 문제). '유럽 최초의 직업 여성 문인'은 학자 평가, '최초의 페미니즘 저작'은 평가 주체 불명(verify)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["『도시의 귀부인들의 책』 저술", "전쟁법과 기사도를 다룬 1410년 저작", "잔 다르크를 노래한 1429년 시"],
+    "forbidden": ["'최초의 페미니스트' 단정(평가)", "군사 전문가 서술(저술가일 뿐 지휘 기록 없음)", "저작 귀속 단정(베게티우스 번역설)", "사망 연도 확정"],
+    "name_candidates": ["귀부인들의 도시(저작명 효과 중심)", "기사도의 서(효과 중심)", "잔 다르크의 노래"],
+    "tone": "중립. 후대 페미니즘적 재평가는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 288, "name_ko": "엘리자베스 1세", "seed_code": "elizabeth_i",
+   "checks": [
+    { "claim": "1533-09-07 출생, 1603-03-24 사망. 1559년 수장령(최고 수장 칭호)·통일령으로 영국 국교회 체제 확립", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Elizabeth_I (r7: 앞 100,000자 열람)", "note": "1563년 후계·결혼 요구를 거부하고 의회 정회, 1566년 과세 필요로 재소집" },
+    { "claim": "1588년 스페인 아르마다를 드레이크와 하워드가 이끈 해군이 요격(그라블린 화공선 등), 1587-02-08 메리 스튜어트 처형", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Elizabeth_I", "note": "본인이 함대를 직접 지휘하지 않았음. 틸버리 연설·아일랜드 원정 세부는 열람 범위 밖(unread) → verify. 메리 처형 책임을 비서에게 돌린 해명의 진정성은 의문" }
+   ],
+   "skill_material": {
+    "safe_facts": ["수장령·통일령", "아르마다 요격(드레이크·하워드의 지휘)", "의회와의 관계", "후계·결혼 문제를 거부"],
+    "forbidden": ["틸버리 연설 문구를 본인 발언으로 단정(unread, 진위 verify)", "메리 처형 책임 단정", "처녀 여왕 서사", "사략선의 해적 행위 미화", "아르마다 승리를 본인 전술로 서술"],
+    "name_candidates": ["수장령(법령명)", "아르마다 요격(효과 중심)", "엘리자베스 시대의 해양(효과 중심)"],
+    "tone": "중립. 황금시대 이미지는 평가로 분리, 종교 갈등 평가 제외"
+   }
+  },
+  {
+   "hero_id": 279, "name_ko": "레오나르도 다 빈치", "seed_code": "leonardo_da_vinci",
+   "checks": [
+    { "claim": "1452-04-15 출생, 1519-05-02 클로 뤼세 사망(67세). 1500년 베네치아 해상 공격 방어 구상, 1502년 체사레 보르자의 군사 건축가·기술자(지도·이몰라 도시 계획)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Leonardo_da_Vinci (r7: 앞 100,000자 열람)", "note": "출생지 빈치는 전승으로 불확실. 밀라노 루도비코 스포르차에게 보낸 서신의 실제 수행 범위는 문서에 상세 없음(verify)" },
+    { "claim": "군사 설계 대부분은 생전에 제작되었거나 실현 가능했던 것이 적음(장갑 전투차량은 구상 수준)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Leonardo_da_Vinci", "note": "'탱크'라는 표현과 거대 석궁은 열람 범위에서 확인되지 않음. 기마상은 1494년 청동이 대포용으로 전용되어 미완. 해부학 연구는 출판하지 않아 직접 영향이 적었음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["군사 건축가·기술자로 일함", "모나리자·최후의 만찬(미술 업적)", "해부학 연구 수기", "설계 대부분이 실현되지 않았다는 한계"],
+    "forbidden": ["탱크·헬리콥터 등 설계를 실현된 발명으로 서술", "살바토르 문디·밀랍 기마상 등 귀속 논쟁 작품", "독수리 어린 시절 기억 일화", "만능인 슬로건"],
+    "name_candidates": ["최후의 만찬(작품명)", "해부 수기(효과 중심)", "군사 기술자의 도면(효과 중심)"],
+    "tone": "중립. 천재 이미지와 실제 실현 기록의 간극을 병기"
+   }
+  },
+  {
+   "hero_id": 290, "name_ko": "구스타브 2세 아돌프", "seed_code": "gustavus_adolphus",
+   "checks": [
+    { "claim": "1630-06 포메른 상륙으로 30년 전쟁 개입, 1631-09-17 브라이텐펠트에서 틸리의 가톨릭군 격파, 1632년 3월 레흐강 근처 승리 후 5월 17일 뮌헨 점령, 1632-11-06 뤼첸에서 기병 돌격 중 전사", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Gustavus_Adolphus (r7: 앞 100,000자 열람)", "note": "병력 수치는 사용 금지. 생몰 1594-12-09 ~ 1632-11-06" },
+    { "claim": "기병·보병·포병을 결합한 운용, 경량 기동포, 얕은 보병 대형, 교구 등록 제도로 징세·징병 효율 향상", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Gustavus_Adolphus", "note": "리들 하트·브르제진스키는 그의 명성이 과장되었으며 혁신 다수가 측근 참모들에게서 나왔다고 봄(귀속 논쟁). 암살설은 1707년 카를 12세가 근거 부족으로 일축" }
+   ],
+   "skill_material": {
+    "safe_facts": ["브라이텐펠트 승리", "복합 병과 운용과 경량 포", "뤼첸에서 기병과 함께 돌격하다 전사", "교구 등록 제도"],
+    "forbidden": ["'근대 전쟁의 아버지' 평가를 사실로 서술", "암살설(프란츠 알브레히트)", "개혁을 본인 단독 업적으로 서술", "종교 전쟁 정당화"],
+    "name_candidates": ["브라이텐펠트의 승전(전투명 confirmed)", "경량 포 운용(효과 중심)", "뤼첸의 돌격"],
+    "tone": "중립. 개혁 귀속과 명성 평가를 병기"
+   }
+  },
+  {
+   "hero_id": 295, "name_ko": "마리아 테레지아", "seed_code": "maria_theresa",
+   "checks": [
+    { "claim": "1740년 부친 사후 합스부르크 군주국 통치, 국사조칙이 법적 근거였으나 여러 나라가 파기. 1740~48 오스트리아 계승전쟁에서 프리드리히 2세의 실레지아 침공으로 아헨 조약(1748)에 실레지아 대부분을 프로이센에 넘김", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Maria_Theresa (r7: 앞 100,000자 열람)", "note": "1717-05-13 ~ 1780-11-29 빈. 칠년전쟁(1756~63)에서 실레지아 재탈환 실패" },
+    { "claim": "1741년 헝가리 의회의 지지를 얻어 헝가리 여왕으로 대관, 행정·재정·의료·교육 개혁과 군 재편 추진", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Maria_Theresa", "note": "세제 개혁·의무교육 세부와 개혁 성과 평가는 열람 범위 밖(unread) → verify. 공동 통치자 프란츠 1세·요제프 2세가 있었으나 실권은 마리아 테레지아" }
+   ],
+   "skill_material": {
+    "safe_facts": ["국사조칙에 의한 즉위와 계승 전쟁", "1741년 헝가리 의회 지지 확보", "행정·재정·교육·군 개혁(세부 verify)"],
+    "forbidden": ["반유대 정책 서술·평가(문서: 당대 가장 반유대적 군주 중 하나로 평가, 일부 완화도 있음 → 소재 금지)", "'어머니 여제' 호칭 평가", "헝가리 의회 연설 장면(전승)", "개혁 성과 평가를 사실로 서술"],
+    "name_candidates": ["국사조칙(법령명)", "헝가리 의회의 지지(효과 중심)", "행정 개혁(효과 중심)"],
+    "tone": "중립. 계몽 개혁과 차별 정책을 평가로 분리, 소재는 행정·외교에 한정"
+   }
+  },
+  {
+   "hero_id": 296, "name_ko": "프리드리히 대왕", "seed_code": "frederick_great",
+   "checks": [
+    { "claim": "1712-01-24 베를린 출생, 1786-08-17 포츠담 사망, 1740~86 프로이센 왕. 1740년 말 실레지아 침공, 1742년 브레슬라우 조약으로 실레지아 획득, 1744년 제2차 실레지아 전쟁 개시", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Frederick_the_Great (r7: 앞 100,000자 열람)", "note": "모이빗츠에서는 기병 문제로 프리드리히가 전장을 떠났고 이후 기병 교리를 재정비. 로이텐 사선 대형·로스바흐·쿠너스도르프·칠년전쟁 결과는 본문 설명이 열람 범위에 없음(unread) → verify" },
+    { "claim": "관료제·사법 제도 개혁(낮은 신분도 판사·고위 관료 가능), 계몽절대주의('국가의 첫 번째 공복')", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Frederick_the_Great", "note": "부친이 물려준 규율 높은 보병이 승리의 핵심 요인으로 서술. 개신교 우대와 유대인·가톨릭 관용, 일부 편견. 『반마키아벨리』는 1740년 익명 출간" }
+   ],
+   "skill_material": {
+    "safe_facts": ["실레지아 전쟁과 브레슬라우 조약", "규율 높은 보병 중심 군", "사법·관료 개혁", "국가의 첫 번째 공복이라는 군주관(문서 서술)"],
+    "forbidden": ["사선 대형의 독창성·로이텐 전술 세부(unread)", "'오스트리아 가문의 기적'(unread) 서술", "볼테르와의 관계 일화", "감자 보급 일화(출처 미확인)", "대왕 호칭을 우열 평가로 사용"],
+    "name_candidates": ["실레지아 전쟁(전쟁명)", "규율 보병(효과 중심)", "국가의 첫 공복(문서 서술)"],
+    "tone": "중립. 침략 전쟁과 개혁 군주 평가를 분리"
+   }
+  },
+  {
+   "hero_id": 297, "name_ko": "표트르 대제", "seed_code": "peter_great",
+   "checks": [
+    { "claim": "1709년 폴타바에서 스웨덴군에 결정적 승리, 대북방전쟁에서 승리해 1721년 니스타드 조약으로 발트해 동부 연안 상당 부분을 얻고 러시아는 차르국에서 제국으로 격상", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Peter_the_Great (r7: 앞 100,000자 열람)", "note": "1711년 프루트 원정은 실패해 프루트 조약으로 흑해 항구 반환. 1672-06-09 ~ 1725-02-08" },
+    { "claim": "1703년 상트페테르부르크 건설(1712년 수도 이전), 아조프 원정 후 해군 창설, 1697~98년 대사절단, 통치원(1711)·참사회(1717)·등급표(1722) 도입", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Peter_the_Great", "note": "대사절단의 대오스만 동맹 확대는 실패. citation needed 표시 일화(마트베예프 관계·가발 일화·대영박물관 주장)는 verify. 뉴턴 만남 여부는 불분명. 황태자 알렉세이의 죽음은 열람 범위 밖(unread)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["폴타바 승리", "상트페테르부르크 건설", "해군 창설", "등급표·통치원 도입", "프루트 원정 실패(사실로 병기)"],
+    "forbidden": ["황태자 알렉세이 사건 서술(unread, 평가 쟁점)", "서구화 강요(수염세 등) 평가", "건설 노동자 희생 서술", "citation needed 일화", "뉴턴 면담"],
+    "name_candidates": ["폴타바의 승전(전투명 confirmed)", "등급표(제도명)", "발트해로 열린 창(효과 중심)"],
+    "tone": "중립. 근대화 성과와 강압적 방식에 대한 평가를 분리"
+   }
+  },
+  {
+   "hero_id": 303, "name_ko": "허레이쇼 넬슨", "seed_code": "nelson",
+   "checks": [
+    { "claim": "1798년 나일 해전 결정적 승리, 1801년 코펜하겐에서 덴마크 함대 격파, 1805-10-21 트라팔가르 승리 중 프랑스 저격수의 총상으로 전사", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Horatio_Nelson,_1st_Viscount_Nelson (r7: 앞 100,000자 열람)", "note": "1758-09-29 ~ 1805-10-21. 코펜하겐 눈 가리기(blind eye) 일화와 넬슨 터치 전술, 1799년 나폴리 사건 세부는 열람 범위 밖(unread) → verify" },
+    { "claim": "1794년 칼비 공성전에서 오른쪽 눈 시력 부분 상실, 1797년 산타크루스 데 테네리페 공격 실패 중 오른팔 절단, 1798년 나일에서 이마 부상", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Horatio_Nelson,_1st_Viscount_Nelson", "note": "1797 세인트 빈센트 해전에서 명령을 어기고 대열 이탈했다는 평가·파커 제독의 보고 이의 제기. 'England expects' 신호문은 전사 직전 신호(문구 번역 병기)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["나일·코펜하겐·트라팔가르 승리", "부상 이력(눈·오른팔·이마)", "트라팔가르 직전 신호 'England expects that every man will do his duty'"],
+    "forbidden": ["나폴리 관여와 해밀턴 부인과의 관계 평가", "blind eye 일화를 사실로 서술(unread)", "넬슨 터치를 확정 전술로 서술(unread)", "세인트 빈센트 보고 논쟁 단정", "전사 장면"],
+    "name_candidates": ["나일의 결전(전투명 confirmed)", "트라팔가르의 신호(효과 중심)", "코펜하겐 해전"],
+    "tone": "중립. 영웅 숭배와 사생활·나폴리 평가를 분리"
+   }
+  },
+  {
+   "hero_id": 43, "name_ko": "조조", "seed_code": "cao_cao",
+   "checks": [
+    { "claim": "약 155년 출생(패국 초현), 220-03-15 낙양 사망. 200년 관도에서 원소를 격파하고 202~207년 원소 후계자 제압·오환 정벌로 북중국 장악", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Cao_Cao (r7: 앞 100,000자 열람) ; 진수 『삼국지』(문서 인용, unread)", "note": "출생 연도는 c. 추정. 208년 적벽에서 손권·유비 연합군에 패해 강남 진출 좌절(패배도 사실로 병기)" },
+    { "claim": "조지·한호의 건의로 둔전제 시행(농업 식민지로 식량 안정·유민 재정착), 213년 위공·216년 위왕", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Cao_Cao", "note": "시로 높이 평가되며 『손자병법』 주석이 후대 문헌에 전함. 후한 멸망과 조비 계승을 '찬탈'로 보는 시각은 평가" },
+    { "claim": "서주 공격 중 민간인 학살(수천 명 규모 서술)", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Cao_Cao", "note": "규모는 정확히 특정되지 않음. 『위서』(조씨 왕조 편찬, 우호적) vs 『조만전』(오 측 기록, 문서가 hostile propaganda로 평가). 소재 금지" }
+   ],
+   "skill_material": {
+    "safe_facts": ["관도 전투 승리", "둔전제", "북중국 통일 과정", "시와 『손자병법』 주석", "적벽 패배(사실로 병기)"],
+    "forbidden": ["서주 학살 규모·장면(대량 인명 사건, 소재 금지)", "『삼국지연의』의 간웅 묘사·'차라리 내가 천하를 저버릴지언정' 류 대사(연의 창작, 정사 일부 주석 전승 verify)", "황제 전용 의례를 둘러싼 찬탈 평가", "병력 수치(적벽 22만 vs 80만 주장)"],
+    "name_candidates": ["관도의 승전(전투명 confirmed)", "둔전(제도명, 효과 중심)", "북방 평정(효과 중심)"],
+    "tone": "논란 인물. 군사·행정 사실과 학살·찬탈 평가를 분리하고 미화·단죄 모두 피함. 연의 이미지는 제외"
+   }
+  },
+  {
+   "hero_id": 50, "name_ko": "사마의", "seed_code": "sima_yi",
+   "checks": [
+    { "claim": "179년 출생, 251-09-07 사망(71~72세, 기록 차이). 228년 신성에서 반란한 맹달을 신속히 진압, 231~234년 제갈량의 북벌을 방어(오장원 대치 중 제갈량 병사 후 촉군 철수)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sima_Yi (r7: 앞 100,000자 열람) ; 『진서』·『자치통감』(unread)", "note": "『진서』와 『자치통감』 간 기록 차이(기산 전투 세부·오장원 밤 기습·마대 격파·왕릉 반란)가 있어 세부는 verify" },
+    { "claim": "238년 요동 공손연 평정(공손연 부자 같은 해 사망), 239년 조상과 함께 섭정, 249년 가평릉 정변으로 조상 제거 후 실권 장악, 251년 왕릉 반란 진압", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sima_Yi", "note": "요동 점령 후 대규모 처형 서술은 사료별 해석 차이(verify). 손자 사마염이 266년 진 건국의 기반" }
+   ],
+   "skill_material": {
+    "safe_facts": ["맹달 반란을 신속히 진압", "제갈량 북벌 방어와 오장원 대치", "요동 정벌", "섭정 권한 획득"],
+    "forbidden": ["공성계에 속아 퇴각한 일화·'죽은 제갈이 산 중달을 쫓았다'(연의/전승)", "요동 처형 규모 서술(대량 인명 사건)", "가평릉 정변의 도덕 평가·찬탈 서사", "『진서』 미화 서술을 사실로"],
+    "name_candidates": ["오장원의 대치(전투명 accepted)", "신성의 신속 진압(효과 중심)", "북벌 방어(효과 중심)"],
+    "tone": "논란 인물. 군사·정치 사실과 『진서』의 사마씨 편향을 note로 분리"
+   }
+  },
+  {
+   "hero_id": 44, "name_ko": "유비", "seed_code": "liu_bei",
+   "checks": [
+    { "claim": "161년 출생, 223-06-10 백제성 사망. 208년 손권과 동맹해 적벽 승리 후 형주 남부 확보, 214년 익주 장악, 219년 한중 점령 후 한중왕, 221년 촉한 황제 즉위", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Liu_Bei (r7: 앞 100,000자 열람) ; 『삼국지』(정사 기반)", "note": "한중 점령이 조조에 대한 승리인지는 문서 요약표에 명시 없음 → 세부 verify" },
+    { "claim": "222년 손오와의 효정(소정) 전투 패배, 223년 사망", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Liu_Bei", "note": "문서는 Xiaoting으로 표기(이릉 전투와 같은 사건으로 통칭). 도원결의는 본문 설명 없음·소설 기반 추정(verify)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["익주 장악(214)", "한중왕 자칭(219)", "촉한 황제 즉위(221)", "효정 패배(사실로 병기)"],
+    "forbidden": ["도원결의(연의 서사)", "삼고초려 대화문(정사 서술은 제갈량 항목 참조)", "조조 채전 일화·유표의 형주 위임 기록(배송지가 반박)", "인자한 군주 이미지를 사실로 서술", "병력 수치"],
+    "name_candidates": ["익주 장악(효과 중심)", "한중왕(직함 confirmed)", "촉한의 건국(효과 중심)"],
+    "tone": "중립. 연의의 인자한 군주상과 정사 서술을 분리"
+   }
+  },
+  {
+   "hero_id": 45, "name_ko": "손권", "seed_code": "sun_quan",
+   "checks": [
+    { "claim": "182년 출생, 252년 사망. 208년 유비와 동맹해 적벽에서 조조군 격파, 219년 관우가 번성을 공격하는 틈에 형주를 장악(여몽이 관우를 사로잡아 처형), 229년 황제 즉위", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Sun_Quan (r7: 앞 100,000자 열람)", "note": "나이는 『삼국지』 기록(71세)과 계산값이 다르다고 주석에 명시. 적벽 전 조조 병력 추정 약 22만 vs 조조 주장 약 80만으로 큰 차이(수치 금지)" },
+    { "claim": "222년 소정 전투에서 육손이 유비를 크게 격파, 합비 공략은 참패(손권이 거의 사로잡힐 뻔함)했고 234년에도 포위 후 식량이 떨어져 철수", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Sun_Quan", "note": "주유·노숙·여몽·육손 등 인재를 신뢰하고 권한을 위임. 판 황후 사망(252) 경위는 두 설 병존" }
+   ],
+   "skill_material": {
+    "safe_facts": ["적벽 동맹", "형주 장악(219)", "육손을 기용한 소정 승전", "인재 위임", "합비 공략 실패(사실로 병기)"],
+    "forbidden": ["적벽 병력 수치", "관우 처형의 도덕 평가", "판 황후 사망 경위 단정", "연의의 '벽안자' 등 묘사", "합비 직접 지휘 성과 단정"],
+    "name_candidates": ["강동의 방어(효과 중심)", "소정의 승전(전투명 accepted)", "인재 등용(효과 중심)"],
+    "tone": "중립. 동맹과 배신 평가를 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 51, "name_ko": "주유", "seed_code": "zhou_yu",
+   "checks": [
+    { "claim": "175년 출생, 210년 병사(동아시아식 36세, 인포박스 35세 표기). 208년 적벽에서 정사 기준 조조군 격파를 주도(화공은 황개 계획, 이후 주유가 총공격 명령)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Zhou_Yu (r7: 앞 100,000자 열람) ; 『삼국지』(문서 인용, unread)", "note": "배송지는 노숙이 먼저 항전을 권했다고 지적. 적벽 공적 배분 논쟁 병기" },
+    { "claim": "209년 강릉 전투에서 조인과 대치 중 유탄에 맞았으나 일어나 병사를 독려해 조인이 물러남", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Zhou_Yu", "note": "제갈량과의 라이벌 관계·죽음의 극적 각색은 소설(연의) 허구. '미주랑' 별칭은 정사·연의에 없고 일본 작가 표현이라는 견해" }
+   ],
+   "skill_material": {
+    "safe_facts": ["적벽에서 총공격 명령(정사 기준)", "황개의 화공 계획을 실행", "강릉 전투 부상 후 독려", "음악 일화(기록)"],
+    "forbidden": ["제갈량과의 지략 경쟁·'기왕 유 하필 량' 유언(연의)", "미주랑 별칭을 사실로", "동남풍 일화(연의)", "적벽 단독 공적 단정"],
+    "name_candidates": ["적벽의 화공(전투명 confirmed, 황개 계획 병기)", "강릉의 독려", "수군 총공격(효과 중심)"],
+    "tone": "중립. 연의의 주유상(질투)은 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 65, "name_ko": "당태종", "seed_code": "taizong_tang",
+   "checks": [
+    { "claim": "598-01-28 출생, 626~649 재위(649-07-10 사망). 627년 전국을 10개 도로 구분, 과거제 발전·간언 수용(위징 등)의 정관의 치", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Emperor_Taizong_of_Tang (r7: 앞 100,000자 열람) ; 『구당서』·『신당서』·『자치통감』(unread)", "note": "문서에 인라인 출처 부족 안내. 당률은 열람 범위 밖(unread) → verify. 정관의 치는 후대 평가" },
+    { "claim": "630년 동돌궐 원정(이정이 힐리 카간 포획) 후 천가한 칭호, 634~35 토욕혼, 640년 고창·644 카라샤르·648 쿠차 복속", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Emperor_Taizong_of_Tang", "note": "원정의 직접 지휘는 이정 등 장수(황제 본인 전투 성과와 구분). 645년 고구려 원정은 언급되나 안시성 세부·결과는 열람 범위 밖(unread) → verify. 서돌궐 정복은 태종 사후(657)" },
+    { "claim": "626년 현무문의 변: 형 이건성·동생 이원길을 제거하고 고조의 양위를 받음", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Emperor_Taizong_of_Tang", "note": "전통 기록(후대 사관의 서술) 기반이며 전말·평가는 학계 논쟁. 소재 금지" }
+   ],
+   "skill_material": {
+    "safe_facts": ["천가한 칭호", "동돌궐 격파(이정의 지휘, 태종 시기 성과)", "10도 구분", "간언을 수용하는 통치", "티베트와 문성공주 혼인(641)"],
+    "forbidden": ["현무문의 변 장면·도덕 평가", "'정관의 치' 이상화 일반화", "안시성 전투 결과 서술(unread)", "고구려 원정 전과·사상자 서술", "병력 수치"],
+    "name_candidates": ["천가한(칭호 confirmed)", "정관의 치(시기명, 평가 병기)", "간언 수용(효과 중심)"],
+    "tone": "논란 인물. 통치·외교 사실과 형제 살해·정통성 평가를 분리"
+   }
+  },
+  {
+   "hero_id": 69, "name_ko": "측천무후", "seed_code": "wu_zetian",
+   "checks": [
+    { "claim": "624년 출생, 705년 사망. 태종의 후궁에서 고종의 황후(655)가 되었고 683~690 섭정, 690년 국호를 주로 바꿔 황제에 올라 약 15년 통치, 705년 신룡정변으로 퇴위(당 복원)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Wu_Zetian (r7: 앞 100,000자 열람)", "note": "출생지는 문수·리저우·장안 등 여러 설. 중국 역사상 유일한 공인 여성 군주" },
+    { "claim": "과거제를 개혁해 출신 배경보다 능력을 중시하는 관리 선발 확대, 불교와 문예 후원, 692년 서역 4진 회복", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Wu_Zetian", "note": "문서에 일부 출처 필요 표시. 밀고 제도·엄격한 법 집행과 당 종친·구신 숙청은 비밀경찰의 공포 정치로 서술되나 평가 병존" },
+    { "claim": "딸 사망·자녀 살해 소문", "result": "unverifiable", "evidence_level": "verify", "source": "https://en.wikipedia.org/wiki/Wu_Zetian", "note": "문서가 법의학적 근거 없음, 소문은 사후 약 400년 뒤 등장해 사실성이 낮다고 평가. 소재 금지" }
+   ],
+   "skill_material": {
+    "safe_facts": ["690년 주 건국", "능력 중심 과거제 확대", "서역 4진 회복(692)", "불교·문예 후원"],
+    "forbidden": ["자녀 살해 소문", "비밀경찰·숙청 규모와 장면", "남총 서술", "'잔혹한 여제' 또는 '선구적 여성 지도자' 일변도 평가", "유교 사관의 편향 서술을 사실로"],
+    "name_candidates": ["주(周)의 건국(효과 중심)", "과거 개혁(효과 중심)", "서역 4진 회복(효과 중심)"],
+    "tone": "논란 인물. 유교 중심 남성 사관의 편향 가능성을 병기, 소재는 행정·외교에 한정"
+   }
+  },
+  {
+   "hero_id": 9, "name_ko": "공자", "seed_code": "confucius",
+   "checks": [
+    { "claim": "기원전 약 551년(추정) 노나라 출생, 약 479년 사망. 30세 이후 가르치기 시작했고 제자 3,000명 이상(뛰어난 약 70명)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Confucius (r7: 앞 100,000자 열람) ; 『논어』·『사기』·『좌전』(unread)", "note": "출생일 9월 28일은 It is thought 수준. 제자 수는 자료마다 다름(72·77·96명 등). 『논어』는 사후 제자·후학이 편찬" },
+    { "claim": "노나라에서 읍 장관·형부 장관(전승)을 지내고 삼가의 성벽 철거를 추진(비·후 철거, 성은 실패), 기원전 497년 노를 떠나 순회 후 약 484년 귀국. 군사 권한이 없어 외교에 의존", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Confucius", "note": "소정묘 처형은 『순자』 전승. 오경 저술·편집·『춘추』 귀속은 현대 학자가 신중(verify). 송 귀족 후손설은 일부 학자만 수용" }
+   ],
+   "skill_material": {
+    "safe_facts": ["육예 교육", "『논어』(제자 편찬)", "삼가 성벽 철거 시도", "여러 나라 순회"],
+    "forbidden": ["오경 전부를 본인 저술로 서술", "소정묘 처형 일화", "'유교 사회 이상' 평가를 사실로", "특정 어록을 직접 발언 대사로 단정(『논어』는 후학 편찬)", "전기 세부(사기 vs 좌전 불일치)"],
+    "name_candidates": ["육예(교육 과정명)", "논어(저작명)", "인(仁)·예(禮)(개념명 효과 중심)"],
+    "tone": "중립. 후대 국가 이념화에 대한 평가는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 108, "name_ko": "장수왕", "seed_code": "jangsu",
+   "checks": [
+    { "claim": "394년 출생, 412년(광개토대왕릉비 기준, 『삼국사기』는 413년) 즉위, 491년 사망(97세). 427년 평양성 천도(왕권 강화·남진 정책)", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/장수왕 (r8 열람) ; 한국민족문화대백과·국사편찬위원회 자료는 미열람(확인 필요)", "note": "즉위년은 사료별 412/413 병기 필요. 천도 목적은 학계 해석. 충주 고구려비 연대 423년은 추정" },
+    { "claim": "475년 백제 한성(위례성) 함락과 개로왕 살해(정벌군 3만 서술, 주력군은 함락 후 곧바로 귀환), 남조·북위와의 등거리 외교", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/장수왕", "note": "문서에 장수왕이 직접 지휘했다는 서술 없음. 도림 첩자 일화는 문서가 사료 출처를 명시하지 않음(verify). 풍홍 사건 경위는 중국 사서와 대조 필요" }
+   ],
+   "skill_material": {
+    "safe_facts": ["평양 천도(427)", "백제 한성 함락(475)", "남조·북위와의 등거리 외교"],
+    "forbidden": ["도림 첩자 일화를 사실로 서술", "정벌군 3만 수치 단정", "광개토대왕비·충주비 건립 주체 단정", "직접 지휘했다는 서술", "독자 연호 단정(추정)"],
+    "name_candidates": ["평양 천도(효과 중심)", "한성 함락(전투 효과 중심)", "등거리 외교(효과 중심)"],
+    "tone": "중립. 백제 개로왕 사건은 사실 한 줄로만"
+   }
+  },
+  {
+   "hero_id": 111, "name_ko": "김유신", "seed_code": "kim_yusin",
+   "checks": [
+    { "claim": "595년 출생, 673년 사망(날짜·향년은 문서 내 불일치), 655년 대각간·660년 상대등·668년 태대각간, 660년 황산벌에서 5만 병력으로 계백의 5천 군과 싸워 승리", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/김유신 (r8: 거의 전문 열람) ; 『삼국사기』 열전(문서 인용)", "note": "황산벌을 사실상 패배로 보는 평가와 승리로 보는 평가가 공존. 병력 수치는 사료값" },
+    { "claim": "668년 고구려 정벌 대총관에 임명되었으나 풍병으로 참전하지 못함, 672년 석문 전투 패배 후 성 중심 방어 조언", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/김유신", "note": "나당전쟁 직접 지휘 기록은 뚜렷하지 않음. 647년 비담의 난 진압은 『삼국사기』 본기에 활약 기록이 없고 열전에만 있어 관여 정도 verify" }
+   ],
+   "skill_material": {
+    "safe_facts": ["황산벌 전투 지휘", "백제 멸망 후 당의 움직임을 예측해 대응책 건의", "군량 수송(662) 등 원정 지원"],
+    "forbidden": ["천관녀·옷고름·검 전설·당교 전설(삼국유사·파한집 일화, 일연도 일부 부정)", "소정방과의 대치 일화(시간 모순)", "『화랑세기』 내용", "고구려 멸망의 단독 공", "신채호의 부정 평가를 사실로"],
+    "name_candidates": ["황산벌의 결전(전투명)", "대각간(직위명)", "후방 지원(효과 중심)"],
+    "tone": "중립. 신라 중심 사료의 한계와 후대 평가 차이를 병기"
+   }
+  },
+  {
+   "hero_id": 124, "name_ko": "강감찬", "seed_code": "gang_gamchan",
+   "checks": [
+    { "claim": "948년 출생, 1031년 사망(향년 82/84세 문서 내 불일치). 1018년 소배압의 거란 3차 침입 때 상원수로 흥화진 매복·수공, 자주·신은현 협공, 귀주 섬멸을 이끌어 거란이 침략을 포기", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/강감찬 (r8 열람) ; 『고려사』 권94 열전(문서 인용)", "note": "귀주대첩 연도는 1018/1019 확인 필요(문서는 침입을 1018년으로만 기재). 병력(고려 20만 8천, 거란 10만, 생존 수천)은 사료값으로 미사용" },
+    { "claim": "1010년 거란 2차 침입 때 항복론에 반대하고 전략적 일시 후퇴를 주장", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/강감찬", "note": "문서는 항복 반대와 일시 후퇴론으로 서술(강화 주장 아님). 나성 축조는 문서에 없음 → verify. 저서는 전하지 않음" }
+   ],
+   "skill_material": {
+    "safe_facts": ["귀주 전역의 흥화진 수공·매복", "상원수로서 고려군 지휘", "1010년 항복 반대·일시 후퇴론"],
+    "forbidden": ["낙성대 탄생 설화·호랑이 일화", "병력·사상자 수치", "귀주대첩 연도 단정", "나성 축조(문서에 없음)", "민족 영웅화 평가를 사실로"],
+    "name_candidates": ["귀주대첩(전투명, 연도 verify)", "흥화진의 수공(효과 중심)", "상원수의 지휘(효과 중심)"],
+    "tone": "중립. 거란 측 사료와 『고려사』의 시각 차이를 병기"
+   }
+  },
+  {
+   "hero_id": 125, "name_ko": "서희", "seed_code": "seo_hui",
+   "checks": [
+    { "claim": "942년 출생, 998년 사망(56/57세 불일치). 993년 거란 1차 침입 때 소손녕과 담판해 교전 없이 거란군을 물러나게 하고 강동 6주를 확보", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/서희 (r8 열람) ; 『고려사』 열전·『고려사절요』(미열람, 확인 필요)", "note": "담판 대화의 구체 출처 표기가 문서에 없음(verify). 어느 6개 주인지 본문에 없음. 거란의 실제 목적(송 지원 차단)은 해석" },
+    { "claim": "고려가 고구려를 계승했다고 반박하고 여진을 몰아내 옛 땅에 성·보를 쌓겠다는 뜻을 제시", "result": "unverifiable", "evidence_level": "verify", "source": "https://ko.wikipedia.org/wiki/서희", "note": "대화문은 원전 대조 필요. 창작 대사로 쓰려면 창작 표기" }
+   ],
+   "skill_material": {
+    "safe_facts": ["993년 거란과의 담판", "강동 6주 확보(주명 미확인)", "병관어사 등 직위"],
+    "forbidden": ["담판 대화문을 직접 인용", "태몽·해주 막사 일화(출처 없음)", "소손녕의 선물 목록", "거란의 의도 단정", "무혈 승리 일반화"],
+    "name_candidates": ["서희의 담판(효과 중심)", "강동 6주(지명, 주명 verify)", "외교의 승리(효과 중심)"],
+    "tone": "중립. 외교 성과 중심, 전투 소재 아님"
+   }
+  },
+  {
+   "hero_id": 123, "name_ko": "왕건", "seed_code": "wang_geon",
+   "checks": [
+    { "claim": "877년 출생, 943년 사망. 918년 궁예를 몰아내고 고려 건국, 935년 신라 경순왕 항복, 936년 일리천 전투에서 신검의 후백제군을 격파해 후삼국 통일", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/태조_(고려) (r8 열람; 문서에 중립성 이의 태그) ; 『고려사』·『삼국사기』(문서 인용, 미열람)", "note": "927년 공산 전투 대패(신숭겸 전사), 930년 고창 전투 승리. 공산 병력 손실(5천~2만)과 936년 출병 규모는 문서 내 불일치 → 수치 금지. 나주 점령 연도(903/909)는 학설 병기" },
+    { "claim": "호족 혼인 정책, 자제의 개경 유학(인질 성격), 고구려 계승·북진 정책, 거란과의 국교 거부", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/태조_(고려)", "note": "훈요 10조는 문서가 진위 논쟁을 다루지 않아 verify(별도 문서 필요). 추대 일화 미화 가능성, 궁예 격하 주장은 평가로 분리" }
+   ],
+   "skill_material": {
+    "safe_facts": ["후삼국 통일(일리천 전투)", "공산 전투 패배(사실로 병기)", "호족 혼인·북진 정책"],
+    "forbidden": ["훈요 10조를 사실 전제로 서술", "궁예 평가", "병력·사상자 수치", "추대 일화를 사실로", "낙타 사건 평가"],
+    "name_candidates": ["일리천의 결전(전투명)", "호족 결합 정책(효과 중심)", "후삼국 통일(효과 중심)"],
+    "tone": "중립. 건국 정당화 서사는 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 130, "name_ko": "이성계", "seed_code": "yi_seonggye",
+   "checks": [
+    { "claim": "1335년 출생(문서 내 11월 4일/10월 27일 불일치), 1408년 사망. 1380년 황산대첩에서 왜구 토벌, 1361년 홍건적 격퇴(개경 탈환 작전 참여)", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/태조_(조선) (r8 열람) ; 『태조실록』(문서 인용, 태종 측 편찬 곡필 논란)", "note": "황산대첩 세부는 별도 문서 참조 안내만 있음(unread). 문서는 신궁 별명·30여 년 무패 서술에 직접 출처 없다고 표시 → verify" },
+    { "claim": "1388년 요동 정벌 중 위화도 회군, 1392년 공양왕 선위 형식으로 즉위해 조선 건국, 1394~95년 한양 천도", "result": "confirmed", "evidence_level": "confirmed", "source": "https://ko.wikipedia.org/wiki/태조_(조선)", "note": "회군 동기(요동 정벌 반대론 vs 계획된 권력 장악)와 건국 정통성은 학계 평가가 엇갈림(점수·서사에서 평가 제외)" }
+   ],
+   "skill_material": {
+    "safe_facts": ["황산대첩(왜구 토벌)", "위화도 회군(사건명)", "조선 건국과 한양 천도"],
+    "forbidden": ["신궁 별명·황상과의 활 대결을 사실로 서술", "무패 기록", "위화도 회군 동기 단정", "정몽주 제거 서술", "건국 정통성 평가"],
+    "name_candidates": ["황산대첩(전투명)", "한양 천도(효과 중심)", "활 솜씨(일화 아닌 효과 중심, 출처 verify)"],
+    "tone": "논란 소지. 군사 성과와 정통성 평가를 분리, 소재는 왜구·홍건적 격퇴와 천도에 한정"
+   }
+  },
+  {
+   "hero_id": 135, "name_ko": "세종", "seed_code": "sejong",
+   "checks": [
+    { "claim": "1397년 출생, 1418~1450 재위. 1443년 훈민정음 창제·1446년 반포, 1420년 집현전 설치, 1444년 공법 확정", "result": "confirmed", "evidence_level": "confirmed", "source": "https://ko.wikipedia.org/wiki/세종_(조선) (r8 열람) ; 『세종실록』·국사편찬위원회 자료(미열람, 확인 필요)", "note": "문서는 세종이 혼천의·앙부일구·자격루 등 제작을 '지원'했다고 서술하며 측우기 등 개인 발명 여부는 단정하지 않음(귀속 verify)" },
+    { "claim": "1419년 이종무의 대마도 정벌, 1433년 4군·1437년 6진 설치로 북방 국경을 압록강·두만강 일대로 확장", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/세종_(조선)", "note": "대마도 정벌은 군사적 승리로 보기 어렵다는 견해와 대마도주 항복·조공 약속이라는 서술이 병존" }
+   ],
+   "skill_material": {
+    "safe_facts": ["훈민정음 창제·반포", "집현전", "4군 6진", "과학 기구 제작 지원"],
+    "forbidden": ["측우기·자격루 등 개인 발명 단정", "대마도 정벌을 대승으로 서술", "의정부 서사제 동기 야사", "국가표준영정의 얼굴 묘사", "성군 일변도 평가"],
+    "name_candidates": ["훈민정음(문자명)", "집현전(기관명)", "4군 6진(효과 중심)"],
+    "tone": "중립. 후대 성군 이미지는 평가로 분리, 군사 소재 최소화"
+   }
+  },
+  {
+   "hero_id": 147, "name_ko": "허준", "seed_code": "heo_jun",
+   "checks": [
+    { "claim": "1539년(통설) 출생, 1615년 사망(77세). 1569년 내의원 출사, 1592년 임진왜란 때 선조를 호종한 공으로 공신, 1600년 내의원 수의", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/허준 (r8 열람) ; 『간이집』·『내의선생안』·『미암일기』(문서 인용, 미열람)", "note": "출생 연도는 1537·1539·1543·1546 사료별 상이(1539 통용)" },
+    { "claim": "1596년 왕명으로 『동의보감』 편찬 시작, 1609년 석방 이후에도 집필 계속", "result": "confirmed", "evidence_level": "confirmed", "source": "https://ko.wikipedia.org/wiki/허준", "note": "1610년 완성·1613년 간행은 열람 문서에 명시되지 않음(verify). 유네스코 세계기록유산 등재도 문서에 없음(공식 목록 확인 필요). 서자 신분 해석, 유의태 사사 일화(드라마 각색, 유이태와 혼동)는 제외" }
+   ],
+   "skill_material": {
+    "safe_facts": ["어의로서 선조를 호종", "『동의보감』 편찬 착수(1596)", "내의원 수의"],
+    "forbidden": ["유의태 사사 일화·드라마 설정(출생지 용천 등)", "서자 신분 서사", "동의보감 완성·간행 연도 단정", "세계기록유산 등재 단정", "초상화 묘사"],
+    "name_candidates": ["동의보감(저작명)", "어의의 처방(효과 중심)", "호종의 의술(효과 중심)"],
+    "tone": "중립. 드라마 이미지와 사료 서술을 분리"
+   }
+  },
+  {
+   "hero_id": 150, "name_ko": "정약용", "seed_code": "jeong_yakyong",
+   "checks": [
+    { "claim": "1762년 출생, 1836년 사망. 1791년 수원 화성 설계에 참여하고 도르래 원리를 응용한 거중기를 고안했다고 서술", "result": "confirmed", "evidence_level": "accepted", "source": "https://ko.wikipedia.org/wiki/정약용 (r8 열람) ; 한국민족문화대백과(미열람, 확인 필요)", "note": "사망지(고양) 서술이 본문 내 다른 서술과 일치하는지 확인 필요. 거중기 고안 귀속은 원자료로 verify" },
+    { "claim": "『목민심서』·『경세유표』·『흠흠신서』 저술, 1801년 신유박해 후 약 18년 유배(강진 등)에서 주요 저술, 홍역 치료서 『마과회통』(이헌길 『마진기방』 기반)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://ko.wikipedia.org/wiki/정약용", "note": "천주교 배교 여부는 학계 견해가 나뉨. 달레 신부 기록 참회 일화 신빙성과 십자고상 출처 논란은 verify" }
+   ],
+   "skill_material": {
+    "safe_facts": ["수원 화성 설계 참여", "『목민심서』 등 저술", "유배 중 집필", "의학서 『마과회통』"],
+    "forbidden": ["천주교 신앙·배교 여부 단정", "달레 신부 참회 일화", "십자고상 출토 서술", "거중기를 단독 발명으로 단정", "실학 집대성 평가를 사실로"],
+    "name_candidates": ["목민심서(저작명)", "거중기(기구명, 귀속 verify)", "마과회통(저작명)"],
+    "tone": "중립. 종교 쟁점은 소재에서 제외"
+   }
+  },
+  {
+   "hero_id": 327, "name_ko": "술레이만 1세", "seed_code": "suleiman_i",
+   "checks": [
+    { "claim": "1494년경(추정) 출생, 1520~1566 재위, 1566년 세게트바르 공성 중 사망(사망은 약 48일간 비밀). 1521 베오그라드, 1522 로도스, 1526 모하치 승리, 1538 프레베자 해전 승리(바르바로사 하이레딘 지휘)", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Suleiman_the_Magnificent (r8: 앞 100,000자 열람)", "note": "출생일은 확실한 증거가 없는 추정. 1529 빈 공성·1565 몰타 대공성 실패도 사실로 병기" },
+    { "claim": "이전 술탄 법령을 모아 정리한 법전 편찬(이후 300년 이상 적용), 샤리아와 카눈의 결합 체계", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Suleiman_the_Magnificent", "note": "'카누니' 별칭의 기원은 불분명(16~17세기 오스만 사료에 없음). 대재상 이브라힘 파샤(1536)와 장남 무스타파(1553) 처형은 평가 쟁점" }
+   ],
+   "skill_material": {
+    "safe_facts": ["모하치 승리", "로도스 점령", "법전 편찬", "빈 공성 실패(사실로 병기)"],
+    "forbidden": ["이브라힘·무스타파 처형 서술·평가", "휘렘(록셀라나) 출신 서사", "튤립 보급 관련 추정", "'장엄한 술탄' 호칭을 우열 평가로", "병력 수치"],
+    "name_candidates": ["모하치의 승전(전투명)", "카눈(법전 효과 중심)", "로도스 공성(효과 중심)"],
+    "tone": "중립. 서구의 '장엄왕' 평가와 오스만의 입법자 평가를 분리"
+   }
+  },
+  {
+   "hero_id": 318, "name_ko": "하룬 알라시드", "seed_code": "harun_rashid",
+   "checks": [
+    { "claim": "763/766년(자료별 차이) 출생, 809-03-24 투스에서 사망, 786~809 아바스 칼리프. 796년 궁정을 라카로 옮겨 약 12년 체류", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Harun_al-Rashid (r8: 앞 100,000자 열람)", "note": "출생 연도·사망 나이(43/46세) 불확실. 바르마크 가문 몰락은 798년 투옥과 803년 처분 서술이 공존하며 원인 불명" },
+    { "claim": "니케포로스 1세가 조공을 거부하자 비잔티움 원정을 감행해 불리한 조약을 맺게 함, 799년 프랑크 사절 방문·802년 샤를마뉴에 선물(물시계·코끼리)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Harun_al-Rashid", "note": "806년 헤라클레아 함락 서술은 확인 필요. 지혜의 집(바이트 알히크마) 건립은 문서가 전설적이라 표현. 천일야화 속 이미지는 문학적 허구" }
+   ],
+   "skill_material": {
+    "safe_facts": ["라카 천도(796)", "비잔티움 원정과 조약", "샤를마뉴와의 외교 교환"],
+    "forbidden": ["지혜의 집을 직접 건립했다는 서술", "『천일야화』 일화", "바르마크 몰락 동기 단정", "무사 알카짐 독살설", "시아파·수니파 평가"],
+    "name_candidates": ["라카의 궁정(효과 중심)", "프랑크와의 사절(효과 중심)", "아바스의 전성기(시기명, 평가 병기)"],
+    "tone": "중립. 문학 속 이미지와 역사 서술을 분리"
+   }
+  },
+  {
+   "hero_id": 320, "name_ko": "할리드 이븐 알왈리드", "seed_code": "khalid_ibn_walid",
+   "checks": [
+    { "claim": "625년 우후드에서 메카군 기병 우익을 지휘해 무슬림 측을 격파한 핵심 역할(이후 개종: 627 또는 629년, 본문은 629 설이 더 신뢰할 만하다는 Lecker 견해 소개), 632년 부자하·633년 아크라바(무사일리마 격파) 등 리다 전쟁 승리", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Khalid_ibn_al-Walid (r8: 앞 100,000자 열람)", "note": "무사일리마 격파는 문서상 633년 아크라바(Yamama 632로 쓰지 않음). 사망은 c. 642년, 사망지(메디나·호스)와 생년은 불명" },
+    { "claim": "633~634년 이라크 원정(울라이스·왈라자 등), 약 634년 쿠라이키르에서 수와까지 물 없는 사막을 횡단해 시리아로 이동, 636년 야르무크 승리 후 시리아 대부분 정복, 우마르에게 해임됨. 칭호 Sayf Allah(신의 칼)", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Khalid_ibn_al-Walid", "note": "이라크 원정 역할·범위는 학계 이견 큼. 사막 행군 경로·세부는 전승마다 다름(verify). 우마르 해임 사유 논쟁" }
+   ],
+   "skill_material": {
+    "safe_facts": ["우후드의 기병 우익 지휘", "리다 전쟁 승리", "시리아 사막 횡단 이동", "야르무크 승리", "신의 칼 칭호(전승 출처 병기)"],
+    "forbidden": ["말리크 이븐 누와이라 처형의 정당성 서술", "리다 전쟁 중 처형·포로 처리", "사막 행군 경로·물 확보 세부(단정 금지)", "병력·사상자 수치", "종교 전쟁 정당화"],
+    "name_candidates": ["우후드의 기병(전투명, 효과 중심)", "시리아 사막 횡단(효과 중심)", "야르무크의 승전(전투명)"],
+    "tone": "논란 소지. 전술·기동 사실만 사용하고 처형·종교 평가는 분리, 양측 사료 한계 병기"
+   }
+  },
+  {
+   "hero_id": 343, "name_ko": "알프 아르슬란", "seed_code": "alp_arslan",
+   "checks": [
+    { "claim": "1029년(자료별 1030·1032~33 등 차이) 출생, 1063~1072 재위, 1072-11-24 사망. 1071년 만지케르트에서 비잔틴 황제 로마노스 4세를 생포", "result": "confirmed", "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Alp_Arslan (r8: 앞 100,000자 열람; 문서가 교정 태그 상태)", "note": "황제 강화 조건 제시는 전해지는 서술. 만지케르트의 전환점 의의는 학계 논쟁. 황제 목 밟기 등 일화는 후대 전승(verify). 병력·사상자 수치 사료 편차 큼" },
+    { "claim": "1064년 아니 점령, 1068년 트빌리시 등 조지아 공략 후 바그라트 4세 복속 확인(1073~74년경 조지아 이탈), 재상 니잠 알물크의 행정 정비·이크타 제도", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Alp_Arslan", "note": "이크타·행정 서술은 citation needed 표시 → verify. 1072년 중앙아시아 원정 중 바르잠 요새에서 유수프 알하레즈미에게 칼에 찔려 4일 후 사망" }
+   ],
+   "skill_material": {
+    "safe_facts": ["만지케르트 승리와 로마노스 4세 생포", "아니 점령", "니잠 알물크와의 행정"],
+    "forbidden": ["황제 목 밟기·연설 일화", "병력·포로 수치(20만·5만 등)", "만지케르트를 비잔틴 몰락의 단일 원인으로 서술", "암살 장면", "튀르크 부족에 대한 명령문 인용"],
+    "name_candidates": ["만지케르트의 승전(전투명)", "아니 점령(효과 중심)", "이크타(제도명, verify)"],
+    "tone": "중립. 비잔틴 측 시각과 셀주크 측 시각을 평가로 분리"
+   }
+  },
+  {
+   "hero_id": 357, "name_ko": "자랄 앗딘 망구베르디", "seed_code": "jalal_ad_din",
+   "checks": [
+    { "claim": "1199년 출생, 1220-12~1231-08 호라즘샤, 1231-08-15 아흘라트 인근에서 사망(31~32세). 구르간지를 잃고 동쪽 가즈니에서 병력을 모아 1221년 파르완에서 몽골군(시기 쿠투쿠 지휘)을 격파", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Jalal_ad-Din_Mingburnu (r8 열람; 문서 이름 표기가 Mingburnu)", "note": "파르완 승리 후 전리품 분배 내분으로 병력 절반을 잃음. 주바이니는 전체 병력 약 40만이라 기록했으나 현대 학자는 5만~15만으로 봄(수치 금지)" },
+    { "claim": "1221년 인더스강에서 칭기즈 칸군에 대패(무장한 채 강에 뛰어들어 탈출했다는 서술), 1225년 가르니에서 조지아군 격파·트빌리시 점령, 1230년 야시치멘에서 셀주크 카이쿠바드 1세에 패배", "result": "confirmed", "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Jalal_ad-Din_Mingburnu", "note": "인더스 도주와 칭기즈 칸의 감탄·사격 금지 일화는 전해지는 서술(verify). 트빌리시 점령 때 주민 대량 처형 서술은 소재 금지" }
+   ],
+   "skill_material": {
+    "safe_facts": ["파르완 승리", "인더스강 패배(사실로 병기)", "조지아 원정", "호라즘 몰락 후에도 저항을 이어 감"],
+    "forbidden": ["인더스강 도약 일화를 사실로 서술(전승)", "칭기즈 칸의 감탄 대사", "트빌리시 주민 처형", "병력 수치(40만·5만~15만)", "몽골 학살 서술"],
+    "name_candidates": ["파르완의 승전(전투명)", "최후의 호라즘샤(직함 효과 중심)", "강을 건너다(효과 중심, 전승 병기)"],
+    "tone": "중립. 몽골 침입의 피해 서술은 제외하고 전술·저항 사실 중심"
+   }
+  }
+ ],
+ "stat_basis_r5": {
+  "_note": "임밸런 hero_profiles.json 입력용 참고(r5 신규 26명). 축=공세/수성/기동/통솔/지략/무용. 값은 점수가 아니라 근거 유무·성격만 기록: 'O'=위 checks의 confirmed/accepted 사실로 뒷받침, 'W'=약함·verify, 'X'=근거 없음(소설·전설뿐이면 X). 소설·전설 일화는 근거에서 제외함. 점수 환산은 임밸런 판단",
+  "168": { "name_ko": "지토 천황", "통솔": "W 양위 후 태상천황 통치", "그외": "X 전투 기록 없음" },
+  "172": { "name_ko": "요시쓰네", "공세": "O 이치노타니·야시마·단노우라 승전(전술 세부 verify)", "기동": "W 기습 서술은 군기물 영향", "통솔": "W", "무용": "X 벤케이·팔척뛰기는 전승" },
+  "173": { "name_ko": "요리토모", "통솔": "O 거병·재기·막부 수립", "지략": "O 슈고·지토 체제(통치)", "공세": "W 직접 전투 성과 약함", "수성": "X", "무용": "X" },
+  "177": { "name_ko": "무라사키 시키부", "지략": "W 문필 업적, 군사 아님", "그외": "X" },
+  "179": { "name_ko": "노부나가", "공세": "O 오케하자마 기습 승리", "통솔": "O 연합군 지휘(나가시노 승전, 병력 수치 제외)", "지략": "O 화승총 운용·아즈치 성(3단 사격은 제외)", "수성": "X", "무용": "X" },
+  "180": { "name_ko": "히데요시", "공세": "O 야마자키·시즈가타케·오다와라", "통솔": "O 전국 통일 전쟁 지휘", "지략": "O 통일 정책(검 몰수령·병농분리)", "수성": "X", "무용": "X" },
+  "181": { "name_ko": "이에야스", "수성": "W 미카타가하라 패배 후 재기(수성 성과 아님)", "통솔": "O 세키가하라 승리·막부 수립", "지략": "O 정치·동맹", "공세": "W", "무용": "X" },
+  "182": { "name_ko": "신겐", "통솔": "O 가와나카지마 5회 대치·미카타가하라 승리", "공세": "O 미카타가하라 승리", "기동": "W 기마군단 단정 금지", "무용": "X" },
+  "183": { "name_ko": "겐신", "공세": "O 오다와라 포위(본성 미함락)·테도리가와(상대 지휘관 verify)", "통솔": "O 간토 간레이·가와나카지마", "무용": "X 무패 신화 제외" },
+  "185": { "name_ko": "유키무라", "수성": "O 우에다 지연전(주체는 부친 병기)·사나다마루 방어(accepted)", "공세": "O 덴노지 돌격(accepted)", "통솔": "W", "무용": "X 십자창·붉은 갑옷 제외" },
+  "186": { "name_ko": "다다카쓰", "무용": "W 평판(무상처)은 평판 성격", "통솔": "W 사천왕", "수성": "O 미카타가하라 퇴각 엄호(accepted)" },
+  "187": { "name_ko": "리큐", "그외": "X 전투 기록 없음. 지략·통솔도 다도·정치 영향력은 군사 축으로 환산 불가" },
+  "189": { "name_ko": "마사무네", "공세": "O 스리아게하라 승리", "통솔": "O 가문 계승 후 영지 확장·센다이 번 건설", "무용": "X 이미지 후대", "그외": "X 철포 부대 단정 금지" },
+  "196": { "name_ko": "료마", "지략": "O 선중팔책 구상·가이엔타이 조직", "공세": "X", "수성": "X", "무용": "X 검술 일화 출처 미확인" },
+  "197": { "name_ko": "사이고", "통솔": "O 보신 전쟁 진격군 지휘·세이난 전쟁(결과는 패전)", "지략": "O 에도성 무혈 개성 협상", "공세": "O 보신 전쟁 진격", "수성": "W 구마타 포위전은 공격 측", "무용": "X" },
+  "301": { "name_ko": "나폴레옹", "공세": "O 이탈리아 원정·아우스터리츠", "기동": "O 이탈리아 원정(accepted)", "지략": "O 툴롱 포병 지휘·브뤼메르 정변·행정", "통솔": "O 대군 지휘(1812·1813 패배도 사실)", "수성": "W", "무용": "X" },
+  "19": { "name_ko": "유방", "통솔": "O 초한 전쟁 총지휘(패배 다수: 팽성·고릉·백등)", "지략": "W 인재 등용은 『사기』 서술", "공세": "W", "무용": "X" },
+  "20": { "name_ko": "한신", "공세": "O 정형·위·제 평정", "기동": "O 하양 도하·기만 전략(accepted)", "지략": "O 배수진·암도진창", "통솔": "O 대군 지휘(병력 수치 제외)", "무용": "X" },
+  "21": { "name_ko": "장량", "지략": "O 홍문연 조언·한신 제왕 설득(accepted)", "그외": "X 박랑사는 폭력 시도로 제외" },
+  "47": { "name_ko": "관우", "공세": "O 백마 안량 격파·번성 수공", "무용": "W 안량 격파 서술이 정사에 있으나 소설 보태기 제외", "수성": "O 형주 방어(최종 패배)", "통솔": "W" },
+  "109": { "name_ko": "을지문덕", "지략": "O 거짓 후퇴·보급 단절 유도(accepted)", "통솔": "W 수치 출처 불명", "수성": "O 612 방어 성공" },
+  "114": { "name_ko": "계백", "수성": "W 황산벌 방어전", "통솔": "W 결사대 서사 약함", "무용": "X" },
+  "115": { "name_ko": "선덕여왕", "지략": "O 외교·통치(구휼·조영)", "통솔": "W 비담의 난은 김유신 진압", "그외": "X 예언 일화 제외" },
+  "312": { "name_ko": "키루스 2세", "공세": "O 메디아·리디아·바빌로니아 정복", "통솔": "O 제국 건설", "지략": "W 헤로도토스 서술 의존", "무용": "X" },
+  "313": { "name_ko": "다리우스 1세", "통솔": "O 반란 진압·제국 행정(비문)", "지략": "O 사트라피·왕도로(accepted)", "공세": "W 스키타이 실패·마라톤 패배", "무용": "X" },
+  "314": { "name_ko": "아르테미시아 1세", "통솔": "W 5척 지휘(헤로도토스 단일 출처)", "지략": "W 조언·기만은 verify", "그외": "X" }
+ }
+}

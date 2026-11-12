@@ -1,0 +1,136 @@
+{
+ "_note": "terrain_pilot 시범 명세(README.md 대신 JSON: 안아트 규칙상 문서 파일 대신 명세 데이터 파일). 앱 미적용·커밋 없음.",
+ "tile_px": 32,
+ "current_engine": {
+  "tile_px": 32,
+  "source": "resources/js/game/fx/UnityGround.js (U32_PX), tileset_v2/tv2_names.json",
+  "autotile": "47 blob, bits N1 NE2 E4 SE8 S16 SW32 W64 NW128, diagonal only if both orthogonals",
+  "terrain_symbols": "p plain, f forest, m mountain, w water, s shallows, r road, d sand, k cliff, x swamp, n snow_desert, v village, c castle, b bridge, W wall (U32_SYMBOL)"
+ },
+ "palette": {
+  "G0": "#1f4416",
+  "G1": "#2c5f1d",
+  "G2": "#3a7a25",
+  "G3": "#4b952d",
+  "G4": "#66b136",
+  "G5": "#8fcb4c",
+  "G6": "#b9e170",
+  "W0": "#0e2a63",
+  "W1": "#163f88",
+  "W2": "#1f56a8",
+  "W3": "#2c73c6",
+  "W4": "#4a98df",
+  "W5": "#86c6ef",
+  "W6": "#d4f1ff",
+  "FOAM": "#f6fdff",
+  "S_W3": "#3a9fd0",
+  "S_W4": "#5cbde3",
+  "S_W5": "#9bdcf0",
+  "S0": "#8c6a3e",
+  "S1": "#b48e57",
+  "S2": "#d4b67c",
+  "S3": "#e6d09c",
+  "S4": "#f4e7c4",
+  "D0": "#4f3520",
+  "D1": "#6e4c2e",
+  "D2": "#916a42",
+  "D3": "#b08a5c",
+  "D4": "#cdb084",
+  "R0": "#1a1a22",
+  "R1": "#363644",
+  "R2": "#5a5a6a",
+  "R3": "#858595",
+  "R4": "#b2b2c0",
+  "R5": "#dddde6",
+  "R6": "#f5f5f9",
+  "B0": "#3b2414",
+  "B1": "#5e3a20",
+  "B2": "#83552e",
+  "OUT": "#141820"
+ },
+ "light": "upper-left, shadows lower-right; sprites must NOT be h-flipped",
+ "base_textures": {
+  "files": "textures/<name>_v{0,1,2}.png",
+  "sheet": "textures/terrain_base_sheet.png (rows=order, cols=v0..v2)",
+  "order": [
+   "grass",
+   "forest",
+   "water",
+   "shallow",
+   "sand",
+   "dirt",
+   "rock"
+  ],
+  "rule": "32px periodic; v1/v2 share the outer 3px band with v0 -> any variant next to any variant is seamless; suggested weights v0 50%, v1 25%, v2 25%"
+ },
+ "autotile47": {
+  "spec": "autotile/at47_spec.json",
+  "sheet_layout": "8 cols x 6 rows, slot i = masks_order[i] (47 used, last slot empty)",
+  "sets": {
+   "grass_water": "w next to grass (dark rock bank + foam)",
+   "sand_water": "w next to sand (foam + shallow band)",
+   "shallow_deep": "w next to s",
+   "grass_shallow": "s next to grass",
+   "grass_sand": "d (neighbor d or w counts as same)",
+   "grass_dirt": "r",
+   "grass_forest": "f (+trees)",
+   "grass_rock": "m (+peaks)",
+   "cliff_grass": "plateau cell; south edge = 14px rock face"
+  },
+  "mask_bits_for_cell": "bit set if neighbour is the same group (see sample_map.py); out-of-map counts as same"
+ },
+ "objects": {
+  "spec": "objects/objects_spec.json",
+  "use": [
+   "pine_a",
+   "pine_b",
+   "pine_c",
+   "pine_a_s",
+   "pine_b_s",
+   "pine_c_s",
+   "peak_a",
+   "peak_a_l",
+   "rock_a",
+   "bush_a"
+  ],
+  "rejected": "rejected_ai_* (AI trees, wispy at 20px)",
+  "anchor": "bottom-center, draw after ground, y-sorted with units",
+  "forest_rule": "5 small pines per f cell at offsets (6,12),(20,10),(13,22),(27,24),(3,30) +-2px",
+  "mountain_rule": "1 peak per m cell, peak_a_l 45%, x jitter +-6px"
+ },
+ "id_proposal": {
+  "note": "existing global ranges in use: <110, 200-, 300-, 400-, 420-, 500-829, 1000-1676, 1700-1747, 1800-1908. Proposal free range 3000+",
+  "base": "3000 + row*3 + variant (3000..3020)",
+  "autotile": "3100 + set_index*48 + slot (sets in at47_spec order; 3100..3531)",
+  "objects": "sprite keys, not tile ids"
+ },
+ "sample_map": {
+  "png": "preview/sample_map_20x14.png",
+  "x2": "preview/sample_map_20x14_x2.png",
+  "data": "preview/sample_map_20x14.json",
+  "ground_only": "preview/sample_map_ground_only.png",
+  "compare": "preview/compare_reference_vs_pilot.png"
+ },
+ "qa": {
+  "seam_ratio_sample_map": "qa/seam_ratio_sample_map.json (cell-boundary diff ~= interior diff)",
+  "skill_qa_report": "qa/qa_*.json: HARD-FAIL on palette_fidelity (custom palette, not db32) and tile_seam_diff (47-blob tiles are not self-tiling by design) -> gates not applicable"
+ },
+ "fal_calls": {
+  "used": 16,
+  "budget": 60,
+  "log": "tools/calls_log.jsonl"
+ },
+ "tools": {
+  "build": "python tools/build_textures.py && python tools/autotile.py && python tools/build_objects.py && python tools/sample_map.py && python tools/compare.py",
+  "fal": "python <skill>/run_with_env.py tools/fal_gen.py --job ... (Recraft v3 with style/colors)",
+  "deps": "numpy, Pillow, scipy, rembg 2.0.87 (MIT, PyPI; local bg removal, model weights auto-downloaded by package)"
+ },
+ "known_gaps": [
+  "mixed shore (water cell touching both grass and sand) shows a hard straight cut",
+  "cliff plateau reads weakly (no height shading, 14px face only on south)",
+  "mountains are stamped single peaks, not merged massifs",
+  "dirt road texture repeats visibly every cell",
+  "no water animation",
+  "edges follow the grid (stair-steps) more than the reference"
+ ]
+}

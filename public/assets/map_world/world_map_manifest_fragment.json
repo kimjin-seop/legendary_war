@@ -1,0 +1,1024 @@
+{
+ "note": "세계지도(캠페인/서가 선택) manifest 조각(안아트). manifest.json 직접 수정 안 함 — 병합은 윤프론. 상태 deferred(화면 구현 시 병합).",
+ "status": "deferred",
+ "generated": "2026-11-01T13:09:44+00:00",
+ "keyRules": {
+  "map": "map.world.base(4096x2048, variants.mobile 2048x1024) 위에 map.world.overlay.* → 핀/칩/라벨(코드) → map.world.decor.sea → map.world.decor.border 순",
+  "icon": "map.icon.<name> (96px, variants.x2 192px, variants.locked/cleared[_x2]). selected 상태는 FE 글로우/ripple 로 표현",
+  "coords": "정규화 좌표 x=(lon+180)/360, y=(90-lat)/180 를 이미지 폭·높이에 곱함(베이스·오버레이 동일 투영)"
+ },
+ "loadHints": {
+  "desktop": "map.world.base(4096) — 화면 폭 ≥1280 또는 지역 줌",
+  "mobile": "variants.mobile(2048)",
+  "preload": [
+   "map.world.base",
+   "map.icon.pin_gem",
+   "map.world.ui.chip_frame"
+  ],
+  "lazy": "map.world.decor.*, overlay.*"
+ },
+ "items": [
+  {
+   "key": "map.world.base",
+   "path": "assets/map_world/world_base_4096.webp",
+   "size": "4096x2048",
+   "bytes": 440356,
+   "alpha": false,
+   "type": "map_base",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/world_base_2048.webp",
+     "size": "2048x1024",
+     "bytes": 182184,
+     "alpha": false
+    }
+   },
+   "projection": "equirectangular: x=(lon+180)/360*W, y=(90-lat)/180*H (lon -180..180, lat 90..-90)",
+   "generator": "docker/gemini/world_map_build.py (절차 합성) + 면 텍스처 2장(tex/land, tex/sea)",
+   "provenance": [
+    "Natural Earth 1:10m/1:50m land·lakes·rivers·geography_regions (퍼블릭 도메인, naturalearthdata.com / github nvkelso/natural-earth-vector) — 해안·산맥·사막 형태",
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "해안 정합: 10개 기준점(서울·낙양·우한·카르타고·오를레앙·교토·압록강 하구·로마·모술·예루살렘·사마르칸트) 십자 마커 검증 이미지에서 실제 해안/강과 일치(데이터 폴리곤 직접 래스터화라 오차는 픽셀 반올림 수준). 글자·국경·라벨·도로선 없음."
+   },
+   "verify": [
+    "압록강 선은 50m 데이터에 없어 손 입력 근사 폴리라인(YALU)",
+    "숲 얼룩 위치는 미술적 배치(식생 데이터 아님)",
+    "아랄해는 현대(축소) 형태"
+   ]
+  },
+  {
+   "key": "map.world.overlay.greatwall",
+   "path": "assets/map_world/decor/overlay_greatwall_4096.webp",
+   "size": "4096x2048",
+   "bytes": 22888,
+   "alpha": true,
+   "type": "map_overlay",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/decor/overlay_greatwall_2048.webp",
+     "size": "2048x1024",
+     "bytes": 6996,
+     "alpha": true
+    }
+   },
+   "generator": "world_map_pp.py great_wall()",
+   "provenance": [
+    "절차 드로잉(명대 장성 대략 경로 손 입력)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "베이스와 같은 크기·투영, 그대로 겹침. 시대에 따라 FE 토글."
+   },
+   "verify": [
+    "경로는 명대 장성 근사(산해관~가욕관); 진·한대 장성과 다름 — 시나리오 시대에 맞는지 송서사 확인"
+   ]
+  },
+  {
+   "key": "map.world.decor.border",
+   "path": "assets/map_world/decor/border_4096.webp",
+   "size": "4096x2048",
+   "bytes": 132462,
+   "alpha": true,
+   "type": "map_overlay",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/decor/border_2048.webp",
+     "size": "2048x1024",
+     "bytes": 42948,
+     "alpha": true
+    }
+   },
+   "generator": "world_map_pp.py border() + ui/corner_tl",
+   "provenance": [
+    "절차 드로잉",
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "테두리 2중선+그을린 가장자리+4모서리 금박 장식. 지도 크기와 동일, 맨 위 레이어."
+   }
+  },
+  {
+   "key": "map.world.decor.sea",
+   "path": "assets/map_world/decor/sea_ornament_4096.webp",
+   "size": "4096x2048",
+   "bytes": 300290,
+   "alpha": true,
+   "type": "map_overlay",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/decor/sea_ornament_2048.webp",
+     "size": "2048x1024",
+     "bytes": 90626,
+     "alpha": true
+    }
+   },
+   "generator": "world_map_pp.py sea_decor()",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "대양 8곳 물결 문양(반투명)+남동태평양 나침반. 핀 후보 지역과 겹치지 않음."
+   }
+  },
+  {
+   "key": "map.world.ui.chip_frame",
+   "path": "assets/map_world/ui/chip_frame.png",
+   "size": "128x128",
+   "bytes": 24568,
+   "alpha": true,
+   "type": "ui",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/ui/chip_frame@2x.png",
+     "size": "256x256",
+     "bytes": 84526,
+     "alpha": true
+    }
+   },
+   "qa": {
+    "verdict": "pass",
+    "notes": "영웅 칩 원형 프레임(가운데 투명 구멍, 지름 약 74%). 초상은 아래 레이어에 원형 마스크"
+   },
+   "generator": "world_map_pp.py",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ]
+  },
+  {
+   "key": "map.world.ui.compass",
+   "path": "assets/map_world/ui/compass.png",
+   "size": "192x192",
+   "bytes": 48186,
+   "alpha": true,
+   "type": "ui",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/ui/compass@2x.png",
+     "size": "384x384",
+     "bytes": 160704,
+     "alpha": true
+    }
+   },
+   "qa": {
+    "verdict": "pass",
+    "notes": "나침반(글자 없음)"
+   },
+   "generator": "world_map_pp.py",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ]
+  },
+  {
+   "key": "map.world.ui.corner",
+   "path": "assets/map_world/ui/corner_tl.png",
+   "size": "256x240",
+   "bytes": 66219,
+   "alpha": true,
+   "type": "ui",
+   "variants": {},
+   "qa": {
+    "verdict": "pass",
+    "notes": "왼쪽 위 모서리 장식(나머지는 FE 반전)"
+   },
+   "generator": "world_map_pp.py",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ]
+  },
+  {
+   "key": "map.world.ui.wave",
+   "path": "assets/map_world/ui/wave.png",
+   "size": "256x256",
+   "bytes": 106382,
+   "alpha": true,
+   "type": "ui",
+   "variants": {},
+   "qa": {
+    "verdict": "pass",
+    "notes": "바다 물결 문양 단품(반투명)"
+   },
+   "generator": "world_map_pp.py",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ]
+  },
+  {
+   "key": "map.world.ui.ripple",
+   "path": "assets/map_world/ui/ripple_ring.png",
+   "size": "256x256",
+   "bytes": 35397,
+   "alpha": true,
+   "type": "ui",
+   "variants": {},
+   "qa": {
+    "verdict": "pass",
+    "notes": "선택 파동 링(FE에서 scale 0.6→1.4·opacity 1→0 반복)"
+   },
+   "generator": "world_map_pp.py (절차)",
+   "provenance": [
+    "절차 드로잉"
+   ]
+  },
+  {
+   "key": "map.icon.port",
+   "path": "assets/map_world/icons/port.png",
+   "size": "96x96",
+   "bytes": 12165,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "해전 항구(부두·범선·등대)",
+   "use": "해전 거점",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/port@2x.png",
+     "size": "192x192",
+     "bytes": 40112,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/port_locked.png",
+     "size": "96x96",
+     "bytes": 10293,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/port_locked@2x.png",
+     "size": "192x192",
+     "bytes": 31003,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/port_cleared.png",
+     "size": "96x96",
+     "bytes": 12242,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/port_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 39662,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.eupseong",
+   "path": "assets/map_world/icons/eupseong.png",
+   "size": "96x96",
+   "bytes": 14202,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "동아시아 읍성",
+   "use": "성/읍성",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/eupseong@2x.png",
+     "size": "192x192",
+     "bytes": 48022,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/eupseong_locked.png",
+     "size": "96x96",
+     "bytes": 10971,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/eupseong_locked@2x.png",
+     "size": "192x192",
+     "bytes": 33709,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/eupseong_cleared.png",
+     "size": "96x96",
+     "bytes": 14056,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/eupseong_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 46386,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.mountain_fortress",
+   "path": "assets/map_world/icons/mountain_fortress.png",
+   "size": "96x96",
+   "bytes": 14530,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "산성(능선 성벽)",
+   "use": "산성",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/mountain_fortress@2x.png",
+     "size": "192x192",
+     "bytes": 47977,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/mountain_fortress_locked.png",
+     "size": "96x96",
+     "bytes": 11220,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/mountain_fortress_locked@2x.png",
+     "size": "192x192",
+     "bytes": 33685,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/mountain_fortress_cleared.png",
+     "size": "96x96",
+     "bytes": 14403,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/mountain_fortress_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 46178,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.walled_capital",
+   "path": "assets/map_world/icons/walled_capital.png",
+   "size": "96x96",
+   "bytes": 15975,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "강가 이중 성벽 도성",
+   "use": "성곽도시(평양성·낙양 류)",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/walled_capital@2x.png",
+     "size": "192x192",
+     "bytes": 55676,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/walled_capital_locked.png",
+     "size": "96x96",
+     "bytes": 11346,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/walled_capital_locked@2x.png",
+     "size": "192x192",
+     "bytes": 36343,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/walled_capital_cleared.png",
+     "size": "96x96",
+     "bytes": 15141,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/walled_capital_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 50952,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.palace_hall",
+   "path": "assets/map_world/icons/palace_hall.png",
+   "size": "96x96",
+   "bytes": 16242,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "전각·관아",
+   "use": "궁궐/관아",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/palace_hall@2x.png",
+     "size": "192x192",
+     "bytes": 54620,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/palace_hall_locked.png",
+     "size": "96x96",
+     "bytes": 12598,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/palace_hall_locked@2x.png",
+     "size": "192x192",
+     "bytes": 39072,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/palace_hall_cleared.png",
+     "size": "96x96",
+     "bytes": 15998,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/palace_hall_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 52385,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.mountains",
+   "path": "assets/map_world/icons/mountains.png",
+   "size": "96x96",
+   "bytes": 12869,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "설산과 숲",
+   "use": "능선/산악",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/mountains@2x.png",
+     "size": "192x192",
+     "bytes": 41283,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/mountains_locked.png",
+     "size": "96x96",
+     "bytes": 9887,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/mountains_locked@2x.png",
+     "size": "192x192",
+     "bytes": 28141,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/mountains_cleared.png",
+     "size": "96x96",
+     "bytes": 12545,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/mountains_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 38490,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.library_tower",
+   "path": "assets/map_world/icons/library_tower.png",
+   "size": "96x96",
+   "bytes": 14971,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "책 더미 탑",
+   "use": "서고(비지리 허구 거점)",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/library_tower@2x.png",
+     "size": "192x192",
+     "bytes": 51037,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/library_tower_locked.png",
+     "size": "96x96",
+     "bytes": 11861,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/library_tower_locked@2x.png",
+     "size": "192x192",
+     "bytes": 36725,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/library_tower_cleared.png",
+     "size": "96x96",
+     "bytes": 14854,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/library_tower_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 49500,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.yurt_camp",
+   "path": "assets/map_world/icons/yurt_camp.png",
+   "size": "96x96",
+   "bytes": 13335,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "유르트 천막 진영",
+   "use": "초원/유목",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/yurt_camp@2x.png",
+     "size": "192x192",
+     "bytes": 44681,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/yurt_camp_locked.png",
+     "size": "96x96",
+     "bytes": 9949,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/yurt_camp_locked@2x.png",
+     "size": "192x192",
+     "bytes": 30642,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/yurt_camp_cleared.png",
+     "size": "96x96",
+     "bytes": 12593,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/yurt_camp_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 40144,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.gorge_fortress",
+   "path": "assets/map_world/icons/gorge_fortress.png",
+   "size": "96x96",
+   "bytes": 17381,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "협곡 강 요새",
+   "use": "협곡/강 요새(적벽·장강 류)",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/gorge_fortress@2x.png",
+     "size": "192x192",
+     "bytes": 57072,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/gorge_fortress_locked.png",
+     "size": "96x96",
+     "bytes": 11829,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/gorge_fortress_locked@2x.png",
+     "size": "192x192",
+     "bytes": 34501,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/gorge_fortress_cleared.png",
+     "size": "96x96",
+     "bytes": 16329,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/gorge_fortress_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 51270,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.volcano",
+   "path": "assets/map_world/icons/volcano.png",
+   "size": "96x96",
+   "bytes": 13524,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "화산",
+   "use": "화산 지대",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/volcano@2x.png",
+     "size": "192x192",
+     "bytes": 42071,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/volcano_locked.png",
+     "size": "96x96",
+     "bytes": 10767,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/volcano_locked@2x.png",
+     "size": "192x192",
+     "bytes": 29753,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/volcano_cleared.png",
+     "size": "96x96",
+     "bytes": 13456,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/volcano_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 40100,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.great_wall",
+   "path": "assets/map_world/icons/great_wall.png",
+   "size": "96x96",
+   "bytes": 15144,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "장성 구간+망대",
+   "use": "장성/관문",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/great_wall@2x.png",
+     "size": "192x192",
+     "bytes": 51708,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/great_wall_locked.png",
+     "size": "96x96",
+     "bytes": 11373,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/great_wall_locked@2x.png",
+     "size": "192x192",
+     "bytes": 35141,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/great_wall_cleared.png",
+     "size": "96x96",
+     "bytes": 14814,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/great_wall_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 49068,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.stone_castle",
+   "path": "assets/map_world/icons/stone_castle.png",
+   "size": "96x96",
+   "bytes": 16333,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "서양 석조 성(원뿔 탑)",
+   "use": "서유럽 성(오를레앙 류)",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/stone_castle@2x.png",
+     "size": "192x192",
+     "bytes": 52566,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/stone_castle_locked.png",
+     "size": "96x96",
+     "bytes": 12856,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/stone_castle_locked@2x.png",
+     "size": "192x192",
+     "bytes": 37410,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/stone_castle_cleared.png",
+     "size": "96x96",
+     "bytes": 16191,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/stone_castle_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 50613,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.mudbrick_city",
+   "path": "assets/map_world/icons/mudbrick_city.png",
+   "size": "96x96",
+   "bytes": 12421,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "사막 흙벽돌 성읍",
+   "use": "메소포타미아·레반트",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/mudbrick_city@2x.png",
+     "size": "192x192",
+     "bytes": 41030,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/mudbrick_city_locked.png",
+     "size": "96x96",
+     "bytes": 9857,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/mudbrick_city_locked@2x.png",
+     "size": "192x192",
+     "bytes": 29896,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/mudbrick_city_cleared.png",
+     "size": "96x96",
+     "bytes": 12302,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/mudbrick_city_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 39671,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.harbor_city",
+   "path": "assets/map_world/icons/harbor_city.png",
+   "size": "96x96",
+   "bytes": 16205,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "지중해 항구 도시+갤리선",
+   "use": "카르타고·지중해 항구",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/harbor_city@2x.png",
+     "size": "192x192",
+     "bytes": 56054,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/harbor_city_locked.png",
+     "size": "96x96",
+     "bytes": 12153,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/harbor_city_locked@2x.png",
+     "size": "192x192",
+     "bytes": 38055,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/harbor_city_cleared.png",
+     "size": "96x96",
+     "bytes": 15473,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/harbor_city_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 51953,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.beacon_tower",
+   "path": "assets/map_world/icons/beacon_tower.png",
+   "size": "96x96",
+   "bytes": 7487,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "돌 봉화탑",
+   "use": "탑/망루/전초",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/beacon_tower@2x.png",
+     "size": "192x192",
+     "bytes": 23785,
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/map_world/icons/beacon_tower_locked.png",
+     "size": "96x96",
+     "bytes": 6272,
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/map_world/icons/beacon_tower_locked@2x.png",
+     "size": "192x192",
+     "bytes": 18313,
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/map_world/icons/beacon_tower_cleared.png",
+     "size": "96x96",
+     "bytes": 7483,
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/map_world/icons/beacon_tower_cleared@2x.png",
+     "size": "192x192",
+     "bytes": 23513,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  },
+  {
+   "key": "map.icon.pin_gem",
+   "path": "assets/map_world/icons/pin_gem.png",
+   "size": "96x96",
+   "bytes": 9260,
+   "alpha": true,
+   "type": "map_icon",
+   "desc": "초록 보석 핀(금 받침)",
+   "use": "거점 아래 보석 점/핀",
+   "variants": {
+    "x2": {
+     "path": "assets/map_world/icons/pin_gem@2x.png",
+     "size": "192x192",
+     "bytes": 29102,
+     "alpha": true
+    }
+   },
+   "anchor": "bottom-center(접지 그림자 중심 ≈ x 0.5, y 0.9)",
+   "generator": "world_map_pp.py icons() ← raw/icon/landmarks_4x4.jpg",
+   "provenance": [
+    "이미지 모델 gemini-nano-banana-2.1 (docker/gemini/world_map_gen.mjs, 프롬프트 world_map_style.mjs)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "마젠타 키 제거, 보라 접지 그림자→반투명 갈색 재해석, 어두운/밝은 배경 테두리 점검 통과"
+   }
+  }
+ ],
+ "budget": {
+  "base_webp_total_bytes": 622540,
+  "target": "≤1.5MB(모바일 ≤600KB)"
+ }
+}

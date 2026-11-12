@@ -1,0 +1,5122 @@
+{
+ "note": "npc_ch26: ch26 로스터 29행 전용 방향 시트(안아트 2026-11-08, npc_pompey_magnus 는 기존 unit.hero.pompey_magnus 로 npcSheetCode 연결이라 제외, 트레보니우스 추가). 시트 무기는 로스터 troop_type 기준(기병 3 = 기마 시트). 무기 1개 규칙·pal_mode unique. 영웅 코드 mark_antony·marcus_brutus 는 unitOwnKeys 의 unit.npc.npc_<hero> 후보로 연결. 신규 초상 = npc_ch26_portrait_manifest_fragment.json",
+ "generated": "2026-11-08T13:02:09.460Z",
+ "keyRules": {
+  "npc_sprite": "unit.npc.<npc_code>.<ally|enemy>.64.sheet"
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "unit.npc.npc_mark_antony.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_mark_antony_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_mark_antony_ally_sheet.png"
+   },
+   "bytes": 10609,
+   "npc": "npc_mark_antony",
+   "name_ko": "마르쿠스 안토니우스",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_mark_antony",
+   "ref_portrait": "public/assets/portraits/npc/npc_mark_antony.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_mark_antony.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.21
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "38x63",
+     "up": "38x62"
+    },
+    "outline": "#0b0520",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: 로스터 spear, r2 측면 1칸 창 누락 → 재생성",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "플루타르코스의 외모 서술(넓은 이마·매부리코·수염) 취지 반영, 세부는 일반화(verify).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_mark_antony.png)",
+   "used_in": "ch26_s4·ch26_s5·ch26_s6·ch26_s7·ch26_s8·ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_mark_antony.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_mark_antony_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_mark_antony_enemy_sheet.png"
+   },
+   "bytes": 10615,
+   "npc": "npc_mark_antony",
+   "name_ko": "마르쿠스 안토니우스",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_mark_antony",
+   "ref_portrait": "public/assets/portraits/npc/npc_mark_antony.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_mark_antony.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.21
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "38x63",
+     "up": "38x62"
+    },
+    "outline": "#0b0520",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: 로스터 spear, r2 측면 1칸 창 누락 → 재생성",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "플루타르코스의 외모 서술(넓은 이마·매부리코·수염) 취지 반영, 세부는 일반화(verify).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_mark_antony.png)",
+   "used_in": "ch26_s4·ch26_s5·ch26_s6·ch26_s7·ch26_s8·ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_labienus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_labienus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_labienus_ally_sheet.png"
+   },
+   "bytes": 9573,
+   "npc": "npc_labienus",
+   "name_ko": "티투스 라비에누스",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "cavalry",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_labienus",
+   "ref_portrait": "public/assets/portraits/npc/npc_labienus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_labienus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.02
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "35x58",
+     "left": "52x58",
+     "up": "28x64"
+    },
+    "outline": "#0f0a25",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: 로스터 cavalry 기마 시트, r2 창이 칼처럼 보여 재생성",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "카이사르의 갈리아 최고 부장, 49년 폼페이우스 측으로 이탈(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_cavalry.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_labienus.png)",
+   "used_in": "ch26_s1·ch26_s2·ch26_s3·ch26_s5·ch26_s8"
+  },
+  {
+   "key": "unit.npc.npc_labienus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_labienus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_labienus_enemy_sheet.png"
+   },
+   "bytes": 9610,
+   "npc": "npc_labienus",
+   "name_ko": "티투스 라비에누스",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "cavalry",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_labienus",
+   "ref_portrait": "public/assets/portraits/npc/npc_labienus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_labienus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.02
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "35x58",
+     "left": "52x58",
+     "up": "28x64"
+    },
+    "outline": "#0f0a25",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: 로스터 cavalry 기마 시트, r2 창이 칼처럼 보여 재생성",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "카이사르의 갈리아 최고 부장, 49년 폼페이우스 측으로 이탈(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_cavalry.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_labienus.png)",
+   "used_in": "ch26_s1·ch26_s2·ch26_s3·ch26_s5·ch26_s8"
+  },
+  {
+   "key": "unit.npc.npc_publius_crassus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_publius_crassus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_publius_crassus_ally_sheet.png"
+   },
+   "bytes": 9303,
+   "npc": "npc_publius_crassus",
+   "name_ko": "푸블리우스 크라수스",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "cavalry",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_publius_crassus",
+   "ref_portrait": "public/assets/portraits/npc/npc_publius_crassus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_publius_crassus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.09
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x55",
+     "left": "52x54",
+     "up": "28x64"
+    },
+    "outline": "#0c0726",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "기마 시트(s2_troop)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "갈리아 전쟁 기병 지휘(confirmed), 아버지 마르쿠스 크라수스와 별개 인물. 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_cavalry.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_publius_crassus.png)",
+   "used_in": "ch26_s1"
+  },
+  {
+   "key": "unit.npc.npc_publius_crassus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_publius_crassus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_publius_crassus_enemy_sheet.png"
+   },
+   "bytes": 9344,
+   "npc": "npc_publius_crassus",
+   "name_ko": "푸블리우스 크라수스",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "cavalry",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_publius_crassus",
+   "ref_portrait": "public/assets/portraits/npc/npc_publius_crassus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_publius_crassus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.09
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "43x55",
+     "left": "52x54",
+     "up": "28x64"
+    },
+    "outline": "#0c0726",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "기마 시트(s2_troop)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "갈리아 전쟁 기병 지휘(confirmed), 아버지 마르쿠스 크라수스와 별개 인물. 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_cavalry.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_publius_crassus.png)",
+   "used_in": "ch26_s1"
+  },
+  {
+   "key": "unit.npc.npc_curio.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_curio_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_curio_ally_sheet.png"
+   },
+   "bytes": 9046,
+   "npc": "npc_curio",
+   "name_ko": "가이우스 스크리보니우스 쿠리오",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_curio",
+   "ref_portrait": "public/assets/portraits/npc/npc_curio.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_curio.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.28
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x61",
+     "left": "43x61",
+     "up": "48x62"
+    },
+    "outline": "#0e091d",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "49년 호민관, 로마 탈출 후 아프리카에서 전사(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_curio.png)",
+   "used_in": "ch26_s4"
+  },
+  {
+   "key": "unit.npc.npc_curio.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_curio_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_curio_enemy_sheet.png"
+   },
+   "bytes": 9041,
+   "npc": "npc_curio",
+   "name_ko": "가이우스 스크리보니우스 쿠리오",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_curio",
+   "ref_portrait": "public/assets/portraits/npc/npc_curio.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_curio.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.28
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x61",
+     "left": "43x61",
+     "up": "48x62"
+    },
+    "outline": "#0e091d",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "49년 호민관, 로마 탈출 후 아프리카에서 전사(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_curio.png)",
+   "used_in": "ch26_s4"
+  },
+  {
+   "key": "unit.npc.npc_quintus_cassius.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_quintus_cassius_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_quintus_cassius_ally_sheet.png"
+   },
+   "bytes": 9121,
+   "npc": "npc_quintus_cassius",
+   "name_ko": "퀸투스 카시우스 롱기누스",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_quintus_cassius",
+   "ref_portrait": "public/assets/portraits/npc/npc_quintus_cassius.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_quintus_cassius.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.94
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x61",
+     "left": "31x61",
+     "up": "48x62"
+    },
+    "outline": "#0c0428",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s2_troop: 로스터 sword 로 재생성(초상은 지팡이 — 초상·시트 소지품 차이 의도)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "49년 호민관, 안토니우스와 함께 탈출(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_quintus_cassius.png)",
+   "used_in": "ch26_s4"
+  },
+  {
+   "key": "unit.npc.npc_quintus_cassius.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_quintus_cassius_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_quintus_cassius_enemy_sheet.png"
+   },
+   "bytes": 9118,
+   "npc": "npc_quintus_cassius",
+   "name_ko": "퀸투스 카시우스 롱기누스",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_quintus_cassius",
+   "ref_portrait": "public/assets/portraits/npc/npc_quintus_cassius.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_quintus_cassius.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.94
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x61",
+     "left": "31x61",
+     "up": "48x62"
+    },
+    "outline": "#0c0428",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s2_troop: 로스터 sword 로 재생성(초상은 지팡이 — 초상·시트 소지품 차이 의도)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "49년 호민관, 안토니우스와 함께 탈출(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_quintus_cassius.png)",
+   "used_in": "ch26_s4"
+  },
+  {
+   "key": "unit.npc.npc_asinius_pollio.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_asinius_pollio_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_asinius_pollio_ally_sheet.png"
+   },
+   "bytes": 8144,
+   "npc": "npc_asinius_pollio",
+   "name_ko": "가이우스 아시니우스 폴리오",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_asinius_pollio",
+   "ref_portrait": "public/assets/portraits/npc/npc_asinius_pollio.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_asinius_pollio.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.07
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x61",
+     "left": "30x61",
+     "up": "46x62"
+    },
+    "outline": "#0e0a27",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "루비콘 도하 현장 동행(confirmed, 플루타르코스가 폴리오 기록 인용). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_asinius_pollio.png)",
+   "used_in": "ch26_s5"
+  },
+  {
+   "key": "unit.npc.npc_asinius_pollio.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_asinius_pollio_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_asinius_pollio_enemy_sheet.png"
+   },
+   "bytes": 8138,
+   "npc": "npc_asinius_pollio",
+   "name_ko": "가이우스 아시니우스 폴리오",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_asinius_pollio",
+   "ref_portrait": "public/assets/portraits/npc/npc_asinius_pollio.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_asinius_pollio.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.07
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x61",
+     "left": "30x61",
+     "up": "46x62"
+    },
+    "outline": "#0e0a27",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "루비콘 도하 현장 동행(confirmed, 플루타르코스가 폴리오 기록 인용). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_asinius_pollio.png)",
+   "used_in": "ch26_s5"
+  },
+  {
+   "key": "unit.npc.npc_ariovistus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ariovistus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ariovistus_ally_sheet.png"
+   },
+   "bytes": 11031,
+   "npc": "npc_ariovistus",
+   "name_ko": "아리오비스투스",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "germanic(suebi)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_ariovistus",
+   "ref_portrait": "public/assets/portraits/npc/npc_ariovistus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_ariovistus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.09
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "47x61",
+     "left": "47x61",
+     "up": "47x62"
+    },
+    "outline": "#080425",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s2_troop: 로스터 sword(초상은 창)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "수에비 왕, 기원전 58년 패배(confirmed). 수에비 매듭은 타키투스 기록 기반 게임 표현(verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_ariovistus.png)",
+   "used_in": "ch26_s1"
+  },
+  {
+   "key": "unit.npc.npc_ariovistus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ariovistus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ariovistus_enemy_sheet.png"
+   },
+   "bytes": 11027,
+   "npc": "npc_ariovistus",
+   "name_ko": "아리오비스투스",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "germanic(suebi)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_ariovistus",
+   "ref_portrait": "public/assets/portraits/npc/npc_ariovistus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_ariovistus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.09
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "47x61",
+     "left": "47x61",
+     "up": "47x62"
+    },
+    "outline": "#080425",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s2_troop: 로스터 sword(초상은 창)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "수에비 왕, 기원전 58년 패배(confirmed). 수에비 매듭은 타키투스 기록 기반 게임 표현(verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_ariovistus.png)",
+   "used_in": "ch26_s1"
+  },
+  {
+   "key": "unit.npc.npc_vercassivellaunus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_vercassivellaunus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_vercassivellaunus_ally_sheet.png"
+   },
+   "bytes": 9932,
+   "npc": "npc_vercassivellaunus",
+   "name_ko": "베르카시벨라우노스",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "gaul(arverni)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_vercassivellaunus",
+   "ref_portrait": "public/assets/portraits/npc/npc_vercassivellaunus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_vercassivellaunus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.14
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "36x64",
+     "up": "38x64"
+    },
+    "outline": "#0e081b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: r2 측면 행 정면화 → 재생성(로스터 spear)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "알레시아 구원군 지휘, 포로(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_vercassivellaunus.png)",
+   "used_in": "ch26_s3"
+  },
+  {
+   "key": "unit.npc.npc_vercassivellaunus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_vercassivellaunus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_vercassivellaunus_enemy_sheet.png"
+   },
+   "bytes": 9934,
+   "npc": "npc_vercassivellaunus",
+   "name_ko": "베르카시벨라우노스",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "gaul(arverni)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_vercassivellaunus",
+   "ref_portrait": "public/assets/portraits/npc/npc_vercassivellaunus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_vercassivellaunus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.14
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x64",
+     "left": "36x64",
+     "up": "38x64"
+    },
+    "outline": "#0e081b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: r2 측면 행 정면화 → 재생성(로스터 spear)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "알레시아 구원군 지휘, 포로(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_vercassivellaunus.png)",
+   "used_in": "ch26_s3"
+  },
+  {
+   "key": "unit.npc.npc_domitius_ahenobarbus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_domitius_ahenobarbus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_domitius_ahenobarbus_ally_sheet.png"
+   },
+   "bytes": 10163,
+   "npc": "npc_domitius_ahenobarbus",
+   "name_ko": "루키우스 도미티우스 아헤노바르부스",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_domitius_ahenobarbus",
+   "ref_portrait": "public/assets/portraits/npc/npc_domitius_ahenobarbus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_domitius_ahenobarbus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.28
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x63",
+     "left": "33x62",
+     "up": "38x61"
+    },
+    "outline": "#0d032d",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s2_troop: 로스터 spear(초상은 칼)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "코르피니움 항복·석방, 파르살루스 전사(confirmed). 붉은 수염은 가문 별명(Ahenobarbus=청동 수염) 기반 게임 표현(verify).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_domitius_ahenobarbus.png)",
+   "used_in": "ch26_s6"
+  },
+  {
+   "key": "unit.npc.npc_domitius_ahenobarbus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_domitius_ahenobarbus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_domitius_ahenobarbus_enemy_sheet.png"
+   },
+   "bytes": 10159,
+   "npc": "npc_domitius_ahenobarbus",
+   "name_ko": "루키우스 도미티우스 아헤노바르부스",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_domitius_ahenobarbus",
+   "ref_portrait": "public/assets/portraits/npc/npc_domitius_ahenobarbus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_domitius_ahenobarbus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.28
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "38x63",
+     "left": "33x62",
+     "up": "38x61"
+    },
+    "outline": "#0d032d",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s2_troop: 로스터 spear(초상은 칼)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "코르피니움 항복·석방, 파르살루스 전사(confirmed). 붉은 수염은 가문 별명(Ahenobarbus=청동 수염) 기반 게임 표현(verify).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_domitius_ahenobarbus.png)",
+   "used_in": "ch26_s6"
+  },
+  {
+   "key": "unit.npc.npc_caecilius_metellus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_caecilius_metellus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_caecilius_metellus_ally_sheet.png"
+   },
+   "bytes": 9955,
+   "npc": "npc_caecilius_metellus",
+   "name_ko": "루키우스 카이킬리우스 메텔루스",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_caecilius_metellus",
+   "ref_portrait": "public/assets/portraits/npc/npc_caecilius_metellus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_caecilius_metellus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.47
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x61",
+     "left": "41x60",
+     "up": "46x62"
+    },
+    "outline": "#100a22",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: 로스터 sword(초상은 지팡이·막는 손짓 — 초상·시트 소지품 차이 의도)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "49년 국고 개방을 막은 호민관(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_caecilius_metellus.png)",
+   "used_in": "ch26_s7"
+  },
+  {
+   "key": "unit.npc.npc_caecilius_metellus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_caecilius_metellus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_caecilius_metellus_enemy_sheet.png"
+   },
+   "bytes": 9780,
+   "npc": "npc_caecilius_metellus",
+   "name_ko": "루키우스 카이킬리우스 메텔루스",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_caecilius_metellus",
+   "ref_portrait": "public/assets/portraits/npc/npc_caecilius_metellus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_caecilius_metellus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.47
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x61",
+     "left": "41x60",
+     "up": "46x62"
+    },
+    "outline": "#100a22",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: 로스터 sword(초상은 지팡이·막는 손짓 — 초상·시트 소지품 차이 의도)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "49년 국고 개방을 막은 호민관(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_caecilius_metellus.png)",
+   "used_in": "ch26_s7"
+  },
+  {
+   "key": "unit.npc.npc_metellus_scipio.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_metellus_scipio_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_metellus_scipio_ally_sheet.png"
+   },
+   "bytes": 10381,
+   "npc": "npc_metellus_scipio",
+   "name_ko": "메텔루스 스키피오",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_metellus_scipio",
+   "ref_portrait": "public/assets/portraits/npc/npc_metellus_scipio.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_metellus_scipio.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.68
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "37x64",
+     "left": "38x62",
+     "up": "37x63"
+    },
+    "outline": "#0a0329",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 4,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: r2 뒷모습 창 2개 → 재생성(로스터 spear)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "파르살루스 폼페이우스군 중앙 지휘(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_metellus_scipio.png)",
+   "used_in": "ch26_s8"
+  },
+  {
+   "key": "unit.npc.npc_metellus_scipio.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_metellus_scipio_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_metellus_scipio_enemy_sheet.png"
+   },
+   "bytes": 10378,
+   "npc": "npc_metellus_scipio",
+   "name_ko": "메텔루스 스키피오",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_metellus_scipio",
+   "ref_portrait": "public/assets/portraits/npc/npc_metellus_scipio.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_metellus_scipio.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.68
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "37x64",
+     "left": "38x62",
+     "up": "37x63"
+    },
+    "outline": "#0a0329",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 4,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s3_fix: r2 뒷모습 창 2개 → 재생성(로스터 spear)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "파르살루스 폼페이우스군 중앙 지휘(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_metellus_scipio.png)",
+   "used_in": "ch26_s8"
+  },
+  {
+   "key": "unit.npc.npc_marcus_brutus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_marcus_brutus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_marcus_brutus_ally_sheet.png"
+   },
+   "bytes": 8876,
+   "npc": "npc_marcus_brutus",
+   "name_ko": "마르쿠스 유니우스 브루투스",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_marcus_brutus",
+   "ref_portrait": "public/assets/portraits/npc/npc_marcus_brutus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_marcus_brutus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.07
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x61",
+     "left": "42x61",
+     "up": "47x62"
+    },
+    "outline": "#080720",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "주화 초상의 옅은 수염 취지만 반영, 얼굴은 일반화(verify). 비난 톤 금지.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_marcus_brutus.png)",
+   "used_in": "ch26_s7·ch26_s8·ch26_s9·ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_marcus_brutus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_marcus_brutus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_marcus_brutus_enemy_sheet.png"
+   },
+   "bytes": 8882,
+   "npc": "npc_marcus_brutus",
+   "name_ko": "마르쿠스 유니우스 브루투스",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_marcus_brutus",
+   "ref_portrait": "public/assets/portraits/npc/npc_marcus_brutus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_marcus_brutus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.07
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x61",
+     "left": "42x61",
+     "up": "47x62"
+    },
+    "outline": "#080720",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "주화 초상의 옅은 수염 취지만 반영, 얼굴은 일반화(verify). 비난 톤 금지.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_marcus_brutus.png)",
+   "used_in": "ch26_s7·ch26_s8·ch26_s9·ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_gnaeus_pompey_younger.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_gnaeus_pompey_younger_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_gnaeus_pompey_younger_ally_sheet.png"
+   },
+   "bytes": 9702,
+   "npc": "npc_gnaeus_pompey_younger",
+   "name_ko": "그나이우스 폼페이우스(아들)",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_gnaeus_pompey_younger",
+   "ref_portrait": "public/assets/portraits/npc/npc_gnaeus_pompey_younger.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_gnaeus_pompey_younger.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.82
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x61",
+     "left": "29x60",
+     "up": "46x62"
+    },
+    "outline": "#0b0a1b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s2_troop: 로스터 sword(초상은 창)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "문다 전투 폼페이우스파 지휘(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_gnaeus_pompey_younger.png)",
+   "used_in": "ch26_s9"
+  },
+  {
+   "key": "unit.npc.npc_gnaeus_pompey_younger.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_gnaeus_pompey_younger_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_gnaeus_pompey_younger_enemy_sheet.png"
+   },
+   "bytes": 9700,
+   "npc": "npc_gnaeus_pompey_younger",
+   "name_ko": "그나이우스 폼페이우스(아들)",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_gnaeus_pompey_younger",
+   "ref_portrait": "public/assets/portraits/npc/npc_gnaeus_pompey_younger.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_gnaeus_pompey_younger.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.82
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x61",
+     "left": "29x60",
+     "up": "46x62"
+    },
+    "outline": "#0b0a1b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 3,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "s2_troop: 로스터 sword(초상은 창)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "문다 전투 폼페이우스파 지휘(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_gnaeus_pompey_younger.png)",
+   "used_in": "ch26_s9"
+  },
+  {
+   "key": "unit.npc.npc_cassius_longinus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cassius_longinus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cassius_longinus_ally_sheet.png"
+   },
+   "bytes": 9105,
+   "npc": "npc_cassius_longinus",
+   "name_ko": "가이우스 카시우스 롱기누스",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_cassius_longinus",
+   "ref_portrait": "public/assets/portraits/npc/npc_cassius_longinus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_cassius_longinus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.1
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x62",
+     "left": "29x60",
+     "up": "45x62"
+    },
+    "outline": "#090227",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "카르라이 생존 장교, 암살 주모자(confirmed). 마르고 창백한 인상은 플루타르코스 일화 반영(verify).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_cassius_longinus.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_cassius_longinus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_cassius_longinus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_cassius_longinus_enemy_sheet.png"
+   },
+   "bytes": 9125,
+   "npc": "npc_cassius_longinus",
+   "name_ko": "가이우스 카시우스 롱기누스",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_cassius_longinus",
+   "ref_portrait": "public/assets/portraits/npc/npc_cassius_longinus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_cassius_longinus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.1
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x62",
+     "left": "29x60",
+     "up": "45x62"
+    },
+    "outline": "#090227",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "카르라이 생존 장교, 암살 주모자(confirmed). 마르고 창백한 인상은 플루타르코스 일화 반영(verify).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_cassius_longinus.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_decimus_brutus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_decimus_brutus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_decimus_brutus_ally_sheet.png"
+   },
+   "bytes": 9376,
+   "npc": "npc_decimus_brutus",
+   "name_ko": "데키무스 유니우스 브루투스",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_decimus_brutus",
+   "ref_portrait": "public/assets/portraits/npc/npc_decimus_brutus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_decimus_brutus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.5
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "49x60",
+     "left": "42x60",
+     "up": "34x62"
+    },
+    "outline": "#0e061d",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [
+     "초상의 단검이 시트에서는 짧은 칼 길이로 보임"
+    ],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "3월 15일 카이사르를 설득해 회의장으로 데려간 인물(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_decimus_brutus.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_decimus_brutus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_decimus_brutus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_decimus_brutus_enemy_sheet.png"
+   },
+   "bytes": 9373,
+   "npc": "npc_decimus_brutus",
+   "name_ko": "데키무스 유니우스 브루투스",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_decimus_brutus",
+   "ref_portrait": "public/assets/portraits/npc/npc_decimus_brutus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_decimus_brutus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.5
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "49x60",
+     "left": "42x60",
+     "up": "34x62"
+    },
+    "outline": "#0e061d",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [
+     "초상의 단검이 시트에서는 짧은 칼 길이로 보임"
+    ],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "3월 15일 카이사르를 설득해 회의장으로 데려간 인물(confirmed). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_decimus_brutus.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_casca.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_casca_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_casca_ally_sheet.png"
+   },
+   "bytes": 9777,
+   "npc": "npc_casca",
+   "name_ko": "푸블리우스 세르빌리우스 카스카",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_casca",
+   "ref_portrait": "public/assets/portraits/npc/npc_casca.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_casca.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.49
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "41x61",
+     "left": "28x61",
+     "up": "48x62"
+    },
+    "outline": "#0f0b23",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "첫 일격을 가한 인물로 전해짐(confirmed 큰 줄기, 장면은 비그래픽). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_casca.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_casca.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_casca_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_casca_enemy_sheet.png"
+   },
+   "bytes": 9636,
+   "npc": "npc_casca",
+   "name_ko": "푸블리우스 세르빌리우스 카스카",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_casca",
+   "ref_portrait": "public/assets/portraits/npc/npc_casca.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_casca.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.49
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "41x61",
+     "left": "28x61",
+     "up": "48x62"
+    },
+    "outline": "#0f0b23",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "첫 일격을 가한 인물로 전해짐(confirmed 큰 줄기, 장면은 비그래픽). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_casca.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_trebonius.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_trebonius_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_trebonius_ally_sheet.png"
+   },
+   "bytes": 10059,
+   "npc": "npc_trebonius",
+   "name_ko": "가이우스 트레보니우스",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_trebonius",
+   "ref_portrait": "public/assets/portraits/npc/npc_trebonius.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_trebonius.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.39
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x63",
+     "left": "34x60",
+     "up": "41x61"
+    },
+    "outline": "#0f0333",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "3월 15일 안토니우스를 문 밖에 붙잡아 둠(사료마다 데키무스와 혼동, verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_trebonius.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_trebonius.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_trebonius_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_trebonius_enemy_sheet.png"
+   },
+   "bytes": 10056,
+   "npc": "npc_trebonius",
+   "name_ko": "가이우스 트레보니우스",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_trebonius",
+   "ref_portrait": "public/assets/portraits/npc/npc_trebonius.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_trebonius.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.39
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "39x63",
+     "left": "34x60",
+     "up": "41x61"
+    },
+    "outline": "#0f0333",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "3월 15일 안토니우스를 문 밖에 붙잡아 둠(사료마다 데키무스와 혼동, verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_trebonius.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_calpurnia.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_calpurnia_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_calpurnia_ally_sheet.png"
+   },
+   "bytes": 11539,
+   "npc": "npc_calpurnia",
+   "name_ko": "칼푸르니아",
+   "side": "ally",
+   "story_side": "neutral",
+   "culture": "ancient_med(rome)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_calpurnia",
+   "ref_portrait": "public/assets/portraits/npc/npc_calpurnia.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_calpurnia.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.46
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x62",
+     "left": "30x60",
+     "up": "32x62"
+    },
+    "outline": "#02012b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "중립 인물: 적 시트 스왑 시 하늘색 스톨라가 분홍으로 바뀜(적 진영 사용 안 함)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "컷인 인물(꿈 일화). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_calpurnia.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_calpurnia.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_calpurnia_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_calpurnia_enemy_sheet.png"
+   },
+   "bytes": 11543,
+   "npc": "npc_calpurnia",
+   "name_ko": "칼푸르니아",
+   "side": "enemy",
+   "story_side": "neutral",
+   "culture": "ancient_med(rome)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_calpurnia",
+   "ref_portrait": "public/assets/portraits/npc/npc_calpurnia.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_calpurnia.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.46
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x62",
+     "left": "30x60",
+     "up": "32x62"
+    },
+    "outline": "#02012b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "중립 인물: 적 시트 스왑 시 하늘색 스톨라가 분홍으로 바뀜(적 진영 사용 안 함)",
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "컷인 인물(꿈 일화). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_calpurnia.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_spurinna.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_spurinna_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_spurinna_ally_sheet.png"
+   },
+   "bytes": 12435,
+   "npc": "npc_spurinna",
+   "name_ko": "스푸린나",
+   "side": "ally",
+   "story_side": "neutral",
+   "culture": "ancient_med(etruscan)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_spurinna",
+   "ref_portrait": "public/assets/portraits/npc/npc_spurinna.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_spurinna.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.32
+    },
+    "colors": 32,
+    "clipped_px": 63,
+    "idle_size": {
+     "down": "43x64",
+     "left": "39x62",
+     "up": "44x64"
+    },
+    "outline": "#020125",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "3월 15일 경고 일화(confirmed 큰 줄기). 원뿔 모자·술 망토는 에트루리아 미술 기반 일반화(verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_spurinna.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_spurinna.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_spurinna_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_spurinna_enemy_sheet.png"
+   },
+   "bytes": 12274,
+   "npc": "npc_spurinna",
+   "name_ko": "스푸린나",
+   "side": "enemy",
+   "story_side": "neutral",
+   "culture": "ancient_med(etruscan)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_spurinna",
+   "ref_portrait": "public/assets/portraits/npc/npc_spurinna.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_spurinna.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.32
+    },
+    "colors": 32,
+    "clipped_px": 63,
+    "idle_size": {
+     "down": "43x64",
+     "left": "39x62",
+     "up": "44x64"
+    },
+    "outline": "#020125",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "3월 15일 경고 일화(confirmed 큰 줄기). 원뿔 모자·술 망토는 에트루리아 미술 기반 일반화(verify). 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_spurinna.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_artemidorus.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_artemidorus_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_artemidorus_ally_sheet.png"
+   },
+   "bytes": 10562,
+   "npc": "npc_artemidorus",
+   "name_ko": "크니도스의 아르테미도로스",
+   "side": "ally",
+   "story_side": "neutral",
+   "culture": "ancient_med(greek)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_artemidorus",
+   "ref_portrait": "public/assets/portraits/npc/npc_artemidorus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_artemidorus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.49
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x62",
+     "left": "26x60",
+     "up": "38x61"
+    },
+    "outline": "#03032f",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "경고문 일화(플루타르코스, confirmed 큰 줄기). 이름표·컷인용. 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_artemidorus.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_artemidorus.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_artemidorus_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_artemidorus_enemy_sheet.png"
+   },
+   "bytes": 10316,
+   "npc": "npc_artemidorus",
+   "name_ko": "크니도스의 아르테미도로스",
+   "side": "enemy",
+   "story_side": "neutral",
+   "culture": "ancient_med(greek)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_artemidorus",
+   "ref_portrait": "public/assets/portraits/npc/npc_artemidorus.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_artemidorus.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.49
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x62",
+     "left": "26x60",
+     "up": "38x61"
+    },
+    "outline": "#03032f",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview (contact_r0/r2) + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "경고문 일화(플루타르코스, confirmed 큰 줄기). 이름표·컷인용. 용모 기록 거의 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_artemidorus.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_senate_clerk.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_senate_clerk_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_senate_clerk_ally_sheet.png"
+   },
+   "bytes": 10997,
+   "npc": "npc_senate_clerk",
+   "name_ko": "원로원 서기",
+   "side": "ally",
+   "story_side": "neutral",
+   "culture": "ancient_med(rome)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_senate_clerk",
+   "ref_portrait": "public/assets/portraits/npc/npc_senate_clerk.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_senate_clerk.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.31
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x63",
+     "left": "31x60",
+     "up": "36x62"
+    },
+    "outline": "#020126",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_senate_clerk.png)",
+   "used_in": "ch26_s4"
+  },
+  {
+   "key": "unit.npc.npc_senate_clerk.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_senate_clerk_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_senate_clerk_enemy_sheet.png"
+   },
+   "bytes": 10715,
+   "npc": "npc_senate_clerk",
+   "name_ko": "원로원 서기",
+   "side": "enemy",
+   "story_side": "neutral",
+   "culture": "ancient_med(rome)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_senate_clerk",
+   "ref_portrait": "public/assets/portraits/npc/npc_senate_clerk.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_senate_clerk.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.31
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x63",
+     "left": "31x60",
+     "up": "36x62"
+    },
+    "outline": "#020126",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_senate_clerk.png)",
+   "used_in": "ch26_s4"
+  },
+  {
+   "key": "unit.npc.npc_servilia_maid.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_servilia_maid_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_servilia_maid_ally_sheet.png"
+   },
+   "bytes": 11081,
+   "npc": "npc_servilia_maid",
+   "name_ko": "세르빌리아의 하녀",
+   "side": "ally",
+   "story_side": "neutral",
+   "culture": "ancient_med(rome)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_servilia_maid",
+   "ref_portrait": "public/assets/portraits/npc/npc_servilia_maid.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_servilia_maid.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.23
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x63",
+     "left": "40x60",
+     "up": "38x60"
+    },
+    "outline": "#030224",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_servilia_maid.png)",
+   "used_in": "ch26_s7"
+  },
+  {
+   "key": "unit.npc.npc_servilia_maid.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_servilia_maid_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_servilia_maid_enemy_sheet.png"
+   },
+   "bytes": 11163,
+   "npc": "npc_servilia_maid",
+   "name_ko": "세르빌리아의 하녀",
+   "side": "enemy",
+   "story_side": "neutral",
+   "culture": "ancient_med(rome)",
+   "troop": "healer",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.healer.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_servilia_maid",
+   "ref_portrait": "public/assets/portraits/npc/npc_servilia_maid.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_servilia_maid.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.23
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "34x63",
+     "left": "40x60",
+     "up": "38x60"
+    },
+    "outline": "#030224",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_healer.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_servilia_maid.png)",
+   "used_in": "ch26_s7"
+  },
+  {
+   "key": "unit.npc.npc_sugambri_scout_captain.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_sugambri_scout_captain_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_sugambri_scout_captain_ally_sheet.png"
+   },
+   "bytes": 11616,
+   "npc": "npc_sugambri_scout_captain",
+   "name_ko": "수감브리 정찰 기수",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "germanic(sugambri)",
+   "troop": "cavalry",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_sugambri_scout_captain",
+   "ref_portrait": "public/assets/portraits/npc/npc_sugambri_scout_captain.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_sugambri_scout_captain.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.83
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x55",
+     "left": "52x58",
+     "up": "28x64"
+    },
+    "outline": "#050220",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "기마 시트",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(이름 없음).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_cavalry.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_sugambri_scout_captain.png)",
+   "used_in": "ch26_s2"
+  },
+  {
+   "key": "unit.npc.npc_sugambri_scout_captain.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_sugambri_scout_captain_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_sugambri_scout_captain_enemy_sheet.png"
+   },
+   "bytes": 11475,
+   "npc": "npc_sugambri_scout_captain",
+   "name_ko": "수감브리 정찰 기수",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "germanic(sugambri)",
+   "troop": "cavalry",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_sugambri_scout_captain",
+   "ref_portrait": "public/assets/portraits/npc/npc_sugambri_scout_captain.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_sugambri_scout_captain.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 4.83
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "40x55",
+     "left": "52x58",
+     "up": "28x64"
+    },
+    "outline": "#050220",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": "기마 시트",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(이름 없음).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_cavalry.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_sugambri_scout_captain.png)",
+   "used_in": "ch26_s2"
+  },
+  {
+   "key": "unit.npc.npc_roman_engineer_squad.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_roman_engineer_squad_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_roman_engineer_squad_ally_sheet.png"
+   },
+   "bytes": 11155,
+   "npc": "npc_roman_engineer_squad",
+   "name_ko": "로마 공병대",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_roman_engineer_squad",
+   "ref_portrait": "public/assets/portraits/npc/npc_roman_engineer_squad.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_roman_engineer_squad.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.1
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x64",
+     "left": "27x64",
+     "up": "46x64"
+    },
+    "outline": "#05021b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [
+     "뒷모습 1칸(walk2)에서 공병 도끼가 가려 안 보임"
+    ],
+    "notes": "로스터 sword 대신 공병 도끼(돌라브라) 소지",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물. 돌라브라는 로마 공병 도구 일반화.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_roman_engineer_squad.png)",
+   "used_in": "ch26_s2"
+  },
+  {
+   "key": "unit.npc.npc_roman_engineer_squad.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_roman_engineer_squad_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_roman_engineer_squad_enemy_sheet.png"
+   },
+   "bytes": 10975,
+   "npc": "npc_roman_engineer_squad",
+   "name_ko": "로마 공병대",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_roman_engineer_squad",
+   "ref_portrait": "public/assets/portraits/npc/npc_roman_engineer_squad.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_roman_engineer_squad.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.1
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "45x64",
+     "left": "27x64",
+     "up": "46x64"
+    },
+    "outline": "#05021b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [
+     "뒷모습 1칸(walk2)에서 공병 도끼가 가려 안 보임"
+    ],
+    "notes": "로스터 sword 대신 공병 도끼(돌라브라) 소지",
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물. 돌라브라는 로마 공병 도구 일반화.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_roman_engineer_squad.png)",
+   "used_in": "ch26_s2"
+  },
+  {
+   "key": "unit.npc.npc_roman_engineer_foreman.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_roman_engineer_foreman_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_roman_engineer_foreman_ally_sheet.png"
+   },
+   "bytes": 11510,
+   "npc": "npc_roman_engineer_foreman",
+   "name_ko": "로마 공병 감독",
+   "side": "ally",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_roman_engineer_foreman",
+   "ref_portrait": "public/assets/portraits/npc/npc_roman_engineer_foreman.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_roman_engineer_foreman.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.13
+    },
+    "colors": 32,
+    "clipped_px": 51,
+    "idle_size": {
+     "down": "39x64",
+     "left": "37x63",
+     "up": "37x63"
+    },
+    "outline": "#04021c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_roman_engineer_foreman.png)",
+   "used_in": "ch26_s2"
+  },
+  {
+   "key": "unit.npc.npc_roman_engineer_foreman.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_roman_engineer_foreman_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_roman_engineer_foreman_enemy_sheet.png"
+   },
+   "bytes": 11468,
+   "npc": "npc_roman_engineer_foreman",
+   "name_ko": "로마 공병 감독",
+   "side": "enemy",
+   "story_side": "ally",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_roman_engineer_foreman",
+   "ref_portrait": "public/assets/portraits/npc/npc_roman_engineer_foreman.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_roman_engineer_foreman.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.13
+    },
+    "colors": 32,
+    "clipped_px": 51,
+    "idle_size": {
+     "down": "39x64",
+     "left": "37x63",
+     "up": "37x63"
+    },
+    "outline": "#04021c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_roman_engineer_foreman.png)",
+   "used_in": "ch26_s2"
+  },
+  {
+   "key": "unit.npc.npc_republican_guard_captain.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_republican_guard_captain_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_republican_guard_captain_ally_sheet.png"
+   },
+   "bytes": 11579,
+   "npc": "npc_republican_guard_captain",
+   "name_ko": "공화파 경비대장",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_republican_guard_captain",
+   "ref_portrait": "public/assets/portraits/npc/npc_republican_guard_captain.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_republican_guard_captain.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.17
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "37x64",
+     "left": "37x63",
+     "up": "35x63"
+    },
+    "outline": "#03031c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물. 가로 볏은 백인대장 표지 일반화.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_republican_guard_captain.png)",
+   "used_in": "ch26_s4"
+  },
+  {
+   "key": "unit.npc.npc_republican_guard_captain.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_republican_guard_captain_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_republican_guard_captain_enemy_sheet.png"
+   },
+   "bytes": 11370,
+   "npc": "npc_republican_guard_captain",
+   "name_ko": "공화파 경비대장",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "spear",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.spear.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_republican_guard_captain",
+   "ref_portrait": "public/assets/portraits/npc/npc_republican_guard_captain.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_republican_guard_captain.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.17
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "37x64",
+     "left": "37x63",
+     "up": "35x63"
+    },
+    "outline": "#03031c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물. 가로 볏은 백인대장 표지 일반화.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_republican_guard_captain.png)",
+   "used_in": "ch26_s4"
+  },
+  {
+   "key": "unit.npc.npc_border_post_commander.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_border_post_commander_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_border_post_commander_ally_sheet.png"
+   },
+   "bytes": 12143,
+   "npc": "npc_border_post_commander",
+   "name_ko": "국경 초소장",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_border_post_commander",
+   "ref_portrait": "public/assets/portraits/npc/npc_border_post_commander.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_border_post_commander.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.09
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x63",
+     "left": "43x62",
+     "up": "46x63"
+    },
+    "outline": "#04031b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(교전 각색).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_border_post_commander.png)",
+   "used_in": "ch26_s5"
+  },
+  {
+   "key": "unit.npc.npc_border_post_commander.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_border_post_commander_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_border_post_commander_enemy_sheet.png"
+   },
+   "bytes": 12111,
+   "npc": "npc_border_post_commander",
+   "name_ko": "국경 초소장",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_border_post_commander",
+   "ref_portrait": "public/assets/portraits/npc/npc_border_post_commander.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_border_post_commander.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.09
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "44x63",
+     "left": "43x62",
+     "up": "46x63"
+    },
+    "outline": "#04031b",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(교전 각색).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_border_post_commander.png)",
+   "used_in": "ch26_s5"
+  },
+  {
+   "key": "unit.npc.npc_gladiator_captain.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_gladiator_captain_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_gladiator_captain_ally_sheet.png"
+   },
+   "bytes": 10949,
+   "npc": "npc_gladiator_captain",
+   "name_ko": "검투사 두목",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_gladiator_captain",
+   "ref_portrait": "public/assets/portraits/npc/npc_gladiator_captain.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_gladiator_captain.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.26
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x61",
+     "left": "28x61",
+     "up": "47x62"
+    },
+    "outline": "#03011e",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(데키무스 휘하 검투사, 큰 줄기 confirmed).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_gladiator_captain.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_gladiator_captain.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_gladiator_captain_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_gladiator_captain_enemy_sheet.png"
+   },
+   "bytes": 10802,
+   "npc": "npc_gladiator_captain",
+   "name_ko": "검투사 두목",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_gladiator_captain",
+   "ref_portrait": "public/assets/portraits/npc/npc_gladiator_captain.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_gladiator_captain.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.26
+    },
+    "colors": 32,
+    "clipped_px": 0,
+    "idle_size": {
+     "down": "46x61",
+     "left": "28x61",
+     "up": "47x62"
+    },
+    "outline": "#03011e",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(데키무스 휘하 검투사, 큰 줄기 confirmed).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_gladiator_captain.png)",
+   "used_in": "ch26_s10"
+  },
+  {
+   "key": "unit.npc.npc_corfinium_officer.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_corfinium_officer_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_corfinium_officer_ally_sheet.png"
+   },
+   "bytes": 12129,
+   "npc": "npc_corfinium_officer",
+   "name_ko": "코르피니움 장교",
+   "side": "ally",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_corfinium_officer",
+   "ref_portrait": "public/assets/portraits/npc/npc_corfinium_officer.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_corfinium_officer.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.12
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "45x64",
+     "left": "42x63",
+     "up": "46x64"
+    },
+    "outline": "#03021c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(장교들이 지휘관을 넘긴 사료 취지).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_corfinium_officer.png)",
+   "used_in": "ch26_s6"
+  },
+  {
+   "key": "unit.npc.npc_corfinium_officer.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_corfinium_officer_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_corfinium_officer_enemy_sheet.png"
+   },
+   "bytes": 11827,
+   "npc": "npc_corfinium_officer",
+   "name_ko": "코르피니움 장교",
+   "side": "enemy",
+   "story_side": "enemy",
+   "culture": "ancient_med(rome)",
+   "troop": "sword",
+   "mounted": false,
+   "ship_overlay": null,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch26_gen.mjs s(refs = 병종 3x3 견본 hero_dir_refs + 정식 초상) → npc_ch26_pp.sh(hero_dir_pp_v4.mjs, HERO_FACE=npc_ch26/facing.json, pal_mode unique)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch26_style.mjs plan()#npc_corfinium_officer",
+   "ref_portrait": "public/assets/portraits/npc/npc_corfinium_officer.png",
+   "raw": "docker/gemini/npc_ch26/raw/npc_corfinium_officer.jpg",
+   "pipeline": {
+    "grid": {
+     "step_px": 10.24,
+     "dots": 200,
+     "ratio": 5.12
+    },
+    "colors": 32,
+    "clipped_px": 48,
+    "idle_size": {
+     "down": "45x64",
+     "left": "42x63",
+     "up": "46x64"
+    },
+    "outline": "#03021c",
+    "right": "mirror",
+    "enemy_swap": "default(hue 185-265→red)"
+   },
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음(무기 1개)",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·망토 색 식별(로마 인물 간 구분)",
+     "적 시트 파랑→빨강 스왑 후 색 확인"
+    ],
+    "issues": [],
+    "notes": null,
+    "contact": "docker/gemini/npc_ch26/sprite_preview/contact_r3.png + 안아트 확대 점검"
+   },
+   "verify": true,
+   "verify_note": "직함형 일반 인물(장교들이 지휘관을 넘긴 사료 취지).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs/dir64_sword.jpg, 배치·도트 크기만) + 정식 초상(public/assets/portraits/npc/npc_corfinium_officer.png)",
+   "used_in": "ch26_s6"
+  }
+ ]
+}

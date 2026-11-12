@@ -1,0 +1,3498 @@
+{
+ "_note": "[임밸런 / 초안] ch12 적벽의 불길 4스테이지 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 좌표 채움 완료(2026-11-03, maps_ch12_redcliff.json): cells/x/y/tiles 채움, zone_ref 는 tiles/rect 로 치환(엔진 규칙), spawn count 유지. map_requirements 안의 zone_ref 문구는 설명용. 근거: docs/original_story/ch12_redcliff_outline.md, preview_shelves_acceptance.md 3-1, CUTSCENE_SPEC 6~13절. 대사는 ch12_redcliff.json(stage_code 동일). 시드 미적재.",
+ "version": 1,
+ "chapter": 12,
+ "shelf_code": "ch12",
+ "status": "map_filled",
+ "items": [
+  {
+   "code": "ch12_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "연합군",
+     "enemy": "조조 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_cart_1",
+      "x": 10,
+      "y": 11,
+      "unit_type": "sword",
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         16,
+         11
+        ],
+        [
+         19,
+         11
+        ],
+        [
+         19,
+         13
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 6
+      }
+     },
+     {
+      "hero": "npc_cart_2",
+      "x": 9,
+      "y": 11,
+      "unit_type": "sword",
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         16,
+         11
+        ],
+        [
+         19,
+         11
+        ],
+        [
+         20,
+         13
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 6
+      }
+     },
+     {
+      "hero": "npc_lu_su",
+      "x": 9,
+      "y": 12,
+      "must_survive": false,
+      "route": {
+       "waypoints": [
+        [
+         16,
+         11
+        ],
+        [
+         19,
+         11
+        ],
+        [
+         19,
+         14
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 6
+      }
+     },
+     {
+      "hero": "liu_bei",
+      "x": 6,
+      "y": 13,
+      "must_survive": true,
+      "route": {
+       "waypoints": [[16, 11], [19, 11], [20, 14]],
+       "from_turn": 2,
+       "move_cap": 6
+      }
+     }
+    ],
+    "enemy_commander": {
+     "name": "문빙",
+     "hero": "npc_wen_pin"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          10,
+          10
+         ],
+         [
+          9,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        11,
+        11
+       ],
+       [
+        12,
+        11
+       ],
+       [
+        13,
+        11
+       ],
+       [
+        14,
+        11
+       ],
+       [
+        15,
+        11
+       ],
+       [
+        16,
+        11
+       ]
+      ],
+      "to": "shallows",
+      "fx": "water_rise",
+      "ms": 1000,
+      "dir": "right"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "lu_su",
+      "type": "unit_survive",
+      "unit": "hero:npc_lu_su",
+      "label": "노숙을 지켜라"
+     },
+     {
+      "id": "carts_arrive",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        19,
+        13
+       ],
+       [
+        20,
+        13
+       ],
+       [
+        19,
+        14
+       ],
+       [
+        20,
+        14
+       ],
+       [
+        19,
+        15
+       ],
+       [
+        20,
+        15
+       ]
+      ],
+      "zone_ref": "harbor_zone",
+      "label": "수레 2대를 하구에 도착시켜라",
+      "turns": 1
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "liu_bei_down",
+      "label": "유비가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "ally_npc:liu_bei"
+      }
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "수레 1을 하구까지 호위한다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_cart_1",
+       "tiles": [
+        [
+         19,
+         13
+        ],
+        [
+         20,
+         13
+        ],
+        [
+         19,
+         14
+        ],
+        [
+         20,
+         14
+        ],
+        [
+         19,
+         15
+        ],
+        [
+         20,
+         15
+        ]
+       ]
+      }
+     },
+     {
+      "label": "수레 2를 하구까지 호위한다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_cart_2",
+       "tiles": [
+        [
+         19,
+         13
+        ],
+        [
+         20,
+         13
+        ],
+        [
+         19,
+         14
+        ],
+        [
+         20,
+         14
+        ],
+        [
+         19,
+         15
+        ],
+        [
+         20,
+         15
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "하구 합류",
+   "year_label": "208년",
+   "chapter": 12,
+   "shelf_code": "ch12",
+   "map": "su_ch12_s1_xiakou",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 15,
+   "enemy_level": 15,
+   "enemy_level_offset": -4,
+   "effective_enemy_level": 11,
+   "difficulty": 6,
+   "culture": "china",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_lu_su"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_wen_pin",
+      "display_name_ko": "문빙",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1.5
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       1,
+       4
+      ],
+      [
+       2,
+       4
+      ],
+      [
+       1,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "문빙 부대 병사",
+     "apply_main_hold": true,
+     "hold_until_turn": 5
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_man_chong",
+      "display_name_ko": "만총",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       2,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "만총 부대 병사",
+     "hold_until_turn": 5
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_li_tong",
+      "display_name_ko": "이통",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       1,
+       17
+      ],
+      [
+       2,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "이통 부대 병사",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_xu_huang",
+      "display_name_ko": "서황",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       1,
+       18
+      ],
+      [
+       2,
+       18
+      ]
+     ],
+     "soldier_display_name_ko": "서황 부대 병사",
+     "hold_until_turn": 5
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "조조군 선두 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       20,
+       10
+      ],
+      [
+       21,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "조조군 선두 보병대장 병사",
+     "hold_until_turn": 6
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "조조군 선두 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       20,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "조조군 선두 창병대장 병사",
+     "hold_until_turn": 6
+    },
+    {
+     "id": "N1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_cai_mao",
+      "display_name_ko": "채모",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       22,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "채모 부대 병사",
+     "hold_until_turn": 6
+    }
+   ],
+   "enemy_squads_count": 7,
+   "enemy_units_initial": 13,
+   "enemy_units_peak": 21,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 3
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "조조군 기병 선두대장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 1,
+      "units_total": 2,
+      "ai": "advance",
+      "cells": [],
+      "soldier_display_name_ko": "조조군 기병 선두",
+      "spawn_cell": [
+       0,
+       5
+      ],
+      "spawn_zone_ref": "rear_spawn"
+     }
+    },
+    {
+     "id": "t_R2",
+     "on": {
+      "turn": 5
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R2",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "조조군 기병 선두대장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 1,
+      "units_total": 2,
+      "ai": "advance",
+      "cells": [],
+      "soldier_display_name_ko": "조조군 기병 선두",
+      "spawn_cell": [
+       0,
+       12
+      ],
+      "spawn_zone_ref": "rear_spawn"
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      1,
+      4
+     ],
+     "ref": "npc_wen_pin",
+     "kind": "npc",
+     "name": "문빙"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      2,
+      4
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      1,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      2,
+      5
+     ],
+     "ref": "npc_man_chong",
+     "kind": "npc",
+     "name": "만총"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      1,
+      17
+     ],
+     "ref": "npc_li_tong",
+     "kind": "npc",
+     "name": "이통"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      2,
+      17
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      1,
+      18
+     ],
+     "ref": "npc_xu_huang",
+     "kind": "npc",
+     "name": "서황"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      2,
+      18
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      20,
+      10
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "조조군 선두 보병대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      10
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      21,
+      11
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "조조군 선두 창병대장"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      20,
+      9
+     ]
+    },
+    {
+     "squad": "N1",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      22,
+      10
+     ],
+     "ref": "npc_cai_mao",
+     "kind": "npc",
+     "name": "채모"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1060,
+    "exp": 1537,
+    "gold": 1378,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "lu_su"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "70~85 (목표 중앙 약 78)",
+   "sort_order": 1201,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch12_redcliff.json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "harbor_zone": "하구 도달 구역 6칸(나루터 옆)",
+     "ford_signal": "신호 칸 1~2칸(여울 입구 둑 위, 주인공이 서는 곳)",
+     "ford_mud": "여울 직선 경로 위 늪(x) 칸 4~6칸(열리면 shallows)",
+     "ford": "무릎 깊이 여울 폭 3~4",
+     "berth": "관우 선단 접안 칸 2~3칸(harbor_zone 인접 물/정박 칸)",
+     "rear_spawn": "조조군 기병 spawn 구역(수레 시작점 뒤 8칸 이상)",
+     "cart_start": "수레 시작 칸 2 + 노숙 시작 1",
+     "enemy_deploy": "후미 압박 2구역 + 하구 입구 대기 1구역"
+    },
+    "path_cost": "cart_start -> harbor_zone: ford_mud 늪일 때 약 18, shallows 로 열리면 약 12",
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "ford",
+     "harbor_zone",
+     "signal",
+     "berth"
+    ]
+   },
+   "design_notes": [
+    "[임밸런 2026-11-10 ch12_s1 hold/수레 경로 재조정] 근거: 시뮬(--realistic --faithful --cue-goals) 추적에서 수레 2기와 노숙이 같은 최종 칸 (19,13)을 목표로 해 선두 수레가 점유하면 후속이 (19,12)에서 멈춰 하구 구역 동시 진입이 불가능했음(적 완전 대기여도 턴 제한 패배). 최종 칸을 cart_1 (19,13) / cart_2 (20,13) / 노숙 (19,14) / 유비 (20,14)로 분리하고 유비에게 같은 둑길 route 부여. 문빙 main 부대 hold_until_turn 5 (enemy_squad.apply_main_hold=true 옵트인; 시드 어댑터 EnemyV3Adapter 가 main 의 hold_until_turn/apply_main_hold 를 전달하지 않아 재시드 시 소실될 수 있음 -> 박백엔 요청), B 5 / C(이통 기병) 4 / D 5, 동쪽 E·F·N1 hold 6, enemy_level_offset -3 -> -4(유효 Lv 11). 측정(faithful, 델타당 16판 x 시드3): +0 승률 26/48 = 54%. 3영웅 파티는 94%(쉬움). 시작값, 사람 플레이 확인 필요.",
+    "Lv15 offset -3(eff 12). 적 초기 12기(후미 보병·궁병이 수레 뒤를 압박, 선두 창병은 하구 입구 대기)+턴2·4 기병 3+1기씩 후방 spawn = peak 20. 수레 move_cap 6, 턴2 출발. 주인공 기여: 내가 ford_signal 칸에 서면 ford_mud(늪 x, foot 비용 3) 칸이 얕은 여울로 바뀌어(비용 2) 수레가 빠르다. 안 열어도 도달은 가능(경로 비용 mud 18 vs 열림 12 요청 -> 도착 턴7 vs 5, 기병 spawn 턴2·4 압박 때문에 지연이 곧 위험). 수레 도착(first)시 관우 선단 spawn(hero guan_yu npc_ally, berth) = 연출/증원; 승리는 수레 2기 모두 도착.",
+    "수레 2기 이름은 npc_cart_1/2 재사용(npc_roster_main_a3, sword C). 노숙 npc_lu_su 로스터 행 필요(아래 NPC 제안 파일).",
+    "[2026-11-07 송서사 격파 전환] 호위(win_mode only + 수레 도달) -> 문빙 격파(objective defeat_commander 단독). 수레 2기는 호송 대상 NPC(must_survive true = 쓰러지면 패배, route 이동; 2026-11-09 호송 작업으로 복원). UI 목표에 수레가 드러나도록 sub_objective carts_arrive(hold_zone 하구 6칸, turns 1, 별 조건 아님) 추가. 유비 must_survive + lose_conditions liu_bei_down 추가. 별 turn_within 8->10. 관우 합류 spawn 은 ch12_redcliff.json battle_cues 로 이관(주인공 또는 수레가 하구 구역 도달, 폴백 turn 5). 임밸런 재측정 필요.",
+    "무행동 2턴 즉사 점검(거리·이동력 계산): 엔진은 ai 이름(hold_until_contact 등)을 읽지 않고 hold_until_turn 만 반영하므로, 아군 NPC 첫 피격 >= 적 행동 4번째, 배치 구역 첫 피격 >= 3번째가 되도록 분대 hold_until_turn 을 올림: A None->3, B None->3",
+    "후방 기병 증원 턴 2/4 -> 3/5: 서쪽 배치 구역(3,8)에서 맨해튼 6 이라 턴2 증원이 즉시 배치 구역을 타격 -> 무행동 2턴 즉사 방지",
+    "[박백엔 2026-11-09 화자 참전 1차] 수레 서브목표 carts_arrive 추가: hold_zone 하구(harbor_zone 6칸) 아군(수레 포함) 1라운드 보유 시 달성. 기존 sub_objective 타입(unit_survive/hold_zone/protect_tiles)에는 특정 유닛 도착 타입이 없어 hold_zone 사용(수레 전용 판정은 아님). 판정 추가일 뿐 승패·별점 불변.",
+    "[박백엔 2026-11-09] JSON-DB 일치 정리: DB에만 있던 win_mode only + win_conditions(수레 1·2 하구 도달)를 JSON rules에 반영(DB 값 기준). 재시드해도 승리 조건 유지. 위 \"격파 전환\" 노트의 defeat_commander 단독 서술은 DB 실제와 달리 수레 도달 승리가 유효함."
+   ],
+   "map_requirements_status": "map_filled_su_ch12 (좌표 채움 2026-11-03)",
+   "cao_note": "2026-11-03 임밸런: 송서사 EXPAND_ch11_ch12_ch14.md 3-B 후보 기준 조조군 분대장 6명(이름 있는 장수 4, 직함형 2). 유닛 총수 12기 불변(부대 분할). 병종은 편성상 배분. 채모·장윤은 지상 칸이라 sword로 표기(수군 전용 병종 아님). 장료는 정사 적벽 참전 기록이 없어 ch12 미배치(유수구 스테이지 후보)."
+  },
+  {
+   "code": "ch12_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "연합군",
+     "enemy": "조조 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_cheng_pu",
+      "x": 16,
+      "y": 13,
+      "must_survive": false
+     },
+     {
+      "hero": "zhou_yu",
+      "x": 16,
+      "y": 21,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_huang_gai",
+      "x": 17,
+      "y": 13,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "채모",
+     "hero": "npc_cai_mao"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          9,
+          15
+         ],
+         [
+          9,
+          14
+         ]
+        ]
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "sword",
+      "tiles": [
+       [
+        25,
+        17
+       ],
+       [
+        26,
+        17
+       ],
+       [
+        25,
+        18
+       ],
+       [
+        26,
+        18
+       ],
+       [
+        25,
+        19
+       ],
+       [
+        26,
+        19
+       ]
+      ],
+      "tag": "rear_fleet",
+      "ready": true,
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          9,
+          15
+         ],
+         [
+          9,
+          14
+         ]
+        ]
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "archer",
+      "tiles": [
+       [
+        25,
+        17
+       ],
+       [
+        26,
+        17
+       ],
+       [
+        25,
+        18
+       ],
+       [
+        26,
+        18
+       ],
+       [
+        25,
+        19
+       ],
+       [
+        26,
+        19
+       ]
+      ],
+      "tag": "rear_fleet",
+      "ready": true,
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "cheng_pu",
+      "type": "unit_survive",
+      "unit": "hero:npc_cheng_pu",
+      "label": "정보를 지켜라"
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "fleet_berth_cut",
+      "label": "적이 후방 접안 칸에 멈춤",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "tiles": [
+        [
+         25,
+         17
+        ],
+        [
+         26,
+         17
+        ],
+        [
+         25,
+         18
+        ],
+        [
+         26,
+         18
+        ],
+        [
+         25,
+         19
+        ],
+        [
+         26,
+         19
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "장강 첫 교전",
+   "year_label": "208년",
+   "chapter": 12,
+   "shelf_code": "ch12",
+   "map": "su_ch12_s2_riverbank",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      15,
+      11
+     ],
+     [
+      16,
+      11
+     ],
+     [
+      15,
+      12
+     ],
+     [
+      16,
+      12
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 16,
+   "enemy_level": 16,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 14,
+   "difficulty": 7,
+   "culture": "china",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_cheng_pu",
+     "npc_huang_gai"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_cai_mao",
+      "display_name_ko": "채모",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.8
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       21,
+       10
+      ],
+      [
+       20,
+       10
+      ],
+      [
+       22,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "채모 부대 병사"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_zhang_yun",
+      "display_name_ko": "장윤",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "장윤 부대 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yue_jin",
+      "display_name_ko": "악진",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       8,
+       10
+      ],
+      [
+       7,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "악진 부대 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_cheng_yu",
+      "display_name_ko": "정욱",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       9,
+       11
+      ],
+      [
+       10,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "정욱 부대 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "조조군 궁병 선단장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       15,
+       6
+      ],
+      [
+       14,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "조조군 궁병 선단장 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "조조군 궁병 부선단장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       16,
+       7
+      ],
+      [
+       14,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "조조군 궁병 부선단장 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "조조군 후속 상륙대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       24,
+       3
+      ],
+      [
+       23,
+       4
+      ]
+     ],
+     "soldier_display_name_ko": "조조군 후속 상륙대장 병사",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "조조군 후속 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       25,
+       4
+      ],
+      [
+       23,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "조조군 후속 보병대장 병사",
+     "hold_until_turn": 3
+    },
+    {
+     "id": "N1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_wen_pin",
+      "display_name_ko": "문빙",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "문빙 부대 병사"
+    }
+   ],
+   "enemy_squads_count": 9,
+   "enemy_units_initial": 17,
+   "enemy_units_peak": 17,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      21,
+      10
+     ],
+     "ref": "npc_cai_mao",
+     "kind": "npc",
+     "name": "채모"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      20,
+      11
+     ],
+     "ref": "npc_zhang_yun",
+     "kind": "npc",
+     "name": "장윤"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      8,
+      10
+     ],
+     "ref": "npc_yue_jin",
+     "kind": "npc",
+     "name": "악진"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      7,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      9,
+      11
+     ],
+     "ref": "npc_cheng_yu",
+     "kind": "npc",
+     "name": "정욱"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      10,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      15,
+      6
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "조조군 궁병 선단장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      14,
+      7
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      16,
+      7
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "조조군 궁병 부선단장"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      14,
+      6
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      24,
+      3
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "조조군 후속 상륙대장"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      4
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      4
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "조조군 후속 보병대장"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      3
+     ]
+    },
+    {
+     "squad": "N1",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      21,
+      12
+     ],
+     "ref": "npc_wen_pin",
+     "kind": "npc",
+     "name": "문빙"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1160,
+    "exp": 1682,
+    "gold": 1508,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "cheng_pu"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "68~82 (목표 중앙 약 75)",
+   "sort_order": 1202,
+   "prerequisite": "ch12_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch12_redcliff.json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "riverbank_post": "강안 거점 점령 4칸",
+     "signal": "신호 타일 1~2칸(위쪽 둑, 거점에서 맨해튼 8~10)",
+     "fleet_berth": "후방 선단 접안 칸 4~6칸(물가, 적 접근이 어려운 쪽) = lose 구역도 겸함",
+     "river": "강 물 칸 넓게(sea 'o' 권장: 비수병 탑승 가능)",
+     "enemy_deploy": "선두 상륙대 3구역 + 후속 대기 1구역",
+     "far_bank": "북쪽 기슭 원경 장식"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal",
+     "river_bank",
+     "fleet_berth"
+    ]
+   },
+   "design_notes": [
+    "Lv16 offset -2. 적 초기 16기, 증원 없음. B분대 앓는 상륙병은 leader hp_mult 0.8 + 병사 능력 그대로(소수 약화 표현은 hp_mult 로만 가능) . 주인공 기여: 신호 타일(signal) 도달 -> 후방 선단 접안 증원 아군 4기(보병 2·궁병 2, spawn count 필드는 맵 확정 후 개별 tiles cue 로 분리). 신호 타일은 위쪽 둑이라 거점에서 떨어져 있어 신호를 올리는 동안 거점을 비운다 -> 선택/긴장. D분대 hold 3(후속 상륙).",
+    "spawn cue 의 count 는 엔진 필드가 아님: 맵 확정 후 유닛당 cue 로 분리(ch23 방식).",
+    "[박백엔 2026-11-09 화자 참전 1차] 황개 아군 NPC (17,13) 추가(정보 16,13 동쪽 인접, plain 통행 가능). naval 병종이라 육지 칸에서는 naval_land_atk 보정을 받음. must_survive false."
+   ],
+   "map_requirements_status": "map_filled_su_ch12 (좌표 채움 2026-11-03)",
+   "cao_note": "2026-11-03 임밸런: 송서사 EXPAND_ch11_ch12_ch14.md 3-B 후보 기준 조조군 분대장 8명(이름 있는 장수 4, 직함형 4). 유닛 총수 16기 불변(부대 분할). 병종은 편성상 배분. 채모·장윤은 지상 칸이라 sword로 표기(수군 전용 병종 아님). 장료는 정사 적벽 참전 기록이 없어 ch12 미배치(유수구 스테이지 후보)."
+  },
+  {
+   "code": "ch12_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "연합군",
+     "enemy": "조조 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_cheng_pu",
+      "x": 12,
+      "y": 26,
+      "must_survive": false
+     },
+     {
+      "hero": "zhou_yu",
+      "x": 12,
+      "y": 27,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "채모",
+     "hero": "npc_cai_mao"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          19,
+          23
+         ],
+         [
+          20,
+          23
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_huang_gai",
+      "tiles": [
+       [
+        35,
+        18
+       ]
+      ],
+      "tag": "huang_fleet",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "naval",
+      "tiles": [
+       [
+        36,
+        18
+       ]
+      ],
+      "tag": "huang_fleet",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "naval",
+      "tiles": [
+       [
+        35,
+        19
+       ]
+      ],
+      "tag": "huang_fleet",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "naval",
+      "tiles": [
+       [
+        36,
+        19
+       ]
+      ],
+      "tag": "huang_fleet",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "flag",
+        "key": "signal_up"
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        14,
+        14
+       ],
+       [
+        15,
+        14
+       ],
+       [
+        16,
+        14
+       ],
+       [
+        17,
+        14
+       ],
+       [
+        18,
+        14
+       ],
+       [
+        19,
+        14
+       ],
+       [
+        20,
+        14
+       ],
+       [
+        21,
+        14
+       ],
+       [
+        22,
+        14
+       ],
+       [
+        23,
+        14
+       ],
+       [
+        24,
+        14
+       ],
+       [
+        25,
+        14
+       ],
+       [
+        26,
+        14
+       ],
+       [
+        27,
+        14
+       ],
+       [
+        28,
+        14
+       ]
+      ],
+      "turns": 3
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "flag",
+        "key": "signal_up"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        14,
+        14
+       ],
+       [
+        15,
+        14
+       ],
+       [
+        16,
+        14
+       ],
+       [
+        17,
+        14
+       ],
+       [
+        18,
+        14
+       ],
+       [
+        19,
+        14
+       ],
+       [
+        20,
+        14
+       ],
+       [
+        21,
+        14
+       ],
+       [
+        22,
+        14
+       ],
+       [
+        23,
+        14
+       ],
+       [
+        24,
+        14
+       ],
+       [
+        25,
+        14
+       ],
+       [
+        26,
+        14
+       ],
+       [
+        27,
+        14
+       ],
+       [
+        28,
+        14
+       ]
+      ],
+      "to": "shallows"
+     },
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "type": "flag",
+        "key": "signal_up"
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        14,
+        11
+       ],
+       [
+        15,
+        11
+       ],
+       [
+        16,
+        11
+       ],
+       [
+        17,
+        11
+       ],
+       [
+        18,
+        11
+       ],
+       [
+        19,
+        11
+       ],
+       [
+        20,
+        11
+       ],
+       [
+        21,
+        11
+       ],
+       [
+        22,
+        11
+       ],
+       [
+        23,
+        11
+       ],
+       [
+        24,
+        11
+       ],
+       [
+        25,
+        11
+       ],
+       [
+        26,
+        11
+       ],
+       [
+        27,
+        11
+       ],
+       [
+        28,
+        11
+       ]
+      ],
+      "turns": 3
+     },
+     {
+      "on": {
+       "turn": 4,
+       "when": {
+        "type": "flag",
+        "key": "signal_up"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        14,
+        11
+       ],
+       [
+        15,
+        11
+       ],
+       [
+        16,
+        11
+       ],
+       [
+        17,
+        11
+       ],
+       [
+        18,
+        11
+       ],
+       [
+        19,
+        11
+       ],
+       [
+        20,
+        11
+       ],
+       [
+        21,
+        11
+       ],
+       [
+        22,
+        11
+       ],
+       [
+        23,
+        11
+       ],
+       [
+        24,
+        11
+       ],
+       [
+        25,
+        11
+       ],
+       [
+        26,
+        11
+       ],
+       [
+        27,
+        11
+       ],
+       [
+        28,
+        11
+       ]
+      ],
+      "to": "shallows"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "huang_gai",
+      "type": "unit_survive",
+      "unit": "hero:npc_huang_gai",
+      "label": "황개를 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "신호를 올려 황개 선단을 부른다",
+      "latch": true,
+      "when": {
+       "type": "flag",
+       "key": "signal_up"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "huang_down",
+      "label": "황개의 선단이 무너짐",
+      "when": {
+       "all": [
+        {
+         "type": "flag",
+         "key": "signal_up"
+        },
+        {
+         "type": "defeated",
+         "unit": "hero:npc_huang_gai"
+        }
+       ]
+      }
+     }
+    ]
+   },
+   "name": "화공",
+   "year_label": "208년",
+   "chapter": 12,
+   "shelf_code": "ch12",
+   "map": "su_ch12_s3_redcliff",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -17,
+   "effective_enemy_level": 1,
+   "difficulty": 8,
+   "culture": "china",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "npc_cheng_pu",
+     "npc_huang_gai"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_cai_mao",
+      "display_name_ko": "채모",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 2.5
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       20,
+       8
+      ],
+      [
+       19,
+       8
+      ],
+      [
+       21,
+       8
+      ],
+      [
+       22,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "채모 부대 병사"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_zhang_yun",
+      "display_name_ko": "장윤",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       19,
+       7
+      ],
+      [
+       22,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "장윤 부대 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_wen_pin",
+      "display_name_ko": "문빙",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       15,
+       10
+      ],
+      [
+       19,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "문빙 부대 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yue_jin",
+      "display_name_ko": "악진",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       23,
+       10
+      ],
+      [
+       27,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "악진 부대 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_cheng_yu",
+      "display_name_ko": "정욱",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       14,
+       13
+      ],
+      [
+       16,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "정욱 부대 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "조조군 선단 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       18,
+       13
+      ],
+      [
+       20,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "조조군 선단 창병대장 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_xu_huang",
+      "display_name_ko": "서황",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       22,
+       13
+      ],
+      [
+       24,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "서황 부대 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_man_chong",
+      "display_name_ko": "만총",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       26,
+       13
+      ],
+      [
+       28,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "만총 부대 병사"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_li_tong",
+      "display_name_ko": "이통",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       9,
+       11
+      ],
+      [
+       10,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "이통 부대 병사"
+    },
+    {
+     "id": "J",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "조조군 외곽 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       11
+      ],
+      [
+       33,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "조조군 외곽 궁병대장 병사"
+    },
+    {
+     "id": "N1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "cao_cao",
+      "display_name_ko": "조조",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       24,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "조조 부대 병사"
+    }
+   ],
+   "enemy_squads_count": 11,
+   "enemy_units_initial": 23,
+   "enemy_units_peak": 23,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      20,
+      8
+     ],
+     "ref": "npc_cai_mao",
+     "kind": "npc",
+     "name": "채모"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      8
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      8
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      19,
+      7
+     ],
+     "ref": "npc_zhang_yun",
+     "kind": "npc",
+     "name": "장윤"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      7
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      15,
+      10
+     ],
+     "ref": "npc_wen_pin",
+     "kind": "npc",
+     "name": "문빙"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      19,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      23,
+      10
+     ],
+     "ref": "npc_yue_jin",
+     "kind": "npc",
+     "name": "악진"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      10
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      14,
+      13
+     ],
+     "ref": "npc_cheng_yu",
+     "kind": "npc",
+     "name": "정욱"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      16,
+      13
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      18,
+      13
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "조조군 선단 창병대장"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      20,
+      13
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      22,
+      13
+     ],
+     "ref": "npc_xu_huang",
+     "kind": "npc",
+     "name": "서황"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      13
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      26,
+      13
+     ],
+     "ref": "npc_man_chong",
+     "kind": "npc",
+     "name": "만총"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      9,
+      11
+     ],
+     "ref": "npc_li_tong",
+     "kind": "npc",
+     "name": "이통"
+    },
+    {
+     "squad": "I",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      10,
+      11
+     ]
+    },
+    {
+     "squad": "J",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      32,
+      11
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "조조군 외곽 궁병대장"
+    },
+    {
+     "squad": "J",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      33,
+      11
+     ]
+    },
+    {
+     "squad": "N1",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      24,
+      9
+     ],
+     "ref": "cao_cao",
+     "kind": "npc",
+     "name": "조조"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1370,
+    "exp": 1986,
+    "gold": 1781,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "huang_gai"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "60~75 (목표 중앙 약 67)",
+   "sort_order": 1203,
+   "prerequisite": "ch12_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch12_redcliff.json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "signal": "신호 타일 1~2칸(아군 쪽 기슭 높은 곳)",
+     "fleet_berth": "황개 선단 접안 칸 1칸(+ fleet_berth_1~3 각 1칸 인접 물 칸)",
+     "chain_front": "연환 선단 앞줄 물 칸 12~20칸(fire/terrain_change 대상, 유닛 시작 칸과 겹치지 않게)",
+     "chain_mid": "연환 선단 중간줄 물 칸 12~20칸",
+     "fleet_center": "적 선단 중앙 지휘관 칸",
+     "rowboat_route": "퇴로 작은 배 칸(장식/후일담)",
+     "ally_fleet_wait": "아군 선단 대기 물 칸 6~8칸(플레이어 배치)",
+     "enemy_deploy": "이어진 배 대형: 중앙1+좌우 앞뒤 5분대"
+    },
+    "deploy_zone_count": 8,
+    "tile_tags": [
+     "signal",
+     "fleet_center",
+     "rowboat_route",
+     "chain_front",
+     "chain_mid"
+    ],
+    "water_note": "강 물 칸은 sea 'o' 로(비수병 탑승 boarding, 수병 최강). 'w' 물은 비수병 통행 불가라 아군 지상군이 못 들어감"
+   },
+   "design_notes": [
+    "Lv18 offset -1. 적 초기 22기(연환 중앙 6+궁병 4+창병 4+형주 수군 4+외곽 궁병 4), 증원 없음, 모든 분대 hold_until_contact 로 '이어진 배' 이동 제한 표현(임밸런 요청 s3 선단 이동 제한 해소: 연환은 hold, 아군 접근 시에만 교전). 승리: 중앙 지휘관 격파 AND 신호 달성(latch). 주인공 기여: 신호 타일 도달 -> flag signal_up -> 황개 선단(황개 hero npc_ally + 수병 3기) 접안 spawn, 턴3·4 화공(fire 연출 + 연환 앞/중간 열 sea -> shallows: 수병 방어 25 -> 10 으로 하락, 비수병 도하 가능). 유닛이 서 있는 칸은 terrain_change 가 건너뛰므로 효과는 비어 있는 배 칸 위주(제한적) = 시작값.",
+    "황개 npc_ally 가 죽으면 lose(signal_up 이후만). 패배를 신호 전엔 걸지 않음(황개가 아직 없으므로).",
+    "동남풍 연출 대사는 ch12_s3 battle_cues 의 say 로만 존재(수치와 무관).",
+    "[임밸런 2026-11-09] enemy_level_offset -1->-17(realistic+신호타일 추구 시뮬 +0 39.6%, 48판). 시뮬 봇은 신호 칸/중앙 돌격을 못해 사람 확인 필요."
+   ],
+   "map_requirements_status": "map_filled_su_ch12 (좌표 채움 2026-11-03)",
+   "cao_note": "2026-11-03 임밸런: 송서사 EXPAND_ch11_ch12_ch14.md 3-B 후보 기준 조조군 분대장 10명(이름 있는 장수 8, 직함형 2). 유닛 총수 22기 불변(부대 분할). 병종은 편성상 배분. 채모·장윤은 지상 칸이라 sword로 표기(수군 전용 병종 아님). 장료는 정사 적벽 참전 기록이 없어 ch12 미배치(유수구 스테이지 후보)."
+  },
+  {
+   "code": "ch12_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "연합군",
+     "enemy": "조조 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_gan_ning",
+      "x": 23,
+      "y": 11,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_cheng_pu",
+      "x": 7,
+      "y": 15,
+      "must_survive": false
+     },
+     {
+      "hero": "zhou_yu",
+      "x": 8,
+      "y": 14,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "조인",
+     "hero": "npc_cao_ren"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          9,
+          5
+         ],
+         [
+          9,
+          6
+         ]
+        ]
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        23,
+        13
+       ]
+      ],
+      "to": "castle",
+      "tile": "int_gate_open_L"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          9,
+          5
+         ],
+         [
+          9,
+          6
+         ]
+        ]
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        24,
+        13
+       ]
+      ],
+      "to": "castle",
+      "tile": "int_gate_open_R"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          9,
+          5
+         ],
+         [
+          9,
+          6
+         ]
+        ]
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "sword",
+      "tiles": [
+       [
+        0,
+        14
+       ]
+      ],
+      "tag": "main_body",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          9,
+          5
+         ],
+         [
+          9,
+          6
+         ]
+        ]
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "spear",
+      "tiles": [
+       [
+        0,
+        15
+       ]
+      ],
+      "tag": "main_body",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          9,
+          5
+         ],
+         [
+          9,
+          6
+         ]
+        ]
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "archer",
+      "tiles": [
+       [
+        0,
+        16
+       ]
+      ],
+      "tag": "main_body",
+      "ready": true
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "gan_ning",
+      "type": "unit_survive",
+      "unit": "hero:npc_gan_ning",
+      "label": "감녕을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "감녕이 이릉 성 안에서 버틴다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_gan_ning",
+       "tiles": [
+        [
+         22,
+         10
+        ],
+        [
+         23,
+         10
+        ],
+        [
+         24,
+         10
+        ],
+        [
+         25,
+         10
+        ],
+        [
+         22,
+         11
+        ],
+        [
+         23,
+         11
+        ],
+        [
+         24,
+         11
+        ],
+        [
+         25,
+         11
+        ],
+        [
+         22,
+         12
+        ],
+        [
+         23,
+         12
+        ],
+        [
+         24,
+         12
+        ],
+        [
+         25,
+         12
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "gan_down",
+      "label": "감녕 격파",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:npc_gan_ning"
+      }
+     }
+    ]
+   },
+   "name": "이릉 포위 해소",
+   "year_label": "208년",
+   "chapter": 12,
+   "shelf_code": "ch12",
+   "map": "su_ch12_s4_yiling",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 19,
+   "difficulty": 9,
+   "culture": "china",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "npc_gan_ning",
+     "npc_cheng_pu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_cao_ren",
+      "display_name_ko": "조인",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 2.5
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       24,
+       17
+      ],
+      [
+       23,
+       17
+      ],
+      [
+       24,
+       18
+      ]
+     ],
+     "soldier_display_name_ko": "조인 부대 병사"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_xu_huang",
+      "display_name_ko": "서황",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       23,
+       18
+      ],
+      [
+       22,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "서황 부대 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_man_chong",
+      "display_name_ko": "만총",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       26,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "만총 부대 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_li_tong",
+      "display_name_ko": "이통",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       19,
+       13
+      ],
+      [
+       19,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "이통 부대 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이릉 포위 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       20,
+       14
+      ],
+      [
+       19,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "이릉 포위 창병대장 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이릉 포위 창병 부장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       28,
+       13
+      ],
+      [
+       28,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "이릉 포위 창병 부장 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이릉 포위 창병 후속대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       27,
+       14
+      ],
+      [
+       28,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "이릉 포위 창병 후속대장 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yue_jin",
+      "display_name_ko": "악진",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       31,
+       10
+      ],
+      [
+       32,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "악진 부대 병사"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이릉 포위 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       31,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "이릉 포위 궁병대장 병사"
+    },
+    {
+     "id": "J",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이릉 포위 궁병 부장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "이릉 포위 궁병 부장 병사"
+    },
+    {
+     "id": "N1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_cao_hong",
+      "display_name_ko": "조홍",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "조홍 부대 병사"
+    }
+   ],
+   "enemy_squads_count": 11,
+   "enemy_units_initial": 19,
+   "enemy_units_peak": 23,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 5
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "강릉 구원 기병대장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "cells": [],
+      "soldier_display_name_ko": "강릉 구원 기병",
+      "spawn_cell": [
+       35,
+       15
+      ],
+      "spawn_zone_ref": "jiangling_road"
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      24,
+      17
+     ],
+     "ref": "npc_cao_ren",
+     "kind": "npc",
+     "name": "조인"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      17
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      18
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      23,
+      18
+     ],
+     "ref": "npc_xu_huang",
+     "kind": "npc",
+     "name": "서황"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      26,
+      16
+     ],
+     "ref": "npc_man_chong",
+     "kind": "npc",
+     "name": "만총"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      19,
+      13
+     ],
+     "ref": "npc_li_tong",
+     "kind": "npc",
+     "name": "이통"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      19,
+      14
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      20,
+      14
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이릉 포위 창병대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      19,
+      12
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      28,
+      13
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이릉 포위 창병 부장"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      28,
+      14
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      27,
+      14
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이릉 포위 창병 후속대장"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      28,
+      12
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      31,
+      10
+     ],
+     "ref": "npc_yue_jin",
+     "kind": "npc",
+     "name": "악진"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      32,
+      11
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      31,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이릉 포위 궁병대장"
+    },
+    {
+     "squad": "J",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      32,
+      10
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이릉 포위 궁병 부장"
+    },
+    {
+     "squad": "N1",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      16
+     ],
+     "ref": "npc_cao_hong",
+     "kind": "npc",
+     "name": "조홍"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1590,
+    "exp": 2306,
+    "gold": 2067,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "gan_ning"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    }
+   ],
+   "win_rate_band_target_pct": "55~70 (목표 중앙 약 62)",
+   "sort_order": 1204,
+   "prerequisite": "ch12_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch12_redcliff.json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 36x26",
+    "zones": {
+     "castle": "이릉 성 내부 구역 10~16칸(감녕 시작 포함)",
+     "castle_gate": "성문 칸 2~3칸(초기 불통행 wall, cue 로 castle)",
+     "signal_pass": "추격로 위쪽 길목 신호 타일 1~2칸(성에서 먼 쪽, 아군 시작에서 맨해튼 10 이하)",
+     "reinforce_a": "본대 증원 칸 1",
+     "reinforce_b": "본대 증원 칸 1",
+     "reinforce_c": "본대 증원 칸 1",
+     "jiangling_road": "강릉 방향 먼지 길 끝(적 기병 spawn 구역)",
+     "siege_line": "성 주변 포위선 공간(적 4분대 배치)"
+    },
+    "deploy_zone_count": 7,
+    "tile_tags": [
+     "signal_pass",
+     "castle"
+    ]
+   },
+   "design_notes": [
+    "Lv20 offset -1. 적 초기 18기(조인 본진 6+포위 창병 2분대 8+궁병 4) + 턴5 강릉 구원 기병 4기 = peak 22. 조인 hp_mult 2.5, 조인은 퇴각 불가(지휘관)라 격파가 승리 조건. 주인공 기여: signal_pass 도달 -> 성문 열림(castle_gate wall -> castle, tile int_gate_open 은 맵 확정 후 확인) + 본대 증원 아군 3기(spawn). 감녕은 성 안에서 시작해 성문이 열리기 전에는 포위 안에서 버틴다(성문 닫힘 = W 불통행). 주유 대사(턴6 '본대가 닿았소')는 연출.",
+    "조조 퇴각은 s4_post 대사로만(전투 cue 없음). defect cue 는 사용하지 않음(조인은 조조 군에서 이탈하지 않음)."
+   ],
+   "map_requirements_status": "map_filled_su_ch12 (좌표 채움 2026-11-03)",
+   "cao_note": "2026-11-03 임밸런: 송서사 EXPAND_ch11_ch12_ch14.md 3-B 후보 기준 조조군 분대장 10명(이름 있는 장수 5, 직함형 5). 유닛 총수 18기 불변(부대 분할). 병종은 편성상 배분. 채모·장윤은 지상 칸이라 sword로 표기(수군 전용 병종 아님). 장료는 정사 적벽 참전 기록이 없어 ch12 미배치(유수구 스테이지 후보)."
+  }
+ ],
+ "npc_needed": {
+  "existing_db": [
+   "npc_cart_1",
+   "npc_cart_2",
+   "npc_gan_ning",
+   "npc_cao_ren"
+  ],
+  "new_rows": [
+   "npc_lu_su",
+   "npc_cheng_pu",
+   "npc_huang_gai"
+  ],
+  "proposal_file": "npc_roster_shelf_ch12_stats.json",
+  "note": "guan_yu 는 heroes 행(spawn hero 로 npc_ally 생성되므로 별도 NPC 불필요). 주유·제갈량·유비·조조는 대사 화자만(전투 유닛 아님)."
+ },
+ "engine_checks": [
+  "spawn cue 의 count 는 엔진 필드 아님 -> 맵 확정 후 유닛 단위 cue 로 분리(자리표시로 count 남김)",
+  "terrain_change 의 tile 이름(int_gate_open) 유효성: 맵 타일셋 확인",
+  "when 의 flag 조건 + set_flag 순서 평가(같은 collect 패스에서 set 후 spawn 되는지)",
+  "spawn hero:guan_yu(일반 영웅 행) 가 npc_ally 로 생성되는지(소유 여부 무관)",
+  "@protagonist 를 in_zone 의 unit 참조로 쓸 수 있는지(CUTSCENE_SPEC 13절 표 예시 있음)"
+ ]
+}

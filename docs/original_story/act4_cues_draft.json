@@ -1,0 +1,91 @@
+{
+ "_note": "[초안 P6, 2026-11-03, 송서사] 오리지널 메인 4막(ch104_s1~s5) stages.rules.cues 초안. 출처: docs/original_story/act4_events.md 이벤트 표 중 '구현 가능' 행(좌표·유닛 id 없이 성립하는 say/sfx/shake/set_flag 부분만). 스키마·변환 원칙은 act1_cues_draft.json과 동일(docs/CUTSCENE_SPEC.md 1·6절). stages.<코드>.rules.cues 배열을 해당 스테이지 JSON rules.cues에 그대로 복사하면 된다. 좌표가 필요한 camera/move/fire/spawn/terrain_change, 퇴장 대상 유닛 id가 필요한 retreat는 cue에서 제외하고 requests에 모았다. 제외 기준: 제외된 행동(이동·증원·지형 변화)이 일어났다는 사실을 말하는 대사는 그 행동 없이는 거짓이 되므로 함께 제외하고 requests에 대사 초안을 보존했다. 효과음 키는 manifest(public/assets/audio/manifest.json)에서 확인된 것만: sfx_battle_tick, sfx_battle_rumble, sfx_battle_fall, sfx_aura_pulse, sfx_move_step, sfx_turn_enemy, sfx_battle_roar. act4_events.md가 언급한 sfx_fire는 manifest에 없어 쓰지 않았다. speaker: caption / hero:npc_jieum / hero:npc_jjogi / hero:npc_gilzabi / hero:npc_sangin / hero:npc_yumokmin / hero:npc_red_pen / hero:npc_gyojeong / hero:147 / hero:322 / protagonist. 쪽이 대사(4-5 e5-E5)는 비전투 NPC라 cue say 화자로만 사용. 엔딩(a4_ending)·에필로그(a4_epilogue)는 전투 밖 장면이라 cue 없음. 전부 오리지널 가상, 대사는 창작 대사(invented). 스테이지별 cue 수: s1 6, s2 5, s3 5, s4 6, s5 13(총 35). 4-4·4-5의 선택/이름 입력은 선택 UI 없이 자동 진행이며 set_flag(a4e4_jieum_choice, a4e5_name_ready)는 후속 분기·연출 요청용 표식으로만 둔다.",
+ "version": 1,
+ "status": "draft",
+ "act": 4,
+ "chapter": 104,
+ "stages": {
+  "ch104_s1": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "지평선 쪽에서 누런 벽이 천천히 일어선다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_gilzabi", "expr": "neutral", "text": "걸음 수를 세게. 바람 냄새가 점점 짙어지네."},
+   {"on": {"turn": 3}, "do": "shake", "power": 3, "ms": 500},
+   {"on": {"turn": 3}, "do": "sfx", "key": "sfx_battle_rumble"},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gilzabi", "expr": "serious", "text": "왔네! 흩어지지 마!"},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_gilzabi", "expr": "neutral", "text": "그늘이 보이네. 이백 걸음 남았네."}
+  ]}},
+  "ch104_s2": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "마른 우물 바닥에서 두레박 줄이 한 번 흔들린다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_sangin", "expr": "neutral", "text": "계약대로 나누겠습니다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_yumokmin", "expr": "neutral", "text": "양이 먼저다."},
+   {"on": {"turn": 5}, "do": "say", "speaker": "caption", "text": "두 무리가 한 걸음씩 물러선다. 우물 바닥에서 물소리가 차오른다."},
+   {"on": {"turn": 6}, "do": "sfx", "key": "sfx_aura_pulse"}
+  ]}},
+  "ch104_s3": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "계단 아래 서가마다 이름이 적힌 책만 희미하게 빛난다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "걸음 수 열둘. 계단 폭은 지도와 일치합니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "hero:npc_jieum", "expr": "serious", "text": "지도 한 줄이 지워졌습니다. 다시 그리겠습니다."},
+   {"on": {"turn": 4}, "do": "say", "speaker": "caption", "text": "지음의 두루마리에서 계단 한 줄이 먹이 옅어지다 다시 이어진다."},
+   {"on": {"turn": 7}, "do": "say", "speaker": "caption", "text": "문 모서리에 낡은 열람 카드 한 장이 떨어져 있다."}
+  ]}},
+  "ch104_s4": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "hero:npc_red_pen", "expr": "neutral", "text": "정리 목록 제4항. 낭독을 시작합니다."},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_red_pen", "expr": "neutral", "text": "저는 이 문서를 서른 번 낭독했습니다. 서명은 오지 않았습니다. 대상은 아닙니다. 준용입니다."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_red_pen", "expr": "neutral", "text": "직인을 수령하시겠습니까."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "수령하지 않습니다."},
+   {"on": {"turn": 6}, "do": "set_flag", "key": "a4e4_jieum_choice"},
+   {"on": {"turn": 8}, "do": "say", "speaker": "caption", "text": "사자가 낭독문을 접으며 한쪽 무릎을 꿇는다."}
+  ]}},
+  "ch104_s5": {"rules": {"cues": [
+   {"on": {"battle_start": true}, "do": "say", "speaker": "caption", "text": "서가 한가운데에 책 한 권 폭의 빈 자리가 어둡다."},
+   {"on": {"turn": 2}, "do": "sfx", "key": "sfx_aura_pulse"},
+   {"on": {"turn": 2}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "정리 집행 중입니다. 지휘 개체가 서가를 따라 이동합니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "열람 근거가 아직 제출되지 않았습니다. 집행은 계속됩니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "제출하겠습니다. 호칭으로 읽히는 책을 한 권 만들겠습니다."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_jieum", "expr": "neutral", "text": "근거 보강. 지도 구간 가칭이 읽혔다는 사례가 있습니다. 반례 없음."},
+   {"on": {"turn": 3}, "do": "say", "speaker": "hero:npc_gyojeong", "expr": "neutral", "text": "열람 목록으로 제출하십시오."},
+   {"on": {"turn": 5}, "do": "shake", "power": 2, "ms": 300},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "내가 외운 이름이 많아."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "호칭이어도 다 읽혔어."},
+   {"on": {"turn": 6}, "do": "say", "speaker": "hero:npc_jjogi", "expr": "neutral", "text": "그러니까 내 이름도 내가 정할 수 있어."},
+   {"on": {"turn": 6}, "do": "set_flag", "key": "a4e5_name_ready"},
+   {"on": {"turn": 8}, "do": "say", "speaker": "caption", "text": "지휘 개체가 쓰러지자 서가의 붉은 줄이 한 칸씩 풀린다."}
+  ]}}
+ },
+ "cue_notes": {
+  "ch104_s1": "e1-E1·E5 camera 제외(e1-E5는 길잡이 say만 반영, 전투가 6턴 전에 끝나면 미발동). e1-E3: shake·rumble·길잡이 '왔네! 흩어지지 마!'만 반영. terrain_change와 지음 '이동 비용이 늘었습니다. 행렬 간격을 한 칸으로 유지하십시오.'는 지형 변화가 있어야 성립해 requests. e1-E4(move 공백병 + 지음 후미 접근 대사)는 requests. 승리조건 unit_survive 길잡이 + 행렬 바위 그늘 도달(도달 판정 확인 필요).",
+  "ch104_s2": "e2-E1·E4: camera 제외, caption만. e2-E3(move 살라딘 NPC -> 우물 인접 + sfx_move_step + 살라딘 '물은 한 무리씩이오. 소리 내어 차례를 부르시오.')은 NPC 유닛이 없으면 등장 자체가 성립하지 않아 requests(대체안: 살라딘 대사를 caption으로 바꿔 turn 4에 삽입). e2-E5 fire 제외, sfx_aura_pulse만(불은 시각 전용 연출이라 requests). 살라딘 대면은 post에서 일어나므로 전투 중 살라딘 대사는 선택 사항. 승리조건 hold_zone 우물 둘레.",
+  "ch104_s3": "e3-E1 camera 제외, caption만. e3-E3 지도 지움은 caption 대체 구현(전용 연출 요청은 별도). e3-E4(move 공백병 + 허준 '계단 아래에서 올라오는 자가 있소. 쪽이는 내 뒤로 오시오.')는 requests. e3-E5 camera 제외, 전투가 7턴 전에 끝나면 미발동. 승리조건 아래 문 칸 도달(돌파).",
+  "ch104_s4": "e4-E1 camera 제외, say만. e4-E3(spawn 공백병, 4막 증원 1회, 지음 '서가 사이에서 공백병이 더 나옵니다. 중앙 카운터까지 통로를 확보하십시오.')은 requests. e4-E4는 camera 제외, 사자-지음 2줄 + set_flag a4e4_jieum_choice(선택 분기 UI는 없음, 표식만). e4-E5 camera 제외, caption만(사자 격파 시점에 의존하므로 turn 8 전에 끝나면 미발동, post 첫 줄이 대신). 사자는 부관(적 유닛, 승리조건: 홀의 공백병과 사자 격파). 사자 retreat는 쓰지 않음(4-4는 격파 대상).",
+  "ch104_s5": "e5-E3 대면 대사는 act4_events.md 표에 '6줄'로 적혀 있으나 열거된 대사는 4줄이라 4줄만 반영(원문 그대로). e5-E4는 shake만 반영, 공백병 A·B retreat는 requests. e5-E5 camera 제외, 쪽이 대사 3줄 + set_flag a4e5_name_ready(이름 입력 연출은 미구현 요청, post의 caption으로 대체). e5-E6 camera 제외, caption만. 교정관은 음성 전용(유닛 아님). 승리조건 공백병 지휘 개체 격파."
+ },
+ "requests": {
+  "coordinates_needed": [
+   {"ref": "e1-E1", "do": "camera focus 바위 그늘 칸 600ms -> restore (battle_start, caption 앞뒤)", "needs": "바위 그늘 칸 좌표"},
+   {"ref": "e1-E3", "do": "terrain_change 행렬 주변 일부 칸 -> 모래 지형 코드 + say 지음 '이동 비용이 늘었습니다. 행렬 간격을 한 칸으로 유지하십시오.' (turn 3, shake·rumble·길잡이 대사는 반영됨)", "needs": "행렬 주변 칸 좌표, 모래 지형 코드(terrains 확인)"},
+   {"ref": "e1-E4", "do": "move <적 공백병> -> 행렬 후미 칸 + say 지음 '후미에 공백병이 접근합니다. 낙타 뒤 한 칸을 막으십시오.' (turn 4)", "needs": "공백병 유닛 id, 행렬 후미 칸"},
+   {"ref": "e1-E5", "do": "camera focus 바위 그늘 -> restore (turn 6, 길잡이 say 앞뒤)", "needs": "바위 그늘 칸 좌표"},
+   {"ref": "e2-E1", "do": "camera focus 우물 칸 -> restore (battle_start, caption 앞뒤)", "needs": "우물 칸 좌표"},
+   {"ref": "e2-E3", "do": "move <살라딘 NPC> -> 우물 인접 칸 + sfx_move_step + say 살라딘 '물은 한 무리씩이오. 소리 내어 차례를 부르시오.' (turn 4)", "needs": "살라딘 NPC 유닛 id, 서쪽 길 칸, 우물 인접 칸"},
+   {"ref": "e2-E5", "do": "fire tiles 우물 칸 turns 2 (turn 6, 시각 전용. sfx_aura_pulse는 반영됨)", "needs": "우물 칸 좌표. sfx_fire가 manifest에 없어 효과음은 aura_pulse 대용"},
+   {"ref": "e3-E1", "do": "camera focus 아래 문 칸 -> restore (battle_start, caption 앞뒤)", "needs": "아래 문 칸 좌표"},
+   {"ref": "e3-E4", "do": "move <적 공백병> -> 계단 칸 + say 허준 '계단 아래에서 올라오는 자가 있소. 쪽이는 내 뒤로 오시오.' (turn 5)", "needs": "공백병 유닛 id, 계단 칸"},
+   {"ref": "e3-E5", "do": "camera focus 아래 문 -> restore (turn 7, caption 앞뒤)", "needs": "아래 문 칸 좌표"},
+   {"ref": "e4-E1", "do": "camera focus 중앙 카운터 -> restore (battle_start, 사자 say 앞뒤)", "needs": "중앙 카운터 칸 좌표"},
+   {"ref": "e4-E3", "do": "spawn side b unit_type 공백병 tiles 홀 가장자리 tag a4e4_blank ready false + say 지음 '서가 사이에서 공백병이 더 나옵니다. 중앙 카운터까지 통로를 확보하십시오.' (turn 3, 4막 증원 1회)", "needs": "홀 가장자리 칸 좌표"},
+   {"ref": "e4-E4", "do": "camera focus 지음 -> restore (turn 6, 2줄·set_flag 앞뒤)", "needs": "지음 NPC 유닛 칸(지음 유닛화 여부 미정)"},
+   {"ref": "e4-E5", "do": "camera focus 사자 -> restore (turn 8)", "needs": "사자 유닛 칸"},
+   {"ref": "e5-E1", "do": "camera focus 서가 빈 자리 600ms -> restore (battle_start)", "needs": "서가 빈 자리 칸 좌표"},
+   {"ref": "e5-E4", "do": "retreat <공백병 A·B> (turn 5, shake는 반영됨). 지휘 개체 접근 시 주변 공백병 이탈 연출, 지휘관 자체는 퇴각 불가", "needs": "공백병 A·B 유닛 id"},
+   {"ref": "e5-E5", "do": "camera focus 쪽이 -> restore (turn 6, 3줄·set_flag 앞뒤)", "needs": "쪽이 NPC 유닛 칸(허준 곁 이동, 비전투)"},
+   {"ref": "e5-E6", "do": "camera focus 지휘 개체 -> restore (turn 8)", "needs": "지휘 개체 유닛 id"}
+  ],
+  "unimplemented_or_deferred": [
+   "길잡이·낙타 NPC 유닛, 모래폭풍 전용 이펙트, 길잡이 포트레이트(s1)",
+   "중재 판정(두 무리 감정 상태), 대상·양치기 NPC 유닛, 살라딘 포트레이트(s2)",
+   "지도 지움 전용 연출, 심층 서가 빛 타일, 지음 직접 동행 모드 UI(통신 아이콘 해제)(s3)",
+   "선택 분기 연출, 직인 소지·반납 오브젝트(s4)",
+   "이름 입력 연출(붓으로 두 글자 기입), 열람 목록 등재 연출, 교정관 음성 아이콘(s5)",
+   "엔딩: 쪽이의 책 한 권 제본 연출, 표지 제목·책등 이름 기입 연출, 열람 목록 등재 연출(caption 대체 가능). 에필로그: 안내 게시판 오브젝트(caption 대체 가능)"
+  ]
+ }
+}

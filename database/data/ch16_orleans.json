@@ -1,0 +1,505 @@
+{
+ "_note": "16장 '오를레앙'(가칭) 장면 대사. 원본(database/data) -> resources/js/game/data/dialogue 동기화 대상(docker/sync_dialogue_data.mjs FILES 에 ch16_orleans.json 추가 필요). 옴니버스 규칙: 서고 장면은 ch16_open / ch16_end 두 개뿐, 시오리는 스테이지 pre/post/battle_cues 에 없다. 서가 개입 없음. 잔의 부상, 재판, 화형은 다루지 않는다. 영국 측은 단순 악역으로 그리지 않는다. 유닛 id·좌표가 필요한 cue 는 맵 확정 후 채운다(docs/original_story/ch16_orleans_outline.md).",
+ "version": 1,
+ "protagonist_rule": "주인공 호칭은 항상 '{protagonist_name} 님' 형태만 쓴다(이름 뒤 직접 조사 금지).",
+ "speaker_profile": {
+  "protagonist": { "name": "{protagonist_name}", "note": "잔 곁에서 뛰는 전령. 지휘관들 사이의 말이 엇갈리는 지점을 몸으로 메운다. 보고형 합쇼체" },
+  "shiori": { "name": "시오리" },
+  "hero:joan_of_arc": { "name": "잔 다르크", "note": "key. 짧고 곧은 문장, 질문을 많이 하고 돌려 말하지 않는다. 시골 말투의 단순함" },
+  "hero:npc_dunois": { "name": "뒤누아", "note": "오를레앙 방어 사령관. 노련한 하오체, 숫자와 시각을 따진다" },
+  "hero:npc_la_hire": { "name": "라이르", "note": "거친 노장. 투박한 입담" },
+  "hero:npc_gilles_de_rais": { "name": "질 드 레", "note": "젊은 귀족 지휘관. 격식 있는 합쇼체" },
+  "hero:npc_jean_alencon": { "name": "알랑송 공", "note": "젊은 공작. 신중한 하오체" },
+  "hero:npc_glasdale": { "name": "글라스데일", "note": "영국군 투렐 지휘관. 군인다운 담담한 하오체" },
+  "hero:npc_talbot": { "name": "탤벗", "note": "영국군 노장. 짧고 단호한 하오체" },
+  "hero:npc_fastolf": { "name": "파스톨프", "note": "영국군 지휘관. 계산이 빠른 하오체" },
+  "hero:npc_suffolk": { "name": "서퍽 백작", "note": "영국군 쥐르포 지휘관(roster 재사용). 의연한 하오체" },
+  "hero:npc_richemont": { "name": "리슈몽", "note": "프랑스 총사령관(roster 재사용). 직설적인 하오체" },
+  "hero:npc_charles_vii": { "name": "샤를 7세", "note": "프랑스 왕세자(roster 재사용). 조심스러운 하오체" }
+ },
+ "arc": {
+  "chapter_question": "소문으로 온 사람을 믿게 한 것은 무엇이었나",
+  "table": [
+   { "phase": "기", "scene": "ch16_open", "what": "서고 입구, 1429년 봄" },
+   { "phase": "기", "scene": "ch16_s1", "what": "블루아에서 오를레앙으로 보급을 옮긴다. 전령이 길을 정한다" },
+   { "phase": "승", "scene": "ch16_s2", "what": "생루 요새. 뒤누아 없이 시작된 공격에 전령이 증원을 잇는다" },
+   { "phase": "전", "scene": "ch16_s3/s4", "what": "오귀스탱과 투렐. 신호와 다리. 이긴 뒤의 침묵" },
+   { "phase": "결", "scene": "ch16_s5", "what": "파테(선택). 서두름이 이긴 날" },
+   { "phase": "결", "scene": "ch16_end", "what": "서고 퇴장" }
+  ]
+ },
+ "intervention_scene_ids": [],
+ "chapter": 16,
+ "scenes": [
+  {
+   "id": "ch16_open",
+   "stage_code": null,
+   "timing": "chapter_start",
+   "bg": "시간의 서고 입구. 열린 문 너머로 젖은 흙과 말 냄새, 멀리 종소리가 들린다",
+   "lines": [
+    { "speaker": "shiori", "expr": "serious", "text": "빈 줄이 하나 있는 쪽입니다. 1429년 봄, 루아르 강변. 지휘관들 사이로 말을 나르던 자리입니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "말만 나르는 자리라면 빈 줄로 둬도 되는 것 아닙니까." },
+    { "speaker": "shiori", "expr": "neutral", "text": "{protagonist_name} 님 곁에는 열일곱 살 소녀가 서 있습니다. 왕세자도 지휘관들도 아직 반신반의하는." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "소문으로 온 사람이군요. 그 소문을 제일 가까이서 듣게 되겠습니다." },
+    { "speaker": "shiori", "expr": "smile", "text": "믿음의 절반은 길 위에서 생깁니다. 가시지요." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s1_pre",
+   "stage_code": "ch16_s1",
+   "timing": "before_battle",
+   "bg": "블루아 성 밖 집결지의 이른 아침. 보급 수레가 줄지어 서 있고 군마가 안개 속에서 콧김을 뿜는다",
+   "lines": [
+    { "speaker": "caption", "text": "1429년 4월 말. 오를레앙은 반년째 영국군에 포위되어 있다. 성 안에는 식량과 화약이 줄어든다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "전령이시지요. 부탁이 하나 있습니다. 지휘관마다 하는 말이 다를 겁니다. 같은 말을 같은 순서로 옮겨 주십시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "받은 말을 받은 대로 옮깁니다. 말 한마디가 바뀌어 전해지는 바람에 사람이 다치는 걸 본 적이 있습니다. 그 뒤로 줄이지도 보태지도 않습니다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "그 한 가지면 충분합니다. 그럼 수레부터 보지요. 몇 대입니까. 성 안에선 하루에 몇 입이 먹습니까." },
+    { "speaker": "hero:npc_la_hire", "expr": "neutral", "text": "수레는 마흔 대요. 성 안 입은 세어 본 적이 없소. 모자란다는 것만 알지." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "길이 둘입니다. 남쪽 길은 영국군 보루가 코앞이고, 북쪽은 하루가 더 걸립니다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "하루 더 걸리면 성 안은 하루 더 굶습니다. 남쪽입니다." },
+    { "speaker": "hero:npc_la_hire", "expr": "serious", "text": "아가씨, 남쪽은 영국군이 눈 뜨고 앉아 있는 길이오. 놈들이 나오면 수레부터 털리오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "제가 먼저 가서 보루 앞 숲길에 서 있겠습니다. 놈들이 나오는 쪽만 보이면 호위를 돌릴 수 있습니다. 수레는 못 돌려도." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "그럼 저는 수레 옆에서 걷겠습니다. 앞서 가는 사람은 길을 보고, 같이 걷는 사람은 사람을 봅니다." },
+    { "speaker": "hero:npc_la_hire", "expr": "angry", "text": "허, 대장이 수레 옆에서 걷는다고? 말 타고 앞에 서야 폼이라도 나지." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "폼으로 먹일 수 있는 입은 없습니다." },
+    { "speaker": "caption", "text": "목표: 보급 수레를 오를레앙 입성 구역까지 호송한다. 잔 다르크가 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s1_post",
+   "stage_code": "ch16_s1",
+   "timing": "after_clear",
+   "bg": "오를레앙 성문 앞의 저녁. 횃불을 든 시민들이 길 양쪽에 모여 서 있다",
+   "lines": [
+    { "speaker": "protagonist", "expr": "neutral", "text": "수레 마흔 대, 한 대도 빠지지 않았습니다. 명부와 맞춰 보십시오." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "...맞춰 볼 것도 없구려. 이 도시가 배불리 잠드는 건 반년 만이오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "뒤누아 공이시군요. 먼저 말씀드립니다. 저는 싸우러 왔습니다. 성 안에서 기다리러 온 것이 아닙니다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "허. 싸움의 때는 지휘관이 정하오, 소녀. 알랑송 공의 증원이 올 때까지 기다리는 게 우리 계획이오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "기다리는 동안 굶는 사람은 누가 정합니까." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 오는 길에 보루를 살폈습니다. 남쪽 경계는 밤이 가장 느슨했습니다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "...그 얘기는 내일 회의에서 하시오. 오늘은 내 도시 사람들이 먹는 걸 구경하고 싶소." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "그러십시오. 오늘 먹은 사람이 내일 일어섭니다. 그리고 공, 저는 이긴 날만 적힌 장부는 믿지 않습니다. 진 날이 적혀 있어야 숫자입니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s2_pre",
+   "stage_code": "ch16_s2",
+   "timing": "before_battle",
+   "bg": "오를레앙 성 밖 동쪽, 생루 요새 앞 들판의 이른 오후. 연기가 한 줄 오르고 멀리서 종이 울린다",
+   "lines": [
+    { "speaker": "caption", "text": "1429년 5월 4일. 뒤누아가 에스코를 맞으러 간 사이, 오를레앙 시민과 병사들이 생루 요새를 향해 나섰다." },
+    { "speaker": "hero:npc_la_hire", "expr": "angry", "text": "누가 내보냈소! 뒤누아 공은 에스코 맞으러 가고 없는데, 시민들이 먼저 문을 나서?" },
+    { "speaker": "hero:joan_of_arc", "expr": "serious", "text": "라이르 공, 욕은 나중에 하십시오. 지금 들판에서 사람들이 쓰러지고 있습니다." },
+    { "speaker": "hero:npc_la_hire", "expr": "angry", "text": "쓰러지니까 하는 욕이오!" },
+    { "speaker": "protagonist", "expr": "neutral", "text": "뒤누아 공께 급보를 보냈습니다. 반 시진이면 증원을 데리고 돌아옵니다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "반 시진이면 해가 기웁니다. 그 전에 요새 문 앞에 서야 합니다. 거기 서 있는 사람이 많을수록 뒤누아 공이 서둘러 올 이유가 생깁니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그럼 저는 둔덕에 올라 신호를 올립니다. 뒤누아 공이 어느 쪽에서 오는지 보여야 앞뒤로 같이 칩니다." },
+    { "speaker": "hero:npc_la_hire", "expr": "neutral", "text": "...앞에서 시간을 벌라는 거군. 좋소, 어차피 나선 걸음이오. 아가씨, 깃발을 낮게 드시오. 활이 몰리오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "낮추겠습니다. 다만 따라오는 사람들이 놓치지 않을 만큼은 높이 두겠습니다." },
+    { "speaker": "hero:npc_la_hire", "expr": "neutral", "text": "그 높이가 화살 맞기 딱 좋은 높이요. ...됐소, 가시오." },
+    { "speaker": "caption", "text": "목표: 생루 요새 지휘관을 쓰러뜨린다. 신호 지점에 닿으면 뒤누아의 증원이 합류한다. 잔 다르크가 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s2_post",
+   "stage_code": "ch16_s2",
+   "timing": "after_clear",
+   "bg": "생루 요새 안뜰의 저녁. 부러진 목책 사이로 연기가 빠져나간다",
+   "lines": [
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "내가 오기 전에 요새가 열려 있었소. 지휘관이 아닌 사람들이 먼저 문을 열다니, 내 체면이 말이 아니오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "공, 나서라고 한 것은 제가 아닙니다. 다만 나선 사람들을 버릴 수는 없었습니다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "...사람들이 나선 걸 두고 소녀를 나무랄 수도 없겠구려. 알겠소. 내일은 승천절이니 싸움은 쉬오. 모레 보루를 치겠소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 모레 칠 곳은 정해 두십시오. 오늘 밤 제가 정찰해서 가장 약한 쪽을 가져옵니다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "그러시오. 단, 이번엔 먼저 말하시오. 늦게 오는 정찰은 정찰이 아니라 소식이오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s3_pre",
+   "stage_code": "ch16_s3",
+   "timing": "before_battle",
+   "bg": "오귀스탱 수도원 요새 앞의 이른 아침. 강 건너 투렐이 보이고 갈대밭에 안개가 낮게 깔려 있다",
+   "lines": [
+    { "speaker": "caption", "text": "1429년 5월 6일. 오귀스탱 수도원 요새는 투렐로 가는 길을 막고 있다." },
+    { "speaker": "hero:npc_gilles_de_rais", "expr": "serious", "text": "수도원 문 앞에 해자가 있습니다. 사다리를 걸어야 하는데, 정면은 활이 몰립니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "서쪽 갈대밭 쪽에 좁은 둔치가 있습니다. 한 줄로 건널 수 있습니다. 사람이 건너면 발자국이 남으니, 안개가 걷히기 전에 끝내야 합니다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "그럼 사다리는 서쪽으로 옮기겠습니다. 정면에서는 크게 소리를 내 주십시오. 영국군이 문 앞만 보게." },
+    { "speaker": "hero:npc_gilles_de_rais", "expr": "serious", "text": "소리라면 우리 군이 자신 있습니다. 라이르 공이 계시니까요." },
+    { "speaker": "hero:joan_of_arc", "expr": "smile", "text": "그 소리를 두 배로 부탁드립니다." },
+    { "speaker": "caption", "text": "목표: 오귀스탱 요새를 점령한다. 서쪽 둔치 신호 지점에 닿으면 사다리 부대가 합류한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s3_post",
+   "stage_code": "ch16_s3",
+   "timing": "after_clear",
+   "bg": "오귀스탱 요새 안. 연기가 가라앉고 수도원 종탑이 멀리 서 있다",
+   "lines": [
+    { "speaker": "protagonist", "expr": "neutral", "text": "서쪽 둔치로 건넌 병사는 한 명도 빠지지 않았습니다. 해자는 생각보다 얕았습니다." },
+    { "speaker": "hero:npc_gilles_de_rais", "expr": "neutral", "text": "요새가 우리 것입니다. ...솔직히 문이 이렇게 쉽게 열릴 줄은 몰랐습니다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "쉬웠던 게 아닙니다. 소리를 낸 사람과 물을 건넌 사람이 서로를 믿은 겁니다. 다음은 투렐입니다. 강 한가운데 다리를 지키는 보루지요." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "투렐 쪽을 보고 왔습니다. 남쪽 해자에 부교를 놓을 자리가 있습니다. 거기서 신호를 올립니다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "신호가 오르면 사다리가 옵니까." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "사다리와 화살이 같이 옵니다. 늦은 신호는 신호가 아니니까요." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s4_pre",
+   "stage_code": "ch16_s4",
+   "timing": "before_battle",
+   "bg": "투렐 앞 해자 가장자리의 이른 아침. 강 위로 다리가 길게 놓여 있고, 영국군 깃발이 바람에 늘어져 있다",
+   "lines": [
+    { "speaker": "caption", "text": "1429년 5월 7일. 투렐은 오를레앙으로 이어지는 강 다리의 남쪽 끝을 막고 있다. 이 보루가 열려야 포위가 풀린다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "하루 종일 치겠소. 해가 지기 전에 닿지 않으면 나팔을 불겠소. 어제처럼." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "공, 나팔을 부는 건 공의 일이고 닿는 건 제 일입니다. 순서만 지켜 주십시오." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "순서라. 싸움에서 순서를 정하겠다는 사람은 대개 지는 쪽이오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "그럼 저는 이기는 쪽에서 정하겠습니다. 깃발이 보이는 동안은 나팔을 불지 마십시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "다리 북쪽 끝에도 사람이 있습니다. 성 안에서 다리를 건너 합류하려는 부대입니다. 제가 신호를 올리면 그쪽에서도 밀고 나옵니다. 양쪽에서 같은 때에 누르면 보루는 가운데서 끼입니다." },
+    { "speaker": "hero:npc_glasdale", "expr": "neutral", "text": "물러서지 않겠다. 다리가 우리 것인 한 이 보루는 우리 것이다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "다리는 누구의 것도 아닙니다. 건너는 사람의 것입니다." },
+    { "speaker": "caption", "text": "목표: 투렐 지휘관 글라스데일을 쓰러뜨린다. 다리 신호 지점에 닿으면 성 안 부대가 합류한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s4_post",
+   "stage_code": "ch16_s4",
+   "timing": "after_clear",
+   "bg": "해 질 녘의 오를레앙 다리 위. 불탄 목재 냄새가 퍼지고 시민들이 성벽 위에서 종을 울린다",
+   "lines": [
+    { "speaker": "caption", "text": "글라스데일이 다리를 건너려다 불탄 판자와 함께 강으로 떨어졌다. 투렐이 열렸다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "...영국군이 보루를 버리고 있소. 포위가 풀리고 있소. 풀리고 있다고!" },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "글라스데일 경에게 항복하라고 불렀습니다. 끝내 들리지 않았나 봅니다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "방금 떨어진 자를 걱정하시오? 반년 동안 이 도시를 굶긴 자요." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "알고 있습니다. 그래도 불렀습니다. 물러나는 사람들은 뒤쫓지 않습니다. 오늘은 오를레앙에 종이 울리는 것으로 충분합니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 신호가 닿지 않았다면 성 안 부대는 다리 북쪽에서 멈췄을 겁니다. 이 다리는 양쪽에서 열렸습니다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "누가 열었든 양쪽이 같은 때에 열었소. 다음에도 그렇게 하겠소. ...전령에게 고맙다고 하는 건 처음이오. 듣고 잊으시오." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s5_pre",
+   "stage_code": "ch16_s5",
+   "timing": "before_battle",
+   "bg": "파테 인근 들판의 이른 아침. 안개 속 숲 가장자리에서 새 떼가 한꺼번에 날아오른다",
+   "lines": [
+    { "speaker": "caption", "text": "1429년 6월 18일. 오를레앙 포위가 풀린 뒤 한 달 반. 영국군 파스톨프의 부대가 퇴각 중이다." },
+    { "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "영국군이 숲 뒤에서 말뚝을 박고 있소. 박고 나면 우리 말은 꼬치 신세요. 지금 쳐야 하오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "공, 말뚝이 서기 전에 닿으면 이깁니다. 박차를 잘 챙기십시오. 오늘은 우리가 쫓는 쪽입니다." },
+    { "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "쫓다니, 영국군이 달아난다는 말이오?" },
+    { "speaker": "protagonist", "expr": "neutral", "text": "라이르 공의 선발대가 숲길에서 영국군 정찰과 마주쳤습니다. 숲 서쪽으로 길을 돌려 보겠습니다." },
+    { "speaker": "hero:npc_fastolf", "expr": "neutral", "text": "말뚝을 서둘러라. 프랑스 기병이 몇인지는 모른다. 모르니 말뚝으로 계산한다. 한 줄이라도 더 박아라." },
+    { "speaker": "caption", "text": "목표: 영국군 궁수 진지의 말뚝이 완성되기 전에 후위를 돌파한다. 정해진 턴 안에 돌파하지 못하면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s5_post",
+   "stage_code": "ch16_s5",
+   "timing": "after_clear",
+   "bg": "파테 들판의 정오. 부러진 말뚝과 흩어진 깃발 사이로 바람이 지나간다",
+   "lines": [
+    { "speaker": "caption", "text": "프랑스 기병이 말뚝이 박히기 전의 궁수 진지를 돌파했다. 영국군의 야전 부대는 크게 무너졌다." },
+    { "speaker": "hero:npc_jean_alencon", "expr": "smile", "text": "한 시진이오. 한 시진 만에 끝났소! 그대 말대로 박차가 필요했소. 쫓는 쪽이 될 줄은 몰랐지만." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "서두른 게 아닙니다. 때를 안 겁니다. 숲 앞에서 멈췄다면 말뚝이 먼저 섰을 겁니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "선발대가 숲 서쪽을 먼저 열었습니다. 본대는 그 길로 들어갔습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "도망치는 쪽도 길은 숲 하나뿐이었습니다. 그 길목을 먼저 쥔 쪽이 오늘을 가져갔습니다." },
+    { "speaker": "hero:npc_talbot", "expr": "neutral", "text": "...졌다. 패장을 적으려거든 정확히 적어라. 도망쳤다고 쓰지 말고, 졌다고 써라." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s6_pre",
+   "stage_code": "ch16_s6",
+   "timing": "before_battle",
+   "bg": "쥐르포 성벽 아래의 이른 아침. 해자 건너 높은 성벽 위로 영국군 깃발이 늘어서고 대포 소리가 멀리서 울린다",
+   "lines": [
+    { "speaker": "caption", "text": "서고가 파테 전투보다 앞선 날짜의 일지를 다시 펼친다. 1429년 6월 11일. 오를레앙 포위가 풀린 지 한 달. 루아르 강 하류의 쥐르포. 서퍽 백작이 지키는 성을 알랑송 공의 군이 에워쌌다." },
+    { "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "성벽이 높소. 포가 먼저 틈을 열어야 하오. 사다리부터 올리는 놈은 전부 떨어지오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 남쪽 모퉁이에 포탄이 이미 두 번 닿았습니다. 제가 해자 앞에서 돌이 무너지는 순간을 외치면 그때 사다리를 올리십시오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "외치는 순간 제가 먼저 오르겠습니다. 그리고 사다리가 오른 뒤에도 신호를 한 번 더 올려 주십시오. 뒤따르는 사람들이 보게요." },
+    { "speaker": "hero:npc_suffolk", "expr": "neutral", "text": "올라오겠다면 오시오. 사다리 한 칸마다 하나씩 내려보내 주겠소." },
+    { "speaker": "caption", "text": "목표: 해자 신호 지점에 닿아 성벽 붕괴 시각을 알리고 성벽 남쪽 구역을 점령한다. 잔 다르크가 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s6_post",
+   "stage_code": "ch16_s6",
+   "timing": "after_clear",
+   "bg": "쥐르포 성 안뜰의 낮. 무너진 성벽 위로 프랑스 깃발이 오르고 병사들이 숨을 몰아쉰다",
+   "lines": [
+    { "speaker": "hero:npc_jean_alencon", "expr": "smile", "text": "성이 열렸소! 이틀이오, 이틀! 오를레앙에서 배운 걸 여기서도 써먹었소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 사다리를 올린 순서와 시각을 장부에 적어 두었습니다. 다음 성에서도 같은 순서로 칠 수 있습니다." },
+    { "speaker": "hero:joan_of_arc", "expr": "smile", "text": "다음은 묑입니다. 다리가 있다고 들었습니다. 다리는 우리 일에서 늘 말썽이지요." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s7_pre",
+   "stage_code": "ch16_s7",
+   "timing": "before_battle",
+   "bg": "묑 강변 다리 앞의 새벽. 돌다리 양쪽에 방호 탑이 서 있고 다리 아래로 안개가 낮게 흐른다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 앞 장. 1429년 6월 15일. 묑쉬르루아르. 루아르 강을 건너는 다리를 영국군이 지키고 있다. 이 다리를 확보하면 강 하류의 보장시로 가는 길이 열린다." },
+    { "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "다리 하나가 군 전체를 막을 수 있소. 정면으로 건너면 하루가 가오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "북쪽 탑은 병력이 적습니다. 하류 둔치에 부교 자리를 보고 오겠습니다. 부교가 놓이면 탑 뒤로 돌아 들어갈 수 있습니다." },
+    { "speaker": "hero:npc_la_hire", "expr": "angry", "text": "내가 선두를 맡겠소. 다리 지키는 놈들한테 내 얼굴을 보여 주겠소. 겁부터 먹게." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공의 얼굴은 부교 다음입니다. 부교 없이 다리만 치면 앞뒤로 갇힙니다." },
+    { "speaker": "hero:npc_la_hire", "expr": "angry", "text": "내 얼굴이 부교 다음이라고?" },
+    { "speaker": "hero:joan_of_arc", "expr": "smile", "text": "라이르 공의 얼굴은 효과가 확실해서 맨 마지막에 아껴 두는 겁니다." },
+    { "speaker": "caption", "text": "목표: 하류 둔치 신호 지점에 닿아 부교를 놓고 다리 구역을 점령한다. 점령 후 정해진 턴 동안 다리를 지킨다. 다리 구역을 내주면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s7_post",
+   "stage_code": "ch16_s7",
+   "timing": "after_clear",
+   "bg": "묑 다리 위의 저녁. 돌다리 위로 프랑스 병력이 줄지어 건너고 탑 위에 새 깃발이 오른다",
+   "lines": [
+    { "speaker": "hero:npc_la_hire", "expr": "neutral", "text": "다리를 지켰소! 이제 군이 건너오오. 내 얼굴값은 한 푼도 못 받았지만." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 건넌 군이 다 지나갈 때까지 다리를 비우지 않습니다. 교대 시각은 정해 두었습니다." },
+    { "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "그리하시오. 얼굴값은 술로 치릅시다. 다음은 보장시요." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s8_pre",
+   "stage_code": "ch16_s8",
+   "timing": "before_battle",
+   "bg": "보장시 성 앞 들판의 아침. 성벽 아래 진영에 새 깃발이 섞여 들어오고 멀리 북쪽에서 영국 증원의 먼지가 오른다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 앞 장. 1429년 6월 17일. 보장시. 성을 에워싸고 협상하는 동안 영국 증원군이 북쪽에서 접근한다. 같은 날 왕의 총사령관 리슈몽이 군을 이끌고 합류했다." },
+    { "speaker": "hero:npc_richemont", "expr": "serious", "text": "왕께서 나를 쓰고 싶어 하지 않으신 건 알고 있소. 그래도 군을 끌고 왔소. 어디에 서면 되오." },
+    { "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "공이 오셔서 다행이오. 허나 오는 길에 영국 증원이 먼저 닿으면 반가워할 틈도 없소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 북쪽 언덕 신호 지점에서 영국 증원의 위치를 알립니다. 성 안과 협상하는 동안 병력은 서쪽 들판으로 모으십시오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "리슈몽 공, 어디서 오셨는지는 묻지 않겠습니다. 오늘 어디에 서 계시는지만 보겠습니다." },
+    { "speaker": "hero:npc_richemont", "expr": "neutral", "text": "...내가 평생 받은 환영 중에 가장 짧구려. 그런데 가장 마음에 드오." },
+    { "speaker": "caption", "text": "목표: 북쪽 언덕 신호 지점에 닿아 증원 접근을 알리고 성문 구역을 점령한다. 리슈몽 부대가 서쪽에 닿기 전에 성 협상을 마무리한다. 잔 다르크가 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s8_post",
+   "stage_code": "ch16_s8",
+   "timing": "after_clear",
+   "bg": "보장시 성문 앞의 저녁. 영국 수비대가 말과 짐을 가지고 줄지어 성을 나선다",
+   "lines": [
+    { "speaker": "hero:npc_richemont", "expr": "neutral", "text": "성을 비우고 나가는 게 저들의 조건이었소. 받아들였소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "수비대는 말과 짐을 가지고 나갑니다. 길 양쪽에 병사를 세워 아무도 다치지 않게 하겠습니다." },
+    { "speaker": "hero:npc_richemont", "expr": "neutral", "text": "분이 안 풀리는 병사들이 있을 것이오. 한 달을 맞붙은 놈들을 곱게 보내자니." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "그래도 세워 주십시오. 성을 얻는 일과 사람을 지키는 일은 같은 날에 합니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s9_pre",
+   "stage_code": "ch16_s9",
+   "timing": "before_battle",
+   "bg": "트루아 인근 평야 길의 이른 아침. 왕의 행렬이 깃발을 앞세우고 천천히 나아가고 길 양쪽에 마을 사람들이 서서 지켜본다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 이어지는 장. 1429년 7월. 랭스로 가는 길. 왕세자 샤를이 대관식을 치르기 위해 적의 영토를 지나 랭스로 향한다. 행렬 곳곳에 영국·부르고뉴 정찰이 숨어 있다." },
+    { "speaker": "hero:npc_charles_vii", "expr": "neutral", "text": "나는 이 길을 걸어 본 적이 없소. 길 양쪽에서 사람들이 나를 쳐다보오. 저들이 무엇을 기대하는지 나는 모르겠소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "전하, 길목 세 곳에 신호 지점을 두었습니다. 제가 한 곳씩 지나 깃발로 안전을 알립니다. 깃발이 오른 곳으로만 가십시오." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "전하, 저 사람들은 전하를 본 적이 없습니다. 오늘은 저들이 전하를 보러 나온 것입니다. 기대하는 건 크지 않습니다. 걸어오는 왕 한 사람입니다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "행렬이 늘어지면 중간이 약하오. 둘로 나누어 걷는 게 좋겠소. 왕의 앞뒤로 숨 쉴 거리를 두고." },
+    { "speaker": "caption", "text": "목표: 신호 지점 세 곳에 순서대로 닿아 행렬이 지날 길을 확인하고 왕을 랭스 구역까지 호송한다. 샤를이 쓰러지면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s9_post",
+   "stage_code": "ch16_s9",
+   "timing": "after_clear",
+   "bg": "랭스 성문 앞의 저녁. 성문이 열리고 시민들이 길 양쪽에 모여 종을 울린다",
+   "lines": [
+    { "speaker": "hero:npc_charles_vii", "expr": "neutral", "text": "문이 열려 있소. 군이 다 들어갈 때까지 아무도 막지 않았소. ...왕이 되러 가는 길이 이리 조용할 줄은 몰랐소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "전하, 세 곳 모두 깃발이 올랐습니다. 행렬에서 길을 잃은 사람은 없었습니다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "내일 관을 쓰시거든 오늘 걸어온 길을 기억해 주십시오. 그 뒤의 일은 그다음에 말씀드리겠습니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s10_pre",
+   "stage_code": "ch16_s10",
+   "timing": "before_battle",
+   "bg": "파리 외곽 해자 앞의 이른 오후. 성벽 아래 흙탕물 해자에 부교 자재가 흩어져 있고 성벽 위에서 화살이 쏟아진다",
+   "lines": [
+    { "speaker": "caption", "text": "일지의 이어지는 장. 1429년 9월 8일. 파리 성문 앞. 공격은 하루 만에 막혔고 왕은 철수를 명했다. 잔 다르크의 군은 해자 앞에서 물러나야 한다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "대관식 뒤에 말씀드린다고 했지요. 파리입니다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "해자가 깊소. 부교가 모자라오. 해 질 녘에는 물러나야 하오." },
+    { "speaker": "hero:joan_of_arc", "expr": "serious", "text": "물러난다고요? 아직 해가 남았습니다." },
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "해가 남았다고 부교가 생기진 않소. 왕께서 철수를 명하셨소." },
+    { "speaker": "hero:joan_of_arc", "expr": "serious", "text": "...철수 명은 따르겠습니다. 다만 한 사람도 해자 앞에 남기지 않겠습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "철수로는 북쪽 둑길 하나뿐입니다. 입구에서 부상병과 수레의 순서를 제가 정해 흘려보냅니다. 후위는 마지막까지 성벽 쪽을 보십시오." },
+    { "speaker": "hero:npc_la_hire", "expr": "neutral", "text": "후위는 내 자리요. 해 지기 전에 모두 둑길로 올려 보내시오. 목청 큰 값은 하겠소." },
+    { "speaker": "caption", "text": "목표: 둑길 신호 지점에 닿아 철수 순서를 알리고 부상병과 수레를 안전 구역으로 호송한다. 후위가 끝까지 남아 시간을 번다. 인원 절반 이상이 남으면 패배한다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_s10_post",
+   "stage_code": "ch16_s10",
+   "timing": "after_clear",
+   "bg": "저녁의 파리 북쪽 둑길. 천막과 수레가 줄지어 늘어서고 병사들이 서로를 확인한다",
+   "lines": [
+    { "speaker": "hero:npc_dunois", "expr": "neutral", "text": "철수했소. 파리는 열리지 않았지만 군은 남았소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공, 남은 사람을 이름으로 셌습니다. 오늘 철수는 지난 한 달의 진군만큼 길게 일지에 남깁니다." },
+    { "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "남겨 주십시오. 이긴 날만 적으면 사람들은 이긴 날만 기억합니다. 진 날을 아는 사람이 다음에 이깁니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  },
+  {
+   "id": "ch16_end",
+   "stage_code": null,
+   "timing": "chapter_end",
+   "bg": "시간의 서고. 젖은 흙 냄새가 가신 복도. 책장 사이에 작은 깃발 모양 책갈피가 끼어 있다",
+   "lines": [
+    { "speaker": "shiori", "expr": "neutral", "text": "오를레앙의 종소리가 책장에 꽂혔습니다. 믿게 한 건 말이 아니라 길 위에서 보낸 시간이었습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "소문으로 온 사람이 길 위에서 사람이 되었다는 말씀입니까." },
+    { "speaker": "shiori", "expr": "smile", "text": "다음에 파리로 가는 건 다른 사람입니다. 다음 책장은 복도에 있습니다." }
+   ],
+   "unlock_hero": null,
+   "relation_ref": []
+  }
+ ],
+ "battle_cues": {
+  "ch16_s1": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "안개 속에서 수레바퀴 소리가 길게 이어진다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "보급은 서둘러야 하는데 수레는 발이 느립니다. 어느 쪽이 먼저입니까." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레입니다. 호위를 앞뒤로 나누면 수레가 뒤처집니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_la_hire", "expr": "angry", "text": "호위는 내가 맡겠다. 앞은 비워 둬라. 길을 뚫는 건 늘 앞이다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "라이르 경, 욕은 수레가 지나간 다음에 하십시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_la_hire", "expr": "angry", "text": "욕이 없으면 말이 안 나가오, 아가씨." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "바퀴가 진흙에 걸릴 곳이 두 군데입니다. 미리 널을 깔아 두겠습니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "forest_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "보루 문이 열립니다. 호위를 남쪽으로 붙이십시오." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "forest_signal_up" } }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "수레를 멈추지 마십시오. 멈추면 성 안이 하루 더 굶습니다." }
+  ],
+  "ch16_s2": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "요새 쪽에서 종이 울린다. 시민들이 들판에 흩어져 있다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_dunois", "expr": "neutral", "text": "시민들이 들판에 나와 있소. 교전이 시작되면 성 안으로 불러들여야 하오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "종이 울리면 돌아오라고 일러 두었습니다. 종소리를 한 번 더 길게 쳐 주십시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "요새 문까지 이백 보입니다. 서쪽에서 들어오는 뒤누아 공의 부대와 시각을 맞춰야 합니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_dunois", "expr": "neutral", "text": "시각은 내가 맞추겠소. 그대는 신호를 늦추지 마시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "신호가 늦으면 제가 먼저 갑니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_dunois", "expr": "neutral", "text": "그건 곤란하오. 그러니 늦추지 마시오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "mound_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "신호를 올렸습니다. 뒤누아 공이 서쪽에서 들어옵니다." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "mound_signal_up" } }, "do": "say", "speaker": "hero:npc_dunois", "expr": "neutral", "text": "증원이 닿았다! 요새 문을 함께 친다." }
+  ],
+  "ch16_s3": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "해자 위로 안개가 느리게 올라간다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gilles_de_rais", "expr": "serious", "text": "해자 폭이 생각보다 좁습니다. 사다리가 닿을 겁니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "서쪽 둔치가 가장 낮습니다. 안개가 걷히기 전에 올라야 합니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "서쪽으로 가겠습니다. 사다리를 든 사람들 뒤에서 걷겠습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gilles_de_rais", "expr": "serious", "text": "잔 님이 사다리 뒤에 서실 필요는 없습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "앞에 서는 것만 앞이 아닙니다. 뒤에서 보는 것도 하나의 일입니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "bank_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "서쪽 둔치에 닿았습니다. 사다리를 이쪽으로 보내십시오." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "bank_signal_up" } }, "do": "say", "speaker": "hero:npc_gilles_de_rais", "expr": "serious", "text": "사다리가 닿았다! 올라가라!" }
+  ],
+  "ch16_s4": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "강 위로 해가 낮게 기운다. 다리 판자 위로 바람이 지나간다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_glasdale", "expr": "neutral", "text": "다리 끝은 우리가 지킨다. 불을 쓸 수 있는 자는 불을 쓰라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "투렐은 오늘 안에 끝내야 합니다. 어제처럼 날이 저물어서는 안 됩니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "다리 판자가 한 칸씩 비어 있습니다. 성 안 부대가 널을 대고 건너옵니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "해가 낮아지면 불길이 눈에 띄오. 저녁 전에 결판을 내야 하오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "제 깃발이 보이는 동안은 물러서지 마십시오. 보이지 않게 되면 그때 나팔을 부십시오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "bridge_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "다리 신호를 올렸습니다. 성 안 부대가 건너옵니다." },
+   { "on": { "turn": 7 }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "철수 나팔을 아직 불지 마십시오. 한 번만 더." },
+   { "on": { "turn": 9 }, "do": "say", "speaker": "narrator", "text": "다리 판자에 불이 옮겨 붙는다." }
+  ],
+  "ch16_s5": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "안개 속에서 말발굽 소리가 낮게 깔린다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_fastolf", "expr": "neutral", "text": "저 새 떼를 봐라. 누군가 숲을 지나갔다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "새 떼가 숲 서쪽에서 올랐습니다. 영국군 후위일 수 있습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_richemont", "expr": "neutral", "text": "서쪽으로 돌아 들어가겠소. 정면은 알랑송 공이 맡으시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "정면을 맡겠소. 보병이 닿을 시간을 주시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "시간은 새 떼가 아직 날고 있는 동안뿐입니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "forest_west_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "숲 서쪽이 열렸습니다. 본대는 그리로 돌립니다." },
+   { "on": { "turn": 5 }, "do": "say", "speaker": "hero:npc_fastolf", "expr": "neutral", "text": "말뚝이 모자란다. 궁수들은 뒤로 물러서라." }
+  ],
+  "ch16_s6": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "성벽 위 대포가 낮게 울린다. 해자 위로 안개가 걷힌다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_suffolk", "expr": "serious", "text": "성벽은 높고 해자는 깊다. 대포 소리에 놀라지 마라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "대포가 남쪽 모퉁이를 때리고 있소. 곧 무너질 것이오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "남쪽 모퉁이 돌이 갈라지는 소리가 납니다. 사다리를 그쪽으로 모으겠습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "사다리가 닿으면 저를 따라 주십시오. 먼저 오르는 일은 제가 하겠습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_jean_alencon", "expr": "neutral", "text": "그대가 먼저 오르는 일은 내가 막겠소. 올라야 한다면 함께 오르겠소." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "moat_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "남쪽 모퉁이 돌이 무너집니다. 사다리를 올리십시오." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "moat_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 6 }, "do": "say", "speaker": "hero:npc_suffolk", "expr": "serious", "text": "성벽 위로 오르는 자를 막아라. 한 곳도 내주지 마라." }
+  ],
+  "ch16_s7": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "돌다리 위로 물안개가 올라온다. 방호 탑 위에서 활시위 소리가 들린다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_la_hire", "expr": "angry", "text": "다리 위 방호 탑이 문제다. 정면으로 가면 화살이 비처럼 온다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "부교를 놓으면 탑 뒤로 돌아 들어갈 수 있습니다. 하류 쪽 강폭이 가장 좁습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_la_hire", "expr": "angry", "text": "부교라. 평생 물 위를 걸어 본 적이 없소." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "어렵지 않습니다. 앞사람만 보고 가면 됩니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_la_hire", "expr": "angry", "text": "앞사람이 빠지면 어쩝니까." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "그러면 옆사람을 보십시오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "pontoon_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "부교가 놓였습니다. 탑 뒤로 돌아 들어가십시오." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "pontoon_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 7 }, "do": "say", "speaker": "hero:npc_la_hire", "expr": "angry", "text": "다리를 비우지 마라. 한 걸음도 내주지 마라." }
+  ],
+  "ch16_s8": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "성벽 위에서 협상의 깃발이 오르내린다. 북쪽 길 위로 먼지가 조금씩 가까워진다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_richemont", "expr": "neutral", "text": "협상 깃발이 오르내리는 동안 북쪽 먼지가 가까워지고 있소. 시간을 끄는 것이오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "북쪽 언덕에 영국 증원이 보입니다. 협상은 그 시간을 벌려는 것일 수 있습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "그럼 협상은 여기서 끝내겠습니다. 성문 앞부터 막아야 합니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_richemont", "expr": "neutral", "text": "서쪽 길로 돌아 성문 앞을 맡겠소. 정면은 그대가 지키시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "정면은 지키겠습니다. 다만 먼저 칼을 뽑지는 않겠습니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "hill_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "북쪽 언덕입니다. 영국 증원이 보입니다. 서쪽으로 모이십시오." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "hill_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 6 }, "do": "say", "speaker": "hero:npc_richemont", "expr": "neutral", "text": "서쪽에 닿았소. 성문 앞을 맡겠소." }
+  ],
+  "ch16_s9": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "길 양쪽 밭에서 마을 사람들이 고개를 내민다. 깃발이 바람에 천천히 나부낀다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_charles_vii", "expr": "neutral", "text": "길 양쪽에 사람들이 나와 있군. 환영일까, 구경일까." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "구경이어도 괜찮습니다. 보러 나왔다는 것만으로 이미 길이 열렸습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "길목마다 정찰을 세워 두었습니다. 아직 적 흔적은 없습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_charles_vii", "expr": "neutral", "text": "그럼 천천히 가도 되겠소. 서두르면 왕이 아니라 도망자처럼 보이오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "걸음은 느려도 됩니다. 멈추지만 마십시오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "road_1", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "첫 길목입니다. 정찰이 없습니다. 지나가십시오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "road_2", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "둘째 길목입니다. 숲 가장자리에 말 자국이 있습니다. 호위를 붙이십시오." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "road_3", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "셋째 길목입니다. 랭스 성탑이 보입니다." }
+  ],
+  "ch16_s10": [
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "해자 건너 성벽 위에서 화살이 낮게 날아온다. 흙탕물 위로 부서진 목재가 떠 있다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "부상병과 수레가 먼저 빠집니다. 후위가 마지막입니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_la_hire", "expr": "angry", "text": "후위는 내가 서겠다. 가장 시끄러운 자가 마지막에 서야 적이 이쪽만 본다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:joan_of_arc", "expr": "neutral", "text": "무리하지 마십시오. 해 질 때까지만입니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_la_hire", "expr": "angry", "text": "해가 지면 나도 얌전해지오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "다리 쪽 신호를 보시고 물러나십시오. 불이 켜지면 마지막 대열입니다." },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "bank_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "철수 순서입니다. 부상병과 수레가 먼저입니다." },
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "bank_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
+   { "on": { "turn": 8 }, "do": "say", "speaker": "hero:npc_la_hire", "expr": "neutral", "text": "후위는 이 자리에서 해 질 때까지다. 물러서지 마라." }
+  ]
+ }
+}

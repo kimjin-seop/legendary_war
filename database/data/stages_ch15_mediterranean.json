@@ -1,0 +1,2481 @@
+{
+ "_note": "[임밸런 / 초안] ch15 지중해의 두 장군 스테이지 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 좌표 채움 완료(2026-11-03, maps_ch15_mediterranean.json): cells/x/y/tiles/waypoints 채움, zone_ref 는 tiles/rect 로 치환(엔진 규칙), spawn 후보 칸 <=12. map_requirements 의 zone_ref 문구는 설명용. 시드 미적재.",
+ "version": 1,
+ "chapter": 15,
+ "shelf_code": "ch15",
+ "status": "map_filled",
+ "items": [
+  {
+   "code": "ch15_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "fabius_maximus",
+      "x": 14,
+      "y": 3,
+      "must_survive": true
+     }
+    ],
+    "enemy_commander": {
+     "name": "카르타고 보급 수레대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          18,
+          7
+         ],
+         [
+          17,
+          7
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "escort_scattered",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "flag",
+        "key": "escort_scattered"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        27,
+        2
+       ],
+       [
+        28,
+        2
+       ],
+       [
+        27,
+        1
+       ],
+       [
+        28,
+        1
+       ]
+      ],
+      "tag": "roman_horse",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 3
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "fabius",
+      "type": "unit_survive",
+      "unit": "hero:fabius_maximus",
+      "label": "파비우스를 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "보급 수레대장을 쓰러뜨린다",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "fabius_down",
+      "label": "파비우스가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:fabius_maximus"
+      }
+     }
+    ]
+   },
+   "name": "지연전",
+   "year_label": "BC 216~",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_ch15_s1_delay",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 15,
+   "enemy_level": 15,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 12,
+   "difficulty": 5,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "fabius_maximus"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 보급 수레대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.5
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       22,
+       16
+      ],
+      [
+       21,
+       16
+      ],
+      [
+       21,
+       15
+      ],
+      [
+       22,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 보급 수레",
+     "route": {
+      "waypoints": [
+       [
+        14,
+        16
+       ],
+       [
+        6,
+        16
+       ],
+       [
+        0,
+        16
+       ]
+      ],
+      "from_turn": 2,
+      "move_cap": 3
+     },
+     "hold_until_turn": 2
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호위 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       16
+      ],
+      [
+       26,
+       16
+      ],
+      [
+       25,
+       15
+      ],
+      [
+       26,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 호위 창병",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호위 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       29,
+       16
+      ],
+      [
+       30,
+       16
+      ],
+      [
+       29,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 호위 기병",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호위 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       18,
+       13
+      ],
+      [
+       19,
+       13
+      ],
+      [
+       18,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 호위 궁병",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 14,
+   "enemy_units_peak": 14,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      22,
+      16
+     ],
+     "name": "카르타고 보급 수레대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      16
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      15
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      15
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      25,
+      16
+     ],
+     "name": "호위 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      16
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      15
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      16
+     ],
+     "name": "호위 기병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      18,
+      13
+     ],
+     "name": "호위 궁병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      19,
+      13
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      18,
+      14
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1060,
+    "exp": 1537,
+    "gold": 1378,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "fabius"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "68~82 (신호 달성 중앙 약 75, 미달성 약 58)",
+   "sort_order": 1501,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal": "능선 신호 타일 1~2칸",
+     "supply_road": "보급로(수레 route waypoints 2~3, 비용 <= 24)",
+     "ridge": "능선(hill)",
+     "reinforce_horse": "로마 기병 출현 후보칸 4",
+     "fabius_start": "파비우스 시작",
+     "enemy_deploy": "수레 1 + 호위 3"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal",
+     "supply_road"
+    ],
+    "path_cost": "protagonist_start -> signal <= 12 (신호 turn 3 이내)"
+   },
+   "design_notes": [
+    "Lv15 offset -3(eff 12). 적 14기(보급 수레 4 = route 소대 턴2 출발 cap 3, hp 1.5 / 호위 창 4 / 호위 기병 3 hold 4 / 궁 3). 승리 = 수레대장 격파(수레 파괴 대리), 아웃라인 '정면 교전 회피, 정해진 턴' -> 턴 제한 9(별) + 호위 정면 돌파 대신 우회/기병 활용 유도. 신호(능선) -> escort_scattered -> 로마 기병 3 합류(턴3 이상) = '신호 flag 로 기병 활성'. 수레 소대 route 는 비공격(보급로 따라 이동): 경로를 맵 보급로(supply_road)로 요청. 파비우스 NPC 신규 행 spear 12/3/3 (fabius_maximus 영웅 행은 C spear 8/3/2 = 너무 약함).",
+    "무행동 2턴 즉사 점검(거리·이동력 계산): 엔진은 ai 이름(hold_until_contact 등)을 읽지 않고 hold_until_turn 만 반영하므로, 아군 NPC 첫 피격 >= 적 행동 4번째, 배치 구역 첫 피격 >= 3번째가 되도록 분대 hold_until_turn 을 올림: A None->2, B None->2, D None->3"
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch15_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "scipio_africanus",
+      "x": 4,
+      "y": 12,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_minucius_rufus",
+      "x": 3,
+      "y": 11,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "신카르타고 성 지휘관",
+     "hero": null
+    },
+    "max_turns": 13,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          14,
+          6
+         ],
+         [
+          15,
+          5
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "lagoon_low",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "lagoon_low"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        18,
+        5
+       ],
+       [
+        19,
+        5
+       ],
+       [
+        20,
+        5
+       ],
+       [
+        21,
+        5
+       ],
+       [
+        22,
+        5
+       ],
+       [
+        23,
+        5
+       ],
+       [
+        24,
+        5
+       ],
+       [
+        25,
+        5
+       ],
+       [
+        26,
+        5
+       ],
+       [
+        27,
+        5
+       ]
+      ],
+      "to": "shallows",
+      "fx": "water_rise",
+      "ms": 1000,
+      "dir": "right"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "scipio",
+      "type": "unit_survive",
+      "unit": "hero:scipio_africanus",
+      "label": "스키피오를 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "성 지휘관을 쓰러뜨리거나 성벽 구역을 점령한다",
+      "latch": true,
+      "when": {
+       "any": [
+        {
+         "type": "defeated",
+         "unit": "enemy_commander"
+        },
+        {
+         "type": "in_zone",
+         "side": "a",
+         "tiles": [
+          [
+           22,
+           6
+          ],
+          [
+           23,
+           6
+          ],
+          [
+           22,
+           7
+          ],
+          [
+           23,
+           7
+          ]
+         ]
+        }
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "scipio_down",
+      "label": "스키피오가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:scipio_africanus"
+      }
+     }
+    ]
+   },
+   "name": "신카르타고",
+   "year_label": "BC 209",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_ch15_s2_new_carthage",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 15,
+   "difficulty": 7,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "scipio_africanus",
+     "npc_minucius_rufus"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "신카르타고 성 지휘관",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 2
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       22,
+       11
+      ],
+      [
+       21,
+       10
+      ],
+      [
+       22,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "신카르타고 수비 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "신카르타고 성벽 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       14
+      ],
+      [
+       25,
+       13
+      ],
+      [
+       26,
+       13
+      ],
+      [
+       24,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "신카르타고 성벽 궁병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "신카르타고 성문 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       17,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "신카르타고 성문 창병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "신카르타고 출격 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       12,
+       3
+      ],
+      [
+       12,
+       2
+      ],
+      [
+       11,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "신카르타고 출격 보병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "신카르타고 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       25,
+       8
+      ],
+      [
+       26,
+       8
+      ],
+      [
+       25,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "신카르타고 기병",
+     "hold_until_turn": 4
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 17,
+   "enemy_units_peak": 17,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      21,
+      11
+     ],
+     "name": "신카르타고 성 지휘관"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      25,
+      14
+     ],
+     "name": "신카르타고 성벽 궁병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      24,
+      14
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      17,
+      12
+     ],
+     "name": "신카르타고 성문 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      18,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      17,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      12,
+      3
+     ],
+     "name": "신카르타고 출격 보병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      2
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      3
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      8
+     ],
+     "name": "신카르타고 기병대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      8
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      9
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1270,
+    "exp": 1842,
+    "gold": 1651,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "scipio"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "62~76 (신호 달성 중앙 약 70, 미달성 약 55)",
+   "sort_order": 1502,
+   "prerequisite": "ch15_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal": "석호 신호 타일 1~2칸",
+     "lagoon_zone": "석호 칸 8~14(변경 전 plain/sand 석호 가장자리, 측면 진입로)",
+     "wall_zone": "성벽 구역 점령 칸 4~6",
+     "castle": "성벽(wall/castle)",
+     "scipio_start": "스키피오 시작",
+     "enemy_deploy": "성 안 2 + 성문 1 + 성 밖 1"
+    },
+    "deploy_zone_count": 5,
+    "tile_tags": [
+     "signal",
+     "lagoon"
+    ],
+    "path_cost": "protagonist_start -> signal <= 14"
+   },
+   "design_notes": [
+    "Lv17 offset -2(eff 15). 적 17기(성 지휘 4 hp2.0 / 성벽 궁 4 / 성문 창 3 / 출격 보병 3 / 기병 3 hold 4). 신호(석호 가장자리) -> lagoon_low: lagoon_zone(석호 plain/sand 칸) -> shallows, 성벽 측면 진입 개방. 승리 any(지휘관 격파 | 성벽 구역 점령): 신호 후 측면 진입으로 성벽 구역 점령이 쉬워지는 것이 기여. 미달성이면 정면 성문으로만 -> 승률 하락.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_minucius_rufus(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch15_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "scipio_africanus",
+      "x": 6,
+      "y": 8,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_publius_scipio",
+      "x": 5,
+      "y": 7,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "한니발 바르카",
+     "hero": "hannibal"
+    },
+    "max_turns": 13,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          8,
+          14
+         ],
+         [
+          9,
+          14
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "west_hill_signal",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "flag",
+        "key": "west_hill_signal"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        14,
+        2
+       ]
+      ],
+      "tag": "numidian",
+      "ready": true,
+      "hero": "npc_masinissa"
+     },
+     {
+      "on": {
+       "turn": 3,
+       "when": {
+        "type": "flag",
+        "key": "west_hill_signal"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        13,
+        0
+       ],
+       [
+        14,
+        0
+       ],
+       [
+        13,
+        1
+       ],
+       [
+        14,
+        1
+       ]
+      ],
+      "tag": "numidian",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "scipio",
+      "type": "unit_survive",
+      "unit": "hero:scipio_africanus",
+      "label": "스키피오를 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "상륙 거점을 점령한다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "side": "a",
+       "tiles": [
+        [
+         14,
+         19
+        ],
+        [
+         15,
+         19
+        ],
+        [
+         16,
+         19
+        ],
+        [
+         14,
+         20
+        ],
+        [
+         15,
+         20
+        ],
+        [
+         16,
+         20
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "scipio_down",
+      "label": "스키피오가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:scipio_africanus"
+      }
+     }
+    ]
+   },
+   "name": "아프리카 상륙",
+   "year_label": "BC 204",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_ch15_s3_africa_landing",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      14,
+      19
+     ],
+     [
+      15,
+      19
+     ],
+     [
+      16,
+      19
+     ],
+     [
+      14,
+      20
+     ],
+     [
+      15,
+      20
+     ],
+     [
+      16,
+      20
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -6,
+   "effective_enemy_level": 12,
+   "difficulty": 7,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "scipio_africanus",
+     "npc_masinissa",
+     "npc_publius_scipio"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "hannibal",
+      "display_name_ko": "한니발 바르카",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       17
+      ],
+      [
+       19,
+       17
+      ],
+      [
+       18,
+       18
+      ],
+      [
+       19,
+       18
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 해안 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       23,
+       17
+      ],
+      [
+       23,
+       18
+      ],
+      [
+       22,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 해안 보병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 해안 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       12,
+       17
+      ],
+      [
+       12,
+       18
+      ],
+      [
+       11,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 해안 궁병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       25,
+       13
+      ],
+      [
+       26,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 창병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 기병 2진 대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       27,
+       16
+      ],
+      [
+       28,
+       16
+      ],
+      [
+       27,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 기병 2진",
+     "hold_until_turn": 5
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 17,
+   "enemy_units_peak": 17,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      18,
+      17
+     ],
+     "ref": "hannibal",
+     "kind": "npc",
+     "name": "한니발 바르카"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      17
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      18,
+      18
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      18
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      23,
+      17
+     ],
+     "name": "카르타고 해안 보병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      23,
+      18
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      12,
+      17
+     ],
+     "name": "카르타고 해안 궁병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      12,
+      18
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      11,
+      17
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      25,
+      12
+     ],
+     "name": "카르타고 창병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      13
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      13
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      27,
+      16
+     ],
+     "name": "카르타고 기병 2진 대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      16
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      27,
+      15
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1370,
+    "exp": 1986,
+    "gold": 1781,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "scipio"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "62~76 (신호 달성 중앙 약 70)",
+   "sort_order": 1503,
+   "prerequisite": "ch15_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "중형 32x24",
+    "zones": {
+     "signal": "서쪽 언덕 신호 타일 1~2칸",
+     "beachhead": "상륙 거점 구역 6칸(적 후방 해안, 점령 대상)",
+     "landing": "상륙 구역(아군 시작, 해안)",
+     "reinforce_h": "마시니사 출현 1칸",
+     "reinforce_numidian": "누미디아 기병 2 출현 후보칸 4",
+     "hill": "언덕",
+     "enemy_deploy": "해안 3 + 후방 2"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "signal",
+     "beachhead"
+    ],
+    "path_cost": "protagonist_start -> signal <= 14; landing -> beachhead <= 18"
+   },
+   "design_notes": [
+    "Lv18 offset -2(eff 16). 적 17기(기병 4 advance / 해안 보병 3·궁 3 hold / 창 4 / 기병 2진 3 hold 5). 승리 only = 상륙 거점(beachhead) 구역에 아군 1기라도 서면(2턴 유지는 capture 목표 표기 용; 승리는 in_zone 즉시 판정 — hold 요구 시 capture 로 교체). 신호(서쪽 언덕) -> 마시니사(npc_masinissa C sword, 상향 후보) + 누미디아 기병 2 spawn(턴3 이상). 미달성이면 병력 부족 -> 두 봇 측정.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_publius_scipio(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: hannibal(convert_main). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정4회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->-6, 일반 부대 병사/부대 0기 축소(초기 17->17), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1->1. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  },
+  {
+   "code": "ch15_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "scipio_africanus",
+      "x": 8,
+      "y": 11,
+      "must_survive": true
+     },
+     {
+      "hero": "npc_gaius_terentius_varro",
+      "x": 7,
+      "y": 10,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "한니발",
+     "hero": "hannibal"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          16,
+          14
+         ],
+         [
+          16,
+          13
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "aisle_open",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "aisle_open"
+       }
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        6,
+        8
+       ],
+       [
+        7,
+        8
+       ],
+       [
+        8,
+        8
+       ],
+       [
+        9,
+        8
+       ],
+       [
+        10,
+        8
+       ],
+       [
+        11,
+        8
+       ],
+       [
+        12,
+        8
+       ],
+       [
+        13,
+        8
+       ],
+       [
+        14,
+        8
+       ],
+       [
+        15,
+        8
+       ],
+       [
+        6,
+        14
+       ],
+       [
+        7,
+        14
+       ],
+       [
+        8,
+        14
+       ],
+       [
+        9,
+        14
+       ],
+       [
+        10,
+        14
+       ],
+       [
+        11,
+        14
+       ],
+       [
+        12,
+        14
+       ],
+       [
+        13,
+        14
+       ],
+       [
+        14,
+        14
+       ],
+       [
+        15,
+        14
+       ],
+       [
+        6,
+        20
+       ],
+       [
+        7,
+        20
+       ],
+       [
+        8,
+        20
+       ],
+       [
+        9,
+        20
+       ],
+       [
+        10,
+        20
+       ],
+       [
+        11,
+        20
+       ],
+       [
+        12,
+        20
+       ],
+       [
+        13,
+        20
+       ],
+       [
+        14,
+        20
+       ],
+       [
+        15,
+        20
+       ]
+      ],
+      "to": "plain"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "aisle_open"
+         },
+         {
+          "type": "turn_gte",
+          "value": 6
+         }
+        ]
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        2,
+        26
+       ]
+      ],
+      "tag": "flank",
+      "ready": true,
+      "hero": "npc_masinissa"
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "all": [
+         {
+          "type": "flag",
+          "key": "aisle_open"
+         },
+         {
+          "type": "turn_gte",
+          "value": 6
+         }
+        ]
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        3,
+        26
+       ],
+       [
+        2,
+        25
+       ],
+       [
+        3,
+        25
+       ],
+       [
+        1,
+        26
+       ]
+      ],
+      "tag": "flank",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 2
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "scipio",
+      "type": "unit_survive",
+      "unit": "hero:scipio_africanus",
+      "label": "스키피오를 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "한니발을 쓰러뜨린다",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "scipio_down",
+      "label": "스키피오가 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:scipio_africanus"
+      }
+     }
+    ]
+   },
+   "name": "자마",
+   "year_label": "BC 202",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_ch15_s4_zama",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 19,
+   "difficulty": 9,
+   "culture": "ancient_med",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "scipio_africanus",
+     "npc_masinissa",
+     "npc_gaius_terentius_varro"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "hannibal",
+      "display_name_ko": "한니발",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.8
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       25,
+       13
+      ],
+      [
+       26,
+       13
+      ],
+      [
+       25,
+       14
+      ],
+      [
+       26,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "한니발 친위 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "코끼리 부대",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 2.5
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       7
+      ],
+      [
+       25,
+       8
+      ],
+      [
+       25,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "전투 코끼리(중장 돌진)"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 용병 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       19
+      ],
+      [
+       26,
+       19
+      ],
+      [
+       25,
+       20
+      ],
+      [
+       26,
+       20
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 용병 보병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       31,
+       13
+      ],
+      [
+       32,
+       13
+      ],
+      [
+       31,
+       12
+      ],
+      [
+       32,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 궁병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 시민병 대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       31,
+       7
+      ],
+      [
+       32,
+       7
+      ],
+      [
+       31,
+       8
+      ],
+      [
+       32,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 시민병",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       31,
+       19
+      ],
+      [
+       32,
+       19
+      ],
+      [
+       31,
+       20
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 기병",
+     "hold_until_turn": 6
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 22,
+   "enemy_units_peak": 22,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      13
+     ],
+     "ref": "hannibal",
+     "kind": "npc",
+     "name": "한니발"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      14
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      14
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      25,
+      7
+     ],
+     "name": "코끼리 부대"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      19
+     ],
+     "name": "카르타고 용병 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      19
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      20
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      20
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      31,
+      13
+     ],
+     "name": "카르타고 궁병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      32,
+      13
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      31,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      32,
+      12
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      31,
+      7
+     ],
+     "name": "카르타고 시민병 대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      32,
+      7
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      31,
+      8
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      32,
+      8
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      31,
+      19
+     ],
+     "name": "카르타고 기병대장"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      19
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      31,
+      20
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1590,
+    "exp": 2306,
+    "gold": 2067,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). Lv14 는 ch22 곡선 외삽(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "scipio"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "52~68 (신호 달성 중앙 약 62)",
+   "sort_order": 1504,
+   "prerequisite": "ch15_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만(terrain_change/spawn/fire/set_flag). say/camera/sfx 는 ch대사 json battle_cues 와 병합",
+   "map_requirements": {
+    "size": "대형 40x28",
+    "zones": {
+     "signal": "통로 입구 신호 타일 1~2칸",
+     "aisle_lanes": "통로 3줄 칸 12~30(terrain_change 대상, 초기 forest 로 막힘)",
+     "reinforce_h": "마시니사 출현 1칸",
+     "reinforce_flank": "기병 2 출현 후보칸 4(측면)",
+     "scipio_start": "스키피오 시작",
+     "enemy_deploy": "전열 3 + 후열 2 + 코끼리 1 + 기병 1"
+    },
+    "deploy_zone_count": 9,
+    "tile_tags": [
+     "signal",
+     "aisle"
+    ],
+    "path_cost": "protagonist_start -> signal <= 14"
+   },
+   "design_notes": [
+    "Lv20 offset -1(eff 19). 적 22기(한니발 분대 4 hp1.8 / 코끼리 3 = spear hp 2.5 advance, 중장 돌진 대리 / 용병 보병 4 / 궁 4 / 시민병 4 hold 4 / 기병 3 hold 6). 코끼리 = enemy 중장 유닛(별도 병종 없음): 높은 hp_mult + advance 로 아군 전열을 먼저 때리는 역할. 신호(통로 입구) -> aisle_open: 통로 3줄(aisle_lanes, 초기 forest 로 막힌 줄) -> plain 으로 개방 + 턴6 이후 마시니사 + 기병 2 측면 합류. 판정은 경로 타일 기반이라는 아웃라인에 맞춰 '통로가 열리면 코끼리가 통로로 빠져 전열 피해 감소'는 이동 비용 차(forest 2~3 vs plain 1)로 구현: 통로를 닫아 둔 상태에서는 코끼리가 정면 전열로 몰림(맵 요구: 통로 줄은 초기 forest, 전열은 plain). 승리 한니발(hero 행 A sword 20/4/2) 격파.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_gaius_terentius_varro(ally_npcs), npc_servilius_geminus(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 아군 NPC 분산] npc_servilius_geminus 를 ch15_s5 로 이동(한 스테이지 신규 아군 NPC 2명 이하 원칙)."
+   ],
+   "map_requirements_status": "map_filled (좌표 채움 2026-11-03)"
+  }
+ ],
+ "npc_needed": {
+  "existing_db": [
+   "npc_masinissa",
+   "hannibal(hero 행, enemy leader ref)"
+  ],
+  "new_rows": [
+   "fabius_maximus",
+   "scipio_africanus"
+  ],
+  "proposal_file": "npc_roster_shelf_ch14_15_19_stats.json"
+ },
+ "engine_checks": [
+  "route 소대의 수레(hp_mult) 격파 승리",
+  "terrain_change 통로 forest->plain / 석호 plain->shallows",
+  "spawn hero npc_masinissa + count"
+ ]
+}

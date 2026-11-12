@@ -1,0 +1,120 @@
+{
+ "note": "종장(ch999) 적 2종: 지워진 줄(npc_erased_line, 일반 적 시트) + 백지(npc_blank_page, 보스 초상·시트). 안아트 2026-11-03. 코드는 안아트 제안 — 로스터 enemy 행(박백엔)과 맞출 것",
+ "generated": "2026-11-03T10:25:44.006Z",
+ "keyRules": {
+  "portrait": "portrait.<code> (+ .thumb). 표정 neutral 1종",
+  "reuse_map": {}
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "portrait.npc_blank_page",
+   "path": "assets/portraits/npc/npc_blank_page.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 893101,
+   "npc": "npc_blank_page",
+   "roster_code": "npc_blank_page",
+   "name_ko": "백지",
+   "side": "enemy",
+   "era": "종장(창작)",
+   "culture": "archive",
+   "used_in": [
+    "ch999_s4"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_blank_page.thumb",
+    "path": "assets/portraits/npc/thumb/npc_blank_page.webp",
+    "size": "256x343",
+    "bytes": 25714
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b6_gen.mjs portrait(portrait_campaign_style.mjs job() + npc_b6_style.mjs P_B4) → portrait_npc_v3_pp.sh(alpha_process.py B; ALPHA_ARGS T_lo=40 T_hi=90)"
+   },
+   "prompt_ref": "docker/gemini/npc_b6_style.mjs P_B4.npc_blank_page",
+   "style_ref": "",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "attempt_used": "r1",
+    "calls": 2,
+    "issues": [
+     "r0 은 프롬프트 설명문을 그림에 글자로 넣어 탈락 → r1(글자·패널 금지 추가)",
+     "흰 종이 내부 반투명 → ALPHA_ARGS T_lo=40 T_hi=90 로 0",
+     "가장자리 마젠타 기 16px(무시 수준)"
+    ],
+    "notes": "겹겹이 접힌 흰 종이 덩어리 + 휘날리는 띠 + 아래쪽 회색으로 지워지는 경계 + 중심 옅은 금빛. 얼굴·글자 없음"
+   },
+   "verify": true,
+   "verify_note": "창작 존재(사람 형상 없음)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  },
+  {
+   "key": "portrait.npc_erased_line",
+   "path": "assets/portraits/npc/npc_erased_line.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 306849,
+   "npc": "npc_erased_line",
+   "roster_code": "npc_erased_line",
+   "name_ko": "지워진 줄",
+   "side": "enemy",
+   "era": "종장(창작)",
+   "culture": "archive",
+   "used_in": [
+    "ch999_s1",
+    "ch999_s2",
+    "ch999_s3",
+    "ch999_s4"
+   ],
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_erased_line.thumb",
+    "path": "assets/portraits/npc/thumb/npc_erased_line.webp",
+    "size": "256x343",
+    "bytes": 8450
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_b6_gen.mjs portrait(portrait_campaign_style.mjs job() + npc_b6_style.mjs P_B4) → portrait_npc_v3_pp.sh(alpha_process.py B; ALPHA_ARGS T_lo=40 T_hi=90)"
+   },
+   "prompt_ref": "docker/gemini/npc_b6_style.mjs P_B4.npc_erased_line",
+   "style_ref": "",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "attempt_used": "r0",
+    "calls": 1,
+    "issues": [
+     "가장자리 마젠타 기 6px(무시 수준)"
+    ],
+    "notes": "세로 찢어진 미색 종이 띠 + 반쯤 지워진 먹 줄 3가닥 + 아래 먹물 흘러내림·방울, 얼굴·글자 없음. 전투 시트와 같은 형태"
+   },
+   "verify": true,
+   "verify_note": "창작 존재(사람 형상 없음)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)"
+  }
+ ]
+}

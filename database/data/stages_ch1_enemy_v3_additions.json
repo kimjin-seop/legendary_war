@@ -1,0 +1,2047 @@
+{
+ "_note": "[초안 additions] stages_ch1_enemy_v3.json (ch1_s1~s10) 의 적 편성 수정안. 기존 파일은 수정하지 않았다. 각 항목의 enemy_squads 는 해당 코드의 enemy_squads 전체를 대체한다(triggers·맵·레벨·보상 불변). 치환 규칙: 부대 말미 병사 1기 + 그 셀을 이름 있는 부장 단독 부대(soldiers 0, units_total 1, 같은 병종, hp_mult 1.0)로 바꾼다 -> 유닛 수·병종 구성·셀 좌표 불변이라 지형 통행 검증 결과 유지. scene_cast 는 전장 유닛이 아닌 대사/컷인 화자(송서사가 대사 작성, 안아트가 초상 제작). 로스터는 npc_roster_v3_additions.json 병합 전제.",
+ "version": 1,
+ "status": "draft",
+ "author": "임밸런",
+ "date": "2026-11-02",
+ "base_file": "stages_ch1_enemy_v3.json",
+ "roster_additions": "npc_roster_v3_additions.json",
+ "items": [
+  {
+   "code": "ch1_s1",
+   "map": "su_ch1_s1_okpo",
+   "name": "옥포의 첫 승전",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 5,
+   "units_after": 5,
+   "enemy_squads_count": 3,
+   "named_before_total": 3,
+   "named_after_total": 10,
+   "ally_named_counted": [
+    "이순신",
+    "곽재우"
+   ],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_kuki_yoshitaka",
+     "name_ko": "구키 요시타카",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_won_gyun",
+     "name_ko": "원균",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_jeong_un",
+     "name_ko": "정운",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_eo_yeongdam",
+     "name_ko": "어영담",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_u_chijeok",
+     "name_ko": "우치적",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_i_unryong",
+     "name_ko": "이운룡",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_song_huirip",
+     "name_ko": "송희립",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_todo_takatora",
+      "display_name_ko": "도도 다카토라",
+      "evidence_level": "accepted",
+      "troop_type": "naval",
+      "hp_mult": 3.5
+     },
+     "soldier_type": "naval",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       27,
+       14
+      ],
+      [
+       26,
+       14
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "일본 승선 보병 대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "hold_range": 6,
+     "cells": [
+      [
+       26,
+       12
+      ],
+      [
+       25,
+       12
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "일본 소형선 선장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "hold_range": 6,
+     "cells": [
+      [
+       28,
+       16
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "ch1_s2",
+   "map": "su_ch1_s2_jeongamjin",
+   "name": "정암진 나루",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 6,
+   "units_after": 6,
+   "enemy_squads_count": 4,
+   "named_before_total": 3,
+   "named_after_total": 10,
+   "ally_named_counted": [
+    "이순신",
+    "곽재우"
+   ],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_mori_terumoto",
+     "name_ko": "모리 데루모토",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_kim_myeon",
+     "name_ko": "김면",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_jeong_inhong",
+     "name_ko": "정인홍",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_o_un",
+     "name_ko": "오운",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_bak_seong",
+     "name_ko": "박성",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_sim_daeseung",
+     "name_ko": "심대승",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "verify"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_i_daegi",
+     "name_ko": "이대기",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "verify"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ankokuji_ekei",
+      "display_name_ko": "안코쿠지 에케이",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1.62
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       14
+      ],
+      [
+       24,
+       14
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "일본 조총대 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       24,
+       12
+      ],
+      [
+       23,
+       12
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "일본 도하 선봉",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       24,
+       16
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "일본 척후",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       23,
+       18
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "ch1_s3",
+   "map": "su_ch1_s3_hansando",
+   "name": "한산도, 학의 날개",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 9,
+   "units_after": 9,
+   "enemy_squads_count": 4,
+   "named_before_total": 5,
+   "named_after_total": 10,
+   "ally_named_counted": [
+    "이순신",
+    "곽재우"
+   ],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_kuki_yoshitaka",
+     "name_ko": "구키 요시타카",
+     "battle_role": "scene_only",
+     "side": "enemy",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_kato_yoshiaki",
+     "name_ko": "가토 요시아키",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_i_eokgi",
+     "name_ko": "이억기",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_won_gyun",
+     "name_ko": "원균",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_eo_yeongdam",
+     "name_ko": "어영담",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_wakizaka_yasuharu",
+      "display_name_ko": "와키자카 야스하루",
+      "evidence_level": "confirmed",
+      "troop_type": "naval",
+      "hp_mult": 1
+     },
+     "soldier_type": "naval",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       14
+      ],
+      [
+       20,
+       14
+      ],
+      [
+       21,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_manabe_samanojo",
+      "display_name_ko": "마나베 사마노조",
+      "evidence_level": "accepted",
+      "troop_type": "naval",
+      "hp_mult": 1
+     },
+     "soldier_type": "naval",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       20,
+       11
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_watanabe_shichiemon",
+      "display_name_ko": "와타나베 시치에몬",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       23,
+       16
+      ],
+      [
+       22,
+       16
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "일본 조총선 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       24,
+       13
+      ],
+      [
+       23,
+       13
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "ch1_s4",
+   "map": "su_ch1_s4_jinju",
+   "name": "진주성의 엿새",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 15,
+   "units_after": 15,
+   "enemy_squads_count": 5,
+   "named_before_total": 6,
+   "named_after_total": 10,
+   "ally_named_counted": [
+    "김시민",
+    "곽재우",
+    "이순신"
+   ],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_i_gwangak",
+     "name_ko": "이광악",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_seong_sugyeong",
+     "name_ko": "성수경",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_jeong_giryong",
+     "name_ko": "정기룡",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "accepted"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_choe_deokryang",
+     "name_ko": "최덕량",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "verify"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hasegawa_hidekazu",
+      "display_name_ko": "하세가와 히데카즈",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance_to_gate",
+     "pocket": "east",
+     "cells": [
+      [
+       27,
+       15
+      ],
+      [
+       26,
+       15
+      ],
+      [
+       27,
+       14
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hosokawa_tadaoki",
+      "display_name_ko": "호소카와 다다오키",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance_to_gate",
+     "pocket": "east",
+     "cells": [
+      [
+       27,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       11
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_kimura_shigekore",
+      "display_name_ko": "기무라 시게코레",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance_to_gate",
+     "pocket": "east",
+     "cells": [
+      [
+       28,
+       18
+      ],
+      [
+       27,
+       18
+      ],
+      [
+       28,
+       17
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "일본 공성 선봉장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance_to_gate",
+     "pocket": "south",
+     "cells": [
+      [
+       17,
+       21
+      ],
+      [
+       16,
+       21
+      ],
+      [
+       17,
+       20
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "일본 조총대 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance_to_gate",
+     "pocket": "south",
+     "cells": [
+      [
+       21,
+       21
+      ],
+      [
+       20,
+       21
+      ],
+      [
+       21,
+       20
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "ch1_s5",
+   "map": "su_ch1_s5_pyeongyang",
+   "name": "평양성 탈환",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 13,
+   "units_after": 13,
+   "enemy_squads_count": 5,
+   "named_before_total": 10,
+   "named_after_total": 12,
+   "ally_named_counted": [
+    "휴정",
+    "유정",
+    "이순신",
+    "곽재우",
+    "이여송"
+   ],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_i_yeoseong",
+     "name_ko": "이여송",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_nak_sangji",
+     "name_ko": "낙상지",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_kim_myeongwon",
+     "name_ko": "김명원",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_konishi_yukinaga",
+      "display_name_ko": "고니시 유키나가",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       23,
+       14
+      ],
+      [
+       22,
+       14
+      ],
+      [
+       23,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_yoshitoshi",
+      "display_name_ko": "소 요시토시",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "hold_range": 6,
+     "cells": [
+      [
+       20,
+       10
+      ],
+      [
+       19,
+       10
+      ],
+      [
+       20,
+       9
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_matsura_shigenobu",
+      "display_name_ko": "마쓰라 시게노부",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "hold_range": 6,
+     "cells": [
+      [
+       20,
+       19
+      ],
+      [
+       19,
+       19
+      ],
+      [
+       20,
+       18
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_omura_yoshiaki",
+      "display_name_ko": "오무라 요시아키",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "hold_range": 5,
+     "cells": [
+      [
+       17,
+       13
+      ],
+      [
+       16,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_arima_harunobu",
+      "display_name_ko": "아리마 하루노부",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "hold_range": 5,
+     "cells": [
+      [
+       17,
+       17
+      ],
+      [
+       16,
+       17
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "ch1_s6",
+   "map": "im_06_haengju",
+   "name": "행주산성",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 22,
+   "units_after": 22,
+   "enemy_squads_count": 4,
+   "named_before_total": 9,
+   "named_after_total": 11,
+   "ally_named_counted": [
+    "권율",
+    "유정",
+    "이순신",
+    "곽재우"
+   ],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_cheoyeong",
+     "name_ko": "처영",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_jo_gyeong",
+     "name_ko": "조경",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ukita_hideie",
+      "display_name_ko": "우키타 히데이에",
+      "evidence_level": "confirmed",
+      "troop_type": "archer",
+      "hp_mult": 1.07
+     },
+     "soldier_type": "archer",
+     "soldiers": 6,
+     "units_total": 7,
+     "ai": "advance",
+     "cells": [
+      [
+       11,
+       16
+      ],
+      [
+       10,
+       16
+      ],
+      [
+       11,
+       15
+      ],
+      [
+       11,
+       17
+      ],
+      [
+       12,
+       16
+      ],
+      [
+       9,
+       16
+      ],
+      [
+       10,
+       15
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ishida_mitsunari",
+      "display_name_ko": "이시다 미쓰나리",
+      "evidence_level": "confirmed",
+      "troop_type": "archer",
+      "hp_mult": 1.07
+     },
+     "soldier_type": "archer",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       7,
+       17
+      ],
+      [
+       6,
+       17
+      ],
+      [
+       7,
+       16
+      ],
+      [
+       7,
+       18
+      ],
+      [
+       8,
+       17
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_kobayakawa_takakage",
+      "display_name_ko": "고바야카와 다카카게",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.07
+     },
+     "soldier_type": "sword",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       17
+      ],
+      [
+       14,
+       17
+      ],
+      [
+       15,
+       16
+      ],
+      [
+       15,
+       18
+      ],
+      [
+       16,
+       17
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_kikkawa_hiroie",
+      "display_name_ko": "깃카와 히로이에",
+      "evidence_level": "confirmed",
+      "troop_type": "spear",
+      "hp_mult": 1.07
+     },
+     "soldier_type": "spear",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "advance",
+     "cells": [
+      [
+       19,
+       16
+      ],
+      [
+       18,
+       16
+      ],
+      [
+       19,
+       15
+      ],
+      [
+       19,
+       17
+      ],
+      [
+       20,
+       16
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "ch1_s7",
+   "map": "su_ch1_s7_noryang",
+   "name": "노량, 마지막 바다",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 16,
+   "units_after": 16,
+   "enemy_squads_count": 5,
+   "named_before_total": 7,
+   "named_after_total": 10,
+   "ally_named_counted": [
+    "이순신",
+    "곽재우",
+    "진린"
+   ],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_jin_rin",
+     "name_ko": "진린",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_deng_zilong",
+     "name_ko": "등자룡",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_song_huirip",
+     "name_ko": "송희립",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_i_yeongnam",
+     "name_ko": "이영남",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shimazu_yoshihiro",
+      "display_name_ko": "시마즈 요시히로",
+      "evidence_level": "confirmed",
+      "troop_type": "naval",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "naval",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       22,
+       12
+      ],
+      [
+       21,
+       12
+      ],
+      [
+       22,
+       11
+      ],
+      [
+       22,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_tachibana_muneshige",
+      "display_name_ko": "다치바나 무네시게",
+      "evidence_level": "accepted",
+      "troop_type": "naval",
+      "hp_mult": 1
+     },
+     "soldier_type": "naval",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "escort_main",
+     "cells": [
+      [
+       21,
+       9
+      ],
+      [
+       20,
+       9
+      ],
+      [
+       21,
+       8
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_yoshitoshi",
+      "display_name_ko": "소 요시토시",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "escort_main",
+     "cells": [
+      [
+       23,
+       15
+      ],
+      [
+       22,
+       15
+      ],
+      [
+       23,
+       14
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_terazawa_hirotaka",
+      "display_name_ko": "데라자와 히로타카",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "hold_until_turn": 3,
+     "cells": [
+      [
+       25,
+       10
+      ],
+      [
+       24,
+       10
+      ],
+      [
+       25,
+       9
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "일본 조총선 대장(후미)",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_rear_until_turn",
+     "hold_until_turn": 3,
+     "cells": [
+      [
+       25,
+       14
+      ],
+      [
+       24,
+       14
+      ],
+      [
+       25,
+       13
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "ch1_s8",
+   "map": "su_ch1_s8_seoga_collapse",
+   "name": "번진 기록",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 15,
+   "units_after": 15,
+   "enemy_squads_count": 7,
+   "named_before_total": 6,
+   "named_after_total": 10,
+   "ally_named_counted": [
+    "이순신",
+    "곽재우"
+   ],
+   "converted": [
+    {
+     "squad": "A1",
+     "from": "A",
+     "ref": "npc_shadow_seal"
+    },
+    {
+     "squad": "B1",
+     "from": "B",
+     "ref": "npc_shadow_proofreader"
+    }
+   ],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_seonjo",
+     "name_ko": "선조",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_ryu_seongnyong",
+     "name_ko": "류성룡",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_ink",
+      "display_name_ko": "번진 기록의 그림자",
+      "evidence_level": "invented",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       16
+      ],
+      [
+       19,
+       16
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_vanguard",
+      "display_name_ko": "먹그림자 선봉",
+      "evidence_level": "invented",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_point",
+     "point": [
+      12,
+      9
+     ],
+     "cells": [
+      [
+       15,
+       9
+      ],
+      [
+       14,
+       9
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_archivist",
+      "display_name_ko": "먹그림자 사서",
+      "evidence_level": "invented",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_point",
+     "point": [
+      18,
+      12
+     ],
+     "cells": [
+      [
+       20,
+       11
+      ],
+      [
+       19,
+       11
+      ],
+      [
+       20,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_warden",
+      "display_name_ko": "먹그림자 수문장",
+      "evidence_level": "invented",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "hold_range": 6,
+     "cells": [
+      [
+       16,
+       16
+      ],
+      [
+       15,
+       16
+      ],
+      [
+       16,
+       17
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "먹그림자 병졸 대장",
+      "evidence_level": "invented",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       10
+      ],
+      [
+       17,
+       10
+      ],
+      [
+       18,
+       9
+      ]
+     ]
+    },
+    {
+     "id": "A1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_seal",
+      "display_name_ko": "먹그림자 낙관",
+      "evidence_level": "invented",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       20,
+       15
+      ]
+     ],
+     "converted_from": "A 병사 1기"
+    },
+    {
+     "id": "B1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_proofreader",
+      "display_name_ko": "먹그림자 교정자",
+      "evidence_level": "invented",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "guard_point",
+     "cells": [
+      [
+       15,
+       8
+      ]
+     ],
+     "converted_from": "B 병사 1기"
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "ch1_s9",
+   "map": "su_ch1_s9_myeongnyang",
+   "name": "1597, 물살 앞에서",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 14,
+   "units_after": 14,
+   "enemy_squads_count": 6,
+   "named_before_total": 8,
+   "named_after_total": 11,
+   "ally_named_counted": [
+    "이순신",
+    "곽재우"
+   ],
+   "converted": [],
+   "scene_cast": [
+    {
+     "kind": "npc",
+     "ref": "npc_an_wi",
+     "name_ko": "안위",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_kim_eunghap",
+     "name_ko": "김응함",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    },
+    {
+     "kind": "npc",
+     "ref": "npc_song_huirip",
+     "name_ko": "송희립",
+     "battle_role": "scene_only",
+     "side": "ally",
+     "evidence_level": "confirmed"
+    }
+   ],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_kurushima_michifusa",
+      "display_name_ko": "구루시마 미치후사",
+      "evidence_level": "confirmed",
+      "troop_type": "naval",
+      "hp_mult": 1
+     },
+     "soldier_type": "naval",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       13
+      ],
+      [
+       16,
+       13
+      ],
+      [
+       17,
+       12
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_todo_takatora",
+      "display_name_ko": "도도 다카토라",
+      "evidence_level": "accepted",
+      "troop_type": "naval",
+      "hp_mult": 1
+     },
+     "soldier_type": "naval",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       11
+      ],
+      [
+       15,
+       11
+      ],
+      [
+       16,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_wakizaka_yasuharu",
+      "display_name_ko": "와키자카 야스하루",
+      "evidence_level": "confirmed",
+      "troop_type": "naval",
+      "hp_mult": 0.9
+     },
+     "soldier_type": "naval",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       17,
+       15
+      ],
+      [
+       16,
+       15
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_kan_michinaga",
+      "display_name_ko": "간 미치나가",
+      "evidence_level": "confirmed",
+      "troop_type": "naval",
+      "hp_mult": 1
+     },
+     "soldier_type": "naval",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       12
+      ],
+      [
+       15,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_mori_takamasa",
+      "display_name_ko": "모리 다카마사",
+      "evidence_level": "accepted",
+      "troop_type": "naval",
+      "hp_mult": 1
+     },
+     "soldier_type": "naval",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       14
+      ],
+      [
+       15,
+       15
+      ]
+     ]
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_kato_yoshiaki",
+      "display_name_ko": "가토 요시아키",
+      "evidence_level": "accepted",
+      "troop_type": "naval",
+      "hp_mult": 1
+     },
+     "soldier_type": "naval",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       16
+      ],
+      [
+       16,
+       17
+      ]
+     ]
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  },
+  {
+   "code": "ch1_s10",
+   "map": "su_ch1_s10_last_seoga",
+   "name": "마지막 기록",
+   "change": "일반 병사 부대를 이름 있는 부장으로 치환(총 유닛 수 불변) + 전장 외 대사 화자(scene_cast) 추가",
+   "units_before": 17,
+   "units_after": 17,
+   "enemy_squads_count": 9,
+   "named_before_total": 6,
+   "named_after_total": 10,
+   "ally_named_counted": [
+    "이순신",
+    "곽재우"
+   ],
+   "converted": [
+    {
+     "squad": "B1",
+     "from": "B",
+     "ref": "npc_shadow_proofreader"
+    },
+    {
+     "squad": "A1",
+     "from": "A",
+     "ref": "npc_shadow_ironguard"
+    },
+    {
+     "squad": "D1",
+     "from": "D",
+     "ref": "npc_shadow_scribe"
+    },
+    {
+     "squad": "E1",
+     "from": "E",
+     "ref": "npc_shadow_printer"
+    }
+   ],
+   "scene_cast": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_last",
+      "display_name_ko": "마지막 그림자",
+      "evidence_level": "invented",
+      "troop_type": "sword",
+      "hp_mult": 1.5
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       11
+      ],
+      [
+       16,
+       11
+      ],
+      [
+       17,
+       10
+      ],
+      [
+       17,
+       12
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_vanguard",
+      "display_name_ko": "먹그림자 선봉",
+      "evidence_level": "invented",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       15,
+       8
+      ],
+      [
+       14,
+       8
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_warden",
+      "display_name_ko": "먹그림자 수문장",
+      "evidence_level": "invented",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       17,
+       15
+      ],
+      [
+       16,
+       15
+      ],
+      [
+       17,
+       14
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_archivist",
+      "display_name_ko": "먹그림자 사서",
+      "evidence_level": "invented",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "hold_range": 6,
+     "cells": [
+      [
+       21,
+       10
+      ],
+      [
+       20,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "먹그림자 사수 대장",
+      "evidence_level": "invented",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "hold_range": 6,
+     "cells": [
+      [
+       21,
+       13
+      ],
+      [
+       20,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "B1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_proofreader",
+      "display_name_ko": "먹그림자 교정자",
+      "evidence_level": "invented",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       15,
+       7
+      ]
+     ],
+     "converted_from": "B 병사 1기"
+    },
+    {
+     "id": "A1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_ironguard",
+      "display_name_ko": "먹그림자 철갑 호위",
+      "evidence_level": "invented",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       18,
+       11
+      ]
+     ],
+     "converted_from": "A 병사 1기"
+    },
+    {
+     "id": "D1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_scribe",
+      "display_name_ko": "먹그림자 필경사",
+      "evidence_level": "invented",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       21,
+       9
+      ]
+     ],
+     "converted_from": "D 병사 1기"
+    },
+    {
+     "id": "E1",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_shadow_printer",
+      "display_name_ko": "먹그림자 인쇄공",
+      "evidence_level": "invented",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       21,
+       12
+      ]
+     ],
+     "converted_from": "E 병사 1기"
+    }
+   ],
+   "triggers": "변경 없음(기존 파일 triggers 그대로)"
+  }
+ ]
+}

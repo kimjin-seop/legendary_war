@@ -1,0 +1,626 @@
+{
+  "_meta": {
+    "title": "챕터별 참전자 명단(roster) 제안 v1",
+    "author": "송서사",
+    "date": "2026-11-08",
+    "status": "제안(미적용). 앱 코드·DB·기존 데이터 파일 변경 없음. 박백엔이 scenario_registry.roster 로 흡수할 때의 입력 초안.",
+    "inputs": [
+      "database/data/GACHA_BANNER_CATALOG_20261108.md (임밸런)",
+      "database/data/gacha_banners_v2_draft.json (임밸런; pool_codes 와 seogo_only_heroes.list 160명 = 개발 DB 덤프)",
+      "docs/ORIGINAL_STORY_SYNOPSIS.md (본편 4막)",
+      "database/data/ch24_franks_andalus_roster_proposal.json (송서사 2026-11-04)",
+      "웹 대조: Wikipedia 'Battle of the River Berre', 'Siege of Narbonne (737)', 'Siege of Avignon (737)'"
+    ],
+    "code_existence_method": "이 세션에는 셸/Docker 도구가 없어 개발 DB 를 직접 조회하지 못했다. 코드 존재 판정은 (1) draft.pool_codes 에 나온 코드 = 임밸런이 개발 DB 에서 덤프한 풀 영웅, (2) draft.seogo_only_heroes.list 160명 = 풀에 있으나 어떤 배너에도 없는 영웅, 이 두 목록의 합집합(513명)만 '존재 확인'으로 취급했다. 그 밖의 코드는 모두 new_needed(또는 campaign_only 확인 필요)로 분리했다. 박백엔/임밸런이 SELECT code FROM heroes 로 한 번 대조해 주면 확정된다.",
+    "field_guide": {
+      "ally / enemy": "그 사건에 실제로 참전(또는 현 스테이지에 이미 출연)한 인물의 코드. 풀 소속 후보. 직함형 무명 NPC 제외.",
+      "related_only": "사건 직접 참전자는 아니지만 사건과 직결된 인물(군주·후견·선례·기록자). 풀 편입은 선택(결정 필요), 출연은 대사 언급·서신·회상에 한정.",
+      "added_from_seogo": "ally/enemy 에 포함된 코드 중 현재 어느 배너에도 없던 서고 전용 영웅(이 명단 적용 시 배너로 이동).",
+      "excluded_topup": "draft 에서 등급 하한 보충(floor_topup)·사료 후보로 들어왔으나 시대·사건이 맞지 않아 명단에서 뺀 인물. side 라벨이 문화권으로만 붙은 것이라 신뢰 불가.",
+      "unspecified_resolved": "draft 에서 side=unspecified 였던 인물의 편 확정. part=direct(참전) / related(관련 인물) / none(소속 아님: 다른 챕터로 재배치 또는 서고 전용).",
+      "new_needed": "개발 DB 에 있다는 근거가 없는 인물. 사료상 참전 확실도(evidence)와 권장 병종 힌트만 적는다.",
+      "evidence": "confirmed(1차 사료/정설) / accepted(통설·2차 사료) / verify(추가 확인 필요) / invented(주제 배치, 역사 참전 아님)."
+    },
+    "side_convention": "편(side)은 해당 챕터 서가의 시점 기준. 같은 인물이라도 챕터마다 다를 수 있다(예: 부여융 ch13=enemy, 이후 당 휘하는 별도 서사). 뽑기 화면 노출은 ally 만."
+  },
+
+  "main_story_pool_rule": {
+    "applies_to": ["101", "102", "103", "104"],
+    "context": "본편은 '이름 없는 쪽을 되찾는' 서고 파수꾼(순회원) 서사다. 장면의 주인공은 무명인이며 적은 공백병·교정관(전부 오리지널·invented). 역사 영웅은 막 말에 1명씩 '획득'되는 구조(2막 허준, 3막 잔 다르크, 4막 살라딘).",
+    "rules": [
+      "R1 소속(ally) = (a) 해당 막에서 획득·소개되는 영웅 + (b) 같은 시대·사건에 직결된 사이드 챕터 아군 중 막 내용과 맞닿는 소수의 '대사 언급·비전투 NPC' + (c) 1막만 예외로 '기록자' 주제 영웅(서고라는 장소의 성격).",
+      "R2 적 영웅(enemy) 없음. 공백병·교정관·붉은 펜의 사자는 오리지널이며 풀에 없다. 일본·영국·십자군 측 실존 인물을 본편 적으로 세우지 않는다(시놉시스 '일본 측 대사 금지', 3막 '전부 프랑스 안', 4막 '어느 쪽도 악으로 그리지 않음').",
+      "R3 floor_topup(연도·문화권 무관 보충) 금지. 풀 하한(S1/A3/B8/C8)이 모자라면 같은 시대 사이드 챕터 영웅과 교차 소속(cross_banner)으로 채우고 source=cross_banner 로 표기한다.",
+      "R4 획득한 영웅은 이후 막에서 동행 화자로 출연 가능(현 draft 의 허준 ch103/ch104 화자 표기와 일치).",
+      "R5 다중 소속 허용: 같은 영웅이 사이드 챕터 배너와 본편 배너 양쪽 풀에 있어도 되며 확률 계산은 배너별 균등이다."
+    ],
+    "decision_needed": "R3 의 교차 소속이 '배너 풀 크기 상한 50%' 감사와 충돌하는지(임밸런), 그리고 1막 기록자 소속(R1-c)을 사용자가 승인하는지."
+  },
+
+  "chapters": [
+    {
+      "chapter": "1", "title": "임진왜란", "span": "1592~1598",
+      "ally": ["yi_sun_sin","gwak_jae_u","gwon_yul","hyujeong","kim_si_min","yujeong","npc_jin_rin","npc_i_yeoseong","npc_jeong_un","npc_won_gyun","heo_jun",
+               "npc_ryu_seongnyong","npc_seonjo","npc_kim_myeon","npc_jeong_giryong","npc_kim_myeongwon","npc_i_eokgi","npc_song_huirip","npc_eo_yeongdam","npc_i_unryong","npc_u_chijeok","npc_i_yeongnam","npc_kim_eunghap","npc_an_wi","npc_cheoyeong","npc_jeong_inhong","npc_o_un","npc_deng_zilong","npc_nak_sangji","npc_jo_gyeong","npc_i_gwangak","npc_i_daegi","npc_seong_sugyeong","npc_bak_seong","npc_choe_deokryang","npc_sim_daeseung"],
+      "enemy": ["npc_konishi_yukinaga","npc_kato_kiyomasa","npc_kuroda_nagamasa","npc_so_yoshitoshi","npc_shimazu_yoshihiro","npc_ukita_hideie","npc_ishida_mitsunari","npc_kobayakawa_takakage","npc_kikkawa_hiroie","npc_tachibana_muneshige","npc_todo_takatora","npc_kuki_yoshitaka","npc_wakizaka_yasuharu","npc_kato_yoshiaki","npc_kurushima_michifusa","npc_manabe_samanojo","npc_watanabe_shichiemon","npc_ankokuji_ekei","npc_hasegawa_hidekazu","npc_hosokawa_tadaoki","npc_kimura_shigekore","npc_matsura_shigenobu","npc_omura_yoshiaki","npc_arima_harunobu","npc_kan_michinaga","npc_mori_takamasa","npc_terazawa_hirotaka","npc_mori_terumoto","toyotomi_hideyoshi","date_masamune"],
+      "related_only": {"ally": [], "enemy": ["tokugawa_ieyasu"]},
+      "added_from_seogo": ["npc_ryu_seongnyong","npc_seonjo","npc_kim_myeon","npc_jeong_giryong","npc_kim_myeongwon","npc_i_eokgi","npc_song_huirip","npc_eo_yeongdam","npc_i_unryong","npc_u_chijeok","npc_i_yeongnam","npc_kim_eunghap","npc_an_wi","npc_cheoyeong","npc_jeong_inhong","npc_o_un","npc_deng_zilong","npc_nak_sangji","npc_jo_gyeong","npc_i_gwangak","npc_i_daegi","npc_seong_sugyeong","npc_bak_seong","npc_choe_deokryang","npc_sim_daeseung","npc_mori_terumoto"],
+      "excluded_topup": [
+        {"code":"honda_tadakatsu","reason":"도쿠가와 가신. 조선 출병 기록 없음. 나가시노(ch20) 소속으로 재배치."},
+        {"code":"sanada_yukimura","reason":"조선 출병 기록 없음. 어느 시나리오에도 소속 없음 -> 서고 전용."}
+      ],
+      "unspecified_resolved": [],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"toyotomi_hideyoshi":"accepted (총사령관, 히젠 나고야 성에서 지휘하고 도한하지 않음 -> 필드 출연 없이 서신·명령으로만)","tokugawa_ieyasu":"verify (나고야 진중 대기, 도한 안 함)","date_masamune":"verify (조선 출병 참가 서술이 있으나 세부 교전 기록은 확인 필요)","npc_mori_terumoto":"accepted (제7군 총대장, 1592 도한. 세부 전투 배치는 verify)","npc_cheoyeong":"confirmed (행주산성 승병)","npc_an_wi":"confirmed (명량 1597)","npc_kim_eunghap":"confirmed (명량 중군장, 이순신과의 일화는 난중일기)","npc_jo_gyeong":"verify","npc_i_gwangak":"verify","npc_i_daegi":"verify","npc_seong_sugyeong":"verify","npc_bak_seong":"verify","npc_choe_deokryang":"verify","npc_sim_daeseung":"verify","npc_o_un":"accepted","heo_jun":"accepted (선조 호종과 어의 활동; 동의보감 편찬 명 1596)"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"송상현","side":"ally","evidence":"confirmed","role":"동래성 전투 1592.4","hint":"sword"},
+        {"name":"정발","side":"ally","evidence":"confirmed","role":"부산진 전투 1592.4","hint":"archer"},
+        {"name":"신립","side":"ally","evidence":"confirmed","role":"탄금대 1592.5","hint":"cavalry"},
+        {"name":"조헌","side":"ally","evidence":"confirmed","role":"금산 1592.8 의병","hint":"spear"},
+        {"name":"고경명","side":"ally","evidence":"confirmed","role":"금산 1592.7 의병","hint":"sword"},
+        {"name":"김천일","side":"ally","evidence":"confirmed","role":"진주성 2차 1593.6","hint":"sword"},
+        {"name":"황진","side":"ally","evidence":"confirmed","role":"진주성 2차 1593.6","hint":"sword"},
+        {"name":"논개","side":"ally","evidence":"verify","role":"진주성 2차 전승(『어우야담』 계열). 사실 서술 금지, 전승으로만","hint":"support"}
+      ], "note":"위 신규 후보는 DB 존재 여부 미확인(이미 있을 수도 있음)."},
+      "basis": ["선조실록·선조수정실록 임진년·계사년·정유년·무술년 기사","이순신 『난중일기』『임진장초』","류성룡 『징비록』","『조선왕조실록』의병장 기록(곽재우·정인홍·김면)"]
+    },
+    {
+      "chapter": "11", "title": "고려-거란 전쟁", "span": "993~1019",
+      "ally": ["seo_hui","gang_gamchan","npc_gang_min_cheom","npc_yang_gyu","npc_kim_suk_heung","npc_kim_jong_hyeon","npc_dae_dosu","npc_goryeo_seongjong","npc_goryeo_hyeonjong"],
+      "enemy": ["npc_yelu_longxu","npc_so_sonnyeong","npc_so_baeap","npc_so_jeokryeol","npc_yelu_pennu","npc_han_derang","npc_so_haptak","npc_xiao_xulie","npc_yelu_bage","npc_yelu_seryang"],
+      "related_only": {"ally": [], "enemy": []},
+      "added_from_seogo": ["npc_goryeo_seongjong","npc_goryeo_hyeonjong"],
+      "excluded_topup": [
+        {"code":"yi_seonggye","reason":"14세기 인물(고려-거란 전쟁과 370년 차). 위화도 회군·황산대첩 후보 시나리오 소속."},
+        {"code":"eulji_mundeok","reason":"7세기 고구려(ch14 소속)."},
+        {"code":"kim_yusin","reason":"7세기 신라(ch13 소속)."},
+        {"code":"dae_jo_yeong","reason":"698 발해 건국자. 천문령 전투 후보 시나리오."}
+      ],
+      "unspecified_resolved": [],
+      "duplicates_suspect": [{"codes":["npc_yelu_longxu","npc_liao_shengzong"],"note":"둘 다 거란 성종(야율융서). 후자는 서고 전용 C(중국/검). npc-dup-merge 이력이 있으므로 DB 확인 후 병합 권장. 명단은 npc_yelu_longxu 를 사용."}],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_dae_dosu":"verify","npc_so_jeokryeol":"verify","npc_han_derang":"verify (993·1004 거란 군 정치 중심 인물이나 고려 침공 직접 지휘 여부는 확인 필요)","npc_so_haptak":"verify","npc_xiao_xulie":"verify","npc_yelu_bage":"verify","npc_yelu_pennu":"verify","npc_yelu_seryang":"accepted"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"하공진","side":"ally","evidence":"confirmed","role":"1010 거란 진영 협상(강화 교섭 후 억류)","hint":"support"},
+        {"name":"최사위","side":"ally","evidence":"accepted","role":"1018~19 서경 방어 일화","hint":"sword"}
+      ]},
+      "basis": ["『고려사』 서희·양규·강감찬 열전","『요사』 성종기·고려전","993 1차(서희 담판) · 1010~11 2차(양규 흥화진·통주) · 1018~19 3차(귀주)"]
+    },
+    {
+      "chapter": "12", "title": "천하삼분(적벽)", "span": "208~217",
+      "ally": ["liu_bei","guan_yu","zhang_fei","zhuge_liang","npc_zhao_yun","sun_quan","zhou_yu","npc_lu_su","npc_cheng_pu","npc_huang_gai","npc_gan_ning","npc_liu_qi"],
+      "enemy": ["cao_cao","npc_cao_ren","npc_cao_hong","npc_cheng_yu","npc_xu_huang","npc_yue_jin","npc_li_tong","npc_cai_mao","npc_zhang_yun","npc_man_chong","npc_wen_pin","npc_zhang_liao"],
+      "related_only": {"ally": ["npc_huang_zhong"], "enemy": ["sima_yi"]},
+      "added_from_seogo": [],
+      "excluded_topup": [],
+      "unspecified_resolved": [
+        {"code":"npc_huang_gai","name":"황개","side":"ally","part":"direct","evidence":"confirmed","why":"적벽 화공 계책(『오서』 주유·황개전). 오군 장수."},
+        {"code":"sima_yi","name":"사마의","side":"enemy","part":"related","evidence":"verify","why":"208년 조조 휘하 문학연(幕僚)이 되었다는 서술은 있으나 적벽 전투 참가 기록은 불분명. 유수구 이후 조조 진영 인물로만 취급, 출연은 대사 언급 수준."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_zhang_liao":"accepted (합비 215 전투. 적벽 직접 참전은 아님)","npc_xu_huang":"accepted (번성 219 전투; ch12 후반 스테이지 소속)","npc_huang_zhong":"accepted (208~209 장사 접수 후 유비 휘하. 적벽 시점엔 유표 휘하)","npc_liu_qi":"confirmed (강하 유기, 유비와 연합) — campaign_only 확인 필요(카탈로그 blocked 목록)"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": ["npc_liu_qi"], "new_needed": [
+        {"name":"방통","side":"ally","evidence":"accepted","role":"연환계 일화는 연의. 정사는 형주 입촉 전 유비 합류(210경)","hint":"magic","note":"적벽 참전 근거 약함 -> 배치 보류"},
+        {"name":"정보","side":"ally","evidence":"confirmed","role":"오군 우도독 적벽","hint":"sword"}
+      ]},
+      "basis": ["『삼국지』 오서 주유·노숙·황개·정보전","촉서 선주·제갈량·조운전","위서 무제기","『자치통감』 건안 13년"]
+    },
+    {
+      "chapter": "13", "title": "황산벌~백강(660~663)", "span": "660~663",
+      "ally": ["kim_yusin","npc_kim_pumil","npc_kim_inmun","npc_beopmin","npc_kim_heumsun","npc_so_jeongbang","npc_liu_rengui","npc_kim_chunchu","npc_gwanchang","npc_banggul"],
+      "enemy": ["gyebaek","npc_uija","npc_buyeo_yung","npc_buyeo_pung","npc_heukchi_sangji","npc_jisu_sin","npc_yunchung","npc_seongchung","npc_chungsang","npc_dochim","npc_heungsu","npc_sangyeong","npc_ye_sikjin"],
+      "related_only": {"ally": ["wu_zetian","seondeok"], "enemy": ["empress_jito"]},
+      "added_from_seogo": ["npc_kim_chunchu","npc_gwanchang"],
+      "excluded_topup": [
+        {"code":"gwanggaeto","reason":"4~5세기 고구려. 후보 시나리오(고구려 전성기) 소속, 현재 서고."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_kim_heumsun","name":"김흠순","side":"ally","part":"direct","evidence":"confirmed","why":"660 황산벌 신라군 장수(김유신의 동생)."},
+        {"code":"npc_seongchung","name":"성충","side":"enemy","part":"direct","evidence":"confirmed","why":"백제 충신. 옥중 상소로 탄현·백강 방어를 권했다(656 사망). s1 탄현 행군의 유언·상소 화자."},
+        {"code":"empress_jito","name":"지토 천황","side":"enemy","part":"related","evidence":"verify","why":"663 왜의 백제 지원군은 사이메이·덴지 계열. 지토(당시 우노노사라라)는 사이메이를 따라 츠쿠시에 갔다는 서술만 있고 지휘 기록 없음. 대사 언급 수준."},
+        {"code":"wu_zetian","name":"측천무후","side":"ally","part":"related","evidence":"accepted","why":"660 당 고종의 황후. 당 조정 측(연합군 측). 출정 직접 참여 아님."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_yunchung":"verify (윤충의 주 활동은 642 대야성. 660 참전 불명)","npc_buyeo_yung":"confirmed (660 포로, 이후 당의 웅진도독 664는 서사 분리)","npc_banggul":"confirmed (반굴, 김품일의 아들 황산벌 전사)","npc_gwanchang":"confirmed (『삼국사기』 관창 열전)","npc_jisu_sin":"accepted","seondeok":"accepted (632~647 재위. 사건 이전 인물 -> 대사 언급)"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"복신","code_hint":"npc_boksin","side":"enemy","evidence":"confirmed","role":"백제 부흥군, 주류성 660~663","hint":"spear","note":"카탈로그 'DB 없음' 목록. 시나리오 핵심이라 신규 우선."},
+        {"name":"아베노 히라후","side":"enemy","evidence":"accepted","role":"663 백강 왜군 지휘관 전승(『일본서기』)","hint":"naval"}
+      ]},
+      "basis": ["『삼국사기』 신라본기 문무왕·열전 김유신·계백·관창·흑치상지","『구당서』 소정방·유인궤·흑치상지전","『일본서기』 덴지 2년(663) 백강 기사"]
+    },
+    {
+      "chapter": "14", "title": "살수(고구려-수 전쟁)", "span": "598~614(핵심 612)",
+      "ally": ["eulji_mundeok","npc_yeongyang","npc_go_geonmu","npc_yeon_jayu","npc_yeon_taejo"],
+      "enemy": ["npc_yangdi","npc_wuwenshu","npc_yuzhongwen","npc_cui_hongsheng","npc_lai_huer","npc_liu_shilong","npc_xin_shixiong","npc_xue_shixiong"],
+      "related_only": {"ally": ["npc_ondal"], "enemy": []},
+      "titled_generic_ally": ["npc_goguryeo_dam_keeper"],
+      "added_from_seogo": ["npc_yeongyang","npc_yangdi"],
+      "excluded_topup": [
+        {"code":"gwanggaeto","reason":"4~5세기. 612와 200년 차."},
+        {"code":"kim_yusin","reason":"7세기 중후반 신라(ch13). 612년엔 출생 전후."},
+        {"code":"wu_zetian","reason":"624경 출생. 612 당시 존재하지 않음(draft 의 enemy 라벨 오류)."},
+        {"code":"gang_gamchan","reason":"고려 1019(ch11)."},
+        {"code":"gyebaek","reason":"7세기 중반 백제(ch13). draft 의 ally 라벨 오류."},
+        {"code":"seo_hui","reason":"고려 993(ch11)."},
+        {"code":"seondeok","reason":"신라 632~647(ch13 관련)."},
+        {"code":"wang_geon","reason":"고려 건국 918. 후삼국 후보 시나리오."},
+        {"code":"sima_yi","reason":"3세기 위(ch12). draft 의 enemy 라벨 오류."},
+        {"code":"zhou_yu","reason":"3세기 오(ch12). draft 의 enemy 라벨 오류."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_go_geonmu","name":"고건무(영류왕)","side":"ally","part":"direct","evidence":"confirmed","why":"영양왕의 이복형제. 612 수군 격퇴 서술에 이름이 오르고 618 즉위."},
+        {"code":"npc_wuwenshu","name":"우문술","side":"enemy","part":"direct","evidence":"confirmed","why":"수 장군. 612 별동대 30만 5천을 이끌어 살수에서 패퇴."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_yeon_jayu":"verify","npc_yeon_taejo":"verify","npc_ondal":"accepted (590 전사, 612와 22년 차. 같은 고구려 장수 계보로 대사 언급)","npc_liu_shilong":"accepted","npc_xin_shixiong":"accepted","npc_cui_hongsheng":"accepted"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"래호아(來護兒) 휘하 수군 장수 및 별동대 하급 장수","side":"enemy","evidence":"verify","role":"현 스테이지의 적 지휘관은 이미 충분(8명). 추가 신규 불필요","note":"npc_xing_yuanheng(형원항) 은 소속 불명이므로 출처 확인 전 배치 금지"}
+      ]},
+      "basis": ["『수서』 양제기·우문술·우중문·내호아전","『삼국사기』 고구려본기 영양왕·열전 을지문덕","『자치통감』 대업 8~10년"]
+    },
+    {
+      "chapter": "15", "title": "포에니 전쟁(제2차)", "span": "218~202 BC",
+      "ally": ["fabius_maximus","scipio_africanus","npc_publius_scipio","npc_aemilius_paullus","npc_gaius_terentius_varro","npc_laelius","npc_marcellus","npc_minucius_rufus","npc_servilius_geminus","npc_masinissa"],
+      "enemy": ["hannibal","npc_maharbal","npc_hasdrubal_gisgo","npc_gisgo","npc_hanno_bomilcar","npc_syphax","npc_hasdrubal_barca","npc_hasdrubal_cannae","npc_mago_barca"],
+      "related_only": {"ally": [], "enemy": ["archimedes"]},
+      "added_from_seogo": ["npc_hasdrubal_barca","npc_hasdrubal_cannae","npc_mago_barca"],
+      "excluded_topup": [
+        {"code":"philip_ii","reason":"마케도니아 필리포스 2세는 336 BC 사망. 한니발과 동맹한 것은 필리포스 5세(new_needed)."},
+        {"code":"npc_eumenes","reason":"에우메네스(카르디아)는 4세기 BC 디아도코이. 전혀 다른 시대."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_masinissa","name":"마시니사","side":"ally","part":"direct","evidence":"confirmed","why":"자마(202 BC)에서 스키피오 편 누미디아 기병. 206 BC 이전엔 카르타고 측이었다는 점은 s3~s4 대사의 갈등 소재."},
+        {"code":"npc_syphax","name":"시팍스","side":"enemy","part":"direct","evidence":"confirmed","why":"서누미디아 왕. 206 BC 이후 카르타고 동맹, 203 BC 패배. s3 아프리카 상륙 단계의 적."},
+        {"code":"archimedes","name":"아르키메데스","side":"enemy","part":"related","evidence":"accepted","why":"시라쿠사(212 BC)는 로마에 반기를 들고 카르타고 측으로 돌아선 도시. 마르켈루스에게 포위됨. 스테이지(신카르타고·자마 등)에는 직접 해당 없음 -> 대사 언급 수준."},
+        {"code":"npc_hanno_bomilcar","name":"한노(보밀카르의 아들)","side":"enemy","part":"direct","evidence":"accepted","why":"칸나이 전투 한니발 휘하 장군(리비우스). 세부 지휘 위치는 verify."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_hasdrubal_cannae":"accepted","npc_hanno_bomilcar":"accepted","npc_laelius":"confirmed (자마)","npc_gisgo":"accepted (칸나이 전 한니발에게 건넨 말 일화는 리비우스/플루타르코스)"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": ["npc_carthalo (카탈로그: campaign_only, 승격 필요. 칸나이 기병 장교, accepted)"], "new_needed": [
+        {"name":"필리포스 5세","side":"enemy","evidence":"confirmed","role":"215 BC 한니발과 동맹(마케도니아 전쟁)","hint":"spear"},
+        {"name":"클라우디우스 네로","side":"ally","evidence":"confirmed","role":"207 BC 메타우루스(하스드루발 바르카 격파)","hint":"cavalry"},
+        {"name":"리비우스 살리나토르","side":"ally","evidence":"confirmed","role":"207 BC 메타우루스","hint":"sword"}
+      ]},
+      "basis": ["리비우스 『로마사』 21~30권","폴리비오스 『역사』 3, 9, 11, 15권","아피아노스 『한니발 전쟁』"]
+    },
+    {
+      "chapter": "16", "title": "오를레앙(1429)", "span": "1428~1429",
+      "ally": ["joan_of_arc","npc_la_hire","npc_gilles_de_rais","npc_dunois","npc_jean_alencon","npc_richemont","npc_charles_vii","npc_xaintrailles","npc_jean_daulon","npc_gaucourt"],
+      "enemy": ["npc_salisbury","npc_suffolk","npc_talbot","npc_fastolf","npc_glasdale","npc_scales","npc_william_molyns","npc_duke_bedford","npc_philip_good","npc_john_pole"],
+      "related_only": {"ally": ["christine_de_pizan"], "enemy": ["npc_thomas_gargrave"]},
+      "added_from_seogo": ["npc_xaintrailles","npc_jean_daulon","npc_gaucourt","npc_duke_bedford","npc_philip_good","npc_john_pole"],
+      "excluded_topup": [
+        {"code":"elizabeth_i","reason":"16세기. 무적함대 1588 후보 시나리오."},
+        {"code":"maria_theresa","reason":"18세기. 오스트리아 계승 전쟁 후보."},
+        {"code":"vauban","reason":"17세기 축성가."},
+        {"code":"constantine_xi","reason":"1453 콘스탄티노폴리스 후보."},
+        {"code":"edward_iii","reason":"1346 크레시 후보(백년전쟁 초기)."},
+        {"code":"jan_zizka","reason":"15세기 보헤미아 후스 전쟁 후보."},
+        {"code":"kutuzov","reason":"1812 후보."},
+        {"code":"henry_v","reason":"1415 아쟁쿠르 후보. 1422 사망."},
+        {"code":"black_prince","reason":"1356 푸아티에 후보."},
+        {"code":"npc_cauchon","reason":"1431 루앙 재판. ch16 스테이지 범위(~1429.9) 밖."},
+        {"code":"npc_jean_luxembourg","reason":"1430 콩피에뉴 포로 사건. 범위 밖."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_dunois","name":"장 드 뒤누아","side":"ally","part":"direct","evidence":"confirmed","why":"오를레앙 방어 총지휘 보좌, 1429 호송·반격."},
+        {"code":"npc_jean_alencon","name":"알랑송 공작 장 2세","side":"ally","part":"direct","evidence":"confirmed","why":"1429.6 쥐르포·묑·보장시·파테 참전."},
+        {"code":"npc_richemont","name":"아르튀르 드 리슈몽","side":"ally","part":"direct","evidence":"confirmed","why":"1429.6 보장시 합류, 파테 참전. 국왕 총신(라 트레무아)과 불화했던 점을 대사 소재로."},
+        {"code":"npc_charles_vii","name":"샤를 7세","side":"ally","part":"direct","evidence":"confirmed","why":"랭스 행군(1429.7)의 대상. s9 호위 대상 서사."},
+        {"code":"christine_de_pizan","name":"크리스틴 드 피장","side":"ally","part":"related","evidence":"confirmed","why":"1429.7.31 『잔 다르크 찬가』 집필. 전장 인물이 아닌 기록자 -> 대사 언급."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_philip_good":"accepted (부르고뉴 부대는 1429.4 오를레앙 포위에서 철수, 1429.9 파리 방어는 부르고뉴 병력)","npc_duke_bedford":"confirmed (파리 섭정)","npc_gilles_de_rais":"confirmed (랭스 대관식 때 원수 임명). 후일의 재판 사건은 다루지 않음(논쟁적, 이 챕터와 무관)","npc_thomas_gargrave":"accepted (1428.11 오를레앙 포위 중 사망 -> 1429 스테이지엔 없음)","npc_john_pole":"accepted (쥐르포 1429.6 포로)"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"르노 드 샤르트르(랭스 대주교)","side":"ally","evidence":"confirmed","role":"샤를 7세 대관식 집전","hint":"healer"},
+        {"name":"조르주 드 라 트레무아","side":"ally","evidence":"confirmed","role":"국왕 총신, 리슈몽과 대립","hint":"support"}
+      ]},
+      "basis": ["『오를레앙 시민 일기』","잔 다르크 재판·복권 재판 기록","Journal du siège d'Orléans"]
+    },
+    {
+      "chapter": "17", "title": "가우가멜라(알렉산드로스 동방 원정)", "span": "334~326 BC",
+      "ally": ["alexander","npc_parmenion","npc_philotas","npc_craterus","npc_coenus","npc_perdiccas","npc_ptolemy","npc_seleucus","npc_cleitus_black","npc_hephaestion"],
+      "enemy": ["npc_darius_iii","npc_bessus","npc_mazaeus","npc_barsaentes","npc_atropates","npc_ariobarzanes","npc_mithraustes","npc_nabarzanes","npc_orontes","npc_phrataphernes","npc_satibarzanes","porus"],
+      "related_only": {"ally": ["aristotle","philip_ii","npc_antipater"], "enemy": []},
+      "added_from_seogo": ["porus","npc_antipater"],
+      "excluded_topup": [
+        {"code":"fabius_maximus","reason":"로마 3세기 BC(ch15)."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_hephaestion","name":"헤파이스티온","side":"ally","part":"direct","evidence":"confirmed","why":"알렉산드로스 측근 장군. 가우가멜라·인도 원정 참전."},
+        {"code":"aristotle","name":"아리스토텔레스","side":"ally","part":"related","evidence":"confirmed","why":"343~340 BC 알렉산드로스 가정교사. 원정에 동행하지 않음 -> 대사 언급."},
+        {"code":"philip_ii","name":"필리포스 2세","side":"ally","part":"related","evidence":"confirmed","why":"알렉산드로스의 부친, 336 BC 사망. 군제 개혁 회상 대사로만."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_antipater":"confirmed (유럽 총독. 원정에 동행 안 함. 331 BC 메가폴리스 승전)","porus":"confirmed (히다스페스 326 BC, s10)","npc_philotas":"confirmed (330 BC 처형)","npc_cleitus_black":"confirmed (328 BC 사망)","npc_orontes":"accepted","npc_satibarzanes":"accepted"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"멤논(로도스)","code_hint":"npc_memnon","side":"enemy","evidence":"confirmed","role":"그라니코스 334 BC 전후 페르시아 측 그리스 용병대장","hint":"spear","note":"카탈로그 'DB 없음' 목록. s5 그라니코스 도하 필수급."},
+        {"name":"바티스(가자 총독)","side":"enemy","evidence":"accepted","role":"가자 포위 332 BC (s8)","hint":"sword"}
+      ]},
+      "basis": ["아리아노스 『아나바시스』","쿠르티우스 『알렉산드로스 대왕사』","플루타르코스 『알렉산드로스』"]
+    },
+    {
+      "chapter": "18", "title": "몽골 제국(칭기즈 칸)", "span": "1204~1227",
+      "ally": ["genghis_khan","npc_subutai","npc_jebe","npc_boorchu","npc_muqali","npc_boroldai","npc_boroqul","npc_hoelun","npc_jochi","npc_ogedei","npc_jelme","npc_qasar"],
+      "enemy": ["npc_kuchlug","npc_buyruq_khan","npc_toqto_a_beki","jalal_ad_din","npc_dayir_usun","npc_kokse_u_sabraq","npc_qudu","npc_qutuqa_beki","npc_jamukha","npc_tayang_khan","npc_muhammad_ii_khwarazm","npc_li_anquan"],
+      "related_only": {"ally": [], "enemy": ["npc_wanyan_xun"]},
+      "added_from_seogo": ["npc_jochi","npc_ogedei","npc_jelme","npc_qasar","npc_muhammad_ii_khwarazm","npc_li_anquan","npc_wanyan_xun"],
+      "excluded_topup": [
+        {"code":"kublai_khan","reason":"1215 출생. 칭기즈 칸 원정 시기엔 유아. ch25(원 침공) 적 지휘부로 소속."},
+        {"code":"modu_chanyu","reason":"기원전 흉노. 후보 시나리오 소속."},
+        {"code":"npc_fan_yi","reason":"ch25 에서 원 측 장수(범익/번집)로 쓰인 같은 코드와 충돌. 명단에서는 ch18 에서 보류."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_jamukha","name":"자모카","side":"enemy","part":"direct","evidence":"confirmed","why":"1201~1205 칭기즈 칸과 대립하다 1206경 사망. s1 쿠릴타이 전후 서사의 대립자."},
+        {"code":"npc_tayang_khan","name":"타양 칸","side":"enemy","part":"direct","evidence":"confirmed","why":"1204 나이만 전투 적 총수."},
+        {"code":"npc_subutai","name":"수부타이","side":"ally","part":"direct","evidence":"confirmed","why":"칼카(1223)·호라즘 추격 몽골 장군."}
+      ],
+      "duplicates_suspect": [{"codes":["npc_fan_yi (ch18 ally / ch25 enemy)"],"note":"draft 에서 같은 코드가 ch18 아군과 ch25 적군으로 동시에 등장. 한 사람일 수 없다. ch25 의 원 장수 번집(樊楫)이 맞다면 ch18 쪽 지정이 오류. 스테이지 데이터 확인 필요."}],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_boroldai":"accepted","npc_boroqul":"accepted","npc_hoelun":"accepted","npc_qutuqa_beki":"accepted (오이라트, 1206년 이후 복속)","npc_wanyan_xun":"accepted (금 선종은 1213 즉위. 야호령 1211엔 재위자 아님 -> 금 측 상징 대사)","npc_li_anquan":"confirmed (1209 서하 원정)","npc_dayir_usun":"accepted","npc_qudu":"accepted"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"이날추크(오트라르 총독)","side":"enemy","evidence":"confirmed","role":"1219 오트라르 사건·1220 포위 (s9)","hint":"spear"},
+        {"name":"므스티슬라프 므스티슬라비치","side":"enemy","evidence":"confirmed","role":"칼카 1223 루스 연합군 (s7)","hint":"cavalry"},
+        {"name":"차가타이","side":"ally","evidence":"confirmed","role":"오트라르·우르겐치 포위 1220","hint":"cavalry"}
+      ]},
+      "basis": ["『몽골비사』","주바이니 『세계정복자사』","라시드 앗딘 『집사』","『원사』 태조본기"]
+    },
+    {
+      "chapter": "19", "title": "성지 예루살렘(하틴~제3차 십자군)", "span": "1187~1192",
+      "ally": ["saladin","baha_ad_din","npc_al_mashtub","npc_gokbori","npc_qaraqush","npc_taqi_al_din","npc_abul_haija","npc_al_afdal","npc_husam_lulu","npc_al_adil","npc_balian_ibelin"],
+      "enemy": ["richard_i","npc_gerard_ridefort","npc_reynald_chatillon","npc_conrad_montferrat","npc_guy_lusignan","npc_raymond_tripoli","npc_eschiva_tiberias","npc_hugh_burgundy","npc_sibylla","npc_isabella_jerusalem","npc_heraclius_patriarch","npc_philip_augustus"],
+      "related_only": {"ally": [], "enemy": ["npc_baldwin_iv","npc_frederick_barbarossa","eleanor_aquitaine"]},
+      "added_from_seogo": ["npc_sibylla","npc_isabella_jerusalem","npc_heraclius_patriarch","npc_philip_augustus"],
+      "excluded_topup": [
+        {"code":"ibn_khaldun","reason":"14세기 역사가. 본편 1막 기록자 소속 후보."},
+        {"code":"hildegard","reason":"1098~1179 독일 수녀원장. 십자군 전장 무관. 서고."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_eschiva_tiberias","name":"에시바 드 티베리아스","side":"enemy","part":"direct","evidence":"confirmed","why":"1187.7 티베리아스 성에 갇혀 레몽 3세의 구원이 하틴 행군의 계기가 됨(s6 티베리아스 포위)."},
+        {"code":"npc_hugh_burgundy","name":"부르고뉴 공 위그 3세","side":"enemy","part":"direct","evidence":"confirmed","why":"3차 십자군 아크레(1191) 프랑스군 지휘, 필리프 2세 귀환 후 잔류."},
+        {"code":"npc_al_adil","name":"알아딜","side":"ally","part":"direct","evidence":"confirmed","why":"살라딘의 동생. 1191~92 리처드와의 협상 창구."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"eleanor_aquitaine":"accepted (리처드의 어머니. 1190년대 섭정, 성지에 가지 않음 -> 대사 언급 전용)","npc_balian_ibelin":"confirmed (1187.10 예루살렘 항복 협상. 십자군 귀족이지만 '퇴거 협상자'로 draft 에서 ally)","npc_sibylla":"confirmed (1190 아크레에서 사망)","npc_isabella_jerusalem":"confirmed","npc_baldwin_iv":"confirmed (1185 사망, 1177 몽지사르 선례 -> 회상)","npc_frederick_barbarossa":"confirmed (1190 사망, 성지 미도착)"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": ["baha_ad_din (카탈로그: campaign_only, ch999 보상 경로 별도)"], "new_needed": [
+        {"name":"이마드 앗딘 알이스파하니","side":"ally","evidence":"confirmed","role":"살라딘의 서기·연대기 작가","hint":"healer","note":"기록자 주제 보강용(선택)"}
+      ]},
+      "basis": ["이븐 샤다드(바하 앗딘) 『살라딘전』","이븐 알아시르 『완전한 역사』","윌리엄 오브 티레와 속편 연대기","『리처드 여행기』"]
+    },
+    {
+      "chapter": "20", "title": "나가시노(오다-도쿠가와 vs 다케다)", "span": "1572~1575",
+      "ally": ["oda_nobunaga","tokugawa_ieyasu","toyotomi_hideyoshi","honda_tadakatsu","npc_maeda_toshiie","npc_sassa_narimasa","npc_shibata_katsuie","npc_okudaira_sadamasa","npc_sakai_tadatsugu","npc_torii_suneemon"],
+      "enemy": ["npc_takeda_katsuyori","npc_yamagata_masakage","npc_baba_nobuharu","npc_naito_masatoyo","npc_hara_masatane","npc_sanada_masateru","npc_sanada_nobutsuna","npc_tsuchiya_masatsugu","npc_amari_nobuyasu","npc_takeda_nobukado"],
+      "related_only": {"ally": ["uesugi_kenshin"], "enemy": ["takeda_shingen"]},
+      "added_from_seogo": ["npc_takeda_nobukado"],
+      "excluded_topup": [
+        {"code":"minamoto_yoshitsune","reason":"12세기 겐페이 전쟁. 후보 시나리오."}
+      ],
+      "unspecified_resolved": [
+        {"code":"uesugi_kenshin","name":"우에스기 겐신","side":"ally","part":"related","evidence":"accepted","why":"1578 사망. 나가시노(1575) 참전 아님. 신겐의 평생 라이벌이며 1574 오다와 우호(상서도). 반 다케다 축으로 대사 언급."},
+        {"code":"npc_amari_nobuyasu","name":"아마리 노부야스","side":"enemy","part":"direct","evidence":"verify","why":"다케다 가신. 나가시노 참전·전사 여부는 확인 필요(문화권 기준 편 확정)."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"toyotomi_hideyoshi":"verify (오다군 참전 서술이 있으나 『신장공기』에는 명단 부재)","npc_shibata_katsuie":"verify (조총대 지휘관 명단에 없음)","takeda_shingen":"confirmed (1573 사망. 2선 인물: 가쓰요리의 부친 -> 회상)","npc_takeda_nobukado":"accepted (나가시노 후퇴 때 가쓰요리와 동행)","npc_amari_nobuyasu":"verify"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"후와 미쓰하루 / 노노무라 마사나리 등 조총 부교","side":"ally","evidence":"accepted","role":"오다 조총대 지휘","hint":"gunner","note":"전술 서사상 가치 있으나 DB 미확인"}
+      ]},
+      "basis": ["오타 규이치 『신장공기』","『삼하물어』","『갑양군감』","나가시노 전투 관련 현대 연구(조총 3단 사격 설은 논쟁 중)"]
+    },
+    {
+      "chapter": "21", "title": "레그니차(몽골의 유럽 원정)", "span": "1241~1242",
+      "ally": ["npc_batu","npc_subutai","npc_baidar","npc_kadan","npc_berke","npc_buri","npc_guyuk","npc_orda","npc_shiban","npc_boroldai"],
+      "enemy": ["npc_henry_ii_pious","npc_mieszko_ii_opole","npc_pakoslaw_sandomierz","npc_wlodzimierz_krakow","npc_wenceslas_i_bohemia","npc_poppo_osternohe","npc_ugrin_csak","npc_coloman_hungary","npc_sulislaw","npc_boleslaw_moravia","npc_boleslaw_rogatka"],
+      "related_only": {"ally": [], "enemy": ["alexander_nevsky"]},
+      "added_from_seogo": ["npc_boleslaw_rogatka"],
+      "excluded_topup": [
+        {"code":"constantine_xi","reason":"1453."},{"code":"edward_iii","reason":"14세기."},{"code":"jan_zizka","reason":"15세기."},{"code":"kutuzov","reason":"19세기."},{"code":"npc_alan_rufus","reason":"1066 노르만(ch23)."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_subutai","name":"수부타이","side":"ally","part":"direct","evidence":"confirmed","why":"1241 헝가리 원정 사실상 작전 입안자(모히 전투)."},
+        {"code":"alexander_nevsky","name":"알렉산드르 네프스키","side":"enemy","part":"related","evidence":"verify","why":"1240 네바, 1242 페이푸스는 스웨덴·튜턴 기사단 상대. 1241 레그니차 무관. 서유럽·루스 방위 서사의 상징으로 대사 언급만. 몽골과 직접 교전 기록 없음."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_boleslaw_rogatka":"verify (레그니차 영지 상속자. 1241 당시 20대. 전투 직접 참여는 확인 필요)","npc_boleslaw_moravia":"verify","npc_sulislaw":"accepted","npc_pakoslaw_sandomierz":"accepted","npc_boroldai":"accepted (폴란드 침공군 지휘 서술)"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"벨러 4세","side":"enemy","evidence":"confirmed","role":"헝가리 왕. 모히 1241 패배, 아드리아 해안 도피(s6~s7 에스테르곰·아드리아 추격의 목표 인물)","hint":"cavalry","note":"스테이지 핵심 인물인데 DB 존재 불명 -> 확인 최우선."},
+        {"name":"다닐로 로마노비치","side":"enemy","evidence":"accepted","role":"갈리치아 공, 1240~41 루스 항전","hint":"cavalry"}
+      ]},
+      "basis": ["Thomas of Spalato, Historia Salonitana","Roger of Torre Maggiore, Carmen miserabile","Jan Długosz, Annales","『집사』 몽골의 유럽 원정"]
+    },
+    {
+      "chapter": "22", "title": "파니파트(바부르)", "span": "1519~1527",
+      "ally": ["npc_babur","npc_humayun","npc_chin_timur_sultan","npc_dawlat_khan_lodi","npc_khalifa_nizam_ad_din","npc_khwaja_kalan","npc_mustafa_rumi","npc_ustad_ali_quli","npc_hindu_beg","npc_shah_mir_hussain"],
+      "enemy": ["npc_ibrahim_lodi","npc_bihar_khan_lodi","npc_hamid_khan","npc_hasan_khan_mewati","npc_mahmud_lodi","npc_vikramajit_gwalior","npc_rana_sanga","npc_fath_khan_hardu","npc_mustafa_farmuli","npc_tatar_khan_lodi"],
+      "related_only": {"ally": ["suleiman_i","genghis_khan"], "enemy": []},
+      "added_from_seogo": [],
+      "excluded_topup": [
+        {"code":"akbar","reason":"1542 출생. 바부르 사후 후손. 제2차 파니파트 1556 후보 시나리오."},
+        {"code":"aurangzeb","reason":"17세기."},
+        {"code":"chanakya","reason":"4세기 BC 마우리아. 후보 시나리오."},
+        {"code":"npc_boroldai","reason":"13세기 몽골(ch18·ch21 소속)."}
+      ],
+      "unspecified_resolved": [
+        {"code":"suleiman_i","name":"술레이만 1세","side":"ally","part":"related","evidence":"verify","why":"오스만 술탄(재위 1520~66). 바부르의 포술자 우스타드 알리 쿨리·무스타파 루미는 오스만 계통 포수. 오스만의 전술이 인도에 전해진 배경으로 대사 언급."},
+        {"code":"genghis_khan","name":"칭기즈 칸","side":"ally","part":"related","evidence":"confirmed","why":"바부르는 모계로 칭기즈 칸, 부계로 티무르 계. 자기 정통성 서사의 소재(바부르나마). 직접 출연 없음."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_dawlat_khan_lodi":"accepted (초청 후 변절, 최종 항복)","npc_fath_khan_hardu":"verify","npc_hindu_beg":"accepted","npc_shah_mir_hussain":"accepted","npc_tatar_khan_lodi":"accepted","npc_hasan_khan_mewati":"confirmed (칸와 1527)"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"메디니 라이","side":"enemy","evidence":"accepted","role":"찬데리 1528 (칸와 이후 라지푸트 연합 잔여)","hint":"sword","note":"s10 이후라 배치 보류"},
+        {"name":"실하디(실라디티야)","side":"enemy","evidence":"accepted","role":"칸와 1527 라나 상가 측에서 변절했다는 서술","hint":"cavalry"}
+      ]},
+      "basis": ["바부르 『바부르나마』","Abu'l-Fazl, Akbarnama","Firishta, Tarikh-i Firishta"]
+    },
+    {
+      "chapter": "23", "title": "헤이스팅스(1066)", "span": "1066",
+      "ally": ["william_i","npc_odo_bayeux","npc_william_fitzosbern","npc_roger_montgomery","npc_william_de_warenne","npc_alan_rufus","npc_eustace_boulogne","npc_robert_mortain","npc_geoffrey_coutances","npc_walter_giffard"],
+      "enemy": ["npc_harold_godwinson","npc_harald_hardrada","npc_tostig_godwinson","npc_gyrth_godwinson","npc_eystein_orre","npc_erlend_thorfinnsson","npc_olaf_haraldsson","npc_ulf_ospaksson","npc_edgar_atheling","npc_paul_thorfinnsson","npc_styrkar_marshal","npc_thjodolf_arnorsson"],
+      "related_only": {"ally": [], "enemy": ["npc_hakon_ivarsson"]},
+      "added_from_seogo": ["npc_alan_rufus","npc_eustace_boulogne","npc_robert_mortain","npc_geoffrey_coutances","npc_walter_giffard","npc_paul_thorfinnsson","npc_styrkar_marshal","npc_thjodolf_arnorsson"],
+      "excluded_topup": [
+        {"code":"richard_i","reason":"12세기(ch19)."},
+        {"code":"hildegard","reason":"12세기 독일 수녀원장."},
+        {"code":"alexander_nevsky","reason":"13세기 루스(ch21 관련)."},
+        {"code":"el_cid","reason":"11세기 카스티야이나 1066 잉글랜드와 무관. 레콩키스타 후보 시나리오 소속."},
+        {"code":"constantine_xi","reason":"1453."},{"code":"jan_zizka","reason":"15세기."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_edgar_atheling","name":"에드가 애설링","side":"enemy","part":"direct","evidence":"confirmed","why":"해럴드 사후 윗턴(위튼)이 왕으로 추대했으나 1066.12 윌리엄에게 복속(s10 대관식 전후)."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_walter_giffard":"accepted (Wace 계통 명단)","npc_paul_thorfinnsson":"accepted (『오크니 사가』)","npc_styrkar_marshal":"accepted (『헤임스크링글라』)","npc_thjodolf_arnorsson":"accepted","npc_hakon_ivarsson":"verify (하랄 3세 치하 노르웨이 백작이나 1066 풀포드·스탬퍼드브리지 참전 기록은 불분명)","npc_olaf_haraldsson":"confirmed (스탬퍼드 브리지 후 귀환 허가)","npc_erlend_thorfinnsson":"accepted"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"스티건드(캔터베리 대주교)","code_hint":"npc_stigand","side":"enemy","evidence":"confirmed","role":"월링퍼드 1066.12 복속(s9)","hint":"healer","note":"카탈로그 'DB 없음' 목록."},
+        {"name":"에드윈·모카(머시아·노섬브리아 백작)","side":"enemy","evidence":"confirmed","role":"풀포드 1066.9 패배","hint":"sword"},
+        {"name":"레오프윈 고드윈슨","side":"enemy","evidence":"confirmed","role":"해럴드의 동생, 헤이스팅스 전사","hint":"sword"}
+      ]},
+      "basis": ["『앵글로색슨 연대기』 1066","바이외 태피스트리","푸아티에의 윌리엄 『윌리엄 공의 행적』","오데릭 비탈리스, 헨리 오브 헌팅턴"]
+    },
+    {
+      "chapter": "24", "title": "투르·푸아티에와 프랑크의 남진", "span": "732~737",
+      "scope_note": "s1~s6 은 732(투르/푸아티에), s7~s10(아비뇽·나르본·베르 강)은 736~737 원정. 두 시기를 한 서가에 묶은 구성이므로 명단은 시기별로 구분.",
+      "ally": ["charles_martel","npc_eudes_aquitaine","npc_hunald_aquitaine","npc_childebrand"],
+      "enemy": ["npc_abd_al_rahman_ghafiqi","npc_abd_al_malik_ibn_qatan"],
+      "related_only": {"ally": [], "enemy": []},
+      "added_from_seogo": [],
+      "code_mismatch": [{"note":"송서사 2026-11-04 제안서는 npc_charles_martel 로 표기, draft 풀은 charles_martel. 개발 DB 의 실제 코드를 확인해 하나로 통일."}],
+      "excluded_topup": [
+        {"code":"ibn_sina","reason":"980~1037. 8세기와 250년 차."},
+        {"code":"harun_rashid","reason":"763 출생 (732에 존재하지 않음)."},
+        {"code":"khalid_ibn_walid","reason":"642 사망. 우마이야 이전 라시둔 시대."},
+        {"code":"alp_arslan","reason":"11세기 셀주크."},
+        {"code":"el_cid","reason":"11세기."},{"code":"william_i","reason":"11세기 노르만(ch23)."},
+        {"code":"hildegard","reason":"12세기."},
+        {"code":"constantine_xi","reason":"1453."},{"code":"edward_iii","reason":"14세기."},{"code":"jan_zizka","reason":"15세기."},{"code":"kutuzov","reason":"19세기."},{"code":"npc_alan_rufus","reason":"1066."},
+        {"code":"nebuchadnezzar_ii","reason":"기원전 6세기 바빌로니아."},
+        {"code":"npc_abul_haija","reason":"12세기 아이유브 조(ch19). draft 의 enemy 라벨 오류."}
+      ],
+      "unspecified_resolved": [],
+      "evidence_level": "accepted",
+      "evidence_exceptions": {"charles_martel":"confirmed","npc_eudes_aquitaine":"confirmed","npc_abd_al_rahman_ghafiqi":"confirmed","npc_hunald_aquitaine":"accepted","npc_childebrand":"accepted (737 아비뇽 포위 파견: 『프레데가르 속편』 계통)","npc_abd_al_malik_ibn_qatan":"verify (734 총독, 732 전투 지휘관 여부 불명)"},
+      "named_upgrade_proposal": {
+        "intent": "'이름 있는 프랑크·우마이야 인물이 직함형으로만 등장' 문제의 해법. 732~737년에 이름이 전하는 인물은 한계가 있으므로 억지 창작 없이 아래 후보만 추가하고, 나머지 자리는 직함형(invented)임을 유지하되 시대에 맞는 직함으로 개명 제안.",
+        "named_candidates_new_needed": [
+          {"name":"마우론티우스(프로방스 총독, 마르세유)","side":"enemy","stage":"s8 아비뇽 탈환","evidence":"accepted","note":"736~739 아랍 측과 공조해 아비뇽·프로방스를 내줌. 프랑크 내부 반란 귀족이라 적 지휘관으로 가장 사료에 부합."},
+          {"name":"유수프 이븐 압드 알라흐만 알피흐리","side":"enemy","stage":"s9 나르본 포위","evidence":"accepted","note":"734~ 나르본 일대 총독. 737 포위전 아랍·베르베르 측 사령관 서술에 오른다."},
+          {"name":"우크바 이븐 알하자즈 알살룰리","side":"enemy","stage":"s10 베르 강","evidence":"verify","note":"안달루스 총독(734~740). Wikipedia 는 베르 강 구원군을 우크바가 이끌었다고 쓰지만 프랑스 쪽 서술은 우마르 이븐 할리드로 적어 출처가 갈린다. 두 이름 중 하나로 확정하지 말고 verify."},
+          {"name":"우마르 이븐 할리드","side":"enemy","stage":"s10 베르 강","evidence":"verify","note":"위와 동일(출처 충돌). 배치 시 하나만 선택."}
+        ],
+        "not_included_with_reason": [
+          "피핀 3세(714생, 732년 18세)·카를로만(706생): 참전 기록 없음(이전 제안서와 동일).",
+          "무누자(731 사망)·안바사(725 사망): 시기 불일치.",
+          "리우트프란트(롬바르드 왕): 739 지원 서술, 737 스테이지와 2년 차 -> 대사 언급으로만.",
+          "히샴 칼리프: 필드 비출연. 대사 언급 가능."
+        ],
+        "title_rename_proposal_invented": [
+          {"current":"npc_andalus_light_cavalry_captain / 경기병 대장","proposal":"카이드(군 지휘관) — 경기병대"},
+          {"current":"npc_berber_infantry_captain / 베르베르 보병 대장","proposal":"베르베르 족장(셰이크) — 보병대"},
+          {"current":"npc_arab_guard_captain / 총독 근위대장","proposal":"총독 근위 카이드"},
+          {"current":"npc_frankish_vanguard / 전위 대장","proposal":"프랑크 전위 백작(코메스)"},
+          {"current":"npc_aquitaine_cavalry_captain / 아키텐 기병대장","proposal":"아키텐 기사대장(밀레스 우두머리)"}
+        ],
+        "note": "개명은 화면 표기용 직함이며 실존 인물처럼 보이지 않게 이름이 아니라 직함으로만 표기한다."
+      },
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": ["named_upgrade_proposal.named_candidates_new_needed 참조(마우론티우스·유수프 알피흐리·우크바/우마르)"]},
+      "basis": ["『모자라베 연대기 754』 (732 전투 서술)","『프레데가르 속편』 (736~739 원정, 히데브란트 파견)","Wikipedia 'Battle of the River Berre', 'Siege of Narbonne (737)', 'Siege of Avignon (737)' (2026-11-08 열람, 사령관 이름 출처 충돌 확인)","송서사 2026-11-04 ch24 제안서"]
+    },
+    {
+      "chapter": "25", "title": "바익당강(대월-원)", "span": "1285~1288",
+      "ally": ["tran_hung_dao","npc_pham_ngu_lao","npc_tran_khanh_du","npc_tran_nhat_duat","npc_tran_quang_khai","npc_da_tuong","npc_yet_kieu","npc_nguyen_khoai"],
+      "enemy": ["npc_toghan","npc_omar","npc_fan_yi","npc_li_heng","npc_zhang_wenhu","npc_sogetu"],
+      "related_only": {"ally": ["npc_tran_quoc_toan","ngo_quyen"], "enemy": ["kublai_khan"]},
+      "added_from_seogo": ["ngo_quyen"],
+      "excluded_topup": [
+        {"code":"genghis_khan","reason":"1227 사망. 쿠빌라이의 조부. 대사 언급만 가능."},
+        {"code":"jose_rizal","reason":"19세기 필리핀. 서고."},
+        {"code":"le_loi","reason":"15세기 레 러이(명군 격퇴). 후보 시나리오."},
+        {"code":"diponegoro","reason":"19세기 자바. 서고."}
+      ],
+      "unspecified_resolved": [
+        {"code":"npc_nguyen_khoai","name":"응우옌 코아이","side":"ally","part":"direct","evidence":"accepted","why":"1285 원군 격파 일화에 오르는 쩐 왕조 장수. campaign_only(승격 필요)."},
+        {"code":"npc_tran_quoc_toan","name":"쩐 꾸옥 또안","side":"ally","part":"related","evidence":"accepted","why":"1267생, 1285 사망(함뜨 전후). 1288 시점엔 없음 -> 1285 회상·헌정 대사 전용. campaign_only."},
+        {"code":"kublai_khan","name":"쿠빌라이 칸","side":"enemy","part":"related","evidence":"confirmed","why":"원 황제. 원정 명령자. 필드 출연 없이 칙령·대사 언급(catalog 의 '대사 언급' 판정과 일치)."}
+      ],
+      "evidence_level": "confirmed",
+      "evidence_exceptions": {"npc_tran_quang_khai":"accepted (1285 쯔엉즈엉 승전, 1288엔 노령)","npc_da_tuong":"accepted","npc_yet_kieu":"accepted","npc_fan_yi":"confirmed (번집 樊楫, 1288 원 수군 지휘)","npc_zhang_wenhu":"confirmed (張文虎 1288 선단)","npc_omar":"confirmed (오마르/우마르, 1288 원 수군)","npc_sogetu":"confirmed (1285 함뜨 전사)","ngo_quyen":"confirmed (938 바익당강, 말뚝 매복의 선례. s9 말뚝 매복과 직접 연결)"},
+      "pool": {"all_in_pool": false, "campaign_only_not_in_pool": ["npc_pham_ngu_lao","npc_tran_nhat_duat","npc_tran_quang_khai","npc_tran_khanh_du (승격 대기 4명, 필수)","npc_da_tuong","npc_yet_kieu","npc_nguyen_khoai","npc_tran_quoc_toan","npc_omar","npc_sogetu","npc_toghan","npc_li_heng","npc_zhang_wenhu","npc_fan_yi 등 원 측 6명 (카탈로그 '승격 필요 적 영웅 6명')"], "new_needed": [
+        {"name":"쩐 년똥(인종)","side":"ally","evidence":"confirmed","role":"대월 3대 황제, 1285·1288 항전 지휘","hint":"support"},
+        {"name":"쩐 타인똥(성종)","side":"ally","evidence":"confirmed","role":"상황 (퇴위 후 후견)","hint":"support"},
+        {"name":"쩐 빈중","side":"ally","evidence":"confirmed","role":"1285 다호이(Đà Hồi) 전사","hint":"sword","note":"1288과 3년 차 -> 회상"}
+      ]},
+      "basis": ["『대월사기전서』 쩐 왕조 본기","『원사』 일본·안남전","『안남지략』","Trần Hưng Đạo 『병서요략』(전승)"]
+    },
+
+    {
+      "chapter": "101", "title": "순회의 첫 날(서고)", "span": "서고(시간 외)",
+      "ally": [], "enemy": [],
+      "related_only": {"ally": ["confucius","aristotle","sejong","jeong_yakyong","murasaki_shikibu","christine_de_pizan","leonardo_da_vinci","ibn_khaldun","hildegard"], "enemy": []},
+      "recorder_theme_cameo": {
+        "rule": "R1-c. 서고의 필사실·열람실·지도 탁상에 '기록하는 자'로 스쳐 지나가는 대사 한 줄 출연. 역사 참전이 아니므로 evidence=invented(주제 배치). 풀 소속은 사용자 승인 필요.",
+        "candidates": ["confucius","aristotle","sejong","jeong_yakyong","murasaki_shikibu","christine_de_pizan","leonardo_da_vinci","ibn_khaldun","hildegard"],
+        "all_in_pool": "confucius·sejong·jeong_yakyong·murasaki_shikibu·leonardo_da_vinci 는 서고 전용(어느 배너에도 없음). aristotle·christine_de_pizan·ibn_khaldun·hildegard 는 draft 의 타 배너(ch17·ch16·ch19·ch23 floor/후보) 라벨이 있으나 해당 시대 참전자 아님 -> 이쪽으로 재소속 가능."
+      },
+      "added_from_seogo": ["confucius","sejong","jeong_yakyong","murasaki_shikibu","leonardo_da_vinci"],
+      "excluded_topup": [
+        {"code":"baibars","reason":"13세기 맘루크. 아인잘루트(1260) 후보 시나리오. 서고."},
+        {"code":"chok_jun_gyeong","reason":"12세기 고려 무신. 윤관 여진 정벌·이자겸 난 후보. 서고."},
+        {"code":"jose_rizal","reason":"19세기 필리핀. 서고."},
+        {"code":"modu_chanyu","reason":"기원전 흉노. 서고."},
+        {"code":"npc_babur","reason":"ch22 소속(이미)."},
+        {"code":"takeda_shingen","reason":"ch20 관련 인물."},
+        {"code":"date_masamune","reason":"ch1 적(verify)."},
+        {"code":"npc_eudes_aquitaine","reason":"ch24 소속(이미)."},
+        {"code":"npc_hamid_khan","reason":"ch22 적(이미)."},
+        {"code":"npc_heukchi_sangji","reason":"ch13 적(이미)."},
+        {"code":"npc_murong_chui","reason":"4세기 후연. 고구려-연 후보 시나리오. 서고."},
+        {"code":"npc_ugrin_csak","reason":"ch21 적(이미)."},
+        {"code":"npc_william_fitzosbern","reason":"ch23 아군(이미)."},
+        {"code":"npc_yue_jin","reason":"ch12 적(이미)."},
+        {"code":"npc_gaucourt","reason":"ch16 아군(이미)."},
+        {"code":"npc_gisgo","reason":"ch15 적(이미)."},
+        {"code":"npc_jeong_inhong","reason":"ch1 아군(이미)."},
+        {"code":"npc_kim_inmun","reason":"ch13 아군(이미)."},
+        {"code":"npc_phrataphernes","reason":"ch17 적(이미)."},
+        {"code":"npc_qutuqa_beki","reason":"ch18 적(이미)."},
+        {"code":"npc_xing_yuanheng","reason":"소속 불명(형원항). 근거 확인 전까지 보류."},
+        {"code":"npc_yeon_jayu","reason":"ch14 아군(이미)."}
+      ],
+      "unspecified_resolved": [
+        {"code":"baibars","name":"바이바르스","side":"none","part":"none","evidence":"-","why":"본편에는 적 영웅이 없고 아군은 지정 영웅 외 기록자 한정이므로 소속 제외. 서고."},
+        {"code":"chok_jun_gyeong","name":"척준경","side":"none","part":"none","evidence":"-","why":"서고(후보 시나리오 소속)."},
+        {"code":"jose_rizal","name":"호세 리살","side":"none","part":"none","evidence":"-","why":"서고. 단 『Noli Me Tangere』 저술자라 기록자 후보로 활용할 수도 있음(결정 필요)."},
+        {"code":"modu_chanyu","name":"묵돌 선우","side":"none","part":"none","evidence":"-","why":"서고."},
+        {"code":"npc_murong_chui","name":"모용수","side":"none","part":"none","evidence":"-","why":"서고."},
+        {"code":"npc_xing_yuanheng","name":"형원항","side":"none","part":"none","evidence":"verify","why":"소속 불명."}
+      ],
+      "evidence_level": "invented",
+      "evidence_exceptions": {},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"사마천","side":"ally","evidence":"confirmed","role":"『사기』 저자 (기록자 주제의 대표)","hint":"support","note":"서고 문장과 가장 어울리는 인물인데 DB 존재 불명."}
+      ]},
+      "basis": ["docs/ORIGINAL_STORY_SYNOPSIS.md 1막","본편 주제 '기록되지 않은 사람들도 그 시대를 살았다'"]
+    },
+    {
+      "chapter": "102", "title": "이름 없는 봉수(조선 임진왜란기)", "span": "1592~1598 배경",
+      "ally": ["heo_jun"], "enemy": [],
+      "related_only": {"ally": ["yi_sun_sin","gwon_yul","npc_cheoyeong","npc_ryu_seongnyong","npc_seonjo"], "enemy": []},
+      "cross_banner_from": "ch1",
+      "added_from_seogo": [],
+      "excluded_topup": [
+        {"code":"tokugawa_ieyasu","reason":"일본 실존 인물은 본편에서 대사·적으로 세우지 않는다(R2)."},
+        {"code":"toyotomi_hideyoshi","reason":"위와 동일."},
+        {"code":"date_masamune","reason":"위와 동일."},
+        {"code":"honda_tadakatsu","reason":"위와 동일."},
+        {"code":"sanada_yukimura","reason":"위와 동일."},
+        {"code":"dae_jo_yeong","reason":"698 발해."},
+        {"code":"npc_an_wi","reason":"ch1 소속(명량)으로 이동. (본편 2막은 명량 시기가 아님)"},
+        {"code":"npc_asin","reason":"4세기 백제 아신왕. 서고."},
+        {"code":"npc_bak_seong","reason":"ch1 소속(verify)으로 이동."},
+        {"code":"npc_banggul","reason":"ch13 소속(황산벌)으로 이동."},
+        {"code":"npc_beopmin","reason":"ch13 소속으로 이동."},
+        {"code":"npc_buyeo_yung","reason":"ch13 소속(적)으로 이동."},
+        {"code":"npc_cheoyeong","reason":"ch1 소속(행주)으로 이동. 2-4 산성의 돌 장면에서 행주 연계로 관련 인물(related)로는 유지."}
+      ],
+      "unspecified_resolved": [
+        {"code":"heo_jun","name":"허준","side":"ally","part":"direct","evidence":"accepted","why":"2막 획득 영웅. 선조 호종과 피난길 치료는 accepted, 2-5 '이름을 적는 약 보따리'는 오리지널 연출."}
+      ],
+      "evidence_level": "invented",
+      "evidence_exceptions": {"heo_jun":"accepted","yi_sun_sin":"confirmed (당항포 해전 1592.6 — 2-2 당항포의 사공 배경. 본인은 필드 출연 없이 이름·대사 언급)","gwon_yul":"confirmed (행주 1593.2 — 2-4 산성의 돌 배경)","npc_cheoyeong":"confirmed","npc_ryu_seongnyong":"confirmed (『징비록』 = 기록자 주제)","npc_seonjo":"confirmed (피난 호종 대상)"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": []},
+      "basis": ["docs/ORIGINAL_STORY_SYNOPSIS.md 2막","선조실록 호종 기록","『동의보감』 서문(1610)"]
+    },
+    {
+      "chapter": "103", "title": "꺼지지 않는 이름(프랑스 백년전쟁기)", "span": "1429 배경",
+      "ally": ["joan_of_arc","heo_jun"], "enemy": [],
+      "related_only": {"ally": ["npc_charles_vii","npc_jean_alencon","npc_dunois","npc_gilles_de_rais","christine_de_pizan"], "enemy": []},
+      "cross_banner_from": "ch16",
+      "added_from_seogo": [],
+      "excluded_topup": [
+        {"code":"elizabeth_i","reason":"16세기."},{"code":"vauban","reason":"17세기."},{"code":"alexander_nevsky","reason":"13세기 루스."},{"code":"black_prince","reason":"1356."},{"code":"frederick_great","reason":"18세기."},{"code":"gustavus_adolphus","reason":"17세기."},{"code":"henry_v","reason":"1422 사망."},{"code":"peter_great","reason":"17~18세기."},{"code":"william_wallace","reason":"1305 사망, 스코틀랜드."},{"code":"constantine_xi","reason":"1453."},{"code":"edward_iii","reason":"1377 사망."},{"code":"jan_zizka","reason":"15세기 보헤미아."},{"code":"kutuzov","reason":"1812."},{"code":"npc_alan_rufus","reason":"1066."},{"code":"npc_balian_ibelin","reason":"12세기 성지(ch19)."},{"code":"npc_boleslaw_moravia","reason":"13세기(ch21)."},{"code":"npc_cauchon","reason":"1431 루앙 재판. 범위 밖."}
+      ],
+      "unspecified_resolved": [
+        {"code":"joan_of_arc","name":"잔 다르크","side":"ally","part":"direct","evidence":"confirmed","why":"3막 획득 영웅. 3-1 소문 복선 -> 3-5 합류."},
+        {"code":"heo_jun","name":"허준","side":"ally","part":"direct","evidence":"invented","why":"2막 획득 후 동행 화자(R4). 프랑스 시대와 무관한 순회 동료 자격이므로 역사 연출 금지."},
+        {"code":"christine_de_pizan","name":"크리스틴 드 피장","side":"ally","part":"related","evidence":"confirmed","why":"1429.7 시 『잔 다르크 찬가』. 3막의 '이름 기록' 주제와 맞음. 3-5 뒷줄 대사 언급 후보."}
+      ],
+      "evidence_level": "invented",
+      "evidence_exceptions": {"joan_of_arc":"confirmed","npc_charles_vii":"confirmed (랭스 대관식 1429.7.17)","npc_jean_alencon":"confirmed","npc_dunois":"accepted","npc_gilles_de_rais":"confirmed (대관식 때 원수 임명). 후일 재판 사건은 다루지 않는다","christine_de_pizan":"confirmed"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": [], "new_needed": [
+        {"name":"르노 드 샤르트르","side":"ally","evidence":"confirmed","role":"랭스 대주교(3-5 대관식 집전)","hint":"healer"}
+      ]},
+      "basis": ["docs/ORIGINAL_STORY_SYNOPSIS.md 3막","잔 다르크 복권 재판 기록(대관식 증언)","크리스틴 드 피장 『Ditié de Jehanne d'Arc』(1429.7.31)"]
+    },
+    {
+      "chapter": "104", "title": "마지막 빈 쪽(사막 대상로~서고 심층)", "span": "12세기 시리아 배경(+서고 심층)",
+      "ally": ["saladin","heo_jun"], "enemy": [],
+      "related_only": {"ally": ["npc_al_adil","npc_qaraqush","npc_abul_haija","ibn_khaldun"], "enemy": []},
+      "cross_banner_from": "ch19",
+      "added_from_seogo": [],
+      "excluded_topup": [
+        {"code":"mehmed_ii","reason":"15세기 오스만."},{"code":"alp_arslan","reason":"11세기."},{"code":"darius_i","reason":"기원전 6세기."},{"code":"jalal_ad_din","reason":"13세기(ch18 적)."},{"code":"khalid_ibn_walid","reason":"7세기."},{"code":"npc_al_mashtub","reason":"ch19 아군(12세기 같은 시대이나 본편 4막 4-2 중재 장면에서 불필요). cross_banner 로는 허용."},{"code":"npc_ariobarzanes","reason":"ch17 적."},{"code":"suleiman_i","reason":"16세기."},{"code":"zenobia","reason":"3세기 팔미라."},{"code":"nebuchadnezzar_ii","reason":"기원전 6세기."},{"code":"npc_abd_al_malik_ibn_qatan","reason":"ch24."},{"code":"npc_abul_haija","reason":"ch19 아군. related 로는 유지."},{"code":"npc_darius_iii","reason":"ch17."},{"code":"npc_husam_lulu","reason":"ch19."},{"code":"qutuz","reason":"13세기 맘루크 아인잘루트 후보."},{"code":"rostam","reason":"신화·서사시(샤나메) 인물. 서고."}
+      ],
+      "unspecified_resolved": [
+        {"code":"saladin","name":"살라딘","side":"ally","part":"direct","evidence":"accepted","why":"4막 획득 영웅. 4-2 우물가 중재자. 두 무리를 악으로 그리지 않는다."},
+        {"code":"heo_jun","name":"허준","side":"ally","part":"direct","evidence":"invented","why":"동행 화자(R4)."},
+        {"code":"ibn_khaldun","name":"이븐 할둔","side":"ally","part":"related","evidence":"invented","why":"14세기 역사가. 4-3~4-5 서고 심층(시간 외) 배경에서만 '기록자'로 등장 가능. 12세기 대상로 장면엔 쓰지 않는다."}
+      ],
+      "evidence_level": "invented",
+      "evidence_exceptions": {"saladin":"accepted (하틴 1187 물 문제 서술: accepted)","npc_al_adil":"confirmed (살라딘 동생, 중재 창구)","npc_qaraqush":"confirmed","npc_abul_haija":"confirmed"},
+      "pool": {"all_in_pool": true, "campaign_only_not_in_pool": ["baha_ad_din (ch999 보상 경로)"], "new_needed": []},
+      "basis": ["docs/ORIGINAL_STORY_SYNOPSIS.md 4막","이븐 샤다드 『살라딘전』"]
+    }
+  ],
+
+  "rehome_map_floor_topup_heroes": {
+    "note": "draft 의 하한 보충으로 엉뚱한 배너에 들어간 영웅의 본 소속. '서고'는 현재 소속 시나리오 없음, '후보'는 사료 근거가 있는 미구현 시나리오 후보(참고용).",
+    "to_existing_chapter": {
+      "honda_tadakatsu":"20","takeda_shingen":"20(관련)","date_masamune":"1(verify)","npc_amari_nobuyasu":"20","kim_yusin":"13","eulji_mundeok":"14","npc_kim_inmun":"13","npc_heukchi_sangji":"13","npc_gaucourt":"16","npc_gisgo":"15","npc_hanno_bomilcar":"15","fabius_maximus":"15","npc_phrataphernes":"17","npc_darius_iii":"17","npc_ariobarzanes":"17","npc_qutuqa_beki":"18","jalal_ad_din":"18","genghis_khan":"18","npc_boroldai":"18/21","npc_ugrin_csak":"21","npc_hamid_khan":"22","npc_babur":"22","npc_william_fitzosbern":"23","npc_eudes_aquitaine":"24","npc_abd_al_malik_ibn_qatan":"24","npc_yue_jin":"12","npc_yeon_jayu":"14","npc_jeong_inhong":"1","npc_abul_haija":"19","npc_al_mashtub":"19","npc_husam_lulu":"19","richard_i":"19","kublai_khan":"25(관련)","npc_banggul":"13","npc_beopmin":"13","npc_buyeo_yung":"13","npc_cheoyeong":"1","npc_an_wi":"1","npc_bak_seong":"1(verify)"
+    },
+    "to_seogo_only": ["yi_seonggye","gwanggaeto","dae_jo_yeong","seondeok(ch13 관련)","wu_zetian(ch13 관련)","elizabeth_i","maria_theresa","vauban","constantine_xi","edward_iii","jan_zizka","kutuzov","henry_v","black_prince","frederick_great","gustavus_adolphus","peter_great","william_wallace","hildegard","alexander_nevsky(ch21 관련)","el_cid","minamoto_yoshitsune","akbar","aurangzeb","chanakya","ibn_sina","harun_rashid","alp_arslan","khalid_ibn_walid","nebuchadnezzar_ii","rostam","qutuz","baibars","zenobia","darius_i","mehmed_ii","suleiman_i(ch22 관련)","ibn_khaldun","chok_jun_gyeong","jose_rizal","modu_chanyu","npc_murong_chui","npc_asin","npc_eumenes","philip_ii(ch17 관련)","le_loi","diponegoro","sanada_yukimura"],
+    "future_scenario_candidates_with_ready_cast": [
+      {"candidate":"페르시아 전쟁(480 BC 살라미스·테르모필레)","cast":"themistocles, leonidas, artemisia_i, xerxes_i, darius_i","note":"모두 서고 전용 또는 floor 로 떠돎. 1개 시나리오로 묶으면 5명 즉시 소속."},
+      {"candidate":"콘스탄티노폴리스 1453","cast":"constantine_xi, mehmed_ii","note":""},
+      {"candidate":"백년전쟁 초기(크레시 1346·푸아티에 1356·아쟁쿠르 1415)","cast":"edward_iii, black_prince, henry_v","note":"잔 다르크 챕터와는 별도 서가로."},
+      {"candidate":"아인잘루트 1260","cast":"qutuz, baibars","note":""},
+      {"candidate":"레콩키스타(엘 시드 11세기)","cast":"el_cid","note":"단독이면 약함"},
+      {"candidate":"한(漢) 초 초한전","cast":"liu_bang, xiang_yu, han_xin, zhang_liang","note":"모두 서고 전용 S/A. 시나리오 하나로 4명 소속 가능."},
+      {"candidate":"고려 말·조선 건국","cast":"yi_seonggye, choe_yeong","note":""},
+      {"candidate":"발해/고구려 후기","cast":"dae_jo_yeong, gwanggaeto, jangsu","note":""},
+      {"candidate":"나폴레옹 전쟁","cast":"napoleon, wellington, nelson, kutuzov, suvorov","note":"서고 전용 S 나폴레옹 소속 문제의 해법"}
+    ]
+  },
+
+  "summary": {
+    "chapters_covered": ["1","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","101","102","103","104"],
+    "unspecified_unique_resolved": "draft 의 unspecified 116행(고유 약 95코드) 전원에 편/소속을 부여. 직접 참전 20여 명, 관련 인물 약 25명, 나머지는 소속 제외(타 챕터 재배치·서고).",
+    "key_findings": [
+      "draft 의 side 는 floor_topup/사료후보 인물에선 문화권 규칙으로만 붙어 오류가 많다(예: ch14 측천무후 enemy, ch24 하룬 알라시드·알프 아르슬란·할리드 enemy, ch25 레 러이 ally). roster 에서는 모두 제외.",
+      "임진왜란 적 중 도요토미 히데요시·도쿠가와 이에야스는 조선에 오지 않았다. 혼다 다다카쓰·사나다 유키무라도 근거 없음.",
+      "서고 전용 160명 중 약 60명은 이 roster 로 챕터 소속이 생긴다(ch1 약 25, ch13 2, ch15 3, ch16 3, ch17 2, ch18 7, ch19 4, ch20 1, ch21 1, ch23 8, ch25 1, ch101 5).",
+      "본편(101~104)은 적 영웅 0, 아군은 막 획득 영웅 중심으로 풀 규칙을 정했다."
+    ],
+    "needs_human_fact_check": [
+      "ch1 date_masamune 조선 출병 세부, mori_terumoto 배치, 한 군 지휘관 중 조경·이광악·이대기·성수경·박성·최덕량·심대승의 임진 활동(npc_roster_v3_additions.json 의 evidence=verify 그대로)",
+      "ch11 거란 장수 소적렬·한덕양·소합탁·소굴열·야율팔가·야율분노의 각 전쟁 차수, 대도수의 정체, npc_liao_shengzong 중복",
+      "ch13 윤충(642 대야성 인물) 포함 여부, 지토 천황 출연 방식",
+      "ch14 연자유·연태조(연개소문 가계) 612년 활동",
+      "ch18 npc_fan_yi 코드 충돌",
+      "ch20 도요토미/시바타 가쓰이에 나가시노 참전, 아마리 노부야스",
+      "ch21 볼레스와프 2세 레그니차 참전, 벨러 4세 DB 존재",
+      "ch23 하콘 이바르손, 스티간드·워터 기파드 등",
+      "ch24 베르 강 사령관(우크바 vs 우마르 이븐 할리드) 출처 충돌, 압드 알말리크 732 참전",
+      "ch25 쩐 꾸옥 또안 1288 시점 부재"
+    ]
+  },
+
+  "sources": [
+    {"name":"Wikipedia: Battle of the River Berre","url":"https://en.wikipedia.org/wiki/Battle_of_the_River_Berre","used_for":"ch24 737 베르 강 전투 사령관 출처 충돌(우크바/우마르), 유수프 알피흐리"},
+    {"name":"Wikipedia: Siege of Narbonne (737)","url":"https://en.wikipedia.org/wiki/Siege_of_Narbonne_(737)","used_for":"ch24 나르본 포위"},
+    {"name":"Wikipedia: Siege of Avignon (737)","url":"https://en.wikipedia.org/wiki/Siege_of_Avignon_(737)","used_for":"ch24 힐데브란트(Childebrand) 파견, 마우론티우스"},
+    {"name":"Wikipedia: AD 737","url":"https://en.wikipedia.org/wiki/AD_737","used_for":"ch24 연표 교차 확인"},
+    {"name":"De Re Militari: The Battle of Berre River, 737 CE: The Account of the Fredegar Continuator","url":"https://deremilitari.org/tag/8c/","used_for":"ch24 프레데가르 속편 서술(우마르 이븐 할리드 표기)"},
+    {"name":"프로젝트 내부","paths":["database/data/GACHA_BANNER_CATALOG_20261108.md","database/data/gacha_banners_v2_draft.json","database/data/ch24_franks_andalus_roster_proposal.json","database/data/npc_roster_v3_additions.json","docs/ORIGINAL_STORY_SYNOPSIS.md"],"used_for":"풀 존재, 스테이지 구성, 본편 구조"},
+    {"name":"집필자 학술 지식(미재검증)","used_for":"ch1·11~23·25 인물의 참전 여부. 위 evidence_level 과 needs_human_fact_check 로 불확실 항목 표시. 웹 대조는 ch24 만 수행."}
+  ]
+}

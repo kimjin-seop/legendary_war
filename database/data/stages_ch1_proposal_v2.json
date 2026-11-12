@@ -1,0 +1,495 @@
+{
+ "_note": "[초안 v2/가정값] v1 대비: 적 지휘관 진영 단일 병종 규칙(commander.troop_type 1종, units[]는 그 병종만, 유닛 수 유지). 기존 파일 미수정. 설명은 STAGES_CH1_SPEC.md 10절",
+ "version": 2,
+ "chapter": 1,
+ "status": "draft",
+ "schema_new_fields": {
+  "objective": "{type:'defeat_commander'}|{type:'survive_turns',turns:N}",
+  "enemy_preset": "enemy_presets[].code (신규, 영웅 없는 일반 지휘관+부대 목록 길이 가변)",
+  "star_conditions[].type": "clear|all_alive|turn_within(value)|commander_hp_pct_min(value)",
+  "guest_heroes": "해당 스테이지 강제/게스트 출전(첫 클리어 합류 영웅과 별개)",
+  "effective_enemy_level": "참고용 = max(1,enemy_level+enemy_level_offset), 시드는 offset 사용",
+  "enemy_commander": "hp_mult 등 보정, 영웅 데이터 없음",
+  "commander.troop_type": "허용: sword|spear|cavalry|archer(이번 사용: sword/spear/archer). 생략 시 commander.unit_type. units[]는 이 병종 1종으로 정규화(서버 addGenericSide). heavy/naval/mage/healer/assassin 미사용"
+ },
+ "enemy_presets": [
+  {
+   "code": "e_ch1_s1",
+   "name": "옥포의 첫 승전 적군",
+   "commander": {
+    "display_name_ko": "도도 다카토라",
+    "name_evidence": "accepted",
+    "unit_type": "sword",
+    "hp_mult": 1.0,
+    "atk_mult": 1.0,
+    "def_mult": 1.0,
+    "aura": null,
+    "skills": [],
+    "troop_type": "sword"
+   },
+   "units": [
+    "sword",
+    "sword"
+   ],
+   "units_total_incl_commander": 3
+  },
+  {
+   "code": "e_ch1_s2",
+   "name": "정암진 나루 적군",
+   "commander": {
+    "display_name_ko": "일본군 도하 부대 지휘관",
+    "name_evidence": "verify(실명 비표기)",
+    "unit_type": "spear",
+    "hp_mult": 1.0,
+    "atk_mult": 1.0,
+    "def_mult": 1.0,
+    "aura": null,
+    "skills": [],
+    "troop_type": "spear"
+   },
+   "units": [
+    "spear",
+    "spear",
+    "spear"
+   ],
+   "units_total_incl_commander": 4
+  },
+  {
+   "code": "e_ch1_s3",
+   "name": "한산도, 학의 날개 적군",
+   "commander": {
+    "display_name_ko": "와키자카 야스하루",
+    "name_evidence": "confirmed",
+    "unit_type": "archer",
+    "hp_mult": 1.0,
+    "atk_mult": 1.0,
+    "def_mult": 1.0,
+    "aura": null,
+    "skills": [],
+    "troop_type": "archer"
+   },
+   "units": [
+    "archer",
+    "archer",
+    "archer",
+    "archer"
+   ],
+   "units_total_incl_commander": 5
+  },
+  {
+   "code": "e_ch1_s4",
+   "name": "진주성의 엿새 적군",
+   "commander": {
+    "display_name_ko": "하세가와 히데카즈",
+    "name_evidence": "accepted",
+    "unit_type": "sword",
+    "hp_mult": 1.0,
+    "atk_mult": 1.0,
+    "def_mult": 1.0,
+    "aura": null,
+    "skills": [],
+    "troop_type": "sword"
+   },
+   "units": [
+    "sword",
+    "sword",
+    "sword",
+    "sword",
+    "sword",
+    "sword"
+   ],
+   "units_total_incl_commander": 7
+  },
+  {
+   "code": "e_ch1_s5",
+   "name": "평양성 탈환 적군",
+   "commander": {
+    "display_name_ko": "고니시 유키나가",
+    "name_evidence": "confirmed",
+    "unit_type": "spear",
+    "hp_mult": 1.0,
+    "atk_mult": 1.0,
+    "def_mult": 1.0,
+    "aura": null,
+    "skills": [],
+    "troop_type": "spear"
+   },
+   "units": [
+    "spear",
+    "spear",
+    "spear",
+    "spear",
+    "spear"
+   ],
+   "units_total_incl_commander": 6
+  },
+  {
+   "code": "e_ch1_s6",
+   "name": "행주산성 적군",
+   "commander": {
+    "display_name_ko": "일본군 지휘관(총대장 실명 verify로 비표기)",
+    "name_evidence": "verify",
+    "unit_type": "archer",
+    "hp_mult": 1.0,
+    "atk_mult": 1.0,
+    "def_mult": 1.0,
+    "aura": null,
+    "skills": [],
+    "troop_type": "archer"
+   },
+   "units": [
+    "archer",
+    "archer",
+    "archer",
+    "archer"
+   ],
+   "units_total_incl_commander": 5
+  },
+  {
+   "code": "e_ch1_s7",
+   "name": "노량, 마지막 바다 적군",
+   "commander": {
+    "display_name_ko": "시마즈 요시히로",
+    "name_evidence": "confirmed",
+    "unit_type": "sword",
+    "hp_mult": 1.3,
+    "atk_mult": 1.0,
+    "def_mult": 1.0,
+    "aura": null,
+    "skills": [],
+    "troop_type": "sword"
+   },
+   "units": [
+    "sword",
+    "sword",
+    "sword",
+    "sword",
+    "sword",
+    "sword",
+    "sword",
+    "sword"
+   ],
+   "units_total_incl_commander": 9
+  }
+ ],
+ "items": [
+  {
+   "code": "ch1_s1",
+   "name": "옥포의 첫 승전",
+   "map": "pk_01_plain_clash",
+   "enemy_preset": "e_ch1_s1",
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "recommended_level": 1,
+   "enemy_level": 1,
+   "enemy_level_offset": 4,
+   "effective_enemy_level": 5,
+   "reward_exp": 60,
+   "reward_user_exp": 30,
+   "reward_gold": 100,
+   "prerequisite": null,
+   "difficulty": 1,
+   "sort_order": 101,
+   "enemy_extra_troops": [],
+   "enemy_deploy_note": "우측(b) 전열 칼 1 + 후열 궁 1, 정면 접근",
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 8
+    }
+   ],
+   "join_hero": [],
+   "guest_heroes": [],
+   "boss": false,
+   "simulation": {
+    "s1_s3_proxy_measured": true
+   }
+  },
+  {
+   "code": "ch1_s2",
+   "name": "정암진 나루",
+   "map": "pk_02_ford_small",
+   "enemy_preset": "e_ch1_s2",
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "recommended_level": 2,
+   "enemy_level": 2,
+   "enemy_level_offset": 1,
+   "effective_enemy_level": 3,
+   "reward_exp": 100,
+   "reward_user_exp": 60,
+   "reward_gold": 140,
+   "prerequisite": "ch1_s1",
+   "difficulty": 2,
+   "sort_order": 102,
+   "enemy_extra_troops": [],
+   "enemy_deploy_note": "우측(b) 다리 동쪽 입구에 창·칼, 궁은 후열(도하 저지 대칭 구도)",
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "join_hero": [],
+   "guest_heroes": [
+    {
+     "hero_code": "gwak_jae_u",
+     "csv_id": 144
+    }
+   ],
+   "boss": false,
+   "simulation": {
+    "s1_s3_proxy_measured": true
+   }
+  },
+  {
+   "code": "ch1_s3",
+   "name": "한산도, 학의 날개",
+   "map": "pk_19_lake_loop",
+   "enemy_preset": "e_ch1_s3",
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "recommended_level": 3,
+   "enemy_level": 3,
+   "enemy_level_offset": 3,
+   "effective_enemy_level": 6,
+   "reward_exp": 170,
+   "reward_user_exp": 110,
+   "reward_gold": 240,
+   "prerequisite": "ch1_s2",
+   "difficulty": 3,
+   "sort_order": 103,
+   "enemy_extra_troops": [
+    "archer"
+   ],
+   "enemy_deploy_note": "우측(b) 호수 동안(東岸) 집결, 궁 2기는 후열(호수 순환로로 우회 유도)",
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "join_hero": [],
+   "guest_heroes": [],
+   "boss": false,
+   "simulation": {
+    "s1_s3_proxy_measured": true
+   }
+  },
+  {
+   "code": "ch1_s4",
+   "name": "진주성의 엿새",
+   "map": "pk_06_fortress_siege",
+   "enemy_preset": "e_ch1_s4",
+   "objective": {
+    "type": "survive_turns",
+    "turns": 8
+   },
+   "recommended_level": 4,
+   "enemy_level": 4,
+   "enemy_level_offset": 4,
+   "effective_enemy_level": 8,
+   "reward_exp": 260,
+   "reward_user_exp": 170,
+   "reward_gold": 360,
+   "prerequisite": "ch1_s3",
+   "difficulty": 4,
+   "sort_order": 104,
+   "enemy_extra_troops": [
+    "sword",
+    "sword",
+    "sword"
+   ],
+   "enemy_deploy_note": "우측(b) 동쪽 평원에서 성문(열 9~10, 행 7~8) 방향 일제 진군",
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "commander_hp_pct_min",
+     "value": 50
+    }
+   ],
+   "join_hero": [],
+   "guest_heroes": [
+    {
+     "hero_code": "kim_si_min",
+     "csv_id": 145
+    }
+   ],
+   "boss": false,
+   "simulation": {
+    "s1_s3_proxy_measured": false
+   }
+  },
+  {
+   "code": "ch1_s5",
+   "name": "평양성 탈환",
+   "map": "pk_18_wall_breach",
+   "enemy_preset": "e_ch1_s5",
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "recommended_level": 5,
+   "enemy_level": 5,
+   "enemy_level_offset": 10,
+   "effective_enemy_level": 15,
+   "reward_exp": 380,
+   "reward_user_exp": 250,
+   "reward_gold": 510,
+   "prerequisite": "ch1_s4",
+   "difficulty": 5,
+   "sort_order": 105,
+   "enemy_extra_troops": [
+    "spear",
+    "spear"
+   ],
+   "enemy_deploy_note": "우측(b) 성벽 안쪽(성 타일 지휘관, 열 18 이후) 수비, 궁 2기는 성문 후방",
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    }
+   ],
+   "join_hero": [],
+   "guest_heroes": [
+    {
+     "hero_code": "hyujeong",
+     "csv_id": 148
+    },
+    {
+     "hero_code": "yujeong",
+     "csv_id": 149
+    }
+   ],
+   "boss": false,
+   "simulation": {
+    "s1_s3_proxy_measured": false
+   },
+   "alt_map": "pk_12_central_keep"
+  },
+  {
+   "code": "ch1_s6",
+   "name": "행주산성",
+   "map": "pk_06_fortress_siege",
+   "enemy_preset": "e_ch1_s6",
+   "objective": {
+    "type": "survive_turns",
+    "turns": 10
+   },
+   "recommended_level": 6,
+   "enemy_level": 6,
+   "enemy_level_offset": 0,
+   "effective_enemy_level": 6,
+   "reward_exp": 430,
+   "reward_user_exp": 290,
+   "reward_gold": 510,
+   "prerequisite": "ch1_s5",
+   "difficulty": 4,
+   "sort_order": 106,
+   "enemy_extra_troops": [
+    "archer"
+   ],
+   "enemy_deploy_note": "우측(b) 동쪽 평원 원거리 중심, 성문 앞 사거리 접근(s4 근접 중심과 대비)",
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "commander_hp_pct_min",
+     "value": 50
+    }
+   ],
+   "join_hero": [],
+   "guest_heroes": [
+    {
+     "hero_code": "gwon_yul",
+     "csv_id": 143
+    }
+   ],
+   "boss": false,
+   "simulation": {
+    "s1_s3_proxy_measured": false
+   }
+  },
+  {
+   "code": "ch1_s7",
+   "name": "노량, 마지막 바다",
+   "map": "pk_10_coast_isles",
+   "enemy_preset": "e_ch1_s7",
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "recommended_level": 7,
+   "enemy_level": 8,
+   "enemy_level_offset": 2,
+   "effective_enemy_level": 10,
+   "reward_exp": 620,
+   "reward_user_exp": 420,
+   "reward_gold": 780,
+   "prerequisite": "ch1_s6",
+   "difficulty": 6,
+   "sort_order": 107,
+   "enemy_extra_troops": [
+    "sword",
+    "sword",
+    "sword",
+    "sword",
+    "sword"
+   ],
+   "enemy_deploy_note": "우측(b) 해협 건너편 섬·해안 통로 양쪽(다리2·여울2 경유)에 분산, 지휘관은 후열",
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "join_hero": [],
+   "guest_heroes": [],
+   "boss": true,
+   "simulation": {
+    "s1_s3_proxy_measured": false
+   },
+   "alt_map": "pk_20_grand_mixed"
+  }
+ ]
+}

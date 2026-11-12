@@ -1,0 +1,1482 @@
+{
+ "_note": "[임밸런 / 초안] ch21 레그니차(1241) 기록 s1(필수)+s2(선택). 수치는 시작값(needs tuning). 설계 근거는 임밸런 보고(2026-11-03)와 docs/SCENARIO_CH21_CH22_DESIGN.md. 시드 미적재(박백엔: game:seed-ch18 은 ch18 전용이라 일반화 필요). 대사 본문은 초안, 송서사가 교체.",
+ "version": 1,
+ "chapter": 21,
+ "shelf_code": "ch21",
+ "status": "draft",
+ "schema": "stages_ch18_mongol.json 과 같은 구조(stages 행 필드 + enemy_squads/triggers/units_flat_initial + rules{factions,ally_npcs,enemy_commander,cues,sub_objectives}). EnemyV3Adapter::convert 입력.",
+ "maps_used": {
+  "pk_20_grand_mixed": {
+   "id_dev": 168,
+   "size": [
+    28,
+    20
+   ]
+  },
+  "pk_15_village_war": {
+   "id_dev": 161,
+   "size": [
+    28,
+    20
+   ]
+  }
+ },
+ "verify_events": [
+  "오르다 참전 여부(미사용)",
+  "튜턴 기사단 분견대 참전(익명 처리)",
+  "헨리크 2세 출생연도/최후(연출 안 함)",
+  "거짓 후퇴-연막-포위 순서(사료 간 불일치)",
+  "모히 투석기 사용",
+  "바츨라프 선발대 투입(각색)"
+ ],
+ "items": [
+  {
+   "code": "ch21_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국 서정군(폴란드 갈래)",
+     "enemy": "실레지아·폴란드 연합군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_baidar",
+      "x": 7,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_kadan",
+      "x": 7,
+      "y": 14,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_buri",
+      "x": 6,
+      "y": 10,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "헨리크 2세 진영 총대장",
+     "hero": "npc_henry_ii_pious"
+    },
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1241년 4월 9일, 레그니차 남동쪽 들판. 낮게 깔린 아침 안개 속에서 말 숨소리와 마구 부딪는 소리가 먼저 들린다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_baidar",
+      "text": "할 일은 하나입니다. 저들을 합치게 두지 않는 것. 순서는 지킵니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_kadan",
+      "text": "내 깃발이 앞이다. 뒤에서 꾸물대지 마라.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "앞줄과 보병 사이, 계속 재겠습니다. 벌어지면 바로 말씀드립니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "hero:npc_kadan",
+      "text": "깃발을 돌린다. 서기, 이번엔 틀리게 쓰지 마라.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "hero:npc_baidar",
+      "text": "조금만 더 끌어들입니다. 연기가 완전히 서야 돌아섭니다. 그때까진 앞줄만 끌어냅니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "선봉 기병이 따라옵니다. 보병과 벌어지고 있습니다. 지금까지는 계획대로입니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "sfx",
+      "key": "sfx_move_step"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       25,
+       9
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "활 두 번 거리! 앞줄이 보병을 두고 나갑니다. 아직 더 벌어집니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "hero:npc_baidar",
+      "text": "더 따라오게 두십시오. 호각보다 연기를 먼저 봅니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        21,
+        12
+       ],
+       [
+        22,
+        12
+       ],
+       [
+        21,
+        13
+       ],
+       [
+        22,
+        13
+       ],
+       [
+        23,
+        13
+       ]
+      ],
+      "turns": 2
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "sfx",
+      "key": "sfx_battle_rumble"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "hero:npc_kadan",
+      "text": "연기다! 지금 돈다. 돌아라!",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "hero:npc_baidar",
+      "text": "연기 속에선 저들이 우리 수를 못 셉니다. 좌우로 돌아 앞줄 기병만 칩니다. 보병이 닿기 전에 끝냅니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       28,
+       12
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "이름 모를 기사단 분견대장이 쉰 목소리로 대형을 지키라고 외친다. 갑옷이 한꺼번에 부딪는 소리가 난다."
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "hero:npc_henry_ii_pious",
+      "text": "보헤미아 왕이 오기까지 하루요! 그 하루를 저들 손에 줄 수는 없소. 대열을 지켜라!",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "shake",
+      "power": 2,
+      "ms": 300
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "북쪽에서 먼지가 올라옵니다. 오는 쪽이 있습니다. 곧 보입니다.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "say",
+      "speaker": "hero:npc_baidar",
+      "text": "선발이 먼저 닿았습니다. 본대는 하루 거리라던 정찰 그대로군요. 오래 못 끕니다.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       24,
+       5
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "sfx",
+      "key": "sfx_battle_roar"
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "북쪽에서 보헤미아 선발대가 나타났다. 뒤따르는 본대는 아직 하루 거리 밖이다."
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "camera",
+      "mode": "restore"
+     }
+    ]
+   },
+   "name": "레그니차의 연기",
+   "year_label": "1241년",
+   "chapter": 21,
+   "shelf_code": "ch21",
+   "map": "su_pk20_grand_mixed_eu",
+   "map_id_dev": 168,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 16,
+   "difficulty": 7,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_baidar",
+     "npc_kadan",
+     "npc_buri"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(아군 NPC, rules.ally_npcs). 측정은 npc_refill: 파티 3영웅(주인공+일반 영웅 2) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_baidar"
+    },
+    {
+     "hero_code": "npc_kadan"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_henry_ii_pious",
+      "display_name_ko": "헨리크 2세",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       28,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       28,
+       11
+      ],
+      [
+       28,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "기사단 중장기병"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_wenceslas_i_bohemia",
+      "display_name_ko": "바츨라프 1세",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       9
+      ],
+      [
+       25,
+       9
+      ],
+      [
+       26,
+       8
+      ],
+      [
+       26,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "폴란드 기사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "볼레슬라프(데폴트의 아들) 창병대장",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       15
+      ],
+      [
+       25,
+       15
+      ],
+      [
+       26,
+       16
+      ],
+      [
+       25,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "오폴레 창병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "모라비아 석궁대장",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       29,
+       9
+      ],
+      [
+       29,
+       8
+      ],
+      [
+       30,
+       9
+      ],
+      [
+       30,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "석궁병"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 16,
+   "enemy_units_peak": 20,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 7
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "보헤미아 선발대 기병대장(바츨라프 휘하)",
+       "evidence_level": "accepted",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "spawn_cell": [
+       24,
+       3
+      ],
+      "soldier_display_name_ko": "보헤미아 기병"
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      28,
+      12
+     ],
+     "ref": "npc_henry_ii_pious",
+     "kind": "npc",
+     "name": "헨리크 2세"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      26,
+      9
+     ],
+     "ref": "npc_wenceslas_i_bohemia",
+     "kind": "npc",
+     "name": "바츨라프 1세"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      26,
+      15
+     ],
+     "name": "볼레슬라프(데폴트의 아들) 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      29,
+      9
+     ],
+     "name": "모라비아 석궁대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      29,
+      8
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      30,
+      9
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      30,
+      8
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1270,
+    "exp": 1842,
+    "gold": 1651,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 24
+    }
+   ],
+   "win_rate_band_target_pct": "55~80 (목표 중앙 약 72)",
+   "sort_order": 2104,
+   "prerequisite": "ch21_s2",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "레그니차 1241-04-09는 confirmed. 몽골 지휘관 바이다르·카단은 accepted(참전), 오르다 참전은 verify라 사용하지 않음. 병력 수치는 사료 폭이 너무 커서 게임 비율과 연결하지 않는다.",
+    "튜턴 기사단 분견대 참전은 verify, 포포 폰 오스터나 전사설은 false라 인명 미사용(분견대장은 익명). 헨리크 2세의 최후(효수 일화)는 연출하지 않는다.",
+    "바츨라프 1세 선발대 증원은 \"하루 거리 접근, 패전 소식에 후퇴\"(accepted)를 시간 압박으로 번안한 각색(what_if).",
+    "거짓 후퇴는 엔진 AI가 advance 폴백이라 플레이어가 직접 수행하는 해법으로 열어 두었고, 적 기병(move 6)과 보병(move 3~4)의 속도 차로 분리가 자연 발생한다. 연막은 fire cue(시각 전용).",
+    "유럽 장수 확장(사용자 지시 2026-11-03): 술리스와프·볼레슬라프는 NPC 행 없이 제네릭 부대장 라벨(이름만 표기). 바츨라프 1세는 턴 7 보헤미아 선발대의 라벨(전장 이름표 유닛 아님, npc_wenceslas_i_bohemia 행은 정보/대사용). 병력 수치·효수·최후 연출 금지 유지."
+   ],
+   "cue_text_status": "writer_final (송서사 2026-11-03: say/caption 본문과 expr 일부만 교체, 타이밍·좌표·unit·spawn·fire·retreat 불변). 사료 근거는 사건 골격에만 있고 대사는 전부 창작(is_invented).",
+   "measured": {
+    "win_pct": 68,
+    "ci95": [
+     61.2,
+     74.1
+    ],
+    "n": 200,
+    "seeds": [
+     81,
+     82
+    ],
+    "avg_rounds": 13,
+    "turn_limit_pct": 3.5,
+    "sim": "h21 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning)",
+    "note": "유럽 장수 라벨 반영(제네릭 부대장명) 후 재측정. commander_guard 이후 라운드가 길어져 turn_within 별 조건을 24로 완화."
+   },
+   "adapted_note": "중장기병(기사단)=heavy, 폴란드·크라쿠프 기사=cavalry, 석궁=archer로 각색. 연막은 시야 제한 없는 연출. 시오리 대사는 송서사 담당.",
+   "engine_requests": [
+    "E-1 연막 시야 제한(미구현, fire cue 시각 전용)",
+    "E-2 거짓 후퇴 성공 판정 분기(적 기병과 보병 간격 조건; EventConditions에 거리 조건 없음)",
+    "E-3 헨리크 격파 직후 정지+시오리 한 줄(목표 달성 훅 미구현)"
+   ],
+   "design_notes": [
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_wenceslas_i_bohemia(convert_B). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 아군 NPC 분산] npc_buri 를 ch21_s5 에서 이동 배치 [6,10].",
+    "[2026-11-04 보정3회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -4->-1, 일반 부대 병사/부대 0기 축소(초기 16->16), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.2->1.2. 시작값/needs tuning."
+   ]
+  },
+  {
+   "code": "ch21_s5",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국 서정군(본대)",
+     "enemy": "헝가리 왕국군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_batu",
+      "x": 7,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_shiban",
+      "x": 6,
+      "y": 10,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_berke",
+      "x": 7,
+      "y": 10,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "헝가리 진지 총대장"
+    },
+    "cues": [
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "overview",
+      "ms": 800
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "1241년 4월 11일 새벽, 사요강. 강안 너머로 마차를 둘러친 진지의 윤곽이 보이고, 다리 건너에서 말 우는 소리가 들린다."
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "hero:npc_batu",
+      "text": "정면은 내가 맡는다. 수부타이가 옆에 닿을 때까지 저들 눈을 여기 붙들어라.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "수부타이 장군이 남쪽에서 건널 곳을 낸다고 들었습니다. 그때까지 진지 한가운데를 잡고 버티겠습니다.",
+      "expr": "neutral"
+     },
+     {
+      "on": {
+       "battle_start": true
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "sfx",
+      "key": "sfx_battle_rumble"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "shake",
+      "power": 2,
+      "ms": 300
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "투석기가 다리 건너편을 두드린다. 돌이 떨어질 때마다 마차 널빤지가 울린다."
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       16,
+       15
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "say",
+      "speaker": "protagonist",
+      "text": "남쪽 건널목에서 말발굽 소리가 납니다. 저들은 아직 앞만 봅니다.",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_subutai",
+      "tile": [
+       15,
+       16
+      ],
+      "tag": "ford_flank",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "camera",
+      "mode": "focus",
+      "tile": [
+       15,
+       16
+      ],
+      "ms": 600
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "say",
+      "speaker": "hero:npc_subutai",
+      "text": "도하는 끝났습니다. 앞만 보던 진지의 옆구리를 칩니다. 지금입니다!",
+      "expr": "serious"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "sfx",
+      "key": "sfx_battle_roar"
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "camera",
+      "mode": "restore"
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "마차 진지 안쪽에서 나팔이 울린다. 헝가리 기사들이 서둘러 말에 오른다."
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "sfx",
+      "key": "sfx_turn_enemy"
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "say",
+      "speaker": "caption",
+      "text": "진지 중앙을 잡는 쪽이 이 강가의 길을 쥔다. 시간이 많지 않다."
+     }
+    ]
+   },
+   "name": "사요강의 새벽",
+   "year_label": "1241년",
+   "chapter": 21,
+   "shelf_code": "ch21",
+   "map": "su_pk15_village_war_eu",
+   "map_id_dev": 161,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      24,
+      12
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": 3,
+   "effective_enemy_level": 21,
+   "difficulty": 8,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_batu",
+     "npc_shiban",
+     "npc_berke"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(아군 NPC, rules.ally_npcs). 측정은 npc_refill: 파티 3영웅(주인공+일반 영웅 2) + 아군 NPC 단독 유닛"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_batu"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ugrin_csak",
+      "display_name_ko": "우그린 차크",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.4
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       26,
+       11
+      ],
+      [
+       26,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "헝가리 중장기병"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_coloman_hungary",
+      "display_name_ko": "콜로만",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       24,
+       8
+      ],
+      [
+       23,
+       8
+      ],
+      [
+       24,
+       7
+      ],
+      [
+       25,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "헝가리 기병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다리 수비대장",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       8
+      ],
+      [
+       22,
+       8
+      ],
+      [
+       21,
+       9
+      ],
+      [
+       22,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "다리 수비병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "마차 진지 석궁대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       9
+      ],
+      [
+       27,
+       9
+      ],
+      [
+       26,
+       10
+      ],
+      [
+       28,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "석궁병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "렘발드 드 보송(헝가리 템플기사단장) 보병대장",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       14
+      ],
+      [
+       26,
+       14
+      ],
+      [
+       25,
+       15
+      ],
+      [
+       26,
+       15
+      ]
+     ],
+     "hold_until_turn": 4,
+     "soldier_display_name_ko": "야영지 보병"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 20,
+   "enemy_units_peak": 24,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 6
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "헝가리 후속 기병대장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "spawn_cell": [
+       30,
+       12
+      ],
+      "soldier_display_name_ko": "헝가리 기병"
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      26,
+      12
+     ],
+     "ref": "npc_ugrin_csak",
+     "kind": "npc",
+     "name": "우그린 차크"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      24,
+      8
+     ],
+     "ref": "npc_coloman_hungary",
+     "kind": "npc",
+     "name": "콜로만"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      23,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      7
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      8
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      21,
+      8
+     ],
+     "name": "다리 수비대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      8
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      9
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      25,
+      9
+     ],
+     "name": "마차 진지 석궁대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      9
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      28,
+      10
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      14
+     ],
+     "name": "렘발드 드 보송(헝가리 템플기사단장) 보병대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      14
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      15
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      15
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1370,
+    "exp": 1986,
+    "gold": 1781,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch18 규칙 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 16
+    }
+   ],
+   "win_rate_band_target_pct": "55~80 (목표 중앙 약 68)",
+   "sort_order": 2105,
+   "prerequisite": "ch21_s4",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "모히 전투 1241-04-11과 몽골 측 다리 돌파·상류 우회 도하는 accepted(전개 세부 verify). 투석기 사용은 verify.",
+    "벨러 4세는 전장에서 탈출했다고 전해지므로 이름을 쓰지 않고 일반 지휘관 표기(총대장 격파는 진지 붕괴의 번안이며 인물의 최후를 서술하지 않음).",
+    "레그니차(s1) 이틀 뒤 일정은 수부타이 전갈 시간표(accepted)와 연결. 야영지 보병 지연 투입(hold_until_turn)은 \"새벽 기습\" 각색.",
+    "유럽 장수 확장(사용자 지시 2026-11-03): 우그린 차크(npc_ugrin_csak, heavy)=총대장 부대 지휘관 NPC 행 사용(npc_roster_shelf_ch21_europe.json). 콜로만·렘발드 드 보송은 제네릭 부대장 라벨. 벨라 4세는 이름 미사용 유지."
+   ],
+   "cue_text_status": "writer_final (송서사 2026-11-03: say/caption 본문과 expr 일부만 교체, 타이밍·좌표·unit·spawn·fire·retreat 불변). 사료 근거는 사건 골격에만 있고 대사는 전부 창작(is_invented).",
+   "measured": {
+    "win_pct": 62,
+    "ci95": [
+     57.2,
+     66.6
+    ],
+    "n": 400,
+    "seeds": [
+     81,
+     82,
+     83,
+     84
+    ],
+    "avg_rounds": 10.1,
+    "turn_limit_pct": 0,
+    "sim": "h21 하네스(BattleService 경로 모사, 양측 HeuristicBot, 플레이어 선공, 플레이어 병종 기본 액티브 스킬 적용), 2026-11-03 최종 임밸런 재측정: 지휘관 보호 AI cg_pct=12 엔진, 시작값(needs tuning)",
+    "note": "최종 재측정(2026-11-03): 적 레벨 오프셋 -3 -> -2 (79% -> 66%, 시드 83/84 포함 n=400 합산 62%). 승률은 봇 기준이며 사람 승률과 다르다."
+   },
+   "adapted_note": "마차 진지 점령=capture(마을 타일 (20,9) 점유 유지). 수부타이는 cue spawn(턴 4, 남쪽 다리 (11,13))으로 합류. 투석기는 별도 병종 없이 연출만.",
+   "engine_requests": [
+    "E-4 승패 시 map.meta.objective_points 와 별도로 stage objective.points 직접 지정 사용 중(ch18_s5 선례)"
+   ],
+   "design_notes": [
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_shiban(ally_npcs), npc_berke(ally_npcs), npc_buri(cue_a_t2). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 아군 NPC 분산] npc_buri 를 ch21_s4 로 이동(한 스테이지 신규 아군 NPC 2명 이하 원칙).",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_coloman_hungary(convert_B). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정3회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -2->1, 일반 부대 병사/부대 0기 축소(초기 20->20), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.4->1.4. 시작값/needs tuning.",
+    "[2026-11-04 보정6회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset 1->3, 일반 부대 병사/부대 0기 축소(초기 20->20), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.4->1.4. 시작값/needs tuning."
+   ]
+  }
+ ]
+}

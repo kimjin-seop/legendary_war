@@ -1,0 +1,3749 @@
+{
+ "schema_note": "문기획의 '전투 이벤트 시스템' 보고서는 database/data 아래에서 찾지 못했고(md 검색 결과 없음, app/ 및 resources/js에도 이벤트 훅 코드 없음) ID 규칙(ch1_sN_eNN)은 SCENARIO_02 부록 A를 따랐다. 아래 스키마는 송서사가 부록 A와 요청서의 trigger/policy/priority/requires/cast/scene/effects/choice/end/next에 맞춰 제안한 초안이며 문기획 스키마와 필드명이 다르면 문기획 기준으로 매핑한다. 필드: trigger{type,timing,text,조건 파라미터}, policy{input(locked|free),repeat_battle(full|short|skip)} + defaults(once,skippable,multiplayer), priority(클수록 먼저), requires, cast(화자 id), scene{camera,motion,fx,sound,cutscene}, dialogue[{speaker,expr,text,is_invented,verify(생략=false)}], effects[{type,desc,...}], choice(null 또는 정의), end{type,resume}, next(이벤트 id 또는 scene:<장면 id>), short(반복 전투용 28자 이내 한 줄), engine_support, fallback. speaker: shiori, protagonist, hero:<CSV id>(142 이순신, 144 곽재우, 145 김시민, 148 휴정, 149 유정), caption(대사 대신 쓰는 캡션; 일본·적군 대사 금지). 병력은 N/10(tenths). tile_tag는 맵 데이터와 매핑이 필요한 자리표시(좌표 확인 필요). 소리 키는 제안. 수치는 TBD(임밸런). 영웅 대사는 모두 창작 대사(is_invented=true)이며 실제 발언이 아니다. 엔진 지원 수준은 코드 확인 없이 송서사가 제안한 분류다. 전투 장면 상세(전장 상황·연출)는 BATTLE_EVENTS_CH1-5.md 참조.",
+ "version": 1,
+ "status": "draft_v1",
+ "author": "송서사",
+ "date": "2026-11-01",
+ "defaults": {
+  "once": true,
+  "skippable": true,
+  "multiplayer": false,
+  "bark_max_chars": 28
+ },
+ "enums": {
+  "engine_support": {
+   "MVP 지원": "대사·턴/HP/전투 종료 트리거·목표 표시·AI 모드 전환",
+   "2단계": "타일 진입·거리·인접 트리거, 증원 스폰, 버프, 선택 UI, 컷신 이미지",
+   "3단계": "지형 변화, 날씨·조명",
+   "미지원": "은신 등(이번 대본 미사용)"
+  },
+  "type": {
+   "A": "턴 진행",
+   "B": "특정 유닛 행동",
+   "C": "전장 상황 변화",
+   "D": "선택형(s5·s8·s10 한정)",
+   "E": "캐릭터 간 특수 대화"
+  },
+  "section": {
+   "3": "시작 이벤트",
+   "5": "특정 유닛 행동",
+   "6": "상황 변화",
+   "7": "인물 간 전투 대사",
+   "8": "적 지휘관 대치",
+   "10": "종료·승리"
+  },
+  "timing": [
+   "battle_start",
+   "player_phase_start",
+   "enemy_phase_start",
+   "after_action",
+   "battle_end"
+  ],
+  "evidence_level": [
+   "confirmed",
+   "accepted",
+   "verify",
+   "n/a"
+  ]
+ },
+ "sources": {
+  "LIST": "https://en.wikipedia.org/wiki/List_of_naval_battles_during_the_Imjin_War",
+  "YI": "https://en.wikipedia.org/wiki/Yi_Sun-sin",
+  "JINJU": "https://en.wikipedia.org/wiki/Siege_of_Jinju_(1592)",
+  "PYONGYANG": "https://en.wikipedia.org/wiki/Siege_of_Pyongyang_(1593)",
+  "GWAK": "https://www.seoul.co.kr/news/2022/02/28/20220228023002 ; https://encykorea.aks.ac.kr/Article/E0004695",
+  "REL0018": "hero_relations.json rel_0018 ; https://www.ktriptips.com/kor/tourspot/250301 ; https://news.seoul.go.kr/culture/archives/76283",
+  "NA": "창작 연출, 사실 주장 없음",
+  "_note": "모든 출처는 기존 outline·설정집이 인용한 것이며 이번 세션에서 새로 열람하지 않았다(확인 필요)."
+ },
+ "cutscenes": [
+  {
+   "stage": "ch1_s1",
+   "attached_event": "ch1_s1_e04",
+   "frames": [
+    {
+     "key": "cutscene.ch1_s1.1.a",
+     "desc": "새벽 안개 낀 바다. 서쪽 항구를 등진 아군 함선 대열과 맞은편 적선 실루엣(얼굴 없음)",
+     "asset": "IL-07 재사용 여부는 안아트 확인(평원 시안이면 신규 필요)"
+    }
+   ],
+   "fallback": "맵 전경 + 안개 오버레이(코드)"
+  },
+  {
+   "stage": "ch1_s2",
+   "attached_event": "ch1_s2_e05",
+   "frames": [
+    {
+     "key": "cutscene.ch1_s2.1.a",
+     "desc": "여울 옆 숲 가장자리에서 걸어 나오는 의병 실루엣, 아침 안개",
+     "asset": "신규 IL-10(선택, 호출 예산 밖, 승인 필요)"
+    }
+   ],
+   "fallback": "나뭇잎 파티클 + 초상화 컷인(코드)"
+  },
+  {
+   "stage": "ch1_s3",
+   "attached_event": "ch1_s3_e04",
+   "frames": [
+    {
+     "key": "cutscene.ch1_s3.1.a",
+     "desc": "넓은 바다 한가운데를 향해 양쪽으로 펼쳐지는 아군 함선 날개 하이앵글, 가운데 섬 실루엣",
+     "asset": "IL-08 재사용 여부는 안아트 확인(호수 시안이면 신규 필요)"
+    },
+    {
+     "key": "cutscene.ch1_s3.1.b",
+     "desc": "양 날개가 가운데로 좁혀지는 구도(같은 시트 크롭)",
+     "asset": "IL-08 크롭(호출 0)"
+    }
+   ],
+   "fallback": "날개형 라인 오버레이(코드)"
+  },
+  {
+   "stage": "ch1_s4",
+   "attached_event": "ch1_s4_e05",
+   "frames": [
+    {
+     "key": "cutscene.ch1_s4.1.a",
+     "desc": "성벽 위에서 성 밖 북쪽을 보는 실루엣, 먼 곳의 신호 연기. 부상·유혈·병력 수치 금지",
+     "asset": "IL-09 재사용(선택)"
+    },
+    {
+     "key": "cutscene.ch1_s4.1.b",
+     "desc": "성 밖 북쪽에 나타나는 의병 군기 색(IL-09 크롭)",
+     "asset": "IL-09 크롭(호출 0)"
+    }
+   ],
+   "fallback": "신호 연기 파티클 + 스폰 하이라이트(코드)"
+  },
+  {
+   "stage": "ch1_s5",
+   "attached_event": "ch1_s5_e03",
+   "frames": [
+    {
+     "key": "cutscene.ch1_s5.1.a",
+     "desc": "겨울 성벽 전경, 포연이 오르는 성문 앞. 해자 없음. 인물 얼굴 없음",
+     "asset": "신규 IL-11(선택, 호출 예산 밖, 승인 필요)"
+    },
+    {
+     "key": "cutscene.ch1_s5.1.b",
+     "desc": "균열이 간 성문이 열리는 클로즈업(같은 시트 크롭)",
+     "asset": "IL-11 크롭(호출 0)"
+    }
+   ],
+   "fallback": "화면 흔들림 + 먼지 파티클 + 타일 전환 이펙트(코드)"
+  }
+ ],
+ "stages": [
+  {
+   "stage": "ch1_s1",
+   "chapter": 1,
+   "title": "옥포의 첫 승전",
+   "map": "im_01_okpo",
+   "events": [
+    {
+     "id": "ch1_s1_e04",
+     "name": "옥포 개전",
+     "seq": 1,
+     "section": 3,
+     "type": "A",
+     "trigger": {
+      "type": "battle_start",
+      "timing": "battle_start",
+      "text": "전투 시작 직후(1턴 아군 페이즈 시작 전)"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 100,
+     "requires": {},
+     "cast": [
+      "hero:142",
+      "hero:144",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "적 진영 전경에서 아군 진영으로 팬(2초)",
+       "이순신 클로즈업(1초)"
+      ],
+      "motion": [
+       "유닛 idle 호흡",
+       "적 군기 펄럭임"
+      ],
+      "fx": [
+       "안개 스크롤",
+       "목표 배너"
+      ],
+      "sound": [
+       "bgm.battle_ch1_s1",
+       "sfx.drum_low",
+       "sfx.waves_far"
+      ],
+      "cutscene": [
+       "cutscene.ch1_s1.1.a"
+      ]
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "1592년 음력 5월 7일, 거제 옥포. 임진왜란에서 조선 수군이 처음 승리를 거둔 전투로 꼽힌다. 서쪽 항구에서 출진한 수군이 앞바다로 나선다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "군사들은 모두 배에 올랐다. 물 위에서는 한 번에 멀리 나아갈 수 없다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "맞은편 일본 수군의 지휘는 도도 다카토라가 맡았다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "npc_jp_todo_takatora",
+       "expr": "serious",
+       "text": "포구 앞에서 밀리지 마라. 조총부터 들고 대열을 붙여라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_okpo_lieutenant",
+       "expr": "neutral",
+       "text": "예. 저쪽 대열이 단단합니다. 서두르면 우리가 먼저 흐트러집니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "각자의 위치를 지키시오. 신호 전에는 움직이지 마시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "뭍의 사람이 배에 오르게 되었구려. 서고다운 일이오. 해 보겠소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "먼저 대열부터 보겠습니다. 시작하겠습니다.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "set_objective",
+       "desc": "초기 목표 활성화: 적 지휘관 격파",
+       "objective": "defeat_commander"
+      },
+      {
+       "type": "unlock_input",
+       "desc": "아군 전원 행동 가능"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "1턴 아군 페이즈 시작, 입력 가능"
+     },
+     "next": [
+      "ch1_s1_e01"
+     ],
+     "short": "옥포 개전. 대열부터 갖추자.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "accepted",
+     "source": [
+      "LIST"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "대사만 재생(컷신 생략)"
+    },
+    {
+     "id": "ch1_s1_e01",
+     "name": "측면을 돌아오는 적",
+     "seq": 2,
+     "section": 6,
+     "type": "A",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "enemy_phase_start",
+      "text": "3턴째 적군 페이즈 시작 시",
+      "turn": 3,
+      "phase": "enemy"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 60,
+     "requires": {},
+     "cast": [
+      "shiori",
+      "protagonist",
+      "hero:142",
+      "hero:144"
+     ],
+     "scene": {
+      "camera": [
+       "적 별동 유닛 줌인(1.5초)",
+       "측면 경로 팬",
+       "아군 우측 타일 강조 후 복귀"
+      ],
+      "motion": [
+       "별동 유닛 이동"
+      ],
+      "fx": [
+       "이동 경로 점선",
+       "대상 타일 붉은 테두리"
+      ],
+      "sound": [
+       "sfx.march_low",
+       "sfx.horn_short"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "shiori",
+       "expr": "serious",
+       "text": "지휘관님, 적 일부가 측면으로 돌아옵니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "앞줄만 보고 있었네요. 측면이 비어 있어요.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "보았다면 그것이 첫걸음이오. 어디를 메우겠소?",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "곽재우 장군님, 오른쪽을 맡아 주실 수 있을까요?",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "맡겨 주시오. 오는 것에는 맞서는 법이오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "enemy_ai",
+       "desc": "적 별동 유닛 1기 AI를 '측면 접근'으로 전환",
+       "unit_tag": "enemy_flank_1",
+       "mode": "flank"
+      },
+      {
+       "type": "highlight_tiles",
+       "desc": "접근 대상 타일 표시",
+       "tag": "our_right_flank"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "3턴 적군 페이즈 이동 계속"
+     },
+     "next": [
+      "ch1_s1_e07"
+     ],
+     "short": "적 일부가 측면으로 돌아온다.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "AI 전환 없이 대사·경로 강조만",
+     "note": "기존 S1-B '적 기병'은 stages v2(적 단일 병종 sword)와 충돌해 '적 일부(별동 유닛)'로 수정"
+    },
+    {
+     "id": "ch1_s1_e07",
+     "name": "두 장군의 첫 호흡",
+     "seq": 3,
+     "section": 7,
+     "type": "E",
+     "trigger": {
+      "type": "units_adjacent",
+      "timing": "after_action",
+      "text": "이순신 유닛과 곽재우 유닛이 처음으로 상하좌우 인접한 직후(행동 종료 시)",
+      "a": "hero:142",
+      "b": "hero:144",
+      "first": true
+     },
+     "policy": {
+      "input": "free",
+      "repeat_battle": "skip"
+     },
+     "priority": 20,
+     "requires": {
+      "party_has_all": [
+       "142",
+       "144"
+      ]
+     },
+     "cast": [
+      "hero:142",
+      "hero:144"
+     ],
+     "scene": {
+      "camera": [
+       "두 영웅 중간 소폭 줌인(0.8초)"
+      ],
+      "motion": [
+       "시선 교환"
+      ],
+      "fx": [],
+      "sound": [
+       "sfx.soft_chime"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "배 위에서도 길은 읽을 수 있구려, 곽재우 장군.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "바다든 뭍이든 먼저 보는 이가 앞서는 법이오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "그렇다면 이쪽은 내가 보겠소. 그쪽을 보시오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음(연출 전용)"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "bubble_end",
+      "resume": "말풍선 3줄 종료 후 즉시 조작 가능"
+     },
+     "next": [],
+     "short": "두 장군이 서로를 맡는다.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "relation_ref": [],
+     "engine_support": "2단계",
+     "fallback": "생략",
+     "note": "hero_relations.json에 이순신-곽재우 관계 항목 없음. 두 사람이 함께 싸운 기록 없음(what_if)"
+    },
+    {
+     "id": "ch1_s1_e02",
+     "name": "붉은 옷은 멀리서도 보이오",
+     "seq": 4,
+     "section": 5,
+     "type": "B",
+     "trigger": {
+      "type": "unit_troop_tenths_lte",
+      "timing": "after_action",
+      "text": "곽재우 영웅 유닛의 병력이 5/10 이하가 되는 최초의 피격 직후",
+      "unit": "hero:144",
+      "tenths": 5,
+      "first": true
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 70,
+     "requires": {},
+     "cast": [
+      "hero:144",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "곽재우 초상화 컷인(코드, 1.2초)"
+      ],
+      "motion": [
+       "피격 후 자세 고정"
+      ],
+      "fx": [
+       "컷인 프레임",
+       "약한 붉은 비네팅"
+      ],
+      "sound": [
+       "sfx.hit_heavy",
+       "sfx.heartbeat_soft"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:144",
+       "expr": "serious",
+       "text": "붉은 옷이 표적이 되었구려. 좋소, 멀리서도 보이는 것이 쓸모 있겠지.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "물러나셔도 됩니다. 제가 앞줄을 한 칸 올리겠습니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "물러서는 건 성미에 안 맞소. 다만 그대가 앞줄을 올려 준다니, 그 말은 믿겠소.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음(연출 전용). 물러남을 강제하지 않는다"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s1_e05"
+     ],
+     "short": "곽재우: 물러서는 건 성미에 안 맞소.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원(영웅 HP 훅 확인 필요)",
+     "fallback": "battle_barks 한 줄"
+    },
+    {
+     "id": "ch1_s1_e05",
+     "name": "마주 선 지휘관",
+     "seq": 5,
+     "section": 8,
+     "type": "B",
+     "trigger": {
+      "type": "unit_distance_lte",
+      "timing": "after_action",
+      "text": "아군 영웅 유닛 중 하나와 적 지휘관 유닛의 맨해튼 거리가 2칸 이하가 되는 최초의 행동 직후",
+      "a": "player_hero_any",
+      "b": "enemy_commander",
+      "distance": 2,
+      "first": true
+     },
+     "policy": {
+      "input": "free",
+      "repeat_battle": "skip"
+     },
+     "priority": 30,
+     "requires": {},
+     "cast": [
+      "hero:142"
+     ],
+     "scene": {
+      "camera": [
+       "두 지휘관 사이 소폭 줌인(1초)"
+      ],
+      "motion": [
+       "적 군기 흔들림"
+      ],
+      "fx": [
+       "대치 빛줄기"
+      ],
+      "sound": [
+       "sfx.wind_flag",
+       "sfx.drum_single"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "마주 선 적 지휘관은 도도 다카토라다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "저쪽이 먼저 움직이게 하시오. 우리는 대열을 지키면 되오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_todo_takatora",
+       "expr": "serious",
+       "text": "저 중군이 본대인가. 눈 떼지 마라.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "bubble_end",
+      "resume": "즉시 조작 가능"
+     },
+     "next": [
+      "ch1_s1_e03"
+     ],
+     "short": "적 지휘관이 눈앞에 선다.",
+     "classification": "각색",
+     "evidence_level": "accepted",
+     "source": [
+      "LIST"
+     ],
+     "engine_support": "2단계",
+     "fallback": "생략"
+    },
+    {
+     "id": "ch1_s1_e03",
+     "name": "마지막이 가장 위태롭소",
+     "seq": 6,
+     "section": 5,
+     "type": "B",
+     "trigger": {
+      "type": "unit_troop_tenths_lte",
+      "timing": "after_action",
+      "text": "적 지휘관 유닛의 병력이 3/10 이하가 되는 최초의 피격 직후",
+      "unit": "enemy_commander",
+      "tenths": 3,
+      "first": true
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 60,
+     "requires": {},
+     "cast": [
+      "hero:142",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "이순신 클로즈업(1초)",
+       "적 지휘관 타일 강조"
+      ],
+      "motion": [
+       "이순신 손짓"
+      ],
+      "fx": [
+       "타일 점멸 테두리"
+      ],
+      "sound": [
+       "sfx.horn_short"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "서두르지 마라. 마지막이 가장 위태로운 법이오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "한 번에 몰아붙이지 않고 하나씩 정리하겠습니다. 이게 맞을까요?",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_todo_takatora",
+       "expr": "regret",
+       "text": "더는 못 버틴다. 남은 배를 모아라. 물러난다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "맞소. 그렇게 하시오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "highlight_unit",
+       "desc": "적 지휘관 유닛 강조",
+       "unit": "enemy_commander"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s1_e06"
+     ],
+     "short": "이순신: 마지막이 가장 위태롭소.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "bark 한 줄"
+    },
+    {
+     "id": "ch1_s1_e06",
+     "name": "옥포의 마무리",
+     "seq": 7,
+     "section": 10,
+     "type": "A",
+     "trigger": {
+      "type": "battle_end",
+      "timing": "battle_end",
+      "text": "승리 조건 달성 직후(결과 화면 이전)",
+      "result": "win"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 90,
+     "requires": {},
+     "cast": [
+      "hero:142"
+     ],
+     "scene": {
+      "camera": [
+       "전장 전체",
+       "이순신 클로즈업",
+       "아군 정렬 컷"
+      ],
+      "motion": [
+       "적 후퇴 페이드",
+       "아군 깃발 올림"
+      ],
+      "fx": [
+       "안개 걷힘"
+      ],
+      "sound": [
+       "bgm.victory_short",
+       "sfx.waves_far"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "옥포 해전은 조선 수군의 첫 승리로 꼽힌다. 적선 다수가 격파되었다고 전한다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "npc_jp_todo_takatora",
+       "expr": "regret",
+       "text": "오늘은 우리가 졌다. 이 물길은 기억해 둔다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "아직 끝이 아니오. 대열을 정리하시오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "end_battle",
+       "desc": "전투 종료, 승리 결과 처리"
+      },
+      {
+       "type": "goto_scene",
+       "desc": "승리 후 장면(S1-E)으로 연결",
+       "scene": "ch1_s1_post"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "auto",
+      "resume": "결과 화면 후 승리 후 장면"
+     },
+     "next": [
+      "scene:ch1_s1_post"
+     ],
+     "short": "옥포 승리. 대열을 정리하자.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "LIST"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "결과 화면 직행"
+    }
+   ]
+  },
+  {
+   "stage": "ch1_s2",
+   "chapter": 2,
+   "title": "정암진 나루",
+   "map": "im_02_jeongamjin",
+   "events": [
+    {
+     "id": "ch1_s2_e04",
+     "name": "내 고장의 강",
+     "seq": 1,
+     "section": 3,
+     "type": "A",
+     "trigger": {
+      "type": "battle_start",
+      "timing": "battle_start",
+      "text": "전투 시작 직후(1턴 아군 페이즈 시작 전)"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 100,
+     "requires": {},
+     "cast": [
+      "hero:144",
+      "protagonist",
+      "hero:142"
+     ],
+     "scene": {
+      "camera": [
+       "건너편 전경에서 모래톱으로 팬",
+       "모래톱 3곳 순차 강조",
+       "곽재우 클로즈업"
+      ],
+      "motion": [
+       "수면 물결 루프"
+      ],
+      "fx": [
+       "아침 안개",
+       "물 반사"
+      ],
+      "sound": [
+       "bgm.battle_ch1_s2",
+       "sfx.river_loop"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "1592년 음력 5월, 의령 정암진. 남강 도하를 막은 곽재우 의병의 싸움이다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "건너편에는 안코쿠지 에케이가 이끄는 일본군이 진을 쳤다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "npc_jp_ankokuji_ekei",
+       "expr": "neutral",
+       "text": "물이 얕아 보인다고 서두르지 마라. 나루부터 살피고 건너라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "serious",
+       "text": "모래톱이 셋이오. 한 곳만 보지 마시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "건널 곳이 세 군데나 되네요. 한 곳만 지킬 수는 없겠어요.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "이 전장의 장수는 곽재우 장군이오. 나는 따르겠소.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "set_objective",
+       "desc": "초기 목표 활성화: 적 지휘관 격파",
+       "objective": "defeat_commander"
+      },
+      {
+       "type": "unlock_input",
+       "desc": "행동 가능"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "1턴 아군 페이즈 시작"
+     },
+     "next": [
+      "ch1_s2_e01"
+     ],
+     "short": "정암진. 모래톱이 셋이다.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "accepted",
+     "source": [
+      "GWAK"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "대사만 재생",
+     "note": "적 지휘관 이름은 verify로 미표기. 이순신 참전은 각색"
+    },
+    {
+     "id": "ch1_s2_e01",
+     "name": "모래톱의 첫 부딪침",
+     "seq": 2,
+     "section": 6,
+     "type": "C",
+     "trigger": {
+      "type": "unit_enter_tile",
+      "timing": "after_action",
+      "text": "적 유닛이 tile_tag=sandbar(모래톱) 타일에 처음 진입한 직후",
+      "side": "enemy",
+      "tile_tag": "sandbar",
+      "first": true
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 60,
+     "requires": {},
+     "cast": [
+      "hero:144",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "모래톱 타일 줌인(1초)"
+      ],
+      "motion": [
+       "적 선두 정지"
+      ],
+      "fx": [
+       "모래톱 타일 노란 테두리"
+      ],
+      "sound": [
+       "sfx.sand_step",
+       "sfx.clash_short"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "왔구려. 모래톱은 얕아도 발이 늦소. 건너오는 순간이 가장 약하오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "건너오는 순간을 노리면 되겠네요. 맞나요?",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "맞소. 그대는 눈이 빠르구려.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "highlight_tiles",
+       "desc": "모래톱 도하점 타일 강조",
+       "tag": "sandbar"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s2_e02"
+     ],
+     "short": "모래톱을 건너는 순간을 노려라.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "2단계(타일 진입 트리거)",
+     "fallback": "2턴째 적군 페이즈 시작 시로 대체"
+    },
+    {
+     "id": "ch1_s2_e02",
+     "name": "보이지 않는 길",
+     "seq": 3,
+     "section": 6,
+     "type": "A",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "enemy_phase_start",
+      "text": "3턴째 적군 페이즈 시작 시",
+      "turn": 3,
+      "phase": "enemy"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 70,
+     "requires": {},
+     "cast": [
+      "shiori",
+      "protagonist",
+      "hero:144",
+      "hero:142"
+     ],
+     "scene": {
+      "camera": [
+       "여울 방향 전경 팬(1.5초)",
+       "적 이동 경로 점선"
+      ],
+      "motion": [
+       "적 일부 방향 전환"
+      ],
+      "fx": [
+       "여울 경로 붉은 점선",
+       "경고 아이콘"
+      ],
+      "sound": [
+       "sfx.horn_short",
+       "sfx.water_splash_soft"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "shiori",
+       "expr": "serious",
+       "text": "다른 모래톱에서 적이 움직입니다. 처음 보인 건너는 곳은 미끼였습니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "모래톱이 셋이니 한 곳에 몰리면 안 되겠네요. 장군님들은 가까운 쪽을 맡아 주세요.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "neutral",
+       "text": "괜찮은지는 그대가 정하시오. 나는 어느 쪽이든 서겠소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "판단을 말하시오. 틀리면 내가 알려 주겠소.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "enemy_ai",
+       "desc": "적 2유닛 AI를 '여울 경로 접근'으로 전환",
+       "unit_tag": "enemy_ford_2",
+       "mode": "ford_route"
+      },
+      {
+       "type": "add_hint",
+       "desc": "서브 목표 힌트: 여울을 지켜라(표시만, 승리 조건 불변)"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "적군 페이즈 이동 계속"
+     },
+     "next": [
+      "ch1_s2_e05"
+     ],
+     "short": "처음 보인 모래톱은 미끼. 다른 길이 열린다.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원(AI 모드 전환 확인 필요)",
+     "fallback": "대사·경로 힌트만 표시",
+     "note": "기존 S2-C의 '다리는 이순신, 여울은 곽재우' 지정 대사는 플레이어 배치와 어긋날 수 있어 수정"
+    },
+    {
+     "id": "ch1_s2_e05",
+     "name": "숲에서 나온 의병",
+     "seq": 4,
+     "section": 6,
+     "type": "C",
+     "trigger": {
+      "type": "units_on_tiles",
+      "timing": "after_action",
+      "text": "ch1_s2_e02 발생 후, 적 유닛 2기 이상이 tile_tag=ford 타일 위에 서 있게 되는 최초의 적군 이동 직후",
+      "after_event": "ch1_s2_e02",
+      "side": "enemy",
+      "tile_tag": "ford",
+      "count": 2,
+      "first": true
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 65,
+     "requires": {
+      "after_event": "ch1_s2_e02"
+     },
+     "cast": [
+      "hero:144",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "숲 가장자리 팬",
+       "의병 등장 컷(0.8초)"
+      ],
+      "motion": [
+       "의병 부대 스폰 모션"
+      ],
+      "fx": [
+       "나뭇잎 파티클",
+       "등장 타일 하이라이트"
+      ],
+      "sound": [
+       "sfx.leaves_rustle",
+       "sfx.drum_single"
+      ],
+      "cutscene": [
+       "cutscene.ch1_s2.1.a"
+      ]
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "곽재우 휘하 의병이 강가 숲에서 모습을 드러낸다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "숲이 숨겨 둔 사람들이 있소. 나오시오!",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "의병 부대가 왔습니다. 제가 배치하겠습니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_ankokuji_ekei",
+       "expr": "serious",
+       "text": "숲에서 사람이 나온다! 대열을 붙여라. 흩어지지 마라.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "spawn_units",
+       "desc": "아군 의병 부대 1개를 tile_tag=forest_side에 증원. 플레이어가 조작, 등장한 턴에는 행동 불가",
+       "side": "player",
+       "count": 1,
+       "unit_type": "sword",
+       "tile_tag": "forest_side",
+       "controllable": true,
+       "acts_on_spawn_turn": false,
+       "hero": false
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개(증원은 다음 아군 페이즈부터 행동)"
+     },
+     "next": [
+      "ch1_s2_e03"
+     ],
+     "short": "숲에서 의병이 나타난다.",
+     "classification": "각색",
+     "evidence_level": "verify",
+     "source": [
+      "GWAK"
+     ],
+     "engine_support": "2단계(증원 스폰). 은신은 미지원",
+     "fallback": "스폰 없이 대사만",
+     "note": "정암진 전승 일화(가짜 곽재우·늪지 표지)는 근거가 약해 미사용. 의병 규모 미표기"
+    },
+    {
+     "id": "ch1_s2_e03",
+     "name": "물러서지 않는 이유",
+     "seq": 5,
+     "section": 5,
+     "type": "B",
+     "trigger": {
+      "type": "unit_troop_tenths_lte",
+      "timing": "after_action",
+      "text": "곽재우 영웅 유닛의 병력이 4/10 이하가 되는 최초의 피격 직후",
+      "unit": "hero:144",
+      "tenths": 4,
+      "first": true
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 70,
+     "requires": {},
+     "cast": [
+      "hero:144",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "곽재우 초상화 컷인(코드, 1.2초)"
+      ],
+      "motion": [
+       "자세 고정"
+      ],
+      "fx": [
+       "컷인 프레임",
+       "약한 붉은 비네팅"
+      ],
+      "sound": [
+       "sfx.heartbeat_soft"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:144",
+       "expr": "serious",
+       "text": "여기서 한 걸음 물러서면 강은 내주는 것이오. 나는 이곳이 고향이오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "알겠습니다. 대신 다친 부대를 뒤로 돌려 숨을 돌리게 하겠습니다. 장군님이 서 있는 동안만 버텨 주세요.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_ankokuji_ekei",
+       "expr": "regret",
+       "text": "길이 막혔다. 한 번 물러나 전열부터 다시 세운다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "그 말이면 충분하오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음(연출 전용). 후퇴를 강제하지 않는다"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s2_e06"
+     ],
+     "short": "곽재우: 이곳이 고향이오.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원(영웅 HP 훅 확인 필요)",
+     "fallback": "bark 한 줄"
+    },
+    {
+     "id": "ch1_s2_e06",
+     "name": "이름 없는 맞은편",
+     "seq": 6,
+     "section": 8,
+     "type": "B",
+     "trigger": {
+      "type": "unit_distance_lte",
+      "timing": "after_action",
+      "text": "곽재우 유닛과 적 지휘관 유닛의 거리가 2칸 이하가 되는 최초의 행동 직후",
+      "a": "hero:144",
+      "b": "enemy_commander",
+      "distance": 2,
+      "first": true
+     },
+     "policy": {
+      "input": "free",
+      "repeat_battle": "skip"
+     },
+     "priority": 30,
+     "requires": {},
+     "cast": [
+      "hero:144"
+     ],
+     "scene": {
+      "camera": [
+       "두 유닛 사이 소폭 줌인(1초)"
+      ],
+      "motion": [
+       "적 지휘관 정지"
+      ],
+      "fx": [
+       "대치 빛줄기"
+      ],
+      "sound": [
+       "sfx.wind_flag"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "맞은편에 선 장수는 안코쿠지 에케이. 외교를 맡던 승려 출신으로, 이 도하를 이끌었다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "serious",
+       "text": "여기서는 한 걸음도 건너오지 못하오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_ankokuji_ekei",
+       "expr": "serious",
+       "text": "강가 숲이 너무 조용하군. 새 소리가 없다.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "bubble_end",
+      "resume": "즉시 조작 가능"
+     },
+     "next": [],
+     "short": "이름 없는 지휘관이 맞은편에 선다.",
+     "classification": "각색",
+     "evidence_level": "verify",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "2단계",
+     "fallback": "생략",
+     "note": "적 지휘관 이름 verify(기존 outline)"
+    },
+    {
+     "id": "ch1_s2_e07",
+     "name": "강은 건너오지 못했다",
+     "seq": 7,
+     "section": 10,
+     "type": "A",
+     "trigger": {
+      "type": "battle_end",
+      "timing": "battle_end",
+      "text": "승리 조건 달성 직후(결과 화면 이전)",
+      "result": "win"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 90,
+     "requires": {},
+     "cast": [
+      "hero:144"
+     ],
+     "scene": {
+      "camera": [
+       "강 전경",
+       "곽재우 클로즈업",
+       "아군 정렬"
+      ],
+      "motion": [
+       "적 후퇴 페이드",
+       "의병 깃발"
+      ],
+      "fx": [
+       "안개 걷힘",
+       "수면 반짝임"
+      ],
+      "sound": [
+       "bgm.victory_short",
+       "sfx.river_loop"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "도하는 저지되었다. 곽재우는 붉은 옷 때문에 홍의장군으로 불렸다고 전한다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "npc_jp_ankokuji_ekei",
+       "expr": "regret",
+       "text": "결국 건너지 못했군. 군을 거두어라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "강은 건너오지 못했소.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "end_battle",
+       "desc": "전투 종료"
+      },
+      {
+       "type": "goto_scene",
+       "desc": "승리 후 장면(S2-E, 책갈피 반응)으로 연결",
+       "scene": "ch1_s2_post"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "auto",
+      "resume": "결과 화면 후 승리 후 장면"
+     },
+     "next": [
+      "scene:ch1_s2_post"
+     ],
+     "short": "정암진 승리. 강은 지켰다.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "accepted",
+     "source": [
+      "GWAK"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "결과 화면 직행"
+    }
+   ]
+  },
+  {
+   "stage": "ch1_s3",
+   "chapter": 3,
+   "title": "한산도, 학의 날개",
+   "map": "im_03_hansando",
+   "events": [
+    {
+     "id": "ch1_s3_e03",
+     "name": "유인의 시작",
+     "seq": 1,
+     "section": 3,
+     "type": "A",
+     "trigger": {
+      "type": "battle_start",
+      "timing": "battle_start",
+      "text": "전투 시작 직후(1턴 아군 페이즈 시작 전)"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 100,
+     "requires": {},
+     "cast": [
+      "hero:142",
+      "hero:144",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "바다 하이앵글 전경(2초)",
+       "유인 경로와 목표 지점 점등",
+       "이순신 클로즈업"
+      ],
+      "motion": [
+       "수면 잔물결"
+      ],
+      "fx": [
+       "유인 경로 점선",
+       "목표 배너"
+      ],
+      "sound": [
+       "bgm.battle_ch1_s3",
+       "sfx.waves_far"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "1592년 음력 7월 8일, 견내량과 한산도 앞바다. 조선 수군은 좁은 견내량의 적을 넓은 바다로 유인한 뒤 학익진으로 맞섰다. 오늘은 넓은 바다 위에서 그 진형을 펼친다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "npc_jp_wakizaka_yasuharu",
+       "expr": "serious",
+       "text": "견내량 물목은 좁다. 이 길은 우리 쪽에 유리하다. 물러나는 배를 놓치지 마라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "미끼는 가볍게, 날개는 넓게 펴시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "neutral",
+       "text": "물길은 모르나, 길을 열어 두는 뜻은 알겠소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "먼저 적을 넓은 바다로 끌어내야 하는군요.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "set_objective",
+       "desc": "초기 목표: 적 지휘관 격파(서브 힌트: 적을 바다 한가운데 유인 지점으로 유인)",
+       "objective": "defeat_commander"
+      },
+      {
+       "type": "unlock_input",
+       "desc": "행동 가능"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "1턴 아군 페이즈 시작"
+     },
+     "next": [
+      "ch1_s3_e01"
+     ],
+     "short": "한산도. 적을 넓은 바다로 끌어내라.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "YI",
+      "LIST"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "대사만 재생"
+    },
+    {
+     "id": "ch1_s3_e01",
+     "name": "적이 바다로 들어서다",
+     "seq": 2,
+     "section": 6,
+     "type": "C",
+     "trigger": {
+      "type": "unit_enter_tile",
+      "timing": "after_action",
+      "text": "적 유닛이 tile_tag=lure_zone(바다 중앙 유인 해역)에 처음 진입한 직후",
+      "side": "enemy",
+      "tile_tag": "lure_zone",
+      "first": true
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 70,
+     "requires": {},
+     "cast": [
+      "shiori",
+      "hero:142",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "유인 해역 진입 지점 줌인",
+       "양 날개 해역 강조 후 복귀"
+      ],
+      "motion": [
+       "적 선두 정지"
+      ],
+      "fx": [
+       "양 날개 해역 청색 하이라이트"
+      ],
+      "sound": [
+       "sfx.horn_short"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "shiori",
+       "expr": "serious",
+       "text": "적이 넓은 바다로 들어왔습니다. 예상한 대로입니다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "지금이오. 양 날개를 펼치시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "왼쪽은 곽재우 장군님, 오른쪽은 제가 직접 챙기겠습니다. 가운데를 비워 두면 되죠?",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "비워 두는 것이 아니라 열어 두는 것이오. 그 차이를 아는구려.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_wakizaka_yasuharu",
+       "expr": "serious",
+       "text": "넓은 바다까지 따라 나왔군. 이대로 몰아붙인다!",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "highlight_tiles",
+       "desc": "양 날개 타일 표시",
+       "tag": "wing_left,wing_right"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s3_e04"
+     ],
+     "short": "적이 바다로 나왔다. 날개를 펴라.",
+     "classification": "각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "YI"
+     ],
+     "engine_support": "2단계(타일 진입 트리거)",
+     "fallback": "2턴째 아군 페이즈 시작 시로 대체"
+    },
+    {
+     "id": "ch1_s3_e04",
+     "name": "학의 날개",
+     "seq": 3,
+     "section": 6,
+     "type": "A",
+     "trigger": {
+      "type": "after_event_phase",
+      "timing": "player_phase_start",
+      "text": "ch1_s3_e01 발생 후 처음 시작되는 아군 페이즈 시작 시",
+      "after_event": "ch1_s3_e01",
+      "phase": "player"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 80,
+     "requires": {
+      "after_event": "ch1_s3_e01"
+     },
+     "cast": [
+      "shiori",
+      "hero:142",
+      "hero:144"
+     ],
+     "scene": {
+      "camera": [
+       "높은 시점 전경(2초)",
+       "양 날개 라인 점등",
+       "이순신 클로즈업"
+      ],
+      "motion": [
+       "아군 깃발 펄럭임"
+      ],
+      "fx": [
+       "날개형 라인 오버레이(코드)",
+       "청색 비네팅"
+      ],
+      "sound": [
+       "sfx.flags_flutter",
+       "sfx.drum_roll_short"
+      ],
+      "cutscene": [
+       "cutscene.ch1_s3.1.a",
+       "cutscene.ch1_s3.1.b"
+      ]
+     },
+     "dialogue": [
+      {
+       "speaker": "shiori",
+       "expr": "neutral",
+       "text": "학익진은 학이 날개를 펴듯 적을 둘러싸는 진형으로 전합니다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "날개를 펴시오. 둘러싸되, 등을 보이지는 마시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "내 쪽 날개는 길목처럼 단단히 닫겠소.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "buff",
+       "desc": "협공 버프 '학익' 2턴(아군 전원). 수치는 임밸런 확정 전 TBD, 확정 전에는 enabled=false",
+       "id": "hakik_flank",
+       "duration_turns": 2,
+       "value": "TBD(임밸런)",
+       "enabled": false
+      },
+      {
+       "type": "highlight_tiles",
+       "desc": "양 날개 타일 표시",
+       "tag": "wing_left,wing_right"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s3_e02"
+     ],
+     "short": "학의 날개를 펼친다.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "YI"
+     ],
+     "engine_support": "2단계(버프, 컷신 이미지). 이미지 없이 MVP 가능",
+     "fallback": "컷신 이미지 생략, 오버레이와 문구만"
+    },
+    {
+     "id": "ch1_s3_e02",
+     "name": "대열을 흩지 마라",
+     "seq": 4,
+     "section": 5,
+     "type": "B",
+     "trigger": {
+      "type": "units_troop_tenths_lte",
+      "timing": "after_action",
+      "text": "아군 유닛 2기 이상의 병력이 각각 4/10 이하인 상태가 되는 최초의 피격 직후",
+      "side": "player",
+      "count": 2,
+      "tenths": 4,
+      "first": true
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 70,
+     "requires": {},
+     "cast": [
+      "hero:142",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "이순신 초상화 컷인(코드)",
+       "깃발 위치 강조"
+      ],
+      "motion": [
+       "깃발 지시"
+      ],
+      "fx": [
+       "깃발 타일 하이라이트"
+      ],
+      "sound": [
+       "sfx.horn_short"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "대열이 벌어지고 있소. 깃발 가까이 붙으시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "물러서서 다시 붙일까요, 이대로 밀까요? 지금은 물러서는 쪽이 맞는 것 같은데, 확신은 없습니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "판단은 그대가 하시오. 나는 따르겠소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "한 칸만 물러서겠습니다. 깃발 쪽으로 붙이고 다시 펼치겠습니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "smile",
+       "text": "그것이 맞소. 한 칸의 후퇴는 두 칸의 전진보다 값질 때가 있소.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "highlight_unit",
+       "desc": "깃발(대열 기준) 타일 강조",
+       "tag": "banner_tile"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개. 후퇴를 강제하지 않는다"
+     },
+     "next": [
+      "ch1_s3_e05"
+     ],
+     "short": "이순신: 한 칸의 후퇴도 값지다.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "2단계(다수 유닛 HP 조건)",
+     "fallback": "bark 한 줄"
+    },
+    {
+     "id": "ch1_s3_e05",
+     "name": "포위가 닫힌다",
+     "seq": 5,
+     "section": 6,
+     "type": "C",
+     "trigger": {
+      "type": "unit_troop_tenths_lte",
+      "timing": "after_action",
+      "text": "적 지휘관 유닛의 병력이 5/10 이하가 되는 최초의 피격 직후",
+      "unit": "enemy_commander",
+      "tenths": 5,
+      "first": true
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 60,
+     "requires": {},
+     "cast": [
+      "hero:142"
+     ],
+     "scene": {
+      "camera": [
+       "전체 하이앵글",
+       "날개 라인 수렴 오버레이(1.5초)"
+      ],
+      "motion": [
+       "아군 깃발 전진"
+      ],
+      "fx": [
+       "날개 라인 수렴"
+      ],
+      "sound": [
+       "sfx.drum_roll_short"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "학익진이 닫힌다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_wakizaka_yasuharu",
+       "expr": "regret",
+       "text": "이 바다에선 불리하다. 배를 돌려라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "지금이오. 흩어지지 말고 한 곳으로 조이시오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "highlight_unit",
+       "desc": "적 지휘관 유닛 강조",
+       "unit": "enemy_commander"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s3_e06"
+     ],
+     "short": "포위가 닫힌다.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "bark 한 줄"
+    },
+    {
+     "id": "ch1_s3_e06",
+     "name": "깃발 아래의 지휘관",
+     "seq": 6,
+     "section": 8,
+     "type": "B",
+     "trigger": {
+      "type": "unit_distance_lte",
+      "timing": "after_action",
+      "text": "아군 영웅 유닛 중 하나와 적 지휘관 유닛의 맨해튼 거리가 2칸 이하가 되는 최초의 행동 직후",
+      "a": "player_hero_any",
+      "b": "enemy_commander",
+      "distance": 2,
+      "first": true
+     },
+     "policy": {
+      "input": "free",
+      "repeat_battle": "skip"
+     },
+     "priority": 30,
+     "requires": {},
+     "cast": [
+      "hero:142"
+     ],
+     "scene": {
+      "camera": [
+       "두 지휘관 사이 줌인(1초)"
+      ],
+      "motion": [
+       "적 지휘관 정지"
+      ],
+      "fx": [
+       "대치 빛줄기"
+      ],
+      "sound": [
+       "sfx.waves_far"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "적 지휘관은 와키자카 야스하루. 견내량에서 조선 수군과 맞선 일본 수군 장수다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "한 칸씩 조이시오. 서두를 이유가 없소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_wakizaka_yasuharu",
+       "expr": "serious",
+       "text": "양쪽에서 날개가 조여 온다. 한가운데를 뚫어라!",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "bubble_end",
+      "resume": "즉시 조작 가능"
+     },
+     "next": [],
+     "short": "적 지휘관이 마주 선다.",
+     "classification": "각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "LIST"
+     ],
+     "engine_support": "2단계",
+     "fallback": "생략",
+     "note": "와키자카 야스하루 표기는 기존 outline의 confirmed 승계"
+    },
+    {
+     "id": "ch1_s3_e07",
+     "name": "교과서 같은 승리",
+     "seq": 7,
+     "section": 10,
+     "type": "A",
+     "trigger": {
+      "type": "battle_end",
+      "timing": "battle_end",
+      "text": "승리 조건 달성 직후(결과 화면 이전)",
+      "result": "win"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 90,
+     "requires": {},
+     "cast": [
+      "hero:144"
+     ],
+     "scene": {
+      "camera": [
+       "높은 시점 전경(포위 완성 형태 정지)",
+       "이순신 클로즈업"
+      ],
+      "motion": [
+       "아군 깃발 올림"
+      ],
+      "fx": [
+       "날개 라인 정지 후 페이드"
+      ],
+      "sound": [
+       "bgm.victory_short"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "한산도 대첩은 임진왜란 3대첩 중 하나로 꼽힌다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "npc_jp_wakizaka_yasuharu",
+       "expr": "regret",
+       "text": "남은 배를 이끌고 김해로 물러난다. 이 패배는 가볍지 않다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "물 위의 일은 모르나, 끌어내어 감싸는 싸움이라는 건 알겠소.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "end_battle",
+       "desc": "전투 종료"
+      },
+      {
+       "type": "goto_scene",
+       "desc": "승리 후 장면(S3-D)으로 연결",
+       "scene": "ch1_s3_post"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "auto",
+      "resume": "결과 화면 후 승리 후 장면"
+     },
+     "next": [
+      "scene:ch1_s3_post"
+     ],
+     "short": "한산도 승리. 날개가 닫혔다.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "YI"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "결과 화면 직행"
+    }
+   ]
+  },
+  {
+   "stage": "ch1_s4",
+   "chapter": 4,
+   "title": "진주성의 엿새",
+   "map": "im_04_jinju",
+   "events": [
+    {
+     "id": "ch1_s4_e01",
+     "name": "첫째 날의 성벽",
+     "seq": 1,
+     "section": 3,
+     "type": "A",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "player_phase_start",
+      "text": "1턴 아군 페이즈 시작 시",
+      "turn": 1,
+      "phase": "player"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 100,
+     "requires": {},
+     "cast": [
+      "hero:145",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "성벽 안쪽에서 성문 방향 팬",
+       "남은 턴 카운터 강조(8)"
+      ],
+      "motion": [
+       "성루 깃발 펄럭임"
+      ],
+      "fx": [
+       "목표 배너: 8턴 버텨라",
+       "남은 턴 UI 점등"
+      ],
+      "sound": [
+       "bgm.battle_ch1_s4",
+       "sfx.drum_low",
+       "sfx.wind_flag"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "1592년 음력 10월, 진주성. 진주목사 김시민이 성을 지켰다. 공방은 엿새 동안 이어졌다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "npc_jp_hasegawa_hidekazu",
+       "expr": "serious",
+       "text": "성이 크지 않다. 서두르지 마라. 사방을 에워싸라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:145",
+       "expr": "neutral",
+       "text": "성문 하나에 천 명의 하루가 달려 있소. 한 번 열리면 닫기 어렵소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "하루를 지키는 게 아니라, 매일을 지키는 거네요.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:145",
+       "expr": "neutral",
+       "text": "그렇소. 이해가 빠르시오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "set_objective",
+       "desc": "초기 목표: 8턴 방어(지휘관 생존)",
+       "objective": "survive_turns",
+       "turns": 8
+      },
+      {
+       "type": "show_turn_counter",
+       "desc": "남은 턴 카운터 표시",
+       "total": 8
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "1턴 아군 행동 시작"
+     },
+     "next": [
+      "ch1_s4_e06"
+     ],
+     "short": "진주성. 8턴을 버텨라.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "JINJU"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "대사만 재생",
+     "note": "이 이벤트가 개전 이벤트를 겸한다. 병력 수치 미사용"
+    },
+    {
+     "id": "ch1_s4_e06",
+     "name": "성 밖의 군기",
+     "seq": 2,
+     "section": 8,
+     "type": "A",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "enemy_phase_start",
+      "text": "2턴째 적군 페이즈 시작 시",
+      "turn": 2,
+      "phase": "enemy"
+     },
+     "policy": {
+      "input": "free",
+      "repeat_battle": "skip"
+     },
+     "priority": 30,
+     "requires": {},
+     "cast": [
+      "hero:145"
+     ],
+     "scene": {
+      "camera": [
+       "성 밖 동쪽 강가 줌인(1.5초)"
+      ],
+      "motion": [
+       "적 군기 상승"
+      ],
+      "fx": [
+       "군기 실루엣"
+      ],
+      "sound": [
+       "sfx.horn_far"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "성 밖에 늘어선 적의 선두에 하세가와 히데카즈의 군기가 오른다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "hero:145",
+       "expr": "neutral",
+       "text": "군기가 늘었다고 문이 약해지는 것은 아니오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_hasegawa_hidekazu",
+       "expr": "neutral",
+       "text": "성문 위 깃발이 아직 서 있다. 끈질기군.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "bubble_end",
+      "resume": "즉시 조작 가능"
+     },
+     "next": [
+      "ch1_s4_e02"
+     ],
+     "short": "성 밖에 적 군기가 늘어난다.",
+     "classification": "각색",
+     "evidence_level": "accepted",
+     "source": [
+      "JINJU"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "생략",
+     "note": "하세가와 히데카즈 대표 표기는 기존 outline accepted, 총대장 표기는 자료마다 다름"
+    },
+    {
+     "id": "ch1_s4_e02",
+     "name": "늘어나는 적",
+     "seq": 3,
+     "section": 6,
+     "type": "A",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "enemy_phase_start",
+      "text": "3턴째 적군 페이즈 시작 시",
+      "turn": 3,
+      "phase": "enemy"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 70,
+     "requires": {},
+     "cast": [
+      "shiori",
+      "hero:144",
+      "protagonist",
+      "hero:145"
+     ],
+     "scene": {
+      "camera": [
+       "성 밖 전경 팬",
+       "예비 대열 이동 경로 점선"
+      ],
+      "motion": [
+       "예비 대열 행군"
+      ],
+      "fx": [
+       "경로 점선",
+       "경고 아이콘"
+      ],
+      "sound": [
+       "sfx.march_many",
+       "sfx.horn_short"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "shiori",
+       "expr": "serious",
+       "text": "적 병력이 늘어납니다. 서고의 기록에도 이 대목에서 쪽이 두꺼워집니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "serious",
+       "text": "성 밖에서도 보이오. 동쪽 성벽이 얇아지고 있소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "동쪽에 병력을 늘리면 남문이 비는데요. 어느 쪽이 더 오래 버틸까요?",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:145",
+       "expr": "serious",
+       "text": "판단은 지휘관이 하는 것이오. 나는 성문에 서겠소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_hasegawa_hidekazu",
+       "expr": "serious",
+       "text": "예비를 동쪽으로 돌려라. 성벽이 얇은 곳을 찾아 두드려라.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "enemy_ai",
+       "desc": "대기 중이던 적 예비 유닛 AI를 '접근'으로 전환(신규 스폰 아님)",
+       "mode": "advance",
+       "group": "enemy_reserve"
+      },
+      {
+       "type": "highlight_tiles",
+       "desc": "동쪽 성벽 구간과 남문 강조",
+       "tag": "wall_east,gate_south"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "적군 페이즈 계속"
+     },
+     "next": [
+      "ch1_s4_e03"
+     ],
+     "short": "적이 늘어난다. 동쪽이 얇다.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원(AI 전환)",
+     "fallback": "AI 전환 없이 대사·강조만"
+    },
+    {
+     "id": "ch1_s4_e03",
+     "name": "늦어진 신호",
+     "seq": 4,
+     "section": 5,
+     "type": "B",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "player_phase_start",
+      "text": "4턴째 아군 페이즈 시작 시",
+      "turn": 4,
+      "phase": "player"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 75,
+     "requires": {},
+     "cast": [
+      "hero:144",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "동쪽 성벽 줌인",
+       "신호 연기가 한 박자 늦게 오르는 컷(1.5초)"
+      ],
+      "motion": [
+       "신호 연기 상승 지연"
+      ],
+      "fx": [
+       "신호 연기 파티클(지연)",
+       "약한 화면 흔들림"
+      ],
+      "sound": [
+       "sfx.rumble_wall",
+       "sfx.horn_late"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:144",
+       "expr": "serious",
+       "text": "지금이 신호를 보낼 때요. 성 안이 흔들리고 있소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "조금만 더 지켜보면 안 될까요? 아직 성문은 버티고 있는데.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "serious",
+       "text": "때를 놓치면 성 밖 군사는 갈 곳을 잃소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "알겠습니다. ...그럼 한 턴만 더요.",
+       "is_invented": true
+      },
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "동쪽 성벽에서 소리가 커진다. 신호가 한 박자 늦게 오른다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "제가 신호를 늦췄습니다. 이러면 안 되는 거였는데.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "neutral",
+       "text": "이미 지난 일이오. 다음 일에 쓰시오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음. 연출 전용이며 전투 결과·승패와 무관. 성 밖 지원 도착 턴(5턴째)은 고정",
+       "fixed_arrival_turn": 5
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s4_e05"
+     ],
+     "short": "신호가 한 박자 늦다.",
+     "classification": "허구",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "대사만 재생(연기 연출 생략)",
+     "note": "주인공의 판단 실패는 서사 장치(플레이어의 실제 선택 아님). UI에 '성 밖 지원 5턴째 도착'을 먼저 표시할 것을 제안"
+    },
+    {
+     "id": "ch1_s4_e05",
+     "name": "성 밖의 의병",
+     "seq": 5,
+     "section": 6,
+     "type": "A",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "player_phase_start",
+      "text": "5턴째 아군 페이즈 시작 시",
+      "turn": 5,
+      "phase": "player"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 70,
+     "requires": {},
+     "cast": [
+      "hero:144",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "성 밖 북쪽 전경(1.5초)",
+       "의병 부대 스폰 컷"
+      ],
+      "motion": [
+       "의병 등장"
+      ],
+      "fx": [
+       "등장 타일 하이라이트",
+       "먼지 파티클"
+      ],
+      "sound": [
+       "sfx.horn_far",
+       "sfx.march_many"
+      ],
+      "cutscene": [
+       "cutscene.ch1_s4.1.a",
+       "cutscene.ch1_s4.1.b"
+      ]
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "곽재우 등 의병이 성 밖에서 적을 견제한다.",
+       "is_invented": true,
+       "verify": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "내 사람들이 성 밖에서 움직였소. 이제 숨통이 트일 것이오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "의병 부대가 왔습니다. 성벽 쪽과 호응하도록 배치하겠습니다.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "spawn_units",
+       "desc": "아군 의병 부대 1개를 tile_tag=outer_north에 증원. 플레이어가 조작, 등장한 턴에는 행동 불가",
+       "side": "player",
+       "count": 1,
+       "unit_type": "sword",
+       "tile_tag": "outer_north",
+       "controllable": true,
+       "acts_on_spawn_turn": false,
+       "hero": false
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개(증원은 다음 아군 페이즈부터 행동)"
+     },
+     "next": [
+      "ch1_s4_e04"
+     ],
+     "short": "성 밖 의병이 나타난다.",
+     "classification": "각색",
+     "evidence_level": "verify",
+     "source": [
+      "JINJU"
+     ],
+     "engine_support": "2단계(증원 스폰, 컷신 이미지)",
+     "fallback": "스폰 제거하고 대사만(이 경우 e03 신호 지연은 연출로만 남는다)",
+     "note": "곽재우 영웅이 성 안에 출전하므로 성 밖 지원은 곽재우 직속 의병 부대(비영웅)로 표현. 규모 미표기"
+    },
+    {
+     "id": "ch1_s4_e04",
+     "name": "성문을 닫으라",
+     "seq": 6,
+     "section": 5,
+     "type": "B",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "enemy_phase_start",
+      "text": "6턴째 적군 페이즈 시작 시",
+      "turn": 6,
+      "phase": "enemy"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 80,
+     "requires": {},
+     "cast": [
+      "hero:145",
+      "protagonist",
+      "shiori"
+     ],
+     "scene": {
+      "camera": [
+       "김시민 초상화 컷인(코드, 1.5초)",
+       "성문 전경"
+      ],
+      "motion": [
+       "자세 고정(물러서지 않음)"
+      ],
+      "fx": [
+       "컷인 프레임",
+       "시오리 regret 말풍선"
+      ],
+      "sound": [
+       "sfx.heartbeat_soft",
+       "sfx.rumble_wall"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:145",
+       "expr": "serious",
+       "text": "성루에서 물러서지 않겠소. 내가 서 있어야 성문이 서 있소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "제가 무리하게 버티게 해서... 죄송합니다. 지금 조금만 뒤로 빠져 주세요.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:145",
+       "expr": "neutral",
+       "text": "사과할 일이 아니오. 이 자리는 내 자리요. 지휘관은 다음 자리를 보시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "shiori",
+       "expr": "regret",
+       "text": "......",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음. 부상·사망 연출 금지(병력 표시와 대사로만). 물러남 강제 없음"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s4_e08"
+     ],
+     "short": "김시민: 이 자리는 내 자리요.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "대사만 재생",
+     "note": "부록 A의 '6턴째 또는 김시민 3/10 이하 중 먼저'를 '6턴째 적군 페이즈 시작 시'로 확정. HP 조건은 e08로 분리"
+    },
+    {
+     "id": "ch1_s4_e08",
+     "name": "성루의 한마디",
+     "seq": 7,
+     "section": 5,
+     "type": "B",
+     "trigger": {
+      "type": "unit_troop_tenths_lte",
+      "timing": "after_action",
+      "text": "김시민 유닛의 병력이 3/10 이하가 되는 최초의 피격 직후",
+      "unit": "hero:145",
+      "tenths": 3,
+      "first": true
+     },
+     "policy": {
+      "input": "free",
+      "repeat_battle": "short"
+     },
+     "priority": 40,
+     "requires": {},
+     "cast": [
+      "hero:145"
+     ],
+     "scene": {
+      "camera": [
+       "김시민 초상화 컷인 0.8초(코드)"
+      ],
+      "motion": [],
+      "fx": [
+       "약한 붉은 비네팅"
+      ],
+      "sound": [
+       "sfx.heartbeat_soft"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:145",
+       "expr": "serious",
+       "text": "아직 성문은 서 있소.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음(말풍선 한 줄). 부상·사망 연출 금지"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "bubble_end",
+      "resume": "즉시 조작 가능"
+     },
+     "next": [],
+     "short": "김시민: 아직 성문은 서 있소.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원(영웅 HP 훅 확인 필요)",
+     "fallback": "생략"
+    },
+    {
+     "id": "ch1_s4_e07",
+     "name": "진주성은 함락되지 않았다",
+     "seq": 8,
+     "section": 10,
+     "type": "A",
+     "trigger": {
+      "type": "battle_end",
+      "timing": "battle_end",
+      "text": "승리 조건 달성 직후(8턴 방어 종료 또는 적 지휘관 격파, 결과 화면 이전)",
+      "result": "win"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 90,
+     "requires": {},
+     "cast": [
+      "hero:145"
+     ],
+     "scene": {
+      "camera": [
+       "성벽 위에서 성 밖 전경",
+       "닫힌 성문 클로즈업"
+      ],
+      "motion": [
+       "적 후퇴 페이드",
+       "성루 깃발"
+      ],
+      "fx": [
+       "연기 걷힘"
+      ],
+      "sound": [
+       "bgm.victory_quiet",
+       "sfx.wind_flag"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "엿새간의 공방 끝에 일본군은 물러났고, 진주성은 함락되지 않았다. 진주대첩은 임진왜란 3대첩 중 하나로 꼽힌다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "npc_jp_hasegawa_hidekazu",
+       "expr": "regret",
+       "text": "엿새를 두드렸는데 성은 그대로다. 군을 물려라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:145",
+       "expr": "neutral",
+       "text": "서고에서라도 성문을 지킬 수 있다면 다행이오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "end_battle",
+       "desc": "전투 종료"
+      },
+      {
+       "type": "goto_scene",
+       "desc": "승리 후 장면(S4-F)으로 연결. 김시민 기록상 결말은 시오리 서술로만",
+       "scene": "ch1_s4_post"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "auto",
+      "resume": "결과 화면 후 승리 후 장면"
+     },
+     "next": [
+      "scene:ch1_s4_post"
+     ],
+     "short": "진주성 방어 성공.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "JINJU"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "결과 화면 직행",
+     "note": "김시민 부상·사망은 이 이벤트에서 다루지 않는다"
+    }
+   ]
+  },
+  {
+   "stage": "ch1_s5",
+   "chapter": 5,
+   "title": "평양성 탈환",
+   "map": "im_05_pyeongyang",
+   "events": [
+    {
+     "id": "ch1_s5_e01",
+     "name": "겨울의 성벽 앞",
+     "seq": 1,
+     "section": 3,
+     "type": "A",
+     "trigger": {
+      "type": "battle_start",
+      "timing": "battle_start",
+      "text": "전투 시작 직후(1턴 아군 페이즈 시작 전)"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 100,
+     "requires": {
+      "hero_verify": [
+       "149: 평양 참전 verify"
+      ]
+     },
+     "cast": [
+      "hero:148",
+      "hero:149",
+      "protagonist"
+     ],
+     "scene": {
+      "camera": [
+       "성벽 전경 하이앵글(2초)",
+       "두 성문 순차 강조",
+       "휴정 클로즈업"
+      ],
+      "motion": [
+       "성벽 군기 펄럭임",
+       "눈발"
+      ],
+      "fx": [
+       "겨울 안개",
+       "성벽 서리 반사"
+      ],
+      "sound": [
+       "bgm.battle_ch1_s5",
+       "sfx.wind_cold",
+       "sfx.drum_low"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "1593년 음력 1월, 평양성. 명의 이여송이 이끈 명군과 조선군, 승병이 고니시 유키나가가 지키던 성을 공격했다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "이여송은 본진에서 전군의 움직임을 지켜본다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_konishi_yukinaga",
+       "expr": "serious",
+       "text": "성벽을 믿어라. 문 안으로는 한 발도 들이지 마라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:148",
+       "expr": "neutral",
+       "text": "싸움 앞에서도 호흡은 하나다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:149",
+       "expr": "neutral",
+       "text": "스승님의 호흡을 따르겠습니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "성을 치는 건 처음입니다. 어디부터 보면 되나요?",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "set_objective",
+       "desc": "초기 목표 활성화: 적 지휘관 격파",
+       "objective": "defeat_commander"
+      },
+      {
+       "type": "unlock_input",
+       "desc": "행동 가능"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "1턴 아군 페이즈 시작"
+     },
+     "next": [
+      "ch1_s5_e02"
+     ],
+     "short": "평양성. 호흡을 하나로.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "PYONGYANG"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "대사만 재생",
+     "note": "이순신 참전은 각색, 유정의 평양 참전은 verify"
+    },
+    {
+     "id": "ch1_s5_e02",
+     "name": "어느 문으로 갈 것인가",
+     "seq": 2,
+     "section": 5,
+     "type": "D",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "player_phase_start",
+      "text": "2턴째 아군 페이즈 시작 시",
+      "turn": 2,
+      "phase": "player"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 95,
+     "requires": {
+      "mode": "single_campaign_only"
+     },
+     "cast": [
+      "shiori",
+      "hero:144",
+      "hero:142",
+      "protagonist",
+      "hero:148"
+     ],
+     "scene": {
+      "camera": [
+       "두 성문을 번갈아 비추는 팬(2초)",
+       "선택창 표시 시 필드 디밍"
+      ],
+      "motion": [
+       "두 성문 타일 점멸"
+      ],
+      "fx": [
+       "성문 타일 색 구분 하이라이트",
+       "선택창 UI"
+      ],
+      "sound": [
+       "sfx.horn_short",
+       "sfx.ui_prompt"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "shiori",
+       "expr": "serious",
+       "text": "남쪽 성벽에 성문이 둘입니다. 서쪽 문은 가깝고, 동쪽 문은 멉니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "가까운 문이 늘 쉬운 문은 아니오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "판단은 그대가 하시오.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "show_choice",
+       "desc": "선택창 표시. 입력 대기(시간 제한 없음)"
+      },
+      {
+       "type": "set_flag",
+       "desc": "선택 결과를 flag ch1_s5_route에 저장",
+       "flag": "ch1_s5_route"
+      }
+     ],
+     "choice": {
+      "prompt": "어느 성문으로 접근하시겠습니까?",
+      "default": "flank",
+      "timeout": null,
+      "balance_owner": "임밸런(수치 TBD)",
+      "history_note": "어느 쪽을 골라도 역사적 결과(평양성 탈환)는 같다. 성문 이름과 공격 순서는 사료가 아니라 맵 연출이다.",
+      "options": [
+       {
+        "id": "front",
+        "label": "가까운 서쪽 성문으로 밀어붙인다",
+        "hint": "빠르지만 수비가 두텁다",
+        "effects": [
+         {
+          "type": "enemy_buff",
+          "desc": "정면 성문 구간 적 방어 보너스 3턴 유지(수치 TBD)",
+          "value": "TBD(임밸런)",
+          "duration_turns": 3
+         },
+         {
+          "type": "reward_mod",
+          "desc": "보상 소폭 가산(골드, 수치 TBD)",
+          "gold": "TBD(임밸런)"
+         },
+         {
+          "type": "set_flag",
+          "desc": "ch1_s5_route = front",
+          "flag": "ch1_s5_route",
+          "value": "front"
+         }
+        ],
+        "dialogue_after": [
+         {
+          "speaker": "protagonist",
+          "expr": "neutral",
+          "text": "서쪽 문으로 가겠습니다. 시간이 가장 중요한 것 같아요.",
+          "is_invented": true
+         },
+         {
+          "speaker": "hero:144",
+          "expr": "smile",
+          "text": "좋소. 붉은 옷이 앞에 서겠소.",
+          "is_invented": true
+         },
+         {
+          "speaker": "shiori",
+          "expr": "serious",
+          "text": "서쪽 문은 가깝습니다. 대신 수비가 두껍습니다.",
+          "is_invented": true
+         }
+        ]
+       },
+       {
+        "id": "flank",
+        "label": "먼 동쪽 성문으로 우회한다",
+        "hint": "느리지만 안정적이다",
+        "effects": [
+         {
+          "type": "enemy_debuff",
+          "desc": "측면 성문 구간 적 방어 보너스 제거(수치 TBD)",
+          "value": "TBD(임밸런)"
+         },
+         {
+          "type": "star_hint",
+          "desc": "turn_within 11 별 조건에 여유가 줄어든다(표시용 안내)"
+         },
+         {
+          "type": "set_flag",
+          "desc": "ch1_s5_route = flank",
+          "flag": "ch1_s5_route",
+          "value": "flank"
+         }
+        ],
+        "dialogue_after": [
+         {
+          "speaker": "protagonist",
+          "expr": "neutral",
+          "text": "돌아가겠습니다. 한 번에 몰아붙이지 않고 하나씩 가겠습니다.",
+          "is_invented": true
+         },
+         {
+          "speaker": "hero:148",
+          "expr": "neutral",
+          "text": "먼 길이 가장 빠를 때도 있는 법이오.",
+          "is_invented": true
+         },
+         {
+          "speaker": "shiori",
+          "expr": "smile",
+          "text": "서고의 지름길은 대체로 책장 뒤에 있습니다. 오늘은 성문 뒤입니다.",
+          "is_invented": true
+         }
+        ]
+       }
+      ],
+      "dev_note": "옵션 id(front, flank)와 flag ch1_s5_route 값은 유지. flank의 dialogue_after는 원본 그대로. tile_tag gate_front->gate_west, gate_flank->gate_east"
+     },
+     "end": {
+      "type": "choice_resolved",
+      "resume": "선택 후 후속 대사 재생, 조작 재개"
+     },
+     "next": [
+      "ch1_s5_e03"
+     ],
+     "short": "두 문 중 하나를 고른다.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "2단계(선택 UI+flag). 선택별 효과 수치 TBD",
+     "fallback": "선택창 없이 flank 고정, 대사만 재생",
+     "note": "선택형은 s5·s8·s10 한정 방침에 따른 1~5장 유일 선택. 멀티플레이 제외"
+    },
+    {
+     "id": "ch1_s5_e03",
+     "name": "성문이 흔들린다",
+     "seq": 3,
+     "section": 6,
+     "type": "C",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "player_phase_start",
+      "text": "4턴째 아군 페이즈 시작 시",
+      "turn": 4,
+      "phase": "player"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 80,
+     "requires": {},
+     "cast": [
+      "shiori",
+      "hero:142"
+     ],
+     "scene": {
+      "camera": [
+       "성벽 전경(화포 연기)",
+       "성문 클로즈업(균열)",
+       "열린 성문 줌아웃"
+      ],
+      "motion": [
+       "성문 흔들림",
+       "성문 열림"
+      ],
+      "fx": [
+       "화면 흔들림(0.8초)",
+       "연기·먼지 파티클",
+       "성문 타일 지형 전환"
+      ],
+      "sound": [
+       "sfx.cannon_far",
+       "sfx.gate_crack",
+       "sfx.gate_open"
+      ],
+      "cutscene": [
+       "cutscene.ch1_s5.1.a",
+       "cutscene.ch1_s5.1.b"
+      ]
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "연합군의 화포가 성벽을 흔든다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "shiori",
+       "expr": "serious",
+       "text": "성문이 흔들립니다. 지금 열리는 길을 보십시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "neutral",
+       "text": "문이 열리면 한꺼번에 들지 마시오. 줄지어 드시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_konishi_yukinaga",
+       "expr": "serious",
+       "text": "성문이 열렸다! 골목 안쪽에서 막아라.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "terrain_change",
+       "desc": "지정 성문 타일(tile_tag=gate_target)을 닫힘에서 열림으로 전환",
+       "tile_tag": "gate_target",
+       "from": "closed",
+       "to": "open"
+      },
+      {
+       "type": "highlight_tiles",
+       "desc": "열린 진입로 표시",
+       "tag": "gate_target"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s5_e04"
+     ],
+     "short": "성문이 열린다.",
+     "classification": "각색",
+     "evidence_level": "verify",
+     "source": [
+      "PYONGYANG"
+     ],
+     "engine_support": "3단계(지형 변화). MVP 대체: 성문 구간 적 방어 보너스 제거",
+     "fallback": "지형 변화 대신 방어 보너스 제거 + 대사",
+     "note": "명군 화포 사용 세부 verify. 선택한 경로와 무관하게 발생"
+    },
+    {
+     "id": "ch1_s5_e04",
+     "name": "연합 부대 합류",
+     "seq": 4,
+     "section": 6,
+     "type": "A",
+     "trigger": {
+      "type": "turn_phase_start",
+      "timing": "player_phase_start",
+      "text": "5턴째 아군 페이즈 시작 시",
+      "turn": 5,
+      "phase": "player"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 70,
+     "requires": {},
+     "cast": [
+      "protagonist",
+      "shiori"
+     ],
+     "scene": {
+      "camera": [
+       "아군 후방 도착 지점 팬",
+       "스폰 컷(0.8초)"
+      ],
+      "motion": [
+       "연합 부대 행군 입장"
+      ],
+      "fx": [
+       "등장 타일 하이라이트",
+       "연합 깃발 색 구분"
+      ],
+      "sound": [
+       "sfx.march_many",
+       "sfx.horn_far"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "명·조선 연합 부대가 성 밖에서 합류한다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "연합 부대가 왔습니다. 제가 배치하겠습니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "shiori",
+       "expr": "neutral",
+       "text": "연합 부대는 지휘관님 명령에 따릅니다. 서고의 편의입니다.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "spawn_units",
+       "desc": "연합 부대 1개를 tile_tag=ally_rear에 증원. 플레이어가 조작, 등장한 턴에는 행동 불가",
+       "side": "player",
+       "count": 1,
+       "unit_type": "spear",
+       "tile_tag": "ally_rear",
+       "controllable": true,
+       "acts_on_spawn_turn": false,
+       "hero": false
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개(증원은 다음 아군 페이즈부터 행동)"
+     },
+     "next": [
+      "ch1_s5_e05"
+     ],
+     "short": "연합 부대가 합류한다.",
+     "classification": "각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "PYONGYANG"
+     ],
+     "engine_support": "2단계(증원 스폰)",
+     "fallback": "스폰 제거하고 대사만",
+     "note": "연합군 협력은 사실 기반, 증원 조작은 게임 각색"
+    },
+    {
+     "id": "ch1_s5_e05",
+     "name": "스승과 제자",
+     "seq": 5,
+     "section": 7,
+     "type": "E",
+     "trigger": {
+      "type": "units_adjacent",
+      "timing": "after_action",
+      "text": "휴정 유닛과 유정 유닛이 처음으로 상하좌우 인접한 직후(행동 종료 시)",
+      "a": "hero:148",
+      "b": "hero:149",
+      "first": true
+     },
+     "policy": {
+      "input": "free",
+      "repeat_battle": "skip"
+     },
+     "priority": 20,
+     "requires": {
+      "party_has_all": [
+       "148",
+       "149"
+      ]
+     },
+     "cast": [
+      "hero:148",
+      "hero:149",
+      "shiori"
+     ],
+     "scene": {
+      "camera": [
+       "두 스님 중간 소폭 줌인(0.8초)"
+      ],
+      "motion": [
+       "시선 교환"
+      ],
+      "fx": [],
+      "sound": [
+       "sfx.soft_chime"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:148",
+       "expr": "neutral",
+       "text": "호흡을 놓치지 마라. 성벽도 숨을 쉰다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:149",
+       "expr": "neutral",
+       "text": "스승님이 곁에 계시니 발이 가볍습니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "shiori",
+       "expr": "smile",
+       "text": "두 분의 호흡이 맞는군요. 서고에서도 드문 일입니다.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음(연출 전용)"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "bubble_end",
+      "resume": "즉시 조작 가능"
+     },
+     "next": [],
+     "short": "스승과 제자의 호흡이 맞는다.",
+     "classification": "각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "REL0018"
+     ],
+     "relation_ref": [
+      "rel_0018"
+     ],
+     "engine_support": "2단계",
+     "fallback": "생략",
+     "note": "rel_0018 기존 encounter_lines와 중복하지 않도록 새 대사 사용. 유정의 평양 참전은 verify"
+    },
+    {
+     "id": "ch1_s5_e06",
+     "name": "성 안의 군기",
+     "seq": 6,
+     "section": 8,
+     "type": "B",
+     "trigger": {
+      "type": "unit_distance_lte",
+      "timing": "after_action",
+      "text": "아군 영웅 유닛 중 하나와 적 지휘관 유닛의 맨해튼 거리가 2칸 이하가 되는 최초의 행동 직후",
+      "a": "player_hero_any",
+      "b": "enemy_commander",
+      "distance": 2,
+      "first": true
+     },
+     "policy": {
+      "input": "free",
+      "repeat_battle": "skip"
+     },
+     "priority": 30,
+     "requires": {},
+     "cast": [
+      "shiori",
+      "hero:142"
+     ],
+     "scene": {
+      "camera": [
+       "두 지휘관 사이 줌인(1초)"
+      ],
+      "motion": [
+       "적 군기 흔들림"
+      ],
+      "fx": [
+       "대치 빛줄기"
+      ],
+      "sound": [
+       "sfx.wind_cold"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "성 안의 적 지휘관은 고니시 유키나가. 이 성을 지키던 일본군 지휘관이다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "shiori",
+       "expr": "neutral",
+       "text": "지휘관은 성 안쪽에 있습니다. 문이 열린 길을 따라가시지요.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "깃발만 보고 서두르지 마시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_konishi_yukinaga",
+       "expr": "neutral",
+       "text": "성 밖 군세가 만만치 않군. 그래도 성은 내주지 않는다.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "none",
+       "desc": "게임 효과 없음"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "bubble_end",
+      "resume": "즉시 조작 가능"
+     },
+     "next": [
+      "ch1_s5_e07"
+     ],
+     "short": "성 안 지휘관이 보인다.",
+     "classification": "각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "PYONGYANG"
+     ],
+     "engine_support": "2단계",
+     "fallback": "생략",
+     "note": "고니시 유키나가 표기는 기존 outline confirmed 승계"
+    },
+    {
+     "id": "ch1_s5_e07",
+     "name": "마지막 공세",
+     "seq": 7,
+     "section": 6,
+     "type": "A",
+     "trigger": {
+      "type": "unit_troop_tenths_lte",
+      "timing": "after_action",
+      "text": "적 지휘관 유닛의 병력이 5/10 이하가 되는 최초의 피격 직후",
+      "unit": "enemy_commander",
+      "tenths": 5,
+      "first": true
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 60,
+     "requires": {},
+     "cast": [
+      "hero:142",
+      "protagonist",
+      "hero:144",
+      "shiori"
+     ],
+     "scene": {
+      "camera": [
+       "성 전체 시점",
+       "적 지휘관 타일 강조"
+      ],
+      "motion": [
+       "아군 깃발 전진"
+      ],
+      "fx": [
+       "지휘관 타일 점멸 테두리",
+       "눈발 약해짐"
+      ],
+      "sound": [
+       "sfx.drum_roll_short",
+       "sfx.horn_short"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "hero:142",
+       "expr": "serious",
+       "text": "성급함과 결단은 다르오. 마지막 줄까지 한 칸씩 정리하시오.",
+       "is_invented": true
+      },
+      {
+       "speaker": "protagonist",
+       "expr": "neutral",
+       "text": "서두르지 않고, 하지만 멈추지도 않겠습니다.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:144",
+       "expr": "smile",
+       "text": "벗, 지금이오. 붉은 옷이 앞에 서겠소.",
+       "is_invented": true
+      },
+      {
+       "speaker": "npc_jp_konishi_yukinaga",
+       "expr": "regret",
+       "text": "여기까지다. 대동강 쪽으로 군을 빼라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "shiori",
+       "expr": "serious",
+       "text": "지휘관님, 성 안 지휘관이 노출되었습니다. 지금이 마지막 한 걸음입니다.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "highlight_unit",
+       "desc": "적 지휘관 유닛 강조",
+       "unit": "enemy_commander"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "dialogue_end",
+      "resume": "조작 재개"
+     },
+     "next": [
+      "ch1_s5_e08"
+     ],
+     "short": "마지막 한 걸음이다.",
+     "classification": "각색",
+     "evidence_level": "n/a",
+     "source": [
+      "NA"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "bark 한 줄"
+    },
+    {
+     "id": "ch1_s5_e08",
+     "name": "평양성 탈환",
+     "seq": 8,
+     "section": 10,
+     "type": "A",
+     "trigger": {
+      "type": "battle_end",
+      "timing": "battle_end",
+      "text": "승리 조건 달성 직후(결과 화면 이전)",
+      "result": "win"
+     },
+     "policy": {
+      "input": "locked",
+      "repeat_battle": "short"
+     },
+     "priority": 90,
+     "requires": {},
+     "cast": [
+      "hero:148"
+     ],
+     "scene": {
+      "camera": [
+       "성 전체 전경",
+       "휴정 클로즈업",
+       "성벽 위 깃발 컷"
+      ],
+      "motion": [
+       "적 후퇴 페이드",
+       "아군 깃발 올림"
+      ],
+      "fx": [
+       "눈 입자",
+       "연기 걷힘"
+      ],
+      "sound": [
+       "bgm.victory_short",
+       "sfx.wind_cold"
+      ],
+      "cutscene": null
+     },
+     "dialogue": [
+      {
+       "speaker": "caption",
+       "expr": null,
+       "text": "일본군은 밤에 대동강을 건너 철수한 것으로 전한다. 평양성은 탈환되었다.",
+       "is_invented": false
+      },
+      {
+       "speaker": "npc_jp_konishi_yukinaga",
+       "expr": "regret",
+       "text": "밤에 강을 건넌다. 횃불은 켜지 마라.",
+       "is_invented": true
+      },
+      {
+       "speaker": "hero:148",
+       "expr": "neutral",
+       "text": "성은 되찾았으나 갈 길은 멀다.",
+       "is_invented": true
+      }
+     ],
+     "effects": [
+      {
+       "type": "end_battle",
+       "desc": "전투 종료"
+      },
+      {
+       "type": "goto_scene",
+       "desc": "승리 후 장면으로 연결. flag ch1_s5_route로 대사 분기",
+       "scene": "ch1_s5_post",
+       "branch_flag": "ch1_s5_route"
+      }
+     ],
+     "choice": null,
+     "end": {
+      "type": "auto",
+      "resume": "결과 화면 후 승리 후 장면"
+     },
+     "next": [
+      "scene:ch1_s5_post"
+     ],
+     "short": "평양성 탈환.",
+     "classification": "사실 기반 각색",
+     "evidence_level": "confirmed",
+     "source": [
+      "PYONGYANG"
+     ],
+     "engine_support": "MVP 지원",
+     "fallback": "결과 화면 직행"
+    }
+   ]
+  }
+ ]
+}

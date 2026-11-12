@@ -1,0 +1,2665 @@
+{
+ "_note": "[임밸런 / 초안] ch24 투르와 푸아티에 스테이지 수치 설계. 모든 수치는 시작값(needs tuning), 시뮬레이션 미측정(최종 일괄). 맵 좌표는 maps_ch23_ch24.json 확정 후 채움(2026-11-03). zone_ref 는 참조용으로 남기고 tiles 에 좌표를 채움. 스키마는 stages_ch22_new_s1_s4_s6_s8.json 과 같음(EnemyV3Adapter::convert 입력). 근거: docs/original_story/ch24_*_outline.md. 시드 미적재.",
+ "version": 1,
+ "chapter": 24,
+ "shelf_code": "ch24",
+ "status": "draft_map_filled",
+ "placeholder_fields": [],
+ "items": [
+  {
+   "code": "ch24_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 선발대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_eudes_aquitaine",
+      "x": 16,
+      "y": 12,
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         16,
+         9
+        ],
+        [
+         16,
+         5
+        ],
+        [
+         15,
+         3
+        ]
+       ],
+       "from_turn": 2,
+       "move_cap": 3
+      }
+     },
+     {
+      "hero": "npc_frankish_scout_captain",
+      "x": 14,
+      "y": 12,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "안달루스 선발대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [],
+    "sub_objectives": [
+     {
+      "id": "eudes",
+      "type": "unit_survive",
+      "unit": "hero:npc_eudes_aquitaine",
+      "label": "외드를 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "길을 열어 외드를 북쪽 강둑으로 건너게 한다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_eudes_aquitaine",
+       "zone_ref": "north_bank",
+       "tiles": [
+        [
+         11,
+         1
+        ],
+        [
+         12,
+         1
+        ],
+        [
+         13,
+         1
+        ],
+        [
+         14,
+         1
+        ],
+        [
+         15,
+         1
+        ],
+        [
+         16,
+         1
+        ],
+        [
+         17,
+         1
+        ],
+        [
+         18,
+         1
+        ],
+        [
+         19,
+         1
+        ],
+        [
+         20,
+         1
+        ],
+        [
+         11,
+         2
+        ],
+        [
+         12,
+         2
+        ],
+        [
+         13,
+         2
+        ],
+        [
+         14,
+         2
+        ],
+        [
+         15,
+         2
+        ],
+        [
+         16,
+         2
+        ],
+        [
+         17,
+         2
+        ],
+        [
+         18,
+         2
+        ],
+        [
+         19,
+         2
+        ],
+        [
+         20,
+         2
+        ],
+        [
+         11,
+         3
+        ],
+        [
+         12,
+         3
+        ],
+        [
+         13,
+         3
+        ],
+        [
+         14,
+         3
+        ],
+        [
+         15,
+         3
+        ],
+        [
+         16,
+         3
+        ],
+        [
+         17,
+         3
+        ],
+        [
+         18,
+         3
+        ],
+        [
+         19,
+         3
+        ],
+        [
+         20,
+         3
+        ],
+        [
+         11,
+         4
+        ],
+        [
+         12,
+         4
+        ],
+        [
+         13,
+         4
+        ],
+        [
+         14,
+         4
+        ],
+        [
+         15,
+         4
+        ],
+        [
+         16,
+         4
+        ],
+        [
+         17,
+         4
+        ],
+        [
+         18,
+         4
+        ],
+        [
+         19,
+         4
+        ],
+        [
+         20,
+         4
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": []
+   },
+   "name": "외드 패전 후 방어",
+   "year_label": "732년",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_ch24_s1_vienne_ford",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 6
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 15,
+   "difficulty": 6,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_eudes_aquitaine",
+     "npc_frankish_scout_captain"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 선발대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       22
+      ],
+      [
+       12,
+       22
+      ],
+      [
+       19,
+       22
+      ],
+      [
+       14,
+       23
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 경기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_andalus_vanguard_captain",
+      "display_name_ko": "안달루스 선봉장",
+      "evidence_level": "invented",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       8,
+       23
+      ],
+      [
+       23,
+       23
+      ],
+      [
+       4,
+       22
+      ],
+      [
+       28,
+       22
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 경기병",
+     "hold_until_turn": 2
+    }
+   ],
+   "enemy_squads_count": 2,
+   "enemy_units_initial": 8,
+   "enemy_units_peak": 16,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 3
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "안달루스 추격 기병대장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "soldier_display_name_ko": "안달루스 경기병",
+      "spawn_cell": [
+       17,
+       23
+      ]
+     }
+    },
+    {
+     "id": "t_R2",
+     "on": {
+      "turn": 5
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R2",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "안달루스 추격 기병대장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "soldier_display_name_ko": "안달루스 경기병",
+      "spawn_cell": [
+       13,
+       23
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      16,
+      22
+     ],
+     "name": "안달루스 선발대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      12,
+      22
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      22
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      14,
+      23
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      8,
+      23
+     ],
+     "ref": "npc_andalus_vanguard_captain",
+     "kind": "npc",
+     "name": "안달루스 선봉장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      23,
+      23
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      4,
+      22
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      22
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1270,
+    "exp": 1842,
+    "gold": 1651,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). ch22 실값 보간(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "eudes"
+    },
+    {
+     "type": "turn_within",
+     "value": 8
+    }
+   ],
+   "win_rate_band_target_pct": "68~80 (목표 중앙 약 74)",
+   "sort_order": 2401,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만 있음(terrain_change/spawn/move/retreat). say/camera/sfx 는 ch23_hastings.json·ch24_tours.json battle_cues 와 병합 시 송서사 본문 사용",
+   "map_requirements": {
+    "size": "중형 24x16",
+    "zones": {
+     "north_bank": "북쪽 강둑 도달 구역 4~6칸",
+     "ford": "여울(shallows) 폭 3~4칸 x 길이 4",
+     "south_spawn": "남쪽 spawn 구역 2(턴3·5)",
+     "eudes_start": "외드 시작 위치(여울 남쪽, 경로 7칸 이하)",
+     "ally_deploy": "여울 남쪽 방어 구역"
+    },
+    "deploy_zone_count": 4,
+    "tile_tags": [
+     "ford"
+    ]
+   },
+   "design_notes": [
+    "Lv17 offset -2. 적 초기 8기(경기병, B분대 hold 2)+턴3·5 spawn 각 4기=16. 외드는 턴3부터 move_cap 2, 6턴 안에 도달해야 하므로 이동 가능 4턴 x 2 = 8칸 상한. 여울 이동비용 포함 경로 7칸 이하 요청(아니면 survive_turns 만으로는 승리 불가 구조). 'HP 유지' 별은 엔진 조건 확인 전이라 unit_survive 서브로 대체.",
+    "맵 확정 반영: 외드 route from_turn 2, move_cap 3, 북쪽 강둑 구역(y<=4) 진입 비용 12 -> 턴5 도달, 최종 웨이포인트 턴6. 증원 spawn 칸 (턴3 17,23 / 턴5 13,23).",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_frankish_scout_captain(ally_npcs), npc_andalus_vanguard_captain(convert_B). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ]
+  },
+  {
+   "code": "ch24_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 정찰대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "charles_martel",
+      "x": 3,
+      "y": 11,
+      "must_survive": false,
+      "route": {
+       "waypoints": [
+        [
+         14,
+         11
+        ],
+        [
+         28,
+         11
+        ]
+       ],
+       "from_turn": 3,
+       "move_cap": 5
+      }
+     },
+     {
+      "hero": "npc_eudes_aquitaine",
+      "x": 4,
+      "y": 10,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_frankish_vanguard",
+      "x": 4,
+      "y": 12,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "안달루스 정찰대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [],
+    "sub_objectives": [],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "카를의 본대를 숲 가장자리로 안내한다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:charles_martel",
+       "zone_ref": "forest_edge",
+       "tiles": [
+        [
+         28,
+         9
+        ],
+        [
+         29,
+         9
+        ],
+        [
+         30,
+         9
+        ],
+        [
+         31,
+         9
+        ],
+        [
+         28,
+         10
+        ],
+        [
+         29,
+         10
+        ],
+        [
+         30,
+         10
+        ],
+        [
+         31,
+         10
+        ],
+        [
+         28,
+         11
+        ],
+        [
+         29,
+         11
+        ],
+        [
+         30,
+         11
+        ],
+        [
+         31,
+         11
+        ],
+        [
+         28,
+         12
+        ],
+        [
+         29,
+         12
+        ],
+        [
+         30,
+         12
+        ],
+        [
+         31,
+         12
+        ],
+        [
+         28,
+         13
+        ],
+        [
+         29,
+         13
+        ],
+        [
+         30,
+         13
+        ],
+        [
+         31,
+         13
+        ],
+        [
+         28,
+         14
+        ],
+        [
+         29,
+         14
+        ],
+        [
+         30,
+         14
+        ],
+        [
+         31,
+         14
+        ],
+        [
+         28,
+         15
+        ],
+        [
+         29,
+         15
+        ],
+        [
+         30,
+         15
+        ],
+        [
+         31,
+         15
+        ],
+        [
+         28,
+         16
+        ],
+        [
+         29,
+         16
+        ],
+        [
+         30,
+         16
+        ],
+        [
+         31,
+         16
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "signal",
+      "label": "적 정찰이 신호 지점에 멈춤",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "zone_ref": "signal_point",
+       "tiles": [
+        [
+         29,
+         19
+        ],
+        [
+         30,
+         19
+        ],
+        [
+         31,
+         19
+        ],
+        [
+         29,
+         20
+        ],
+        [
+         30,
+         20
+        ],
+        [
+         31,
+         20
+        ],
+        [
+         29,
+         21
+        ],
+        [
+         30,
+         21
+        ],
+        [
+         31,
+         21
+        ],
+        [
+         29,
+         22
+        ],
+        [
+         30,
+         22
+        ],
+        [
+         31,
+         22
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "숲길 진군",
+   "year_label": "732년",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_ch24_s2_forest_road",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": 1,
+   "effective_enemy_level": 19,
+   "difficulty": 7,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "charles_martel",
+     "npc_eudes_aquitaine",
+     "npc_frankish_vanguard"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "안달루스 정찰대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 2
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       31,
+       5
+      ],
+      [
+       30,
+       5
+      ],
+      [
+       31,
+       4
+      ],
+      [
+       30,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 정찰 경기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_andalus_scout_captain",
+      "display_name_ko": "안달루스 척후장",
+      "evidence_level": "invented",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       22,
+       21
+      ],
+      [
+       14,
+       19
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 도주 정찰병",
+     "route": {
+      "waypoints": [
+       [
+        22,
+        20
+       ],
+       [
+        30,
+        20
+       ]
+      ],
+      "from_turn": 6,
+      "move_cap": 6
+     }
+    }
+   ],
+   "enemy_squads_count": 2,
+   "enemy_units_initial": 6,
+   "enemy_units_peak": 6,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      31,
+      5
+     ],
+     "name": "안달루스 정찰대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      5
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      31,
+      4
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      22,
+      21
+     ],
+     "ref": "npc_andalus_scout_captain",
+     "kind": "npc",
+     "name": "안달루스 척후장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      14,
+      19
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1370,
+    "exp": 1986,
+    "gold": 1781,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). ch22 실값 보간(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 8
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "62~78 (목표 중앙 약 70)",
+   "sort_order": 2402,
+   "prerequisite": "ch24_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만 있음(terrain_change/spawn/move/retreat). say/camera/sfx 는 ch23_hastings.json·ch24_tours.json battle_cues 와 병합 시 송서사 본문 사용",
+   "map_requirements": {
+    "size": "중형 24x16",
+    "zones": {
+     "forest_edge": "숲 가장자리 도달 구역 4~6칸",
+     "signal_point": "신호 지점 구역 2~4칸",
+     "scout_start": "정찰대 시작 구역(숲 안)",
+     "path": "한 줄 좁은 길 폭1 길이 10+",
+     "fork": "갈림길 1곳",
+     "mill_ruin": "방앗간터 폐허",
+     "ally_start": "전위 시작 구역"
+    },
+    "deploy_zone_count": 4,
+    "tile_tags": []
+   },
+   "design_notes": [
+    "소수 정예: 적 6기(정찰대장 cavalry hp_mult 2.0 + 경기병 3 + 정찰 경기병분대 2), offset +1(eff 19). 적 수가 shelf 중 가장 적은 소규모 긴장전. advance_to_gate 는 엔진 폴백이 advance 라 적이 신호 지점으로 달아나지 않고 아군에게 접근할 수 있어 신호 지점 lose 가 사실상 비발동일 수 있음(engine_requests 4). @protagonist in_zone 은 쓰지 않고 hero:charles_martel 사용.",
+    "맵 확정 반영: 정찰 분대 B(2기, 도주 정찰병)에만 route(턴6 출발, move_cap 6) -> (22,21)은 턴7, (14,19)는 턴8에 신호 지점(29~31,19~22) 도착. 대장 분대 A는 route 없음(방앗간터 마당 31,5 guard_commander). 두 분대 합 6기. 정찰 route 유닛은 공격하지 않으므로 아군이 턴 7~8 전에 따라잡아야 패배 회피.",
+    "핵심 영웅 NPC화(2026-11-03): charles_martel 는 일반 영웅 행(미소유 플레이어 승리 불가) 대신 charles_martel 아군 NPC(3,11)로 등장. guest_heroes 는 엔진 미지원이라 비움. 승리 in_zone 때문에 route [[14, 11], [28, 11]] from_turn 3 move_cap 5.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_andalus_scout_captain(convert_B). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ]
+  },
+  {
+   "code": "ch24_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "charles_martel",
+      "x": 19,
+      "y": 5,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_eudes_aquitaine",
+      "x": 17,
+      "y": 7,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_frankish_vanguard",
+      "x": 22,
+      "y": 7,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_hunald_aquitaine",
+      "x": 18,
+      "y": 4,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "압드 알라흐만 알가피키",
+     "hero": "npc_abd_al_rahman_ghafiqi"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [],
+    "sub_objectives": [
+     {
+      "id": "hill",
+      "type": "hold_zone",
+      "tiles": [
+       [
+        16,
+        6
+       ],
+       [
+        17,
+        6
+       ],
+       [
+        18,
+        6
+       ],
+       [
+        19,
+        6
+       ],
+       [
+        20,
+        6
+       ],
+       [
+        21,
+        6
+       ],
+       [
+        22,
+        6
+       ],
+       [
+        23,
+        6
+       ],
+       [
+        14,
+        7
+       ],
+       [
+        15,
+        7
+       ],
+       [
+        16,
+        7
+       ],
+       [
+        17,
+        7
+       ],
+       [
+        18,
+        7
+       ],
+       [
+        19,
+        7
+       ],
+       [
+        20,
+        7
+       ],
+       [
+        21,
+        7
+       ],
+       [
+        22,
+        7
+       ],
+       [
+        23,
+        7
+       ],
+       [
+        24,
+        7
+       ],
+       [
+        25,
+        7
+       ]
+      ],
+      "zone_ref": "hill_line_center",
+      "label": "방어선 중앙을 지켜라",
+      "turns": 7
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "hilltop",
+      "label": "적 기병이 오르막 꼭대기에 멈춤",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "zone_ref": "hill_crest",
+       "tiles": [
+        [
+         10,
+         3
+        ],
+        [
+         11,
+         3
+        ],
+        [
+         12,
+         3
+        ],
+        [
+         13,
+         3
+        ],
+        [
+         14,
+         3
+        ],
+        [
+         15,
+         3
+        ],
+        [
+         16,
+         3
+        ],
+        [
+         17,
+         3
+        ],
+        [
+         18,
+         3
+        ],
+        [
+         19,
+         3
+        ],
+        [
+         20,
+         3
+        ],
+        [
+         21,
+         3
+        ],
+        [
+         22,
+         3
+        ],
+        [
+         23,
+         3
+        ],
+        [
+         24,
+         3
+        ],
+        [
+         25,
+         3
+        ],
+        [
+         26,
+         3
+        ],
+        [
+         27,
+         3
+        ],
+        [
+         28,
+         3
+        ],
+        [
+         29,
+         3
+        ],
+        [
+         10,
+         4
+        ],
+        [
+         11,
+         4
+        ],
+        [
+         12,
+         4
+        ],
+        [
+         13,
+         4
+        ],
+        [
+         14,
+         4
+        ],
+        [
+         15,
+         4
+        ],
+        [
+         16,
+         4
+        ],
+        [
+         17,
+         4
+        ],
+        [
+         18,
+         4
+        ],
+        [
+         19,
+         4
+        ],
+        [
+         20,
+         4
+        ],
+        [
+         21,
+         4
+        ],
+        [
+         22,
+         4
+        ],
+        [
+         23,
+         4
+        ],
+        [
+         24,
+         4
+        ],
+        [
+         25,
+         4
+        ],
+        [
+         26,
+         4
+        ],
+        [
+         27,
+         4
+        ],
+        [
+         28,
+         4
+        ],
+        [
+         29,
+         4
+        ],
+        [
+         10,
+         5
+        ],
+        [
+         11,
+         5
+        ],
+        [
+         12,
+         5
+        ],
+        [
+         13,
+         5
+        ],
+        [
+         14,
+         5
+        ],
+        [
+         15,
+         5
+        ],
+        [
+         16,
+         5
+        ],
+        [
+         17,
+         5
+        ],
+        [
+         18,
+         5
+        ],
+        [
+         19,
+         5
+        ],
+        [
+         20,
+         5
+        ],
+        [
+         21,
+         5
+        ],
+        [
+         22,
+         5
+        ],
+        [
+         23,
+         5
+        ],
+        [
+         24,
+         5
+        ],
+        [
+         25,
+         5
+        ],
+        [
+         26,
+         5
+        ],
+        [
+         27,
+         5
+        ],
+        [
+         28,
+         5
+        ],
+        [
+         29,
+         5
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "푸아티에 방어선",
+   "year_label": "732년",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_ch24_s3_uphill",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 6
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -6,
+   "effective_enemy_level": 14,
+   "difficulty": 8,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "charles_martel",
+     "npc_eudes_aquitaine",
+     "npc_frankish_vanguard",
+     "npc_hunald_aquitaine"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_berber_cavalry_chief",
+      "display_name_ko": "베르베르 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       12,
+       16
+      ],
+      [
+       16,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "베르베르 기병 병사",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_andalus_light_cavalry_captain",
+      "display_name_ko": "경기병 대장",
+      "evidence_level": "invented",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       24,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "베르베르 기병 부장 병사",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_andalus_quartermaster",
+      "display_name_ko": "안달루스 보급 책임자",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       28,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "안달루스 보급  병사",
+     "hold_until_turn": 2
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_arab_guard_chief",
+      "display_name_ko": "아랍 근위 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       14,
+       19
+      ],
+      [
+       17,
+       19
+      ]
+     ],
+     "soldier_display_name_ko": "아랍 근위 기병 병사",
+     "hold_until_turn": 4
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_umayyad_rearguard",
+      "display_name_ko": "후위 지휘관",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       12,
+       20
+      ],
+      [
+       18,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "후위  병사",
+     "hold_until_turn": 6
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_abd_al_rahman_ghafiqi",
+      "display_name_ko": "압드 알라흐만 알가피키",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       20,
+       23
+      ],
+      [
+       19,
+       20
+      ]
+     ],
+     "soldier_display_name_ko": "총독 친위 기병"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_zaragoza_detachment",
+      "display_name_ko": "사라고사 파견대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       21,
+       20
+      ]
+     ],
+     "soldier_display_name_ko": "사라고사 파견 병사"
+    }
+   ],
+   "enemy_squads_count": 7,
+   "enemy_units_initial": 11,
+   "enemy_units_peak": 11,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      12,
+      16
+     ],
+     "ref": "npc_berber_cavalry_chief",
+     "kind": "npc",
+     "name": "베르베르 기병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      16
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      24,
+      16
+     ],
+     "ref": "npc_andalus_light_cavalry_captain",
+     "kind": "npc",
+     "name": "경기병 대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      16
+     ],
+     "ref": "npc_andalus_quartermaster",
+     "kind": "npc",
+     "name": "안달루스 보급 책임자"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      14,
+      19
+     ],
+     "ref": "npc_arab_guard_chief",
+     "kind": "npc",
+     "name": "아랍 근위 기병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      17,
+      19
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      12,
+      20
+     ],
+     "ref": "npc_umayyad_rearguard",
+     "kind": "npc",
+     "name": "후위 지휘관"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      18,
+      21
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      23
+     ],
+     "ref": "npc_abd_al_rahman_ghafiqi",
+     "kind": "npc",
+     "name": "압드 알라흐만 알가피키"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      20
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      21,
+      20
+     ],
+     "ref": "npc_zaragoza_detachment",
+     "kind": "npc",
+     "name": "사라고사 파견대장"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1590,
+    "exp": 2306,
+    "gold": 2067,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). ch22 실값 보간(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "hill"
+    },
+    {
+     "type": "all_alive"
+    }
+   ],
+   "win_rate_band_target_pct": "65~78 (목표 중앙 약 70)",
+   "sort_order": 2403,
+   "prerequisite": "ch24_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만 있음(terrain_change/spawn/move/retreat). say/camera/sfx 는 ch23_hastings.json·ch24_tours.json battle_cues 와 병합 시 송서사 본문 사용",
+   "map_requirements": {
+    "size": "대형 28x20",
+    "zones": {
+     "hill_crest": "오르막 꼭대기 4~6칸",
+     "hill_line": "방어선 구역 가로 8칸",
+     "oak_belt": "참나무 띠 폭2 이상(기병 감속)",
+     "plain_approach": "평원 접근로",
+     "enemy_hold": "적 4분대 대기 구역",
+     "rear_forest": "후방 숲"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "hill_crest",
+     "oak_belt",
+     "camp_rear"
+    ],
+    "note": "s4 와 맵 공용"
+   },
+   "design_notes": [
+    "적 16기(경기병 3분대 x4, hold_until_turn 2·4·6 순차)+총독 친위 4기 = 16. 아군 방어(고지+참나무 띠 감속)가 유리하므로 offset -1. 내려가는 행동 불이익은 hold_zone 서브 별 1개 외 패널티를 두지 않음(판단은 사람 플레이 확인). 이 map 은 ch24_s4 와 공용.",
+    "엔진 제약 반영(2026-11-03): hold_zone 은 tiles<=20, turns 필수 -> 방어선 중앙 20칸(y6 x16~23 + y7 x14~25), turns 7(전투 전 구간 연속 점유). 박백엔이 win_mode all+빈 win_conditions 를 삭제해 survive_turns 7 단독 승리가 됨 = 의도와 일치(별도 승리 조건 없음).",
+    "핵심 영웅 NPC화(2026-11-03): charles_martel 는 일반 영웅 행(미소유 플레이어 승리 불가) 대신 charles_martel 아군 NPC(19,5)로 등장. guest_heroes 는 엔진 미지원이라 비움. route 없음(휴리스틱 봇): 전열 이탈 여부는 사람 플레이 확인.",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_hunald_aquitaine(ally_npcs), npc_andalus_light_cavalry_captain(convert_B). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "gen10_note": "2026-11-03 임밸런: 송서사 EXPAND_ENEMY_ROSTERS.md/EXPAND_ch15_ch17.md 후보 기준 분대 분할(총 유닛 16기 불변, 분대장 10명, 이름 있는 장수 1). 병종은 편성상 배분(슬롯 병종 유지). 직함형(generic)은 invented.",
+   "tune_note_20261104": "임밸런2: 2차 완화(재측정 필요)"
+  },
+  {
+   "code": "ch24_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "프랑크·아키텐 군",
+     "enemy": "안달루스 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "charles_martel",
+      "x": 19,
+      "y": 5,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_frankish_vanguard",
+      "x": 20,
+      "y": 7,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_frankish_archer_captain",
+      "x": 18,
+      "y": 4,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "압드 알라흐만 알가피키",
+     "hero": "npc_abd_al_rahman_ghafiqi"
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        7,
+        26
+       ]
+      ],
+      "tag": "eudes_cav",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        9,
+        26
+       ]
+      ],
+      "tag": "eudes_cav",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "cavalry",
+      "tiles": [
+       [
+        11,
+        26
+       ]
+      ],
+      "tag": "eudes_cav",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_eudes_aquitaine",
+      "tiles": [
+       [
+        6,
+        26
+       ]
+      ],
+      "tag": "eudes",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "move",
+      "unit": "UNIT@16,16",
+      "to": [
+       16,
+       17
+      ]
+     },
+     {
+      "on": {
+       "turn": 5
+      },
+      "do": "move",
+      "unit": "UNIT@24,16",
+      "to": [
+       24,
+       17
+      ]
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_berber_infantry_captain",
+      "tiles": [
+       [
+        16,
+        20
+       ],
+       [
+        15,
+        19
+       ],
+       [
+        16,
+        19
+       ],
+       [
+        17,
+        19
+       ],
+       [
+        15,
+        20
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "charles",
+      "type": "unit_survive",
+      "unit": "hero:charles_martel",
+      "label": "카를을 지켜라"
+     },
+     {
+      "id": "hill_breach",
+      "type": "protect_tiles",
+      "tiles": [
+       [
+        10,
+        5
+       ],
+       [
+        11,
+        5
+       ],
+       [
+        12,
+        5
+       ],
+       [
+        13,
+        5
+       ],
+       [
+        14,
+        5
+       ],
+       [
+        15,
+        5
+       ],
+       [
+        16,
+        5
+       ],
+       [
+        17,
+        5
+       ],
+       [
+        18,
+        5
+       ],
+       [
+        19,
+        5
+       ],
+       [
+        20,
+        5
+       ],
+       [
+        21,
+        5
+       ],
+       [
+        22,
+        5
+       ],
+       [
+        23,
+        5
+       ],
+       [
+        24,
+        5
+       ],
+       [
+        25,
+        5
+       ],
+       [
+        26,
+        5
+       ],
+       [
+        27,
+        5
+       ],
+       [
+        28,
+        5
+       ],
+       [
+        29,
+        5
+       ]
+      ],
+      "zone_ref": "hill_crest_front_row",
+      "max_breach": 0,
+      "label": "오르막 앞줄을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "적 지휘관(압드 알라흐만) 격파",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "charles_down",
+      "label": "지켜야 할 본진의 카를이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:charles_martel"
+      }
+     },
+     {
+      "id": "hilltop",
+      "label": "적이 오르막 꼭대기에 진입",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "zone_ref": "hill_crest",
+       "tiles": [
+        [
+         10,
+         3
+        ],
+        [
+         11,
+         3
+        ],
+        [
+         12,
+         3
+        ],
+        [
+         13,
+         3
+        ],
+        [
+         14,
+         3
+        ],
+        [
+         15,
+         3
+        ],
+        [
+         16,
+         3
+        ],
+        [
+         17,
+         3
+        ],
+        [
+         18,
+         3
+        ],
+        [
+         19,
+         3
+        ],
+        [
+         20,
+         3
+        ],
+        [
+         21,
+         3
+        ],
+        [
+         22,
+         3
+        ],
+        [
+         23,
+         3
+        ],
+        [
+         24,
+         3
+        ],
+        [
+         25,
+         3
+        ],
+        [
+         26,
+         3
+        ],
+        [
+         27,
+         3
+        ],
+        [
+         28,
+         3
+        ],
+        [
+         29,
+         3
+        ],
+        [
+         10,
+         4
+        ],
+        [
+         11,
+         4
+        ],
+        [
+         12,
+         4
+        ],
+        [
+         13,
+         4
+        ],
+        [
+         14,
+         4
+        ],
+        [
+         15,
+         4
+        ],
+        [
+         16,
+         4
+        ],
+        [
+         17,
+         4
+        ],
+        [
+         18,
+         4
+        ],
+        [
+         19,
+         4
+        ],
+        [
+         20,
+         4
+        ],
+        [
+         21,
+         4
+        ],
+        [
+         22,
+         4
+        ],
+        [
+         23,
+         4
+        ],
+        [
+         24,
+         4
+        ],
+        [
+         25,
+         4
+        ],
+        [
+         26,
+         4
+        ],
+        [
+         27,
+         4
+        ],
+        [
+         28,
+         4
+        ],
+        [
+         29,
+         4
+        ],
+        [
+         10,
+         5
+        ],
+        [
+         11,
+         5
+        ],
+        [
+         12,
+         5
+        ],
+        [
+         13,
+         5
+        ],
+        [
+         14,
+         5
+        ],
+        [
+         15,
+         5
+        ],
+        [
+         16,
+         5
+        ],
+        [
+         17,
+         5
+        ],
+        [
+         18,
+         5
+        ],
+        [
+         19,
+         5
+        ],
+        [
+         20,
+         5
+        ],
+        [
+         21,
+         5
+        ],
+        [
+         22,
+         5
+        ],
+        [
+         23,
+         5
+        ],
+        [
+         24,
+         5
+        ],
+        [
+         25,
+         5
+        ],
+        [
+         26,
+         5
+        ],
+        [
+         27,
+         5
+        ],
+        [
+         28,
+         5
+        ],
+        [
+         29,
+         5
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "투르 결전",
+   "year_label": "732년",
+   "chapter": 24,
+   "shelf_code": "ch24",
+   "map": "su_ch24_s3_uphill",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 17,
+   "difficulty": 10,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "charles_martel",
+     "npc_frankish_vanguard",
+     "npc_frankish_archer_captain"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_abd_al_rahman_ghafiqi",
+      "display_name_ko": "압드 알라흐만 알가피키",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       23
+      ],
+      [
+       19,
+       20
+      ],
+      [
+       21,
+       20
+      ],
+      [
+       19,
+       23
+      ]
+     ],
+     "soldier_display_name_ko": "총독 본대 중기병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_zaragoza_detachment",
+      "display_name_ko": "사라고사 파견대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       22
+      ]
+     ],
+     "soldier_display_name_ko": "사라고사 파견 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_umayyad_infantry_chief",
+      "display_name_ko": "우마이야 기병 대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       24
+      ]
+     ],
+     "soldier_display_name_ko": "우마이야 기병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_berber_cavalry_chief",
+      "display_name_ko": "베르베르 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       12,
+       16
+      ],
+      [
+       16,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "베르베르 기병 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_umayyad_rearguard",
+      "display_name_ko": "후위 지휘관",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       12,
+       20
+      ],
+      [
+       18,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "후위  병사",
+     "hold_until_turn": 3
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 10,
+   "enemy_units_peak": 11,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      23
+     ],
+     "ref": "npc_abd_al_rahman_ghafiqi",
+     "kind": "npc",
+     "name": "압드 알라흐만 알가피키"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      20
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      20
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      23
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      22
+     ],
+     "ref": "npc_zaragoza_detachment",
+     "kind": "npc",
+     "name": "사라고사 파견대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      24
+     ],
+     "ref": "npc_umayyad_infantry_chief",
+     "kind": "npc",
+     "name": "우마이야 기병 대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      12,
+      16
+     ],
+     "ref": "npc_berber_cavalry_chief",
+     "kind": "npc",
+     "name": "베르베르 기병대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      16,
+      16
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      12,
+      20
+     ],
+     "ref": "npc_umayyad_rearguard",
+     "kind": "npc",
+     "name": "후위 지휘관"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      18,
+      21
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1820,
+    "exp": 2639,
+    "gold": 2366,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). ch22 실값 보간(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "charles"
+    },
+    {
+     "type": "sub_objective",
+     "id": "hill_breach"
+    }
+   ],
+   "win_rate_band_target_pct": "58~72 (목표 중앙 약 65)",
+   "sort_order": 2404,
+   "prerequisite": "ch24_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만 있음(terrain_change/spawn/move/retreat). say/camera/sfx 는 ch23_hastings.json·ch24_tours.json battle_cues 와 병합 시 송서사 본문 사용",
+   "map_requirements": {
+    "size": "대형 28x20 (s3 재사용)",
+    "zones": {
+     "hill_crest": "s3 와 동일",
+     "eudes_arrival": "야영지 후방 낮은 땅 4칸(외드 기병 spawn)",
+     "camp_rear": "야영지 후방",
+     "enemy_camp": "멀리 안달루스 천막(장식)"
+    },
+    "deploy_zone_count": 6,
+    "tile_tags": [
+     "hill_crest",
+     "oak_belt",
+     "camp_rear"
+    ]
+   },
+   "design_notes": [
+    "적 22기(본대6+기병4+보병4+후속기병4(턴3까지 대기)+궁수4). Lv22 offset +1(eff 23): 아군이 고지 방어에 spear 상성이라 적 스펙을 올림. 외드 기병(side a, 턴4)이 증원이므로 턴4 전 생존이 관건. survive_turns 6 + 지휘관 격파(latch) 모두 6턴 안에 필요하나 지휘관은 본대 안쪽(guard_commander)이라 공세가 필요 -> 오르막을 지키라는 보조 목표와 긴장(설계 의도). 이 긴장이 재미/난이도로 맞는지 사람 플레이 확인 필수.",
+    "엔진 제약 반영: protect_tiles 는 tiles<=20 -> 오르막 꼭대기 앞줄 y=5 x10~29(20칸)로 축소(남쪽에서 올라오는 적이 가장 먼저 닿는 줄). 패배 in_zone hilltop 은 기존 60칸 유지(in_zone 60칸 제한 내). cue UNIT@16,16 / UNIT@24,16 은 전투 시작 때 BattleService::bindUnitPlaceholders 가 그 칸에서 시작한 적 유닛(B분대 기병 2기) id 로 치환(유닛 id b# 는 런타임 생성이라 정적 id 불가) -> 유지.",
+    "핵심 영웅 NPC화(2026-11-03): charles_martel 는 일반 영웅 행(미소유 플레이어 승리 불가) 대신 charles_martel 아군 NPC(19,5)로 등장. guest_heroes 는 엔진 미지원이라 비움. route 없음(휴리스틱 봇): 전열 이탈 여부는 사람 플레이 확인.",
+    "[2026-11-04 3차 완화] offset -3->-5, 적 16->10기(부대 8->5), 대장 hp_mult 1.5->1.2",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_frankish_archer_captain(ally_npcs), npc_berber_infantry_captain(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "gen10_note": "2026-11-03 임밸런: 송서사 EXPAND_ENEMY_ROSTERS.md/EXPAND_ch15_ch17.md 후보 기준 분대 분할(총 유닛 22기 불변, 분대장 11명, 이름 있는 장수 1). 병종은 편성상 배분(슬롯 병종 유지). 직함형(generic)은 invented.",
+   "tune_note_20261104": "임밸런2: 3차 완화(재측정 필요)"
+  }
+ ],
+ "engine_requests": [
+  "1) cue spawn 의 hero 키(npc_eudes_aquitaine) 지원 여부(없으면 기병 3기만)",
+  "2) hero:charles_martel in_zone 으로 대체함(@protagonist in_zone 은 미사용)",
+  "3) enemy_squads soldiers=0 단독 영웅 분대 허용 여부(ch23_s4 F분대)",
+  "5) survive_turns + defeated(latch) win_mode all 조합 판정 확인(ch24_s4)",
+  "(해소) 적 분대 route 지원 구현됨 -> ch24_s2 정찰에 적용"
+ ]
+}

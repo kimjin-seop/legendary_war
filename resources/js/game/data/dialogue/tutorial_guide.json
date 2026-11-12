@@ -1,0 +1,310 @@
+{
+ "_note": "프롤로그 개편용 신규 데이터(기존 tutorial_dialogue.json은 수정하지 않음. 서버가 그 파일의 steps 개수를 maxStep으로 쓰고, tut_03~tut_09는 재열람용으로 보존). 형식은 기존 파일과 같다: speaker/expr 필드, {중괄호} 런타임 치환 토큰({hero_name}). 게임 시스템 안내만 담고 역사·사실 주장은 없다. 배율·수치·코스트 값은 규칙 변경에 대비해 직접 쓰지 않았다. 라벨(턴 종료/대기/공격/전투 예측/확정/취소/청색 칸/붉은 빗금/상성/오라)은 tutorial_dialogue.json _note의 근거(scenes/Battle.js, ui/AffinityBadge.js)를 따른다. 표시 방식(말풍선 위치·하이라이트)은 FE 구현에 맡긴다.",
+ "meta": {
+  "version": 1,
+  "status": "문구 초안·시오리 톤",
+  "updated": "2026-11-02",
+  "author": "송서사",
+  "basis": [
+   "하플레이 감사 결과 프롤로그가 길고 조작 안내가 늦다는 지적에 따라, 오프닝+세계관 설명을 짧은 독백(prologue_short)으로 줄이고 전투 안에서 단계별로 안내(guide_steps)한다.",
+   "개념 설명(상성·오라·지형·방향·코스트 등)은 한꺼번에 하지 않고 처음 마주치는 순간의 짧은 팝업(concept_popups)으로 나눈다.",
+   "기존 tut_00~tut_09는 서고에서 다시 볼 수 있는 재열람용으로 남긴다."
+  ],
+  "basis_note": "문기획 기획서 원문 파일은 docs에서 찾지 못했다. 위 요지는 팀장 전달 내용 기준이며 기획서와 대조가 필요하다(verify).",
+  "todo_verify": [
+   "문기획 기획서 원문과 단계·트리거 일치 여부",
+   "G2~G5 완료 조건이 실제 Battle.js 이벤트와 맞는지(윤프론)",
+   "concept_popups 트리거 중 '영웅 쓰러짐'은 squad 규칙이 항상 on인 현재 기준. 규칙이 플래그화되면 재확인",
+   "'뽑기' 팝업의 로비 라벨 일치 여부"
+  ]
+ },
+ "speaker_profile": {
+  "shiori": {
+   "name": "시오리",
+   "role": "시간의 서고의 사서 겸 군사",
+   "tone": "존댓말, '지휘관님' 호칭, 침착하고 건조한 유머. 애교·이모티콘 금지"
+  }
+ },
+ "tokens": {
+  "hero_name": "시작 영웅 이름(heroes.name_ko). 기존 tut_02와 같은 치환 토큰"
+ },
+ "prologue_short": {
+  "id": "prologue_short",
+  "title": "프롤로그(단축)",
+  "note": "6줄. 5~6번째 줄이 끝나면 곧바로 첫 전투(stage_01)로 진입한다.",
+  "lines": [
+   {
+    "no": 1,
+    "speaker": "shiori",
+    "expr": "neutral",
+    "text": "……깨셨군요, 지휘관님. 여기는 시간의 서고, 저는 사서 시오리입니다."
+   },
+   {
+    "no": 2,
+    "speaker": "shiori",
+    "expr": "serious",
+    "text": "서고의 기록이 흐트러져 서로 다른 시대가 맞부딪히고 있습니다."
+   },
+   {
+    "no": 3,
+    "speaker": "shiori",
+    "expr": "neutral",
+    "text": "지휘관님이 기록 속 영웅을 불러 전장을 바로잡아 주셔야 합니다."
+   },
+   {
+    "no": 4,
+    "speaker": "shiori",
+    "expr": "cheer",
+    "text": "첫 영웅은 {hero_name}입니다. 설명보다는 직접 움직여 보시지요."
+   },
+   {
+    "no": 5,
+    "speaker": "shiori",
+    "expr": "smile",
+    "text": "모르는 것은 전장에서 그때그때 말씀드리겠습니다. 책장은 기다려 주지만, 적은 아니니까요."
+   },
+   {
+    "no": 6,
+    "speaker": "shiori",
+    "expr": "neutral",
+    "text": "그럼, 첫 전장으로 가시지요."
+   }
+  ],
+  "skip_text": "건너뛰기"
+ },
+ "guide_steps": {
+  "note": "첫 전투에서 순서대로 진행하는 조작 안내. 각 단계는 completion 조건이 충족되면 다음 단계로 넘어간다. 건너뛰기는 모든 단계에 공통 제공한다.",
+  "skip": {
+   "button_text": "안내 건너뛰기",
+   "confirm_text": "조작 안내를 건너뛰시겠습니까? 서고에서 다시 보실 수 있습니다.",
+   "confirm_yes": "건너뛰기",
+   "confirm_no": "계속 보기"
+  },
+  "steps": [
+   {
+    "id": "G1_goal_banner",
+    "order": 1,
+    "kind": "banner",
+    "speaker": "shiori",
+    "expr": "serious",
+    "bubble": [
+     "적 지휘관을 쓰러뜨려라"
+    ],
+    "completion": "전투 시작 시 목표 배너를 잠시 보여 주고 자동으로 사라지면(또는 탭하면) 완료. 별도 조작 불필요."
+   },
+   {
+    "id": "G2_select_unit",
+    "order": 2,
+    "kind": "bubble",
+    "speaker": "shiori",
+    "expr": "neutral",
+    "bubble": [
+     "아군 유닛을 눌러",
+     "선택하십시오."
+    ],
+    "completion": "아군 유닛(영웅 또는 부대)을 선택하면 완료."
+   },
+   {
+    "id": "G3_move",
+    "order": 3,
+    "kind": "bubble",
+    "speaker": "shiori",
+    "expr": "neutral",
+    "bubble": [
+     "청색 칸이 이동 범위입니다.",
+     "한 곳을 고르십시오."
+    ],
+    "completion": "청색 칸 중 한 곳(제자리 포함)을 골라 이동(또는 제자리 확정)하면 완료."
+   },
+   {
+    "id": "G4_attack",
+    "order": 4,
+    "kind": "bubble",
+    "speaker": "shiori",
+    "expr": "serious",
+    "bubble": [
+     "'공격' 후 붉은 빗금의",
+     "적을 고르십시오."
+    ],
+    "follow_up_bubble": [
+     "'전투 예측'을 보시고",
+     "'확정'을 누르십시오."
+    ],
+    "completion": "'공격' 선택 후 붉은 빗금 안의 적을 고르고, 전투 예측 창에서 '확정'을 눌러 공격이 실행되면 완료."
+   },
+   {
+    "id": "G4b_wait_no_target",
+    "order": 4.5,
+    "kind": "bubble_conditional",
+    "speaker": "shiori",
+    "expr": "neutral",
+    "bubble": [
+     "사거리 안에 적이 없군요.",
+     "'대기'로 마치십시오."
+    ],
+    "trigger": "G3 이동 후 사거리 안에 공격 가능한 적이 없을 때만 G4 대신 표시한다.",
+    "completion": "'대기'를 눌러 해당 유닛의 행동을 마치면 완료(G4 완료와 같은 취급으로 G5로 진행)."
+   },
+   {
+    "id": "G4c_facing",
+    "order": 4.6,
+    "kind": "bubble_conditional",
+    "speaker": "shiori",
+    "expr": "neutral",
+    "bubble": [
+     "행동을 마친 뒤 바라볼 방향을 고릅니다.",
+     "등을 보이면 더 크게 다칩니다."
+    ],
+    "trigger": "'대기'·공격 뒤 방향 선택 단계(phase facing)에 들어가면 G4/G4b/G4d 문구 대신 표시한다.",
+    "completion": "방향을 고르면(또는 취소하면) 이전 단계 문구로 돌아간다."
+   },
+   {
+    "id": "G4d_move_others",
+    "order": 4.8,
+    "kind": "bubble_conditional",
+    "speaker": "shiori",
+    "expr": "serious",
+    "bubble": [
+     "{heroes}도 직접 움직이십시오.",
+     "혼자 앞서면 둘러싸입니다."
+    ],
+    "trigger": "첫 유닛이 행동을 마쳤는데 아직 움직이지 않은 아군 영웅이 있을 때 G5 대신 표시한다. {heroes} = 남은 아군 영웅 이름(최대 2명, 가운뎃점 연결).",
+    "completion": "남은 아군 영웅이 모두 행동을 마치면 G5로 진행한다(턴 종료 시 안내 종료)."
+   },
+   {
+    "id": "G5_end_turn",
+    "order": 5,
+    "kind": "bubble",
+    "speaker": "shiori",
+    "expr": "smile",
+    "bubble": [
+     "다 움직이셨다면",
+     "'턴 종료'를 누르십시오."
+    ],
+    "completion": "'턴 종료' 버튼을 눌러 아군 턴이 끝나면 완료. 이후 안내는 끝나고 일반 플레이로 전환한다."
+   }
+  ]
+ },
+ "concept_popups": {
+  "note": "처음 해당 상황을 만났을 때 한 번만 보여 주는 짧은 팝업. 1~2줄. 닫은 뒤에는 '서고'의 재열람(tut_03~09)에서 다시 볼 수 있다. 수치는 쓰지 않는다.",
+  "popups": [
+   {
+    "id": "C_affinity",
+    "title": "병종 상성",
+    "speaker": "shiori",
+    "expr": "serious",
+    "lines": [
+     "병종에는 상성이 있습니다.",
+     "공격 전 '상성 유리·불리·대등' 표시를 확인하십시오."
+    ],
+    "trigger": "ch1_s2 이후 전투에서, 상성 유리 또는 불리 표시가 처음 뜨는 공격 선택 시점. ch1_s1에서는 표시하지 않는다."
+   },
+   {
+    "id": "C_aura",
+    "title": "오라",
+    "speaker": "shiori",
+    "expr": "neutral",
+    "lines": [
+     "영웅 곁의 소속 부대는 오라로 강화됩니다.",
+     "영웅 가까이에 부대를 두십시오."
+    ],
+    "trigger": "오라를 지닌 아군 영웅이 출전한 전투에서 첫 아군 턴이 시작될 때."
+   },
+   {
+    "id": "C_terrain",
+    "title": "지형",
+    "speaker": "shiori",
+    "expr": "neutral",
+    "lines": [
+     "지형에 따라 방어와 이동이 달라집니다.",
+     "지형 칸을 눌러 보정을 확인하십시오."
+    ],
+    "trigger": "지형 효과가 있는 칸(숲·산·성 등)에 처음 이동 범위가 걸리거나 유닛이 올라섰을 때. 지형별로 따로 띄우지 않고 공통 1회."
+   },
+   {
+    "id": "C_facing",
+    "title": "방향",
+    "speaker": "shiori",
+    "expr": "serious",
+    "lines": [
+     "유닛에게는 바라보는 방향이 있습니다.",
+     "정면보다 측면과 후면이 더 아픕니다."
+    ],
+    "trigger": "처음으로 적의 측면 또는 후면을 칠 수 있는 위치가 공격 범위에 들어왔을 때, 또는 아군이 측면·후면 공격을 받았을 때."
+   },
+   {
+    "id": "C_cost",
+    "title": "코스트",
+    "speaker": "shiori",
+    "expr": "neutral",
+    "lines": [
+     "출전에는 코스트가 들며 합계에 상한이 있습니다.",
+     "배분이 곧 전략입니다."
+    ],
+    "trigger": "처음 출전 편성 화면에 들어갔을 때(또는 코스트 상한 초과 경고가 처음 뜰 때).",
+    "label_unverified": [
+     "편성",
+     "코스트"
+    ]
+   },
+   {
+    "id": "C_hero_down",
+    "title": "영웅 쓰러짐",
+    "speaker": "shiori",
+    "expr": "serious",
+    "lines": [
+     "영웅이 쓰러지면 그 영웅의 부대도 함께 무너집니다.",
+     "영웅은 너무 앞에 세우지 마십시오."
+    ],
+    "trigger": "전투 중 처음으로 아군 또는 적 영웅이 쓰러졌을 때. 부대 붕괴 규칙이 켜져 있을 때만 표시(기존 conditional_lines squad_rule_on과 같은 조건)."
+   },
+   {
+    "id": "C_victory_result",
+    "title": "승리 정산",
+    "speaker": "shiori",
+    "expr": "cheer",
+    "lines": [
+     "승리입니다. 보상으로 경험치와 골드를 받았습니다.",
+     "영웅의 레벨이 오르면 능력치도 함께 성장합니다."
+    ],
+    "trigger": "첫 승리 후 정산 화면이 처음 열릴 때.",
+    "label_unverified": [
+     "정산 화면",
+     "경험치",
+     "골드"
+    ]
+   },
+   {
+    "id": "C_gacha",
+    "title": "뽑기",
+    "speaker": "shiori",
+    "expr": "smile",
+    "lines": [
+     "로비의 '뽑기'에서 새로운 영웅을 만날 수 있습니다.",
+     "골드가 쓰이니, 쓰시기 전에 한 번 생각해 보시지요."
+    ],
+    "trigger": "첫 승리 정산을 닫고 로비로 돌아왔을 때 한 번(뽑기가 열려 있을 때만).",
+    "label_unverified": [
+     "뽑기(로비 라벨)"
+    ]
+   }
+  ]
+ },
+ "stage_hints": {
+  "_note": "스테이지별 짧은 안내(윤프론 2026-11-02, 팀장 요청 문구). battle = 해당 스테이지 첫 전투 조작 안내(G1 목표 배너 아래 줄로 함께 표시), deploy = 해당 스테이지 배치 화면 진입 시 1회. guide_steps 단계 수·튜토리얼 maxStep 과 무관",
+  "stage_01": {
+   "battle": [
+    "수는 우리가 앞섭니다. 영웅 3명과 병사 6기 대 적 3기. 영웅은 뒤에서, 사거리 안의 적만 치세요.",
+    "적은 3턴 전까지 제자리에서 기다립니다. 그동안 진형을 갖추고, 회복을 쓰는 적 지휘관 힐데가르트를 먼저 노리세요.",
+    "병사는 직접 움직일 수 있고, 움직이지 않은 병사는 턴 종료 때 영웅을 따라갑니다.",
+    "시작 영웅이 쓰러지면 패배합니다."
+   ]
+  },
+  "ch1_s1": {
+   "deploy": [
+    "주인공을 꼭 편성하세요.",
+    "이순신은 앞으로 내보내지 마세요."
+   ]
+  }
+ }
+}

@@ -1,0 +1,346 @@
+{
+    "_note": "장비 초안 v2(임밸런, 2026-11-01). 모든 수치는 \"가정 시작값/튜닝 필요\"이며 시드·엔진에 연결되지 않은 제안 파일(공유 데이터 아님). 능력치는 scale(레벨) 이후 평탄 가산(영웅 유닛만, 병사 제외), 합계는 cap_proposal로 클램프. 가치 환산(교차 시뮬 보정, 승률 기여 기준): 공격 1 = HP 약 2.4, 방어 1 = HP 약 2.9 → V = hp + 2.4*atk + 2.9*def. 같은 등급 5슬롯 세트 합(HP/공격/방어): C 4/1/1, B 8/2/1, A 12/2/2, S 16/3/2. 세트 가격 가정 C 250 / B 790 / A 2000 / S 4510 gold(슬롯별 가격은 V 비례, 10 단위 반올림). req_level 가정 C1/B5/A10/S15. 투구 방어 0은 세트 방어 합을 상한 2 이내로 두기 위한 가정.",
+    "version": 2,
+    "items": [
+        {
+            "code": "helm_c",
+            "slot": "helm",
+            "rarity": "C",
+            "stats": {
+                "hp": 1,
+                "atk": 0,
+                "def": 0
+            },
+            "req_level": 1,
+            "price_gold": 30,
+            "_note": "가정: 투구=HP 전담(가정: 세트 방어 합 상한 때문에 방어 0)"
+        },
+        {
+            "code": "helm_b",
+            "slot": "helm",
+            "rarity": "B",
+            "stats": {
+                "hp": 2,
+                "atk": 0,
+                "def": 0
+            },
+            "req_level": 5,
+            "price_gold": 100,
+            "_note": "가정: 투구=HP 전담(가정: 세트 방어 합 상한 때문에 방어 0)"
+        },
+        {
+            "code": "helm_a",
+            "slot": "helm",
+            "rarity": "A",
+            "stats": {
+                "hp": 3,
+                "atk": 0,
+                "def": 0
+            },
+            "req_level": 10,
+            "price_gold": 270,
+            "_note": "가정: 투구=HP 전담(가정: 세트 방어 합 상한 때문에 방어 0)"
+        },
+        {
+            "code": "helm_s",
+            "slot": "helm",
+            "rarity": "S",
+            "stats": {
+                "hp": 4,
+                "atk": 0,
+                "def": 0
+            },
+            "req_level": 15,
+            "price_gold": 620,
+            "_note": "가정: 투구=HP 전담(가정: 세트 방어 합 상한 때문에 방어 0)"
+        },
+        {
+            "code": "armor_c",
+            "slot": "armor",
+            "rarity": "C",
+            "stats": {
+                "hp": 0,
+                "atk": 0,
+                "def": 1
+            },
+            "req_level": 1,
+            "price_gold": 80,
+            "_note": "가정: 갑옷=방어 주력(정수 단위라 +1이 최소)+HP 소량"
+        },
+        {
+            "code": "armor_b",
+            "slot": "armor",
+            "rarity": "B",
+            "stats": {
+                "hp": 1,
+                "atk": 0,
+                "def": 1
+            },
+            "req_level": 5,
+            "price_gold": 200,
+            "_note": "가정: 갑옷=방어 주력(정수 단위라 +1이 최소)+HP 소량"
+        },
+        {
+            "code": "armor_a",
+            "slot": "armor",
+            "rarity": "A",
+            "stats": {
+                "hp": 2,
+                "atk": 0,
+                "def": 1
+            },
+            "req_level": 10,
+            "price_gold": 430,
+            "_note": "가정: 갑옷=방어 주력(정수 단위라 +1이 최소)+HP 소량"
+        },
+        {
+            "code": "armor_s",
+            "slot": "armor",
+            "rarity": "S",
+            "stats": {
+                "hp": 3,
+                "atk": 0,
+                "def": 1
+            },
+            "req_level": 15,
+            "price_gold": 920,
+            "_note": "가정: 갑옷=방어 주력(정수 단위라 +1이 최소)+HP 소량"
+        },
+        {
+            "code": "gloves_c",
+            "slot": "gloves",
+            "rarity": "C",
+            "stats": {
+                "hp": 0,
+                "atk": 1,
+                "def": 0
+            },
+            "req_level": 1,
+            "price_gold": 60,
+            "_note": "가정: 장갑=공격 주력+HP 소량"
+        },
+        {
+            "code": "gloves_b",
+            "slot": "gloves",
+            "rarity": "B",
+            "stats": {
+                "hp": 1,
+                "atk": 1,
+                "def": 0
+            },
+            "req_level": 5,
+            "price_gold": 170,
+            "_note": "가정: 장갑=공격 주력+HP 소량"
+        },
+        {
+            "code": "gloves_a",
+            "slot": "gloves",
+            "rarity": "A",
+            "stats": {
+                "hp": 2,
+                "atk": 1,
+                "def": 0
+            },
+            "req_level": 10,
+            "price_gold": 390,
+            "_note": "가정: 장갑=공격 주력+HP 소량"
+        },
+        {
+            "code": "gloves_s",
+            "slot": "gloves",
+            "rarity": "S",
+            "stats": {
+                "hp": 2,
+                "atk": 2,
+                "def": 0
+            },
+            "req_level": 15,
+            "price_gold": 1060,
+            "_note": "가정: 장갑=공격 주력+HP 소량"
+        },
+        {
+            "code": "boots_c",
+            "slot": "boots",
+            "rarity": "C",
+            "stats": {
+                "hp": 2,
+                "atk": 0,
+                "def": 0
+            },
+            "req_level": 1,
+            "price_gold": 50,
+            "_note": "가정: 신발=HP 중심, A부터 방어 +1(1차는 이동력 없음)"
+        },
+        {
+            "code": "boots_b",
+            "slot": "boots",
+            "rarity": "B",
+            "stats": {
+                "hp": 3,
+                "atk": 0,
+                "def": 0
+            },
+            "req_level": 5,
+            "price_gold": 150,
+            "_note": "가정: 신발=HP 중심, A부터 방어 +1(1차는 이동력 없음)"
+        },
+        {
+            "code": "boots_a",
+            "slot": "boots",
+            "rarity": "A",
+            "stats": {
+                "hp": 3,
+                "atk": 0,
+                "def": 1
+            },
+            "req_level": 10,
+            "price_gold": 520,
+            "_note": "가정: 신발=HP 중심, A부터 방어 +1(1차는 이동력 없음)"
+        },
+        {
+            "code": "boots_s",
+            "slot": "boots",
+            "rarity": "S",
+            "stats": {
+                "hp": 4,
+                "atk": 0,
+                "def": 1
+            },
+            "req_level": 15,
+            "price_gold": 1070,
+            "_note": "가정: 신발=HP 중심, A부터 방어 +1(1차는 이동력 없음)"
+        },
+        {
+            "code": "accessory_c",
+            "slot": "accessory",
+            "rarity": "C",
+            "stats": {
+                "hp": 1,
+                "atk": 0,
+                "def": 0
+            },
+            "req_level": 1,
+            "price_gold": 30,
+            "_note": "가정: 장신구=소량 혼합(HP+공격)"
+        },
+        {
+            "code": "accessory_b",
+            "slot": "accessory",
+            "rarity": "B",
+            "stats": {
+                "hp": 1,
+                "atk": 1,
+                "def": 0
+            },
+            "req_level": 5,
+            "price_gold": 170,
+            "_note": "가정: 장신구=소량 혼합(HP+공격)"
+        },
+        {
+            "code": "accessory_a",
+            "slot": "accessory",
+            "rarity": "A",
+            "stats": {
+                "hp": 2,
+                "atk": 1,
+                "def": 0
+            },
+            "req_level": 10,
+            "price_gold": 390,
+            "_note": "가정: 장신구=소량 혼합(HP+공격)"
+        },
+        {
+            "code": "accessory_s",
+            "slot": "accessory",
+            "rarity": "S",
+            "stats": {
+                "hp": 3,
+                "atk": 1,
+                "def": 0
+            },
+            "req_level": 15,
+            "price_gold": 840,
+            "_note": "가정: 장신구=소량 혼합(HP+공격)"
+        },
+        {
+            "code": "accessory_c2",
+            "slot": "accessory",
+            "rarity": "C",
+            "stats": {
+                "hp": 1,
+                "atk": 0,
+                "def": 1
+            },
+            "req_level": 1,
+            "price_gold": 100,
+            "_note": "가정: 장신구 대안형(기본형의 공격 1을 방어 1로 교환; 동일 등급 세트 합이 상한을 넘지 않도록 설계)"
+        },
+        {
+            "code": "accessory_b2",
+            "slot": "accessory",
+            "rarity": "B",
+            "stats": {
+                "hp": 2,
+                "atk": 0,
+                "def": 1
+            },
+            "req_level": 5,
+            "price_gold": 250,
+            "_note": "가정: 장신구 대안형(기본형의 공격 1을 방어 1로 교환; 동일 등급 세트 합이 상한을 넘지 않도록 설계)"
+        },
+        {
+            "code": "accessory_a2",
+            "slot": "accessory",
+            "rarity": "A",
+            "stats": {
+                "hp": 3,
+                "atk": 0,
+                "def": 0
+            },
+            "req_level": 10,
+            "price_gold": 270,
+            "_note": "가정: 장신구 대안형(기본형의 공격 1을 HP 1로 교환; 동일 등급 세트 합이 상한을 넘지 않도록 설계)"
+        },
+        {
+            "code": "gloves_tut",
+            "slot": "gloves",
+            "rarity": "C",
+            "stats": {
+                "hp": 0,
+                "atk": 3,
+                "def": 0
+            },
+            "req_level": 1,
+            "price_gold": 120,
+            "_note": "튜토리얼1 첫 클리어 지급용(stage_first_clear_grants.json). 무기 슬롯이 없어 공격 담당 장갑 슬롯 사용. 임밸런 C안 시작값 ATK+3"
+        },
+        {
+            "code": "armor_tut",
+            "slot": "armor",
+            "rarity": "C",
+            "stats": {
+                "hp": 0,
+                "atk": 0,
+                "def": 2
+            },
+            "req_level": 1,
+            "price_gold": 120,
+            "_note": "튜토리얼1 첫 클리어 지급용. 임밸런 C안 시작값 DEF+2"
+        }
+    ],
+    "cap_proposal": {
+        "_note": "가정(측정 근거는 보고서). config 키 제안: game.equipment.cap_flat / cap_pct. cap_pct는 영웅 Lv1 능력치(병종 기본+영웅 보너스) 대비 %, 각 스탯 min(합계, floor(Lv1*pct/100), cap_flat).",
+        "cap_flat": {
+            "hp": 16,
+            "atk": 3,
+            "def": 2
+        },
+        "cap_pct": {
+            "hp": 20,
+            "atk": 10,
+            "def": 40
+        },
+        "inventory_cap": 100,
+        "pvp_scale": 1
+    }
+}

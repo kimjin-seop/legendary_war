@@ -1,0 +1,68 @@
+{
+  "_note": "주인공 심리검사 문안(2026-11-01 송서사 다듬음: 시오리가 묻는 존댓말 톤, 선택지는 지휘관 본인의 짧은 답). 채점: 선택지의 weights(class별 점수)를 합산해 최고점 클래스를 추천(동점은 config protagonist.classes 순서). 결과는 '공명 유형'으로 연출. 문항/선택지 id·weights·문항 수(9)는 API 계약이므로 변경 금지, text만 수정. 역사 인물 비교 서술은 없음.",
+  "version": 1,
+  "classes": {
+    "sword": {"resonance": "강검의 공명", "summary": "정면에서 균형 있게 버티며 길을 여는 사람."},
+    "spear": {"resonance": "장창의 공명", "summary": "거리를 지키고 대열을 이끄는 사람."},
+    "archer": {"resonance": "원시의 공명", "summary": "멀리 보고 한 번에 맞히는 사람."},
+    "cavalry": {"resonance": "질풍의 공명", "summary": "먼저 움직여 흐름을 바꾸는 사람."},
+    "heavy": {"resonance": "방벽의 공명", "summary": "물러서지 않고 모두의 앞을 지키는 사람."}
+  },
+  "questions": [
+    {"id": "q1", "text": "낯선 길 앞에 서셨습니다. 가장 먼저 무엇을 하시겠습니까?", "options": [
+      {"id": "a", "text": "일단 한 걸음 들어가 본다", "weights": {"sword": 2, "cavalry": 1}},
+      {"id": "b", "text": "높은 곳에 올라 전체를 살핀다", "weights": {"archer": 2, "spear": 1}},
+      {"id": "c", "text": "동료가 따라올 때까지 기다린다", "weights": {"heavy": 2, "spear": 1}},
+      {"id": "d", "text": "가장 빠른 길을 앞서 달려 확인한다", "weights": {"cavalry": 2, "archer": 1}}
+    ]},
+    {"id": "q2", "text": "예상치 못한 큰 문제가 생겼습니다. 어떻게 하시겠습니까?", "options": [
+      {"id": "a", "text": "침착하게 순서부터 정리한다", "weights": {"spear": 2, "sword": 1}},
+      {"id": "b", "text": "내가 먼저 막아선다", "weights": {"heavy": 2, "sword": 1}},
+      {"id": "c", "text": "한 걸음 떨어져 원인을 분석한다", "weights": {"archer": 2}},
+      {"id": "d", "text": "당장 움직여 흐름을 끊는다", "weights": {"cavalry": 2, "sword": 1}}
+    ]},
+    {"id": "q3", "text": "함께하는 이들 사이에서 맡고 싶은 역할은 무엇입니까?", "options": [
+      {"id": "a", "text": "모두를 이끄는 중심", "weights": {"spear": 2, "sword": 1}},
+      {"id": "b", "text": "든든하게 받쳐 주는 방패", "weights": {"heavy": 2}},
+      {"id": "c", "text": "정확한 한 발을 책임지는 사수", "weights": {"archer": 2}},
+      {"id": "d", "text": "어디든 달려가는 해결사", "weights": {"cavalry": 2, "sword": 1}}
+    ]},
+    {"id": "q4", "text": "쉬는 날, 가장 마음이 끌리는 일은 무엇입니까?", "options": [
+      {"id": "a", "text": "몸을 쓰는 운동이나 수련", "weights": {"sword": 2, "heavy": 1}},
+      {"id": "b", "text": "조용히 집중하는 취미", "weights": {"archer": 2, "spear": 1}},
+      {"id": "c", "text": "바람 쐬러 멀리 나가기", "weights": {"cavalry": 2}},
+      {"id": "d", "text": "사람들과 모여 이야기 나누기", "weights": {"spear": 2, "heavy": 1}}
+    ]},
+    {"id": "q5", "text": "약속 시간에 늦을 것 같습니다. 어떻게 하시겠습니까?", "options": [
+      {"id": "a", "text": "미리 연락하고 계획을 고친다", "weights": {"spear": 2}},
+      {"id": "b", "text": "전력으로 달려간다", "weights": {"cavalry": 2, "sword": 1}},
+      {"id": "c", "text": "애초에 늦지 않도록 여유를 두었다", "weights": {"heavy": 2, "archer": 1}},
+      {"id": "d", "text": "상황을 보며 그때그때 대처한다", "weights": {"sword": 2}}
+    ]},
+    {"id": "q6", "text": "버거운 싸움에서 이기는 길은 무엇이라고 보십니까?", "options": [
+      {"id": "a", "text": "끝까지 버티면 기회가 온다", "weights": {"heavy": 2, "sword": 1}},
+      {"id": "b", "text": "한순간의 틈을 정확히 노린다", "weights": {"archer": 2, "cavalry": 1}},
+      {"id": "c", "text": "대열을 지키며 한 걸음씩 나아간다", "weights": {"spear": 2, "heavy": 1}},
+      {"id": "d", "text": "정면으로 부딪쳐 기세를 꺾는다", "weights": {"sword": 2, "cavalry": 1}}
+    ]},
+    {"id": "q7", "text": "동료가 위험에 처했습니다. 어떻게 하시겠습니까?", "options": [
+      {"id": "a", "text": "몸으로 막아선다", "weights": {"heavy": 2, "sword": 1}},
+      {"id": "b", "text": "멀리서 위협부터 제거한다", "weights": {"archer": 2}},
+      {"id": "c", "text": "빠르게 달려가 데려온다", "weights": {"cavalry": 2}},
+      {"id": "d", "text": "곁에 서서 거리를 벌려 준다", "weights": {"spear": 2, "sword": 1}}
+    ]},
+    {"id": "q8", "text": "스스로를 가장 잘 나타내는 말을 고른다면 어느 것입니까?", "options": [
+      {"id": "a", "text": "꾸준함", "weights": {"heavy": 2, "spear": 1}},
+      {"id": "b", "text": "정확함", "weights": {"archer": 2, "spear": 1}},
+      {"id": "c", "text": "대담함", "weights": {"sword": 2, "cavalry": 1}},
+      {"id": "d", "text": "민첩함", "weights": {"cavalry": 2, "archer": 1}}
+    ]},
+    {"id": "q9", "text": "서고에서 가장 먼저 손에 쥐고 싶은 것은 무엇입니까?", "options": [
+      {"id": "a", "text": "잘 벼린 검", "weights": {"sword": 2}},
+      {"id": "b", "text": "길고 곧은 창", "weights": {"spear": 2}},
+      {"id": "c", "text": "팽팽한 활", "weights": {"archer": 2}},
+      {"id": "d", "text": "믿음직한 말의 고삐", "weights": {"cavalry": 2}},
+      {"id": "e", "text": "두터운 방패와 갑옷", "weights": {"heavy": 2}}
+    ]}
+  ]
+}

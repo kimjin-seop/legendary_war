@@ -1,0 +1,2432 @@
+{
+ "_note": "[임밸런 2호기 / 초안] ch11 서가 확장 스테이지(송서사 EXPAND 인계서 기준) 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 맵은 기존 서가/팩 맵 재활용(주제 불일치는 map_new_needed 참조). 신호 zone 좌표는 database/data/map_tile_tag_requests_ext2.json 병합 전에는 --with-ext 시드 시 battle_cues zone_ref 해석 오류로 중단될 수 있음.",
+ "version": 1,
+ "chapter": 11,
+ "shelf_code": "ch11",
+ "status": "draft",
+ "items": [
+  {
+   "code": "ch11_s5",
+   "name": "통주 방어",
+   "year_label": "1010년 11월",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_ch11_s5_snow_fort",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 16,
+   "enemy_level": 16,
+   "enemy_level_offset": 2,
+   "effective_enemy_level": 18,
+   "difficulty": 5,
+   "culture": "korea",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_yang_gyu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yelu_longxu",
+      "display_name_ko": "야율융서",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       21,
+       11
+      ],
+      [
+       22,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "거란 선봉 기병 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yelu_pennu",
+      "display_name_ko": "야율분노",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       16
+      ],
+      [
+       22,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "거란 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_han_derang",
+      "display_name_ko": "한덕양",
+      "evidence_level": "verify",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       26,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "거란 기병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 기병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       20,
+       7
+      ],
+      [
+       21,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "거란 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 8,
+   "enemy_units_peak": 8,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      21,
+      11
+     ],
+     "ref": "npc_yelu_longxu",
+     "kind": "npc",
+     "name": "야율융서"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      22,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      21,
+      16
+     ],
+     "ref": "npc_yelu_pennu",
+     "kind": "npc",
+     "name": "야율분노"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      22,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      12
+     ],
+     "ref": "npc_han_derang",
+     "kind": "npc",
+     "name": "한덕양"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      7
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 기병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      21,
+      7
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 928,
+    "exp": 1346,
+    "gold": 1206,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 5 기준 72~85 (시작값, 시뮬 미측정)",
+   "sort_order": 1105,
+   "prerequisite": "ch11_s4",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "enemy_commander": {
+     "name": "야율융서",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          14,
+          10
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "army_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "army_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        10,
+        10
+       ],
+       [
+        11,
+        10
+       ],
+       [
+        12,
+        10
+       ]
+      ],
+      "tag": "army",
+      "ready": true,
+      "unit_type": "spear",
+      "count": 2
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_yang_gyu",
+      "x": 9,
+      "y": 12,
+      "must_survive": true
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "army_signal": [
+      [
+       14,
+       10
+      ],
+      [
+       15,
+       10
+      ],
+      [
+       16,
+       10
+      ]
+     ]
+    },
+    "tile_tags": [
+     "army_signal"
+    ]
+   },
+   "design_notes": [
+    "[2026-11-08 임밸런 미션 비중 전환] 방어(survive_turns 9) -> 지휘관 격파(defeat_commander). 별 turn_within 7->10. max_turns 유지(측정 후 조정). 시작값, 사람 플레이 확인 필요.",
+    "[시작값] 초기 적 14기 {\"cavalry\":14}, 최대 14기. Lv16 offset -2(eff 14). 목표 유형 survive.",
+    "신호 플래그 -> 아군 증원 2기(spear) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -2->-4, 초기 적 14->12기, 대장 hp_mult 1.3->1.2",
+    "[2026-11-04 2차 완화] offset -4->-5, 적 12->10기, max_turns 12->12",
+    "[2026-11-04 3차 완화] offset -5->-6, 적 10->8기(부대 5->4), 대장 hp_mult 1.1->1",
+    "[박백엔 2026-11-09 화자 참전 1차] 양규 아군 NPC (9,12) 추가, must_survive true."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 3차 완화(재측정 필요)"
+  },
+  {
+   "code": "ch11_s6",
+   "name": "곽주 탈환",
+   "year_label": "1011년 1월",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_ch11_s6_snow_anyung",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      5,
+      9
+     ],
+     [
+      6,
+      9
+     ],
+     [
+      7,
+      9
+     ],
+     [
+      8,
+      9
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 12,
+   "difficulty": 6,
+   "culture": "korea",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_yang_gyu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "곽주 수비 대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       15,
+       3
+      ],
+      [
+       16,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "곽주 수비  병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yelu_pennu",
+      "display_name_ko": "야율분노",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       7,
+       3
+      ],
+      [
+       8,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "거란 곽주 수비 보병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_xiao_xulie",
+      "display_name_ko": "소굴열",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       23,
+       3
+      ],
+      [
+       24,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "거란 곽주 수비 보병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 곽주 수비 보병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       30,
+       12
+      ],
+      [
+       31,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "거란 곽주 수비 보병 병사"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 8,
+   "enemy_units_peak": 8,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      15,
+      3
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "곽주 수비 대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      3
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      7,
+      3
+     ],
+     "ref": "npc_yelu_pennu",
+     "kind": "npc",
+     "name": "야율분노"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      8,
+      3
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      23,
+      3
+     ],
+     "ref": "npc_xiao_xulie",
+     "kind": "npc",
+     "name": "소굴열"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      3
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      30,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 곽주 수비 보병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      12
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1016,
+    "exp": 1474,
+    "gold": 1321,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 6 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1106,
+   "prerequisite": "ch11_s5",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "enemy_commander": {
+     "name": "곽주 수비 대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          14,
+          10
+         ],
+         [
+          15,
+          10
+         ],
+         [
+          16,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "gate_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "gate_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        14,
+        15
+       ],
+       [
+        15,
+        15
+       ],
+       [
+        16,
+        15
+       ]
+      ],
+      "tag": "gate",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 2
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_yang_gyu",
+      "x": 9,
+      "y": 12,
+      "must_survive": true
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "gate_signal": [
+      [
+       14,
+       10
+      ],
+      [
+       15,
+       10
+      ],
+      [
+       16,
+       10
+      ]
+     ]
+    },
+    "tile_tags": [
+     "gate_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 12기 {\"sword\":12}, 최대 12기. Lv17 offset -2(eff 15). 목표 유형 capture.",
+    "신호 플래그 -> 아군 증원 2기(sword) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 12->8기, 대장 hp_mult 1.4->1.2",
+    "[박백엔 2026-11-09 화자 참전 1차] 양규 아군 NPC (9,12) 추가, must_survive true."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch11_s7",
+   "name": "무로대 포로 구출",
+   "year_label": "1011년 1월",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_pk13_crossroads_kr",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 15,
+   "difficulty": 6,
+   "culture": "korea",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_yang_gyu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 후미 대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       12
+      ],
+      [
+       19,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "거란 후미  병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_xiao_xulie",
+      "display_name_ko": "소굴열",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       12
+      ],
+      [
+       34,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "거란 후미 보병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_jeokryeol",
+      "display_name_ko": "소적렬",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       14
+      ],
+      [
+       34,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "거란 후미 보병 병사"
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 6,
+   "enemy_units_peak": 6,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      20,
+      12
+     ],
+     "name": "거란 후미 대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      33,
+      12
+     ],
+     "ref": "npc_xiao_xulie",
+     "kind": "npc",
+     "name": "소굴열"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      34,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      35,
+      14
+     ],
+     "ref": "npc_so_jeokryeol",
+     "kind": "npc",
+     "name": "소적렬"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      34,
+      14
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1016,
+    "exp": 1474,
+    "gold": 1321,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 11
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 6 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1107,
+   "prerequisite": "ch11_s6",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "enemy_commander": {
+     "name": "거란 후미 대장",
+     "hero": null
+    },
+    "max_turns": 13,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          12
+         ],
+         [
+          18,
+          12
+         ],
+         [
+          19,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "escort_signal_up",
+      "value": true
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "목표 구역에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         26,
+         12
+        ],
+        [
+         27,
+         12
+        ],
+        [
+         28,
+         12
+        ],
+        [
+         27,
+         13
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_yang_gyu",
+      "x": 8,
+      "y": 13,
+      "must_survive": true
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "escort_signal": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ]
+     ],
+     "exit_11_s7": [
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       28,
+       12
+      ],
+      [
+       27,
+       13
+      ]
+     ]
+    },
+    "tile_tags": [
+     "escort_signal",
+     "exit_11_s7"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 10기 {\"sword\":10}, 최대 10기. Lv17 offset -2(eff 15). 목표 유형 escort.",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "호송/탈출: 호송 대상 유닛 없이 주인공 도달 조건으로 단순화(시작값, 사람 확인 필요)",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 10->6기, 대장 hp_mult 1.2->1",
+    "[2026-11-04 호송류 main 위치 보정] 적 main 부대를 출구 [27,12] 인접([29,12])에서 약 7칸 떨어진 [20,12]로 이동(출구 봉쇄 방지). 시작값/needs tuning.",
+    "[2026-11-04 보정3회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -5->-3, 일반 부대 병사/부대 0기 축소(초기 6->6), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1->1. 시작값/needs tuning.",
+    "[2026-11-04 보정6회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -3->-2, 일반 부대 병사/부대 0기 축소(초기 6->6), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1->1. 시작값/needs tuning.",
+    "[박백엔 2026-11-09 화자 참전 1차] 양규 아군 NPC (8,13) 추가, must_survive true."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch11_s8",
+   "name": "이수 퇴로 습격",
+   "year_label": "1011년 1월",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_pk16_cliff_valley",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 15,
+   "difficulty": 7,
+   "culture": "korea",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_yang_gyu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 수레 호송대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       29,
+       12
+      ],
+      [
+       30,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "거란 수레 호송 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_haptak",
+      "display_name_ko": "소합탁",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "거란 호송 보병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 호송 보병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       15
+      ],
+      [
+       35,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "거란 호송 보병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 호송 보병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       30,
+       4
+      ],
+      [
+       31,
+       4
+      ]
+     ],
+     "soldier_display_name_ko": "거란 호송 보병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 호송 보병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       3
+      ],
+      [
+       28,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "거란 호송 보병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 호송 보병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       20
+      ],
+      [
+       28,
+       20
+      ]
+     ],
+     "soldier_display_name_ko": "거란 호송 보병 병사"
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      29,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 수레 호송대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      30,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      33,
+      11
+     ],
+     "ref": "npc_so_haptak",
+     "kind": "npc",
+     "name": "소합탁"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      34,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      35,
+      15
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 호송 보병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      30,
+      4
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 호송 보병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      4
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      3
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 호송 보병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      3
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      20
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 호송 보병대장 5"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      20
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1096,
+    "exp": 1589,
+    "gold": 1425,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 7 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1108,
+   "prerequisite": "ch11_s7",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "enemy_commander": {
+     "name": "거란 수레 호송대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          12
+         ],
+         [
+          18,
+          12
+         ],
+         [
+          19,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "ambush_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "ambush_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        10,
+        12
+       ],
+       [
+        11,
+        12
+       ],
+       [
+        12,
+        12
+       ],
+       [
+        11,
+        13
+       ]
+      ],
+      "tag": "ambush",
+      "ready": true,
+      "unit_type": "archer",
+      "count": 3
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_yang_gyu",
+      "x": 8,
+      "y": 12,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "ambush_signal": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ]
+     ]
+    },
+    "tile_tags": [
+     "ambush_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 14기 {\"spear\":4,\"sword\":10}, 최대 14기. Lv18 offset -2(eff 16). 목표 유형 defeat.",
+    "신호 플래그 -> 아군 증원 3기(archer) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -2->-3, 초기 적 14->12기, 대장 hp_mult 1.4->1.3",
+    "[박백엔 2026-11-09 화자 참전 1차] 양규 아군 NPC (8,12) 추가, must_survive false (전사 서사 존중)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch11_s9",
+   "name": "자주 전투",
+   "year_label": "1019년 2월",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_ch11_s9_snow_hill",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 14,
+   "difficulty": 8,
+   "culture": "korea",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 퇴각 선두 대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.4
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       29,
+       12
+      ],
+      [
+       30,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "거란 퇴각 선두  병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yelu_seryang",
+      "display_name_ko": "야율세량",
+      "evidence_level": "verify",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "거란 선두 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yelu_bage",
+      "display_name_ko": "야율팔가",
+      "evidence_level": "verify",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       15
+      ],
+      [
+       35,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "거란 선두 기병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 선두 기병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       6
+      ],
+      [
+       34,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "거란 선두 기병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 선두 기병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       3
+      ],
+      [
+       26,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "거란 선두 기병 병사"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_baeap",
+      "display_name_ko": "소배압",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       14
+      ],
+      [
+       35,
+       17
+      ]
+     ],
+     "soldier_display_name_ko": "거란 선두 보병 병사"
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 퇴각 선두 대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      30,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      11
+     ],
+     "ref": "npc_yelu_seryang",
+     "kind": "npc",
+     "name": "야율세량"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      35,
+      15
+     ],
+     "ref": "npc_yelu_bage",
+     "kind": "npc",
+     "name": "야율팔가"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      35,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      6
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 선두 기병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      6
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      3
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "거란 선두 기병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      3
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      35,
+      14
+     ],
+     "ref": "npc_so_baeap",
+     "kind": "npc",
+     "name": "소배압"
+    },
+    {
+     "squad": "I",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      17
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1184,
+    "exp": 1717,
+    "gold": 1539,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 8 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 1109,
+   "prerequisite": "ch11_s8",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "enemy_commander": {
+     "name": "거란 퇴각 선두 대장",
+     "hero": null
+    },
+    "max_turns": 11,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          11
+         ],
+         [
+          18,
+          11
+         ],
+         [
+          19,
+          11
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "hill_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "hill_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        10,
+        12
+       ],
+       [
+        11,
+        12
+       ],
+       [
+        12,
+        12
+       ],
+       [
+        11,
+        13
+       ]
+      ],
+      "tag": "hill",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 3
+     }
+    ],
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "hill_signal": [
+      [
+       17,
+       11
+      ],
+      [
+       18,
+       11
+      ],
+      [
+       19,
+       11
+      ]
+     ]
+    },
+    "tile_tags": [
+     "hill_signal"
+    ]
+   },
+   "design_notes": [
+    "[2026-11-08 임밸런 미션 비중 전환] 방어(survive_turns 8) -> 지휘관 격파(defeat_commander). 별 turn_within 6->9. max_turns 유지(측정 후 조정). 시작값, 사람 플레이 확인 필요.",
+    "[시작값] 초기 적 18기 {\"cavalry\":16,\"sword\":2}, 최대 18기. Lv19 offset -1(eff 18). 목표 유형 survive.",
+    "신호 플래그 -> 아군 증원 3기(cavalry) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -1->-2, 초기 적 18->18기, 대장 hp_mult 1.5->1.5",
+    "[2026-11-04 5차] 네임드 투입 후 완화: offset -2->-5, 적 18->12기, main hp_mult 1.5->1.4 (네임드 배치 유지)"
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch11_s10",
+   "name": "마탄 도하 추격",
+   "year_label": "1019년 2월",
+   "chapter": 11,
+   "shelf_code": "ch11",
+   "map": "su_pk02_ford_kr",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -8,
+   "effective_enemy_level": 12,
+   "difficulty": 8,
+   "culture": "korea",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_yelu_seryang",
+      "display_name_ko": "야율세량",
+      "evidence_level": "verify",
+      "troop_type": "cavalry",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       34,
+       12
+      ],
+      [
+       35,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "거란 후미 지휘관 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_so_baeap",
+      "display_name_ko": "소배압",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       26,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "거란 후미 보병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 후미 보병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "거란 후미 보병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 후미 보병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       9
+      ],
+      [
+       30,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "거란 후미 보병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "거란 후미 보병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       29,
+       16
+      ],
+      [
+       30,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "거란 후미 보병 병사"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 9,
+   "enemy_units_peak": 9,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      34,
+      12
+     ],
+     "ref": "npc_yelu_seryang",
+     "kind": "npc",
+     "name": "야율세량"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      35,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      12
+     ],
+     "ref": "npc_so_baeap",
+     "kind": "npc",
+     "name": "소배압"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      31,
+      13
+     ],
+     "name": "거란 후미 보병대장 2"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      9
+     ],
+     "name": "거란 후미 보병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      9
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      29,
+      16
+     ],
+     "name": "거란 후미 보병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      16
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1845,
+    "gold": 1654,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 8 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 1110,
+   "prerequisite": "ch11_s9",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "고려 군",
+     "enemy": "거란 군"
+    },
+    "enemy_commander": {
+     "name": "야율세량",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "cross_1 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         16,
+         12
+        ],
+        [
+         17,
+         12
+        ],
+        [
+         18,
+         12
+        ]
+       ]
+      }
+     },
+     {
+      "label": "cross_2 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         22,
+         12
+        ],
+        [
+         23,
+         12
+        ],
+        [
+         24,
+         12
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "cross_1": [
+      [
+       16,
+       12
+      ],
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ]
+     ],
+     "cross_2": [
+      [
+       22,
+       12
+      ],
+      [
+       23,
+       12
+      ],
+      [
+       24,
+       12
+      ]
+     ]
+    },
+    "tile_tags": [
+     "cross_1",
+     "cross_2"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 16기 {\"cavalry\":2,\"sword\":10,\"archer\":4}, 최대 16기. Lv20 offset -1(eff 19). 목표 유형 seq(defeat).",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -1->-4, 초기 적 16->12기, 대장 hp_mult 1.5->1.3",
+    "[2026-11-04 5차] 네임드 투입 후 완화: offset -4->-6, 적 12->10기, main hp_mult 1.3->1.2 (네임드 배치 유지)",
+    "[2026-11-04 보정3회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -6->-8, 일반 부대 병사/부대 1기 축소(초기 10->9), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.2->1.2. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  }
+ ],
+ "npc_needed": {
+  "new_rows": [],
+  "note": "기존 roster 코드만 사용"
+ },
+ "engine_checks": [
+  "optional=true(숨은 종장 해금 필수 제외)",
+  "승리 조건은 기존 엔진 type(in_zone/defeat/capture/survive)만 사용"
+ ]
+}

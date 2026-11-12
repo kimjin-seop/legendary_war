@@ -1,0 +1,2115 @@
+{
+ "version": 1,
+ "date": "2026-11-01",
+ "key": "tileset.land_set",
+ "principle": "32x32·여백 0·Point 필터·정수 배율. 광원 좌상단. 바닥 텍스처 테두리 1px 링 = 원본 TileMap 2(모래)/3(풀) 픽셀 동일 -> 기존 해안·여울·언덕 전이 타일과 이음새 없음. 전이 타일은 월드 필드 방식(3x3 이웃 점유의 전역 함수)이라 인접 칸 경계 픽셀이 자동 일치.",
+ "source": "generated(procedural) — 이미지 생성 모델 호출 0회. docker/gemini/land_tiles_build.py + land_tiles_lib*.py. 팔레트는 원본 TileMap 색(풀 a5bd00/86a500, 모래 ffcead, 수관 115100/397b00/5cb625, 석재 959aa8/d0d0ce)을 축으로 명암 단계만 확장",
+ "sheet": {
+  "file": "/assets/tiles/land_set/ls_static.png",
+  "x2": "/assets/tiles/land_set/ls_static_x2.png",
+  "size": [
+   512,
+   672
+  ],
+  "cols": 16,
+  "count": 330,
+  "proposed_global_index_start": 200,
+  "note": "FE 미연결(앱 코드 변경 필요). 전역 인덱스 = 200 + 프레임 제안(110~163 ext2 다음, water_set 과 겹치지 않게 여유)"
+ },
+ "autotile": {
+  "blob47": {
+   "bits": {
+    "N": 1,
+    "NE": 2,
+    "E": 4,
+    "SE": 8,
+    "S": 16,
+    "SW": 32,
+    "W": 64,
+    "NW": 128
+   },
+   "reduce": "대각 비트는 인접한 두 직교 비트가 모두 같은 지형일 때만 유지",
+   "order": [
+    0,
+    1,
+    4,
+    5,
+    7,
+    16,
+    17,
+    20,
+    21,
+    23,
+    28,
+    29,
+    31,
+    64,
+    65,
+    68,
+    69,
+    71,
+    80,
+    81,
+    84,
+    85,
+    87,
+    92,
+    93,
+    95,
+    112,
+    113,
+    116,
+    117,
+    119,
+    124,
+    125,
+    127,
+    193,
+    197,
+    199,
+    209,
+    213,
+    215,
+    221,
+    223,
+    241,
+    245,
+    247,
+    253,
+    255
+   ],
+   "lookup": "frame = first_frame(forest47_0 또는 sand47_0) + order.indexOf(reduce(mask))"
+  },
+  "road16": {
+   "bits": {
+    "N": 1,
+    "E": 2,
+    "S": 4,
+    "W": 8
+   },
+   "lookup": "frame = first_frame(road16_0) + mask",
+   "connect_to": "길 r, 다리 b, (선택) 마을 v·성 c 입구"
+  }
+ },
+ "tiles": [
+  {
+   "frame": 0,
+   "index": 200,
+   "name": "grass_a",
+   "use": "평지 풀 변형(a=기본, b=무성, c=들꽃, d=자갈). 좌표 해시 가중 a55 b25 c10 d10 권장. 테두리 1px = 원본 3번과 동일"
+  },
+  {
+   "frame": 1,
+   "index": 201,
+   "name": "grass_b",
+   "use": "평지 풀 변형(a=기본, b=무성, c=들꽃, d=자갈). 좌표 해시 가중 a55 b25 c10 d10 권장. 테두리 1px = 원본 3번과 동일"
+  },
+  {
+   "frame": 2,
+   "index": 202,
+   "name": "grass_c",
+   "use": "평지 풀 변형(a=기본, b=무성, c=들꽃, d=자갈). 좌표 해시 가중 a55 b25 c10 d10 권장. 테두리 1px = 원본 3번과 동일"
+  },
+  {
+   "frame": 3,
+   "index": 203,
+   "name": "grass_d",
+   "use": "평지 풀 변형(a=기본, b=무성, c=들꽃, d=자갈). 좌표 해시 가중 a55 b25 c10 d10 권장. 테두리 1px = 원본 3번과 동일"
+  },
+  {
+   "frame": 4,
+   "index": 204,
+   "name": "sand_a",
+   "use": "모래 변형. 테두리 1px = 원본 2번과 동일"
+  },
+  {
+   "frame": 5,
+   "index": 205,
+   "name": "sand_b",
+   "use": "모래 변형. 테두리 1px = 원본 2번과 동일"
+  },
+  {
+   "frame": 6,
+   "index": 206,
+   "name": "sand_c",
+   "use": "모래 변형. 테두리 1px = 원본 2번과 동일"
+  },
+  {
+   "frame": 7,
+   "index": 207,
+   "name": "dirt",
+   "use": "흙 바탕(길 내부와 동일 텍스처, 넓은 흙마당용)"
+  },
+  {
+   "frame": 8,
+   "index": 208,
+   "name": "forest_a",
+   "use": "숲 내부(8방 모두 숲) 변형 — 서로 이음새 없음"
+  },
+  {
+   "frame": 9,
+   "index": 209,
+   "name": "forest_b",
+   "use": "숲 내부(8방 모두 숲) 변형 — 서로 이음새 없음"
+  },
+  {
+   "frame": 10,
+   "index": 210,
+   "name": "forest_c",
+   "use": "숲 내부(8방 모두 숲) 변형 — 서로 이음새 없음"
+  },
+  {
+   "frame": 11,
+   "index": 211,
+   "name": "forest_sparse_a",
+   "use": "고립 숲(이웃 숲 없음)"
+  },
+  {
+   "frame": 12,
+   "index": 212,
+   "name": "forest_sparse_b",
+   "use": "고립 숲(이웃 숲 없음)"
+  },
+  {
+   "frame": 13,
+   "index": 213,
+   "name": "mountain_a",
+   "use": "산(풀 바탕 위 봉우리, 테두리 1px 풀 유지 -> 어떤 풀 칸과도 이음새 없음)"
+  },
+  {
+   "frame": 14,
+   "index": 214,
+   "name": "mountain_b",
+   "use": "산(풀 바탕 위 봉우리, 테두리 1px 풀 유지 -> 어떤 풀 칸과도 이음새 없음)"
+  },
+  {
+   "frame": 15,
+   "index": 215,
+   "name": "mountain_c",
+   "use": "산(풀 바탕 위 봉우리, 테두리 1px 풀 유지 -> 어떤 풀 칸과도 이음새 없음)"
+  },
+  {
+   "frame": 16,
+   "index": 216,
+   "name": "mountain_d",
+   "use": "산(풀 바탕 위 봉우리, 테두리 1px 풀 유지 -> 어떤 풀 칸과도 이음새 없음)"
+  },
+  {
+   "frame": 17,
+   "index": 217,
+   "name": "mountain_snow",
+   "use": "산(풀 바탕 위 봉우리, 테두리 1px 풀 유지 -> 어떤 풀 칸과도 이음새 없음)"
+  },
+  {
+   "frame": 18,
+   "index": 218,
+   "name": "rock_a",
+   "use": "험지(절벽 k 단일 타일용 바위 지면, 주기 32)"
+  },
+  {
+   "frame": 19,
+   "index": 219,
+   "name": "rock_b",
+   "use": "험지(절벽 k 단일 타일용 바위 지면, 주기 32)"
+  },
+  {
+   "frame": 20,
+   "index": 220,
+   "name": "wall_face_a",
+   "use": "성벽 정면(가로 구간): 여장 윗면 + 성벽 면"
+  },
+  {
+   "frame": 21,
+   "index": 221,
+   "name": "wall_face_b",
+   "use": "성벽 정면 변형(이끼)"
+  },
+  {
+   "frame": 22,
+   "index": 222,
+   "name": "wall_top_v",
+   "use": "성벽 세로 구간(위에서 본 성곽길 + 양쪽 여장)"
+  },
+  {
+   "frame": 23,
+   "index": 223,
+   "name": "wall_top_h",
+   "use": "성벽 가로 윗면(top_v 90도 회전 — 내부 칸이 성벽 뒤일 때)"
+  },
+  {
+   "frame": 24,
+   "index": 224,
+   "name": "tower_a",
+   "use": "모서리 망루(치)"
+  },
+  {
+   "frame": 25,
+   "index": 225,
+   "name": "tower_b",
+   "use": "망루 좌우 반전"
+  },
+  {
+   "frame": 26,
+   "index": 226,
+   "name": "gate",
+   "use": "성문(홍예 석문 + 판문)"
+  },
+  {
+   "frame": 27,
+   "index": 227,
+   "name": "door_house",
+   "use": "민가 출입문(한옥 판문 + 댓돌)"
+  },
+  {
+   "frame": 28,
+   "index": 228,
+   "name": "stairs",
+   "use": "돌계단"
+  },
+  {
+   "frame": 29,
+   "index": 229,
+   "name": "pave_slab",
+   "use": "성 안 바닥(박석/전돌/정방형 판석)"
+  },
+  {
+   "frame": 30,
+   "index": 230,
+   "name": "pave_slab_b",
+   "use": "성 안 바닥(박석/전돌/정방형 판석)"
+  },
+  {
+   "frame": 31,
+   "index": 231,
+   "name": "pave_brick",
+   "use": "성 안 바닥(박석/전돌/정방형 판석)"
+  },
+  {
+   "frame": 32,
+   "index": 232,
+   "name": "pave_square",
+   "use": "성 안 바닥(박석/전돌/정방형 판석)"
+  },
+  {
+   "frame": 33,
+   "index": 233,
+   "name": "roof_top_L",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 34,
+   "index": 234,
+   "name": "roof_top_C",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 35,
+   "index": 235,
+   "name": "roof_top_R",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 36,
+   "index": 236,
+   "name": "roof_mid_L",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 37,
+   "index": 237,
+   "name": "roof_mid_C",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 38,
+   "index": 238,
+   "name": "roof_mid_R",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 39,
+   "index": 239,
+   "name": "roof_bot_L",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 40,
+   "index": 240,
+   "name": "roof_bot_C",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 41,
+   "index": 241,
+   "name": "roof_bot_R",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 42,
+   "index": 242,
+   "name": "roof_full_L",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 43,
+   "index": 243,
+   "name": "roof_full_C",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 44,
+   "index": 244,
+   "name": "roof_full_R",
+   "use": "기와지붕 조각(top=용마루, mid=기와, bot=처마, full=2줄 건물용 용마루+처마). L/R=박공 끝"
+  },
+  {
+   "frame": 45,
+   "index": 245,
+   "name": "roof_chimney",
+   "use": "기와지붕 + 굴뚝"
+  },
+  {
+   "frame": 46,
+   "index": 246,
+   "name": "roof_vent",
+   "use": "기와지붕 + 환기창"
+  },
+  {
+   "frame": 47,
+   "index": 247,
+   "name": "hanok_wall_L",
+   "use": "한옥 벽체(기둥·회벽·창방·기단). 건물 맨 아래 줄"
+  },
+  {
+   "frame": 48,
+   "index": 248,
+   "name": "hanok_wall_C",
+   "use": "한옥 벽체(기둥·회벽·창방·기단). 건물 맨 아래 줄"
+  },
+  {
+   "frame": 49,
+   "index": 249,
+   "name": "hanok_wall_R",
+   "use": "한옥 벽체(기둥·회벽·창방·기단). 건물 맨 아래 줄"
+  },
+  {
+   "frame": 50,
+   "index": 250,
+   "name": "hanok_wall_window",
+   "use": "한옥 벽체(기둥·회벽·창방·기단). 건물 맨 아래 줄"
+  },
+  {
+   "frame": 51,
+   "index": 251,
+   "name": "house_giwa",
+   "use": "한 칸 기와집(마을 v 단독 칸)"
+  },
+  {
+   "frame": 52,
+   "index": 252,
+   "name": "house_thatch",
+   "use": "한 칸 초가(마을 v 단독 칸 변형)"
+  },
+  {
+   "frame": 53,
+   "index": 253,
+   "name": "fence_h",
+   "use": "울타리/돌담(풀 바탕, v=세로는 h 의 90도 회전)"
+  },
+  {
+   "frame": 54,
+   "index": 254,
+   "name": "fence_v",
+   "use": "울타리/돌담(풀 바탕, v=세로는 h 의 90도 회전)"
+  },
+  {
+   "frame": 55,
+   "index": 255,
+   "name": "lowwall_h",
+   "use": "울타리/돌담(풀 바탕, v=세로는 h 의 90도 회전)"
+  },
+  {
+   "frame": 56,
+   "index": 256,
+   "name": "lowwall_v",
+   "use": "울타리/돌담(풀 바탕, v=세로는 h 의 90도 회전)"
+  },
+  {
+   "frame": 57,
+   "index": 257,
+   "name": "snow_a",
+   "use": "설원/사막/늪 변형"
+  },
+  {
+   "frame": 58,
+   "index": 258,
+   "name": "snow_b",
+   "use": "설원/사막/늪 변형"
+  },
+  {
+   "frame": 59,
+   "index": 259,
+   "name": "desert_a",
+   "use": "설원/사막/늪 변형"
+  },
+  {
+   "frame": 60,
+   "index": 260,
+   "name": "desert_b",
+   "use": "설원/사막/늪 변형"
+  },
+  {
+   "frame": 61,
+   "index": 261,
+   "name": "swamp_a",
+   "use": "설원/사막/늪 변형"
+  },
+  {
+   "frame": 62,
+   "index": 262,
+   "name": "swamp_b",
+   "use": "설원/사막/늪 변형"
+  },
+  {
+   "frame": 63,
+   "index": 263,
+   "name": "cliff_S",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 64,
+   "index": 264,
+   "name": "cliff_N",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 65,
+   "index": 265,
+   "name": "cliff_E",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 66,
+   "index": 266,
+   "name": "cliff_W",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 67,
+   "index": 267,
+   "name": "cliff_NW_outer",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 68,
+   "index": 268,
+   "name": "cliff_NE_outer",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 69,
+   "index": 269,
+   "name": "cliff_SE_outer",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 70,
+   "index": 270,
+   "name": "cliff_SW_outer",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 71,
+   "index": 271,
+   "name": "cliff_NW_inner",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 72,
+   "index": 272,
+   "name": "cliff_NE_inner",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 73,
+   "index": 273,
+   "name": "cliff_SE_inner",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 74,
+   "index": 274,
+   "name": "cliff_SW_inner",
+   "use": "절벽 가장자리(높은 땅 칸에 칠함, 이름 방향 = 낮은 쪽)"
+  },
+  {
+   "frame": 75,
+   "index": 275,
+   "name": "forest47_0",
+   "use": "숲 오토타일 blob47: 축약 마스크 0"
+  },
+  {
+   "frame": 76,
+   "index": 276,
+   "name": "forest47_1",
+   "use": "숲 오토타일 blob47: 축약 마스크 1"
+  },
+  {
+   "frame": 77,
+   "index": 277,
+   "name": "forest47_4",
+   "use": "숲 오토타일 blob47: 축약 마스크 4"
+  },
+  {
+   "frame": 78,
+   "index": 278,
+   "name": "forest47_5",
+   "use": "숲 오토타일 blob47: 축약 마스크 5"
+  },
+  {
+   "frame": 79,
+   "index": 279,
+   "name": "forest47_7",
+   "use": "숲 오토타일 blob47: 축약 마스크 7"
+  },
+  {
+   "frame": 80,
+   "index": 280,
+   "name": "forest47_16",
+   "use": "숲 오토타일 blob47: 축약 마스크 16"
+  },
+  {
+   "frame": 81,
+   "index": 281,
+   "name": "forest47_17",
+   "use": "숲 오토타일 blob47: 축약 마스크 17"
+  },
+  {
+   "frame": 82,
+   "index": 282,
+   "name": "forest47_20",
+   "use": "숲 오토타일 blob47: 축약 마스크 20"
+  },
+  {
+   "frame": 83,
+   "index": 283,
+   "name": "forest47_21",
+   "use": "숲 오토타일 blob47: 축약 마스크 21"
+  },
+  {
+   "frame": 84,
+   "index": 284,
+   "name": "forest47_23",
+   "use": "숲 오토타일 blob47: 축약 마스크 23"
+  },
+  {
+   "frame": 85,
+   "index": 285,
+   "name": "forest47_28",
+   "use": "숲 오토타일 blob47: 축약 마스크 28"
+  },
+  {
+   "frame": 86,
+   "index": 286,
+   "name": "forest47_29",
+   "use": "숲 오토타일 blob47: 축약 마스크 29"
+  },
+  {
+   "frame": 87,
+   "index": 287,
+   "name": "forest47_31",
+   "use": "숲 오토타일 blob47: 축약 마스크 31"
+  },
+  {
+   "frame": 88,
+   "index": 288,
+   "name": "forest47_64",
+   "use": "숲 오토타일 blob47: 축약 마스크 64"
+  },
+  {
+   "frame": 89,
+   "index": 289,
+   "name": "forest47_65",
+   "use": "숲 오토타일 blob47: 축약 마스크 65"
+  },
+  {
+   "frame": 90,
+   "index": 290,
+   "name": "forest47_68",
+   "use": "숲 오토타일 blob47: 축약 마스크 68"
+  },
+  {
+   "frame": 91,
+   "index": 291,
+   "name": "forest47_69",
+   "use": "숲 오토타일 blob47: 축약 마스크 69"
+  },
+  {
+   "frame": 92,
+   "index": 292,
+   "name": "forest47_71",
+   "use": "숲 오토타일 blob47: 축약 마스크 71"
+  },
+  {
+   "frame": 93,
+   "index": 293,
+   "name": "forest47_80",
+   "use": "숲 오토타일 blob47: 축약 마스크 80"
+  },
+  {
+   "frame": 94,
+   "index": 294,
+   "name": "forest47_81",
+   "use": "숲 오토타일 blob47: 축약 마스크 81"
+  },
+  {
+   "frame": 95,
+   "index": 295,
+   "name": "forest47_84",
+   "use": "숲 오토타일 blob47: 축약 마스크 84"
+  },
+  {
+   "frame": 96,
+   "index": 296,
+   "name": "forest47_85",
+   "use": "숲 오토타일 blob47: 축약 마스크 85"
+  },
+  {
+   "frame": 97,
+   "index": 297,
+   "name": "forest47_87",
+   "use": "숲 오토타일 blob47: 축약 마스크 87"
+  },
+  {
+   "frame": 98,
+   "index": 298,
+   "name": "forest47_92",
+   "use": "숲 오토타일 blob47: 축약 마스크 92"
+  },
+  {
+   "frame": 99,
+   "index": 299,
+   "name": "forest47_93",
+   "use": "숲 오토타일 blob47: 축약 마스크 93"
+  },
+  {
+   "frame": 100,
+   "index": 300,
+   "name": "forest47_95",
+   "use": "숲 오토타일 blob47: 축약 마스크 95"
+  },
+  {
+   "frame": 101,
+   "index": 301,
+   "name": "forest47_112",
+   "use": "숲 오토타일 blob47: 축약 마스크 112"
+  },
+  {
+   "frame": 102,
+   "index": 302,
+   "name": "forest47_113",
+   "use": "숲 오토타일 blob47: 축약 마스크 113"
+  },
+  {
+   "frame": 103,
+   "index": 303,
+   "name": "forest47_116",
+   "use": "숲 오토타일 blob47: 축약 마스크 116"
+  },
+  {
+   "frame": 104,
+   "index": 304,
+   "name": "forest47_117",
+   "use": "숲 오토타일 blob47: 축약 마스크 117"
+  },
+  {
+   "frame": 105,
+   "index": 305,
+   "name": "forest47_119",
+   "use": "숲 오토타일 blob47: 축약 마스크 119"
+  },
+  {
+   "frame": 106,
+   "index": 306,
+   "name": "forest47_124",
+   "use": "숲 오토타일 blob47: 축약 마스크 124"
+  },
+  {
+   "frame": 107,
+   "index": 307,
+   "name": "forest47_125",
+   "use": "숲 오토타일 blob47: 축약 마스크 125"
+  },
+  {
+   "frame": 108,
+   "index": 308,
+   "name": "forest47_127",
+   "use": "숲 오토타일 blob47: 축약 마스크 127"
+  },
+  {
+   "frame": 109,
+   "index": 309,
+   "name": "forest47_193",
+   "use": "숲 오토타일 blob47: 축약 마스크 193"
+  },
+  {
+   "frame": 110,
+   "index": 310,
+   "name": "forest47_197",
+   "use": "숲 오토타일 blob47: 축약 마스크 197"
+  },
+  {
+   "frame": 111,
+   "index": 311,
+   "name": "forest47_199",
+   "use": "숲 오토타일 blob47: 축약 마스크 199"
+  },
+  {
+   "frame": 112,
+   "index": 312,
+   "name": "forest47_209",
+   "use": "숲 오토타일 blob47: 축약 마스크 209"
+  },
+  {
+   "frame": 113,
+   "index": 313,
+   "name": "forest47_213",
+   "use": "숲 오토타일 blob47: 축약 마스크 213"
+  },
+  {
+   "frame": 114,
+   "index": 314,
+   "name": "forest47_215",
+   "use": "숲 오토타일 blob47: 축약 마스크 215"
+  },
+  {
+   "frame": 115,
+   "index": 315,
+   "name": "forest47_221",
+   "use": "숲 오토타일 blob47: 축약 마스크 221"
+  },
+  {
+   "frame": 116,
+   "index": 316,
+   "name": "forest47_223",
+   "use": "숲 오토타일 blob47: 축약 마스크 223"
+  },
+  {
+   "frame": 117,
+   "index": 317,
+   "name": "forest47_241",
+   "use": "숲 오토타일 blob47: 축약 마스크 241"
+  },
+  {
+   "frame": 118,
+   "index": 318,
+   "name": "forest47_245",
+   "use": "숲 오토타일 blob47: 축약 마스크 245"
+  },
+  {
+   "frame": 119,
+   "index": 319,
+   "name": "forest47_247",
+   "use": "숲 오토타일 blob47: 축약 마스크 247"
+  },
+  {
+   "frame": 120,
+   "index": 320,
+   "name": "forest47_253",
+   "use": "숲 오토타일 blob47: 축약 마스크 253"
+  },
+  {
+   "frame": 121,
+   "index": 321,
+   "name": "forest47_255",
+   "use": "숲 오토타일 blob47: 축약 마스크 255"
+  },
+  {
+   "frame": 122,
+   "index": 322,
+   "name": "road16_0",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 0"
+  },
+  {
+   "frame": 123,
+   "index": 323,
+   "name": "road16_1",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 1"
+  },
+  {
+   "frame": 124,
+   "index": 324,
+   "name": "road16_2",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 2"
+  },
+  {
+   "frame": 125,
+   "index": 325,
+   "name": "road16_3",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 3"
+  },
+  {
+   "frame": 126,
+   "index": 326,
+   "name": "road16_4",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 4"
+  },
+  {
+   "frame": 127,
+   "index": 327,
+   "name": "road16_5",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 5"
+  },
+  {
+   "frame": 128,
+   "index": 328,
+   "name": "road16_6",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 6"
+  },
+  {
+   "frame": 129,
+   "index": 329,
+   "name": "road16_7",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 7"
+  },
+  {
+   "frame": 130,
+   "index": 330,
+   "name": "road16_8",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 8"
+  },
+  {
+   "frame": 131,
+   "index": 331,
+   "name": "road16_9",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 9"
+  },
+  {
+   "frame": 132,
+   "index": 332,
+   "name": "road16_10",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 10"
+  },
+  {
+   "frame": 133,
+   "index": 333,
+   "name": "road16_11",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 11"
+  },
+  {
+   "frame": 134,
+   "index": 334,
+   "name": "road16_12",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 12"
+  },
+  {
+   "frame": 135,
+   "index": 335,
+   "name": "road16_13",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 13"
+  },
+  {
+   "frame": 136,
+   "index": 336,
+   "name": "road16_14",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 14"
+  },
+  {
+   "frame": 137,
+   "index": 337,
+   "name": "road16_15",
+   "use": "흙길 오토타일: N1 E2 S4 W8 연결 마스크 15"
+  },
+  {
+   "frame": 138,
+   "index": 338,
+   "name": "sand47_0",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 0"
+  },
+  {
+   "frame": 139,
+   "index": 339,
+   "name": "sand47_1",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 1"
+  },
+  {
+   "frame": 140,
+   "index": 340,
+   "name": "sand47_4",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 4"
+  },
+  {
+   "frame": 141,
+   "index": 341,
+   "name": "sand47_5",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 5"
+  },
+  {
+   "frame": 142,
+   "index": 342,
+   "name": "sand47_7",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 7"
+  },
+  {
+   "frame": 143,
+   "index": 343,
+   "name": "sand47_16",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 16"
+  },
+  {
+   "frame": 144,
+   "index": 344,
+   "name": "sand47_17",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 17"
+  },
+  {
+   "frame": 145,
+   "index": 345,
+   "name": "sand47_20",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 20"
+  },
+  {
+   "frame": 146,
+   "index": 346,
+   "name": "sand47_21",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 21"
+  },
+  {
+   "frame": 147,
+   "index": 347,
+   "name": "sand47_23",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 23"
+  },
+  {
+   "frame": 148,
+   "index": 348,
+   "name": "sand47_28",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 28"
+  },
+  {
+   "frame": 149,
+   "index": 349,
+   "name": "sand47_29",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 29"
+  },
+  {
+   "frame": 150,
+   "index": 350,
+   "name": "sand47_31",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 31"
+  },
+  {
+   "frame": 151,
+   "index": 351,
+   "name": "sand47_64",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 64"
+  },
+  {
+   "frame": 152,
+   "index": 352,
+   "name": "sand47_65",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 65"
+  },
+  {
+   "frame": 153,
+   "index": 353,
+   "name": "sand47_68",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 68"
+  },
+  {
+   "frame": 154,
+   "index": 354,
+   "name": "sand47_69",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 69"
+  },
+  {
+   "frame": 155,
+   "index": 355,
+   "name": "sand47_71",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 71"
+  },
+  {
+   "frame": 156,
+   "index": 356,
+   "name": "sand47_80",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 80"
+  },
+  {
+   "frame": 157,
+   "index": 357,
+   "name": "sand47_81",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 81"
+  },
+  {
+   "frame": 158,
+   "index": 358,
+   "name": "sand47_84",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 84"
+  },
+  {
+   "frame": 159,
+   "index": 359,
+   "name": "sand47_85",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 85"
+  },
+  {
+   "frame": 160,
+   "index": 360,
+   "name": "sand47_87",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 87"
+  },
+  {
+   "frame": 161,
+   "index": 361,
+   "name": "sand47_92",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 92"
+  },
+  {
+   "frame": 162,
+   "index": 362,
+   "name": "sand47_93",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 93"
+  },
+  {
+   "frame": 163,
+   "index": 363,
+   "name": "sand47_95",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 95"
+  },
+  {
+   "frame": 164,
+   "index": 364,
+   "name": "sand47_112",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 112"
+  },
+  {
+   "frame": 165,
+   "index": 365,
+   "name": "sand47_113",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 113"
+  },
+  {
+   "frame": 166,
+   "index": 366,
+   "name": "sand47_116",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 116"
+  },
+  {
+   "frame": 167,
+   "index": 367,
+   "name": "sand47_117",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 117"
+  },
+  {
+   "frame": 168,
+   "index": 368,
+   "name": "sand47_119",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 119"
+  },
+  {
+   "frame": 169,
+   "index": 369,
+   "name": "sand47_124",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 124"
+  },
+  {
+   "frame": 170,
+   "index": 370,
+   "name": "sand47_125",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 125"
+  },
+  {
+   "frame": 171,
+   "index": 371,
+   "name": "sand47_127",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 127"
+  },
+  {
+   "frame": 172,
+   "index": 372,
+   "name": "sand47_193",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 193"
+  },
+  {
+   "frame": 173,
+   "index": 373,
+   "name": "sand47_197",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 197"
+  },
+  {
+   "frame": 174,
+   "index": 374,
+   "name": "sand47_199",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 199"
+  },
+  {
+   "frame": 175,
+   "index": 375,
+   "name": "sand47_209",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 209"
+  },
+  {
+   "frame": 176,
+   "index": 376,
+   "name": "sand47_213",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 213"
+  },
+  {
+   "frame": 177,
+   "index": 377,
+   "name": "sand47_215",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 215"
+  },
+  {
+   "frame": 178,
+   "index": 378,
+   "name": "sand47_221",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 221"
+  },
+  {
+   "frame": 179,
+   "index": 379,
+   "name": "sand47_223",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 223"
+  },
+  {
+   "frame": 180,
+   "index": 380,
+   "name": "sand47_241",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 241"
+  },
+  {
+   "frame": 181,
+   "index": 381,
+   "name": "sand47_245",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 245"
+  },
+  {
+   "frame": 182,
+   "index": 382,
+   "name": "sand47_247",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 247"
+  },
+  {
+   "frame": 183,
+   "index": 383,
+   "name": "sand47_253",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 253"
+  },
+  {
+   "frame": 184,
+   "index": 384,
+   "name": "sand47_255",
+   "use": "풀↔모래 오토타일 blob47(모래 칸): 축약 마스크 255"
+  },
+  {
+   "frame": 185,
+   "index": 385,
+   "name": "mount_full_a",
+   "use": "산맥 내부(8방 모두 산): 산지 바닥 + 봉우리 변형"
+  },
+  {
+   "frame": 186,
+   "index": 386,
+   "name": "mount_full_b",
+   "use": "산맥 내부(8방 모두 산): 산지 바닥 + 봉우리 변형"
+  },
+  {
+   "frame": 187,
+   "index": 387,
+   "name": "mount_full_c",
+   "use": "산맥 내부(8방 모두 산): 산지 바닥 + 봉우리 변형"
+  },
+  {
+   "frame": 188,
+   "index": 388,
+   "name": "mount_full_d",
+   "use": "산맥 내부(8방 모두 산): 산지 바닥 + 봉우리 변형"
+  },
+  {
+   "frame": 189,
+   "index": 389,
+   "name": "mount47_0",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 0. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 190,
+   "index": 390,
+   "name": "mount47_1",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 1. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 191,
+   "index": 391,
+   "name": "mount47_4",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 4. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 192,
+   "index": 392,
+   "name": "mount47_5",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 5. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 193,
+   "index": 393,
+   "name": "mount47_7",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 7. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 194,
+   "index": 394,
+   "name": "mount47_16",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 16. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 195,
+   "index": 395,
+   "name": "mount47_17",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 17. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 196,
+   "index": 396,
+   "name": "mount47_20",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 20. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 197,
+   "index": 397,
+   "name": "mount47_21",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 21. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 198,
+   "index": 398,
+   "name": "mount47_23",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 23. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 199,
+   "index": 399,
+   "name": "mount47_28",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 28. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 200,
+   "index": 400,
+   "name": "mount47_29",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 29. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 201,
+   "index": 401,
+   "name": "mount47_31",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 31. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 202,
+   "index": 402,
+   "name": "mount47_64",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 64. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 203,
+   "index": 403,
+   "name": "mount47_65",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 65. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 204,
+   "index": 404,
+   "name": "mount47_68",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 68. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 205,
+   "index": 405,
+   "name": "mount47_69",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 69. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 206,
+   "index": 406,
+   "name": "mount47_71",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 71. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 207,
+   "index": 407,
+   "name": "mount47_80",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 80. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 208,
+   "index": 408,
+   "name": "mount47_81",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 81. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 209,
+   "index": 409,
+   "name": "mount47_84",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 84. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 210,
+   "index": 410,
+   "name": "mount47_85",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 85. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 211,
+   "index": 411,
+   "name": "mount47_87",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 87. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 212,
+   "index": 412,
+   "name": "mount47_92",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 92. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 213,
+   "index": 413,
+   "name": "mount47_93",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 93. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 214,
+   "index": 414,
+   "name": "mount47_95",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 95. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 215,
+   "index": 415,
+   "name": "mount47_112",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 112. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 216,
+   "index": 416,
+   "name": "mount47_113",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 113. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 217,
+   "index": 417,
+   "name": "mount47_116",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 116. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 218,
+   "index": 418,
+   "name": "mount47_117",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 117. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 219,
+   "index": 419,
+   "name": "mount47_119",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 119. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 220,
+   "index": 420,
+   "name": "mount47_124",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 124. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 221,
+   "index": 421,
+   "name": "mount47_125",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 125. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 222,
+   "index": 422,
+   "name": "mount47_127",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 127. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 223,
+   "index": 423,
+   "name": "mount47_193",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 193. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 224,
+   "index": 424,
+   "name": "mount47_197",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 197. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 225,
+   "index": 425,
+   "name": "mount47_199",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 199. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 226,
+   "index": 426,
+   "name": "mount47_209",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 209. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 227,
+   "index": 427,
+   "name": "mount47_213",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 213. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 228,
+   "index": 428,
+   "name": "mount47_215",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 215. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 229,
+   "index": 429,
+   "name": "mount47_221",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 221. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 230,
+   "index": 430,
+   "name": "mount47_223",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 223. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 231,
+   "index": 431,
+   "name": "mount47_241",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 241. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 232,
+   "index": 432,
+   "name": "mount47_245",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 245. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 233,
+   "index": 433,
+   "name": "mount47_247",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 247. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 234,
+   "index": 434,
+   "name": "mount47_253",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 253. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 235,
+   "index": 435,
+   "name": "mount47_255",
+   "use": "산맥 오토타일 blob47(산 칸): 축약 마스크 255. 255 는 mount_full_a~d 해시 권장"
+  },
+  {
+   "frame": 236,
+   "index": 436,
+   "name": "rock47_0",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 0. 255 는 rock_a/b"
+  },
+  {
+   "frame": 237,
+   "index": 437,
+   "name": "rock47_1",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 1. 255 는 rock_a/b"
+  },
+  {
+   "frame": 238,
+   "index": 438,
+   "name": "rock47_4",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 4. 255 는 rock_a/b"
+  },
+  {
+   "frame": 239,
+   "index": 439,
+   "name": "rock47_5",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 5. 255 는 rock_a/b"
+  },
+  {
+   "frame": 240,
+   "index": 440,
+   "name": "rock47_7",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 7. 255 는 rock_a/b"
+  },
+  {
+   "frame": 241,
+   "index": 441,
+   "name": "rock47_16",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 16. 255 는 rock_a/b"
+  },
+  {
+   "frame": 242,
+   "index": 442,
+   "name": "rock47_17",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 17. 255 는 rock_a/b"
+  },
+  {
+   "frame": 243,
+   "index": 443,
+   "name": "rock47_20",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 20. 255 는 rock_a/b"
+  },
+  {
+   "frame": 244,
+   "index": 444,
+   "name": "rock47_21",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 21. 255 는 rock_a/b"
+  },
+  {
+   "frame": 245,
+   "index": 445,
+   "name": "rock47_23",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 23. 255 는 rock_a/b"
+  },
+  {
+   "frame": 246,
+   "index": 446,
+   "name": "rock47_28",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 28. 255 는 rock_a/b"
+  },
+  {
+   "frame": 247,
+   "index": 447,
+   "name": "rock47_29",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 29. 255 는 rock_a/b"
+  },
+  {
+   "frame": 248,
+   "index": 448,
+   "name": "rock47_31",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 31. 255 는 rock_a/b"
+  },
+  {
+   "frame": 249,
+   "index": 449,
+   "name": "rock47_64",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 64. 255 는 rock_a/b"
+  },
+  {
+   "frame": 250,
+   "index": 450,
+   "name": "rock47_65",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 65. 255 는 rock_a/b"
+  },
+  {
+   "frame": 251,
+   "index": 451,
+   "name": "rock47_68",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 68. 255 는 rock_a/b"
+  },
+  {
+   "frame": 252,
+   "index": 452,
+   "name": "rock47_69",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 69. 255 는 rock_a/b"
+  },
+  {
+   "frame": 253,
+   "index": 453,
+   "name": "rock47_71",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 71. 255 는 rock_a/b"
+  },
+  {
+   "frame": 254,
+   "index": 454,
+   "name": "rock47_80",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 80. 255 는 rock_a/b"
+  },
+  {
+   "frame": 255,
+   "index": 455,
+   "name": "rock47_81",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 81. 255 는 rock_a/b"
+  },
+  {
+   "frame": 256,
+   "index": 456,
+   "name": "rock47_84",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 84. 255 는 rock_a/b"
+  },
+  {
+   "frame": 257,
+   "index": 457,
+   "name": "rock47_85",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 85. 255 는 rock_a/b"
+  },
+  {
+   "frame": 258,
+   "index": 458,
+   "name": "rock47_87",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 87. 255 는 rock_a/b"
+  },
+  {
+   "frame": 259,
+   "index": 459,
+   "name": "rock47_92",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 92. 255 는 rock_a/b"
+  },
+  {
+   "frame": 260,
+   "index": 460,
+   "name": "rock47_93",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 93. 255 는 rock_a/b"
+  },
+  {
+   "frame": 261,
+   "index": 461,
+   "name": "rock47_95",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 95. 255 는 rock_a/b"
+  },
+  {
+   "frame": 262,
+   "index": 462,
+   "name": "rock47_112",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 112. 255 는 rock_a/b"
+  },
+  {
+   "frame": 263,
+   "index": 463,
+   "name": "rock47_113",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 113. 255 는 rock_a/b"
+  },
+  {
+   "frame": 264,
+   "index": 464,
+   "name": "rock47_116",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 116. 255 는 rock_a/b"
+  },
+  {
+   "frame": 265,
+   "index": 465,
+   "name": "rock47_117",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 117. 255 는 rock_a/b"
+  },
+  {
+   "frame": 266,
+   "index": 466,
+   "name": "rock47_119",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 119. 255 는 rock_a/b"
+  },
+  {
+   "frame": 267,
+   "index": 467,
+   "name": "rock47_124",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 124. 255 는 rock_a/b"
+  },
+  {
+   "frame": 268,
+   "index": 468,
+   "name": "rock47_125",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 125. 255 는 rock_a/b"
+  },
+  {
+   "frame": 269,
+   "index": 469,
+   "name": "rock47_127",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 127. 255 는 rock_a/b"
+  },
+  {
+   "frame": 270,
+   "index": 470,
+   "name": "rock47_193",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 193. 255 는 rock_a/b"
+  },
+  {
+   "frame": 271,
+   "index": 471,
+   "name": "rock47_197",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 197. 255 는 rock_a/b"
+  },
+  {
+   "frame": 272,
+   "index": 472,
+   "name": "rock47_199",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 199. 255 는 rock_a/b"
+  },
+  {
+   "frame": 273,
+   "index": 473,
+   "name": "rock47_209",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 209. 255 는 rock_a/b"
+  },
+  {
+   "frame": 274,
+   "index": 474,
+   "name": "rock47_213",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 213. 255 는 rock_a/b"
+  },
+  {
+   "frame": 275,
+   "index": 475,
+   "name": "rock47_215",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 215. 255 는 rock_a/b"
+  },
+  {
+   "frame": 276,
+   "index": 476,
+   "name": "rock47_221",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 221. 255 는 rock_a/b"
+  },
+  {
+   "frame": 277,
+   "index": 477,
+   "name": "rock47_223",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 223. 255 는 rock_a/b"
+  },
+  {
+   "frame": 278,
+   "index": 478,
+   "name": "rock47_241",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 241. 255 는 rock_a/b"
+  },
+  {
+   "frame": 279,
+   "index": 479,
+   "name": "rock47_245",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 245. 255 는 rock_a/b"
+  },
+  {
+   "frame": 280,
+   "index": 480,
+   "name": "rock47_247",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 247. 255 는 rock_a/b"
+  },
+  {
+   "frame": 281,
+   "index": 481,
+   "name": "rock47_253",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 253. 255 는 rock_a/b"
+  },
+  {
+   "frame": 282,
+   "index": 482,
+   "name": "rock47_255",
+   "use": "험지(절벽 k) 오토타일 blob47: 축약 마스크 255. 255 는 rock_a/b"
+  },
+  {
+   "frame": 283,
+   "index": 483,
+   "name": "dirt47_0",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 0"
+  },
+  {
+   "frame": 284,
+   "index": 484,
+   "name": "dirt47_1",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 1"
+  },
+  {
+   "frame": 285,
+   "index": 485,
+   "name": "dirt47_4",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 4"
+  },
+  {
+   "frame": 286,
+   "index": 486,
+   "name": "dirt47_5",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 5"
+  },
+  {
+   "frame": 287,
+   "index": 487,
+   "name": "dirt47_7",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 7"
+  },
+  {
+   "frame": 288,
+   "index": 488,
+   "name": "dirt47_16",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 16"
+  },
+  {
+   "frame": 289,
+   "index": 489,
+   "name": "dirt47_17",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 17"
+  },
+  {
+   "frame": 290,
+   "index": 490,
+   "name": "dirt47_20",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 20"
+  },
+  {
+   "frame": 291,
+   "index": 491,
+   "name": "dirt47_21",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 21"
+  },
+  {
+   "frame": 292,
+   "index": 492,
+   "name": "dirt47_23",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 23"
+  },
+  {
+   "frame": 293,
+   "index": 493,
+   "name": "dirt47_28",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 28"
+  },
+  {
+   "frame": 294,
+   "index": 494,
+   "name": "dirt47_29",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 29"
+  },
+  {
+   "frame": 295,
+   "index": 495,
+   "name": "dirt47_31",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 31"
+  },
+  {
+   "frame": 296,
+   "index": 496,
+   "name": "dirt47_64",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 64"
+  },
+  {
+   "frame": 297,
+   "index": 497,
+   "name": "dirt47_65",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 65"
+  },
+  {
+   "frame": 298,
+   "index": 498,
+   "name": "dirt47_68",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 68"
+  },
+  {
+   "frame": 299,
+   "index": 499,
+   "name": "dirt47_69",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 69"
+  },
+  {
+   "frame": 300,
+   "index": 500,
+   "name": "dirt47_71",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 71"
+  },
+  {
+   "frame": 301,
+   "index": 501,
+   "name": "dirt47_80",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 80"
+  },
+  {
+   "frame": 302,
+   "index": 502,
+   "name": "dirt47_81",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 81"
+  },
+  {
+   "frame": 303,
+   "index": 503,
+   "name": "dirt47_84",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 84"
+  },
+  {
+   "frame": 304,
+   "index": 504,
+   "name": "dirt47_85",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 85"
+  },
+  {
+   "frame": 305,
+   "index": 505,
+   "name": "dirt47_87",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 87"
+  },
+  {
+   "frame": 306,
+   "index": 506,
+   "name": "dirt47_92",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 92"
+  },
+  {
+   "frame": 307,
+   "index": 507,
+   "name": "dirt47_93",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 93"
+  },
+  {
+   "frame": 308,
+   "index": 508,
+   "name": "dirt47_95",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 95"
+  },
+  {
+   "frame": 309,
+   "index": 509,
+   "name": "dirt47_112",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 112"
+  },
+  {
+   "frame": 310,
+   "index": 510,
+   "name": "dirt47_113",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 113"
+  },
+  {
+   "frame": 311,
+   "index": 511,
+   "name": "dirt47_116",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 116"
+  },
+  {
+   "frame": 312,
+   "index": 512,
+   "name": "dirt47_117",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 117"
+  },
+  {
+   "frame": 313,
+   "index": 513,
+   "name": "dirt47_119",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 119"
+  },
+  {
+   "frame": 314,
+   "index": 514,
+   "name": "dirt47_124",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 124"
+  },
+  {
+   "frame": 315,
+   "index": 515,
+   "name": "dirt47_125",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 125"
+  },
+  {
+   "frame": 316,
+   "index": 516,
+   "name": "dirt47_127",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 127"
+  },
+  {
+   "frame": 317,
+   "index": 517,
+   "name": "dirt47_193",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 193"
+  },
+  {
+   "frame": 318,
+   "index": 518,
+   "name": "dirt47_197",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 197"
+  },
+  {
+   "frame": 319,
+   "index": 519,
+   "name": "dirt47_199",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 199"
+  },
+  {
+   "frame": 320,
+   "index": 520,
+   "name": "dirt47_209",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 209"
+  },
+  {
+   "frame": 321,
+   "index": 521,
+   "name": "dirt47_213",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 213"
+  },
+  {
+   "frame": 322,
+   "index": 522,
+   "name": "dirt47_215",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 215"
+  },
+  {
+   "frame": 323,
+   "index": 523,
+   "name": "dirt47_221",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 221"
+  },
+  {
+   "frame": 324,
+   "index": 524,
+   "name": "dirt47_223",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 223"
+  },
+  {
+   "frame": 325,
+   "index": 525,
+   "name": "dirt47_241",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 241"
+  },
+  {
+   "frame": 326,
+   "index": 526,
+   "name": "dirt47_245",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 245"
+  },
+  {
+   "frame": 327,
+   "index": 527,
+   "name": "dirt47_247",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 247"
+  },
+  {
+   "frame": 328,
+   "index": 528,
+   "name": "dirt47_253",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 253"
+  },
+  {
+   "frame": 329,
+   "index": 529,
+   "name": "dirt47_255",
+   "use": "넓은 흙길/흙마당 blob47(2칸 이상 폭 길): 축약 마스크 255"
+  }
+ ],
+ "replaced_in_place": {
+  "TileMap.png": {
+   "2": "sand_a",
+   "3": "grass_a",
+   "4": "grass_b",
+   "7": "forest_a",
+   "8": "mountain_b",
+   "9": "gate",
+   "10": "wall_face_a",
+   "11": "rock_a",
+   "12": "wall_face_b",
+   "13": "hanok_wall_window",
+   "14": "rock_b",
+   "15": "pave_slab",
+   "16": "pave_square",
+   "17": "mountain_c",
+   "18": "mountain_a",
+   "19": "mountain_d",
+   "20": "stairs",
+   "21": "tower_a",
+   "22": "tower_b",
+   "23": "tower_a",
+   "24": "tower_b",
+   "25": "roof_mid_C",
+   "26": "pave_brick",
+   "27": "mountain_snow",
+   "28": "mountain_b",
+   "29": "mountain_c"
+  },
+  "TileMap.png_untouched": [
+   0,
+   1,
+   5,
+   6
+  ],
+  "tileset_ext.png": "global 49~102 육상 교체(이름·의미 유지, 76~86 지붕은 붉은 기와 -> 회청 기와로 재질 변경), 30~48 해안·103 깃발 원본 유지",
+  "tileset_ext2.png": "global 134~145 grass_sand_* 교체(의미 유지), 나머지 원본 유지",
+  "backup_suffix": ".bak-tile-20261101"
+ }
+}

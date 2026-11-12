@@ -1,0 +1,164 @@
+{
+  "scenario": {
+    "code": "france",
+    "name": "백년전쟁 시즌 · 오를레앙",
+    "shelf_code": "ch16",
+    "season_days": 28,
+    "map_view": {
+      "lon_min": -2.5,
+      "lon_max": 7,
+      "lat_min": 43.5,
+      "lat_max": 51.5
+    },
+    "note": "주 대립 2세력(프랑스 vs 잉글랜드)만 국가·영토를 가진다. 부르고뉴는 영토 없는 잉글랜드 소속 원군(supporters). 1429년 전후 세력 구도 근사. 영토 좌표는 당대 도시 위경도 근사값(송서사·임밸런 검수 대기). 수도 표시는 kind=capital. 대장 진영: 프랑스 측=프랑스, 적=잉글랜드(captain 감사 결과와 일관). 시작값(needs tuning)."
+  },
+  "countries": [
+    {
+      "code": "france",
+      "name": "프랑스",
+      "color": "#2F5DA8",
+      "allies": [],
+      "ai_profile": {
+        "style": "defensive"
+      }
+    },
+    {
+      "code": "england",
+      "name": "잉글랜드",
+      "color": "#B33A3A",
+      "allies": [],
+      "supporters": [
+        {
+          "code": "burgundy",
+          "name": "부르고뉴",
+          "label": "원군"
+        }
+      ],
+      "ai_profile": {
+        "style": "aggressive"
+      }
+    }
+  ],
+  "territories": [
+    {
+      "code": "bourges",
+      "name": "부르주",
+      "kind": "capital",
+      "defense_level": 3,
+      "lon": 2.4,
+      "lat": 47.08,
+      "battle_map_code": "castle_01_eu",
+      "start_country": "france"
+    },
+    {
+      "code": "chinon",
+      "name": "시농",
+      "kind": "normal",
+      "defense_level": 3,
+      "lon": 0.24,
+      "lat": 47.17,
+      "battle_map_code": "castle_01_eu",
+      "start_country": "france"
+    },
+    {
+      "code": "blois",
+      "name": "블루아",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 1.34,
+      "lat": 47.59,
+      "battle_map_code": "river_02_eu",
+      "start_country": "france"
+    },
+    {
+      "code": "orleans",
+      "name": "오를레앙",
+      "kind": "normal",
+      "defense_level": 3,
+      "lon": 1.91,
+      "lat": 47.9,
+      "battle_map_code": "river_01",
+      "start_country": "france"
+    },
+    {
+      "code": "poitiers",
+      "name": "푸아티에",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 0.34,
+      "lat": 46.58,
+      "battle_map_code": "plain_01_eu",
+      "start_country": "france"
+    },
+    {
+      "code": "paris",
+      "name": "파리",
+      "kind": "normal",
+      "defense_level": 3,
+      "lon": 2.35,
+      "lat": 48.86,
+      "battle_map_code": "river_01",
+      "start_country": "england"
+    },
+    {
+      "code": "rouen",
+      "name": "루앙",
+      "kind": "capital",
+      "defense_level": 3,
+      "lon": 1.1,
+      "lat": 49.44,
+      "battle_map_code": "castle_01_eu",
+      "start_country": "england"
+    },
+    {
+      "code": "caen",
+      "name": "캉",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": -0.37,
+      "lat": 49.18,
+      "battle_map_code": "plain_01_eu",
+      "start_country": "england"
+    },
+    {
+      "code": "calais",
+      "name": "칼레",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 1.86,
+      "lat": 50.95,
+      "battle_map_code": "swamp_01_eu",
+      "start_country": "england"
+    },
+    {
+      "code": "reims",
+      "name": "랭스",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 4.03,
+      "lat": 49.25,
+      "battle_map_code": "plain_01_eu",
+      "start_country": "england"
+    }
+  ],
+  "retired_countries": [
+    {
+      "code": "burgundy",
+      "name": "부르고뉴",
+      "color": "#C9A227"
+    }
+  ],
+  "links": [
+    ["orleans", "blois"],
+    ["blois", "chinon"],
+    ["chinon", "poitiers"],
+    ["orleans", "bourges"],
+    ["bourges", "chinon"],
+    ["orleans", "paris"],
+    ["paris", "rouen"],
+    ["rouen", "caen"],
+    ["rouen", "calais"],
+    ["paris", "reims"],
+    ["reims", "bourges"]
+  ]
+}

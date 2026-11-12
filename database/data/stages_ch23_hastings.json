@@ -1,0 +1,3394 @@
+{
+ "_note": "[임밸런 / 초안] ch23 헤이스팅스의 방패벽 스테이지 수치 설계. 모든 수치는 시작값(needs tuning), 시뮬레이션 미측정(최종 일괄). 맵 좌표는 maps_ch23_ch24.json 확정 후 채움(2026-11-03). zone_ref 는 참조용으로 남기고 tiles 에 좌표를 채움. 스키마는 stages_ch22_new_s1_s4_s6_s8.json 과 같음(EnemyV3Adapter::convert 입력). 근거: docs/original_story/ch23_*_outline.md. 시드 미적재.",
+ "version": 1,
+ "chapter": 23,
+ "shelf_code": "ch23",
+ "status": "draft_map_filled",
+ "placeholder_fields": [],
+ "items": [
+  {
+   "code": "ch23_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "노르망디 군",
+     "enemy": "바이킹"
+    },
+    "ally_npcs": [
+     {
+      "hero": "william_i",
+      "x": 5,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_cart_1",
+      "x": 10,
+      "y": 12,
+      "unit_type": "sword",
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         17,
+         12
+        ],
+        [
+         24,
+         12
+        ]
+       ],
+       "from_turn": 3,
+       "move_cap": 3
+      }
+     },
+     {
+      "hero": "npc_cart_2",
+      "x": 10,
+      "y": 13,
+      "unit_type": "sword",
+      "must_survive": true,
+      "route": {
+       "waypoints": [
+        [
+         17,
+         13
+        ],
+        [
+         24,
+         13
+        ]
+       ],
+       "from_turn": 3,
+       "move_cap": 3
+      }
+     },
+     {
+      "hero": "npc_odo_bayeux",
+      "x": 6,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_william_fitzosbern",
+      "x": 6,
+      "y": 13,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_roger_montgomery",
+      "x": 7,
+      "y": 12,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_william_de_warenne",
+      "x": 7,
+      "y": 13,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "하랄 하르드라다",
+     "hero": "npc_harald_hardrada"
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "terrain_change",
+      "tiles": [
+       [
+        12,
+        12
+       ],
+       [
+        13,
+        12
+       ],
+       [
+        14,
+        12
+       ],
+       [
+        15,
+        12
+       ],
+       [
+        16,
+        12
+       ],
+       [
+        17,
+        12
+       ],
+       [
+        12,
+        13
+       ],
+       [
+        13,
+        13
+       ],
+       [
+        14,
+        13
+       ],
+       [
+        15,
+        13
+       ],
+       [
+        16,
+        13
+       ],
+       [
+        17,
+        13
+       ]
+      ],
+      "to": "shallows",
+      "fx": "water_rise",
+      "ms": 1400,
+      "dir": "right"
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_alan_rufus",
+      "tiles": [
+       [
+        8,
+        11
+       ],
+       [
+        8,
+        10
+       ],
+       [
+        7,
+        11
+       ]
+      ],
+      "tag": "norman_support",
+      "ready": true,
+      "count": 1,
+      "npc_ally": true,
+      "must_survive": false
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_eustace_boulogne",
+      "tiles": [
+       [
+        8,
+        14
+       ],
+       [
+        8,
+        15
+       ],
+       [
+        7,
+        14
+       ]
+      ],
+      "tag": "norman_support",
+      "ready": true,
+      "count": 1,
+      "npc_ally": true,
+      "must_survive": false
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_robert_mortain",
+      "tiles": [
+       [
+        8,
+        12
+       ],
+       [
+        9,
+        11
+       ],
+       [
+        9,
+        12
+       ]
+      ],
+      "tag": "norman_support",
+      "ready": true,
+      "count": 1,
+      "npc_ally": true,
+      "must_survive": false
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_walter_giffard",
+      "tiles": [
+       [
+        8,
+        13
+       ],
+       [
+        9,
+        13
+       ],
+       [
+        9,
+        14
+       ]
+      ],
+      "tag": "norman_support",
+      "ready": true,
+      "count": 1,
+      "npc_ally": true,
+      "must_survive": false
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "a",
+      "hero": "npc_geoffrey_coutances",
+      "tiles": [
+       [
+        7,
+        10
+       ],
+       [
+        7,
+        15
+       ],
+       [
+        6,
+        11
+       ]
+      ],
+      "tag": "norman_support",
+      "ready": true,
+      "count": 1,
+      "npc_ally": true,
+      "must_survive": false
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_paul_thorfinnsson",
+      "tiles": [
+       [
+        20,
+        5
+       ],
+       [
+        21,
+        4
+       ],
+       [
+        20,
+        4
+       ],
+       [
+        19,
+        4
+       ]
+      ],
+      "tag": "viking_reinforce",
+      "ready": true,
+      "count": 1
+     },
+     {
+      "on": {
+       "turn": 6
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_styrkar_marshal",
+      "tiles": [
+       [
+        22,
+        16
+       ],
+       [
+        22,
+        17
+       ],
+       [
+        21,
+        17
+       ]
+      ],
+      "tag": "viking_reinforce",
+      "ready": true,
+      "count": 1
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_hakon_ivarsson",
+      "tiles": [
+       [
+        20,
+        5
+       ],
+       [
+        21,
+        4
+       ],
+       [
+        22,
+        5
+       ],
+       [
+        19,
+        4
+       ]
+      ],
+      "tag": "viking_reinforce",
+      "ready": true,
+      "count": 1
+     },
+     {
+      "on": {
+       "turn": 8
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_thjodolf_arnorsson",
+      "tiles": [
+       [
+        22,
+        16
+       ],
+       [
+        23,
+        16
+       ],
+       [
+        22,
+        17
+       ]
+      ],
+      "tag": "viking_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "cart1",
+      "type": "unit_survive",
+      "unit": "hero:npc_cart_1",
+      "label": "수레 1을 지켜라"
+     },
+     {
+      "id": "cart2",
+      "type": "unit_survive",
+      "unit": "hero:npc_cart_2",
+      "label": "수레 2를 지켜라"
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "수레 1을 부두까지 호위한다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_cart_1",
+       "zone_ref": "quay",
+       "tiles": [
+        [
+         24,
+         7
+        ],
+        [
+         25,
+         7
+        ],
+        [
+         26,
+         7
+        ],
+        [
+         24,
+         8
+        ],
+        [
+         25,
+         8
+        ],
+        [
+         26,
+         8
+        ],
+        [
+         24,
+         9
+        ],
+        [
+         25,
+         9
+        ],
+        [
+         26,
+         9
+        ],
+        [
+         24,
+         10
+        ],
+        [
+         25,
+         10
+        ],
+        [
+         26,
+         10
+        ],
+        [
+         24,
+         11
+        ],
+        [
+         25,
+         11
+        ],
+        [
+         26,
+         11
+        ],
+        [
+         24,
+         12
+        ],
+        [
+         25,
+         12
+        ],
+        [
+         26,
+         12
+        ],
+        [
+         24,
+         13
+        ],
+        [
+         25,
+         13
+        ],
+        [
+         26,
+         13
+        ],
+        [
+         24,
+         14
+        ],
+        [
+         25,
+         14
+        ],
+        [
+         26,
+         14
+        ],
+        [
+         24,
+         15
+        ],
+        [
+         25,
+         15
+        ],
+        [
+         26,
+         15
+        ],
+        [
+         24,
+         16
+        ],
+        [
+         25,
+         16
+        ],
+        [
+         26,
+         16
+        ]
+       ]
+      }
+     },
+     {
+      "label": "수레 2를 부두까지 호위한다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:npc_cart_2",
+       "zone_ref": "quay",
+       "tiles": [
+        [
+         24,
+         7
+        ],
+        [
+         25,
+         7
+        ],
+        [
+         26,
+         7
+        ],
+        [
+         24,
+         8
+        ],
+        [
+         25,
+         8
+        ],
+        [
+         26,
+         8
+        ],
+        [
+         24,
+         9
+        ],
+        [
+         25,
+         9
+        ],
+        [
+         26,
+         9
+        ],
+        [
+         24,
+         10
+        ],
+        [
+         25,
+         10
+        ],
+        [
+         26,
+         10
+        ],
+        [
+         24,
+         11
+        ],
+        [
+         25,
+         11
+        ],
+        [
+         26,
+         11
+        ],
+        [
+         24,
+         12
+        ],
+        [
+         25,
+         12
+        ],
+        [
+         26,
+         12
+        ],
+        [
+         24,
+         13
+        ],
+        [
+         25,
+         13
+        ],
+        [
+         26,
+         13
+        ],
+        [
+         24,
+         14
+        ],
+        [
+         25,
+         14
+        ],
+        [
+         26,
+         14
+        ],
+        [
+         24,
+         15
+        ],
+        [
+         25,
+         15
+        ],
+        [
+         26,
+         15
+        ],
+        [
+         24,
+         16
+        ],
+        [
+         25,
+         16
+        ],
+        [
+         26,
+         16
+        ]
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "quay_cut",
+      "label": "적이 부두 구역에 멈춤",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "zone_ref": "quay",
+       "tiles": [
+        [
+         24,
+         7
+        ],
+        [
+         25,
+         7
+        ],
+        [
+         26,
+         7
+        ],
+        [
+         24,
+         8
+        ],
+        [
+         25,
+         8
+        ],
+        [
+         26,
+         8
+        ],
+        [
+         24,
+         9
+        ],
+        [
+         25,
+         9
+        ],
+        [
+         26,
+         9
+        ],
+        [
+         24,
+         10
+        ],
+        [
+         25,
+         10
+        ],
+        [
+         26,
+         10
+        ],
+        [
+         24,
+         11
+        ],
+        [
+         25,
+         11
+        ],
+        [
+         26,
+         11
+        ],
+        [
+         24,
+         12
+        ],
+        [
+         25,
+         12
+        ],
+        [
+         26,
+         12
+        ],
+        [
+         24,
+         13
+        ],
+        [
+         25,
+         13
+        ],
+        [
+         26,
+         13
+        ],
+        [
+         24,
+         14
+        ],
+        [
+         25,
+         14
+        ],
+        [
+         26,
+         14
+        ],
+        [
+         24,
+         15
+        ],
+        [
+         25,
+         15
+        ],
+        [
+         26,
+         15
+        ],
+        [
+         24,
+         16
+        ],
+        [
+         25,
+         16
+        ],
+        [
+         26,
+         16
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "생발레리의 출항",
+   "year_label": "1066년",
+   "chapter": 23,
+   "shelf_code": "ch23",
+   "map": "su_ch23_s1_quay_causeway",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 16,
+   "enemy_level": 16,
+   "enemy_level_offset": -7,
+   "effective_enemy_level": 9,
+   "difficulty": 5,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "william_i",
+     "npc_odo_bayeux",
+     "npc_william_fitzosbern",
+     "npc_robert_mortain",
+     "npc_eustace_boulogne",
+     "npc_roger_montgomery",
+     "npc_william_de_warenne",
+     "npc_alan_rufus",
+     "npc_walter_giffard",
+     "npc_geoffrey_coutances"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "named=아군 NPC 노르만 10명(초기 5명+수레 2기, 턴2~4 후속 5명 등장). 영웅당 부대 3 가정"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_harald_hardrada",
+      "display_name_ko": "하랄 하르드라다",
+      "evidence_level": "confirmed",
+      "troop_type": "sword",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance_to_gate",
+     "cells": [
+      [
+       18,
+       12
+      ],
+      [
+       18,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "바이킹 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_erlend_thorfinnsson",
+      "display_name_ko": "에를렌드 토르핀손",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       22,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "바이킹 궁수"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_olaf_haraldsson",
+      "display_name_ko": "올라프 하랄손",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       16,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "바이킹 창병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_eystein_orre",
+      "display_name_ko": "에이스테인 오레",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       19,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "바이킹 보병"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ulf_ospaksson",
+      "display_name_ko": "울프 오스팍손",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       20,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "바이킹 창병"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_tostig_godwinson",
+      "display_name_ko": "토스티그 고드윈손",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       21,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "바이킹 기병"
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 7,
+   "enemy_units_peak": 11,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      18,
+      12
+     ],
+     "ref": "npc_harald_hardrada",
+     "kind": "npc",
+     "name": "하랄 하르드라다"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      18,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      22,
+      11
+     ],
+     "ref": "npc_erlend_thorfinnsson",
+     "kind": "npc",
+     "name": "에를렌드 토르핀손"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      16,
+      3
+     ],
+     "ref": "npc_olaf_haraldsson",
+     "kind": "npc",
+     "name": "올라프 하랄손"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      19,
+      11
+     ],
+     "ref": "npc_eystein_orre",
+     "kind": "npc",
+     "name": "에이스테인 오레"
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      20,
+      14
+     ],
+     "ref": "npc_ulf_ospaksson",
+     "kind": "npc",
+     "name": "울프 오스팍손"
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      21,
+      5
+     ],
+     "ref": "npc_tostig_godwinson",
+     "kind": "npc",
+     "name": "토스티그 고드윈손"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1160,
+    "exp": 1682,
+    "gold": 1508,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). ch22 실값 보간(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "cart1"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "55~85 (시작값, 시뮬 미측정; 첫 스테이지 완화: 초기 적 9기, offset -5, 증원 4기)",
+   "sort_order": 2301,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만 있음(terrain_change/spawn/move/retreat). say/camera/sfx 는 ch23_hastings.json·ch24_tours.json battle_cues 와 병합 시 송서사 본문 사용",
+   "map_requirements": {
+    "size": "중형 24x16",
+    "zones": {
+     "quay": "부두 도달 구역 4~6칸",
+     "causeway_low": "둑길 낮은 칸 6~8칸(턴4 침수)",
+     "detour": "우회로 정확히 1개",
+     "enemy_deploy": "둑길 목 부근 3구역",
+     "ally_deploy": "수레 시작점+호위 2구역"
+    },
+    "deploy_zone_count": 5,
+    "tile_tags": [
+     "quay",
+     "causeway_low"
+    ]
+   },
+   "design_notes": [
+    "첫 스테이지라 적 12기, offset -3(eff 13), 밴드 상단. win_mode only(수레 2기 도착)이므로 objective.type 은 자리표시. 수레 move_cap 2 x 14턴이지만 둑길 침수(턴4) 후 우회로 포함 시작→부두 경로 16칸 이하로 요청.",
+    "맵 확정 반영: 둑길 침수는 shallows(통행 비용 2)로 확정. water 로 하면 우회로(비용 30)만 남아 수레 move_cap 3 으로는 14턴 안 도착 불가. 수레 route 는 턴3 출발·move_cap3(주 경로 비용 14 -> 턴7 도착), 침수 턴4에 둑길 위에 있어도 shallows 라 통행 가능. 둑길 목 앞 적 4기를 아군이 먼저 정리해야 함.",
+    "핵심 영웅 NPC화(2026-11-03): william_i 는 일반 영웅 행(미소유 플레이어 승리 불가) 대신 william_i 아군 NPC(5,12)로 등장. guest_heroes 는 엔진 미지원이라 비움. route 없음(휴리스틱 봇): 전열 이탈 여부는 사람 플레이 확인.",
+    "[2026-11-04 바이킹 10명] 적 진영 '바이킹'으로 개편: 일반 '약탈 무리 대장' 제거, 이름 있는 장수 10명(초기 6부대 하랄·에를렌드·올라프·에이스테인·울프·토스티그, 턴3 파울·턴4 스튀르카르·턴5 하콘·턴6 티오돌프 증원). 초기 12기->9기, 증원 4기(peak 13), offset -3->-5. 아군 노르만 10명(기존 3 + 초기 2 + 턴2~4 후속 5).",
+    "[2026-11-04 5차] 첫 스테이지 최소 난이도: offset -5->-7, 초기 적 9->7기(궁수·창병 부대 병사 제거), 하랄 hp_mult 1.5->1.2, 증원 턴 3/4/5/6->4/6/7/8 (peak 11). 바이킹 10명·노르만 10명 배치 유지"
+   ]
+  },
+  {
+   "code": "ch23_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "노르망디 군",
+     "enemy": "해안 민병"
+    },
+    "ally_npcs": [
+     {
+      "hero": "william_i",
+      "x": 8,
+      "y": 18,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_odo_bayeux",
+      "x": 7,
+      "y": 18,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_william_fitzosbern",
+      "x": 9,
+      "y": 18,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "페븐시 민병대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "sword",
+      "tiles": [
+       [
+        6,
+        20
+       ]
+      ],
+      "tag": "landing",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "sword",
+      "tiles": [
+       [
+        7,
+        20
+       ]
+      ],
+      "tag": "landing",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "spear",
+      "tiles": [
+       [
+        8,
+        20
+       ]
+      ],
+      "tag": "landing",
+      "ready": true
+     },
+     {
+      "on": {
+       "turn": 4
+      },
+      "do": "spawn",
+      "side": "a",
+      "unit_type": "spear",
+      "tiles": [
+       [
+        9,
+        20
+       ]
+      ],
+      "tag": "landing",
+      "ready": true
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "william",
+      "type": "unit_survive",
+      "unit": "hero:william_i",
+      "label": "윌리엄을 지켜라"
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "beach_cut",
+      "label": "적이 해변 보급 구역에 멈춤",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "zone_ref": "beach_supply",
+       "tiles": [
+        [
+         14,
+         17
+        ],
+        [
+         15,
+         17
+        ],
+        [
+         16,
+         17
+        ],
+        [
+         17,
+         17
+        ],
+        [
+         18,
+         17
+        ],
+        [
+         19,
+         17
+        ],
+        [
+         20,
+         17
+        ],
+        [
+         21,
+         17
+        ],
+        [
+         14,
+         18
+        ],
+        [
+         15,
+         18
+        ],
+        [
+         16,
+         18
+        ],
+        [
+         17,
+         18
+        ],
+        [
+         18,
+         18
+        ],
+        [
+         19,
+         18
+        ],
+        [
+         20,
+         18
+        ],
+        [
+         21,
+         18
+        ],
+        [
+         14,
+         19
+        ],
+        [
+         15,
+         19
+        ],
+        [
+         16,
+         19
+        ],
+        [
+         17,
+         19
+        ],
+        [
+         18,
+         19
+        ],
+        [
+         19,
+         19
+        ],
+        [
+         20,
+         19
+        ],
+        [
+         21,
+         19
+        ],
+        [
+         14,
+         20
+        ],
+        [
+         15,
+         20
+        ],
+        [
+         16,
+         20
+        ],
+        [
+         17,
+         20
+        ],
+        [
+         18,
+         20
+        ],
+        [
+         19,
+         20
+        ],
+        [
+         20,
+         20
+        ],
+        [
+         21,
+         20
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "페븐시의 로마 성벽",
+   "year_label": "1066년",
+   "chapter": 23,
+   "shelf_code": "ch23",
+   "map": "su_ch23_s2_pevensey",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      15,
+      8
+     ],
+     [
+      16,
+      8
+     ],
+     [
+      15,
+      9
+     ],
+     [
+      16,
+      9
+     ]
+    ],
+    "zone_ref": "wall_plaza",
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 14,
+   "difficulty": 6,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "william_i",
+     "npc_odo_bayeux",
+     "npc_william_fitzosbern"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "페븐시 민병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       16,
+       8
+      ],
+      [
+       15,
+       9
+      ],
+      [
+       20,
+       11
+      ],
+      [
+       16,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "해안 민병 보병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "페븐시 궁수대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       17,
+       9
+      ],
+      [
+       17,
+       8
+      ],
+      [
+       16,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "해안 민병 궁수"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서쪽 어촌 민병 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       3,
+       6
+      ],
+      [
+       6,
+       5
+      ],
+      [
+       1,
+       9
+      ],
+      [
+       2,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "서쪽 어촌 민병 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "동쪽 어촌 민병 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       7
+      ],
+      [
+       30,
+       5
+      ],
+      [
+       27,
+       10
+      ],
+      [
+       25,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "동쪽 어촌 민병 보병"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 15,
+   "enemy_units_peak": 15,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      16,
+      8
+     ],
+     "name": "페븐시 민병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      9
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      20,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      7
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      17,
+      9
+     ],
+     "name": "페븐시 궁수대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      17,
+      8
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      16,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      3,
+      6
+     ],
+     "name": "서쪽 어촌 민병 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      6,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      1,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      2,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      26,
+      7
+     ],
+     "name": "동쪽 어촌 민병 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      5
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      7
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1270,
+    "exp": 1842,
+    "gold": 1651,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). ch22 실값 보간(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "william"
+    },
+    {
+     "type": "turn_within",
+     "value": 9
+    }
+   ],
+   "win_rate_band_target_pct": "70~82 (목표 중앙 약 75)",
+   "sort_order": 2302,
+   "prerequisite": "ch23_s1",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만 있음(terrain_change/spawn/move/retreat). say/camera/sfx 는 ch23_hastings.json·ch24_tours.json battle_cues 와 병합 시 송서사 본문 사용",
+   "map_requirements": {
+    "size": "중형 24x16",
+    "zones": {
+     "wall_plaza": "성벽 안 중앙 거점 4칸",
+     "beach_supply": "해변 보급 구역 4~6칸",
+     "landing_ship": "상륙선 spawn 칸 2~4",
+     "entrances": "성벽 출입구 2~3",
+     "enemy_deploy": "마을 단위 3구역(성벽 안1·밖2)"
+    },
+    "deploy_zone_count": 4,
+    "tile_tags": []
+   },
+   "design_notes": [
+    "outline 의 '병력 순차 합류(spawn 턴 2·4)'를 아군 상륙 증원(side a)으로 해석(적 증원이면 반대 -> 문기획/송서사 확인). 적 초기 12기, 증원 없음.",
+    "맵 확정 반영: 적 15기로 증가(궁수 분대 D 3기 추가, 성벽 광장 수비). 서·동 어촌 보병 분대 B(창병)·C(보병)는 ai advance(접촉 지연 7턴 문제 해소). 합류는 아군 상륙 증원 spawn 4기. offset -3.",
+    "핵심 영웅 NPC화(2026-11-03): william_i 는 일반 영웅 행(미소유 플레이어 승리 불가) 대신 william_i 아군 NPC(8,18)로 등장. guest_heroes 는 엔진 미지원이라 비움. route 없음(휴리스틱 봇): 전열 이탈 여부는 사람 플레이 확인."
+   ]
+  },
+  {
+   "code": "ch23_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "노르망디 군",
+     "enemy": "잉글랜드 선봉"
+    },
+    "ally_npcs": [
+     {
+      "hero": "william_i",
+      "x": 15,
+      "y": 21,
+      "must_survive": false,
+      "route": {
+       "waypoints": [
+        [
+         15,
+         14
+        ]
+       ],
+       "from_turn": 4,
+       "move_cap": 3
+      }
+     },
+     {
+      "hero": "npc_odo_bayeux",
+      "x": 14,
+      "y": 21,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_william_fitzosbern",
+      "x": 17,
+      "y": 21,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "선봉 초병장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [],
+    "sub_objectives": [
+     {
+      "id": "william",
+      "type": "unit_survive",
+      "unit": "hero:william_i",
+      "label": "윌리엄을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "길을 열어 본진(윌리엄)을 언덕 인근에 세운다",
+      "latch": false,
+      "when": {
+       "type": "in_zone",
+       "unit": "hero:william_i",
+       "zone_ref": "hill_near",
+       "rect": [
+        11,
+        6,
+        20,
+        14
+       ]
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "william_down",
+      "label": "지켜야 할 본진의 윌리엄이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:william_i"
+      }
+     }
+    ]
+   },
+   "name": "방패벽 앞의 언덕",
+   "year_label": "1066년",
+   "chapter": 23,
+   "shelf_code": "ch23",
+   "map": "su_ch23_s3_low_hill",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      15,
+      9
+     ],
+     [
+      16,
+      9
+     ],
+     [
+      15,
+      10
+     ],
+     [
+      16,
+      10
+     ]
+    ],
+    "zone_ref": "low_hill",
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 17,
+   "difficulty": 7,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "william_i",
+     "npc_odo_bayeux",
+     "npc_william_fitzosbern"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "잉글랜드 선봉 초병장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.5
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       14,
+       10
+      ],
+      [
+       15,
+       9
+      ],
+      [
+       16,
+       10
+      ],
+      [
+       17,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "초병 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "선봉 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       16,
+       1
+      ],
+      [
+       11,
+       2
+      ],
+      [
+       21,
+       2
+      ],
+      [
+       7,
+       2
+      ]
+     ],
+     "soldier_display_name_ko": "선봉 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "선봉 궁수대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       10,
+       8
+      ],
+      [
+       22,
+       6
+      ],
+      [
+       9,
+       8
+      ],
+      [
+       10,
+       7
+      ]
+     ],
+     "soldier_display_name_ko": "선봉 궁수"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "하우스카를 분대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.5
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       15,
+       2
+      ],
+      [
+       16,
+       2
+      ],
+      [
+       17,
+       2
+      ],
+      [
+       15,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "하우스카를"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 16,
+   "enemy_units_peak": 16,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      14,
+      10
+     ],
+     "name": "잉글랜드 선봉 초병장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      9
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      10
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      16,
+      1
+     ],
+     "name": "선봉 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      11,
+      2
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      2
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      7,
+      2
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      10,
+      8
+     ],
+     "name": "선봉 궁수대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      22,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      9,
+      8
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      10,
+      7
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      15,
+      2
+     ],
+     "name": "하우스카를 분대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      16,
+      2
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      2
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      15,
+      3
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1370,
+    "exp": 1986,
+    "gold": 1781,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). ch22 실값 보간(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "william"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "65~80 (목표 중앙 약 72)",
+   "sort_order": 2303,
+   "prerequisite": "ch23_s2",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만 있음(terrain_change/spawn/move/retreat). say/camera/sfx 는 ch23_hastings.json·ch24_tours.json battle_cues 와 병합 시 송서사 본문 사용",
+   "map_requirements": {
+    "size": "중형 24x16",
+    "zones": {
+     "low_hill": "점령 거점 낮은 언덕 4칸",
+     "hill_near": "언덕 인근 구역 6~8칸",
+     "ridge_far": "맞은편 능선(높은 땅, 시야용)",
+     "enemy_deploy": "선봉 4구역(능선 쪽)",
+     "forest": "숲 칸 일부"
+    },
+    "deploy_zone_count": 5,
+    "tile_tags": []
+   },
+   "design_notes": [
+    "하우스카를 분대장·초병장 hp_mult 1.5(정예 표현, heavy 폐지 후 sword). 안개는 cue(camera/sfx) 연출이라 수치 없음. 윌리엄 격파 패배는 outline 에 없는 임밸런 제안(s4 와 일관); 불필요하면 삭제.",
+    "엔진 제약 반영: in_zone tiles 는 60칸 상한이라 큰 구역은 rect [11, 6, 20, 14] 로 교체(타일 수와 동일 직사각형 확인).",
+    "핵심 영웅 NPC화(2026-11-03): william_i 는 일반 영웅 행(미소유 플레이어 승리 불가) 대신 william_i 아군 NPC(15,21)로 등장. guest_heroes 는 엔진 미지원이라 비움. 승리 in_zone 때문에 route [[15, 14]] from_turn 4 move_cap 3.",
+    "점령 목표 칸(15,9),(16,9),(15,10),(16,10) 중 지휘관(초병장)이 서 있던 (15,9)를 분리: 지휘관은 (14,10)(목표 칸 밖), 보병 3기는 (15,9),(16,10),(17,10). 목표 칸 2곳((16,9),(15,10))은 빈 채로 시작. 언덕을 적 선봉이 지키는 구도는 의도."
+   ]
+  },
+  {
+   "code": "ch23_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "노르망디 군",
+     "enemy": "잉글랜드 군"
+    },
+    "ally_npcs": [
+     {
+      "hero": "william_i",
+      "x": 19,
+      "y": 20,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_odo_bayeux",
+      "x": 20,
+      "y": 21,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_william_fitzosbern",
+      "x": 10,
+      "y": 21,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "해럴드 고드윈슨",
+     "hero": "npc_harold_godwinson"
+    },
+    "max_turns": 16,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "move",
+      "unit": "hero:npc_william_fitzosbern",
+      "to": [
+       10,
+       23
+      ]
+     },
+     {
+      "on": {
+       "turn": 7
+      },
+      "do": "retreat",
+      "unit": "hero:npc_gyrth_godwinson"
+     }
+    ],
+    "sub_objectives": [
+     {
+      "id": "william",
+      "type": "unit_survive",
+      "unit": "hero:william_i",
+      "label": "윌리엄을 지켜라"
+     },
+     {
+      "id": "left_wing",
+      "type": "unit_survive",
+      "unit": "hero:npc_william_fitzosbern",
+      "label": "좌익(피츠오스번 부대)을 지켜라"
+     }
+    ],
+    "win_mode": "all",
+    "win_conditions": [
+     {
+      "label": "적 지휘관(해럴드) 격파",
+      "latch": true,
+      "when": {
+       "type": "defeated",
+       "unit": "enemy_commander"
+      }
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "william_down",
+      "label": "지켜야 할 본진의 윌리엄이 쓰러짐",
+      "when": {
+       "type": "defeated",
+       "unit": "hero:william_i"
+      }
+     },
+     {
+      "id": "camp_breach",
+      "label": "아군 후방 진영에 적 진입",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "zone_ref": "camp_rear",
+       "rect": [
+        8,
+        23,
+        31,
+        27
+       ]
+      }
+     }
+    ]
+   },
+   "name": "헤이스팅스",
+   "year_label": "1066년",
+   "chapter": 23,
+   "shelf_code": "ch23",
+   "map": "su_ch23_s4_hastings_ridge",
+   "map_id_dev": null,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 20,
+   "difficulty": 9,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 4,
+    "named": [
+     "william_i",
+     "npc_odo_bayeux",
+     "npc_william_fitzosbern"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_harold_godwinson",
+      "display_name_ko": "해럴드 고드윈슨",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 2.8
+     },
+     "soldier_type": "sword",
+     "soldiers": 5,
+     "units_total": 6,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       4
+      ],
+      [
+       19,
+       5
+      ],
+      [
+       18,
+       4
+      ],
+      [
+       21,
+       5
+      ],
+      [
+       17,
+       6
+      ],
+      [
+       22,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "능선 방패벽 보병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "능선 우익 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       8,
+       5
+      ],
+      [
+       9,
+       6
+      ],
+      [
+       10,
+       5
+      ],
+      [
+       7,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "능선 우익 창병"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "능선 좌익 보병대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       30,
+       5
+      ],
+      [
+       31,
+       6
+      ],
+      [
+       29,
+       6
+      ],
+      [
+       29,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "능선 좌익 보병"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "능선 궁수대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       15,
+       5
+      ],
+      [
+       24,
+       5
+      ],
+      [
+       13,
+       6
+      ],
+      [
+       26,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "능선 궁수"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "비탈 추격대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_rear_until_turn",
+     "cells": [
+      [
+       10,
+       11
+      ],
+      [
+       12,
+       11
+      ],
+      [
+       11,
+       11
+      ],
+      [
+       11,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "비탈 추격 병사",
+     "hold_until_turn": 5
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_gyrth_godwinson",
+      "display_name_ko": "거스 고드윈슨",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.5
+     },
+     "soldier_type": "sword",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       19,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": null
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 23,
+   "enemy_units_peak": 23,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      20,
+      4
+     ],
+     "name": "해럴드 고드윈슨"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      19,
+      5
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      18,
+      4
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      21,
+      5
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      17,
+      6
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      22,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      8,
+      5
+     ],
+     "name": "능선 우익 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      9,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      10,
+      5
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      7,
+      5
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      30,
+      5
+     ],
+     "name": "능선 좌익 보병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      6
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      5
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      15,
+      5
+     ],
+     "name": "능선 궁수대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      24,
+      5
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      13,
+      6
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      6
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      10,
+      11
+     ],
+     "name": "비탈 추격대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      11,
+      10
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      19,
+      3
+     ],
+     "name": "거스 고드윈슨"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1700,
+    "exp": 2465,
+    "gold": 2210,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). ch22 실값 보간(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "william"
+    },
+    {
+     "type": "sub_objective",
+     "id": "left_wing"
+    }
+   ],
+   "win_rate_band_target_pct": "55~70 (목표 중앙 약 62)",
+   "sort_order": 2304,
+   "prerequisite": "ch23_s3",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만 있음(terrain_change/spawn/move/retreat). say/camera/sfx 는 ch23_hastings.json·ch24_tours.json battle_cues 와 병합 시 송서사 본문 사용",
+   "map_requirements": {
+    "size": "대형 28x20",
+    "zones": {
+     "ridge_center": "점령 거점 능선 중앙 4칸",
+     "left_wing": "좌익 비탈 구역",
+     "camp_rear": "아군 후방 진영 6~8칸",
+     "enemy_ridge": "적 방어선 가로로 길게 4구역(고지 보너스)",
+     "slope": "오르막 경사 3열 이상",
+     "ally_deploy": "좌/중/우 3구역"
+    },
+    "deploy_zone_count": 8,
+    "tile_tags": [
+     "ridge_center",
+     "left_wing",
+     "camp_rear"
+    ]
+   },
+   "design_notes": [
+    "최종전. 아군 3개 부대(좌익 브르타뉴·중앙 노르망디·우익 프랑스)는 파티 4영웅+아군 NPC 로 표현(전용 부대 편성 불가 -> 사람 확인). 적 초기 23기(해럴드 분대 6+창병4+보병4+궁수4+추격4+거스 1), 증원 없음. 능선 고지 이점이 적에게 있어 offset -1, 해럴드 hp_mult 2.8. 추격대 E 는 hold_until_turn 5. 거스 F 는 soldiers=0 단독 유닛(어댑터 허용 여부 확인), 불가면 F 삭제+cue 생략.",
+    "엔진 제약 반영: in_zone tiles 는 60칸 상한이라 큰 구역은 rect [8, 23, 31, 27] 로 교체(타일 수와 동일 직사각형 확인).",
+    "핵심 영웅 NPC화(2026-11-03): william_i 는 일반 영웅 행(미소유 플레이어 승리 불가) 대신 william_i 아군 NPC(19,20)로 등장. guest_heroes 는 엔진 미지원이라 비움. route 없음(휴리스틱 봇): 전열 이탈 여부는 사람 플레이 확인."
+   ]
+  },
+  {
+   "code": "ch23_s5",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "노르망디 군",
+     "enemy": "사우스워크 수비대"
+    },
+    "ally_npcs": [
+     {
+      "hero": "william_i",
+      "x": 15,
+      "y": 22,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_odo_bayeux",
+      "x": 14,
+      "y": 22,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_william_fitzosbern",
+      "x": 16,
+      "y": 22,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "다리 수비대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [],
+    "sub_objectives": [
+     {
+      "id": "wagon",
+      "type": "protect_tiles",
+      "tiles": [
+       [
+        10,
+        19
+       ],
+       [
+        11,
+        19
+       ]
+      ],
+      "zone_ref": "wagon_zone",
+      "max_breach": 0,
+      "label": "보급 마차를 지켜라"
+     }
+    ],
+    "lose_conditions": [
+     {
+      "id": "lane_cut",
+      "label": "후방 연락로에 적이 멈춤",
+      "when": {
+       "type": "in_zone",
+       "side": "b",
+       "zone_ref": "rear_lane",
+       "tiles": [
+        [
+         9,
+         20
+        ],
+        [
+         10,
+         20
+        ],
+        [
+         11,
+         20
+        ],
+        [
+         12,
+         20
+        ],
+        [
+         13,
+         20
+        ],
+        [
+         14,
+         20
+        ],
+        [
+         4,
+         21
+        ],
+        [
+         5,
+         21
+        ],
+        [
+         6,
+         21
+        ],
+        [
+         7,
+         21
+        ],
+        [
+         8,
+         21
+        ],
+        [
+         9,
+         21
+        ],
+        [
+         0,
+         22
+        ],
+        [
+         1,
+         22
+        ],
+        [
+         2,
+         22
+        ],
+        [
+         3,
+         22
+        ],
+        [
+         4,
+         22
+        ]
+       ]
+      }
+     }
+    ]
+   },
+   "name": "사우스워크의 다리 어귀",
+   "year_label": "1066년",
+   "chapter": 23,
+   "shelf_code": "ch23",
+   "map": "su_ch23_s5_southwark",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      14,
+      8
+     ],
+     [
+      15,
+      8
+     ],
+     [
+      16,
+      8
+     ],
+     [
+      17,
+      8
+     ],
+     [
+      14,
+      9
+     ],
+     [
+      15,
+      9
+     ],
+     [
+      16,
+      9
+     ],
+     [
+      17,
+      9
+     ]
+    ],
+    "zone_ref": "bridge_south",
+    "mode": "any",
+    "hold_turns": 2,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 18,
+   "difficulty": 7,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "william_i",
+     "npc_odo_bayeux",
+     "npc_william_fitzosbern"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "ch22 규칙 준용: 영웅당 부대 3. named=아군 NPC"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다리 수비대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       16,
+       8
+      ],
+      [
+       15,
+       8
+      ],
+      [
+       14,
+       9
+      ],
+      [
+       17,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "다리 수비 창병"
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다리 궁수대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       13,
+       2
+      ],
+      [
+       18,
+       2
+      ],
+      [
+       12,
+       2
+      ],
+      [
+       13,
+       1
+      ]
+     ],
+     "soldier_display_name_ko": "다리 수비 궁수"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "다리 보조 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_point",
+     "cells": [
+      [
+       9,
+       12
+      ],
+      [
+       22,
+       12
+      ],
+      [
+       12,
+       12
+      ],
+      [
+       20,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "다리 보조 창병"
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 16,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 3
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "켄트 후방 기병대장",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 3,
+      "units_total": 4,
+      "ai": "advance",
+      "soldier_display_name_ko": "켄트 후방 기병",
+      "spawn_cell": [
+       31,
+       13
+      ],
+      "spawn_cell_candidates": [
+       [
+        31,
+        12
+       ],
+       [
+        31,
+        13
+       ],
+       [
+        31,
+        14
+       ]
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      16,
+      8
+     ],
+     "name": "다리 수비대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      15,
+      8
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      14,
+      9
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      17,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      13,
+      2
+     ],
+     "name": "다리 궁수대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      18,
+      2
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      12,
+      2
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      13,
+      1
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      9,
+      12
+     ],
+     "name": "다리 보조 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      12,
+      12
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      20,
+      12
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1590,
+    "exp": 2306,
+    "gold": 2067,
+    "basis": "ch22 규칙 준용(user_exp=0.40 x exp_to_next(권장 Lv), exp=1.45x, gold=1.3x). ch22 실값 보간(시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "sub_objective",
+     "id": "wagon"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "68~82 (목표 중앙 약 75)",
+   "sort_order": 2305,
+   "prerequisite": "ch23_s4",
+   "pvp_listing": "excluded",
+   "cue_text_status": "판정 cue 만 있음(terrain_change/spawn/move/retreat). say/camera/sfx 는 ch23_hastings.json·ch24_tours.json battle_cues 와 병합 시 송서사 본문 사용",
+   "map_requirements": {
+    "size": "중형 24x16",
+    "zones": {
+     "bridge_south": "다리 남쪽 어귀 점령 4칸",
+     "rear_lane": "후방 연락로(숲길) 4~6칸",
+     "wagon_zone": "마차 보호 구역 2~4칸",
+     "kent_flank": "켄트 기병 spawn 구역(마차에서 8칸+)",
+     "bridge_defense": "다리 수비 구역"
+    },
+    "deploy_zone_count": 4,
+    "tile_tags": []
+   },
+   "design_notes": [
+    "선택 스테이지(문기획 확정 대기). 에필로그라 s4 보다 낮은 Lv20. 적 초기 12기+턴3 켄트 기병 4기=16. 마차 max_breach 0 이므로 켄트 기병 spawn 구역과 마차 구역 거리 8칸 이상 요청.",
+    "핵심 영웅 NPC화(2026-11-03): william_i 는 일반 영웅 행(미소유 플레이어 승리 불가) 대신 william_i 아군 NPC(15,22)로 등장. guest_heroes 는 엔진 미지원이라 비움. route 없음(휴리스틱 봇): 전열 이탈 여부는 사람 플레이 확인."
+   ]
+  }
+ ],
+ "engine_requests": [
+  "1) cue spawn 의 hero 키(npc_eudes_aquitaine) 지원 여부(없으면 기병 3기만)",
+  "3) enemy_squads soldiers=0 단독 영웅 분대 허용 여부(ch23_s4 F분대)",
+  "ch23_s3 lose_conditions defeated hero:william_i 는 임밸런 추가 제안(s4 와 동일 형식)"
+ ]
+}

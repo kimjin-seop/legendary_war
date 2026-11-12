@@ -1,0 +1,77 @@
+{
+ "_note": "총병 이펙트(안아트 2026-11-03, 호출 없음). 병합 merge_fragments.mjs FRAGMENTS",
+ "items": [
+  {
+   "key": "fx.gun_muzzle",
+   "path": "assets/effects/gun/gun_muzzle.png",
+   "type": "spritesheet",
+   "frameWidth": 32,
+   "frameHeight": 32,
+   "frames": 4,
+   "size": "128x32",
+   "alpha": true,
+   "fps_hint": 24,
+   "loop": false,
+   "anchor": "총구 = 프레임 (2, 16). 화염·연기는 +x(오른쪽)로 뻗음 — 유닛이 왼쪽을 향하면 flipX. 총구 위치는 시트 측면 칸의 총 끝에 맞춰 배치",
+   "note": "총구 화염(짧게 1회, 4프레임 ≈ 0.17초)",
+   "displayScale": "정수 배율(x2~x3) 권장, NEAREST 필터",
+   "variants": {
+    "x3": "assets/effects/gun/x3/gun_muzzle.png"
+   },
+   "scope": "battle",
+   "generator": {
+    "model": "none(절차 생성)",
+    "script": "docker/gemini/fx_gun_build.py (Pillow)"
+   },
+   "prompt_ref": "없음(코드 손도트)",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "연기 프레임은 단계 알파(반투명) 사용 — 화염은 0/255",
+     "화면 속 타이밍(fps)은 실화면 확인 필요"
+    ]
+   },
+   "verify": false,
+   "bytes": 424,
+   "load_hint": "scope battle. Phaser spritesheet frameWidth 32 frameHeight 32 (4프레임)"
+  },
+  {
+   "key": "fx.gun_smoke",
+   "path": "assets/effects/gun/gun_smoke.png",
+   "type": "spritesheet",
+   "frameWidth": 32,
+   "frameHeight": 32,
+   "frames": 6,
+   "size": "192x32",
+   "alpha": true,
+   "fps_hint": 10,
+   "loop": false,
+   "anchor": "총구 = 프레임 (2, 16). 화염·연기는 +x(오른쪽)로 뻗음 — 유닛이 왼쪽을 향하면 flipX. 총구 위치는 시트 측면 칸의 총 끝에 맞춰 배치",
+   "note": "화약 연기(화염 뒤 0.6초, 오른쪽 위로 퍼지며 옅어짐)",
+   "displayScale": "정수 배율(x2~x3) 권장, NEAREST 필터",
+   "variants": {
+    "x3": "assets/effects/gun/x3/gun_smoke.png"
+   },
+   "scope": "battle",
+   "generator": {
+    "model": "none(절차 생성)",
+    "script": "docker/gemini/fx_gun_build.py (Pillow)"
+   },
+   "prompt_ref": "없음(코드 손도트)",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "연기 프레임은 단계 알파(반투명) 사용 — 화염은 0/255",
+     "화면 속 타이밍(fps)은 실화면 확인 필요"
+    ]
+   },
+   "verify": false,
+   "bytes": 1262,
+   "load_hint": "scope battle. Phaser spritesheet frameWidth 32 frameHeight 32 (6프레임)"
+  }
+ ]
+}

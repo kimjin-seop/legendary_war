@@ -1,0 +1,1536 @@
+{
+ "note": "초상 없던 NPC 초상 25키(+thumb, 안아트 2026-11-09): dialogueData NPC_NAMES ↔ manifest portrait.* 대조 누락 26명 중 25명 생성. npc_cleitus 는 생성 안 함 → FE NPC_ASSET_ALIAS 에 npc_cleitus: 'npc_cleitus_black' 추가 권고(같은 인물 기존 초상). 생성 정의 npc_missing_style.mjs",
+ "generated": "2026-11-09T14:50:20.332Z",
+ "keyRules": {
+  "portrait": "portrait.<code> (+ .thumb). 표정 neutral 1종"
+ },
+ "alias_recommendations": {
+  "npc_cleitus": "npc_cleitus_black"
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "portrait.npc_captive_headman",
+   "path": "assets/portraits/npc/npc_captive_headman.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1163613,
+   "npc": "npc_captive_headman",
+   "roster_code": "npc_captive_headman",
+   "name_ko": "포로 대표",
+   "side": "neutral",
+   "era": "1018경",
+   "culture": "korea(goryeo)",
+   "used_in": [
+    "ch11"
+   ],
+   "priority": 1,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_captive_headman.thumb",
+    "path": "assets/portraits/npc/thumb/npc_captive_headman.webp",
+    "size": "256x343",
+    "bytes": 25796
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_captive_headman",
+   "style_ref": "assets/portraits/gang_gamchan.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_captive_headman.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "검은 두건·짚 멍석·지팡이, 60대 마른 얼굴"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/gang_gamchan.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_liaodong_chief",
+   "path": "assets/portraits/npc/npc_liaodong_chief.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 942574,
+   "npc": "npc_liaodong_chief",
+   "roster_code": "npc_liaodong_chief",
+   "name_ko": "요동성 수비대장",
+   "side": "ally",
+   "era": "612",
+   "culture": "korea(goguryeo)",
+   "used_in": [
+    "ch14"
+   ],
+   "priority": 2,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_liaodong_chief.thumb",
+    "path": "assets/portraits/npc/thumb/npc_liaodong_chief.webp",
+    "size": "256x343",
+    "bytes": 24504
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_liaodong_chief",
+   "style_ref": "assets/portraits/npc/npc_goguryeo_spear_captain.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_liaodong_chief.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "왼쪽 눈썹 흉터가 작게만 표현됨"
+    ],
+    "notes": "둥근 쇠 투구·찰갑·검붉은 소매·긴 창"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/npc/npc_goguryeo_spear_captain.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_sinseong_chief",
+   "path": "assets/portraits/npc/npc_sinseong_chief.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 952226,
+   "npc": "npc_sinseong_chief",
+   "roster_code": "npc_sinseong_chief",
+   "name_ko": "신성 수비대장",
+   "side": "ally",
+   "era": "612",
+   "culture": "korea(goguryeo)",
+   "used_in": [
+    "ch14"
+   ],
+   "priority": 3,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_sinseong_chief.thumb",
+    "path": "assets/portraits/npc/thumb/npc_sinseong_chief.webp",
+    "size": "256x343",
+    "bytes": 24462
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_sinseong_chief",
+   "style_ref": "assets/portraits/npc/npc_goguryeo_spear_captain.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_sinseong_chief.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "칼집 대신 뽑은 칼로 그려짐"
+    ],
+    "notes": "절풍·쪽빛 소매·환두대도. 허리 아래 검은 얼룩 darkspot_fix 로 복구"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/npc/npc_goguryeo_spear_captain.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_dover_reeve",
+   "path": "assets/portraits/npc/npc_dover_reeve.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1322279,
+   "npc": "npc_dover_reeve",
+   "roster_code": "npc_dover_reeve",
+   "name_ko": "도버 수비대장",
+   "side": "neutral",
+   "era": "1066",
+   "culture": "europe(anglo_saxon)",
+   "used_in": [
+    "ch23"
+   ],
+   "priority": 4,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_dover_reeve.thumb",
+    "path": "assets/portraits/npc/thumb/npc_dover_reeve.webp",
+    "size": "256x343",
+    "bytes": 25796
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_dover_reeve",
+   "style_ref": "assets/portraits/william_i.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_dover_reeve.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "늘어진 콧수염·쇠사슬·녹색 튜닉·창"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/william_i.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_canterbury_envoy",
+   "path": "assets/portraits/npc/npc_canterbury_envoy.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1069716,
+   "npc": "npc_canterbury_envoy",
+   "roster_code": "npc_canterbury_envoy",
+   "name_ko": "캔터베리 사절",
+   "side": "neutral",
+   "era": "1066",
+   "culture": "europe(anglo_saxon)",
+   "used_in": [
+    "ch23"
+   ],
+   "priority": 5,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_canterbury_envoy.thumb",
+    "path": "assets/portraits/npc/thumb/npc_canterbury_envoy.webp",
+    "size": "256x343",
+    "bytes": 21222
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_canterbury_envoy",
+   "style_ref": "assets/portraits/william_i.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_canterbury_envoy.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "대머리 금발·붉은 뺨·흰 천 감은 열쇠 꾸러미"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/william_i.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_aldred_york",
+   "path": "assets/portraits/npc/npc_aldred_york.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1066734,
+   "npc": "npc_aldred_york",
+   "roster_code": "npc_aldred_york",
+   "name_ko": "올드레드",
+   "side": "neutral",
+   "era": "?~1069",
+   "culture": "europe(anglo_saxon)",
+   "used_in": [
+    "ch23"
+   ],
+   "priority": 6,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_aldred_york.thumb",
+    "path": "assets/portraits/npc/thumb/npc_aldred_york.webp",
+    "size": "256x343",
+    "bytes": 26308
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_aldred_york",
+   "style_ref": "assets/portraits/william_i.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_aldred_york.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "대주교 표지 생략 — 역사 고증상 단순화(verify)"
+    ],
+    "notes": "톤수라 흰머리·크림 제의·나무 지팡이, 십자·주교관 없음(종교 상징 금지 규칙)"
+   },
+   "verify": true,
+   "verify_note": "1066년 윌리엄 1세 대관식 집전(confirmed). 의례 복식은 종교 상징 금지 규칙에 맞춰 일반화. 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/william_i.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_bordeaux_gate_captain",
+   "path": "assets/portraits/npc/npc_bordeaux_gate_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1519478,
+   "npc": "npc_bordeaux_gate_captain",
+   "roster_code": "npc_bordeaux_gate_captain",
+   "name_ko": "보르도 성문 대장",
+   "side": "ally",
+   "era": "732",
+   "culture": "europe(aquitaine)",
+   "used_in": [
+    "ch24"
+   ],
+   "priority": 7,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_bordeaux_gate_captain.thumb",
+    "path": "assets/portraits/npc/thumb/npc_bordeaux_gate_captain.webp",
+    "size": "256x343",
+    "bytes": 29588
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_bordeaux_gate_captain",
+   "style_ref": "assets/portraits/charles_martel.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_bordeaux_gate_captain.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "요청한 둥근 얼굴보다 갸름함"
+    ],
+    "notes": "쇠띠 투구·비늘 갑옷·열쇠 고리·창"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/charles_martel.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_siege_captain",
+   "path": "assets/portraits/npc/npc_siege_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1167382,
+   "npc": "npc_siege_captain",
+   "roster_code": "npc_siege_captain",
+   "name_ko": "몽골 공성 천인장",
+   "side": "ally",
+   "era": "1219",
+   "culture": "steppe(mongol)",
+   "used_in": [
+    "ch18"
+   ],
+   "priority": 8,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_siege_captain.thumb",
+    "path": "assets/portraits/npc/thumb/npc_siege_captain.webp",
+    "size": "256x343",
+    "bytes": 24976
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_siege_captain",
+   "style_ref": "assets/portraits/genghis_khan.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_siege_captain.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "왼뺨 화상 자국이 거의 안 보임"
+    ],
+    "notes": "넓은 광대·땋은 머리·셈끈·칼"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/genghis_khan.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_shigi_qutuqu",
+   "path": "assets/portraits/npc/npc_shigi_qutuqu.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1129544,
+   "npc": "npc_shigi_qutuqu",
+   "roster_code": "npc_shigi_qutuqu",
+   "name_ko": "시기 쿠투쿠",
+   "side": "ally",
+   "era": "1180경~1260경",
+   "culture": "steppe(mongol)",
+   "used_in": [
+    "ch18"
+   ],
+   "priority": 9,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_shigi_qutuqu.thumb",
+    "path": "assets/portraits/npc/thumb/npc_shigi_qutuqu.webp",
+    "size": "256x343",
+    "bytes": 24454
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_shigi_qutuqu",
+   "style_ref": "assets/portraits/genghis_khan.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_shigi_qutuqu.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "털 테 펠트 모자·청록 델·긴 콧수염+가는 턱수염·창"
+   },
+   "verify": true,
+   "verify_note": "파르완 전투(1221) 패배 지휘관(confirmed). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/genghis_khan.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_sialkot_envoy",
+   "path": "assets/portraits/npc/npc_sialkot_envoy.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 982083,
+   "npc": "npc_sialkot_envoy",
+   "roster_code": "npc_sialkot_envoy",
+   "name_ko": "시알코트 사절",
+   "side": "neutral",
+   "era": "1526",
+   "culture": "south_asia(punjab)",
+   "used_in": [
+    "ch22"
+   ],
+   "priority": 10,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_sialkot_envoy.thumb",
+    "path": "assets/portraits/npc/thumb/npc_sialkot_envoy.webp",
+    "size": "256x343",
+    "bytes": 21446
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_sialkot_envoy",
+   "style_ref": "assets/portraits/npc/npc_ibrahim_lodi.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_sialkot_envoy.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "흰 터번·크림 자마·녹색 숄·접힌 문서, 무기 없음"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/npc/npc_ibrahim_lodi.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_diades",
+   "path": "assets/portraits/npc/npc_diades.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 935225,
+   "npc": "npc_diades",
+   "roster_code": "npc_diades",
+   "name_ko": "디아데스",
+   "side": "ally",
+   "era": "기원전 4세기 후반",
+   "culture": "macedon",
+   "used_in": [
+    "ch17"
+   ],
+   "priority": 11,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_diades.thumb",
+    "path": "assets/portraits/npc/thumb/npc_diades.webp",
+    "size": "256x343",
+    "bytes": 19910
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_diades",
+   "style_ref": "assets/portraits/alexander.webp",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_diades.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "대머리 회색 옆머리·작업 앞치마·나무 직각자"
+   },
+   "verify": true,
+   "verify_note": "알렉산드로스의 공성 기술자(티로스 공성, confirmed). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/alexander.webp(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_cannae_tribune",
+   "path": "assets/portraits/npc/npc_cannae_tribune.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1422854,
+   "npc": "npc_cannae_tribune",
+   "roster_code": "npc_cannae_tribune",
+   "name_ko": "칸나이 호민관",
+   "side": "ally",
+   "era": "기원전 216",
+   "culture": "ancient_med(rome)",
+   "used_in": [
+    "ch15"
+   ],
+   "priority": 12,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_cannae_tribune.thumb",
+    "path": "assets/portraits/npc/thumb/npc_cannae_tribune.webp",
+    "size": "256x343",
+    "bytes": 29558
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_cannae_tribune",
+   "style_ref": "assets/portraits/scipio_africanus.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_cannae_tribune.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "연기 제거로 불꽃 위쪽 외곽선 일부가 얇아짐",
+     "갑옷이 근육 흉갑형 사슬로 그려짐(공화정 중기 고증 verify)"
+    ],
+    "notes": "이마 붕대·뺨 상처·검은 직모·횃불. 횃불 연기(보랏빛 반투명, 상단 가장자리 닿음) 제거 = npc_missing_smoke_fix 계열 국소 보정"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/scipio_africanus.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_avignon_garrison",
+   "path": "assets/portraits/npc/npc_avignon_garrison.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1390175,
+   "npc": "npc_avignon_garrison",
+   "roster_code": "npc_avignon_garrison",
+   "name_ko": "아비뇽 수비대장",
+   "side": "enemy",
+   "era": "737",
+   "culture": "middle_east(andalus)",
+   "used_in": [
+    "ch24"
+   ],
+   "priority": 13,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_avignon_garrison.thumb",
+    "path": "assets/portraits/npc/thumb/npc_avignon_garrison.webp",
+    "size": "256x343",
+    "bytes": 27948
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_avignon_garrison",
+   "style_ref": "assets/portraits/tariq_ibn_ziyad.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_avignon_garrison.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "터번 감은 투구·사슬 두건·줄무늬 망토·곧은 칼"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/tariq_ibn_ziyad.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_andalus_relief_commander",
+   "path": "assets/portraits/npc/npc_andalus_relief_commander.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1283453,
+   "npc": "npc_andalus_relief_commander",
+   "roster_code": "npc_andalus_relief_commander",
+   "name_ko": "안달루스 구원군 지휘관",
+   "side": "enemy",
+   "era": "737",
+   "culture": "middle_east(andalus)",
+   "used_in": [
+    "ch24"
+   ],
+   "priority": 14,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_andalus_relief_commander.thumb",
+    "path": "assets/portraits/npc/thumb/npc_andalus_relief_commander.webp",
+    "size": "256x343",
+    "bytes": 32044
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_andalus_relief_commander",
+   "style_ref": "assets/portraits/tariq_ibn_ziyad.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_andalus_relief_commander.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "긴 회색 수염·흰 터번 꼬리·적갈 겉옷·창"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/tariq_ibn_ziyad.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_yusuf_fihri",
+   "path": "assets/portraits/npc/npc_yusuf_fihri.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1089677,
+   "npc": "npc_yusuf_fihri",
+   "roster_code": "npc_yusuf_fihri",
+   "name_ko": "유수프 알피흐리",
+   "side": "enemy",
+   "era": "691경~759",
+   "culture": "middle_east(andalus)",
+   "used_in": [
+    "ch24"
+   ],
+   "priority": 15,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_yusuf_fihri.thumb",
+    "path": "assets/portraits/npc/thumb/npc_yusuf_fihri.webp",
+    "size": "256x343",
+    "bytes": 25438
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_yusuf_fihri",
+   "style_ref": "assets/portraits/tariq_ibn_ziyad.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_yusuf_fihri.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "칼집 대신 뽑은 칼"
+    ],
+    "notes": "흰 터번·녹색 외투 금테·짧은 수염"
+   },
+   "verify": true,
+   "verify_note": "나르본 총독, 후일 안달루스 총독(confirmed). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/tariq_ibn_ziyad.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_pass_guide",
+   "path": "assets/portraits/npc/npc_pass_guide.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1200271,
+   "npc": "npc_pass_guide",
+   "roster_code": "npc_pass_guide",
+   "name_ko": "산길 안내자",
+   "side": "ally",
+   "era": "기원전 330",
+   "culture": "ancient_near_east(zagros)",
+   "used_in": [
+    "ch17"
+   ],
+   "priority": 16,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_pass_guide.thumb",
+    "path": "assets/portraits/npc/thumb/npc_pass_guide.webp",
+    "size": "256x343",
+    "bytes": 26506
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_pass_guide",
+   "style_ref": "assets/portraits/alexander.webp",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_pass_guide.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "양가죽 망토·펠트 모자·곱슬 수염·목동 지팡이"
+   },
+   "verify": true,
+   "verify_note": "페르시아 관문 우회로 안내자(목동 전승, 익명 각색, invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/alexander.webp(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_inalchuq",
+   "path": "assets/portraits/npc/npc_inalchuq.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1013721,
+   "npc": "npc_inalchuq",
+   "roster_code": "npc_inalchuq",
+   "name_ko": "이날추크",
+   "side": "enemy",
+   "era": "?~1220",
+   "culture": "middle_east(khwarazm)",
+   "used_in": [
+    "ch18"
+   ],
+   "priority": 17,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_inalchuq.thumb",
+    "path": "assets/portraits/npc/thumb/npc_inalchuq.webp",
+    "size": "256x343",
+    "bytes": 23080
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_inalchuq",
+   "style_ref": "assets/portraits/jalal_ad_din.webp",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_inalchuq.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "터번 감은 뾰족 투구·올리브 카프탄·늘어진 콧수염·휜 칼"
+   },
+   "verify": true,
+   "verify_note": "오트라르 총독 가이르 칸(confirmed, 한글 표기 verify). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/jalal_ad_din.webp(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_lu_meng",
+   "path": "assets/portraits/npc/npc_lu_meng.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1085896,
+   "npc": "npc_lu_meng",
+   "roster_code": "npc_lu_meng",
+   "name_ko": "여몽",
+   "side": "ally",
+   "era": "178~220",
+   "culture": "china(han)",
+   "used_in": [
+    "ch12"
+   ],
+   "priority": 18,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_lu_meng.thumb",
+    "path": "assets/portraits/npc/thumb/npc_lu_meng.webp",
+    "size": "256x343",
+    "bytes": 24326
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_lu_meng",
+   "style_ref": "assets/portraits/sun_quan.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_lu_meng.jpg",
+   "calls": 2,
+   "calls_ok": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "재생성 1회(1차본 콧수염+염소수염 = 중국 얼굴 군집과 겹침 → 뺨까지 덮는 짧은 전체 수염으로 교정, 1차본 raw _try1 보존)"
+   },
+   "verify": true,
+   "verify_note": "적벽 전후 오의 장수(confirmed). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/sun_quan.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_naiman_captain",
+   "path": "assets/portraits/npc/npc_naiman_captain.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1309546,
+   "npc": "npc_naiman_captain",
+   "roster_code": "npc_naiman_captain",
+   "name_ko": "나이만 부장",
+   "side": "enemy",
+   "era": "1204",
+   "culture": "steppe(naiman)",
+   "used_in": [
+    "ch18"
+   ],
+   "priority": 19,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_naiman_captain.thumb",
+    "path": "assets/portraits/npc/thumb/npc_naiman_captain.webp",
+    "size": "256x343",
+    "bytes": 31164
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_naiman_captain",
+   "style_ref": "assets/portraits/genghis_khan.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_naiman_captain.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "둥근 얼굴·붉은 볼·콧수염만·복합궁"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/genghis_khan.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_munuza",
+   "path": "assets/portraits/npc/npc_munuza.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1347218,
+   "npc": "npc_munuza",
+   "roster_code": "npc_munuza",
+   "name_ko": "무누자",
+   "side": "enemy",
+   "era": "?~731",
+   "culture": "middle_east(andalus_berber)",
+   "used_in": [
+    "ch24(name)"
+   ],
+   "priority": 20,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_munuza.thumb",
+    "path": "assets/portraits/npc/thumb/npc_munuza.webp",
+    "size": "256x343",
+    "bytes": 25710
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_munuza",
+   "style_ref": "assets/portraits/tariq_ibn_ziyad.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_munuza.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "벨트·팔 보호대 장식이 스타일 참조(타리크)에서 일부 유입 — 알삼흐·안바사와 장식 유사"
+    ],
+    "notes": "짧은 곱슬 검은 머리·콧수염만·남색 버누스·투창"
+   },
+   "verify": true,
+   "verify_note": "세르다냐 베르베르 지방관(confirmed). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/tariq_ibn_ziyad.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_anbasa",
+   "path": "assets/portraits/npc/npc_anbasa.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1402548,
+   "npc": "npc_anbasa",
+   "roster_code": "npc_anbasa",
+   "name_ko": "안바사",
+   "side": "enemy",
+   "era": "?~726",
+   "culture": "middle_east(andalus)",
+   "used_in": [
+    "ch24(name)"
+   ],
+   "priority": 21,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_anbasa.thumb",
+    "path": "assets/portraits/npc/thumb/npc_anbasa.webp",
+    "size": "256x343",
+    "bytes": 29444
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_anbasa",
+   "style_ref": "assets/portraits/tariq_ibn_ziyad.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_anbasa.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "벨트 장식 유사(참조 유입)"
+    ],
+    "notes": "긴 흰 수염·황토 망토·곧은 칼"
+   },
+   "verify": true,
+   "verify_note": "안달루스 총독 안바사 이븐 수하임(confirmed). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/tariq_ibn_ziyad.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_al_samh",
+   "path": "assets/portraits/npc/npc_al_samh.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1367059,
+   "npc": "npc_al_samh",
+   "roster_code": "npc_al_samh",
+   "name_ko": "알삼흐",
+   "side": "enemy",
+   "era": "?~721",
+   "culture": "middle_east(andalus)",
+   "used_in": [
+    "ch24(name)"
+   ],
+   "priority": 22,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_al_samh.thumb",
+    "path": "assets/portraits/npc/thumb/npc_al_samh.webp",
+    "size": "256x343",
+    "bytes": 28242
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_al_samh",
+   "style_ref": "assets/portraits/tariq_ibn_ziyad.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_al_samh.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "벨트 장식 유사(참조 유입)"
+    ],
+    "notes": "둥근 수염·사슬 두건·적갈 겉옷·창"
+   },
+   "verify": true,
+   "verify_note": "툴루즈 전투(721) 전사한 총독(confirmed). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/tariq_ibn_ziyad.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_teutonic_commander",
+   "path": "assets/portraits/npc/npc_teutonic_commander.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1232622,
+   "npc": "npc_teutonic_commander",
+   "roster_code": "npc_teutonic_commander",
+   "name_ko": "기사단 분견대장",
+   "side": "ally",
+   "era": "1241",
+   "culture": "europe(central)",
+   "used_in": [
+    "ch21_s1(draft)"
+   ],
+   "priority": 23,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_teutonic_commander.thumb",
+    "path": "assets/portraits/npc/thumb/npc_teutonic_commander.webp",
+    "size": "256x343",
+    "bytes": 22670
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_teutonic_commander",
+   "style_ref": "assets/portraits/npc/npc_henry_ii_pious.webp",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_teutonic_commander.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "사슬 두건·무늬 없는 흰 서코트·장검, 십자 없음. 흰 천 반투명 darkspot_fix 복구(48451→588)"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형(invented). 기사단 표지(검은 십자)는 금지 규칙으로 생략.",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/npc/npc_henry_ii_pious.webp(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_simon_nagymartoni",
+   "path": "assets/portraits/npc/npc_simon_nagymartoni.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 1210010,
+   "npc": "npc_simon_nagymartoni",
+   "roster_code": "npc_simon_nagymartoni",
+   "name_ko": "시몬 백작",
+   "side": "ally",
+   "era": "13세기 중엽",
+   "culture": "europe(hungary)",
+   "used_in": [
+    "ch21(draft)"
+   ],
+   "priority": 24,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_simon_nagymartoni.thumb",
+    "path": "assets/portraits/npc/thumb/npc_simon_nagymartoni.webp",
+    "size": "256x343",
+    "bytes": 20878
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_simon_nagymartoni",
+   "style_ref": "assets/portraits/npc/npc_henry_ii_pious.webp",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_simon_nagymartoni.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [],
+    "notes": "회색 곱슬·올리브 피부·녹색 서코트·털 망토"
+   },
+   "verify": true,
+   "verify_note": "에스테르곰 성채 방어 전승(단일 연대기, verify). 용모 기록 없음 — 나이·수염·체격 제안값, 복식 일반화(verify)",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/npc/npc_henry_ii_pious.webp(그림체·구도만), 인물 설명은 프롬프트 생성"
+  },
+  {
+   "key": "portrait.npc_lodi_commander",
+   "path": "assets/portraits/npc/npc_lodi_commander.png",
+   "type": "portrait",
+   "subtype": "npc",
+   "size": "896x1200",
+   "ratio": "3:4",
+   "alpha": true,
+   "bytes": 999463,
+   "npc": "npc_lodi_commander",
+   "roster_code": "npc_lodi_commander",
+   "name_ko": "로디 군 장수",
+   "side": "enemy",
+   "era": "1526",
+   "culture": "south_asia(lodi_afghan)",
+   "used_in": [
+    "ch22(draft)"
+   ],
+   "priority": 25,
+   "expressions": [
+    "neutral"
+   ],
+   "expression_fallback": "모든 expr → neutral",
+   "deferred": true,
+   "thumb": {
+    "key": "portrait.npc_lodi_commander.thumb",
+    "path": "assets/portraits/npc/thumb/npc_lodi_commander.webp",
+    "size": "256x343",
+    "bytes": 18928
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_missing_gen.mjs p(portrait_campaign_style.mjs job() + npc_missing_style.mjs P_MISS) → npc_missing_portraits_pp.sh(portrait_alpha_batch.sh, alpha_process.py B)"
+   },
+   "prompt_ref": "docker/gemini/npc_missing_style.mjs P_MISS.npc_lodi_commander",
+   "style_ref": "assets/portraits/npc/npc_ibrahim_lodi.png",
+   "raw": "docker/gemini/npc_missing/portraits/raw/portrait_npc_lodi_commander.jpg",
+   "calls": 1,
+   "calls_ok": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "896x1200 3:4 투명 PNG",
+     "마젠타 잔여 0(portrait_magenta_check opaque/edge)",
+     "내부 반투명 portrait_darkspot_fix 복구",
+     "머리 위 여백·좌우 잘림 없음",
+     "얼굴 구별 특징 3개 반영(같은 장·문화권 군집 회피)",
+     "복식 시대·지역 일반화, 문장·글자·종교 상징 없음"
+    ],
+    "issues": [
+     "줄무늬 터번 대신 흰 터번, 칼이 거의 곧게 보임"
+    ],
+    "notes": "흰 터번·긴 검은 수염·사각 가슴판"
+   },
+   "verify": true,
+   "verify_note": "익명 직함형 오리지널 인물(invented).",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "스타일 참조 assets/portraits/npc/npc_ibrahim_lodi.png(그림체·구도만), 인물 설명은 프롬프트 생성"
+  }
+ ]
+}

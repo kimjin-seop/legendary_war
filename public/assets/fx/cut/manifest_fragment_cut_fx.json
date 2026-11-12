@@ -1,0 +1,95 @@
+{
+ "note": "전투 컷신 연출 에셋(안아트 2026-11-04). scope battle",
+ "assets": [
+  {
+   "key": "fx.cut_brush_ally",
+   "path": "assets/fx/cut/cut_brush_ally.webp",
+   "type": "image",
+   "size": [
+    1024,
+    1024
+   ],
+   "alpha": true,
+   "format": "webp",
+   "scope": "battle",
+   "bytes": 209250,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "script": "docker/gemini/cut_fx_gen.mjs → cut_fx_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "초상 뒤 붓 스트로크(청·흰). 기준 = 왼쪽 진영: 왼쪽 아래(바깥) → 오른쪽 위(안쪽) 사선. 오른쪽 진영에 쓸 때 FE 가 setFlipX",
+   "anchor": "bottom-left",
+   "flip_for_right_side": true,
+   "blend": "normal"
+  },
+  {
+   "key": "fx.cut_brush_enemy",
+   "path": "assets/fx/cut/cut_brush_enemy.webp",
+   "type": "image",
+   "size": [
+    1024,
+    1024
+   ],
+   "alpha": true,
+   "format": "webp",
+   "scope": "battle",
+   "bytes": 199526,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "script": "docker/gemini/cut_fx_gen.mjs → cut_fx_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "초상 뒤 붓 스트로크(적·흰). 기준 = 왼쪽 진영: 왼쪽 아래(바깥) → 오른쪽 위(안쪽) 사선. 오른쪽 진영에 쓸 때 FE 가 setFlipX",
+   "anchor": "bottom-left",
+   "flip_for_right_side": true,
+   "blend": "normal"
+  },
+  {
+   "key": "ui.cut_ribbon",
+   "path": "assets/fx/cut/cut_ribbon.webp",
+   "type": "image",
+   "size": [
+    1024,
+    247
+   ],
+   "alpha": true,
+   "format": "webp",
+   "scope": "battle",
+   "bytes": 74864,
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "script": "docker/gemini/cut_fx_gen.mjs → cut_fx_pp.py"
+   },
+   "license": "자체 생성",
+   "note": "상단 상성 리본(검은 붓 띠 + 붉은 결). 가운데 70% 폭이 일정 → 가로 늘림 허용(세로는 비율 유지 권장). 글자는 FE",
+   "stretch": "horizontal",
+   "safe_center_x": [
+    0.15,
+    0.85
+   ]
+  },
+  {
+   "key": "fx.cut_speedlines",
+   "path": "assets/fx/cut/cut_speedlines.webp",
+   "type": "image",
+   "size": [
+    1024,
+    512
+   ],
+   "alpha": true,
+   "format": "webp",
+   "scope": "battle",
+   "bytes": 33616,
+   "generator": {
+    "model": "procedural (cut_fx_build.py, 모델 호출 없음)",
+    "script": "docker/gemini/cut_fx_build.py"
+   },
+   "license": "자체 생성",
+   "note": "흰 속도선 오버레이. 기준 = 왼쪽 가장자리에서 오른쪽 안쪽으로 뻗음. 오른쪽 진영은 FE 가 setFlipX",
+   "anchor": "left",
+   "flip_for_right_side": true,
+   "blend": "add 또는 normal"
+  }
+ ]
+}

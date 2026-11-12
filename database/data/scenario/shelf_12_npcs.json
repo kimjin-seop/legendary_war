@@ -1,0 +1,93 @@
+{
+  "schema_version": "proposal-0.1",
+  "shelf": "shelf_12_redcliff",
+  "author": "송서사",
+  "generated": "2026-11-01",
+  "note": "서가 12(적벽, 208년 겨울) 신설 NPC 로스터. 코드 접두: npc_wu_*(오), npc_wei_*(조조 측), npc_ink_*(번진 그림자). side: ally / enemy / shadow. unit_candidates는 임밸런 확정 전 후보(sword/spear/archer/cavalry/mage/healer/naval). 수상 규칙은 WATER_RULES_SPEC.md 기준: 비수병은 sea/reef에서 배 탑승 상태이며 공격 배율이 낮고, 수병은 수상에서 강하다. 병력·사상자 수치는 쓰지 않는다. evidence_level: confirmed / accepted / verify / invented. 외형 설명은 안아트 초상화용이며 조조 측도 위엄 있는 군인으로 묘사한다. 풀 내 영웅(zhou_yu, zhuge_liang, liu_bei, sun_quan, cao_cao)은 이 파일에 두지 않는다. 신규 제안이며 DB와 기존 데이터를 수정하지 않는다.",
+  "sources": [
+    "https://en.wikipedia.org/wiki/Battle_of_Red_Cliffs",
+    "https://en.wikipedia.org/wiki/Huang_Gai",
+    "https://en.wikipedia.org/wiki/Zhou_Yu",
+    "https://en.wikipedia.org/wiki/Zhuge_Liang",
+    "database/data/scenario/SCENARIO_03_CH5-10_AND_OPEN.md 13-3",
+    "database/data/WATER_RULES_SPEC.md"
+  ],
+  "pool_heroes_used": {
+    "zhou_yu": "key, forced 출전 1명. heroes.json은 mage B, WATER_RULES_SPEC 4절은 archer->naval 채택 3명 중 하나로 서술. 병종 최종은 임밸런 확정",
+    "zhuge_liang": "동반 후보",
+    "liu_bei": "동반 후보",
+    "sun_quan": "동반 후보",
+    "cao_cao": "적측 지휘관, 풀 등재 영웅이 적으로 등장"
+  },
+  "npcs": [
+    {"code": "npc_cao_hong", "name_ko": "조홍", "title": "조조의 종제", "life": "?~232", "desc": "조조의 종제로 일찍부터 조조를 따라 싸운 무장이다. 적벽 이후 남군 방면 전투에도 참여했다고 전해진다."},
+    {"code": "npc_cao_ren", "name_ko": "조인", "title": "조조군 장수", "life": "168~223", "desc": "조조의 종제로 기병 지휘에 뛰어났다. 적벽 뒤 강릉(남군)을 지키며 주유군과 오래 맞섰다."},
+    {"code": "npc_xu_huang", "name_ko": "서황", "title": "조조군 장수", "life": "?~227", "desc": "조조 휘하의 맹장으로 적벽 뒤 강릉의 조인을 돕는 구원에 나섰다고 전해진다."},
+    {"code": "npc_yue_jin", "name_ko": "악진", "title": "조조군 선봉 장수", "life": "?~218", "desc": "조조 초기부터 따른 장수로 선봉에서 돌파를 맡은 일이 많았다. 합비 전투에서도 이름이 전한다."},
+    {"code": "npc_man_chong", "name_ko": "만총", "title": "조조의 신하", "life": "?~242", "desc": "조조를 섬긴 문무 겸비의 관리로 후방 방어와 연락을 맡은 일이 많았다."},
+    {"code": "npc_wen_pin", "name_ko": "문빙", "title": "형주 출신 항장", "life": "생몰년 미상", "desc": "형주의 유표를 섬기다 조조에게 항복한 장수다. 적벽 뒤 강하 태수가 되어 오나라와의 경계를 지켰고, 악진과 함께 순구에서 관우를 꺾었다."},
+    {"code": "npc_cai_mao", "name_ko": "채모", "title": "형주의 유력자", "life": "생몰년 미상", "desc": "유표를 섬긴 형주의 유력자로 208년 유종이 조조에게 항복하도록 설득하는 데 앞장섰다."},
+    {"code": "npc_zhang_yun", "name_ko": "장윤", "title": "형주 수군 부장", "life": "생몰년 미상", "desc": "유표의 외조카로 알려진 형주의 인물이다. 208년 채모와 함께 유종이 조조에게 항복하도록 설득했다."},
+    {"code": "npc_cheng_yu", "name_ko": "정욱", "title": "조조의 모사", "life": "141~220", "desc": "조조를 섬긴 모사로 병참과 수비에 대한 조언을 맡은 일이 많았다. 오래 살아 위나라 건국도 지켜보았다."},
+    {
+      "code": "npc_huang_gai", "name_ko": "황개", "life": "생몰년 미상", "desc": "손견·손책·손권 삼대를 섬긴 오나라의 노장이다. 적벽에서 거짓 항복 서신으로 조조의 선단에 접근해 화공선을 불붙이는 계책을 올렸다. 이 불길이 전투의 흐름을 갈랐다.", "title": "장군, 화공 계책을 올린 인물", "era": "후한 말(208)", "side": "ally",
+      "stages": ["shelf12_s2", "shelf12_s3", "shelf12_s4", "shelf12_s5"], "role": "화공 계책 입안, 화공선단 지휘. 서가 클리어 시 영구 합류 후보 1명", "unit_candidates": ["naval", "archer"], "speaks": true,
+      "appearance_for_portrait": "50대, 오랜 군문 생활이 느껴지는 단단한 얼굴, 짧게 다듬은 흰 섞인 수염. 갑옷 위에 그을린 듯한 암적색 어깨 덮개, 허리에 부싯돌 주머니. 침착하고 한 박자 늦게 웃는 인상. 장강 선단 갑판 배경.",
+      "evidence_level": "confirmed", "source": "https://en.wikipedia.org/wiki/Huang_Gai (정사 삼국지 오서 기반: 주유 휘하에서 화공 건의, 거짓 항복 서신과 화공선)",
+      "note": "화공 건의와 서신, 선단 접근은 정사 서술(confirmed). 연의의 고육계(주유에게 매를 맞는 장면)는 정사에 없으므로 쓰지 않는다. 화공 직후 화살을 맞고 물에 빠졌다는 서술은 다루지 않는다. 대사는 전부 창작이며 영구 합류 시 영웅 풀 승격 후보(프로필 별도 작성 필요)."
+    },
+    {
+      "code": "npc_cheng_pu", "name_ko": "정보", "life": "?~210", "desc": "손견 때부터 오나라를 섬긴 노장이다. 적벽에서 주유와 함께 좌우 도독으로 연합군 수군을 이끌었다. 젊은 주유를 처음에는 껄끄러워했으나 뒤에는 그의 지휘를 인정했다고 전해진다.", "title": "장군, 좌독(직함 verify)", "era": "후한 말(208)", "side": "ally",
+      "stages": ["shelf12_s1", "shelf12_s2", "shelf12_s4"], "role": "주유와 함께 연합군 수군을 이끈 노장, 전열 유지", "unit_candidates": ["spear", "naval"], "speaks": true,
+      "appearance_for_portrait": "60대 가까운 노장, 두꺼운 눈썹과 회색 수염, 낡았지만 손질이 잘된 청동빛 갑옷, 뱃전을 짚은 큰 손. 말수 적고 눈빛이 단단함.",
+      "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Zhou_Yu , https://en.wikipedia.org/wiki/Battle_of_Red_Cliffs (손권이 주유와 정보에게 연합군을 맡김)",
+      "note": "주유와 정보의 지휘 분담 구조와 직함 세부는 verify. 노장으로서의 성격 묘사는 전부 창작."
+    },
+    {
+      "code": "npc_lu_su", "name_ko": "노숙", "life": "172~217", "desc": "손권의 신하로 주유의 천거를 받아 손권을 섬겼다. 조조의 남하 때 유비와 손을 잡자는 연합을 주장했고, 형주 문제를 두고 유비 쪽과 협상을 이끌었다. 주유 사후 군을 이어받았다.", "title": "참모, 손권의 신하", "era": "후한 말(208~209)", "side": "ally",
+      "stages": ["shelf12_s2", "shelf12_s5"], "role": "손권 측 연락과 조정 담당. s5 후일담의 형주 조정 장면 참석", "unit_candidates": ["healer", "mage"], "speaks": true,
+      "appearance_for_portrait": "40대 초반, 체격 좋고 너그러운 얼굴, 단정한 문관 겸 무관 복식, 소매에 두루마리와 인장 끈. 눈에 여유가 있음.",
+      "evidence_level": "accepted", "source": "https://en.wikipedia.org/wiki/Zhuge_Liang , https://en.wikipedia.org/wiki/Zhou_Yu (연합 설득과 209년 형주 대여 조언)",
+      "note": "형주 대여 조언의 정확한 시점과 성격은 학계 논의가 있어 verify. 여기서는 사실 서술을 최소로 쓰고 장면 대사는 창작."
+    },
+    {
+      "code": "npc_wei_vanguard_captain", "name_ko": "조조군 선봉 수군장", "title": "(무명)", "era": "게임용 편성(208)", "side": "enemy",
+      "stages": ["shelf12_s1"], "role": "초전에 나선 선봉 선단 지휘", "unit_candidates": ["naval"], "speaks": true,
+      "appearance_for_portrait": "30대, 짙은 감색 갑옷에 가죽 어깨받이, 선수에 한 발 올린 자세. 물보라에 젖은 머리띠. 투지가 있고 단정한 인상.",
+      "evidence_level": "invented", "source": "NA(게임용 일반 편성)", "note": "특정 실존 인물이 아님. 직책으로만 호칭."
+    },
+    {
+      "code": "npc_wei_jing_marine_chief", "name_ko": "형주 출신 수군 지휘관", "title": "(무명)", "era": "게임용 편성(208)", "side": "enemy",
+      "stages": ["shelf12_s2", "shelf12_s3"], "role": "조조 진영에 편입된 형주 수군을 이끄는 지휘관, 수채 외곽 경계", "unit_candidates": ["naval"], "speaks": true,
+      "appearance_for_portrait": "40대, 물에 익은 어부 출신 같은 단련된 체격, 연한 갈색 가죽 갑옷에 그물 무늬 어깨끈. 바람을 읽는 눈. 위압적이지 않으나 경험이 많아 보임.",
+      "evidence_level": "invented", "source": "NA(게임용 일반 편성). 조조가 형주 항복 세력과 수군을 흡수했다는 일반 서술은 en.wikipedia Battle of Red Cliffs 배경부",
+      "note": "형주 수군 편입 서술은 accepted 수준의 배경이며 개인은 가상. 특정 실존 인물(채모, 장윤 등)과 연결하지 않는다."
+    },
+    {
+      "code": "npc_wei_archer_captain", "name_ko": "조조군 궁병 선단장", "title": "(무명)", "era": "게임용 편성(208)", "side": "enemy",
+      "stages": ["shelf12_s2", "shelf12_s3", "shelf12_s4"], "role": "선상 사격 지휘, 연환 선단 엄호", "unit_candidates": ["archer"], "speaks": true,
+      "appearance_for_portrait": "40대, 마른 체형에 긴 활과 화살통, 북방식 털 장식 투구. 배 위에서 균형 잡느라 약간 불편한 자세지만 눈은 정확함.",
+      "evidence_level": "invented", "source": "NA(게임용 일반 편성)", "note": "특정 실존 인물이 아님. 북방 병사가 배에 익숙하지 않았다는 배경은 en.wikipedia 서술(accepted)."
+    },
+    {
+      "code": "npc_wei_chain_captain", "name_ko": "연환 선단 지휘관", "title": "(무명)", "era": "게임용 편성(208)", "side": "enemy",
+      "stages": ["shelf12_s3", "shelf12_s4"], "role": "배를 이어 묶은 선단의 중앙을 맡은 지휘관", "unit_candidates": ["sword", "spear"], "speaks": true,
+      "appearance_for_portrait": "40대 후반, 두꺼운 방호구와 쇠사슬 감은 팔뚝, 침착한 노련함. 이어진 배들 사이를 걷는 자세.",
+      "evidence_level": "invented", "source": "NA(게임용 일반 편성). 배를 이어 묶었다는 서술은 en.wikipedia Battle of Red Cliffs(정사 기반)",
+      "note": "연환 자체는 정사 서술로 accepted. 방통의 연환계는 연의 서술이므로 쓰지 않는다."
+    },
+    {
+      "code": "npc_wei_rearguard_chief", "name_ko": "조조군 후위 지휘관", "title": "(무명)", "era": "게임용 편성(208)", "side": "enemy",
+      "stages": ["shelf12_s4"], "role": "퇴각로를 지키는 후위 지휘", "unit_candidates": ["spear", "cavalry"], "speaks": true,
+      "appearance_for_portrait": "40대, 흙먼지가 앉은 붉은 망토, 북방 기병식 투구, 창을 세우고 방진을 이끄는 자세. 지친 기색이나 의무를 아는 눈.",
+      "evidence_level": "invented", "source": "NA(게임용 일반 편성)", "note": "특정 실존 인물이 아님."
+    },
+    {
+      "code": "npc_ink_overwrite", "name_ko": "덧쓰인 쪽의 그림자", "title": "(번짐)", "era": "허구", "side": "shadow",
+      "stages": ["shelf12_s5"], "role": "서가 최종 보스. 정사 위에 이야기책의 글자가 덧쓰이며 먹물로 일어난 형체", "unit_candidates": ["mage"], "speaks": false,
+      "appearance_for_portrait": "사람 형상 아님. 두 겹으로 겹친 글자 조각과 먹물 줄기가 불꽃 모양 소용돌이를 이루는 덩어리. 안쪽 층은 단정한 해서체, 바깥 층은 흘려 쓴 글씨. 인물의 얼굴이나 몸 형상 없음.",
+      "evidence_level": "invented", "source": "SCENARIO_03 13-3 항목 10 '덧쓰인 쪽' 그림자",
+      "note": "사람 형상 금지. 캡션으로 끊긴 문장 조각만 말한다. 정사와 소설을 선악으로 나누지 않고 서랍이 섞인 상태로 다룬다."
+    }
+  ]
+}

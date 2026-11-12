@@ -1,0 +1,60 @@
+{
+ "region": "rome_battle",
+ "desc": "로마 시즌 전장(이베리아 동부~이탈리아·시칠리아·북아프리카 카르타고)",
+ "geo": {
+  "lonMin": -9.0,
+  "lonMax": 20.0,
+  "latMin": 33.0,
+  "latMax": 46.0
+ },
+ "normalized": {
+  "x0": 0.475,
+  "x1": 0.5555555555555556,
+  "y0": 0.24444444444444444,
+  "y1": 0.31666666666666665,
+  "w": 0.08055555555555556,
+  "h": 0.07222222222222222
+ },
+ "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+ "desktop": {
+  "path": "assets/map_world/regional/rome_battle_2610.webp",
+  "size": "2610x1170",
+  "ppd": 90,
+  "bytes": 199526,
+  "sharpnessVsWorld4096": 7.91
+ },
+ "mobile": {
+  "path": "assets/map_world/regional/rome_battle_1305.webp",
+  "size": "1305x585",
+  "ppd": 45.0,
+  "bytes": 50404,
+  "sharpnessVsWorld2048": 7.91
+ },
+ "placement": "세계판 이미지 위 정규화 사각형 [x0*Ww, y0*Hw, w*Ww, h*Hw] 에 그대로 늘려 덮으면 해안이 일치(가로·세로 같은 배율)",
+ "landmask": {
+  "desktop": {
+   "path": "assets/map_world/regional/rome_battle_landmask_2610.png",
+   "size": "2610x1170",
+   "bytes": 116464,
+   "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+  },
+  "mobile": {
+   "path": "assets/map_world/regional/rome_battle_landmask_1305.png",
+   "size": "1305x585",
+   "bytes": 42575,
+   "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+  }
+ },
+ "qa_metrics": {
+  "land_iou_vs_world4096_datamask": 0.9533,
+  "soft_centroid_offset_world4096_px": [
+   -1.928,
+   0.321
+  ],
+  "land_area_ratio": 0.9799,
+  "soft_mask_mae": 0.0257,
+  "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+  "land_iou_vs_world4096_image_estimate": 0.8584,
+  "lowfreq_color_mae_0_255": 18.94
+ }
+}

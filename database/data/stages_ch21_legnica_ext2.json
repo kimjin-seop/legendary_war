@@ -1,0 +1,827 @@
+{
+ "_note": "[임밸런 2호기 / 초안] ch21 서가 확장 스테이지(송서사 EXPAND 인계서 기준) 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 맵은 기존 서가/팩 맵 재활용(주제 불일치는 map_new_needed 참조). 신호 zone 좌표는 database/data/map_tile_tag_requests_ext2.json 병합 전에는 --with-ext 시드 시 battle_cues zone_ref 해석 오류로 중단될 수 있음.",
+ "version": 1,
+ "chapter": 21,
+ "shelf_code": "ch21",
+ "status": "draft",
+ "items": [
+  {
+   "code": "ch21_s9",
+   "name": "베레츠케 관문",
+   "year_label": "1241년 3월",
+   "chapter": 21,
+   "shelf_code": "ch21",
+   "map": "su_ch21_s9_verecke",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 21,
+   "enemy_level": 21,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 16,
+   "difficulty": 8,
+   "culture": "europe",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_boroldai"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_ugrin_csak",
+      "display_name_ko": "헝가리 방책 수비 대장",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.4
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       11,
+       12
+      ],
+      [
+       12,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "헝가리 방책 수비  병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "헝가리 방책 궁병대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       12,
+       8
+      ],
+      [
+       13,
+       8
+      ]
+     ],
+     "soldier_display_name_ko": "헝가리 방책 궁병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "헝가리 방책 궁병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       12,
+       15
+      ],
+      [
+       13,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "헝가리 방책 궁병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "헝가리 방책 궁병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       4,
+       12
+      ],
+      [
+       5,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "헝가리 방책 궁병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "헝가리 방책 궁병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       10,
+       12
+      ],
+      [
+       11,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "헝가리 방책 궁병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "헝가리 방책 궁병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       11,
+       8
+      ],
+      [
+       12,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "헝가리 방책 궁병 병사"
+    }
+   ],
+   "enemy_squads_count": 6,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      11,
+      12
+     ],
+     "ref": "npc_ugrin_csak",
+     "kind": "npc",
+     "name": "헝가리 방책 수비 대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      12,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      12,
+      8
+     ],
+     "name": "헝가리 방책 궁병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      13,
+      8
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      12,
+      15
+     ],
+     "name": "헝가리 방책 궁병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      13,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      4,
+      12
+     ],
+     "name": "헝가리 방책 궁병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      5,
+      12
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      10,
+      12
+     ],
+     "name": "헝가리 방책 궁병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      11,
+      13
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      11,
+      8
+     ],
+     "name": "헝가리 방책 궁병대장 5"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      12,
+      9
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1360,
+    "exp": 1972,
+    "gold": 1768,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 8 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 2109,
+   "prerequisite": "ch21_s8",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국 서정군(폴란드 갈래)",
+     "enemy": "헝가리 왕국군"
+    },
+    "enemy_commander": {
+     "name": "헝가리 방책 수비 대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          16,
+          7
+         ],
+         [
+          16,
+          8
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "gap_marker_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "gap_marker_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        23,
+        12
+       ],
+       [
+        24,
+        12
+       ],
+       [
+        25,
+        12
+       ]
+      ],
+      "tag": "gap",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 2
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_boroldai",
+      "x": 25,
+      "y": 10,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "gap_marker": [
+      [
+       16,
+       7
+      ],
+      [
+       16,
+       8
+      ]
+     ]
+    },
+    "tile_tags": [
+     "gap_marker"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 18기 {\"sword\":4,\"archer\":14}, 최대 18기. Lv21 offset -2(eff 19). 목표 유형 capture.",
+    "신호 플래그 -> 아군 증원 2기(cavalry) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 18->12기, 대장 hp_mult 1.6->1.4",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_boroldai(ally_npcs). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch21_s10",
+   "name": "모라비아 연락 호송",
+   "year_label": "1241년 4월 말",
+   "chapter": 21,
+   "shelf_code": "ch21",
+   "map": "su_ch21_s10_moravia",
+   "map_id_dev": null,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 22,
+   "enemy_level": 22,
+   "enemy_level_offset": -6,
+   "effective_enemy_level": 16,
+   "difficulty": 6,
+   "culture": "europe",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "모라비아 척후 대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       13,
+       7
+      ],
+      [
+       12,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "모라비아 척후  병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "모라비아 척후 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       13,
+       21
+      ]
+     ],
+     "soldier_display_name_ko": "모라비아 척후 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "모라비아 척후 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       5
+      ],
+      [
+       29,
+       5
+      ]
+     ],
+     "soldier_display_name_ko": "모라비아 척후 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 5,
+   "enemy_units_peak": 7,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      13,
+      7
+     ],
+     "name": "모라비아 척후 대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      12,
+      6
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      13,
+      21
+     ],
+     "name": "모라비아 척후 기병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      5
+     ],
+     "name": "모라비아 척후 기병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      5
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1456,
+    "exp": 2111,
+    "gold": 1893,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 6 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 2110,
+   "prerequisite": "ch21_s9",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국 서정군(폴란드 갈래)",
+     "enemy": "헝가리 왕국군"
+    },
+    "enemy_commander": {
+     "name": "모라비아 척후 대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_boleslaw_rogatka",
+      "tiles": [
+       [
+        21,
+        13
+       ],
+       [
+        20,
+        12
+       ],
+       [
+        21,
+        12
+       ],
+       [
+        22,
+        12
+       ],
+       [
+        20,
+        13
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "relay_1 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         7,
+         16
+        ]
+       ]
+      }
+     },
+     {
+      "label": "relay_2 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         16,
+         8
+        ]
+       ]
+      }
+     },
+     {
+      "label": "relay_3 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         25,
+         16
+        ]
+       ]
+      }
+     },
+     {
+      "label": "목표 구역에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         19,
+         4
+        ],
+        [
+         20,
+         4
+        ],
+        [
+         21,
+         4
+        ],
+        [
+         20,
+         5
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "relay_1": [
+      [
+       7,
+       16
+      ]
+     ],
+     "relay_2": [
+      [
+       16,
+       8
+      ]
+     ],
+     "relay_3": [
+      [
+       25,
+       16
+      ]
+     ],
+     "exit_21_s10": [
+      [
+       19,
+       4
+      ],
+      [
+       20,
+       4
+      ],
+      [
+       21,
+       4
+      ],
+      [
+       20,
+       5
+      ]
+     ]
+    },
+    "tile_tags": [
+     "relay_1",
+     "relay_2",
+     "relay_3",
+     "exit_21_s10"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 8기 {\"cavalry\":8}, 최대 8기. Lv22 offset -3(eff 19). 목표 유형 seq(escort).",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -3->-6, 초기 적 8->6기, 대장 hp_mult 1->1",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_boleslaw_rogatka(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 호송류 main 위치 보정] 적 main 부대를 출구 [20,4] 인접([20,2])에서 약 7칸 떨어진 [13,7]로 이동(출구 봉쇄 방지). 시작값/needs tuning."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  }
+ ],
+ "npc_needed": {
+  "new_rows": [],
+  "note": "기존 roster 코드만 사용"
+ },
+ "engine_checks": [
+  "optional=true(숨은 종장 해금 필수 제외)",
+  "승리 조건은 기존 엔진 type(in_zone/defeat/capture/survive)만 사용"
+ ]
+}

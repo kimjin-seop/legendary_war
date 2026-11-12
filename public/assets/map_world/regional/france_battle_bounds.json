@@ -1,0 +1,60 @@
+{
+ "region": "france_battle",
+ "desc": "프랑스 시즌 전장(브르타뉴~라인 서안, 플랑드르~피레네 북쪽)",
+ "geo": {
+  "lonMin": -3.5,
+  "lonMax": 8.0,
+  "latMin": 42.5,
+  "latMax": 52.5
+ },
+ "normalized": {
+  "x0": 0.49027777777777776,
+  "x1": 0.5222222222222223,
+  "y0": 0.20833333333333334,
+  "y1": 0.2638888888888889,
+  "w": 0.03194444444444444,
+  "h": 0.05555555555555555
+ },
+ "projection": "equirectangular(세계판과 동일). 지역판 px = ((lon-lonMin)*ppd, (latMax-lat)*ppd)",
+ "desktop": {
+  "path": "assets/map_world/regional/france_battle_2530.webp",
+  "size": "2530x2200",
+  "ppd": 220,
+  "bytes": 374654,
+  "sharpnessVsWorld4096": 19.34
+ },
+ "mobile": {
+  "path": "assets/map_world/regional/france_battle_1265.webp",
+  "size": "1265x1100",
+  "ppd": 110.0,
+  "bytes": 73856,
+  "sharpnessVsWorld2048": 19.34
+ },
+ "placement": "세계판 이미지 위 정규화 사각형 [x0*Ww, y0*Hw, w*Ww, h*Hw] 에 그대로 늘려 덮으면 해안이 일치(가로·세로 같은 배율)",
+ "landmask": {
+  "desktop": {
+   "path": "assets/map_world/regional/france_battle_landmask_2530.png",
+   "size": "2530x2200",
+   "bytes": 98482,
+   "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+  },
+  "mobile": {
+   "path": "assets/map_world/regional/france_battle_landmask_1265.png",
+   "size": "1265x1100",
+   "bytes": 37351,
+   "format": "PNG LA(흰색 + 알파=육지, 경계 안티앨리어싱). canvas destination-in / CSS mask-image 로 영토 폴리곤을 육지에만 클리핑"
+  }
+ },
+ "qa_metrics": {
+  "land_iou_vs_world4096_datamask": 0.971,
+  "soft_centroid_offset_world4096_px": [
+   0.135,
+   -0.014
+  ],
+  "land_area_ratio": 0.9878,
+  "soft_mask_mae": 0.0243,
+  "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+  "land_iou_vs_world4096_image_estimate": 0.9081,
+  "lowfreq_color_mae_0_255": 24.09
+ }
+}

@@ -1,0 +1,3125 @@
+{
+ "_note": "[임밸런 2호기 / 초안] ch15 서가 확장 스테이지(송서사 EXPAND 인계서 기준) 수치 설계. 시작값(needs tuning), 시뮬레이션 미측정. 맵은 기존 서가/팩 맵 재활용(주제 불일치는 map_new_needed 참조). 신호 zone 좌표는 database/data/map_tile_tag_requests_ext2.json 병합 전에는 --with-ext 시드 시 battle_cues zone_ref 해석 오류로 중단될 수 있음.",
+ "version": 1,
+ "chapter": 15,
+ "shelf_code": "ch15",
+ "status": "draft",
+ "items": [
+  {
+   "code": "ch15_s5",
+   "name": "티키누스 구출",
+   "year_label": "BC 218",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_pk13_crossroads_med",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 16,
+   "enemy_level": 16,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 14,
+   "difficulty": 6,
+   "culture": "ancient_med",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_aemilius_paullus",
+     "npc_servilius_geminus"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_maharbal",
+      "display_name_ko": "마하르발",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1.1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       12
+      ],
+      [
+       19,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "마하르발 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 기병 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 기병 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 기병 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 기병 기병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 기병 기병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       9
+      ],
+      [
+       32,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 기병 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 6,
+   "enemy_units_peak": 8,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      12
+     ],
+     "ref": "npc_maharbal",
+     "kind": "npc",
+     "name": "마하르발"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      12
+     ],
+     "name": "카르타고 기병 기병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      35,
+      14
+     ],
+     "name": "카르타고 기병 기병대장 2"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      31,
+      9
+     ],
+     "name": "카르타고 기병 기병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      32,
+      9
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 928,
+    "exp": 1346,
+    "gold": 1206,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 6 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1505,
+   "prerequisite": "ch15_s4",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "enemy_commander": {
+     "name": "마하르발",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          12
+         ],
+         [
+          18,
+          12
+         ],
+         [
+          19,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "bank_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_hasdrubal_cannae",
+      "tiles": [
+       [
+        32,
+        11
+       ],
+       [
+        33,
+        11
+       ],
+       [
+        34,
+        11
+       ],
+       [
+        32,
+        12
+       ],
+       [
+        32,
+        13
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "목표 구역에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         26,
+         12
+        ],
+        [
+         27,
+         12
+        ],
+        [
+         28,
+         12
+        ],
+        [
+         27,
+         13
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_aemilius_paullus",
+      "x": 8,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_servilius_geminus",
+      "x": 7,
+      "y": 10,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "bank_signal": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ]
+     ],
+     "exit_15_s5": [
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       28,
+       12
+      ],
+      [
+       27,
+       13
+      ]
+     ]
+    },
+    "tile_tags": [
+     "bank_signal",
+     "exit_15_s5"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 12기 {\"cavalry\":12}, 최대 12기. Lv16 offset -2(eff 14). 목표 유형 escort.",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "호송/탈출: 호송 대상 유닛 없이 주인공 도달 조건으로 단순화(시작값, 사람 확인 필요)",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 12->8기, 대장 hp_mult 1.3->1.1",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_aemilius_paullus(ally_npcs), npc_hasdrubal_cannae(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 보정1회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -5->-6, 일반 부대 병사/부대 1기 축소(초기 7->6), 증원 0기 감소, 대장 hp_mult 1.1->1.1. 시작값/needs tuning.",
+    "[2026-11-04 호송류 main 위치 보정] 적 main 부대를 출구 [27,12] 인접([29,12])에서 약 7칸 떨어진 [20,12]로 이동(출구 봉쇄 방지). 시작값/needs tuning.",
+    "[2026-11-04 아군 NPC 분산] npc_servilius_geminus 를 ch15_s4 에서 이동 배치 [7,10].",
+    "[2026-11-04 보정3회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -6->-3, 일반 부대 병사/부대 0기 축소(초기 6->6), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.1->1.1. 시작값/needs tuning.",
+    "[2026-11-04 보정6회(tune6)] 신규 NPC 시드 후 재측정 미달 -> offset -3->-2, 일반 부대 병사/부대 0기 축소(초기 6->6), 증원 0기 감소, advance 부대 0개 hold_until_turn -, 대장 hp_mult 1.1->1.1. 시작값/needs tuning."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch15_s6",
+   "name": "칸나이 탈출",
+   "year_label": "BC 216",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_pk16_cliff_valley_med",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -5,
+   "effective_enemy_level": 12,
+   "difficulty": 6,
+   "culture": "ancient_med",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_marcellus"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 추격 기병대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       20,
+       12
+      ],
+      [
+       19,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 추격 기병 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_carthalo",
+      "display_name_ko": "카르탈로",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 추격 기병 기병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 추격 기병 기병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       35,
+       15
+      ],
+      [
+       35,
+       16
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 추격 기병 기병 병사"
+    }
+   ],
+   "enemy_squads_count": 3,
+   "enemy_units_initial": 6,
+   "enemy_units_peak": 6,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      20,
+      12
+     ],
+     "name": "카르타고 추격 기병대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      19,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      33,
+      11
+     ],
+     "ref": "npc_carthalo",
+     "kind": "npc",
+     "name": "카르탈로"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      34,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      35,
+      15
+     ],
+     "name": "카르타고 추격 기병 기병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      35,
+      16
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1016,
+    "exp": 1474,
+    "gold": 1321,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 6 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1506,
+   "prerequisite": "ch15_s5",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "enemy_commander": {
+     "name": "카르타고 추격 기병대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [],
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "fork_1 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         12,
+         12
+        ],
+        [
+         13,
+         12
+        ],
+        [
+         14,
+         12
+        ]
+       ]
+      }
+     },
+     {
+      "label": "fork_2 지점에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         18,
+         12
+        ],
+        [
+         19,
+         12
+        ],
+        [
+         20,
+         12
+        ]
+       ]
+      }
+     },
+     {
+      "label": "목표 구역에 닿는다",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "unit": "@protagonist",
+       "tiles": [
+        [
+         26,
+         12
+        ],
+        [
+         27,
+         12
+        ],
+        [
+         28,
+         12
+        ],
+        [
+         27,
+         13
+        ]
+       ]
+      }
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_marcellus",
+      "x": 8,
+      "y": 11,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "fork_1": [
+      [
+       12,
+       12
+      ],
+      [
+       13,
+       12
+      ],
+      [
+       14,
+       12
+      ]
+     ],
+     "fork_2": [
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ],
+      [
+       20,
+       12
+      ]
+     ],
+     "exit_15_s6": [
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       28,
+       12
+      ],
+      [
+       27,
+       13
+      ]
+     ]
+    },
+    "tile_tags": [
+     "fork_1",
+     "fork_2",
+     "exit_15_s6"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 8기 {\"cavalry\":8}, 최대 8기. Lv17 offset -2(eff 15). 목표 유형 escort.",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "호송/탈출: 호송 대상 유닛 없이 주인공 도달 조건으로 단순화(시작값, 사람 확인 필요)",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 8->6기, 대장 hp_mult 1.2->1",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_marcellus(ally_npcs), npc_carthalo(convert_B). 적 증원 0기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85).",
+    "[2026-11-04 호송류 main 위치 보정] 적 main 부대를 출구 [27,12] 인접([29,12])에서 약 7칸 떨어진 [20,12]로 이동(출구 봉쇄 방지). 시작값/needs tuning."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch15_s7",
+   "name": "바이쿨라",
+   "year_label": "BC 208",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_pk04_hill_claim_med",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 18,
+   "enemy_level": 18,
+   "enemy_level_offset": -9,
+   "effective_enemy_level": 9,
+   "difficulty": 7,
+   "culture": "ancient_med",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "하스드루발 바르카 군 사령관",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       29,
+       12
+      ],
+      [
+       30,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "하스드루발 바르카 군 사령관 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_hasdrubal_gisgo",
+      "display_name_ko": "하스드루발 기스코",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 경보병 창병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 경보병 창병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       35,
+       15
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 경보병 창병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 경보병 창병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       33,
+       6
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 경보병 창병 병사"
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 6,
+   "enemy_units_peak": 10,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      29,
+      12
+     ],
+     "name": "하스드루발 바르카 군 사령관"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      30,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      33,
+      11
+     ],
+     "ref": "npc_hasdrubal_gisgo",
+     "kind": "npc",
+     "name": "하스드루발 기스코"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      34,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      35,
+      15
+     ],
+     "name": "카르타고 경보병 창병대장 2"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      33,
+      6
+     ],
+     "name": "카르타고 경보병 창병대장 3"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1096,
+    "exp": 1589,
+    "gold": 1425,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 15
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 7 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1507,
+   "prerequisite": "ch15_s6",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "enemy_commander": {
+     "name": "하스드루발 바르카 군 사령관",
+     "hero": null
+    },
+    "max_turns": 17,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          11
+         ],
+         [
+          18,
+          11
+         ],
+         [
+          19,
+          11
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "center_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_mago_barca",
+      "tiles": [
+       [
+        33,
+        10
+       ],
+       [
+        34,
+        10
+       ],
+       [
+        35,
+        10
+       ],
+       [
+        35,
+        11
+       ],
+       [
+        33,
+        12
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_hasdrubal_barca",
+      "tiles": [
+       [
+        33,
+        10
+       ],
+       [
+        34,
+        10
+       ],
+       [
+        35,
+        10
+       ],
+       [
+        35,
+        11
+       ],
+       [
+        33,
+        12
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "center_signal": [
+      [
+       17,
+       11
+      ],
+      [
+       18,
+       11
+      ],
+      [
+       19,
+       11
+      ]
+     ]
+    },
+    "tile_tags": [
+     "center_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 16기 {\"spear\":14,\"archer\":2}, 최대 16기. Lv18 offset -2(eff 16). 목표 유형 capture.",
+    "신호 플래그는 연출/보정용(효과 없음)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -2->-5, 초기 적 16->12기, 대장 hp_mult 1.5->1.3",
+    "[2026-11-04 2차 완화] offset -5->-7, 적 12->10기, max_turns 14->17",
+    "[2026-11-04 3차 완화] offset -7->-9, 적 10->8기(부대 5->4), 대장 hp_mult 1.2->1.1",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_hasdrubal_gisgo(convert_B), npc_mago_barca(cue_b_t2), npc_hasdrubal_barca(cue_b_t3). 적 증원 2기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 3차 완화(재측정 필요)"
+  },
+  {
+   "code": "ch15_s8",
+   "name": "일리파",
+   "year_label": "BC 206",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_pk14_twin_rivers_med",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "survive_turns",
+    "turns": 9
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 16,
+   "difficulty": 7,
+   "culture": "ancient_med",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_laelius"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_gisgo",
+      "display_name_ko": "하스드루발 기스고",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.6
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       31,
+       12
+      ],
+      [
+       32,
+       12
+      ],
+      [
+       30,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "하스드루발 기스고 병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 중앙 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       9
+      ],
+      [
+       33,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 중앙 창병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 중앙 창병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       11
+      ],
+      [
+       35,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 중앙 창병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 중앙 창병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       13
+      ],
+      [
+       31,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 중앙 창병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 중앙 창병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       9
+      ],
+      [
+       32,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 중앙 창병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 중앙 창병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 중앙 창병 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 중앙 창병대장 6",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       12
+      ],
+      [
+       32,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 중앙 창병 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 중앙 창병대장 7",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       8
+      ],
+      [
+       34,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 중앙 창병 병사"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "카르타고 중앙 보병대장 8",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       10
+      ],
+      [
+       35,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "카르타고 중앙 보병 병사"
+    }
+   ],
+   "enemy_squads_count": 9,
+   "enemy_units_initial": 19,
+   "enemy_units_peak": 21,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      31,
+      12
+     ],
+     "ref": "npc_gisgo",
+     "kind": "npc",
+     "name": "하스드루발 기스고"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      32,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      30,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      32,
+      9
+     ],
+     "name": "카르타고 중앙 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      33,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      34,
+      11
+     ],
+     "name": "카르타고 중앙 창병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      35,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      31,
+      13
+     ],
+     "name": "카르타고 중앙 창병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      31,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      31,
+      9
+     ],
+     "name": "카르타고 중앙 창병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      32,
+      10
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      33,
+      11
+     ],
+     "name": "카르타고 중앙 창병대장 5"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      34,
+      12
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      33,
+      12
+     ],
+     "name": "카르타고 중앙 창병대장 6"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      32,
+      13
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      32,
+      8
+     ],
+     "name": "카르타고 중앙 창병대장 7"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      34,
+      9
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      34,
+      10
+     ],
+     "name": "카르타고 중앙 보병대장 8"
+    },
+    {
+     "squad": "I",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      35,
+      12
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1184,
+    "exp": 1717,
+    "gold": 1539,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 7
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 7 기준 65~80 (시작값, 시뮬 미측정)",
+   "sort_order": 1508,
+   "prerequisite": "ch15_s7",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "enemy_commander": {
+     "name": "하스드루발 기스고",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          12
+         ],
+         [
+          18,
+          12
+         ],
+         [
+          19,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "rear_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "rear_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        8,
+        10
+       ],
+       [
+        9,
+        10
+       ],
+       [
+        10,
+        10
+       ],
+       [
+        9,
+        11
+       ]
+      ],
+      "tag": "rear",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 3
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_syphax",
+      "tiles": [
+       [
+        33,
+        10
+       ],
+       [
+        32,
+        11
+       ],
+       [
+        31,
+        8
+       ],
+       [
+        33,
+        8
+       ],
+       [
+        31,
+        10
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ],
+    "optional": true,
+    "ally_npcs": [
+     {
+      "hero": "npc_laelius",
+      "x": 6,
+      "y": 11,
+      "must_survive": false
+     }
+    ]
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "rear_signal": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ]
+     ]
+    },
+    "tile_tags": [
+     "rear_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 20기 {\"sword\":6,\"spear\":14}, 최대 20기. Lv19 offset -2(eff 17). 목표 유형 survive.",
+    "신호 플래그 -> 아군 증원 3기(cavalry) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -2->-3, 초기 적 20->20기, 대장 hp_mult 1.6->1.6",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_laelius(ally_npcs), npc_syphax(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch15_s9",
+   "name": "야영지 야습",
+   "year_label": "BC 203",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_pk15_village_war",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 19,
+   "enemy_level": 19,
+   "enemy_level_offset": -4,
+   "effective_enemy_level": 15,
+   "difficulty": 8,
+   "culture": "ancient_med",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "야영지 경계 대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       30,
+       12
+      ],
+      [
+       31,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "야영지 경계  병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "누미디아·카르타고 경계병 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "누미디아·카르타고 경계병 창병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "누미디아·카르타고 경계병 창병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       34,
+       12
+      ],
+      [
+       35,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "누미디아·카르타고 경계병 창병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "누미디아·카르타고 경계병 창병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       32,
+       14
+      ],
+      [
+       33,
+       14
+      ]
+     ],
+     "soldier_display_name_ko": "누미디아·카르타고 경계병 창병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "누미디아·카르타고 경계병 창병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       29,
+       12
+      ],
+      [
+       30,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "누미디아·카르타고 경계병 창병 병사"
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 9,
+   "enemy_units_peak": 11,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      30,
+      12
+     ],
+     "name": "야영지 경계 대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      31,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      32,
+      10
+     ],
+     "name": "누미디아·카르타고 경계병 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      34,
+      12
+     ],
+     "name": "누미디아·카르타고 경계병 창병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      35,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      32,
+      14
+     ],
+     "name": "누미디아·카르타고 경계병 창병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      33,
+      14
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      29,
+      12
+     ],
+     "name": "누미디아·카르타고 경계병 창병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      30,
+      13
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1184,
+    "exp": 1717,
+    "gold": 1539,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 8 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 1509,
+   "prerequisite": "ch15_s8",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "enemy_commander": {
+     "name": "야영지 경계 대장",
+     "hero": null
+    },
+    "max_turns": 12,
+    "commander_guard": null,
+    "win_mode": "only",
+    "win_conditions": [
+     {
+      "label": "천막 동쪽 방화",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "side": "a",
+       "tiles": [
+        [
+         26,
+         9
+        ],
+        [
+         27,
+         9
+        ],
+        [
+         26,
+         10
+        ],
+        [
+         27,
+         10
+        ]
+       ]
+      }
+     },
+     {
+      "label": "천막 남동 방화",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "side": "a",
+       "tiles": [
+        [
+         26,
+         14
+        ],
+        [
+         27,
+         14
+        ],
+        [
+         26,
+         15
+        ],
+        [
+         27,
+         15
+        ]
+       ]
+      }
+     },
+     {
+      "label": "천막 중앙 방화",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "side": "a",
+       "tiles": [
+        [
+         23,
+         11
+        ],
+        [
+         24,
+         11
+        ],
+        [
+         25,
+         11
+        ]
+       ]
+      }
+     },
+     {
+      "label": "천막 북서 방화",
+      "latch": true,
+      "when": {
+       "type": "in_zone",
+       "side": "a",
+       "tiles": [
+        [
+         21,
+         6
+        ],
+        [
+         22,
+         6
+        ],
+        [
+         23,
+         6
+        ],
+        [
+         21,
+         7
+        ],
+        [
+         22,
+         7
+        ],
+        [
+         23,
+         7
+        ]
+       ]
+      }
+     }
+    ],
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          12
+         ],
+         [
+          18,
+          12
+         ],
+         [
+          19,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "fire_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "fire_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        9,
+        12
+       ],
+       [
+        10,
+        12
+       ],
+       [
+        11,
+        12
+       ]
+      ],
+      "tag": "fire",
+      "ready": true,
+      "unit_type": "sword",
+      "count": 2
+     },
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_hanno_bomilcar",
+      "tiles": [
+       [
+        32,
+        12
+       ],
+       [
+        31,
+        11
+       ],
+       [
+        32,
+        11
+       ],
+       [
+        33,
+        11
+       ],
+       [
+        33,
+        12
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          26,
+          9
+         ],
+         [
+          27,
+          9
+         ],
+         [
+          26,
+          10
+         ],
+         [
+          27,
+          10
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        26,
+        9
+       ],
+       [
+        27,
+        9
+       ],
+       [
+        26,
+        10
+       ],
+       [
+        27,
+        10
+       ]
+      ],
+      "turns": 3
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          26,
+          14
+         ],
+         [
+          27,
+          14
+         ],
+         [
+          26,
+          15
+         ],
+         [
+          27,
+          15
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        26,
+        14
+       ],
+       [
+        27,
+        14
+       ],
+       [
+        26,
+        15
+       ],
+       [
+        27,
+        15
+       ]
+      ],
+      "turns": 3
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          23,
+          11
+         ],
+         [
+          24,
+          11
+         ],
+         [
+          25,
+          11
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        23,
+        11
+       ],
+       [
+        24,
+        11
+       ],
+       [
+        25,
+        11
+       ]
+      ],
+      "turns": 3
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "side": "a",
+        "tiles": [
+         [
+          21,
+          6
+         ],
+         [
+          22,
+          6
+         ],
+         [
+          23,
+          6
+         ],
+         [
+          21,
+          7
+         ],
+         [
+          22,
+          7
+         ],
+         [
+          23,
+          7
+         ]
+        ]
+       }
+      },
+      "do": "fire",
+      "tiles": [
+       [
+        21,
+        6
+       ],
+       [
+        22,
+        6
+       ],
+       [
+        23,
+        6
+       ],
+       [
+        21,
+        7
+       ],
+       [
+        22,
+        7
+       ],
+       [
+        23,
+        7
+       ]
+      ],
+      "turns": 3
+     }
+    ],
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "fire_signal": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ]
+     ]
+    },
+    "tile_tags": [
+     "fire_signal"
+    ]
+   },
+   "design_notes": [
+    "[2026-11-08 임밸런 미션 비중 전환] 점령(capture 2턴 유지, any) -> 기타(야영 천막 4곳 방화: side a in_zone latch 4개, win_mode only) + fire 연출. 시작값, 4곳 전부 요구라 난이도 상승 가능(측정 후 3곳으로 완화 검토).",
+    "[시작값] 초기 적 14기 {\"sword\":2,\"spear\":10,\"archer\":2}, 최대 14기. Lv19 offset -1(eff 18). 목표 유형 capture.",
+    "신호 플래그 -> 아군 증원 2기(sword) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -1->-4, 초기 적 14->10기, 대장 hp_mult 1.3->1.1",
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_hanno_bomilcar(cue_b_t2). 적 증원 1기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  },
+  {
+   "code": "ch15_s10",
+   "name": "대평원",
+   "year_label": "BC 203",
+   "chapter": 15,
+   "shelf_code": "ch15",
+   "map": "su_pk20_grand_mixed",
+   "map_id_dev": null,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 20,
+   "enemy_level": 20,
+   "enemy_level_offset": -2,
+   "effective_enemy_level": 18,
+   "difficulty": 8,
+   "culture": "ancient_med",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "영웅당 부대 3 가정(ch13 ext 규칙 준용)"
+   },
+   "guest_heroes": [],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이베리아 용병 중앙 대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1.4
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       31,
+       12
+      ],
+      [
+       32,
+       12
+      ],
+      [
+       30,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "이베리아 용병 중앙  병사"
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이베리아·누미디아 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       9
+      ],
+      [
+       33,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "이베리아·누미디아 창병 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이베리아·누미디아 창병대장 2",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       11
+      ],
+      [
+       35,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "이베리아·누미디아 창병 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이베리아·누미디아 창병대장 3",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       13
+      ],
+      [
+       31,
+       11
+      ]
+     ],
+     "soldier_display_name_ko": "이베리아·누미디아 창병 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이베리아·누미디아 창병대장 4",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       31,
+       9
+      ],
+      [
+       32,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "이베리아·누미디아 창병 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이베리아·누미디아 창병대장 5",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       11
+      ],
+      [
+       34,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "이베리아·누미디아 창병 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이베리아·누미디아 창병대장 6",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       33,
+       12
+      ],
+      [
+       32,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "이베리아·누미디아 창병 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이베리아·누미디아 창병대장 7",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       32,
+       8
+      ],
+      [
+       34,
+       9
+      ]
+     ],
+     "soldier_display_name_ko": "이베리아·누미디아 창병 병사"
+    },
+    {
+     "id": "I",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "이베리아·누미디아 창병대장 8",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       34,
+       10
+      ],
+      [
+       35,
+       12
+      ]
+     ],
+     "soldier_display_name_ko": "이베리아·누미디아 창병 병사"
+    }
+   ],
+   "enemy_squads_count": 9,
+   "enemy_units_initial": 19,
+   "enemy_units_peak": 19,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      31,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이베리아 용병 중앙 대장"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      32,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      30,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      32,
+      9
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이베리아·누미디아 창병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      33,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      34,
+      11
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이베리아·누미디아 창병대장 2"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      35,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      31,
+      13
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이베리아·누미디아 창병대장 3"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      31,
+      11
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      31,
+      9
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이베리아·누미디아 창병대장 4"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      32,
+      10
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      33,
+      11
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이베리아·누미디아 창병대장 5"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      34,
+      12
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      33,
+      12
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이베리아·누미디아 창병대장 6"
+    },
+    {
+     "squad": "G",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      32,
+      13
+     ]
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      32,
+      8
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이베리아·누미디아 창병대장 7"
+    },
+    {
+     "squad": "H",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      34,
+      9
+     ]
+    },
+    {
+     "squad": "I",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      34,
+      10
+     ],
+     "ref": null,
+     "kind": "generic",
+     "name": "이베리아·누미디아 창병대장 8"
+    },
+    {
+     "squad": "I",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      35,
+      12
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1272,
+    "exp": 1845,
+    "gold": 1654,
+    "basis": "ch13 ext 규칙 준용: 권장 Lv 주력 보상표 x 0.8(선택 스테이지, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "난이도 8 기준 55~70 (시작값, 시뮬 미측정)",
+   "sort_order": 1510,
+   "prerequisite": "ch15_s9",
+   "pvp_listing": "excluded",
+   "rules": {
+    "factions": {
+     "ally": "로마 군",
+     "enemy": "카르타고 군"
+    },
+    "enemy_commander": {
+     "name": "이베리아 용병 중앙 대장",
+     "hero": null
+    },
+    "max_turns": 14,
+    "commander_guard": null,
+    "cues": [
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "in_zone",
+        "unit": "@protagonist",
+        "tiles": [
+         [
+          17,
+          12
+         ],
+         [
+          18,
+          12
+         ],
+         [
+          19,
+          12
+         ]
+        ]
+       }
+      },
+      "do": "set_flag",
+      "key": "ditch_signal_up",
+      "value": true
+     },
+     {
+      "on": {
+       "turn": 1,
+       "when": {
+        "type": "flag",
+        "key": "ditch_signal_up"
+       }
+      },
+      "do": "spawn",
+      "side": "a",
+      "tiles": [
+       [
+        8,
+        12
+       ],
+       [
+        9,
+        12
+       ],
+       [
+        10,
+        12
+       ],
+       [
+        9,
+        13
+       ]
+      ],
+      "tag": "ditch",
+      "ready": true,
+      "unit_type": "cavalry",
+      "count": 3
+     }
+    ],
+    "optional": true
+   },
+   "map_requirements": {
+    "note": "기존 서가 맵 재활용(주제 불일치 가능). 신호 zone 좌표는 map_tile_tag_requests_ext2.json 의 요청 좌표를 맵 meta.tile_tags 에 병합해야 시드 가능(zone_ref 해석).",
+    "zones": {
+     "ditch_signal": [
+      [
+       17,
+       12
+      ],
+      [
+       18,
+       12
+      ],
+      [
+       19,
+       12
+      ]
+     ]
+    },
+    "tile_tags": [
+     "ditch_signal"
+    ]
+   },
+   "design_notes": [
+    "[시작값] 초기 적 22기 {\"spear\":19,\"sword\":3}, 최대 22기. Lv20 offset -1(eff 19). 목표 유형 defeat.",
+    "신호 플래그 -> 아군 증원 3기(cavalry) 효과(시작값)",
+    "기존 맵 재활용",
+    "[2026-11-04 완화] offset -1->-2, 초기 적 22->19기, 대장 hp_mult 1.6->1.4"
+   ],
+   "map_requirements_status": "reuse_map_tags_pending",
+   "tune_note_20261104": "임밸런2: 박백엔 샘플 승률 반영 일괄 완화(재측정 필요)"
+  }
+ ],
+ "npc_needed": {
+  "new_rows": [],
+  "note": "기존 roster 코드만 사용"
+ },
+ "engine_checks": [
+  "optional=true(숨은 종장 해금 필수 제외)",
+  "승리 조건은 기존 엔진 type(in_zone/defeat/capture/survive)만 사용"
+ ]
+}

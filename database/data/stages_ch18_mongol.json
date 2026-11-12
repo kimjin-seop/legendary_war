@@ -1,0 +1,3447 @@
+{
+ "_note": "[초안 / 가정값] ch18 칭기즈 칸과 몽골 제국 s1~s8 스테이지 + 적 편성(v3 형식 enemy_squads). 설계 문서 STAGES_CH18_SPEC.md. 모든 수치는 시작값(needs tuning). 시드 미연결(현재 ch18용 시드 명령 없음 -> 박백엔 요청). 연도/사건 이설은 evidence_notes와 verify_events에 표기.",
+ "version": 1,
+ "chapter": 18,
+ "shelf_code": "ch18",
+ "status": "draft",
+ "schema": "stages_ch1_enemy_v3.json 의 items[] 와 같은 enemy_squads/triggers/units_flat_initial 형식 + stages 행 필드(name,objective,reward_*,star_conditions,prerequisite,sort_order). map은 DB maps.code.",
+ "hero_id_rule": {
+  "genghis_khan": "heroes.json 기존(S, cavalry, 가챠 풀). 기록 메타(shelf_map_meta) heroes[].code 와 일치. 초상화 portrait.genghis_khan",
+  "npc_jebe": "개발 DB heroes 에 npc_jebe 로 존재(campaign_only). 기록 메타(shelf_map_meta) heroes_pending.code=npc_jebe, portrait_key=portrait.jebe",
+  "npc_subutai": "npc_subutai / portrait.subutai",
+  "npc_muqali": "npc_muqali / portrait.mukhali (철자 불일치: muqali vs mukhali)",
+  "npc_boorchu": "npc_boorchu / portrait.borchu (철자 불일치: boorchu vs borchu)",
+  "note": "박백엔이 heroes.json 으로 승격 시 코드를 npc_* 접두 유지하는지, 접두 없는 jebe/subutai/mukhali/borchu 로 바꾸는지에 따라 이 파일의 guest_heroes/recommended_party.named 를 일괄 치환해야 한다(미확정)."
+ },
+ "maps_used": {
+  "pk_01_plain_clash": {
+   "id_dev": 151,
+   "size": [
+    16,
+    12
+   ]
+  },
+  "pk_13_crossroads": {
+   "id_dev": 160,
+   "size": [
+    24,
+    16
+   ]
+  },
+  "pk_04_hill_claim": {
+   "id_dev": 154,
+   "size": [
+    24,
+    16
+   ]
+  },
+  "pk_16_cliff_valley": {
+   "id_dev": 162,
+   "size": [
+    24,
+    16
+   ]
+  },
+  "pk_14_twin_rivers": {
+   "id_dev": 166,
+   "size": [
+    28,
+    20
+   ]
+  },
+  "river_02": {
+   "id_dev": 23,
+   "size": [
+    20,
+    14
+   ]
+  },
+  "pk_20_grand_mixed": {
+   "id_dev": 168,
+   "size": [
+    28,
+    20
+   ]
+  },
+  "desert_01": {
+   "id_dev": 27,
+   "size": [
+    24,
+    16
+   ]
+  }
+ },
+ "verify_events": [
+  "야호령 전투 1211 vs 1212",
+  "카라키타이 정복/제베 카슈가르 진출 1218 vs 1216",
+  "서하 원정 시작 1209 vs 1207",
+  "칼카 강 전투 일자 1223-05-31(출처 간)",
+  "칭기즈 칸 사망 경위(이설) 1227",
+  "무칼리/제베/수부타이/보르추의 스테이지별 참전 여부"
+ ],
+ "items": [
+  {
+   "code": "ch18_s1",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국",
+     "enemy": "나이만 잔당"
+    },
+    "ally_npcs": [
+     {
+      "hero": "genghis_khan",
+      "x": 11,
+      "y": 10,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_boorchu",
+      "x": 11,
+      "y": 13,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "나이만 잔당 우두머리"
+    },
+    "cues": [
+     {
+      "on": {
+       "turn": 2
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_tayang_khan",
+      "tiles": [
+       [
+        25,
+        10
+       ],
+       [
+        24,
+        9
+       ],
+       [
+        25,
+        9
+       ],
+       [
+        24,
+        10
+       ],
+       [
+        26,
+        10
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     },
+     {
+      "on": {
+       "turn": 3
+      },
+      "do": "spawn",
+      "side": "b",
+      "hero": "npc_jamukha",
+      "tiles": [
+       [
+        25,
+        10
+       ],
+       [
+        24,
+        9
+       ],
+       [
+        25,
+        9
+       ],
+       [
+        24,
+        10
+       ],
+       [
+        26,
+        10
+       ]
+      ],
+      "tag": "named_reinforce",
+      "ready": true,
+      "count": 1
+     }
+    ]
+   },
+   "name": "오논 강가의 쿠릴타이",
+   "year_label": "1206년",
+   "chapter": 18,
+   "shelf_code": "ch18",
+   "map": "su_pk01_plain_clash",
+   "map_id_dev": 151,
+   "map_size": [
+    32,
+    24
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 10,
+   "enemy_level": 10,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 9,
+   "difficulty": 1,
+   "culture": "steppe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "genghis_khan",
+     "npc_boorchu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(게스트/강제 출전 후보), own_heroes는 플레이어 보유 영웅 평균치로 측정"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "genghis_khan"
+    },
+    {
+     "hero_code": "npc_boorchu"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_naiman_remnant_chief",
+      "display_name_ko": "나이만 계열 잔당 우두머리(각색)",
+      "evidence_level": "invented",
+      "troop_type": "cavalry",
+      "hp_mult": 1.8
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       29,
+       11
+      ],
+      [
+       29,
+       12
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_kuchlug",
+      "display_name_ko": "쿠츨루크",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       28,
+       10
+      ]
+     ],
+     "soldier_display_name_ko": "쿠츨루크 부대 병사"
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_buyruq_khan",
+      "display_name_ko": "부이룩 칸",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       28,
+       13
+      ]
+     ],
+     "soldier_display_name_ko": "부이룩 칸 부대 병사"
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_toqto_a_beki",
+      "display_name_ko": "토크타 베키",
+      "evidence_level": "confirmed",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       25,
+       3
+      ]
+     ],
+     "soldier_display_name_ko": "토크타 베키 부대 병사"
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_qudu",
+      "display_name_ko": "쿠두",
+      "evidence_level": "accepted",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       23,
+       12
+      ],
+      [
+       23,
+       10
+      ]
+     ],
+     "hold_range": 6,
+     "soldier_display_name_ko": "쿠두 부대 병사"
+    },
+    {
+     "id": "F",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_dayir_usun",
+      "display_name_ko": "다이르 우순",
+      "evidence_level": "verify",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       26,
+       9
+      ],
+      [
+       26,
+       14
+      ]
+     ],
+     "hold_range": 6,
+     "soldier_display_name_ko": "다이르 우순 부대 병사"
+    },
+    {
+     "id": "G",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_qutuqa_beki",
+      "display_name_ko": "쿠투카 베키",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       22,
+       11
+      ]
+     ],
+     "hold_range": 6,
+     "soldier_display_name_ko": "쿠투카 베키 부대 병사"
+    },
+    {
+     "id": "H",
+     "role": "sub",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_kokse_u_sabraq",
+      "display_name_ko": "케크세우 사브락",
+      "evidence_level": "accepted",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 0,
+     "units_total": 1,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       22,
+       10
+      ]
+     ],
+     "hold_range": 6,
+     "soldier_display_name_ko": "케크세우 사브락 부대 병사"
+    }
+   ],
+   "enemy_squads_count": 8,
+   "enemy_units_initial": 11,
+   "enemy_units_peak": 13,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      29,
+      11
+     ],
+     "ref": "npc_naiman_remnant_chief",
+     "kind": "npc",
+     "name": "나이만 계열 잔당 우두머리(각색)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      29,
+      12
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      10
+     ],
+     "ref": "npc_kuchlug",
+     "kind": "npc",
+     "name": "쿠츨루크"
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      28,
+      13
+     ],
+     "ref": "npc_buyruq_khan",
+     "kind": "npc",
+     "name": "부이룩 칸"
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      3
+     ],
+     "ref": "npc_toqto_a_beki",
+     "kind": "npc",
+     "name": "토크타 베키"
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      23,
+      12
+     ],
+     "ref": "npc_qudu",
+     "kind": "npc",
+     "name": "쿠두"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      23,
+      10
+     ]
+    },
+    {
+     "squad": "F",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      9
+     ],
+     "ref": "npc_dayir_usun",
+     "kind": "npc",
+     "name": "다이르 우순"
+    },
+    {
+     "squad": "F",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      14
+     ]
+    },
+    {
+     "squad": "G",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      22,
+      11
+     ],
+     "ref": "npc_qutuqa_beki",
+     "kind": "npc",
+     "name": "쿠투카 베키"
+    },
+    {
+     "squad": "H",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      22,
+      10
+     ],
+     "ref": "npc_kokse_u_sabraq",
+     "kind": "npc",
+     "name": "케크세우 사브락"
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 600,
+    "exp": 870,
+    "gold": 800,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch1 balance_v3_2 비율 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 10
+    }
+   ],
+   "win_rate_band_target_pct": "80~85",
+   "sort_order": 1801,
+   "prerequisite": null,
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "1206년 봄 오논 강 쿠릴타이와 칭기즈 칸 칭호는 confirmed. 그러나 \"쿠릴타이를 앞둔 잔당 습격\"이라는 전투 자체는 각색(invented)이며 역사 전투가 아니다. 나이만 잔당 표기는 verify.",
+    "호칭은 시기와 관계없이 칭기즈 칸 단일 표기(2026-11-02 사용자 결정, 대사 원칙)."
+   ],
+   "measured": {
+    "win_pct": 84.7,
+    "ci95": [
+     80.6,
+     88
+    ],
+    "n": 300,
+    "seeds": [
+     31,
+     32
+    ],
+    "avg_rounds": 3.9,
+    "turn_limit_pct": 0,
+    "sim": "bal18 하네스(봇vs봇, 아군=이야기영웅+풀평균 3영웅 12유닛, 플레이어 선공), 2026-11-02, 시작값",
+    "note": ""
+   },
+   "enemyscale_20261103": {
+    "unit_change_raw": "8->13",
+    "companion_exception": "database/data/stage_companions.json stages.ch18_s1.enemy=0",
+    "basis": "docs/BALANCE_UNIT_COUNT_CURVE.md B(L); anchors = maps_scaleup_*.json spawns.b",
+    "status": "starting value / needs remeasure"
+   },
+   "gen10_note": "2026-11-03 임밸런: 송서사 EXPAND_ENEMY_ROSTERS.md/EXPAND_ch15_ch17.md 후보 기준 분대 분할(총 유닛 13기 불변, 분대장 10명, 이름 있는 장수 8). 병종은 편성상 배분(슬롯 병종 유지). 직함형(generic)은 invented. 1206 쿠릴타이 전 습격은 각색이며 실명 인물은 잔당 소속 장수로 둠. 기존 npc_naiman_remnant_chief(각색 우두머리)는 main 유지.",
+   "tune_note_20261104": "임밸런2: 박백엔 시뮬(권장Lv+0 승률 낮음) 반영 1차 완화. 재측정 필요(목표 +0 에서 50~70%)",
+   "design_notes": [
+    "[2026-11-04 서가 영웅 확장] 이름 있는 장수 배치: npc_tayang_khan(cue_b_t2), npc_jamukha(cue_b_t3). 적 증원 2기 만큼 일반 부대 병사 축소(보정). 승률은 시드 후 재측정 필요(목표 55~85)."
+   ]
+  },
+  {
+   "code": "ch18_s2",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국",
+     "enemy": "서하"
+    },
+    "ally_npcs": [
+     {
+      "hero": "genghis_khan",
+      "x": 9,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_jebe",
+      "x": 9,
+      "y": 14,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "서하 변경 수비 장수"
+    }
+   },
+   "name": "하서의 문",
+   "year_label": "1209~1210년",
+   "chapter": 18,
+   "shelf_code": "ch18",
+   "map": "su_pk13_crossroads_steppe",
+   "map_id_dev": 160,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 11,
+   "enemy_level": 11,
+   "enemy_level_offset": 2,
+   "effective_enemy_level": 13,
+   "difficulty": 2,
+   "culture": "china",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "genghis_khan",
+     "npc_jebe"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(게스트/강제 출전 후보), own_heroes는 플레이어 보유 영웅 평균치로 측정"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "genghis_khan"
+    },
+    {
+     "hero_code": "npc_jebe"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서하 변경 수비 장수(실명 비표기)",
+      "evidence_level": "verify",
+      "troop_type": "spear",
+      "hp_mult": 1.69
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       24,
+       12
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서하 노수대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       26,
+       10
+      ],
+      [
+       25,
+       10
+      ],
+      [
+       26,
+       9
+      ]
+     ],
+     "hold_range": 7
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서하 보병 대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       26,
+       15
+      ],
+      [
+       25,
+       15
+      ],
+      [
+       26,
+       14
+      ]
+     ],
+     "hold_range": 7
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서하 경기병 대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       13
+      ],
+      [
+       26,
+       13
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      25,
+      12
+     ],
+     "name": "서하 변경 수비 장수(실명 비표기)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      10
+     ],
+     "name": "서하 노수대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      26,
+      15
+     ],
+     "name": "서하 보병 대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      27,
+      13
+     ],
+     "name": "서하 경기병 대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      13
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 690,
+    "exp": 1000,
+    "gold": 920,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch1 balance_v3_2 비율 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "80~85",
+   "sort_order": 1802,
+   "prerequisite": "ch18_s1",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "서하 원정 시작 1209년(1207년 시작설 verify), 1210년 서하 항복은 개요 confirmed. 전투 지점·서하 지휘관 실명은 verify라 비표기.",
+    "제베 참전 여부는 verify(각색 가능). 맵은 \"하서 회랑의 문\" 연출용 산악 통로."
+   ],
+   "measured": {
+    "win_pct": 86.2,
+    "ci95": [
+     81.9,
+     89.6
+    ],
+    "n": 300,
+    "seeds": [
+     31,
+     32
+    ],
+    "avg_rounds": 6.6,
+    "turn_limit_pct": 0.3,
+    "sim": "bal18 하네스(봇vs봇, 아군=이야기영웅+풀평균 3영웅 12유닛, 플레이어 선공), 2026-11-02, 시작값",
+    "note": ""
+   }
+  },
+  {
+   "code": "ch18_s3",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국",
+     "enemy": "금"
+    },
+    "ally_npcs": [
+     {
+      "hero": "genghis_khan",
+      "x": 9,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_muqali",
+      "x": 9,
+      "y": 14,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "금 야전군 총사령"
+    }
+   },
+   "name": "야호령의 바람",
+   "year_label": "1211년",
+   "chapter": 18,
+   "shelf_code": "ch18",
+   "map": "su_pk04_hill_claim_steppe_xia",
+   "map_id_dev": 154,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 12,
+   "enemy_level": 12,
+   "enemy_level_offset": 5,
+   "effective_enemy_level": 17,
+   "difficulty": 3,
+   "culture": "china",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "genghis_khan",
+     "npc_muqali"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(게스트/강제 출전 후보), own_heroes는 플레이어 보유 영웅 평균치로 측정"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "genghis_khan"
+    },
+    {
+     "hero_code": "npc_muqali"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "금 야전군 총사령(실명 비표기)",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 3.15
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       24,
+       12
+      ],
+      [
+       25,
+       11
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "금 창병 대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       24,
+       9
+      ],
+      [
+       23,
+       9
+      ],
+      [
+       24,
+       8
+      ],
+      [
+       24,
+       10
+      ]
+     ],
+     "hold_range": 7
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "금 궁병 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       24,
+       16
+      ],
+      [
+       23,
+       16
+      ],
+      [
+       24,
+       15
+      ]
+     ],
+     "hold_range": 7
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "금 보병 대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       14
+      ],
+      [
+       25,
+       14
+      ],
+      [
+       26,
+       13
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 13,
+   "enemy_units_peak": 13,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      25,
+      12
+     ],
+     "name": "금 야전군 총사령(실명 비표기)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      24,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      24,
+      9
+     ],
+     "name": "금 창병 대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      24,
+      16
+     ],
+     "name": "금 궁병 대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      23,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      24,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      26,
+      14
+     ],
+     "name": "금 보병 대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      25,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      13
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 780,
+    "exp": 1130,
+    "gold": 1060,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch1 balance_v3_2 비율 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 13
+    }
+   ],
+   "win_rate_band_target_pct": "75~80",
+   "sort_order": 1803,
+   "prerequisite": "ch18_s2",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "야호령 전투 연도 1211년/1212년 이설 -> 검증 필요. 참전 지휘관(칭기즈 칸·무칼리) verify. 선택 스테이지.",
+    "금 야전군 규모·지휘관 실명은 verify라 비표기."
+   ],
+   "measured": {
+    "win_pct": 79.4,
+    "ci95": [
+     74.6,
+     83.4
+    ],
+    "n": 300,
+    "seeds": [
+     31,
+     32
+    ],
+    "avg_rounds": 8.4,
+    "turn_limit_pct": 0,
+    "sim": "bal18 하네스(봇vs봇, 아군=이야기영웅+풀평균 3영웅 12유닛, 플레이어 선공), 2026-11-02, 시작값",
+    "note": "hpA 3.15 기준"
+   }
+  },
+  {
+   "code": "ch18_s4",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국",
+     "enemy": "서요"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_jebe",
+      "x": 9,
+      "y": 11,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "쿠츨루크"
+    }
+   },
+   "name": "서요를 넘어",
+   "year_label": "1218년",
+   "chapter": 18,
+   "shelf_code": "ch18",
+   "map": "su_pk16_cliff_valley_me",
+   "map_id_dev": 162,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 13,
+   "enemy_level": 13,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 12,
+   "difficulty": 4,
+   "culture": "china",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_jebe"
+    ],
+    "own_heroes": 2,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(게스트/강제 출전 후보), own_heroes는 플레이어 보유 영웅 평균치로 측정"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_jebe"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "npc_kuchlug",
+      "display_name_ko": "쿠츨루크(서요 장악 세력)",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 2
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       25,
+       12
+      ],
+      [
+       24,
+       12
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서요 창병 대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       10
+      ],
+      [
+       26,
+       9
+      ],
+      [
+       24,
+       10
+      ]
+     ],
+     "hold_range": 7
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서요 궁병 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       25,
+       15
+      ],
+      [
+       24,
+       15
+      ],
+      [
+       25,
+       14
+      ]
+     ],
+     "hold_range": 7
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서요 보병 대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 1,
+     "units_total": 2,
+     "ai": "advance",
+     "cells": [
+      [
+       27,
+       13
+      ],
+      [
+       26,
+       13
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 12,
+   "enemy_units_peak": 12,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      12
+     ],
+     "ref": "npc_kuchlug",
+     "kind": "npc",
+     "name": "쿠츨루크(서요 장악 세력)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      25,
+      10
+     ],
+     "name": "서요 창병 대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      24,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      25,
+      15
+     ],
+     "name": "서요 궁병 대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      24,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      13
+     ],
+     "name": "서요 보병 대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      13
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 870,
+    "exp": 1260,
+    "gold": 1190,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch1 balance_v3_2 비율 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 12
+    }
+   ],
+   "win_rate_band_target_pct": "75~80",
+   "sort_order": 1804,
+   "prerequisite": "ch18_s2",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "카라키타이 정복 1218년 vs 제베의 카슈가르 진출 1216년설 -> 검증 필요. 칭기즈 칸 본인은 불참(제베 주도).",
+    "쿠츨루크의 최후는 서술하지 않는다. defeat_commander는 엔진 용어이며 서사는 \"패주\"로 처리."
+   ],
+   "measured": {
+    "win_pct": 78.3,
+    "ci95": [
+     73.3,
+     82.5
+    ],
+    "n": 300,
+    "seeds": [
+     31,
+     32
+    ],
+    "avg_rounds": 6.5,
+    "turn_limit_pct": 0,
+    "sim": "bal18 하네스(봇vs봇, 아군=이야기영웅+풀평균 3영웅 12유닛, 플레이어 선공), 2026-11-02, 시작값",
+    "note": ""
+   }
+  },
+  {
+   "code": "ch18_s5",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국",
+     "enemy": "호라즘"
+    },
+    "ally_npcs": [
+     {
+      "hero": "genghis_khan",
+      "x": 7,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_subutai",
+      "x": 7,
+      "y": 14,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "호라즘 변경 수비대장"
+    }
+   },
+   "name": "시르다리야",
+   "year_label": "1219~1220년",
+   "chapter": 18,
+   "shelf_code": "ch18",
+   "map": "su_pk14_twin_rivers_steppe",
+   "map_id_dev": 166,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "capture",
+    "points": [
+     [
+      25,
+      12
+     ],
+     [
+      25,
+      13
+     ]
+    ],
+    "mode": "any",
+    "hold_turns": 3,
+    "by": "any_unit"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 14,
+   "enemy_level": 14,
+   "enemy_level_offset": 0,
+   "effective_enemy_level": 14,
+   "difficulty": 5,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "genghis_khan",
+     "npc_subutai"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(게스트/강제 출전 후보), own_heroes는 플레이어 보유 영웅 평균치로 측정"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "genghis_khan"
+    },
+    {
+     "hero_code": "npc_subutai"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호라즘 변경 수비대장(실명 비표기)",
+      "evidence_level": "verify",
+      "troop_type": "cavalry",
+      "hp_mult": 1.8
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       26,
+       12
+      ],
+      [
+       28,
+       12
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       26,
+       11
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호라즘 궁기병 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "guard_point",
+     "cells": [
+      [
+       26,
+       9
+      ],
+      [
+       25,
+       9
+      ],
+      [
+       26,
+       8
+      ],
+      [
+       26,
+       10
+      ],
+      [
+       27,
+       9
+      ]
+     ],
+     "point": [
+      21,
+      9
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호라즘 창병 대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 4,
+     "units_total": 5,
+     "ai": "guard_point",
+     "cells": [
+      [
+       26,
+       15
+      ],
+      [
+       25,
+       15
+      ],
+      [
+       26,
+       14
+      ],
+      [
+       26,
+       16
+      ],
+      [
+       27,
+       15
+      ]
+     ],
+     "point": [
+      21,
+      10
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호라즘 보병 대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       11
+      ],
+      [
+       28,
+       10
+      ],
+      [
+       29,
+       11
+      ],
+      [
+       27,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "E",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호라즘 중장 호위대장",
+      "evidence_level": "generic",
+      "troop_type": "sword",
+      "hp_mult": 1
+     },
+     "soldier_type": "sword",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       28,
+       14
+      ],
+      [
+       28,
+       13
+      ],
+      [
+       28,
+       15
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 5,
+   "enemy_units_initial": 21,
+   "enemy_units_peak": 21,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      26,
+      12
+     ],
+     "name": "호라즘 변경 수비대장(실명 비표기)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      28,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      11
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      26,
+      9
+     ],
+     "name": "호라즘 궁기병 대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      25,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      26,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      26,
+      15
+     ],
+     "name": "호라즘 창병 대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      14
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      27,
+      15
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      28,
+      11
+     ],
+     "name": "호라즘 보병 대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      10
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      29,
+      11
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      10
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      28,
+      14
+     ],
+     "name": "호라즘 중장 호위대장"
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "E",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      15
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 970,
+    "exp": 1400,
+    "gold": 1330,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch1 balance_v3_2 비율 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 14
+    }
+   ],
+   "win_rate_band_target_pct": "70~75",
+   "sort_order": 1805,
+   "prerequisite": "ch18_s4",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "호라즘 원정 개시 1219년 이후, 시르다리야 방면 진군. 구체 전장은 verify. 도시 함락·학살은 주제가 아니며 도하 지점(점령형)과 행군 중심.",
+    "기병/보병 구성은 게임 각색."
+   ],
+   "measured": {
+    "win_pct": 76,
+    "ci95": [
+     70.8,
+     80.4
+    ],
+    "n": 300,
+    "seeds": [
+     31,
+     32
+    ],
+    "avg_rounds": 7.2,
+    "turn_limit_pct": 0,
+    "sim": "bal18 하네스(봇vs봇, 아군=이야기영웅+풀평균 3영웅 12유닛, 플레이어 선공), 2026-11-02, 시작값",
+    "note": "hpA 2.4 기준. hold_turns 3->4 변화 없음(동일 결과): 이 판은 점령이 아니라 지휘관 처치로 끝나는 것으로 추정(가설)"
+   }
+  },
+  {
+   "code": "ch18_s6",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국",
+     "enemy": "호라즘"
+    },
+    "ally_npcs": [
+     {
+      "hero": "genghis_khan",
+      "x": 11,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_boorchu",
+      "x": 11,
+      "y": 14,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "잘랄 앗딘"
+    }
+   },
+   "name": "인더스 강가",
+   "year_label": "1221년",
+   "chapter": 18,
+   "shelf_code": "ch18",
+   "map": "su_ch18_s6_indus",
+   "map_id_dev": 23,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": true,
+   "recommended_level": 15,
+   "enemy_level": 15,
+   "enemy_level_offset": -1,
+   "effective_enemy_level": 14,
+   "difficulty": 6,
+   "culture": "middle_east",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "genghis_khan",
+     "npc_boorchu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(게스트/강제 출전 후보), own_heroes는 플레이어 보유 영웅 평균치로 측정"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "genghis_khan"
+    },
+    {
+     "hero_code": "npc_boorchu"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "npc",
+      "ref": "jalal_ad_din",
+      "display_name_ko": "잘랄 앗딘",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1.3
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       24,
+       12
+      ],
+      [
+       23,
+       12
+      ],
+      [
+       24,
+       11
+      ],
+      [
+       24,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호라즘 궁병 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       22,
+       9
+      ],
+      [
+       21,
+       9
+      ],
+      [
+       22,
+       10
+      ],
+      [
+       23,
+       9
+      ]
+     ],
+     "hold_range": 6
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호라즘 창병 대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       22,
+       16
+      ],
+      [
+       21,
+       16
+      ],
+      [
+       22,
+       15
+      ],
+      [
+       23,
+       16
+      ]
+     ],
+     "hold_range": 6
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "호라즘 기병 대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       14
+      ],
+      [
+       24,
+       14
+      ],
+      [
+       25,
+       13
+      ]
+     ]
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 15,
+   "enemy_units_peak": 15,
+   "triggers": [],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      24,
+      12
+     ],
+     "name": "잘랄 앗딘"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      23,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      22,
+      9
+     ],
+     "name": "호라즘 궁병 대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      21,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      22,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      23,
+      9
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      22,
+      16
+     ],
+     "name": "호라즘 창병 대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      21,
+      16
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      22,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      23,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      14
+     ],
+     "name": "호라즘 기병 대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      14
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      13
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1060,
+    "exp": 1540,
+    "gold": 1450,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch1 balance_v3_2 비율 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 13
+    }
+   ],
+   "win_rate_band_target_pct": "70~75",
+   "sort_order": 1806,
+   "prerequisite": "ch18_s5",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "잘랄 앗딘의 인더스 강 도하 전투 1221년(11월경)은 개요 confirmed, 세부(수영 탈출 등) verify. 선택 스테이지.",
+    "게임상 지휘관 격파로 끝나지만 연출은 \"패주/도하 탈출\"로 하고 사망을 단정하지 않는다(송서사)."
+   ],
+   "measured": {
+    "win_pct": 74.7,
+    "ci95": [
+     69.5,
+     79.2
+    ],
+    "n": 300,
+    "seeds": [
+     31,
+     32
+    ],
+    "avg_rounds": 9,
+    "turn_limit_pct": 3.3,
+    "sim": "bal18 하네스(봇vs봇, 아군=이야기영웅+풀평균 3영웅 12유닛, 플레이어 선공), 2026-11-02, 시작값",
+    "note": ""
+   }
+  },
+  {
+   "code": "ch18_s7",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국",
+     "enemy": "루스·킵차크 연합"
+    },
+    "ally_npcs": [
+     {
+      "hero": "npc_jebe",
+      "x": 7,
+      "y": 11,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_subutai",
+      "x": 7,
+      "y": 14,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "키예프 공 진영 총대장"
+    }
+   },
+   "name": "칼카 강의 초원",
+   "year_label": "1223년",
+   "chapter": 18,
+   "shelf_code": "ch18",
+   "map": "su_pk20_grand_mixed_steppe",
+   "map_id_dev": 168,
+   "map_size": [
+    36,
+    26
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": false,
+   "optional": false,
+   "recommended_level": 16,
+   "enemy_level": 16,
+   "enemy_level_offset": -3,
+   "effective_enemy_level": 13,
+   "difficulty": 7,
+   "culture": "europe",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "npc_jebe",
+     "npc_subutai"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(게스트/강제 출전 후보), own_heroes는 플레이어 보유 영웅 평균치로 측정"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "npc_jebe"
+    },
+    {
+     "hero_code": "npc_subutai"
+    }
+   ],
+   "excluded_heroes": [
+    "genghis_khan"
+   ],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "키예프 공 진영 총대장(실명 비표기)",
+      "evidence_level": "accepted",
+      "troop_type": "sword",
+      "hp_mult": 1.2
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       28,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       28,
+       11
+      ],
+      [
+       28,
+       13
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "킵차크(쿠만) 선봉 기병대장",
+      "evidence_level": "accepted",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       25,
+       9
+      ],
+      [
+       24,
+       9
+      ],
+      [
+       25,
+       8
+      ],
+      [
+       25,
+       10
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "루스 공후 창병대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       15
+      ],
+      [
+       25,
+       15
+      ],
+      [
+       26,
+       14
+      ],
+      [
+       26,
+       16
+      ]
+     ]
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "루스 궁병 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       28,
+       9
+      ],
+      [
+       27,
+       9
+      ],
+      [
+       28,
+       8
+      ]
+     ],
+     "hold_range": 6
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 15,
+   "enemy_units_peak": 18,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 3
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "루스 후속 공후대(도착 시차)",
+       "evidence_level": "generic",
+       "troop_type": "sword",
+       "hp_mult": 1
+      },
+      "soldier_type": "sword",
+      "soldiers": 2,
+      "units_total": 3,
+      "ai": "advance",
+      "spawn_cell": [
+       30,
+       7
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      28,
+      12
+     ],
+     "name": "키예프 공 진영 총대장(실명 비표기)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      11
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      28,
+      13
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      25,
+      9
+     ],
+     "name": "킵차크(쿠만) 선봉 기병대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      24,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      8
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      10
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      26,
+      15
+     ],
+     "name": "루스 공후 창병대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      15
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      14
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      16
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      28,
+      9
+     ],
+     "name": "루스 궁병 대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      9
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      28,
+      8
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1160,
+    "exp": 1680,
+    "gold": 1590,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch1 balance_v3_2 비율 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 14
+    }
+   ],
+   "win_rate_band_target_pct": "70~75",
+   "sort_order": 1807,
+   "prerequisite": "ch18_s5",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "칼카 강 전투 1223년 5월 31일로 전하나 출처 간 일자 확인 권장. 칭기즈 칸 본인 불참(제베·수부타이 주역)은 confirmed.",
+    "루스 공후 연합과 킵차크(쿠만)의 도착 시차는 증원 트리거로 표현(각색). 총대장 실명 비표기."
+   ],
+   "measured": {
+    "win_pct": 72,
+    "ci95": [
+     66.7,
+     76.7
+    ],
+    "n": 300,
+    "seeds": [
+     31,
+     32
+    ],
+    "avg_rounds": 13.4,
+    "turn_limit_pct": 4,
+    "sim": "bal18 하네스(봇vs봇, 아군=이야기영웅+풀평균 3영웅 12유닛, 플레이어 선공), 2026-11-02, 시작값",
+    "note": ""
+   }
+  },
+  {
+   "code": "ch18_s8",
+   "forced_heroes": [
+    "@protagonist"
+   ],
+   "rules": {
+    "factions": {
+     "ally": "몽골 제국",
+     "enemy": "서하"
+    },
+    "ally_npcs": [
+     {
+      "hero": "genghis_khan",
+      "x": 11,
+      "y": 13,
+      "must_survive": false
+     },
+     {
+      "hero": "npc_boorchu",
+      "x": 11,
+      "y": 15,
+      "must_survive": false
+     }
+    ],
+    "enemy_commander": {
+     "name": "서하 최후 항전군 총대장"
+    }
+   },
+   "name": "마지막 원정길",
+   "year_label": "1226~1227년",
+   "chapter": 18,
+   "shelf_code": "ch18",
+   "map": "su_ch18_s8_desert",
+   "map_id_dev": 27,
+   "map_size": [
+    40,
+    28
+   ],
+   "objective": {
+    "type": "defeat_commander"
+   },
+   "boss": true,
+   "optional": false,
+   "recommended_level": 17,
+   "enemy_level": 17,
+   "enemy_level_offset": -4,
+   "effective_enemy_level": 13,
+   "difficulty": 8,
+   "culture": "china",
+   "recommended_party": {
+    "heroes_total": 3,
+    "named": [
+     "genghis_khan",
+     "npc_boorchu"
+    ],
+    "own_heroes": 1,
+    "units_assumed": 12,
+    "note": "Lv10~19 영웅당 부대 3(troop_slots) 가정. named는 이야기 영웅(게스트/강제 출전 후보), own_heroes는 플레이어 보유 영웅 평균치로 측정"
+   },
+   "guest_heroes": [
+    {
+     "hero_code": "genghis_khan"
+    },
+    {
+     "hero_code": "npc_boorchu"
+    }
+   ],
+   "excluded_heroes": [],
+   "join_hero": [],
+   "enemy_squads": [
+    {
+     "id": "A",
+     "role": "main",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서하 최후 항전군 총대장(실명 비표기)",
+      "evidence_level": "verify",
+      "troop_type": "sword",
+      "hp_mult": 1.4
+     },
+     "soldier_type": "sword",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "guard_commander",
+     "cells": [
+      [
+       27,
+       14
+      ],
+      [
+       26,
+       14
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       27,
+       15
+      ]
+     ]
+    },
+    {
+     "id": "B",
+     "role": "vice",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서하 기병 대장",
+      "evidence_level": "generic",
+      "troop_type": "cavalry",
+      "hp_mult": 1
+     },
+     "soldier_type": "cavalry",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "advance",
+     "cells": [
+      [
+       26,
+       10
+      ],
+      [
+       25,
+       10
+      ],
+      [
+       26,
+       9
+      ],
+      [
+       26,
+       11
+      ]
+     ]
+    },
+    {
+     "id": "C",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서하 창병 대장",
+      "evidence_level": "generic",
+      "troop_type": "spear",
+      "hp_mult": 1
+     },
+     "soldier_type": "spear",
+     "soldiers": 3,
+     "units_total": 4,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       26,
+       18
+      ],
+      [
+       25,
+       18
+      ],
+      [
+       26,
+       17
+      ],
+      [
+       26,
+       19
+      ]
+     ],
+     "hold_range": 6
+    },
+    {
+     "id": "D",
+     "role": "sub",
+     "leader": {
+      "kind": "generic",
+      "ref": null,
+      "display_name_ko": "서하 궁병 대장",
+      "evidence_level": "generic",
+      "troop_type": "archer",
+      "hp_mult": 1
+     },
+     "soldier_type": "archer",
+     "soldiers": 2,
+     "units_total": 3,
+     "ai": "hold_until_contact",
+     "cells": [
+      [
+       28,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       28,
+       11
+      ]
+     ],
+     "hold_range": 6
+    }
+   ],
+   "enemy_squads_count": 4,
+   "enemy_units_initial": 15,
+   "enemy_units_peak": 21,
+   "triggers": [
+    {
+     "id": "t_R1",
+     "on": {
+      "turn": 4
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R1",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "서하 후속 보병대",
+       "evidence_level": "generic",
+       "troop_type": "sword",
+       "hp_mult": 1
+      },
+      "soldier_type": "sword",
+      "soldiers": 2,
+      "units_total": 3,
+      "ai": "advance",
+      "spawn_cell": [
+       30,
+       18
+      ]
+     }
+    },
+    {
+     "id": "t_R2",
+     "on": {
+      "turn": 7
+     },
+     "action": "spawn",
+     "side": "b",
+     "squad": {
+      "id": "R2",
+      "role": "reinforce",
+      "leader": {
+       "kind": "generic",
+       "ref": null,
+       "display_name_ko": "서하 후속 기병대",
+       "evidence_level": "generic",
+       "troop_type": "cavalry",
+       "hp_mult": 1
+      },
+      "soldier_type": "cavalry",
+      "soldiers": 2,
+      "units_total": 3,
+      "ai": "advance",
+      "spawn_cell": [
+       30,
+       9
+      ]
+     }
+    }
+   ],
+   "units_flat_initial": [
+    {
+     "squad": "A",
+     "is_leader": true,
+     "type": "sword",
+     "cell": [
+      27,
+      14
+     ],
+     "name": "서하 최후 항전군 총대장(실명 비표기)"
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      26,
+      14
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      13
+     ]
+    },
+    {
+     "squad": "A",
+     "is_leader": false,
+     "type": "sword",
+     "cell": [
+      27,
+      15
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": true,
+     "type": "cavalry",
+     "cell": [
+      26,
+      10
+     ],
+     "name": "서하 기병 대장"
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      25,
+      10
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      9
+     ]
+    },
+    {
+     "squad": "B",
+     "is_leader": false,
+     "type": "cavalry",
+     "cell": [
+      26,
+      11
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": true,
+     "type": "spear",
+     "cell": [
+      26,
+      18
+     ],
+     "name": "서하 창병 대장"
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      25,
+      18
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      17
+     ]
+    },
+    {
+     "squad": "C",
+     "is_leader": false,
+     "type": "spear",
+     "cell": [
+      26,
+      19
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": true,
+     "type": "archer",
+     "cell": [
+      28,
+      12
+     ],
+     "name": "서하 궁병 대장"
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      27,
+      12
+     ]
+    },
+    {
+     "squad": "D",
+     "is_leader": false,
+     "type": "archer",
+     "cell": [
+      28,
+      11
+     ]
+    }
+   ],
+   "reward_proposal": {
+    "user_exp": 1280,
+    "exp": 1860,
+    "gold": 1760,
+    "basis": "user_exp = 0.40 x user_level_costs.exp_to_next(권장 Lv) 반올림 10단위, exp = 1.45 x user_exp, gold = 1.3 x user_exp (ch1 balance_v3_2 비율 준용, 시작값)"
+   },
+   "star_conditions": [
+    {
+     "type": "clear"
+    },
+    {
+     "type": "all_alive"
+    },
+    {
+     "type": "turn_within",
+     "value": 16
+    }
+   ],
+   "win_rate_band_target_pct": "55~65",
+   "sort_order": 1808,
+   "prerequisite": "ch18_s7",
+   "pvp_listing": "excluded",
+   "evidence_notes": [
+    "서하 최종 원정 1226~1227년. 칭기즈 칸의 사망 경위(전사/낙마/병사 등)는 이설이라 단정하지 않고 \"1227년 원정 중 사망\"까지만 서술(verify). 이 스테이지에서 사망은 연출하지 않는다.",
+    "도시 함락·학살은 주제가 아니다."
+   ],
+   "measured": {
+    "win_pct": 56.3,
+    "ci95": [
+     50.7,
+     61.7
+    ],
+    "n": 300,
+    "seeds": [
+     31,
+     32
+    ],
+    "avg_rounds": 11.8,
+    "turn_limit_pct": 2.3,
+    "sim": "bal18 하네스(봇vs봇, 아군=이야기영웅+풀평균 3영웅 12유닛, 플레이어 선공), 2026-11-02, 시작값",
+    "note": ""
+   }
+  }
+ ]
+}

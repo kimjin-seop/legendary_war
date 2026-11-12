@@ -1,0 +1,1657 @@
+{
+ "_note": "영웅 스킬 이펙트 시트(안아트 2026-11-06, 이미지 모델 호출 0). 키 규약 fx.skill.<fx_family>.<variant>: fx_family = 서버 skill_use.fx_family, variant = fx_variant(속성) 또는 base/하위 연출. 연결 요청서 = fx/skills/skill_fx_request.json. 병합 merge_fragments.mjs FRAGMENTS",
+ "items": [
+  {
+   "key": "fx.skill.strike.base",
+   "path": "assets/fx/skills/strike/base.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frames": 8,
+   "columns": 8,
+   "rows": 1,
+   "size": "512x64",
+   "alpha": true,
+   "fps_hint": 20,
+   "loop": false,
+   "anchor": {
+    "x": 40,
+    "y": 38,
+    "originX": 0.625,
+    "originY": 0.5938
+   },
+   "facing": "right(왼쪽을 향하면 flipX)",
+   "note": "베기 일격(강타류 STRIKE 기본). 오른쪽 위에서 아래로 쓸어내리는 초승달 궤적 + 타격 불꽃. 앵커=타격점(대상 몸통). 왼쪽을 향하면 flipX",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 64, 8프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[strike.base]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "초승달 궤적·타격 불꽃 64px 유닛 위에서 또렷",
+     "궤적 안쪽 곡선이 다소 기계적(사람 손도트 보정 여지)"
+    ]
+   },
+   "verify": false,
+   "bytes": 2677,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.strike.charge",
+   "path": "assets/fx/skills/strike/charge.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frames": 9,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x128",
+   "alpha": true,
+   "fps_hint": 18,
+   "loop": false,
+   "anchor": {
+    "x": 40,
+    "y": 38,
+    "originX": 0.625,
+    "originY": 0.5938
+   },
+   "facing": "right(왼쪽을 향하면 flipX)",
+   "note": "돌진 타격. 앵커=타격점(대상 몸통 왼쪽면). 왼쪽에서 오는 속도선 + 충격 별 + 흙먼지. 왼쪽을 향하면 flipX",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 64, 9프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[strike.charge]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "속도선→충격 별→링→흙먼지 순서 명확",
+     "충격 링이 세로 타원(정면 충돌 원근 의도)"
+    ]
+   },
+   "verify": false,
+   "bytes": 4565,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.strike.fire",
+   "path": "assets/fx/skills/strike/fire.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frames": 11,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x128",
+   "alpha": true,
+   "fps_hint": 16,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 44,
+    "originX": 0.5,
+    "originY": 0.6875
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "대상 위 화염 폭발. 중심=대상 몸통(앵커). 연기는 위로 흩어지며 소멸",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 64, 11프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[strike.fire]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "화염 가장자리 노이즈 계단이 다소 잘게 부서짐(1배에서는 불꽃으로 읽힘)",
+     "폭발 지름 약 44px로 유닛 몸통을 거의 가림 — 의도(강타)지만 FE 에서 알파 유지 권장"
+    ]
+   },
+   "verify": false,
+   "bytes": 7684,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.strike.thunder",
+   "path": "assets/fx/skills/strike/thunder.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 10,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 18,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "하늘에서 대상 발밑(앵커)으로 떨어지는 낙뢰 + 착지 방전. 프레임 높이 80(위로 16px 넘침)",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 10프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[strike.thunder]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "낙뢰·갈래·착지 링 가독 양호",
+     "프레임 높이 80(위로 16px 넘침)"
+    ]
+   },
+   "verify": false,
+   "bytes": 4556,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.strike.water_ice",
+   "path": "assets/fx/skills/strike/water_ice.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x128",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 52,
+    "originX": 0.5,
+    "originY": 0.8125
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "대상 발밑(앵커)에서 얼음 결정이 솟고 부서져 흩어짐",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 64, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[strike.water_ice]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "결정 분출·파편 양호",
+     "부서지는 2프레임에 Bayer 격자 무늬가 보임(체커보드 기미)"
+    ]
+   },
+   "verify": false,
+   "bytes": 4531,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.strike.poison",
+   "path": "assets/fx/skills/strike/poison.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x128",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 48,
+    "originX": 0.5,
+    "originY": 0.75
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "독·중독(현재 배정 스킬 없음, 예비). 대상 몸통 둘레 녹색 독운 + 오르며 터지는 거품. 앵커=대상 몸통",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 64, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[strike.poison]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "독운 하단에 무게가 쏠리고 중심 색이 밝은 황록",
+     "거품 도트가 작아 1배에서 잘 안 보임"
+    ]
+   },
+   "verify": false,
+   "bytes": 5856,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.strike.water",
+   "path": "assets/fx/skills/strike/water.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "물보라(수전·물길 계열). 대상 발밑에서 물기둥이 솟고 물방울이 포물선으로 떨어짐 + 파문 2겹. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[strike.water]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "물기둥이 몸통 앞을 가림(앞 레이어 전제)",
+     "꼭대기 왕관 물보라가 작음"
+    ]
+   },
+   "verify": false,
+   "bytes": 4171,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.pierce.base",
+   "path": "assets/fx/skills/pierce/base.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 64,
+   "frames": 10,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x128",
+   "alpha": true,
+   "fps_hint": 20,
+   "loop": false,
+   "anchor": {
+    "x": 76,
+    "y": 36,
+    "originX": 0.7917,
+    "originY": 0.5625
+   },
+   "facing": "right(왼쪽을 향하면 flipX)",
+   "note": "관통(방어 무시 PIERCE). 왼쪽에서 오른쪽으로 길게 뻗는 청백 찌르기 + 끝점 섬광 + 방어 파쇄 파편. 앵커=타격점. 시전자는 앵커에서 왼쪽 약 60px",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 64, 10프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[pierce.base]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "찌르기 선이 균일해 벡터 느낌이 조금 있음",
+     "끝점 섬광·파편은 양호"
+    ]
+   },
+   "verify": false,
+   "bytes": 2538,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.pierce.fire",
+   "path": "assets/fx/skills/pierce/fire.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 64,
+   "frames": 10,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x128",
+   "alpha": true,
+   "fps_hint": 20,
+   "loop": false,
+   "anchor": {
+    "x": 76,
+    "y": 36,
+    "originX": 0.7917,
+    "originY": 0.5625
+   },
+   "facing": "right(왼쪽을 향하면 flipX)",
+   "note": "관통 fire 속성. impact.pierce 형태 + fire 램프(창끝·파편). 앵커=타격점, 왼쪽을 향하면 flipX",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 64, 10프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[pierce.fire]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "base 재색상. base 와 같은 지적"
+    ]
+   },
+   "verify": false,
+   "bytes": 2476,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.pierce.thunder",
+   "path": "assets/fx/skills/pierce/thunder.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 64,
+   "frames": 10,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x128",
+   "alpha": true,
+   "fps_hint": 20,
+   "loop": false,
+   "anchor": {
+    "x": 76,
+    "y": 36,
+    "originX": 0.7917,
+    "originY": 0.5625
+   },
+   "facing": "right(왼쪽을 향하면 flipX)",
+   "note": "관통 thunder 속성. impact.pierce 형태 + volt 램프(창끝·파편). 앵커=타격점, 왼쪽을 향하면 flipX",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 64, 10프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[pierce.thunder]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "base 재색상. base 와 같은 지적"
+    ]
+   },
+   "verify": false,
+   "bytes": 2479,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.pierce.water_ice",
+   "path": "assets/fx/skills/pierce/water_ice.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 64,
+   "frames": 10,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x128",
+   "alpha": true,
+   "fps_hint": 20,
+   "loop": false,
+   "anchor": {
+    "x": 76,
+    "y": 36,
+    "originX": 0.7917,
+    "originY": 0.5625
+   },
+   "facing": "right(왼쪽을 향하면 flipX)",
+   "note": "관통 water_ice 속성. impact.pierce 형태 + ice 램프(창끝·파편). 앵커=타격점, 왼쪽을 향하면 flipX",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 64, 10프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[pierce.water_ice]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "base 재색상. base 와 같은 지적"
+    ]
+   },
+   "verify": false,
+   "bytes": 2506,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.pierce.poison",
+   "path": "assets/fx/skills/pierce/poison.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 64,
+   "frames": 10,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x128",
+   "alpha": true,
+   "fps_hint": 20,
+   "loop": false,
+   "anchor": {
+    "x": 76,
+    "y": 36,
+    "originX": 0.7917,
+    "originY": 0.5625
+   },
+   "facing": "right(왼쪽을 향하면 flipX)",
+   "note": "관통 poison 속성. impact.pierce 형태 + poison 램프(창끝·파편). 앵커=타격점, 왼쪽을 향하면 flipX",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 64, 10프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[pierce.poison]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "base 재색상. base 와 같은 지적"
+    ]
+   },
+   "verify": false,
+   "bytes": 2441,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.surge.base",
+   "path": "assets/fx/skills/surge/base.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "기동 강화(SURGE 시전). 녹색 바람 줄기가 몸을 감아 오르고 발밑 흙먼지·위 화살표. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[surge.base]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "바람 줄기가 얼굴 앞을 지나는 프레임 있음",
+     "줄기 2px 로 1배에서 읽힘"
+    ]
+   },
+   "verify": false,
+   "bytes": 4570,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.surge.thunder",
+   "path": "assets/fx/skills/surge/thunder.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "번개 기동(질풍·전광석화류 SURGE). buff.haste 형태 + 청백 전광 램프 + 튀는 전기 도트. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[surge.thunder]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "surge.base 재색상 + 전기 도트"
+    ]
+   },
+   "verify": false,
+   "bytes": 4818,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.surge.fire",
+   "path": "assets/fx/skills/surge/fire.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "기동 fire 속성. buff.haste 형태 + fire 램프. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[surge.fire]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "surge.base 재색상"
+    ]
+   },
+   "verify": false,
+   "bytes": 4559,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.surge.water_ice",
+   "path": "assets/fx/skills/surge/water_ice.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "기동 water_ice 속성. buff.haste 형태 + ice 램프. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[surge.water_ice]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "surge.base 재색상"
+    ]
+   },
+   "verify": false,
+   "bytes": 4725,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.surge.poison",
+   "path": "assets/fx/skills/surge/poison.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "기동 poison 속성. buff.haste 형태 + poison 램프. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[surge.poison]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "surge.base 재색상"
+    ]
+   },
+   "verify": false,
+   "bytes": 4533,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.stance.base",
+   "path": "assets/fx/skills/stance/base.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 48,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "반격 태세(방진). 발밑 고리를 따라 바깥으로 향한 창끝 6개가 솟아 돌다 가라앉음. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[stance.base]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "발밑 고리·창끝 6개 회전 가독 양호"
+    ]
+   },
+   "verify": false,
+   "bytes": 7673,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.stance.fire",
+   "path": "assets/fx/skills/stance/fire.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 48,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "반격 태세 fire 속성. buff.ward 형태 + fire 램프. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[stance.fire]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "발밑 후광이 어두운 갈색 원판처럼 보임(빛 단계 알파 x 주황)"
+    ]
+   },
+   "verify": false,
+   "bytes": 7709,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.stance.thunder",
+   "path": "assets/fx/skills/stance/thunder.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 48,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "반격 태세 thunder 속성. buff.ward 형태 + volt 램프. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[stance.thunder]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "후광 원판이 짙은 남색으로 보임"
+    ]
+   },
+   "verify": false,
+   "bytes": 7531,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.stance.water_ice",
+   "path": "assets/fx/skills/stance/water_ice.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 48,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "반격 태세 water_ice 속성. buff.ward 형태 + ice 램프. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[stance.water_ice]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "후광 원판이 짙은 남색으로 보임"
+    ]
+   },
+   "verify": false,
+   "bytes": 7746,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.stance.poison",
+   "path": "assets/fx/skills/stance/poison.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 48,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "반격 태세 poison 속성. buff.ward 형태 + poison 램프. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[stance.poison]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "후광 원판이 탁한 녹색으로 보임"
+    ]
+   },
+   "verify": false,
+   "bytes": 7535,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.buff.atk",
+   "path": "assets/fx/skills/buff/atk.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 14,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 68,
+    "originX": 0.5,
+    "originY": 0.85
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "공격 강화. holy.blessing 형태 + 적주황 램프 + 위 화살표(chevron). 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 14프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[buff.atk]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "적주황 기둥·고리·위 화살표 명확"
+    ]
+   },
+   "verify": false,
+   "bytes": 8164,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.buff.def",
+   "path": "assets/fx/skills/buff/def.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "방어 강화. 유닛을 감싸는 청색 결계 돔(육각 무늬·훑는 띠) + 머리 위 방패 표식. 앵커=발밑(돔 중심은 몸통)",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[buff.def]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "결계 돔 가독 양호, 육각 격자 성기게 조정함",
+     "돔 내부 후광(알파 72)이 유닛을 살짝 푸르게 덮음"
+    ]
+   },
+   "verify": false,
+   "bytes": 6916,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.buff.rally",
+   "path": "assets/fx/skills/buff/rally.png",
+   "type": "spritesheet",
+   "frameWidth": 128,
+   "frameHeight": 96,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "1024x192",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 64,
+    "y": 40,
+    "originX": 0.5,
+    "originY": 0.4167
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "함성·지휘(호령·독려·연설류 공격 강화). 앵커=시전자 머리(유닛 발밑에서 약 -26px). 좌우로 퍼지는 음파 호 3겹 + 위 방사선",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 128 frameHeight 96, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[buff.rally]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "좌우 음파 호 3겹 명확. 앵커=머리(발밑 아님) 주의"
+    ]
+   },
+   "verify": false,
+   "bytes": 10503,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.buff.holy",
+   "path": "assets/fx/skills/buff/holy.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 14,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 68,
+    "originX": 0.5,
+    "originY": 0.85
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "대상 발밑(앵커)에서 금빛 기둥·문양 고리가 일어서고 빛 알갱이가 올라감. 프레임 높이 80(머리 위 16px 여유)",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 14프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[buff.holy]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "금빛 기둥·문양 고리·상승 반짝이. 기둥 알파 190 으로 유닛이 비침"
+    ]
+   },
+   "verify": false,
+   "bytes": 7689,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.heal.single",
+   "path": "assets/fx/skills/heal/single.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 80,
+   "frames": 14,
+   "columns": 8,
+   "rows": 2,
+   "size": "512x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 32,
+    "y": 68,
+    "originX": 0.5,
+    "originY": 0.85
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "치유(대상 1). 발밑 녹색 고리 + 옅은 빛 기둥 + 떠오르는 십자. 앵커=대상 발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 64 frameHeight 80, 14프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[heal.single]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "빛 기둥이 직사각 띠로 보임(벡터 느낌)",
+     "십자 5~7px 로 작음"
+    ]
+   },
+   "verify": false,
+   "bytes": 4797,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.heal.area",
+   "path": "assets/fx/skills/heal/area.png",
+   "type": "spritesheet",
+   "frameWidth": 160,
+   "frameHeight": 160,
+   "frames": 16,
+   "columns": 8,
+   "rows": 2,
+   "size": "1280x320",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 80,
+    "y": 92,
+    "originX": 0.5,
+    "originY": 0.575
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "치유 범위(반경 1). 큰 녹색 고리 + 5지점 순차 치유. 앵커=중심 칸 발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 160 frameHeight 160, 16프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[heal.area]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "5지점 순차 재생 양호",
+     "십자 크기 작음, 기둥 띠 직사각 느낌"
+    ]
+   },
+   "verify": false,
+   "bytes": 22370,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.aoe.base",
+   "path": "assets/fx/skills/aoe/base.png",
+   "type": "spritesheet",
+   "frameWidth": 160,
+   "frameHeight": 160,
+   "frames": 16,
+   "columns": 8,
+   "rows": 2,
+   "size": "1280x320",
+   "alpha": true,
+   "fps_hint": 16,
+   "loop": false,
+   "anchor": {
+    "x": 80,
+    "y": 92,
+    "originX": 0.5,
+    "originY": 0.575
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "화살비(궁병 범위 AOE). 왼쪽 위에서 비스듬히 쏟아지는 화살 20발 → 꽂혀 흙먼지 → 사라짐. 앵커=중심 칸 발밑. 시전자가 오른쪽이면 flipX",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 160 frameHeight 160, 16프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[aoe.base]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "화살 15px 로 키움 — 160 캔버스 1배에서 여전히 가늘게 보임",
+     "꽂힌 화살·흙먼지 양호"
+    ]
+   },
+   "verify": false,
+   "bytes": 12852,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.aoe.shot",
+   "path": "assets/fx/skills/aoe/shot.png",
+   "type": "spritesheet",
+   "frameWidth": 160,
+   "frameHeight": 160,
+   "frames": 18,
+   "columns": 8,
+   "rows": 3,
+   "size": "1280x480",
+   "alpha": true,
+   "fps_hint": 16,
+   "loop": false,
+   "anchor": {
+    "x": 80,
+    "y": 92,
+    "originX": 0.5,
+    "originY": 0.575
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "포격·일제 사격(화포·화승총·함포·투석 범위). 6지점 순차 착탄 폭발 + 연기 + 흙 파편. 앵커=중심 칸 몸통 높이",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 160 frameHeight 160, 18프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[aoe.shot]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "6지점 순차 착탄·연기 양호",
+     "낙하 포탄이 2x2 도트로 작음"
+    ]
+   },
+   "verify": false,
+   "bytes": 31961,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.aoe.scheme",
+   "path": "assets/fx/skills/aoe/scheme.png",
+   "type": "spritesheet",
+   "frameWidth": 160,
+   "frameHeight": 160,
+   "frames": 14,
+   "columns": 8,
+   "rows": 2,
+   "size": "1280x320",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 80,
+    "y": 92,
+    "originX": 0.5,
+    "originY": 0.575
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "계책 범위(반경 1 = 3x3 칸). 지면 보랏빛 이중 고리 + 마디 문양 + 내려앉는 알갱이. 앵커=중심 칸 발밑(중심 칸 정중앙에서 +12px)",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 160 frameHeight 160, 14프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[aoe.scheme]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "보랏빛 이중 고리·마디·알갱이 명확"
+    ]
+   },
+   "verify": false,
+   "bytes": 20866,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.aoe.fire",
+   "path": "assets/fx/skills/aoe/fire.png",
+   "type": "spritesheet",
+   "frameWidth": 160,
+   "frameHeight": 160,
+   "frames": 16,
+   "columns": 8,
+   "rows": 2,
+   "size": "1280x320",
+   "alpha": true,
+   "fps_hint": 16,
+   "loop": false,
+   "anchor": {
+    "x": 80,
+    "y": 92,
+    "originX": 0.5,
+    "originY": 0.575
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "화공 범위(반경 1 = 3x3 칸). 지면 불꽃 고리 + 7지점 순차 폭염. 앵커=중심 칸 몸통 높이",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 160 frameHeight 160, 16프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[aoe.fire]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "지면 불꽃 고리 + 7지점 폭염, 3x3 칸 덮음"
+    ]
+   },
+   "verify": false,
+   "bytes": 45446,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.aoe.thunder",
+   "path": "assets/fx/skills/aoe/thunder.png",
+   "type": "spritesheet",
+   "frameWidth": 160,
+   "frameHeight": 160,
+   "frames": 16,
+   "columns": 8,
+   "rows": 2,
+   "size": "1280x320",
+   "alpha": true,
+   "fps_hint": 18,
+   "loop": false,
+   "anchor": {
+    "x": 80,
+    "y": 92,
+    "originX": 0.5,
+    "originY": 0.575
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "thunder 속성 범위(반경 1). strike.thunder 을 5칸에 순차 배치 + 지면 고리. 앵커=중심 칸 몸통 높이",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 160 frameHeight 160, 16프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[aoe.thunder]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "5지점 낙뢰 순차, 지면 고리"
+    ]
+   },
+   "verify": false,
+   "bytes": 24105,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.aoe.water_ice",
+   "path": "assets/fx/skills/aoe/water_ice.png",
+   "type": "spritesheet",
+   "frameWidth": 160,
+   "frameHeight": 160,
+   "frames": 18,
+   "columns": 8,
+   "rows": 3,
+   "size": "1280x480",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 80,
+    "y": 92,
+    "originX": 0.5,
+    "originY": 0.575
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "water_ice 속성 범위(반경 1). strike.water_ice 을 5칸에 순차 배치 + 지면 고리. 앵커=중심 칸 몸통 높이",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 160 frameHeight 160, 18프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[aoe.water_ice]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "5지점 결정 분출 순차"
+    ]
+   },
+   "verify": false,
+   "bytes": 28256,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.aoe.poison",
+   "path": "assets/fx/skills/aoe/poison.png",
+   "type": "spritesheet",
+   "frameWidth": 160,
+   "frameHeight": 160,
+   "frames": 18,
+   "columns": 8,
+   "rows": 3,
+   "size": "1280x480",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 80,
+    "y": 92,
+    "originX": 0.5,
+    "originY": 0.575
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "poison 속성 범위(반경 1). strike.poison 을 5칸에 순차 배치 + 지면 고리. 앵커=중심 칸 몸통 높이",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 160 frameHeight 160, 18프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[aoe.poison]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "strike.poison 과 같은 지적"
+    ]
+   },
+   "verify": false,
+   "bytes": 32038,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.decoy.base",
+   "path": "assets/fx/skills/decoy/base.png",
+   "type": "spritesheet",
+   "frameWidth": 96,
+   "frameHeight": 80,
+   "frames": 12,
+   "columns": 8,
+   "rows": 2,
+   "size": "768x160",
+   "alpha": true,
+   "fps_hint": 12,
+   "loop": false,
+   "anchor": {
+    "x": 48,
+    "y": 66,
+    "originX": 0.5,
+    "originY": 0.825
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "연막·기만(공성계 DECOY). 시전자를 가리는 연기 뭉치가 피었다가 위로 흩어짐. 앵커=발밑",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 96 frameHeight 80, 12프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[decoy.base]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "issues": [
+     "연기 뭉치가 유닛을 가렸다가 흩어짐, 좌상단 광원 한 단"
+    ]
+   },
+   "verify": false,
+   "bytes": 10511,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.passive.atk",
+   "path": "assets/fx/skills/passive/atk.png",
+   "type": "spritesheet",
+   "frameWidth": 32,
+   "frameHeight": 32,
+   "frames": 8,
+   "columns": 8,
+   "rows": 1,
+   "size": "256x32",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 16,
+    "y": 26,
+    "originX": 0.5,
+    "originY": 0.8125
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "패시브 발동 소형 표식(atk). 유닛 머리 위(앵커=유닛 머리끝 높이)에 0.6초. SkillFx 패시브 팝업 대체 후보",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 32 frameHeight 32, 8프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[passive.atk]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "32px 표식이 작음(의도: 최소 연출). 실화면 크기 확인 필요"
+    ]
+   },
+   "verify": false,
+   "bytes": 809,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.passive.def",
+   "path": "assets/fx/skills/passive/def.png",
+   "type": "spritesheet",
+   "frameWidth": 32,
+   "frameHeight": 32,
+   "frames": 8,
+   "columns": 8,
+   "rows": 1,
+   "size": "256x32",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 16,
+    "y": 26,
+    "originX": 0.5,
+    "originY": 0.8125
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "패시브 발동 소형 표식(def). 유닛 머리 위(앵커=유닛 머리끝 높이)에 0.6초. SkillFx 패시브 팝업 대체 후보",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 32 frameHeight 32, 8프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[passive.def]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "32px 표식이 작음(의도: 최소 연출)"
+    ]
+   },
+   "verify": false,
+   "bytes": 885,
+   "empty_last": true
+  },
+  {
+   "key": "fx.skill.passive.heal",
+   "path": "assets/fx/skills/passive/heal.png",
+   "type": "spritesheet",
+   "frameWidth": 32,
+   "frameHeight": 32,
+   "frames": 8,
+   "columns": 8,
+   "rows": 1,
+   "size": "256x32",
+   "alpha": true,
+   "fps_hint": 14,
+   "loop": false,
+   "anchor": {
+    "x": 16,
+    "y": 26,
+    "originX": 0.5,
+    "originY": 0.8125
+   },
+   "facing": "none(좌우 대칭, 뒤집기 불필요)",
+   "note": "패시브 발동 소형 표식(heal). 유닛 머리 위(앵커=유닛 머리끝 높이)에 0.6초. SkillFx 패시브 팝업 대체 후보",
+   "displayScale": "1배(1 이펙트 px = 64px 유닛 시트 1 px). 확대 시 정수 배율·NEAREST",
+   "scope": "battle",
+   "load_hint": "scope battle(스킬 시전 시 지연 로드 권장). Phaser spritesheet frameWidth 32 frameHeight 32, 8프레임, 1회 재생 후 제거(마지막 프레임 빈칸)",
+   "generator": {
+    "model": "none(절차 생성, 이미지 모델 호출 0)",
+    "script": "docker/gemini/skill_fx_build.py (Python Pillow·numpy)",
+    "method": "pixelfx 방식(색+빛 2버퍼·램프 계단·Bayer 디더·시드 고정) 자체 구현 — pixelfx 저장소 코드 미사용"
+   },
+   "prompt_ref": "docker/gemini/skill_fx_build.py FINAL[passive.heal]",
+   "license": "자체 제작(코드 생성), 외부 소스 없음",
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "issues": [
+     "32px 표식이 작음(의도: 최소 연출)"
+    ]
+   },
+   "verify": false,
+   "bytes": 933,
+   "empty_last": true
+  }
+ ]
+}

@@ -1,0 +1,812 @@
+{
+ "note": "승리/패배 결과 화면 에셋 조각. 본 manifest 미병합(윤프론 연결). 스펙: docker/gemini/result_screen_spec.json",
+ "base_path": "assets/result_ui/",
+ "loader": "Phaser load.image(key, path). 모두 @2x 파일 → display 크기로 setDisplaySize. 결과 창 진입 시 지연 로드(합계 용량 아래 total_bytes)",
+ "generator": {
+  "model": "gemini-nano-banana-2.1 (2K JPEG)",
+  "script": "docker/gemini/result_gen.mjs (+result_gen.sh)",
+  "prompts": "docker/gemini/result_style.mjs JOBS.result",
+  "postprocess": "docker/gemini/result_pp.py (+result_py.sh, pillow 11.0.0 HPND / numpy 2.1.3 BSD-3)",
+  "procedural": "sunburst, glow_victory, glow_defeat"
+ },
+ "license": "자체 생성(이미지 모델 출력 + 절차 생성). 제3자 소스 없음",
+ "assets": [
+  {
+   "key": "result.banner.victory",
+   "path": "assets/result_ui/banner_victory.png",
+   "type": "image",
+   "size": [
+    1200,
+    421
+   ],
+   "display": [
+    600,
+    null
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 493481,
+   "note": "글자 없음. FE 가 한글 제목을 몸통 중앙(textY 비율)에 얹음",
+   "prompt_ref": "result_style.mjs:banner_victory",
+   "qa": "pass — 글자 없음, 몸통 중앙 빈 면, 월계수·깃발 대칭(모델 생성이라 완전 대칭은 아님, 눈에 띄지 않음), 헤일로 없음",
+   "verify": false,
+   "layout": {
+    "titleY": 0.523,
+    "titleSafeW": 0.28,
+    "panelTopY": 0.72,
+    "titleFill": "#5A3A10",
+    "titleStroke": "#F8E7B0"
+   }
+  },
+  {
+   "key": "result.banner.defeat",
+   "path": "assets/result_ui/banner_defeat.png",
+   "type": "image",
+   "size": [
+    1200,
+    443
+   ],
+   "display": [
+    600,
+    null
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 393914,
+   "note": "글자 없음. FE 가 한글 제목을 몸통 중앙(textY 비율)에 얹음",
+   "prompt_ref": "result_style.mjs:banner_defeat",
+   "qa": "pass — 차분한 진홍(칙칙하지 않음), 찢긴 깃발·부러진 깃대·금 간 방패, 몸통 안쪽 모서리 구름 문양 있음(글자 영역 밖)",
+   "verify": false,
+   "layout": {
+    "titleY": 0.502,
+    "titleSafeW": 0.5,
+    "panelTopY": 0.7,
+    "titleFill": "#F6DCD2",
+    "titleStroke": "#0B1020"
+   }
+  },
+  {
+   "key": "result.ornament.victory",
+   "path": "assets/result_ui/ornament_top_victory.png",
+   "type": "image",
+   "size": [
+    640,
+    113
+   ],
+   "display": [
+    320,
+    null
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 96290,
+   "note": "패널 윗변 중앙(배너 아래 탭 영역) 또는 보상부 제목 위",
+   "prompt_ref": "result_style.mjs:ornament_top",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.ornament.defeat",
+   "path": "assets/result_ui/ornament_top_defeat.png",
+   "type": "image",
+   "size": [
+    640,
+    113
+   ],
+   "display": [
+    320,
+    null
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 86844,
+   "note": "승리 장식 파생(채도 55%·명도 78%, 빛바랜 금)",
+   "prompt_ref": "result_style.mjs:ornament_top (파생)",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.divider.victory",
+   "path": "assets/result_ui/divider_victory.png",
+   "type": "image",
+   "size": [
+    1040,
+    75
+   ],
+   "display": [
+    520,
+    null
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 56576,
+   "note": "가로 구분선, 폭은 패널 안쪽 폭에 맞춰 setDisplaySize(가로만 축소 권장)",
+   "prompt_ref": "result_style.mjs:divider",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.divider.defeat",
+   "path": "assets/result_ui/divider_defeat.png",
+   "type": "image",
+   "size": [
+    1040,
+    75
+   ],
+   "display": [
+    520,
+    null
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 50801,
+   "note": "승리 구분선 파생",
+   "prompt_ref": "result_style.mjs:divider (파생)",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.star.empty",
+   "path": "assets/result_ui/star_empty.png",
+   "type": "image",
+   "size": [
+    160,
+    160
+   ],
+   "display": [
+    80,
+    80
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 19268,
+   "note": "160x160 캔버스, 별 몸체 120px 중앙. 3장 같은 좌표에 겹쳐 교체/크로스페이드",
+   "prompt_ref": "result_style.mjs:stars",
+   "qa": "pass — 2차 생성(1차는 받침 패널 포함 불합격)",
+   "verify": false
+  },
+  {
+   "key": "result.star.filled",
+   "path": "assets/result_ui/star_filled.png",
+   "type": "image",
+   "size": [
+    160,
+    160
+   ],
+   "display": [
+    80,
+    80
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 18337,
+   "note": "160x160 캔버스, 별 몸체 120px 중앙. 3장 같은 좌표에 겹쳐 교체/크로스페이드",
+   "prompt_ref": "result_style.mjs:stars",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.star.shine",
+   "path": "assets/result_ui/star_shine.png",
+   "type": "image",
+   "size": [
+    160,
+    160
+   ],
+   "display": [
+    80,
+    80
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 19640,
+   "note": "160x160 캔버스, 별 몸체 120px 중앙. 3장 같은 좌표에 겹쳐 교체/크로스페이드",
+   "prompt_ref": "result_style.mjs:stars",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.card.reward",
+   "path": "assets/result_ui/reward_card.png",
+   "type": "image",
+   "size": [
+    168,
+    260
+   ],
+   "display": [
+    null,
+    130
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 38619,
+   "note": "아이콘 영역=위 74%, 수치 띠=아래 26%",
+   "prompt_ref": "result_style.mjs:reward_card",
+   "qa": "pass",
+   "verify": false,
+   "layout": {
+    "iconCenterY": 0.36,
+    "iconW": 0.7,
+    "valueY": 0.87
+   }
+  },
+  {
+   "key": "result.frame.thumb",
+   "path": "assets/result_ui/thumb_frame.png",
+   "type": "image",
+   "size": [
+    128,
+    128
+   ],
+   "display": [
+    56,
+    56
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 7147,
+   "note": "안쪽 창 투명. 초상화를 액자 아래 레이어에 마스크(둥근 사각) 후 배치",
+   "prompt_ref": "result_style.mjs:thumb_frame",
+   "qa": "pass — 3차 생성(1·2차는 테두리 과다로 불합격, *_v1/_v2 raw 보존)",
+   "verify": false,
+   "layout": {
+    "innerInset": 0.07,
+    "portraitMask": "둥근 사각 r4, 액자 안쪽 86%"
+   }
+  },
+  {
+   "key": "result.confetti.1",
+   "path": "assets/result_ui/fx/confetti_1.png",
+   "type": "particle",
+   "size": [
+    64,
+    64
+   ],
+   "display": [
+    24,
+    24
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 6441,
+   "note": "파티클 텍스처(회전·낙하)",
+   "group": "confetti",
+   "prompt_ref": "result_style.mjs:confetti",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.confetti.2",
+   "path": "assets/result_ui/fx/confetti_2.png",
+   "type": "particle",
+   "size": [
+    38,
+    64
+   ],
+   "display": [
+    24,
+    24
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 3760,
+   "note": "파티클 텍스처(회전·낙하)",
+   "group": "confetti",
+   "prompt_ref": "result_style.mjs:confetti",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.confetti.3",
+   "path": "assets/result_ui/fx/confetti_3.png",
+   "type": "particle",
+   "size": [
+    43,
+    64
+   ],
+   "display": [
+    24,
+    24
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 4216,
+   "note": "파티클 텍스처(회전·낙하)",
+   "group": "confetti",
+   "prompt_ref": "result_style.mjs:confetti",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.confetti.4",
+   "path": "assets/result_ui/fx/confetti_4.png",
+   "type": "particle",
+   "size": [
+    64,
+    39
+   ],
+   "display": [
+    24,
+    24
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 2822,
+   "note": "파티클 텍스처(회전·낙하)",
+   "group": "confetti",
+   "prompt_ref": "result_style.mjs:confetti",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.confetti.5",
+   "path": "assets/result_ui/fx/confetti_5.png",
+   "type": "particle",
+   "size": [
+    44,
+    64
+   ],
+   "display": [
+    24,
+    24
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 6678,
+   "note": "파티클 텍스처(회전·낙하)",
+   "group": "confetti",
+   "prompt_ref": "result_style.mjs:confetti",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.confetti.6",
+   "path": "assets/result_ui/fx/confetti_6.png",
+   "type": "particle",
+   "size": [
+    64,
+    61
+   ],
+   "display": [
+    24,
+    24
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 6694,
+   "note": "파티클 텍스처(회전·낙하)",
+   "group": "confetti",
+   "prompt_ref": "result_style.mjs:confetti",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.confetti.7",
+   "path": "assets/result_ui/fx/confetti_7.png",
+   "type": "particle",
+   "size": [
+    64,
+    37
+   ],
+   "display": [
+    24,
+    24
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 2129,
+   "note": "파티클 텍스처(회전·낙하)",
+   "group": "confetti",
+   "prompt_ref": "result_style.mjs:confetti",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.confetti.8",
+   "path": "assets/result_ui/fx/confetti_8.png",
+   "type": "particle",
+   "size": [
+    64,
+    64
+   ],
+   "display": [
+    24,
+    24
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 7857,
+   "note": "파티클 텍스처(회전·낙하)",
+   "group": "confetti",
+   "prompt_ref": "result_style.mjs:confetti",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.ico.exp",
+   "path": "assets/result_ui/icons/ico_exp_128.png",
+   "type": "icon",
+   "size": [
+    128,
+    128
+   ],
+   "display": [
+    64,
+    64
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 25538,
+   "note": "보상 카드 아이콘",
+   "prompt_ref": "result_style.mjs:reward_icons",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.ico.exp.sm",
+   "path": "assets/result_ui/icons/ico_exp_64.png",
+   "type": "icon",
+   "size": [
+    64,
+    64
+   ],
+   "display": [
+    32,
+    32
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 8244,
+   "note": "경험치 행·요약용 작은 아이콘",
+   "prompt_ref": "result_style.mjs:reward_icons",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.ico.hero",
+   "path": "assets/result_ui/icons/ico_hero_128.png",
+   "type": "icon",
+   "size": [
+    128,
+    128
+   ],
+   "display": [
+    64,
+    64
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 29521,
+   "note": "보상 카드 아이콘",
+   "prompt_ref": "result_style.mjs:reward_icons",
+   "qa": "pass — 서양식 깃털 투구(문화 중립 아님, 필요 시 교체)",
+   "verify": false
+  },
+  {
+   "key": "result.ico.hero.sm",
+   "path": "assets/result_ui/icons/ico_hero_64.png",
+   "type": "icon",
+   "size": [
+    64,
+    64
+   ],
+   "display": [
+    32,
+    32
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 9532,
+   "note": "경험치 행·요약용 작은 아이콘",
+   "prompt_ref": "result_style.mjs:reward_icons",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.ico.equip",
+   "path": "assets/result_ui/icons/ico_equip_128.png",
+   "type": "icon",
+   "size": [
+    128,
+    128
+   ],
+   "display": [
+    64,
+    64
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 34811,
+   "note": "보상 카드 아이콘",
+   "prompt_ref": "result_style.mjs:reward_icons",
+   "qa": "pass — 2차, 방패 문양 십자 회피(4방향 보강대는 남음)",
+   "verify": false
+  },
+  {
+   "key": "result.ico.equip.sm",
+   "path": "assets/result_ui/icons/ico_equip_64.png",
+   "type": "icon",
+   "size": [
+    64,
+    64
+   ],
+   "display": [
+    32,
+    32
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 10770,
+   "note": "경험치 행·요약용 작은 아이콘",
+   "prompt_ref": "result_style.mjs:reward_icons",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.ico.chest",
+   "path": "assets/result_ui/icons/ico_chest_128.png",
+   "type": "icon",
+   "size": [
+    128,
+    128
+   ],
+   "display": [
+    64,
+    64
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 31711,
+   "note": "보상 카드 아이콘",
+   "prompt_ref": "result_style.mjs:reward_icons",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.ico.chest.sm",
+   "path": "assets/result_ui/icons/ico_chest_64.png",
+   "type": "icon",
+   "size": [
+    64,
+    64
+   ],
+   "display": [
+    32,
+    32
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 10019,
+   "note": "경험치 행·요약용 작은 아이콘",
+   "prompt_ref": "result_style.mjs:reward_icons",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.fx.firework",
+   "path": "assets/result_ui/fx/firework.png",
+   "type": "fx",
+   "size": [
+    512,
+    512
+   ],
+   "display": [
+    256,
+    256
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "add 권장(normal 도 가능)",
+   "bytes": 238216,
+   "note": "폭죽 1송이: scale 0.2→1.1 + alpha 1→0 트윈",
+   "prompt_ref": "result_style.mjs:firework",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.fx.spark.cross",
+   "path": "assets/result_ui/fx/spark_cross.png",
+   "type": "particle",
+   "size": [
+    128,
+    128
+   ],
+   "display": [
+    32,
+    32
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "add",
+   "bytes": 9643,
+   "note": "반짝임 파티클",
+   "prompt_ref": "result_style.mjs:sparks",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.fx.spark.orb",
+   "path": "assets/result_ui/fx/spark_orb.png",
+   "type": "particle",
+   "size": [
+    128,
+    128
+   ],
+   "display": [
+    32,
+    32
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "add",
+   "bytes": 25853,
+   "note": "반짝임 파티클",
+   "prompt_ref": "result_style.mjs:sparks",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.fx.spark.star8",
+   "path": "assets/result_ui/fx/spark_star8.png",
+   "type": "particle",
+   "size": [
+    128,
+    128
+   ],
+   "display": [
+    32,
+    32
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "add",
+   "bytes": 9830,
+   "note": "반짝임 파티클",
+   "prompt_ref": "result_style.mjs:sparks",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.fx.spark.streak",
+   "path": "assets/result_ui/fx/spark_streak.png",
+   "type": "particle",
+   "size": [
+    128,
+    128
+   ],
+   "display": [
+    32,
+    32
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "add",
+   "bytes": 8756,
+   "note": "반짝임 파티클",
+   "prompt_ref": "result_style.mjs:sparks",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.fx.smoke",
+   "path": "assets/result_ui/fx/smoke_defeat.png",
+   "type": "overlay",
+   "size": [
+    1280,
+    720
+   ],
+   "display": [
+    null,
+    null
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 540200,
+   "note": "패배 하단 연기: 화면 폭에 맞춰 늘림, 좌우로 천천히 흐름(tilePositionX 또는 x 트윈), alpha 0.7",
+   "prompt_ref": "result_style.mjs:smoke_defeat",
+   "qa": "pass — 만화풍 연기(굵은 형태). 휘도→알파 변환이라 밝은 회색일수록 불투명",
+   "verify": false
+  },
+  {
+   "key": "result.fx.sunburst",
+   "path": "assets/result_ui/fx/sunburst.png",
+   "type": "overlay",
+   "size": [
+    1024,
+    1024
+   ],
+   "display": [
+    520,
+    520
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "add",
+   "bytes": 182018,
+   "note": "배너 뒤 광선. 회전 360°/40s 무한, alpha 0→0.55. 절차 생성(18광선)",
+   "generator": "procedural:result_pp.py sunburst()",
+   "prompt_ref": "result_pp.py (절차 생성)",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.fx.glow.victory",
+   "path": "assets/result_ui/fx/glow_victory.png",
+   "type": "overlay",
+   "size": [
+    512,
+    512
+   ],
+   "display": [
+    400,
+    400
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "add",
+   "bytes": 27978,
+   "note": "배너·별 뒤 부드러운 후광",
+   "generator": "procedural",
+   "prompt_ref": "result_pp.py (절차 생성)",
+   "qa": "pass",
+   "verify": false
+  },
+  {
+   "key": "result.fx.glow.defeat",
+   "path": "assets/result_ui/fx/glow_defeat.png",
+   "type": "overlay",
+   "size": [
+    512,
+    512
+   ],
+   "display": [
+    400,
+    400
+   ],
+   "scale": "@2x (display=CSS px, file=2배)",
+   "alpha": true,
+   "blend": "normal",
+   "bytes": 28472,
+   "note": "패배 배너 뒤 은은한 붉은 후광(alpha 0.35 이하)",
+   "generator": "procedural",
+   "prompt_ref": "result_pp.py (절차 생성)",
+   "qa": "pass",
+   "verify": false
+  }
+ ],
+ "total_bytes": 2552626,
+ "reuse": {
+  "gold": "ui_skin/icons/64/gold_stack.png (기존)",
+  "buttons": "ui_skin btn.primary/secondary (기존)",
+  "panel": "ui_skin panel.main (기존)",
+  "glow_pulse": "ui_skin btn.glow (기존)"
+ }
+}

@@ -1,0 +1,174 @@
+{
+  "scenario": {
+    "code": "legnica",
+    "name": "몽골 서정 시즌 · 레그니차",
+    "shelf_code": "ch21",
+    "season_days": 28,
+    "map_view": {
+      "lon_min": 12,
+      "lon_max": 33,
+      "lat_min": 45.5,
+      "lat_max": 53.5
+    },
+    "note": "주 대립 2세력(몽골 제국 vs 유럽 연합)만 국가·영토를 가진다. 튜턴 기사단과 보헤미아 왕국은 영토 없는 원군(supporters). 1241년 초 세력 구도 기준이며 몽골의 시작 거점은 키예프 일대, 유럽 연합의 중심은 크라쿠프. 수도 표시는 kind=capital. 시작값(needs tuning)."
+  },
+  "countries": [
+    {
+      "code": "mongol",
+      "name": "몽골 제국",
+      "color": "#4C7A4C",
+      "allies": [],
+      "ai_profile": {
+        "style": "aggressive"
+      }
+    },
+    {
+      "code": "europe",
+      "name": "유럽 연합",
+      "color": "#C0504D",
+      "allies": [],
+      "supporters": [
+        {
+          "code": "teutonic",
+          "name": "튜턴 기사단",
+          "label": "원군"
+        },
+        {
+          "code": "bohemia",
+          "name": "보헤미아 왕국",
+          "label": "원군"
+        }
+      ],
+      "ai_profile": {
+        "style": "defensive"
+      }
+    }
+  ],
+  "territories": [
+    {
+      "code": "kyiv",
+      "name": "키예프",
+      "kind": "capital",
+      "defense_level": 3,
+      "lon": 30.52,
+      "lat": 50.45,
+      "battle_map_code": "su_pk18_wall_breach_eu",
+      "start_country": "mongol"
+    },
+    {
+      "code": "chernihiv",
+      "name": "체르니히우",
+      "kind": "normal",
+      "defense_level": 1,
+      "lon": 31.29,
+      "lat": 51.5,
+      "battle_map_code": "plain_01_eu",
+      "start_country": "mongol"
+    },
+    {
+      "code": "volodymyr",
+      "name": "볼로디미르",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 24.32,
+      "lat": 50.85,
+      "battle_map_code": "swamp_01_eu",
+      "start_country": "mongol"
+    },
+    {
+      "code": "halych",
+      "name": "할리치",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 24.72,
+      "lat": 49.12,
+      "battle_map_code": "su_ch21_s9_verecke",
+      "start_country": "mongol"
+    },
+    {
+      "code": "sandomierz",
+      "name": "산도미에시",
+      "kind": "normal",
+      "defense_level": 3,
+      "lon": 21.75,
+      "lat": 50.68,
+      "battle_map_code": "river_02_eu",
+      "start_country": "europe"
+    },
+    {
+      "code": "krakow",
+      "name": "크라쿠프",
+      "kind": "capital",
+      "defense_level": 3,
+      "lon": 19.94,
+      "lat": 50.06,
+      "battle_map_code": "castle_01_eu",
+      "start_country": "europe"
+    },
+    {
+      "code": "wroclaw",
+      "name": "브로츠와프",
+      "kind": "normal",
+      "defense_level": 3,
+      "lon": 17.04,
+      "lat": 51.11,
+      "battle_map_code": "river_02_eu",
+      "start_country": "europe"
+    },
+    {
+      "code": "legnica",
+      "name": "레그니차",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 16.16,
+      "lat": 51.21,
+      "battle_map_code": "su_pk20_grand_mixed_eu",
+      "start_country": "europe"
+    },
+    {
+      "code": "esztergom",
+      "name": "에스테르곰",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 18.74,
+      "lat": 47.79,
+      "battle_map_code": "castle_01_eu",
+      "start_country": "europe"
+    },
+    {
+      "code": "buda",
+      "name": "부다",
+      "kind": "normal",
+      "defense_level": 2,
+      "lon": 19.04,
+      "lat": 47.5,
+      "battle_map_code": "river_02_eu",
+      "start_country": "mongol"
+    }
+  ],
+  "retired_countries": [
+    {
+      "code": "teutonic",
+      "name": "튜턴 기사단",
+      "color": "#6E6E6E"
+    },
+    {
+      "code": "bohemia",
+      "name": "보헤미아 왕국",
+      "color": "#8E6BB0"
+    }
+  ],
+  "links": [
+    ["kyiv", "chernihiv"],
+    ["kyiv", "volodymyr"],
+    ["volodymyr", "halych"],
+    ["volodymyr", "sandomierz"],
+    ["halych", "sandomierz"],
+    ["halych", "buda"],
+    ["sandomierz", "krakow"],
+    ["krakow", "wroclaw"],
+    ["wroclaw", "legnica"],
+    ["krakow", "esztergom"],
+    ["esztergom", "buda"]
+  ]
+}

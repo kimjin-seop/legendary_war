@@ -1,0 +1,753 @@
+{
+ "note": "ch21 유럽 장수 전용 3명(바츨라프 1세·우그린 차크·파코스와프) + 바투·후마윤 초상(안아트 2026-11-03). 술리스와프·볼레슬라프·콜로만·렘발드는 전용 에셋 없음 → generic_map 의 공용 키 사용(팀장 지시)",
+ "generated": "2026-11-03T02:08:46.276Z",
+ "keyRules": {
+  "npc_sprite": "unit.npc.<npc_code>.<ally|enemy>.64.sheet (unit_npc_sprite_manifest_fragment.json 과 같은 규칙)",
+  "generic_map": {
+   "npc_sulislaw_krakow": {
+    "troop": "cavalry",
+    "portrait": "portrait.troop.europe.cavalry",
+    "sheet": "unit.europe.cavalry.enemy.64.sheet"
+   },
+   "npc_boleslav_depolt": {
+    "troop": "spear",
+    "portrait": "portrait.troop.europe.spear",
+    "sheet": "unit.europe.spear.enemy.64.sheet"
+   },
+   "npc_coloman_hungary": {
+    "troop": "cavalry",
+    "portrait": "portrait.troop.europe.cavalry",
+    "sheet": "unit.europe.cavalry.enemy.64.sheet"
+   },
+   "npc_rembald_voczon": {
+    "troop": "heavy",
+    "portrait": "portrait.troop.europe.sword",
+    "sheet": "unit.europe.heavy.enemy.64.sheet",
+    "note": "portrait.troop.europe.heavy 키 없음 → europe.sword(사슬+무지 서코트) 사용. 템플 십자 없음"
+   },
+   "npc_bihar_khan_lodi": {
+    "troop": "cavalry",
+    "portrait": "portrait.troop.middle_east.cavalry",
+    "sheet": "unit.middle_east.cavalry.enemy.64.sheet"
+   },
+   "npc_hamid_khan": {
+    "troop": "cavalry",
+    "portrait": "portrait.troop.middle_east.cavalry",
+    "sheet": "unit.middle_east.cavalry.enemy.64.sheet"
+   },
+   "npc_hasan_khan_mewati": {
+    "troop": "cavalry",
+    "portrait": "portrait.troop.middle_east.cavalry",
+    "sheet": "unit.middle_east.cavalry.enemy.64.sheet"
+   },
+   "npc_mahmud_lodi": {
+    "troop": "cavalry|sword",
+    "portrait": "portrait.troop.middle_east.cavalry (sword 배치 시 portrait.troop.middle_east.sword)",
+    "sheet": "unit.middle_east.cavalry.enemy.64.sheet / unit.middle_east.sword.enemy.64.sheet"
+   },
+   "npc_mustafa_rumi": {
+    "troop": "archer(총병, 아군)",
+    "portrait": "portrait.troop.middle_east.archer",
+    "sheet": "unit.middle_east.archer.ally.64.sheet",
+    "note": "south_asia 공용 키 없음 → 전원 middle_east 계열"
+   }
+  }
+ },
+ "skipped": [],
+ "items": [
+  {
+   "key": "unit.npc.npc_wenceslas_i_bohemia.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_wenceslas_i_bohemia_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_wenceslas_i_bohemia_ally_sheet.png"
+   },
+   "bytes": 10994,
+   "npc": "npc_wenceslas_i_bohemia",
+   "name_ko": "바츨라프 1세",
+   "side": "ally",
+   "npc_default_side": "회색 말이 왼쪽을 향해 걷고 기수는 칼집 장검을 몸 앞에 듦, 진홍 망토 옆선",
+   "culture": "europe",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_wenceslas_i_bohemia",
+   "ref_portrait": "public/assets/portraits/npc/npc_wenceslas_i_bohemia.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_wenceslas_i_bohemia.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "raw 정면 walk2 칸 칼이 아래로 향함(후처리 결과 시트에서 방향 차이 작음)",
+     "말 색 짙은 회색 — 적 스왑 시 회청 계열 일부만 적색화"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화, 문장 생략",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_wenceslas_i_bohemia.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_wenceslas_i_bohemia_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_wenceslas_i_bohemia_enemy_sheet.png"
+   },
+   "bytes": 10919,
+   "npc": "npc_wenceslas_i_bohemia",
+   "name_ko": "바츨라프 1세",
+   "side": "enemy",
+   "npc_default_side": "회색 말이 왼쪽을 향해 걷고 기수는 칼집 장검을 몸 앞에 듦, 진홍 망토 옆선",
+   "culture": "europe",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_wenceslas_i_bohemia",
+   "ref_portrait": "public/assets/portraits/npc/npc_wenceslas_i_bohemia.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_wenceslas_i_bohemia.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "raw 정면 walk2 칸 칼이 아래로 향함(후처리 결과 시트에서 방향 차이 작음)",
+     "말 색 짙은 회색 — 적 스왑 시 회청 계열 일부만 적색화"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화, 문장 생략",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_ugrin_csak.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ugrin_csak_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ugrin_csak_ally_sheet.png"
+   },
+   "bytes": 10979,
+   "npc": "npc_ugrin_csak",
+   "name_ko": "우그린 차크",
+   "side": "ally",
+   "npc_default_side": "철퇴를 몸 앞에 세워 쥠, 검은 옷자락",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_ugrin_csak",
+   "ref_portrait": "public/assets/portraits/npc/npc_ugrin_csak.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_ugrin_csak.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0 채택(r1 은 측면 2칸 우향으로 미채택, raw npc_ugrin_csak_r1.jpg 보존)",
+     "r0 측면 walk2 칸이 우향 → raw 에서 그 칸만 좌우 반전(sprite_raw_patch.py --flip, 호출 없음): 반전 칸은 철퇴가 왼손",
+     "뒷모습 walk2 칸 철퇴 누락"
+    ]
+   },
+   "verify": true,
+   "verify_note": "종교 표지 배제. 용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_ugrin_csak.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_ugrin_csak_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_ugrin_csak_enemy_sheet.png"
+   },
+   "bytes": 10783,
+   "npc": "npc_ugrin_csak",
+   "name_ko": "우그린 차크",
+   "side": "enemy",
+   "npc_default_side": "철퇴를 몸 앞에 세워 쥠, 검은 옷자락",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_ugrin_csak",
+   "ref_portrait": "public/assets/portraits/npc/npc_ugrin_csak.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_ugrin_csak.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r0 채택(r1 은 측면 2칸 우향으로 미채택, raw npc_ugrin_csak_r1.jpg 보존)",
+     "r0 측면 walk2 칸이 우향 → raw 에서 그 칸만 좌우 반전(sprite_raw_patch.py --flip, 호출 없음): 반전 칸은 철퇴가 왼손",
+     "뒷모습 walk2 칸 철퇴 누락"
+    ]
+   },
+   "verify": true,
+   "verify_note": "종교 표지 배제. 용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_pakoslaw_sandomierz.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_pakoslaw_sandomierz_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_pakoslaw_sandomierz_ally_sheet.png"
+   },
+   "bytes": 11338,
+   "npc": "npc_pakoslaw_sandomierz",
+   "name_ko": "파코스와프",
+   "side": "ally",
+   "npc_default_side": "원뿔 투구 코 가리개 옆선, 장검을 몸 앞에 세워 쥠",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_pakoslaw_sandomierz",
+   "ref_portrait": "public/assets/portraits/npc/npc_pakoslaw_sandomierz.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_pakoslaw_sandomierz.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r1 채택(r0 은 측면 walk2 칼 2자루·뒷모습 칼 누락으로 탈락, raw try1 보존)",
+     "r1 측면 walk2 칸 우향 → 그 칸만 좌우 반전(호출 없음)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "문장 외투 생략(무지 녹색). 용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_pakoslaw_sandomierz.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_pakoslaw_sandomierz_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_pakoslaw_sandomierz_enemy_sheet.png"
+   },
+   "bytes": 11280,
+   "npc": "npc_pakoslaw_sandomierz",
+   "name_ko": "파코스와프",
+   "side": "enemy",
+   "npc_default_side": "원뿔 투구 코 가리개 옆선, 장검을 몸 앞에 세워 쥠",
+   "culture": "europe",
+   "troop": "heavy",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.europe.heavy.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_pakoslaw_sandomierz",
+   "ref_portrait": "public/assets/portraits/npc/npc_pakoslaw_sandomierz.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_pakoslaw_sandomierz.jpg",
+   "calls": 2,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "r1 채택(r0 은 측면 walk2 칼 2자루·뒷모습 칼 누락으로 탈락, raw try1 보존)",
+     "r1 측면 walk2 칸 우향 → 그 칸만 좌우 반전(호출 없음)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "문장 외투 생략(무지 녹색). 용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_dawlat_khan_lodi.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_dawlat_khan_lodi_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_dawlat_khan_lodi_ally_sheet.png"
+   },
+   "bytes": 11568,
+   "npc": "npc_dawlat_khan_lodi",
+   "name_ko": "다울라트 칸 로디",
+   "side": "ally",
+   "npc_default_side": "흰 긴 수염 옆선, 접은 서신을 가슴 앞에, 허리 칼집",
+   "culture": "middle_east",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.sword.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_dawlat_khan_lodi",
+   "ref_portrait": "public/assets/portraits/npc/npc_dawlat_khan_lodi.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_dawlat_khan_lodi.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "정면 walk2 칸에서 서신·칼 누락",
+     "뒷모습 칸마다 소품 위치(서신/칼집) 다름",
+     "측면에서 칼집째 든 칼이 손에 쥔 것처럼 보임"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_dawlat_khan_lodi.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_dawlat_khan_lodi_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_dawlat_khan_lodi_enemy_sheet.png"
+   },
+   "bytes": 11525,
+   "npc": "npc_dawlat_khan_lodi",
+   "name_ko": "다울라트 칸 로디",
+   "side": "enemy",
+   "npc_default_side": "흰 긴 수염 옆선, 접은 서신을 가슴 앞에, 허리 칼집",
+   "culture": "middle_east",
+   "troop": "sword",
+   "mounted": false,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.sword.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_dawlat_khan_lodi",
+   "ref_portrait": "public/assets/portraits/npc/npc_dawlat_khan_lodi.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_dawlat_khan_lodi.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "minor",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "정면 walk2 칸에서 서신·칼 누락",
+     "뒷모습 칸마다 소품 위치(서신/칼집) 다름",
+     "측면에서 칼집째 든 칼이 손에 쥔 것처럼 보임"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_rana_sanga.ally.64.sheet",
+   "path": "assets/sprites/npc/64/npc_rana_sanga_ally_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_rana_sanga_ally_sheet.png"
+   },
+   "bytes": 11052,
+   "npc": "npc_rana_sanga",
+   "name_ko": "라나 상가",
+   "side": "ally",
+   "npc_default_side": "흰 말이 왼쪽을 향해 걷고 기수는 칼을 세워 듦, 주황 터번 옆선",
+   "culture": "middle_east",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.cavalry.ally.64.sheet",
+   "team_marker": "발밑 파랑 받침(A안)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_rana_sanga",
+   "ref_portrait": "public/assets/portraits/npc/npc_rana_sanga.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_rana_sanga.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "칼이 휜 칼(초상과 일치)",
+     "raw 상단 빈 칸에 1px 점 잡티(후처리 결과 확인)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화, 외형 과장 금지",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  },
+  {
+   "key": "unit.npc.npc_rana_sanga.enemy.64.sheet",
+   "path": "assets/sprites/npc/64/npc_rana_sanga_enemy_sheet.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "size": "192x256",
+   "cols": 3,
+   "rows": 4,
+   "row_order": [
+    "down",
+    "left",
+    "right",
+    "up"
+   ],
+   "col_order": [
+    "walk1",
+    "idle",
+    "walk2"
+   ],
+   "alpha": true,
+   "filter": "NEAREST",
+   "scale": "integer only(x1/x2/x3, nearest)",
+   "variants": {
+    "x2": "assets/sprites/npc/64_x2/npc_rana_sanga_enemy_sheet.png"
+   },
+   "bytes": 10750,
+   "npc": "npc_rana_sanga",
+   "name_ko": "라나 상가",
+   "side": "enemy",
+   "npc_default_side": "흰 말이 왼쪽을 향해 걷고 기수는 칼을 세워 듦, 주황 터번 옆선",
+   "culture": "middle_east",
+   "troop": "cavalry",
+   "mounted": true,
+   "scope": "npc",
+   "deferred": true,
+   "fallback": "unit.middle_east.cavalry.enemy.64.sheet",
+   "team_marker": "발밑 빨강 받침 + 파랑 계열 색만 적색 스왑(hue 185-265)",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/npc_ch21eu_gen.mjs sprite(unit_npc_sprite_gen.mjs + npc_ch21eu_style.mjs S_EU) → unit_npc_sprite_pp.sh(hero_dir_pp_v4.mjs)"
+   },
+   "prompt_ref": "docker/gemini/npc_ch21eu_style.mjs S_EU.npc_rana_sanga",
+   "ref_portrait": "public/assets/portraits/npc/npc_rana_sanga.png",
+   "raw": "docker/gemini/unit_npc_sprite/raw/npc_rana_sanga.jpg",
+   "calls": 1,
+   "qa": {
+    "checked": true,
+    "verdict": "pass",
+    "checklist": [
+     "192x256(3x4, 64px), 1px 외곽선, 32색 이하",
+     "초상화와 머리 장비·주색·소지품 일치",
+     "9칸 무기 일관·누락 없음",
+     "측면 행 좌향 프로필",
+     "알파 0/255, 마젠타 잔여 없음",
+     "64px 1배에서 머리 실루엣·주색 식별, 다른 아군 NPC·공용 병종 시트와 구분"
+    ],
+    "issues": [
+     "칼이 휜 칼(초상과 일치)",
+     "raw 상단 빈 칸에 1px 점 잡티(후처리 결과 확인)"
+    ]
+   },
+   "verify": true,
+   "verify_note": "용모 일반화, 외형 과장 금지",
+   "license": "Google Gemini API 생성물(SynthID 워터마크 포함). 상업 이용 범위는 Gemini API 약관 확인 필요(비차단 메모)",
+   "provenance": "refs: 3x3 방향 시트 견본(hero_dir_refs) + 정식 초상(portrait_campaign/out)"
+  }
+ ]
+}

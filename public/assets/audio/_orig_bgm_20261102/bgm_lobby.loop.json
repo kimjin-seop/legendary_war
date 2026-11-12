@@ -1,0 +1,46 @@
+{
+  "key": "bgm.lobby",
+  "slot": "bgm_lobby",
+  "files": [
+    { "path": "assets/audio/bgm/bgm_lobby.opus", "type": "opus", "container": "ogg", "codec": "opus", "sampleRate": 48000, "channels": 2, "nominalKbps": 40, "measuredKbps": 42.9, "bytes": 312831, "durationS": 58.33, "lufsI": -17.0, "truePeakDbtp": -2.5, "sha256": "f9463724f8d6b262de35267a55fe9d00be2756dcb1092edf0942980928a2cb28" },
+    { "path": "assets/audio/bgm/bgm_lobby.mp3", "type": "mp3", "container": "mp3", "codec": "mp3 (LAME CBR, LAME gapless 헤더 포함)", "sampleRate": 44100, "channels": 2, "nominalKbps": 64, "measuredKbps": 64.0, "bytes": 467112, "durationS": 58.33, "lufsI": -17.4, "truePeakDbtp": -3.3, "sha256": "1d6ce33784dce4c6fb596b76a09220249d68b3e405efe95da98e658113e0dd3e" }
+  ],
+  "loop": {
+    "note": "파일 = [프리롤 0.2s] + [루프 본체 57.93s] + [포스트롤 0.2s]. 프리롤은 본체 끝 0.2s, 포스트롤은 본체 처음 0.2s 복사본이라 파일 전체가 주기 57.93s 로 연속이다. 반드시 마커 구간(start~end)만 반복 재생할 것(파일 전체 loop:true 금지: 0.4s 중복 + 경계 클릭).",
+    "marker": "loop",
+    "start": 0.2,
+    "end": 58.13,
+    "duration": 57.93,
+    "start_sample_48k": 9600,
+    "end_sample_48k": 2790240,
+    "length_samples_48k": 2780640,
+    "start_sample_44k1": 8820,
+    "end_sample_44k1": 2563470,
+    "length_samples_44k1": 2554650,
+    "sampleExact": "길이 57.93s 는 48kHz·44.1kHz 양쪽에서 정수 샘플(2780640 / 2554650). 디코더가 코덱 지연을 다르게 처리해 위치가 최대 ±0.2s 어긋나도 파일이 주기적이라 이음새는 그대로 연속"
+  },
+  "phaser": {
+    "load": "scene.load.audio('bgm_lobby', ['/assets/audio/bgm/bgm_lobby.opus', '/assets/audio/bgm/bgm_lobby.mp3'])  // Phaser 는 확장자 .opus -> device.audio.opus(ogg; codecs=opus) 로 판정",
+    "play": "const s = scene.sound.add('bgm_lobby'); s.addMarker({ name: 'loop', start: 0.2, duration: 57.93, config: { loop: true } }); s.play('loop');",
+    "warn": ".webm 확장자는 Phaser 가 webm;codecs=vorbis 로 판정하므로 Opus-in-WebM 은 쓰지 않음. .ogg 확장자도 vorbis 로 판정되므로 Ogg Opus 는 .opus 확장자로 둠"
+  },
+  "source": {
+    "file": "사용자 제공 '반복 오케스트라 확장.m4a' (Opus in MP4, 48kHz stereo, 154.81s, 약 140kbps, 메타데이터 comment 'made with suno')",
+    "loopStartSrcS": 19.7,
+    "loopEndSrcS": 77.63,
+    "loopStartSrcSample48k": 945600,
+    "loopEndSrcSample48k": 3726240,
+    "crossfade": { "durationS": 1.0, "curve": "equal-power (sin/cos)", "placement": "루프 본체 56.93~57.93s 에서 원본 76.63~77.63s(페이드아웃) + 18.70~19.70s(페이드인)", "srcCorrelation": 0.13 },
+    "loudness": { "loopIntegratedBeforeLufs": -16.9, "gainDb": -0.1, "targetLufs": -17.0, "limiter": "없음(선형 게인만)" },
+    "tempo": { "bpm": 90.98, "beatS": 0.65951, "loopBeats": 87.84, "loopBars4_4": 21.96 }
+  },
+  "seamCheck": {
+    "method": "인코딩 파일을 ffmpeg 로 48kHz 디코드 -> 마커 구간만 잘라 끝->처음을 붙여 측정. 기준값은 같은 파일 내부 임의 400 지점 분포",
+    "opus": { "rms50msDeltaDb": 0.61, "rms1sDeltaDb": 0.27, "sampleJumpVsSrcDiffP99": 1.08, "spectralJump": 0.42, "hfBurstDb": 2.0, "hfBurstInnerPercentile": 85.5, "hfBurstToTotalDb": -35.0, "onsetAlignOffsetMs": 0 },
+    "mp3": { "rms50msDeltaDb": 0.94, "rms1sDeltaDb": 0.43, "sampleJumpVsSrcDiffP99": 0.88, "spectralJump": 0.22, "hfBurstDb": 15.2, "hfBurstInnerPercentile": 94.5, "hfBurstToTotalDb": -42.4, "onsetAlignOffsetMs": 0 },
+    "wholeFileLoopWithoutMarker_opus": { "sampleJumpVsSrcDiffP99": 10.66, "hfBurstDb": 20.6, "verdict": "클릭 위험 - 마커 없이 파일 전체 반복 금지" },
+    "listenVerified": false
+  },
+  "license": "사용자 제작 파일(Suno 생성물, 'made with suno' 메타데이터). 공개 전 Suno 약관(요금제별 상업 이용 권리) 확인 필요",
+  "script": "docker/gemini/bgm_lobby/ (analyze.py, refine.py, onsetalign.py, build.py, pad.py, check2.py, burst_pct.py, final.sh, ptest.sh)"
+}

@@ -1,0 +1,220 @@
+{
+ "_note": "시즌 전쟁(임진) 거점 표 r2 — 서버 database/data/war/imjin.json 의 territories(code·name·lon·lat·kind·start_country)와 links 를 그대로 옮김(서버 데이터 수정 없음). x,y = ui.season.map.base @1x 픽셀(@2x 는 2배), nx,ny = 0~1 정규화. rank: 서버 kind=capital → major(주요), 나머지 normal(일반). 화면 표기는 주요/일반만",
+ "source": "database/data/war/imjin.json",
+ "map_key": "ui.season.map.base",
+ "size_1x": [
+  531,
+  866
+ ],
+ "transform_1x": "x = (lon - 124.3) * 90, y = (42.4 - lat) * 90 (원점 좌상단, r3 에서 캔버스 아래 20px 여백만 추가)",
+ "revision": "r3",
+ "nodes": [
+  {
+   "id": "hanyang",
+   "name": "한양",
+   "lon": 126.98,
+   "lat": 37.57,
+   "rank": "major",
+   "start_country": "joseon",
+   "x": 241.2,
+   "y": 434.7,
+   "nx": 0.4542,
+   "ny": 0.5138,
+   "cell_key": "ui.season.map.cell.hanyang",
+   "island": false
+  },
+  {
+   "id": "pyeongyang",
+   "name": "평양",
+   "lon": 125.75,
+   "lat": 39.02,
+   "rank": "normal",
+   "start_country": "joseon",
+   "x": 130.5,
+   "y": 304.2,
+   "nx": 0.2458,
+   "ny": 0.3596,
+   "cell_key": "ui.season.map.cell.pyeongyang",
+   "island": false
+  },
+  {
+   "id": "uiju",
+   "name": "의주",
+   "lon": 124.67,
+   "lat": 40.2,
+   "rank": "normal",
+   "start_country": "joseon",
+   "x": 33.3,
+   "y": 198.0,
+   "nx": 0.0627,
+   "ny": 0.234,
+   "cell_key": "ui.season.map.cell.uiju",
+   "island": false
+  },
+  {
+   "id": "chungju",
+   "name": "충주",
+   "lon": 127.93,
+   "lat": 36.99,
+   "rank": "normal",
+   "start_country": "joseon",
+   "x": 326.7,
+   "y": 486.9,
+   "nx": 0.6153,
+   "ny": 0.5755,
+   "cell_key": "ui.season.map.cell.chungju",
+   "island": false
+  },
+  {
+   "id": "jeonju",
+   "name": "전주",
+   "lon": 127.15,
+   "lat": 35.82,
+   "rank": "normal",
+   "start_country": "joseon",
+   "x": 256.5,
+   "y": 592.2,
+   "nx": 0.4831,
+   "ny": 0.7,
+   "cell_key": "ui.season.map.cell.jeonju",
+   "island": false
+  },
+  {
+   "id": "jinju",
+   "name": "진주",
+   "lon": 128.11,
+   "lat": 35.18,
+   "rank": "normal",
+   "start_country": "joseon",
+   "x": 342.9,
+   "y": 649.8,
+   "nx": 0.6458,
+   "ny": 0.7681,
+   "cell_key": "ui.season.map.cell.jinju",
+   "island": false
+  },
+  {
+   "id": "jeju",
+   "name": "제주",
+   "lon": 126.53,
+   "lat": 33.5,
+   "rank": "normal",
+   "start_country": "joseon",
+   "x": 200.7,
+   "y": 801.0,
+   "nx": 0.378,
+   "ny": 0.9468,
+   "cell_key": "ui.season.map.cell.jeju",
+   "island": true
+  },
+  {
+   "id": "daegu",
+   "name": "대구",
+   "lon": 128.6,
+   "lat": 35.87,
+   "rank": "normal",
+   "start_country": "japan",
+   "x": 387.0,
+   "y": 587.7,
+   "nx": 0.7288,
+   "ny": 0.6947,
+   "cell_key": "ui.season.map.cell.daegu",
+   "island": false
+  },
+  {
+   "id": "busan",
+   "name": "부산",
+   "lon": 129.04,
+   "lat": 35.18,
+   "rank": "normal",
+   "start_country": "japan",
+   "x": 426.6,
+   "y": 649.8,
+   "nx": 0.8034,
+   "ny": 0.7681,
+   "cell_key": "ui.season.map.cell.busan",
+   "island": false
+  },
+  {
+   "id": "tsushima",
+   "name": "쓰시마",
+   "lon": 129.29,
+   "lat": 34.2,
+   "rank": "major",
+   "start_country": "japan",
+   "x": 449.1,
+   "y": 738.0,
+   "nx": 0.8458,
+   "ny": 0.8723,
+   "cell_key": "ui.season.map.cell.tsushima",
+   "island": true
+  }
+ ],
+ "edges": [
+  [
+   "busan",
+   "tsushima"
+  ],
+  [
+   "busan",
+   "daegu"
+  ],
+  [
+   "busan",
+   "jinju"
+  ],
+  [
+   "daegu",
+   "chungju"
+  ],
+  [
+   "daegu",
+   "jinju"
+  ],
+  [
+   "jinju",
+   "jeonju"
+  ],
+  [
+   "jeonju",
+   "chungju"
+  ],
+  [
+   "chungju",
+   "hanyang"
+  ],
+  [
+   "hanyang",
+   "pyeongyang"
+  ],
+  [
+   "pyeongyang",
+   "uiju"
+  ],
+  [
+   "jeonju",
+   "jeju"
+  ]
+ ],
+ "sea_edges": [
+  [
+   "busan",
+   "tsushima"
+  ],
+  [
+   "jeonju",
+   "jeju"
+  ]
+ ],
+ "route_style": {
+  "color": "#EDE6D3",
+  "alpha": 0.9,
+  "width_1x": 3,
+  "dash_1x": [
+   10,
+   7
+  ],
+  "outline": "#14182A 5px alpha 0.6",
+  "sea_route": "섬 연결(sea_edges)은 같은 점선을 바다 위에 그림, 색 #9FC3E8 권장"
+ }
+}

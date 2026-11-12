@@ -1,0 +1,92 @@
+{
+ "_note": "제작 메모성 문구 정정 패치 (송서사, 2026-11-01). 원본은 수정하지 않았다. 병합 규칙: files[].texts 의 키는 '<이벤트 또는 장면 id>/<배열 이름>/<0-based 인덱스>'이며 값은 그 줄의 text 를 통째로 교체할 새 문장이다(speaker, expr, is_invented, verify 등 다른 필드는 원본 유지). 배열 이름: battle_events_ch1_5 는 dialogue, battle_events_ch6_10 은 scene.captions 또는 scene.lines, campaign_ch1_scenes 는 lines. files[].delete 는 같은 키 형식으로 줄을 삭제한다(같은 배열에서는 인덱스 내림차순으로 적용, 교체를 먼저 한 뒤 삭제). 적용 순서: 원본 -> 이 파일(meta_lines_fix) -> battle_events.patch_v6.json / campaign_ch1_scenes_outline.patch_v6.json(같은 줄을 다시 정하면 v6가 우선). 이 패치는 v5 패치 이전 원본 기준 인덱스다. campaign_ch1_scenes.json 은 database/data 본과 resources/js/game/data/dialogue 복사본에 동일하게 적용한다(두 파일은 줄 번호까지 동일함을 확인). 근거 수준은 text 에 쓰지 않고 evidence 키(참고용, 병합 대상 아님)로만 적는다. 구 인덱스 기준이므로 적 지휘관 대사는 enemy_lines_draft.json 에서 별도로 삽입한다. 실행 도구가 없어 JSON 파서 검증은 하지 못했고 육안으로 두 번 검토했다(병합 전 파서 검증 필요).",
+ "version": 1,
+ "files": [
+  {
+   "file": "database/data/scenario/battle_events_ch1_5.json",
+   "texts": {
+    "ch1_s1_e04/dialogue/0": "1592년 음력 5월 7일, 거제 옥포. 임진왜란에서 조선 수군이 처음 승리를 거둔 전투로 꼽힌다.",
+    "ch1_s1_e04/dialogue/1": "맞은편 일본 수군의 지휘는 도도 다카토라가 맡았다.",
+    "ch1_s1_e05/dialogue/0": "마주 선 적 지휘관은 도도 다카토라다.",
+    "ch1_s1_e06/dialogue/0": "옥포 해전은 조선 수군의 첫 승리로 꼽힌다. 적선 다수가 격파되었다고 전한다.",
+    "ch1_s2_e04/dialogue/0": "1592년 음력 5월, 의령 정암진. 남강 도하를 막은 곽재우 의병의 싸움이다.",
+    "ch1_s2_e04/dialogue/1": "건너편에는 안코쿠지 에케이가 이끄는 일본군이 진을 쳤다.",
+    "ch1_s2_e05/dialogue/0": "곽재우 휘하 의병이 강가 숲에서 모습을 드러낸다.",
+    "ch1_s2_e06/dialogue/0": "맞은편에 선 장수는 안코쿠지 에케이. 외교를 맡던 승려 출신으로, 이 도하를 이끌었다.",
+    "ch1_s3_e01/dialogue/0": "적이 길로 들어왔습니다. 예상한 대로입니다.",
+    "ch1_s3_e03/dialogue/0": "1592년 음력 7월 8일, 견내량과 한산도 앞바다. 조선 수군은 좁은 견내량의 적을 넓은 바다로 유인한 뒤 학익진으로 맞섰다.",
+    "ch1_s3_e06/dialogue/0": "적 지휘관은 와키자카 야스하루. 견내량에서 조선 수군과 맞선 일본 수군 장수다.",
+    "ch1_s4_e01/dialogue/0": "1592년 음력 10월, 진주성. 진주목사 김시민이 성을 지켰다. 공방은 엿새 동안 이어졌다.",
+    "ch1_s4_e06/dialogue/0": "성 밖에 늘어선 적의 선두에 하세가와 히데카즈의 군기가 오른다.",
+    "ch1_s4_e05/dialogue/0": "곽재우 등 의병이 성 밖에서 적을 견제한다.",
+    "ch1_s5_e01/dialogue/0": "1593년 음력 1월, 평양성. 명의 이여송이 이끈 명군과 조선군, 승병이 고니시 유키나가가 지키던 성을 공격했다.",
+    "ch1_s5_e01/dialogue/1": "이여송은 본진에서 전군의 움직임을 지켜본다.",
+    "ch1_s5_e03/dialogue/0": "연합군의 화포가 성벽을 흔든다.",
+    "ch1_s5_e04/dialogue/0": "명·조선 연합 부대가 성 밖에서 합류한다.",
+    "ch1_s5_e06/dialogue/0": "성 안의 적 지휘관은 고니시 유키나가. 이 성을 지키던 일본군 지휘관이다."
+   },
+   "delete": []
+  },
+  {
+   "file": "database/data/scenario/battle_events_ch6_10.json",
+   "texts": {
+    "ch1_s6_e02/scene.captions/0": "일본군 선봉이 남쪽 성문 앞에 닿습니다.",
+    "ch1_s6_e05/scene.captions/0": "이 무렵 화살이 거의 떨어졌고, 강 쪽에서 보급이 닿았다고 전합니다.",
+    "ch1_s6_e05/scene.lines/1": "화살이 귀해지는 때입니다. 남은 화살부터 세어 두시지요.",
+    "ch1_s6_e06/scene.captions/0": "성 밖의 일본군이 마지막 공세를 위해 깃발 아래 다시 모입니다.",
+    "ch1_s6_e07/scene.captions/0": "해 질 무렵, 일본군이 물러납니다.",
+    "ch1_s7_e02/scene.captions/0": "철수를 돕기 위해 온 일본 함대가 해협으로 들어섭니다.",
+    "ch1_s7_e03/scene.captions/0": "연합 수군 후속대가 전열에 합류합니다.",
+    "ch1_s7_e06/scene.captions/0": "적 지휘관은 시마즈 요시히로. 일본 구원 함대를 이끈 장수입니다.",
+    "ch1_s8_e01/scene.captions/0": "먹물이 번진 자리에는 어느 시대의 이름도 남아 있지 않다.",
+    "ch1_s8_e07/scene.captions/0": "형체 없는 먹물이 일어선다. 들리는 것은 잉크 방울 소리와 책장 소리뿐이다.",
+    "ch1_s9_e01/scene.captions/0": "1597년 양력 10월 26일, 명량 해협. 일본 수군이 물길 앞에 모입니다.",
+    "ch1_s9_e05/scene.captions/0": "조류의 방향이 바뀌며 일본 함대의 움직임이 흐트러졌다고 전합니다.",
+    "ch1_s9_e06/scene.captions/0": "일본 수군 지휘관은 도도 다카토라. 정면의 지휘선에서 군기가 오릅니다.",
+    "ch1_s9_e07/scene.lines/0": "승리입니다. 명량 해전, 1597년 양력 10월 26일의 일입니다.",
+    "ch1_s10_e01/scene.captions/0": "가장 깊은 서가. 아무도 쓰지 않은 쪽이 먹물에 잠겨 간다.",
+    "ch1_s10_e03/scene.captions/0": "번진 기록들이 하나로 모인다. 사람의 모양을 하지 않은 그림자가 서가 위로 솟는다."
+   },
+   "delete": []
+  },
+  {
+   "file": "database/data/campaign_ch1_scenes.json",
+   "also_apply_to": "resources/js/game/data/dialogue/campaign_ch1_scenes.json",
+   "texts": {
+    "ch1_open/lines/3": "다만 이 기록은 사료 그대로의 모습이 아닙니다.",
+    "ch1_open/lines/4": "서고가 기록을 바탕으로 다시 펼친 기록입니다. 기록이 비어 있는 곳은 서고가 메워 두었습니다.",
+    "ch1_open/lines/5": "기록과 다르게 펼쳐진 전장은 시작 전에 '만약에'라고 미리 말씀드리겠습니다.",
+    "ch1_s2_pre/lines/7": "건너편 진영을 이끄는 이는 안코쿠지 에케이입니다. 외교를 맡던 승려가 군을 이끌고 왔습니다.",
+    "ch1_s3_pre/lines/2": "좁은 견내량의 적을 넓은 바다로 끌어냈습니다.",
+    "ch1_s4_pre/lines/2": "공방은 엿새 동안 이어졌습니다. 서고에서는 그중 여덟 턴을 펼쳐 보이겠습니다.",
+    "ch1_s4_post/lines/1": "김시민 목사는 이 전투에서 입은 상처로 세상을 떠났습니다.",
+    "ch1_s5_pre/lines/5": "이 전장에는 휴정 대사와 유정 스님이 반드시 함께하십니다. 유정 스님이 평양까지 오셨는지는 전하는 바가 갈립니다. 서고는 두 분을 나란히 세워 보겠습니다.",
+    "ch1_s5_post/lines/1": "일본군은 밤에 얼어붙은 대동강을 건너 물러났습니다.",
+    "ch1_s5_post/lines/5": "휴정, 유정 두 분이 서고의 동행으로 함께하십니다.",
+    "ch1_s6_post/lines/2": "성 밖에 모였던 일본군은 우키타 히데이에와 고니시 유키나가 등이 이끌었습니다.",
+    "ch1_s7_post/lines/0": "승리입니다. 노량은 조명 연합 수군의 승리로 남았습니다.",
+    "ch1_s7_post/lines/2": "이순신 장군은 노량 해전에서 전사했습니다.",
+    "ch1_s9_pre/lines/1": "1597년 양력 10월 26일, 명량입니다.",
+    "ch1_end/lines/4": "각 기록에서 있었던 일은 서고의 기록으로 남겨 두겠습니다."
+   },
+   "delete": []
+  },
+  {
+   "file": "database/data/tutorial_dialogue.json",
+   "also_apply_to": "resources/js/game/data/dialogue/tutorial_dialogue.json",
+   "texts": {},
+   "delete": [],
+   "remark": "text 에는 메타성 문구 없음. 132~133줄 조건부 줄의 'note' 키(개발용 고정 설명)는 제작용 필드이므로 FE/서버가 표시하지 않는지 확인만 필요(본 패치로 바꾸지 않음)."
+  }
+ ],
+ "evidence": {
+  "안코쿠지 에케이(정암진)": "accepted - ko.wikipedia 정암진 전투(출처 경고 문서, 날짜 5/24와 5/26 혼재) / 사람 확인 요청",
+  "도도 다카토라(옥포)": "accepted - en.wikipedia Battle of Okpo infobox",
+  "와키자카 야스하루(한산도)": "confirmed - en.wikipedia Battle of Hansando",
+  "하세가와 히데카즈(진주성)": "accepted - 기존 설정집·outline 인용, 이번에 재열람하지 않음 / 사람 확인 요청",
+  "고니시 유키나가(평양성)": "confirmed - en.wikipedia Siege of Pyongyang (1593)",
+  "우키타 히데이에·고니시 유키나가(행주)": "accepted - en.wikipedia Battle of Haengju(infobox 열거, 총대장 명시 없음)",
+  "시마즈 요시히로(노량)": "confirmed - 기존 outline·en.wikipedia Battle of Noryang 인용",
+  "도도 다카토라(명량)": "accepted - 기존 outline 인용(en.wikipedia Battle of Myeongnyang)"
+ }
+}

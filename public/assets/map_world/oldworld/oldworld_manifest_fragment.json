@@ -1,0 +1,161 @@
+{
+ "note": "구대륙 세계 기본판 manifest 조각(안아트). 기존 map.world.base/overlay/decor 를 대체(replaces). map.world.ui.*·map.icon.* 는 그대로 사용. manifest.json 직접 수정 안 함.",
+ "status": "deferred",
+ "generated": "2026-11-03T22:53:06+00:00",
+ "keyRules": {
+  "map": "map.oldworld.base → overlay.greatwall → 영토/핀/칩/라벨(코드) → decor.sea → decor.border",
+  "coords": "정규화 좌표 정의 불변. 텍스처 배치는 world_view_bounds.json 사각형 기준"
+ },
+ "loadHints": {
+  "desktop": "map.oldworld.base(4000x2320)",
+  "mobile": "variants.mobile(2000x1160)",
+  "preload": [
+   "map.oldworld.base"
+  ],
+  "lazy": "overlay·decor"
+ },
+ "budget": {
+  "old": {
+   "desktop": 440356,
+   "mobile": 182184
+  },
+  "new": {
+   "desktop": 439644,
+   "mobile": 175572
+  }
+ },
+ "items": [
+  {
+   "key": "map.oldworld.base",
+   "path": "assets/map_world/oldworld/oldworld_base_4000.webp",
+   "size": "4000x2320",
+   "bytes": 439644,
+   "alpha": false,
+   "type": "map_base",
+   "scope": "map",
+   "load": "preload",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/oldworld/oldworld_base_2000.webp",
+     "size": "2000x1160",
+     "bytes": 175572,
+     "alpha": false
+    }
+   },
+   "replaces": "map.world.base",
+   "worldViewBounds": "assets/map_world/oldworld/world_view_bounds.json",
+   "generator": "docker/gemini/world_map_regional_build.py (절차 합성, world_map_build.py 헬퍼·시드 재사용) REGIONS['oldworld']",
+   "provenance": [
+    "Natural Earth 1:10m/1:50m land·minor_islands·lakes·rivers_lake_centerlines·geography_regions (퍼블릭 도메인, github nvkelso/natural-earth-vector)",
+    "세계판 면 텍스처 world_map_raw/tex/{land,sea}.jpg 저주파 재샘플(gemini-nano-banana-2.1, 기존 생성물 재사용)",
+    "근접 종이 결 world_map_raw/tex_regional/sea_macro.jpg (gemini-nano-banana-2.1, world_map_regional_gen.mjs / world_map_regional_style.mjs) — 명도 하이패스만 사용"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "metrics": {
+     "land_iou_vs_world4096_datamask": 0.9814,
+     "soft_centroid_offset_world4096_px": [
+      -0.896,
+      -0.705
+     ],
+     "land_area_ratio": 0.9957,
+     "soft_mask_mae": 0.0084,
+     "note": "차이는 세계판 저해상도 래스터가 해안 경계 픽셀을 포함해 0.25~0.5px(세계4096) 외곽으로 두꺼운 효과(사방 균일, 위치 어긋남 아님). 땅이 서·북에 몰린 영역이라 무게중심이 동남으로 끌림",
+     "land_iou_vs_world4096_image_estimate": 0.9287,
+     "lowfreq_color_mae_0_255": 8.3
+    },
+    "notes": "기존 세계판과 해안 IoU 0.98·평행이동 없음, 기준점 16곳 일치. 가장자리 6° 안개로 자연스럽게 끝남. 1도당 픽셀 1.76배. 동아시아 지역판과 크로스페이드 시 한반도 휘도 차 7.8(기존 34.7). 글자·국경·라벨 없음."
+   },
+   "verify": [
+    "해안·호수는 현대 형태(아랄해 축소, 카스피해, 지중해 연안 퇴적 등) — 시대 고증 필요 시 확인",
+    "좌상단(경도 -25~-18, 위도 65~78)에 그린란드 동해안 일부가 안개 속에 비침(구대륙 범위 경계 특성)",
+    "숲 얼룩·보강 산줄기는 미술적 배치",
+    "장성 경로는 명대 장성 근사(기존과 동일)"
+   ]
+  },
+  {
+   "key": "map.oldworld.overlay.greatwall",
+   "path": "assets/map_world/oldworld/decor/overlay_greatwall_4000.webp",
+   "size": "4000x2320",
+   "bytes": 28258,
+   "alpha": true,
+   "type": "map_overlay",
+   "scope": "map",
+   "load": "lazy",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/oldworld/decor/overlay_greatwall_2000.webp",
+     "size": "2000x1160",
+     "bytes": 9240,
+     "alpha": true
+    }
+   },
+   "replaces": "map.world.overlay.greatwall",
+   "generator": "docker/gemini/world_map_oldworld_pp.py great_wall()",
+   "provenance": [
+    "절차 드로잉(명대 장성 근사, world_map_pp.GREAT_WALL)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "베이스와 같은 크기·투영"
+   },
+   "verify": [
+    "명대 장성 근사 — 시나리오 시대 확인(송서사)"
+   ]
+  },
+  {
+   "key": "map.oldworld.decor.sea",
+   "path": "assets/map_world/oldworld/decor/sea_ornament_4000.webp",
+   "size": "4000x2320",
+   "bytes": 242850,
+   "alpha": true,
+   "type": "map_overlay",
+   "scope": "map",
+   "load": "lazy",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/oldworld/decor/sea_ornament_2000.webp",
+     "size": "2000x1160",
+     "bytes": 74660,
+     "alpha": true
+    }
+   },
+   "replaces": "map.world.decor.sea",
+   "generator": "docker/gemini/world_map_oldworld_pp.py sea_decor() ← ui/wave.png, ui/compass@2x.png",
+   "provenance": [
+    "기존 생성물 재사용(gemini-nano-banana-2.1)"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "대서양·인도양·태평양 서부 7곳 물결 + 남인도양 나침반, 핀 후보와 겹치지 않음"
+   }
+  },
+  {
+   "key": "map.oldworld.decor.border",
+   "path": "assets/map_world/oldworld/decor/border_4000.webp",
+   "size": "4000x2320",
+   "bytes": 130592,
+   "alpha": true,
+   "type": "map_overlay",
+   "scope": "map",
+   "load": "lazy",
+   "variants": {
+    "mobile": {
+     "path": "assets/map_world/oldworld/decor/border_2000.webp",
+     "size": "2000x1160",
+     "bytes": 41042,
+     "alpha": true
+    }
+   },
+   "replaces": "map.world.decor.border",
+   "generator": "docker/gemini/world_map_oldworld_pp.py border() ← ui/corner_tl.png",
+   "provenance": [
+    "절차 드로잉 + 기존 생성물"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": "테두리 2중선·그을린 가장자리·4모서리 장식, 맨 위 레이어"
+   }
+  }
+ ]
+}

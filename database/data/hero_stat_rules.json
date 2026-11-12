@@ -1,0 +1,173 @@
+{
+  "_note": "영웅 능력치 자동 생성 규칙(설계안 v1). 모든 수치는 시작값/needs tuning. 엔진/DB/시드 미연결(데이터 전용). 기존 heroes.json 등은 수정하지 않음. 근거 구분: [팩트]=코드·데이터 직접 확인, [산술]=계산, [가정]=시뮬 미검증 시작값.",
+  "version": 1,
+  "principles": [
+    "병종(unit_type)은 hero_unit_basis의 역사 근거로 고정. 규칙은 병종을 바꾸지 않는다.",
+    "등급 x 병종 틀은 '총 예산(상한)'만 정한다. hp/atk/def·성장률 분배는 영웅의 역사 프로필(hero_profiles.json)로 정한다.",
+    "근거 수준 verify인 축은 중립값(2.5)으로 취급해 능력치 가중에 쓰지 않는다. confirmed/accepted만 가중.",
+    "등급은 인지도가 아니라 군사적 성과(전역 수, 지휘 규모, 후대 군사적 영향) 기준. 밸런스를 위해 역사 프로필을 바꾸지 않는다. 프로필이 예산을 넘으면 아래 압축 규칙으로 줄인다.",
+    "개별 영웅 승률 목표는 없다. 병종·등급 평균과 이상치 점검만 한다."
+  ],
+
+  "rarity_criteria": {
+    "_note": "[가정] 등급은 사람(송서사/문기획)이 부여하고 규칙이 계산하지 않는다. 아래는 부여 근거 루브릭. 비전투 인물(치유사 등)은 C~B 상한.",
+    "scores_0_to_3": ["campaign_count(주도한 전역 수)", "command_scale(지휘 병력 규모)", "military_influence(후대 군사 제도·전술 영향)"],
+    "sum_to_rarity": {"S": ">=8", "A": "6~7", "B": "4~5", "C": "<=3"},
+    "non_combatant_cap": "B",
+    "popularity_not_used": true
+  },
+
+  "frame": {
+    "_note": "틀 = 등급별 평탄 보너스(문기획안) x 병종 배율. 병종 이동·사거리·기본 hp/atk/def는 unit_types.json 값 그대로(재정의 금지).",
+    "rarity_flat_bonus": {"S": [24, 6, 3], "A": [20, 4.5, 2.5], "B": [16, 3.5, 2], "C": [12, 2.5, 1.5], "_order": "hp, atk, def", "evidence": "문기획 제안(결정사항 시작값)"},
+    "type_bonus_multiplier": {
+      "_order": "hp, atk, def", "_basis": "[가정] 병종 기본값이 낮은 스탯에 평탄 보너스가 과대 반영되는 것을 보정(예: healer atk10에 +6=+60%). 시뮬 검증 필요.",
+      "sword": [1.0, 1.0, 1.0], "spear": [1.0, 1.0, 1.0], "cavalry": [0.9, 1.0, 0.8], "archer": [0.8, 0.9, 0.5], "gunner": [0.8, 0.9, 0.5],
+      "mage": [0.75, 1.0, 0.4], "healer": [1.75, 1.0, 2.5], "flyer": [0.8, 0.9, 0.5], "naval": [1.0, 1.0, 1.0]
+    },
+    "growth_range_pct": {"S": [4.2, 4.8], "A": [3.6, 4.2], "B": [3.2, 3.6], "C": [3.0, 3.0], "evidence": "문기획 제안. 부대 유닛 3.0(config troop_growth_pct)=C 하한"},
+    "growth_type_position": {
+      "_note": "[가정] 병종별 성장률 기본 위치(0=범위 하한, 1=상한). 순서 hp, atk, def. 중립 프로필의 시작점.",
+      "sword": [0.5, 0.6, 0.8], "spear": [0.5, 0.6, 0.8], "cavalry": [0.3, 1.0, 0.3], "archer": [0.0, 0.8, 0.2], "gunner": [0.0, 0.8, 0.2],
+      "mage": [0.0, 1.0, 0.0], "healer": [1.0, 0.0, 0.6], "flyer": [0.2, 0.8, 0.2], "naval": [0.5, 0.6, 0.8]
+    },
+    "cost": {"S": 6, "A": 4, "B": 3, "C": 2, "evidence": "S/A/B는 시드 값, C=2는 [가정]. 유저 Lv1 max_cost=10 -> S+A 동시 편성 가능"},
+    "int_rounding": "hp/atk/def 보너스 컬럼은 integer(마이그레이션 확인) -> 생성 시 반올림. 성장률 decimal(5,2) -> 0.1 단위 반올림"
+  },
+
+  "profile_axes": {
+    "_note": "점수 0~5 정수(또는 verify일 때 null=중립 2.5). 입력은 송서사가 hero_profiles.json에 작성. 전설·소설 일화는 점수 근거에서 제외.",
+    "OFF": {"name": "공세", "meaning": "공격적 전투·돌격·결전 성과"},
+    "DEF": {"name": "수성·방어", "meaning": "방어전·농성·수비 성과"},
+    "MOB": {"name": "기동", "meaning": "원정·이동·기습"},
+    "CMD": {"name": "통솔", "meaning": "대군 지휘·군제·사기"},
+    "INT": {"name": "지략", "meaning": "전략·계책·외교·행정"},
+    "VAL": {"name": "내구·무용", "meaning": "개인 무용·부상·최후까지 싸운 기록"},
+    "evidence_weight": {"confirmed": 1.0, "accepted": 1.0, "verify": 0.0, "_note": "verify 또는 근거 문장 없음 -> 점수와 무관하게 2.5(c=0)"},
+    "centered_value": "c = (score if evidence in [confirmed,accepted] else 2.5) - 2.5   (범위 -2.5 ~ +2.5)"
+  },
+
+  "profile_to_stat": {
+    "_note": "[가정] 가중 합 w. raw = sum(w*c). 보너스는 총 예산 보존(제로섬) 재분배, 성장률은 등급 범위 안 선형.",
+    "bonus_weights": {
+      "hp_bonus":  {"VAL": 0.6, "DEF": 0.4},
+      "atk_bonus": {"OFF": 0.7, "VAL": 0.2, "MOB": 0.1},
+      "def_bonus": {"DEF": 0.8, "VAL": 0.2}
+    },
+    "growth_weights": {
+      "growth_hp_pct":  {"VAL": 0.5, "DEF": 0.5},
+      "growth_atk_pct": {"OFF": 0.7, "MOB": 0.3},
+      "growth_def_pct": {"DEF": 1.0}
+    },
+    "non_stat_mapping": {
+      "CMD": "오라 등급(commander 편성 가능 영웅만): c>=+1.5(점수4~5)=strong, c>=+0.5(3)=mid, 그 외 weak. 등급 상한 S/A=strong, B=mid, C=weak. 반경은 2 고정(3은 엔진·밸런스 승인 필요). 오라 종류(atk/def/both)는 OFF>=DEF 이면 atk, DEF 우세면 def, 차이 <=0.5이면 both",
+      "INT": "[r7 확정] 비군사 업적을 환산한 INT는 스킬 충전율 계산 시 점수 상한 3으로 클램프(c_INT_scaled 상한 +0.5), 치유사·마법사 적합성 검증에는 완전 반영(군사 지략과 같은 가중 금지). 스킬 예산 충전율 fill = clamp(0.70 + 0.06*c_INT_scaled, 0.50, 1.00) (c=+2.5 -> 0.85... 상한 1.00은 INT 점수5 + 병종 적합 시). 치유사·마법사 적합성 검증에만 사용(병종 변경 금지)",
+      "MOB": "스탯 직접 반영은 atk 성장률 0.3 가중뿐. 이동·사거리는 병종 값 그대로. 스킬 태그 mobility_up 후보(엔진 지원 전까지 미적용)",
+      "VAL": "hp 보너스/성장률 가중 + atk 보너스 0.2. 단, 전설·소설 일화는 점수 근거 불가"
+    },
+    "formulas": {
+      "step1_frame": "fr_i = rarity_flat_bonus[i] * type_bonus_multiplier[type][i]",
+      "step2_raw": "rb_i = sum(bonus_weights[i] * c)",
+      "step3_zero_sum": "w_i = (0.4,0.4,0.2)/(type 기본 hp,atk,def); share_i = w_i*fr_i/sum(w*fr); m = sum(share_i*rb_i); bonus_i = fr_i*(1 + 0.12*(rb_i - m)); 단 0.5*fr_i <= bonus_i <= 1.6*fr_i",
+      "step4_growth": "pos_i = clamp(0.2 + 0.6*type_position_i + 0.12*raw_g_i, 0, 1); growth_i = lo + (hi-lo)*pos_i",
+      "step5_offset": "balance_offset(비역사 수치 보정)는 보너스·성장률 각각 +-5% 이내, 아래 budget_cap 검사 통과 시만",
+      "step6_round": "보너스 정수 반올림, 성장률 0.1 반올림, 반올림 후 총 예산이 상한(budget_cap)을 넘으면 가장 가중이 낮은 축부터 -1"
+    },
+    "compression_order": {
+      "_note": "프로필이 예산 상한을 넘을 때(총 예산 편차 > +5%) 압축 순서: 근거 수준 낮은 축 -> 동급이면 아래 순서로 먼저 1/2로 축소",
+      "order_first_to_compress": ["MOB", "INT", "VAL", "CMD", "DEF", "OFF"],
+      "reason": "병종 정체성(OFF/DEF)을 가장 마지막에 보존. MOB/INT는 스탯 직접 가중이 작아 영향 최소."
+    }
+  },
+
+  "auto_generation_io": {
+    "inputs": {
+      "required": ["code", "name_ko", "rarity(S/A/B/C)", "unit_type(8종, hero_unit_basis와 일치)", "profile(hero_profiles.json의 6축)"],
+      "non_numeric": ["region/era(문화권·시대: 수치에 사용하지 않음, 표시·정렬용)"],
+      "optional": ["role_tags 0~2개(commander, frontline, support, striker, tank, healer, ranged, skirmisher)"],
+      "role_tags_effect": "수치 영향 없음. 검증(병종 적합성)·스킬 템플릿 후보 필터·편성 UI 용도. commander 태그만 오라 부여 대상으로 해석"
+    },
+    "output_mapping": [
+      {"output": "cost", "from": "rarity", "rule": "frame.cost"},
+      {"output": "hp_bonus/atk_bonus/def_bonus", "from": "rarity+type+profile", "rule": "profile_to_stat.formulas step1~6"},
+      {"output": "growth_hp/atk/def_pct", "from": "rarity+type+profile", "rule": "step4"},
+      {"output": "aura", "from": "CMD+OFF/DEF+rarity+commander 태그", "rule": "non_stat_mapping.CMD"},
+      {"output": "skill 후보", "from": "INT+type+skill_templates 병종 적합성", "rule": "후보 목록만 출력(최종 선택은 사람). 점수 합 <= 등급 예산(S100/A70/B45/C25), 현 엔진 supported 상한(S70/A54/B35/C19)"},
+      {"output": "move/range/heal", "from": "unit_type", "rule": "unit_types.json 그대로, 영웅 값 없음"}
+    ]
+  },
+
+  "audit_rules": {
+    "_note": "[가정] 모두 시작값. 레벨 30 합산 점수 S30 = 0.4*hp/base_hp + 0.4*atk/base_atk + 0.2*def/base_def (Lv30 = base*(1+g/100*29)).",
+    "per_hero": [
+      {"id": "A1", "check": "Lv30 점수 편차 vs 같은 (등급,병종) 틀", "warn": "> +5% 또는 < -8%", "fail": "> +8% 또는 < -15%"},
+      {"id": "A2", "check": "Lv1 보너스 점수 편차 vs 틀", "warn": "> +10%", "fail": "> +20%"},
+      {"id": "A3", "check": "성장률이 등급 범위를 벗어남", "fail": "범위 밖(오차 0.05)"},
+      {"id": "A4", "check": "보너스 축별 틀 대비", "warn": "0.5x~1.6x 범위 밖"},
+      {"id": "A5", "check": "스킬 점수 합 > 등급 예산", "fail": "초과"},
+      {"id": "A6", "check": "스킬+능력치 합산", "rule": "stat_dev_pct + 5*(skill_pts/budget) <= 9", "fail": "초과"},
+      {"id": "A7", "check": "healer atk 계열 스킬 금지, 오라+패시브 atk <= 20", "fail": "위반", "source": "skill_templates validation_rules"},
+      {"id": "A8", "check": "병종-프로필 모순 경고(수치·병종 변경 없음)", "warn": "cavalry: MOB<3 and OFF<3(둘 다 확정 근거) / mage: INT<3 / healer: OFF>=3 / archer: OFF<2"},
+      {"id": "A9", "check": "balance_offset 사용량", "fail": "> +-5%"},
+      {"id": "A10", "check": "프로필 입력 누락/근거 문장 없음/verify 비율 > 4축", "warn": "중립 처리 후 경고"}
+    ],
+    "group_level": [
+      {"id": "G1", "check": "같은 등급 평균 Lv30 점수(병종 보정 후) 편차", "warn": "+-4%", "fail": "+-8%"},
+      {"id": "G2", "check": "병종별 평균 편차(틀 대비)", "warn": "+-5%", "fail": "+-10%"},
+      {"id": "G3", "check": "등급 간 간격: 인접 등급 평균 Lv30 점수 비 S/A, A/B, B/C", "target": "문기획 격차 안 유지(각 +-3%)"}
+    ],
+    "simulation": {
+      "command": "docker compose exec -T app php artisan game:simulate --per-hero=1000 --level=10 --seed=<고정> --sections=matrix,mirror",
+      "usage": "후보 heroes 파일을 개발 DB에 시드한 상태에서 기존 8명+신규 영웅 전체 매트릭스(영웅당 >=1000판 권장, 시드 고정 재측정). 레벨은 5/10/20 중 2개 이상.",
+      "pass_criteria": {
+        "type_rarity_mean": "병종·등급 그룹 평균 승률 45~55% (n>=1000, Wilson 95% CI 하한/상한 포함)",
+        "individual": "신규 영웅 개별 승률 35~65% 넓은 허용. 범위 밖 또는 CI가 범위 밖에 완전히 걸치면 '이상치' 플래그만(자동 수정 금지)",
+        "global_unchanged": "선공 편향·평균 턴·턴상한률·1턴 처치율이 기준 측정 대비 악화(>5%p) 없을 것"
+      },
+      "caution": "매트릭스 승률은 지휘관+프리셋 부대 조합 승률이라 영웅 단독 성능이 아님. 병종·등급 평균 중심으로 해석하고 개별 값은 참고만."
+    }
+  },
+
+  "seed_profile_examples": {
+    "_note": "초안(모델 지식 기반, 근거 수준은 송서사 검증 전 가안). null=verify(중립). 순서 OFF,DEF,MOB,CMD,INT,VAL. 실제 입력은 hero_profiles.json에서 근거 문장·출처와 함께 작성.",
+    "yi_sun_sin": {"OFF": [3, "accepted"], "DEF": [4, "accepted"], "MOB": [null, "verify"], "CMD": [4, "accepted"], "INT": [5, "accepted"], "VAL": [3, "accepted"]},
+    "hannibal": {"OFF": [5, "accepted"], "DEF": [null, "verify"], "MOB": [4, "accepted"], "CMD": [4, "accepted"], "INT": [5, "accepted"], "VAL": [null, "verify"]},
+    "joan_of_arc": {"OFF": [3, "accepted"], "DEF": [null, "verify"], "MOB": [3, "accepted"], "CMD": [3, "accepted"], "INT": [null, "verify"], "VAL": [4, "accepted"]},
+    "alexander": {"OFF": [5, "accepted"], "DEF": [null, "verify"], "MOB": [5, "accepted"], "CMD": [5, "accepted"], "INT": [null, "verify"], "VAL": [4, "accepted"]},
+    "genghis_khan": {"OFF": [4, "accepted"], "DEF": [null, "verify"], "MOB": [5, "accepted"], "CMD": [5, "accepted"], "INT": [4, "accepted"], "VAL": [null, "verify"]},
+    "gwanggaeto": {"OFF": [4, "accepted"], "DEF": [null, "verify"], "MOB": [4, "accepted"], "CMD": [3, "accepted"], "INT": [null, "verify"], "VAL": [null, "verify"]},
+    "hildegard": {"OFF": [0, "accepted"], "DEF": [null, "verify"], "MOB": [1, "accepted"], "CMD": [2, "accepted"], "INT": [4, "accepted"], "VAL": [null, "verify"]},
+    "zhuge_liang": {"OFF": [2, "accepted"], "DEF": [null, "verify"], "MOB": [null, "verify"], "CMD": [4, "accepted"], "INT": [5, "accepted"], "VAL": [null, "verify"]}
+  },
+
+  "seed_deviation_lv30_vs_frame_pct": {
+    "_note": "[산술] 위 공식으로 계산(node 스크립트). frame=중립 프로필(등급x병종 틀). 현재값=heroes.json. 프로필 생성값은 위 가안 프로필 사용. 조정은 이번에 하지 않음(제안만).",
+    "yi_sun_sin": {"current": 3.6, "profile_generated": 0.8, "lv1_bonus_budget_dev_current": 34.1},
+    "hannibal": {"current": -1.9, "profile_generated": 0.8, "lv1_bonus_budget_dev_current": -8.2},
+    "joan_of_arc": {"current": -4.7, "profile_generated": 0.5, "lv1_bonus_budget_dev_current": -8.2},
+    "alexander": {"current": -5.6, "profile_generated": 0.9, "lv1_bonus_budget_dev_current": -3.1},
+    "genghis_khan": {"current": -5.6, "profile_generated": 0.6, "lv1_bonus_budget_dev_current": -3.1},
+    "gwanggaeto": {"current": 4.7, "profile_generated": 0.6, "lv1_bonus_budget_dev_current": 25.7},
+    "hildegard": {"current": 33.2, "profile_generated": -0.4, "lv1_bonus_budget_dev_current": 176.8},
+    "zhuge_liang": {"current": 6.6, "profile_generated": -0.1, "lv1_bonus_budget_dev_current": 41.9}
+  },
+
+  "hero_profiles_schema": {
+    "_note": "송서사 작성용. 파일: database/data/hero_profiles.json (신규, 아직 없음).",
+    "format": {"_note": "string", "version": 1, "items": [{"code": "string(heroes 코드)", "axes": {"OFF|DEF|MOB|CMD|INT|VAL": {"score": "0~5 정수 또는 null(verify)", "evidence_level": "confirmed|accepted|verify", "basis": "근거 문장(1~2문장, 일화·소설 제외)", "source": "URL 또는 문헌"}}, "notes": "병종 근거·등급 루브릭 점수·특이사항"}]},
+    "guide": [
+      "6축 모두 기재. 근거 없으면 score=null, evidence_level=verify (중립 처리).",
+      "점수 기준: 0=반대 성향 기록, 1~2=약함/기록 적음, 3=평균적 유능, 4=명확한 대표 성과, 5=역사 전체에서 손꼽히는 대표 성과.",
+      "한 영웅에 5점 축이 3개 이상이면 근거를 재검토(예산 압축 대상). 모든 축 4~5 금지.",
+      "소설·전설 일화(삼국지연의, 구전 등)는 근거로 쓰지 않는다. 쓰려면 evidence_level=verify.",
+      "프로필은 hero_unit_basis의 병종 근거와 모순되지 않게 쓴다. 모순 시 병종을 바꾸지 말고 notes에 기록 후 문기획/임밸런에 전달.",
+      "등급은 군사적 성과 루브릭(rarity_criteria)으로 별도 제안."
+    ]
+  },
+
+  "backend_request_summary": {
+    "commands": ["game:hero-generate", "game:hero-audit"],
+    "outputs": "별도 후보 파일(heroes_candidates_generated.json, 덮어쓰기 금지), 감사 리포트(콘솔+JSON)",
+    "see": "최종 보고의 박백엔 요청서 참조"
+  }
+}
