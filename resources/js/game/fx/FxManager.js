@@ -324,7 +324,7 @@ export class FxManager {
     // 이 교전을 컷신으로 재생하는지(attack() 의 분기와 같은 조건). 스킬 컷인 생략 판단에도 쓴다
     // e(선택): attack 이벤트(교전 시점 유닛 사본 atkUnit/defUnit) — 최종 상태에서 사라진 유닛도 컷신 대상(적 턴·멀티 상대 행동·격파 교전 포함, 진영 무관)
     cutsceneOn(attackerId, targetId, e = null) {
-        return !isInstant() && !!this.d.getUnit && settings.get().cutscene !== false && settings.get().fxLevel === 0
+        return !isInstant() && !this.mobileNoCut() && !!this.d.getUnit && settings.get().cutscene !== false && settings.get().fxLevel === 0
             && !!this.d.getView(attackerId) && !!this.d.getView(targetId) && !!(this.d.getUnit(attackerId) ?? e?.atkUnit) && !!(this.d.getUnit(targetId) ?? e?.defUnit);
     }
 
@@ -615,6 +615,10 @@ export class FxManager {
         });
     }
 
+    // 2026-11-14 사용자 '모바일에서는 전투 컷씬 빼자': 모바일(Battle.cardCompact = 터치 + 세로/가로 폰/좁은 폭)은
+    //  교전 컷신(BattleCutscene) -> 월드 공격 모션, 스킬 컷인(SkillCutin) -> 생략(done 즉시). 데스크톱은 기존 그대로
+    mobileNoCut() { try { return !!this.scene?.cardCompact?.(); } catch { return false; } }
+
     // 컷인 초상 주인: 영웅·지휘관 = 본인, 부대 = 소속 지휘관(attack 컷신의 leaderOf 와 같은 규칙), 수레·배(non_hero) = 없음(병종 엠블럼)
     cutinOwner(u) {
         if (!u || u.non_hero) return null;
@@ -629,7 +633,7 @@ export class FxManager {
     // 간소화(초상 페이드 + 문구 0.7초): 그래픽 품질 '낮음' 또는 성능 보호 자동 하향 중([perf]). 연출 끄기 = 비차단 간소 표시(큐는 바로 진행). 턴 건너뛰기 중 = 생략
     cutin(e, done) {
         const u = this.d.getUnit?.(e.unitId);
-        if (!u || fx.skipTurn) { done(); return; }
+        if (!u || fx.skipTurn || this.mobileNoCut()) { done(); return; } // 모바일: 컷인 없이 바로 다음(시전 시트·attack 은 이어서 재생)
         const units = this.d.getState?.()?.units ?? [];
         const owner = this.cutinOwner(u);
         const base = { parent: this.d.cut ?? this.d.ui, W: L.lw, H: L.lh, ally: u.team !== 'enemy', type: u.type, name: e.skill ?? '필살기', who: owner ? heroPlainName(owner) : unitDisplayName(u, units), owner };
