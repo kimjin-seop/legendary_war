@@ -20,14 +20,40 @@ class PenService
     }
 
     /** 원천 키(war_attack_win|war_capture|rank_win|daily_quest)에 대응하는 config 수량으로 지급. 실제 지급량 반환(0=미지급) */
-    public function grantFor(int $userId, string $source, string $reason, string $refType, int $refId): int
+    public function grantFor(int $userId, string $source, string $reason, string $refType, int $refId, bool $ignoreCap = false): int
     {
         // 정산·수령 트랜잭션 안에서 호출되는 부가 보상이므로 앱 예외(IllegalAction: pen_cap_conflict 등)만 격리하고 로그를 남긴다(grant 는 savepoint 라 실패분만 롤백).
         // DB 예외(QueryException 등)는 삼키지 않고 재던져 정산이 실패하게 한다.
         try {
-            return $this->grant($userId, (int) config("game.pen.{$source}", 0), $reason, $refType, $refId);
+            return $this->grant($userId, (int) config("game.pen.{$source}", 0), $reason, $refType, $refId, $ignoreCap);
         } catch (\App\Game\IllegalAction $e) {
             \Illuminate\Support\Facades\Log::error('pen grant 실패(정산은 계속)', ['user' => $userId, 'source' => $source, 'ref' => "$refType:$refId", 'code' => $e->getMessage()]);
+
+            return 0;
+        }
+    }
+
+    /**
+     * 스테이지 첫 클리어 펜(스테이지당 1회). game.pen.pve_first_clear.enabled=false(기본)면 0. 멱등 ref=user_stage_progress id(유저·스테이지 유일), 일일 상한 공유.
+     * 호출부는 '이번 승리가 첫 클리어(prevClears=0)'일 때만 호출한다(소탕·재클리어 미지급). 실제 지급량 반환.
+     */
+    public function grantStageFirstClear(int $userId, int $stageId): int
+    {
+        $cfg = (array) config('game.pen.pve_first_clear', []);
+        if (empty($cfg['enabled'])) {
+            return 0;
+        }
+        $pid = (int) DB::table('user_stage_progress')->where(['user_id' => $userId, 'stage_id' => $stageId])->value('id');   // 호출 전에 진행 행이 생성됨
+
+        return $pid > 0 ? $this->grantAmount($userId, (int) ($cfg['amount'] ?? 0), 'stage_first_clear_pen', 'user_stage_progress', $pid) : 0;
+    }
+
+    private function grantAmount(int $userId, int $amount, string $reason, string $refType, int $refId): int
+    {
+        try {
+            return $this->grant($userId, $amount, $reason, $refType, $refId);
+        } catch (\App\Game\IllegalAction $e) {   // 정산은 계속(grantFor 와 동일)
+            \Illuminate\Support\Facades\Log::error('pen grant 실패(정산은 계속)', ['user' => $userId, 'ref' => "$refType:$refId", 'code' => $e->getMessage()]);
 
             return 0;
         }

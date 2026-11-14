@@ -7,6 +7,7 @@
 //   미리 보여 주고 출정만 비활성('곧 공개'). c.preview = true. MAP_FLAGS.showPlaceholders 로 숨길 수 있다.
 import { withJosa } from '../systems/josa.js';
 import { protagonistGender } from '../dialogue/dialogueData.js';
+import { stageChapterInfo } from './stageChapterInfo.js';
 // '@protagonist'(출전 강제 주인공) -> 칩 코드: 성별 기본 초상 protagonist_m|f(없으면 m)
 const protagonistChip = () => ({ code: `protagonist_${protagonistGender() === 'f' ? 'f' : 'm'}`, name_ko: '주인공' });
 
@@ -82,6 +83,23 @@ export const stagePlayable = (s) => !!s && (typeof s.playable === 'boolean' ? s.
 // 미보유 필수 영웅 [{code, name}] (BE stages().missing_heroes / 422 required_hero_missing 의 missing_heroes)
 export const missingHeroesOf = (s) => (Array.isArray(s?.missing_heroes) ? s.missing_heroes : []).filter((h) => h?.code || h?.name);
 export const missingHeroText = (list) => (list?.length ? `필요 영웅: ${list.map((h) => h.name || h.code).join(', ')}` : '');
+// 미보유 필수 영웅의 해결책 안내: GET /api/gacha 의 시나리오 배너 중 그 영웅이 추첨 풀(pool_heroes)·필수 목록(required_heroes)에 있는 배너(blocking 우선).
+// 필수 천장 문구는 서버 required_pity(enabled·threshold, 대상 targets 에 그 영웅이 있을 때)만 사용. 반환 {text, sel('theme:<key>')} | null
+export function gachaHintOf(info, missing) {
+    const codes = (missing ?? []).map((h) => h?.code).filter(Boolean);
+    if (!codes.length) return null;
+    const has = (b, c) => (Array.isArray(b?.required_heroes) && b.required_heroes.includes(c)) || (Array.isArray(b?.pool_heroes) && b.pool_heroes.some((x) => x?.hero === c));
+    const list = (Array.isArray(info?.banners) ? info.banners : []).filter((b) => b?.scenario && b.key && codes.some((c) => has(b, c)));
+    const b = list.find((x) => x.blocking) ?? list[0];
+    if (!b) return null;
+    const c = codes.find((x) => has(b, x));
+    const name = missing.find((h) => h?.code === c)?.name || c;
+    const rp = b.required_pity ?? {};
+    const k = Number(rp.threshold) || 0;
+    const tg = (Array.isArray(rp.targets) ? rp.targets : []).find((t) => t?.hero === c);
+    const pity = rp.enabled && k > 0 && tg ? ` ${k}회 뽑는 동안 나오지 않으면 다음 뽑기에서 확정됩니다${Number(tg.progress) > 0 ? `(현재 ${Math.min(Number(tg.progress), k)}/${k})` : ''}.` : '';
+    return { text: `${withJosa(name, '은/는')} 「${b.title || b.key}」 배너 뽑기로 얻을 수 있습니다.${pity}`, sel: `theme:${b.key}` };
+}
 // 잠금 사유(기존 스테이지 카드 문구와 같은 규칙). 선행 스테이지 사유가 먼저, 영웅 부족이 뒤
 export const stageLockText = (s) => {
     const pre = s && !s.unlocked ? (s.locked_by?.name ? `${withJosa(`「${s.locked_by.name}」`, '을/를')} 클리어하면 해금` : '이전 스테이지를 클리어하면 해금') : '';
@@ -145,6 +163,24 @@ function withProtagonist(items, list) {
     return need ? [{ ...protagonistChip(), role: 'key', proto: true }, ...rest] : list;
 }
 
+// 스테이지 필수 영웅 충족(BE hero_ready, 구 응답은 !hero_locked)
+export const stageHeroReady = (s) => !!s && (typeof s.hero_ready === 'boolean' ? s.hero_ready : !s.hero_locked);
+// 서가 필수 영웅 충족 = BE chapters[N].ready. 집계가 없는 챕터(필수 영웅 0명이라 서버 chapters 에 없음)·구 응답은 스테이지 hero_ready 전원 충족
+export const chapterHeroReady = (items, agg = null) => (typeof agg?.ready === 'boolean' ? agg.ready : (items ?? []).every(stageHeroReady));
+// 서가 표시 순서(사용자 2026-11-14 '영웅 충족되는 시나리오순으로 상단정렬'): 충족 서가 먼저.
+//  충족 묶음 = 서버 스테이지 순서의 첫 등장 순(서버가 충족 스테이지를 기존 순서대로 위에 둠, chapter_order 에 없는 필수 영웅 0명 서가 포함)
+//  미충족 묶음 = chapter_order 배열 순서(없으면 첫 등장 순). sort_order·id 로 FE 재정렬하지 않는다. 제자리 정렬(groups 변경)
+export function orderGroupsByHeroReady(groups, chAgg = null, chOrder = null) {
+    const pos = new Map((Array.isArray(chOrder) ? chOrder : []).map((c, i) => [Number(c), i]));
+    const rank = groups.map((g, i) => {
+        const ready = chapterHeroReady(g.items, chAgg?.[String(g.ch)] ?? null);
+        return { g, tier: ready ? 0 : 1, k: !ready && pos.has(g.ch) ? pos.get(g.ch) : groups.length + i, i };
+    });
+    rank.sort((a, b) => (a.tier - b.tier) || (a.tier ? a.k - b.k : a.i - b.i) || (a.i - b.i));
+    rank.forEach((r, i) => { groups[i] = r.g; });
+    return groups;
+}
+
 // stages: gameApi.stages() 결과. chapterOf/chapterTitle: Lobby 의 stageChapter/chapterTitle(문구 단일 출처)
 // 반환: { campaigns[], recKey, usable } — usable=false 면 호출 측이 기존 카드 그리드로 폴백
 // hidden(선택): GET /api/hidden-chapter 응답. 잠김이면 ch999 서가 메타·스테이지를 지도에서 빼고 이름·위치 없는 '아직 열리지 않은 책장' 항목(hiddenLocked, 진행도 N/M)만 넣는다.
@@ -154,8 +190,12 @@ export function buildCampaignMap(stages, meta, { chapterOf, chapterTitle, hidden
     const shelves = (Array.isArray(meta?.shelves) ? meta.shelves : []).filter((x) => hidden?.unlocked || Number(x.chapter) !== hiddenChapter); // 해금 전(또는 응답 없음)에는 ch999 서가 메타(이름·위치)를 쓰지 않는다
     if (!hidden?.unlocked) stages = (stages ?? []).filter((s) => chapterOf(s) !== hiddenChapter); // 잠김(또는 응답 없음)이면 ch999 스테이지·메타를 지도에서 제외
     const stageMeta = new Map((Array.isArray(meta?.stages) ? meta.stages : []).map((m) => [m.stage_code, m]));
+    // 챕터 집계: 배열 속성(.chapters/.chapterOrder)이 filter() 로 사라졌으면 마지막 /api/stages 응답 보관본
+    const chAgg = stages?.chapters ?? stageChapterInfo.chapters;
+    const chOrder = stages?.chapterOrder ?? stageChapterInfo.order;
     const groups = [];
     (stages ?? []).forEach((s) => { const ch = chapterOf(s); let g = groups.find((x) => x.ch === ch); if (!g) { g = { ch, items: [] }; groups.push(g); } g.items.push(s); });
+    orderGroupsByHeroReady(groups, chAgg, chOrder);
     const make = (ch, items, sh) => {
         const st = items.map((s, k) => {
             const m = stageMeta.get(s.code) ?? null;
@@ -185,7 +225,8 @@ export function buildCampaignMap(stages, meta, { chapterOf, chapterTitle, hidden
             stages: st,
             unlocked: items.some(stagePlayable), // 출정 가능(선행 해금 + 필수 영웅 보유) 스테이지가 하나라도 있으면 열림
             opened: items.some((s) => s.unlocked), // 선행 조건만 본 해금(장수 칩 실루엣 판정용, 기존 의미)
-            heroNeed: heroNeedOf(items, stages?.chapters?.[String(ch)] ?? null),
+            heroNeed: heroNeedOf(items, chAgg?.[String(ch)] ?? null),
+            heroReady: items.length > 0 && chapterHeroReady(items, chAgg?.[String(ch)] ?? null), // 필수 영웅 전원 보유(서버 chapters[N].ready). 목록 '출전 가능' 배지 판정
             vs: versusOf(items, items.find((s) => stagePlayable(s) && !(s.clear_count > 0)) ?? items.find(stagePlayable) ?? items[0]),
             cleared, total: items.length,
             stars: items.reduce((n, s) => n + (s.best_stars ?? 0), 0), maxStars: items.length * 3,

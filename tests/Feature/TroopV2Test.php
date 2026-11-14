@@ -32,8 +32,8 @@ class TroopV2Test extends TestCase
         $this->artisan('game:seed')->assertSuccessful();
         $h = DB::table('heroes')->join('unit_types', 'unit_types.id', '=', 'heroes.unit_type_id')->where('heroes.code', 'leonidas')->first(['unit_types.code as t', 'heroes.hp_bonus', 'heroes.atk_bonus', 'heroes.def_bonus']);
         $this->assertSame('sword', $h->t);
-        // 이관 전: heavy(95/22/15) + 보너스 12/2/2 = 107/24/17 (이후 레오니다스 능력치 재배분 v5·v6·체력 10 고정으로 94/30/15) -> sword(84/28/10) + 26/-3/8
-        $this->assertSame([94, 30, 15], [84 + $h->hp_bonus, 28 + $h->atk_bonus, 10 + $h->def_bonus]);
+        // 이관 전: heavy(95/22/15) + 보너스 12/2/2 = 107/24/17 (이후 레오니다스 능력치 재배분 v5·v6·체력 10 고정으로 94/30/15, 이후 히어로 감사 조정으로 def 보너스 4 -> 94/30/14) -> sword(84/28/10) + 26/-3/8
+        $this->assertSame([94, 30, 13], [84 + $h->hp_bonus, 28 + $h->atk_bonus, 10 + $h->def_bonus]);   // 등급 격차 v1(2026-11-14): 레오니다스 def 보너스 4 -> 3
         $this->assertSame(0, DB::table('heroes')->join('unit_types', 'unit_types.id', '=', 'heroes.unit_type_id')->where('unit_types.code', 'heavy')->where('heroes.code', 'not like', 'protagonist%')->count());
         $this->assertSame(0, DB::table('heroes')->where('troop_type', 'heavy')->count());
     }

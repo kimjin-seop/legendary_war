@@ -34,6 +34,12 @@ class QuestService
         return array_values((array) config('game.quests.defs'));
     }
 
+    /** 표시용 펜 보상 = 일일 퀘스트 공통 수령 펜 + 퀘스트 개별 pen(일일 상한에 걸리면 실제 지급은 더 적을 수 있음) */
+    private function penReward(array $d): int
+    {
+        return ($d['kind'] === 'daily' ? (int) config('game.pen.daily_quest', 0) : 0) + (int) ($d['pen'] ?? 0);
+    }
+
     private function periodKey(string $kind): string
     {
         return match ($kind) {
@@ -102,7 +108,7 @@ class QuestService
                 'code' => $d['code'], 'title' => $d['title'], 'desc' => $d['desc'], 'target' => (int) $d['target'], 'progress' => $progress,
                 'completed' => $done, 'claimed' => $claimed, 'claimable' => $can,
                 'claim_blocked' => $done && ! $claimed && ! $allowed ? 'guest_not_allowed' : null,
-                'reward' => ['gold' => (int) $d['gold'], 'user_exp' => (int) $d['user_exp']],
+                'reward' => ['gold' => (int) $d['gold'], 'user_exp' => (int) $d['user_exp'], 'pen' => $this->penReward($d)],
             ];
         }
         $dailyEnd = CarbonImmutable::parse(Period::dailyKey(), Period::TZ)->addDay()->setTime(Period::RESET_HOUR, 0);
@@ -146,11 +152,12 @@ class QuestService
             if ((int) $d['user_exp'] > 0) {
                 $this->progress->addUserExp($user, (int) $d['user_exp']);
             }
-            $d['kind'] === 'daily' && app(PenService::class)->grantFor($user->id, 'daily_quest', 'quest_pen', 'user_quest', (int) $r->id);   // 펜: 일일 퀘스트 수령
+            $d['kind'] === 'daily' && app(PenService::class)->grantFor($user->id, 'daily_quest', 'quest_pen', 'user_quest', (int) $r->id, true);   // 펜: 일일 퀘스트 수령(일일 상한 제외)
+            (int) ($d['pen'] ?? 0) > 0 && app(PenService::class)->grant($user->id, (int) $d['pen'], 'daily_quest_pen', 'user_quest', (int) $r->id, true);   // 퀘스트 개별 펜 보상(일일 상한 제외, 멱등)
         });
         $all = $this->list($user);
         $list = $d['kind'] === 'main' ? $all['main'] : $all[$d['kind']]['quests'];
 
-        return ['claimed' => true, 'reward' => ['gold' => (int) $d['gold'], 'user_exp' => (int) $d['user_exp']], 'quest' => collect($list)->firstWhere('code', $d['code']), 'claimable_count' => $all['claimable_count']];
+        return ['claimed' => true, 'reward' => ['gold' => (int) $d['gold'], 'user_exp' => (int) $d['user_exp'], 'pen' => $this->penReward($d)], 'quest' => collect($list)->firstWhere('code', $d['code']), 'claimable_count' => $all['claimable_count']];
     }
 }

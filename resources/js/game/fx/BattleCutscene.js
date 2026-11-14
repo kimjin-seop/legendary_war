@@ -27,8 +27,10 @@ import { microPlayable, buildMicro, runMicro } from './MicroCutscene.js'; // 병
 //   result: { dmgToDef, dmgToAtk, soldiersLostDef, soldiersLostAtk, defenderDead, attackerDead } (soldiers 값이 없으면 HP 비율로 추정)
 const MAX_SOLDIERS = 10;
 // 컷신 초상 후보(원본 > 썸네일). manifest 에 있는 초상이 하나도 없으면 문화권·병종 병사 초상(portrait.troop.<culture>.<troop>, 문화권 폴백 포함)을 마지막 후보로
+// 일반 병사 부대(troop, 2026-11-14 사용자 '일반 병종이랑 싸우면 소속 영웅 초상이 나옴'): 소속 영웅 초상으로 넘어가지 않게 leader 없이 조회(병종 초상·특수 병사 외형 초상만)
 function portraitCands(s, leaderStub) {
-    const lgs = [unitPortraitLogical(s.unit, leaderStub, { thumb: false }), unitPortraitLogical(s.unit, leaderStub, { thumb: true })].filter(Boolean);
+    const stub = s.unit?.kind === 'troop' ? null : leaderStub;
+    const lgs = [unitPortraitLogical(s.unit, stub, { thumb: false }), unitPortraitLogical(s.unit, stub, { thumb: true })].filter(Boolean);
     if (!lgs.some((k) => manifestHas(k))) { const fb = troopPortraitLogical(s.unit?.troop_type ?? s.unit?.type, s.unit?.culture ?? leaderStub?.culture ?? null, { thumb: false }); if (fb) lgs.push(fb); }
     return lgs;
 }
@@ -731,7 +733,7 @@ export class BattleCutscene {
         // 중앙 VS(마법이면 '마법', 후면이면 '배후!')
         this.vsText = sc.add.text(W / 2, vsY, 'VS', bold(vsSize, '#f0d58c', { fontStyle: 'italic bold', stroke: '#2a1a05', strokeThickness: Math.max(5, vsSize / 9) })).setOrigin(0.5);
         panel.add(this.vsText);
-        // 능력치(예전 표 자리): 가운데 라벨 AT/DF + 좌우 대칭 게이지(공격측 왼쪽, 방어측 오른쪽) + 바깥 끝 숫자(보정 부호·색). 상한 = STAT_CAP(공 90·수 45)
+        // 능력치(예전 표 자리): 가운데 라벨 AT/DF + 좌우 대칭 게이지(공격측 왼쪽, 방어측 오른쪽) + 바깥 끝 숫자(보정 부호·색). 상한 = STAT_CAP(공 92·수 54)
         const [a, d] = this.sides;
         const lab = compact ? 15 : 22; const numW = compact ? 40 : 56;
         const innerL = a.countText.x + (compact ? 0 : a.countText.width) + 10; // 게이지가 병력 숫자·이름 열을 침범하지 않게(데스크톱)
@@ -921,7 +923,7 @@ export class BattleCutscene {
         this.vsText = sc.add.text(W / 2, vsY, 'VS', bold(vsSize, '#f0d58c', { fontStyle: 'italic bold', stroke: '#2a1a05', strokeThickness: Math.max(4, vsSize / 9) })).setOrigin(0.5);
         panel.add(this.vsText);
         // 중앙 능력치 게이지(2026-11-04 사용자 요청): 숫자 표 대신 좌우 대칭 막대. 공격측 = 가운데에서 왼쪽으로, 방어측 = 오른쪽으로 뻗는다.
-        //  막대 상한 = 영웅 상세 카드와 같은 STAT_CAP(공 90·수 45, 임밸런 근거) -> 양측·전투 간 비교 일관. 기본 = 금색, 가산 보정 = 녹색 연장, 감산 = 붉은 빈칸 + 숫자 기호(+/−)
+        //  막대 상한 = 영웅 상세 카드와 같은 STAT_CAP(공 92·수 54, 2026-11-14 재산정) -> 양측·전투 간 비교 일관. 기본 = 금색, 가산 보정 = 녹색 연장, 감산 = 붉은 빈칸 + 숫자 기호(+/−)
         //  보너스 줄(데스크톱·세로 폰): 상성(금/적 + ▲▼)·지형(녹/적 + 부호)·오라(청)·스킬(보라) 칩을 가운데에서 바깥으로. 가로 폰(short)은 미니 게이지 2줄만(칩 생략, 상성은 2줄 칩에 있음)
         const [a, d] = this.sides;
         const CAP = { AT: STAT_CAP.at, DF: STAT_CAP.df };
@@ -999,10 +1001,11 @@ export class BattleCutscene {
         const leaderStub = spec.leader ?? (ph ? { hero: ph } : null);
         let lgs = [];
         if (u.kind !== 'troop') lgs = uniq(u, leaderStub);
-        else { const ld = spec.leader; if (ld && ld !== u && ld.kind !== 'troop' && !u.non_hero) lgs = uniq(ld, null); }
+        // 부대(troop)는 소속 지휘관 고유 초상을 쓰지 않는다(2026-11-14 사용자 지시: 일반 병종은 병종 초상). 아래 폴백의 병종 초상(portrait.troop.<문화권>.<병종>)으로
         if (lgs.length) return lgs;
         // 폴백(사용자 2026-11-04 '양쪽 초상은 항상'): NPC·기본 부장 초상(unitPortraitLogical 의 일반 경로) -> 문화권·병종 병사 초상
-        const gen = [unitPortraitLogical(u, leaderStub, { thumb: false }), unitPortraitLogical(u, leaderStub, { thumb: true }),
+        const genStub = u.kind === 'troop' ? null : leaderStub; // 부대: leader 폴백(소속 영웅 초상) 차단
+        const gen = [unitPortraitLogical(u, genStub, { thumb: false }), unitPortraitLogical(u, genStub, { thumb: true }),
             troopPortraitLogical(u.troop_type ?? u.type, u.culture ?? spec.leader?.culture ?? null, { thumb: false }), troopPortraitLogical(u.troop_type ?? u.type, u.culture ?? spec.leader?.culture ?? null, { thumb: true })]
             .filter((k) => typeof k === 'string' && manifestHas(k));
         return [...new Set(gen)]; // 비면 buildCutIn 이 실루엣

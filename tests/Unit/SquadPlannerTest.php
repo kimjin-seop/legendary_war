@@ -25,6 +25,9 @@ class SquadPlannerTest extends TestCase
         $this->assertSame(['archer', 'mage', 'archer'], $p[0]);     // 프리셋을 3기로 순환
         $this->assertSame(['archer', 'sword'], $p[1]);              // 프리셋 없음 -> 병종 기본 편성
         $this->assertSame(['mage'], $p[2]);                         // 사용자 선택 그대로(슬롯보다 적어도 허용)
+        // 등급별 상대 해금: slots_by_rarity 가 있으면 영웅 등급 표를 쓰고, 없는 등급은 slots 폴백
+        $r = $c + ['slots_by_rarity' => ['C' => [[1, 2], [10, 3], [14, 4]]]];
+        $this->assertSame([3, 4, 3], [SquadPlanner::count(13, 0, $r, 'C') , SquadPlanner::count(14, 0, $r, 'C'), SquadPlanner::count(13, 0, $r, 'S')]);
         // troop_bonus는 상한 4까지만
         $this->assertCount(4, SquadPlanner::plan([$e('sword', 20, null, null, 3)], $c)[0]);
         // 3영웅 x (1+4)=15 > 12 -> 가장 많은 영웅부터 균등 감축: 합 12

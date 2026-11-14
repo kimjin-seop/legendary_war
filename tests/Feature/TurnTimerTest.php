@@ -24,8 +24,9 @@ class TurnTimerTest extends TestCase
         $h = ['X-Guest-Token' => $r->json('guest_token')];
         $id = $this->withHeaders($h)->postJson('/api/stages/1/challenge')->assertCreated()->json('battle.battle_id');
         $party = $this->withHeaders($h)->getJson('/api/party')->json('party');
+        $pro = $this->withHeaders($h)->getJson("/api/battles/$id/deployment")->json('forced.0.user_hero_id');   // 고정 슬롯(f1 2,7) 필수 주인공
         $this->putDeployment($h, $id, [
-            ['user_hero_id' => $party[0], 'x' => 2, 'y' => 3], ['user_hero_id' => $party[1], 'x' => 1, 'y' => 3],
+            ['user_hero_id' => $pro, 'x' => 2, 'y' => 7], ['user_hero_id' => $party[0], 'x' => 2, 'y' => 2], ['user_hero_id' => $party[1], 'x' => 2, 'y' => 11],
         ])->assertOk();
         $this->withHeaders($h)->postJson("/api/battles/$id/confirm")->assertOk()->assertJsonPath('battle.status', 'in_progress');
 
@@ -50,7 +51,7 @@ class TurnTimerTest extends TestCase
         [$h, $id] = $this->startBattle();
         DB::table('battles')->where('id', $id)->update(['turn_deadline_at' => now()->subSeconds(30)]);   // 구 전투(마감 잔존) 호환
 
-        $this->withHeaders($h)->postJson("/api/battles/$id/actions", ['type' => 'move', 'unit_id' => 'a1', 'x' => 2, 'y' => 4])->assertOk()->assertJsonPath('turn_timed_out', false);   // a0=필수 주인공, a1=첫 배치 파티 영웅(2,3)
+        $this->withHeaders($h)->postJson("/api/battles/$id/actions", ['type' => 'move', 'unit_id' => 'a1', 'x' => 3, 'y' => 2])->assertOk()->assertJsonPath('turn_timed_out', false);   // a0=필수 주인공, a1=첫 배치 파티 영웅(슬롯 s2 2,2)
         $b = $this->withHeaders($h)->getJson("/api/battles/$id")->assertOk()->json('battle');
         $this->assertSame(1, $b['turn']);   // 자동 end_turn 없음
         $this->assertNull($b['turn_deadline']);

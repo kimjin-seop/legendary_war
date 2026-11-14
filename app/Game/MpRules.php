@@ -28,7 +28,7 @@ final class MpRules
         $base = self::RARITY_BASE[strtoupper((string) $rarity)] ?? self::RARITY_BASE['C'];
         $caster = in_array($unitType, self::CASTER_TYPES, true) ? 20 : 0;   // 마법사·치유사 +20
 
-        return max(30, min(160, $base + 2 * (max(1, $level) - 1) + $caster + LevelRewards::mpBonus($level)));   // 레벨 마일스톤 계단 보너스(config game.level_rewards)
+        return max(30, min(160, $base + 2 * (max(1, $level) - 1) + $caster + LevelRewards::mpBonus($level, $rarity)));   // 레벨 마일스톤 계단 보너스(config game.level_rewards)
     }
 
     public static function startMp(int $mpMax, ?array $opts = null): int

@@ -8,6 +8,7 @@ import { cutsceneBgGroups } from '../fx/BattleCutscene.js';
 import { preloadSkillFx, playSkillSheet, anchorPoint, anchorMode } from '../fx/SkillFxSheet.js';
 import { resolveSkillFxKey } from '../fx/skillFxResolve.js';
 import { trackLoadProgress } from '../ui/LoadProgress.js';
+import { createLoadingView } from '../ui/LoadingView.js';
 import { skinImage, slice, icon } from '../ui/skin.js';
 import { objIcon, objKind } from '../ui/GameIcons.js';
 import { FxManager } from '../fx/FxManager.js';
@@ -55,11 +56,12 @@ import { resultExtraLines, playAfterStage, cachedStage, stagesUnlockedBy, object
 import { StatBar } from '../ui/StatBar.js';
 import { MiniMap } from '../ui/MiniMap.js'; // (CostMeter 행동 게이지는 2026-11-03 제거)
 import { ContextMenu, ForecastBubble, UnitTip, placeNear } from '../ui/ContextMenu.js';
+import { UnitInfoTip, tipEffects, tipOwnAura } from '../ui/UnitInfoTip.js'; // 유닛 정보 툴팁 재구성(2026-11-14). UnitTip 은 다른 호출 호환용으로 유지
 import { activeSkillsOf, skillBlockReason, skillLabel, skillDisplayName, skillMpOf } from '../systems/skills.js';
 import { SkillMenu } from '../ui/SkillMenu.js';
 import { ensureSkillIcons, skillIconFrame, skillIconsListed, skillIconsReady } from '../ui/SkillIcon.js';
 import { FacingPicker } from '../ui/FacingPicker.js';
-import { flankOf, FLANK_LABEL, defaultLook } from '../systems/facing.js';
+import { flankOf, FLANK_LABEL, campLook } from '../systems/facing.js';
 import { openSettings } from '../ui/SettingsModal.js';
 import { showToast, showNotice } from '../ui/Toast.js';
 import { makeText, fitText, stack, addBackdrop } from '../ui/common.js';
@@ -69,7 +71,7 @@ import { u32AnimFrame } from '../data/unityTileset.js';
 import { mountRoomChat, markRoomChatUnavailable } from '../ui/RoomChat.js';
 import { BattleGuide } from '../tutorial/battleGuide.js';
 import { drawMovePath, predictFollowers, drawFollowerMarks } from '../ui/MovePreview.js';
-import { guidePending, isNewFlowUser, conceptPopup } from '../tutorial/guideFlow.js';
+import { guidePending, conceptEligible, conceptPopup } from '../tutorial/guideFlow.js';
 
 // 서버 판정 전투 씬: 렌더·입력만 담당. 상태는 battleStore(서버 응답), 예측은 systems/combat(참고용), 연출은 FxManager.
 // 좌표계: 설계 단위(unit). 카메라 zoom = L.u. 월드(맵)는 타일 원본(assets.tileSrc: 64 우선/32 폴백)을 정수 배율 k 로 표시한다.
@@ -208,6 +210,14 @@ function mpTextOf(s, u, { short = false } = {}) {
 const SUBOBJ_TYPE_LABEL = { protect_tiles: '지정 칸 지키기', unit_survive: '아군 생존', hold_zone: '지역 확보' };
 const subObjLabel = (o) => o?.label || SUBOBJ_TYPE_LABEL[o?.type] || o?.id || '';
 
+// 결과창 영웅 이름(칭호 없이): short_name > 정식 이름. 이름 문자열이 '칭호 이름' 으로 합쳐 내려오면 칭호 접두를 뗀다(칭호 필드가 있을 때만, 모호하면 그대로)
+function pureHeroName(u) {
+    let n = String(heroLabel(u, { compact: true }) ?? '');
+    const t = String(u?.title ?? '').trim();
+    if (t && n.startsWith(`${t} `) && n.length > t.length + 1) n = n.slice(t.length + 1);
+    return n || String(u?.hero ?? '?');
+}
+
 export class BattleScene extends Phaser.Scene {
     static LOAD_SLOW_MS = 15000; // 로딩 지연 안내 기준(ms)
     constructor() { super('Battle'); }
@@ -221,7 +231,7 @@ export class BattleScene extends Phaser.Scene {
         const fresh = data?.battleId || data?.stageId || data?.roomCode || data?.fresh || !BattleScene.store || !data?.resume;
         if (fresh) { BattleScene.store?.stop?.(); BattleScene.store = createBattleStore(); BattleScene.startData = { mode: data?.mode, roomCode: data?.roomCode, battleId: data?.battleId, stageId: data?.stageId, stageCode: data?.stageCode ?? null, territory: data?.territory ?? null }; }
         this.store = BattleScene.store;
-        { const chN = Number(/^ch(\d+)_/.exec(BattleScene.startData?.stageCode ?? '')?.[1] ?? 0); if (chN) loadCampaign(chN).catch(() => {}); } // 전투 중 대사(cue·이벤트) 화자 이름표(speaker_profile) 미리 등록(코드 노출 방지, 실패해도 무시)
+        { const sc = BattleScene.startData?.stageCode ?? ''; const chN = /^stage_\d+$/.test(sc) ? 30 : Number(/^ch(\d+)_/.exec(sc)?.[1] ?? 0); if (chN) loadCampaign(chN).catch(() => {}); } // 전투 중 대사(cue·이벤트) 화자 이름표(speaker_profile) 미리 등록(코드 노출 방지, 실패해도 무시)
         setCaptainStage(BattleScene.startData?.stageCode ?? null); // 기본 부장 초상(정보 카드·컷신) stage_group 판정 + 매핑 미리 받기
         this.modalCount = 0;
         this.skillIconReq = false; // 스킬 아이콘 지연 로드 요청 1회 플래그(씬 재시작 시 초기화)
@@ -243,6 +253,7 @@ export class BattleScene extends Phaser.Scene {
         this.bubble = null;
         this.tip = null;
         this.worldBuilt = false;
+        this.loadingShown = false; // 로딩 화면 첫 표시 지연(200ms) 판정용, 씬 재사용 시 초기화
         this.touch = false;
         this.infoOpen = false; // 좌측 정보/로그 패널: 기본 접힘
         this.logSeen = null; // 마지막으로 처리한 store.logSeq(null = 첫 refresh 에서 현재값으로 맞춤: 재진입 시 지난 로그 알림 폭주 방지)
@@ -428,7 +439,7 @@ export class BattleScene extends Phaser.Scene {
         this.unsub.push(store.on('change', () => this.refresh()), store.on('event', (e) => this.onEvent(e)));
         // 튜토리얼 개편: 새 흐름 사용자의 다음 새 스테이지 전투 1회만 조작 안내(G1~G5). 방 PvP 제외. 개념 팝업은 새 흐름 사용자에게 처음 마주칠 때 1회
         this.guide = !['room', 'war'].includes(BattleScene.startData?.mode) && guidePending() ? new BattleGuide(this) : null;
-        if (BattleScene.startData?.mode !== 'room' && isNewFlowUser()) this.unsub.push(store.on('change', () => this.guidePopups()));
+        if (BattleScene.startData?.mode !== 'room' && conceptEligible()) this.unsub.push(store.on('change', () => this.guidePopups()));
         this.events.once('shutdown', () => {
             if (window.__tv2Diag) delete window.__tv2Diag; // 씬 클로저 해제(정검수 Low)
             // 열린 대사 오버레이 정리(done 미호출) + 파괴된 모달 참조 해제(재시작 후 낡은 참조로 close()/중복 차단 방지)
@@ -738,7 +749,7 @@ export class BattleScene extends Phaser.Scene {
             v.setHp(u.hp, false);
             v.setActed(this.dimOf(u, s));
             v.setFacing(u.facing ?? null); // 서버 방향 시스템 off 면 null -> 마커 없음
-            if (!v.look) v.setLook(defaultLook(u, s.units)); // 표시용 시선 초기값(서버 facing 이 있으면 위에서 이미 설정)
+            if (!v.look) v.setLook(campLook(u, s.units)); // 표시용 시선 초기값: 진영 대치 방향(좌/우, 2026-11-14). 서버 facing 이 있으면 위에서 이미 설정
             v.setWater(waterStateOf(u, s.map.tiles?.[u.y]?.[u.x]), u); // 수상: 서버 boarded/naval/on_water(없으면 지형 추정) -> 배 오버레이·그림자
         });
         [...this.views.keys()].forEach((id) => { if (!ids.has(id)) { this.views.get(id).destroy(); this.views.delete(id); } });
@@ -1128,8 +1139,9 @@ export class BattleScene extends Phaser.Scene {
         if (!this.worldBuilt) {
             const a = lay.map;
             this.loading?.destroy();
-            this.loading = makeText(this, a.x + a.w / 2, a.y + a.h / 2, '전투를 불러오는 중…', { size: 22, heading: true, color: CSS.muted, origin: [0.5, 0.5] });
-            ui.add(this.loading);
+            void a; // 2026-11-14 로딩 화면 통일: 지도 가운데 글자 대신 로딩 화면(LoadingView 덮개·대기 바, HUD 100 위·모달 1000 아래). 재배치 때는 즉시
+            this.loading = createLoadingView(this, { tagline: '전투를 불러오는 중…', overlay: true, indeterminate: true, delay: this.loadingShown ? 0 : 200 });
+            this.loadingShown = true;
         }
     }
 
@@ -1262,7 +1274,7 @@ export class BattleScene extends Phaser.Scene {
         // 상단 띠 제거(2026-11-03): 상단은 턴 칩·우상단 버튼 줄(로그 버튼 왼쪽 끝부터)만 HUD. 하단 '턴 종료'·도구 줄·미니맵 포함
         const topBtns = q.y <= l.barH && q.x >= (this.logBtn?.x ?? L.lw) - 4;
         const chip = this.turnChip?.scene ? { x: this.turnChip.x, y: this.turnChip.y, w: this.turnChip.width, h: this.turnChip.height } : null;
-        return topBtns || inR(chip) || inR(this.toolRect ?? l.tools) || inR(this.followRect) || inR(this.foldRect) || inR(l.endBtn) || !!this.minimap?.contains(q.x, q.y) || (this.squadStrip?.visible && inR(this.squadStripRect)) || [this.panelB, this.card, this.guide].some((p) => p?.contains(q.x, q.y));
+        return topBtns || inR(chip) || inR(this.toolRect ?? l.tools) || inR(this.followRect) || inR(this.foldRect) || inR(l.endBtn) || !!this.minimap?.contains(q.x, q.y) || (this.squadStrip?.visible && inR(this.squadStripRect)) || [this.panelB, this.card, this.guide, this.__briefQ?.cur].some((p) => p?.contains(q.x, q.y));
     }
 
     overPopup(q) { return [this.menuCtx, this.bubble, this.facingPicker].some((o) => o && o.contains(q.x, q.y)); }
@@ -1382,7 +1394,7 @@ export class BattleScene extends Phaser.Scene {
         // 연출 cue parallel(group) 순서 보장: cue·cue 보행 move 가 아닌 연출 이벤트가 오면 모아 둔 그룹을 먼저 큐에 넣는다(CuePlayer.flushGroup)
         if (e.type !== 'cue' && !(e.type === 'move' && e.walk)) this.cues?.flushGroup();
         if (e.type === 'move' && e.walk) { this.cues?.walkUnit(e); return; } // 14절 실제 유닛 보행(경로·속도·충돌 회피·병렬)
-        if (e.type === 'cursor') { if (this.worldBuilt) this.placeCursor(true); }
+        if (e.type === 'cursor') { if (this.worldBuilt) { this.placeCursor(true); this.expandNames(); } }
         else if (e.type === 'mp') { if (!this.worldBuilt || !this.card?.scene) return; this.cardState = null; this.refreshCard?.(); this.refreshAction?.(); } // 재시작 직후(buildUI 전) 이전 실행의 파괴된 카드에 접근하지 않게(gacha110 pageerror 'reading sys') // MP 변화: 카드 MP 바·정보 띠 갱신
         else if (e.type === 'toast') this.notice(e.message, 'warn', e.ms); // 행동 불가 사유 등: 설정과 무관하게 상단 알림 칩(직접 조작에 대한 응답)
         else if (e.type === 'loadFailed') this.showLoadError(e);
@@ -1424,7 +1436,7 @@ export class BattleScene extends Phaser.Scene {
             const col = e.team === 'ally' ? COLOR.ally : COLOR.danger;
             units.forEach((u, i) => {
                 let v = this.views.get(u.id);
-                if (!v) { v = new UnitView(this, this.unitLayer, u); this.views.set(u.id, v); v.setLook(defaultLook(u, s.units)); }
+                if (!v) { v = new UnitView(this, this.unitLayer, u); this.views.set(u.id, v); v.setLook(campLook(u, s.units)); }
                 v.setWater(waterStateOf(u, s.map.tiles?.[u.y]?.[u.x]), u);
                 if (isInstant()) return;
                 v.c.setAlpha(0);
@@ -2059,6 +2071,7 @@ export class BattleScene extends Phaser.Scene {
             });
         }
         this.views.forEach((v, id) => { const u = this.store.get(id); if (u) v.setActed(this.dimOf(u, s)); v.setSelected(id === s.selectedId); });
+        this.expandNames();
         this.refreshAuraBadges(s);
     }
 
@@ -2177,6 +2190,13 @@ export class BattleScene extends Phaser.Scene {
     }
 
     // 오라 범위 안 유닛 머리 위 배지 + 첫 오라 적용 안내(한 번만, settings.tips=false 로 끔)
+    // 이름표 확장(2026-11-14): 선택 유닛 + 커서(호버·키보드 커서)가 놓인 칸의 유닛만 전체 이름, 나머지는 짧은 이름
+    expandNames() {
+        const s = this.store?.state; if (!s || !this.views) return;
+        const c = s.cursor;
+        this.views.forEach((v, id) => { const u = this.store.get(id); v.setNameExpanded?.(!!u && (id === s.selectedId || (!!c && u.x === c.x && u.y === c.y))); });
+    }
+
     refreshAuraBadges(s) {
         let firstAlly = null;
         this.views.forEach((v, id) => {
@@ -2189,7 +2209,7 @@ export class BattleScene extends Phaser.Scene {
             if (src.length && u.team === 'ally' && !firstAlly) firstAlly = src[0].cmd;
         });
         const calm = s.side === 'ally' && !s.busy && !this.fx?.playing; // 연출·적 페이즈 중이면 다음 갱신으로 미룸
-        if (firstAlly && calm && s.status === 'battle' && !this.storyDialogue && isNewFlowUser()) { if (!this.guideActive() && settings.get().tips !== false) conceptPopup(this, 'C_aura'); } // 새 흐름: 오라 개념 팝업(안내 진행 중엔 미룸, srpg.tip.aura 공유)
+        if (firstAlly && calm && s.status === 'battle' && !this.storyDialogue && conceptEligible()) { if (!this.guideActive() && settings.get().tips !== false) conceptPopup(this, 'C_aura'); } // 개념 팝업 대상(새 흐름 + 기존 유저, 2026-11-14 시오리 브리핑): 오라 개념 팝업(안내 진행 중엔 미룸, srpg.tip.aura 공유)
         else if (firstAlly && calm && s.status === 'battle' && !this.storyDialogue && settings.get().tips !== false && !localStorage.getItem('srpg.tip.aura')) { // 내레이션·개전 배너 중에는 오라 안내를 미룬다(내레이션을 가리지 않게)
             try { localStorage.setItem('srpg.tip.aura', '1'); } catch { /* 무시 */ }
             this.auraFlash = { id: firstAlly.id, until: this.time.now + 3500 };
@@ -2212,6 +2232,11 @@ export class BattleScene extends Phaser.Scene {
             g.fillStyle(0xd9a86c, 1).fillTriangle(x0, y0 - 4, x0 + 18, y0 - 4, x0 + 14, y0).fillTriangle(x0, y0 - 4, x0 + 4, y0, x0 + 14, y0);
             g.lineStyle(1.5, 0xf3e2c0, 1).lineBetween(x0 + 9, y0 - 4, x0 + 9, y0 - 12);
         }
+    }
+
+    // 유닛 정보 툴팁(헤더·병력 pip·받는 효과·상성 2열·주의 띠, ui/UnitInfoTip). 폭 = 화면 폭 - 16 이하(390 대응)
+    unitInfoTip(u, s = this.store.state) {
+        return new UnitInfoTip(this, { unit: u, name: unitDisplayName(u, s.units, { short: L.lw < 760 }), effects: tipEffects(auraSources(s.units, u, u.x, u.y), u), ownAura: tipOwnAura(u), maxW: Math.min(280, L.lw - L.safe.l - L.safe.r - 16) });
     }
 
     // 유닛 툴팁 상성 줄(9종, MATCHUPS 생성): 유리 = 아군색, 불리·주의 = 위험색
@@ -2504,8 +2529,8 @@ export class BattleScene extends Phaser.Scene {
         else if (s.phase === 'confirm' && s.forecast) {
             const fc = s.forecast;
             const ct = fc.counter?.troop;
-            const counterTxt = fc.counter ? `반격 병력 -${ct?.loss ?? '?'}${ct ? ` (내 병력 ${ct.before}→${ct.after})` : ''}` : (fc.remaining === 0 ? '격파 예상' : '반격 없음');
-            head = fc.skill ? `스킬 예측 · ${fc.skill.name} ${fc.skill.powerPct}%` : '전투 예측'; headFb = fc.skill ? `${fc.skill.name} ${fc.skill.powerPct}%` : undefined; brief = `병력 -${fc.troop?.loss ?? '?'} · ${counterTxt}`;
+            const counterTxt = fc.counter ? `반격 병력 -${ct?.loss ?? '?'}${ct ? ` (내 병력 ${ct.before}→${ct.after})` : ''}` : (fc.remaining === 0 ? (fc.microCounter ? '격파 예상 · 동시 교전: 반격 피해 가능' : '격파 예상') : '반격 없음');
+            head = fc.skill ? `스킬 예측 · ${fc.skill.name} ${fc.skill.powerPct}%` : '전투 예측'; headFb = fc.skill ? `${fc.skill.name} ${fc.skill.powerPct}%` : undefined; brief = `병력 -${fc.troop?.loss ?? '?'} · ${counterTxt}${fc.tentative ? ' · 참고용(변동 가능)' : ''}`;
             detail = `${brief} · 상성 ${fc.attType && fc.defType ? matchupPair(fc.attType, fc.defType, fc.multiplier) : `x${fc.multiplier}`}${fc.aff > 0 ? '(유리)' : fc.aff < 0 ? '(불리)' : ''} · 지형 방어 +${fc.terrain_def_pct}%${fc.auraAtk || fc.auraDef ? ` · 오라 공격 +${fc.auraAtk ?? 0}% / 적 방어 +${fc.auraDef ?? 0}%` : ''} (참고용, 판정은 서버)`;
         }
         // 숨김: 아군 대기, 또는 알림 끄기인데 눌러야 할 버튼도 없을 때(오류·전투 종료는 끄기여도 제목은 보인다)
@@ -2670,7 +2695,7 @@ export class BattleScene extends Phaser.Scene {
         const key = `${u.id}|${u.hp}|${u.x},${u.y}|${s.units.length}`;
         if (!this.hTip?.scene || this.hTipKey !== key) {
             this.hTip?.destroy();
-            this.hTip = new UnitTip(this, { anchor: { x: q.x, y: q.y, w: 1, h: 1 }, bounds: { x: 0, y: 0, w: L.lw, h: L.lh }, unit: u, name: unitDisplayName(u, s.units, { short: L.lw < 760 }), extra: [...this.auraLines(u), ...this.matchupTipLines(u)] });
+            this.hTip = this.unitInfoTip(u, s);
             this.hTip.setDepth(5);
             this.ui.add(this.hTip);
             this.hTipKey = key;
@@ -2678,7 +2703,10 @@ export class BattleScene extends Phaser.Scene {
         const w = this.hTip.tw ?? 160; const h = this.hTip.th ?? 60; const off = 18;
         let x = q.x + off; let y = q.y + off;
         if (x + w > L.lw - L.safe.r - 4) x = q.x - off - w;
-        if (y + h > L.lh - L.safe.b - 4) y = q.y - off - h;
+        // 커서 칸 유닛의 발밑 이름표(호버 시 전체 이름으로 확장)를 가리지 않게: 아래로 띄울 때는 유닛 칸 아래 끝 + 4 밑으로(강화면 a27h Low)
+        const ar = this.anchorOf(u); const nameBottom = ar.y + ar.h + 4;
+        if (y < nameBottom && x < ar.x + ar.w + 24 && x + w > ar.x - 24) y = nameBottom;
+        if (y + h > L.lh - L.safe.b - 4) y = Math.min(q.y - off, ar.y - 4) - h; // 위로 뒤집을 때는 유닛 칸 위쪽으로
         this.hTip.setPosition(Math.round(Math.max(L.safe.l + 4, x)), Math.round(Math.max(L.safe.t + 4, y)));
     }
 
@@ -2698,7 +2726,7 @@ export class BattleScene extends Phaser.Scene {
     popupKeyOf() {
         const s = this.store.state;
         const u = s.selectedId ? this.store.get(s.selectedId) : null;
-        return `${s.status}|${s.side}|${s.busy}|${s.phase}|${s.selectedId}|${s.targetId}|${u ? `${u.x},${u.y}` : ''}|${this.world.x},${this.world.y},${this.k}|${s.units.length}|${s.facingChoice ?? ''}|${s.itemsLeft ?? '-'}|${s.itemCatalog ? s.itemCatalog.map((x) => x.owned ?? 0).join(',') : '-'}`;
+        return `${s.status}|${s.side}|${s.busy}|${s.phase}|${s.selectedId}|${s.targetId}|${u ? `${u.x},${u.y}` : ''}|${this.world.x},${this.world.y},${this.k}|${s.units.length}|${s.facingChoice ?? ''}|${s.itemsLeft ?? '-'}|${s.itemCatalog ? s.itemCatalog.map((x) => x.owned ?? 0).join(',') : '-'}|${s.forecast?.rev ?? 0}`; // forecast.rev: 서버 예측 도착·폴백 시 말풍선 갱신
     }
 
     updatePopups() {
@@ -2737,7 +2765,7 @@ export class BattleScene extends Phaser.Scene {
         // 대상이 너무 멀 때 안내(하플레이 2026-11-10): 가장 가까운 살아 있는 적까지 맨해튼 거리(서버 Engine::dist) > 최대 사거리일 때만. 아니면 ''(LOS 차단 등은 기존 문구)
         const NO_TGT = '사거리 안에 대상이 없습니다';
         const nearestFoe = (s.units ?? []).filter((e) => e.hp > 0 && e.team !== u.team).reduce((m, e) => Math.min(m, Math.abs(e.x - u.x) + Math.abs(e.y - u.y)), Infinity);
-        const farHint = (lo, hi) => { lo = Number(lo) || 1; hi = Number(hi) || lo; return Number.isFinite(nearestFoe) && nearestFoe > hi ? `대상이 너무 멉니다. 가장 가까운 적까지 ${nearestFoe}칸, 사거리 ${lo === hi ? hi : `${lo}~${hi}`}칸` : ''; };
+        const farHint = (lo, hi, what = '사거리') => { lo = Number(lo) || 1; hi = Number(hi) || lo; return Number.isFinite(nearestFoe) && nearestFoe > hi ? `대상이 너무 멉니다. 가장 가까운 적까지 ${nearestFoe}칸, ${what} ${lo === hi ? hi : `${lo}~${hi}`}칸` : ''; };
         // 총병 사선 차단 안내(2026-11-10): 거리 lo~hi 안 살아 있는 적이 있는데 대상이 없으면 = 사선(LOS) 막힘(battleStore.targetsFrom 과 같은 isGunner·lineOfFire 판정). 이동 후(gunMoved)는 기존 문구
         const gunStill = typeAlias(u.type) === 'gunner' && !u.moved && !(s.moved && s.selectedId === u.id);
         const losHint = (lo, hi) => {
@@ -2757,9 +2785,17 @@ export class BattleScene extends Phaser.Scene {
         };
         const skills = activeSkillsOf(u).map((sk) => {
             let why = skillBlockReason(sk, this.store.skillTargets(u, sk).targets.length, { mpMode: !!s.mpMode, unit: u }); // MP 방식: 쿨다운·횟수 대신 마력 부족
-            if (why === NO_TGT && (sk.target_kind ?? 'enemy') === 'enemy') { const [lo, hi] = Array.isArray(sk.range) ? sk.range : [unitType(u.type)?.range_min, unitType(u.type)?.range_max]; why = farHint(lo, hi) || losHint(lo, hi) || why; }
+            // 거리 안내는 스킬 자체 사거리(sk.range)가 있을 때만(a27b QA: 사거리 없는 스킬에 유닛 공격 사거리 문구가 붙어 오해) -> 없으면 스킬 사유 그대로
+            if (why === NO_TGT && (sk.target_kind ?? 'enemy') === 'enemy') { if (Array.isArray(sk.range)) { const [lo, hi] = sk.range; why = farHint(lo, hi, '스킬 사거리') || losHint(lo, hi) || '스킬 사거리 안에 대상이 없습니다'; } else why = '스킬을 쓸 대상이 없습니다'; }
             return { sk, why };
         });
+        // 행동 메뉴 '스킬' 버튼 비활성 사유: 스킬별 실제 판정 사유(스킬명: 사유). 2개 이상이면 2개까지 + '외 N개'. 사유가 비면 중립 문구
+        const skillMenuReason = () => {
+            const ws = skills.filter((x) => x.why);
+            if (!ws.length) return '사용할 수 있는 스킬이 없습니다';
+            const line = ({ sk, why }) => `${skillDisplayName(sk.name) ?? sk.code}: ${why}`;
+            return ws.length === 1 ? line(ws[0]) : `${ws.slice(0, 2).map(line).join('\n')}${ws.length > 2 ? `\n외 ${ws.length - 2}개` : ''}`;
+        };
         // 스킬 아이콘(atlas skill_icons, scope 'skill'): 스킬 목록·스킬 예측에서 처음 필요할 때 지연 로드 -> 완료 시 팝업 재생성(아이콘 없이 먼저 표시)
         if ((s.phase === 'skill' || (s.phase === 'confirm' && s.forecast?.skill)) && !skillIconsReady(this) && skillIconsListed() && !this.skillIconReq) {
             this.skillIconReq = true;
@@ -2781,15 +2817,14 @@ export class BattleScene extends Phaser.Scene {
             const atkReason = tooClose ? `너무 가깝습니다. 최소 사거리 ${rmin}칸 이상 떨어져야 합니다` : (tooFar || losBlk || NO_TGT);
             const ready = skills.filter((x) => !x.why);
             const minCd = Math.min(...skills.map((x) => x.sk.cooldown_left ?? 0).filter((n) => n > 0), Infinity);
-            // 준비된 스킬 없음: 비활성 + 버튼 아래 사유 한 줄(ContextMenu descWarn). 막연한 '지금은 사용할 수 없습니다'는 버튼 아래에 쓰지 않는다(사용자 2026-11-07, 흐린 버튼만으로 표시 · 탭 토스트 사유는 유지)
-            const skillWarn = !ready.length && skills.length && skills[0].why !== '지금은 사용할 수 없습니다' ? (skills[0].why ?? '') : '';
+            // 준비된 스킬 없음: 비활성 + 사유는 호버·탭 시 메뉴 옆 말풍선(ContextMenu -> ui/ReasonTip, 2026-11-14 목록 사이 문구 삽입 제거). 막연한 '지금은 사용할 수 없습니다'는 버튼 아래에 쓰지 않는다(사용자 2026-11-07, 흐린 버튼만으로 표시 · 탭 토스트 사유는 유지)
             const skillItem = !skills.length
                 ? { label: '스킬', icon: 'skill', disabled: true, reason: '스킬이 없는 유닛입니다(영웅·지휘관만 사용)', onClick: () => {} }
-                : { label: !s.mpMode && !ready.length && skills.every((x) => (x.sk.cooldown_left ?? 0) > 0) ? `스킬 (${minCd}턴)` : '스킬', icon: 'skill', disabled: !ready.length, reason: skills[0].why ?? '', descWarn: skillWarn, onClick: guard(() => this.store.menu('skill')) };
+                : { label: !s.mpMode && !ready.length && skills.every((x) => (x.sk.cooldown_left ?? 0) > 0) ? `스킬 (${minCd}턴)` : '스킬', icon: 'skill', disabled: !ready.length, reason: ready.length ? '' : skillMenuReason(), onClick: guard(() => this.store.menu('skill')) };
             this.menuCtx = new ContextMenu(this, {
                 anchor: this.anchorOf(u), bounds, narrow, touch, avoid,
                 items: [
-                    { label: '공격', icon: 'attack', variant: 'primary', disabled: !hasTargets, reason: atkReason, descWarn: (tooClose || tooFar || losBlk) ? atkReason : '', onClick: guard(() => this.store.menu('attack')) },
+                    { label: '공격', icon: 'attack', variant: 'primary', disabled: !hasTargets, reason: atkReason, onClick: guard(() => this.store.menu('attack')) },
                     skillItem,
                     ...(isHeroUnit(u) && !u.npc_ally ? [itemMenuEntry(this.store, u, guard)] : []), // 소모품(영웅만): 방·랭크·전쟁·보유 0·횟수 소진이면 비활성 + 사유
                     { label: '대기', icon: 'wait', onClick: guard(() => this.store.menu('wait', { look: this.views.get(u.id)?.look })) },
@@ -2837,8 +2872,10 @@ export class BattleScene extends Phaser.Scene {
         } else if (s.phase === 'confirm' && s.forecast) {
             const def = this.store.get(s.targetId);
             if (!def) return;
+            const instant = s.forecast.reqSeq != null && this.lastBubbleSeq === s.forecast.reqSeq; // 같은 예측 요청의 갱신(서버값 덮어쓰기)은 페이드 없이
+            this.lastBubbleSeq = s.forecast.reqSeq;
             this.bubble = new ForecastBubble(this, {
-                anchor: this.anchorOf(def), bounds, fc: s.forecast.skill ? { ...s.forecast, skill: { ...s.forecast.skill, iconFrame: iconOf(s.forecast.skill) } } : s.forecast, narrow, touch,
+                anchor: this.anchorOf(def), bounds, fc: s.forecast.skill ? { ...s.forecast, skill: { ...s.forecast.skill, iconFrame: iconOf(s.forecast.skill) } } : s.forecast, narrow, touch, instant,
                 onConfirm: guard(() => this.store.confirm()),
                 onCancel: guard(() => this.store.cancel()),
             });
@@ -2846,7 +2883,7 @@ export class BattleScene extends Phaser.Scene {
         } else if ((s.phase === 'move' || s.phase === 'target') && touch) {
             // 2026-11-03 사용자 요청: 마우스는 커서 툴팁(updateHoverTip)만 — 선택 유닛 옆 고정 팝업은 터치 대체 동작으로만.
             // 터치: 탭한 유닛 옆(이동 범위·대상을 덜 가리는 쪽)에 잠깐 표시 후 자동 숨김(이동·대상 선택을 가리지 않게). 입력은 원래 소비하지 않는다
-            const tp = new UnitTip(this, { anchor: this.anchorOf(u), bounds, unit: u, name: unitDisplayName(u, s.units, { short: L.lw < 760 }), extra: [...this.auraLines(u), ...this.matchupTipLines(u)] });
+            const tp = this.unitInfoTip(u, s);
             this.tip = tp;
             this.placeTip(tp, u, bounds);
             this.ui.add(tp);
@@ -2985,7 +3022,13 @@ export class BattleScene extends Phaser.Scene {
     }
 
     // 로비 복귀 탭: 메인 스토리 스테이지(code ch101_ 이상)면 'main', 그 외 'stage'
-    lobbyTab() { return Number(/^ch(\d+)_/.exec(BattleScene.startData?.stageCode ?? cachedStage(BattleScene.startData?.stageId ?? this.store?.state?.stageId)?.code ?? '')?.[1] ?? 0) >= 101 ? 'main' : 'stage'; }
+    // 결과 화면 '다음 스테이지'·로비 복귀 탭: 메인 스토리(ch101+, 숨은 종장 999 제외)와 튜토리얼(chapter 0, stage_NN)은 '메인 스토리' 탭(2026-11-14), 그 외 역사 시나리오('stage')
+    lobbyTab() {
+        const st = cachedStage(BattleScene.startData?.stageId ?? this.store?.state?.stageId);
+        const code = BattleScene.startData?.stageCode ?? st?.code ?? '';
+        const ch = st?.chapter != null && Number.isFinite(Number(st.chapter)) ? Number(st.chapter) : /^stage_\d+$/.test(code) ? 0 : Number(/^ch(\d+)_/.exec(code)?.[1] ?? -1); // 코드로 판정 불가면 -1 = 역사 시나리오(기존 기본)
+        return (ch >= 101 && ch !== 999) || ch === 0 ? 'main' : 'stage';
+    }
 
     goBackFromLoad(code) { this.store.stop(); this.backTarget(code).go(); }
 
@@ -3015,8 +3058,8 @@ export class BattleScene extends Phaser.Scene {
     armLoadAfterRetry() {
         if (!this.worldBuilt && !this.loading) {
             const a = this.lay.map;
-            this.loading = makeText(this, a.x + a.w / 2, a.y + a.h / 2, '전투를 불러오는 중…', { size: 22, heading: true, color: CSS.muted, origin: [0.5, 0.5] });
-            this.ui.add(this.loading);
+            void a;
+            this.loading = createLoadingView(this, { tagline: '전투를 불러오는 중…', overlay: true, indeterminate: true });
         }
         this.time.delayedCall(0, () => this.armLoadWatch()); // store.retry 가 status 를 loading 으로 되돌린 뒤
     }
@@ -3096,9 +3139,11 @@ export class BattleScene extends Phaser.Scene {
             return;
         }
         this.resultShown = true;
+        // 결과창 뒤에 이벤트 대사창이 남아 비치지 않게(강화면 v8): 열린 대사가 있으면 스킵과 같이 닫는다(완료 기록·카메라 해제는 대사 done 콜백)
+        if (this.storyDialogue && !this.storyDialogue.closed) this.storyDialogue.close();
         const s = this.store.state;
         const win = !!result?.win;
-        if (win && !quiet && isNewFlowUser()) this.time.delayedCall(900, () => { if (this.sys.isActive()) conceptPopup(this, 'C_victory_result'); }); // 첫 승리 정산 개념 팝업
+        if (win && !quiet && conceptEligible()) this.time.delayedCall(900, () => { if (this.sys.isActive()) conceptPopup(this, 'C_victory_result', { reward_exp: Number(result?.user?.gained) > 0 ? Number(result.user.gained) : null, reward_gold: Number(result?.gold) > 0 ? Number(result.gold) : null }); }); // 첫 승리 정산 개념 팝업(보상 값 = 결과 user.gained·gold, 없으면 그 문장 생략)
         if (!quiet) audio.play(win ? 'win' : 'lose');
         if (!quiet && win) voiceVictory(this); // 승리 환호(0.35s 뒤, 전투 음성 끔이면 무음). 패배는 음성 없음
         if (quiet) { /* 복원: 음향 상태는 처음 표시 때 그대로 */ } else if (win) audio.duckPush('battle.result', 0.5); else audio.stopBgm(); // 결과 BGM: 승리 = 전투 곡 유지(덕킹) + sfx_victory, 패배 = BGM 정지 후 sfx_defeat 만. 덕킹은 shutdown 의 stopBgm 이 복원
@@ -3174,7 +3219,8 @@ export class BattleScene extends Phaser.Scene {
         const PAD = 28; // 패널 좌우 안쪽 여백(코너 장식 안쪽)
         const COLGAP = 24;
         // 낮은 가로 화면(844x390·360 등 논리 높이 < 560, fe42): 2열 기준 열 폭으로 만들고 별·보상 카드를 조금 줄인다. 그 외(1280x720 등)는 기존 값 그대로
-        const lowH = L.lh < 560 && L.lw >= 760;
+        // 667x375(논리 약 741x417)도 포함(강화면 v8: 1열 + 최소 축소 0.55 로도 넘쳐 3번째 경험치 행이 버튼에 가려짐) -> 기준 760 -> 700. 700 이상이면 2열 폭 조건(lw-24 >= 2W+COLGAP+2PAD)이 성립
+        const lowH = L.lh < 560 && L.lw >= 700;
         const w = lowH ? Math.min(600, Math.floor((L.lw - 24 - PAD * 2 - COLGAP) / 2) + PAD * 2) : Math.min(600, L.lw - 24);
         const W = w - PAD * 2;
         const GOLD = '#f0d58c';
@@ -3302,33 +3348,58 @@ export class BattleScene extends Phaser.Scene {
             //  -> 바 = exp / exp_to_next(레벨업이면 0 부터). exp_to_next 가 없거나 0 이면 이전 방식(획득량 기준)
             const etn = Number(hr.exp_to_next); const hasEtn = Number.isFinite(etn) && etn > 0;
             const lvUp = hr.level > hr.from_level;
-            const nmR = unit ? heroLabel(unit, { compact: L.lw < 760 }) : hr.hero;
+            // 이름만(사용자 2026-11-14: '삼도수군통제사 이순신' -> '이순신'): short_name > name. 이름 앞에 칭호가 붙어 내려오면(title + ' ' 접두) 떼어 낸다
+            const nmR = unit ? pureHeroName(unit) : hr.hero;
             (Array.isArray(hr.rewards_unlocked) ? hr.rewards_unlocked : []).filter((rw) => rw?.label).forEach((rw) => unlockLines.push(`${nmR} Lv.${rw.level} 달성 보상: ${rw.label}`)); // 레벨업으로 열린 보상
             rows.push({
-                name: nmR,
+                name: nmR, unit: unit ?? { kind: 'hero', hero: hr.hero },
                 lv: `Lv ${hr.from_level}${lvUp ? ` → ${hr.level}` : ''}`,
                 gained: hr.gained, max: hasEtn ? etn : Math.max(1, hr.exp + hr.gained), from: hasEtn ? (lvUp ? 0 : Math.max(0, hr.exp - hr.gained)) : Math.max(0, hr.exp - hr.gained), to: hr.exp,
-                chips: hr.level > hr.from_level ? [{ text: 'LEVEL UP!', color: GOLD, sfx: 'levelup' }] : [],
+                chips: [...(hr.level > hr.from_level ? [{ text: 'LEVEL UP!', color: GOLD, sfx: 'levelup' }] : []), ...(hr.exp_to_next != null && Number(hr.exp_to_next) === 0 && hr.level != null ? [{ text: '만렙', color: GOLD }] : [])], // 등급별 만렙 도달(서버 exp_to_next=0)
             });
         });
         // 바 밖 값 텍스트 예약 폭: 가장 긴 '최대/최대' 기준(행마다 바 길이가 같도록 공통 폭)
         const probe = makeText(this, 0, 0, '', { size: 13, bold: true });
         const valueW = Math.ceil(Math.max(48, ...rows.map((r) => { probe.setText(`${r.max}/${r.max}`); return probe.width; }))) + 4;
         probe.destroy();
+        // 행 왼쪽 초상(사용자 2026-11-14): 영웅 = 초상 썸네일(지연 로드, 도착하면 채움), 플레이어·초상 없음 = 기본 실루엣. 나머지(이름·EXP·바)는 초상 오른쪽 폭(IW)
+        const FS = L.lw < 480 ? 34 : 40; const faceX = FS + 10; const IW = W - faceX;
+        const faceBox = (unit) => {
+            const fc = this.add.container(0, 0);
+            fc.add(this.add.rectangle(0, 0, FS, FS, 0x0b1020, 1).setOrigin(0).setStrokeStyle(1.5, COLOR.accent, 0.8));
+            const sil = this.add.graphics(); // 기본 실루엣(머리 + 어깨)
+            sil.fillStyle(0x3a4766, 1).fillCircle(FS / 2, FS * 0.4, FS * 0.2).fillRoundedRect(FS * 0.2, FS * 0.64, FS * 0.6, FS * 0.3, { tl: FS * 0.25, tr: FS * 0.25, bl: 2, br: 2 });
+            fc.add(sil);
+            const lg = unit?.hero ? unitPortraitLogical(unit, null, { thumb: true }) : null;
+            const paint = (k) => {
+                if (!k || !fc.scene || !this.textures.exists(k)) return;
+                const im = this.add.image(FS / 2, FS / 2, k); const fw = im.frame.realWidth; const fh = im.frame.realHeight; const sd = Math.min(fw, fh);
+                im.setCrop((fw - sd) / 2, 0, sd, sd).setDisplaySize((FS - 3) * fw / sd, (FS - 3) * fh / sd).setOrigin(0.5, (sd / 2) / fh);
+                sil.setVisible(false); fc.addAt(im, 1);
+            };
+            const tk = lg ? ensurePortraitTex(this, lg, () => paint(tk)) : null;
+            if (tk) paint(tk);
+            return fc;
+        };
         rows.forEach((r, ri) => {
             const row = this.add.container(PAD, 0);
-            const expT = makeText(this, W, 0, `EXP +${r.gained}`, { size: 15, bold: true, color: EXPC, origin: [1, 0] });
+            const face = faceBox(r.unit);
+            const body = this.add.container(faceX, 0);
+            const expT = makeText(this, IW, 0, `EXP +${r.gained}`, { size: 15, bold: true, color: EXPC, origin: [1, 0] });
             const chipObjs = r.chips.map((c) => makeText(this, 0, 0, c.text, { size: 14, heading: true, color: c.color, origin: [1, 0] }).setAlpha(0).setScale(1.4));
-            let cx = W - expT.width - 10;
+            let cx = IW - expT.width - 10;
             chipObjs.forEach((c) => { c.x = cx; cx -= c.width + 8; });
             const lvT = makeText(this, 0, 0, r.lv, { size: 14, color: CSS.muted });
             const nameT = fitText(makeText(this, 0, 0, r.name, { size: 15, bold: true }), Math.max(60, cx - lvT.width - 10));
             lvT.setPosition(nameT.width + 8, Math.max(0, (nameT.height - lvT.height) / 2));
             const lineH = Math.max(nameT.height, expT.height);
             chipObjs.forEach((c) => { c.y = Math.max(0, (lineH - c.height) / 2); });
-            const bar = new StatBar(this, { x: 0, y: lineH + 6, w: W, h: 16, max: r.max, value: r.from, color: COLOR.exp, label: 'EXP', valueW });
-            row.add([nameT, lvT, expT, ...chipObjs, bar]);
-            row.setSize(W, lineH + 6 + bar.displayHeight);
+            const bar = new StatBar(this, { x: 0, y: lineH + 6, w: IW, h: 16, max: r.max, value: r.from, color: COLOR.exp, label: 'EXP', valueW });
+            body.add([nameT, lvT, expT, ...chipObjs, bar]);
+            const rh = Math.max(FS, lineH + 6 + bar.displayHeight);
+            face.y = Math.round((rh - FS) / 2);
+            row.add([face, body]);
+            row.setSize(W, rh);
             row.col = 1; // 낮은 화면 2열 배치 시 오른쪽 열(경험치 행)
             add(row, ri === rows.length - 1 ? 0 : 12);
             bars.push({ bar, to: r.to });

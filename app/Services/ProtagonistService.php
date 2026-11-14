@@ -54,7 +54,7 @@ class ProtagonistService
                 }
                 $skillId = DB::table('skills')->where('code', $skill)->value('id');
                 $id = DB::table('heroes')->insertGetId([
-                    'code' => $code, 'name_ko' => '주인공', 'name_en' => 'Protagonist', 'unit_type_id' => $types[$unit], 'rarity' => 'B', 'cost' => 3,
+                    'code' => $code, 'name_ko' => '주인공', 'name_en' => 'Protagonist', 'unit_type_id' => $types[$unit], 'rarity' => 'B', 'cost' => (int) config('game.hero_cost_by_grade.B', 3),
                     'hp_bonus' => $hp, 'atk_bonus' => $atk, 'def_bonus' => $def, 'growth_hp_pct' => $gr[0], 'growth_atk_pct' => $gr[1], 'growth_def_pct' => $gr[2],
                     'skill_id' => $skillId, 'verify' => false, 'note' => '오리지널 주인공 원형(캠페인 전용)',
                     'troop_bonus' => 0, 'troop_type' => $unit, 'campaign_only' => true, 'is_protagonist' => true, 'created_at' => $now, 'updated_at' => $now,

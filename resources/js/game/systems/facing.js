@@ -21,6 +21,16 @@ export function defaultLook(u, units) {
     });
     return (best && axisDir(best.o.x - u.x, best.o.y - u.y)) || (u.team === 'ally' ? 'right' : 'left');
 }
+// 진영 기준 시선(2026-11-14 '적군·아군이 서로 마주보게'): 상대 진영 무게중심 x 가 내 진영 무게중심 x 보다 오른쪽이면 right, 왼쪽이면 left.
+//  같으면(세로 대치) defaultLook. 표시용 초기값 전용(서버 facing 이 있으면 그 값이 우선, 이동·공격 시 기존 갱신 규칙 그대로)
+export function campLook(u, units) {
+    const mine = []; const foe = [];
+    (units ?? []).forEach((o) => { if (o.hp <= 0) return; (o.team === u.team ? mine : foe).push(o.x); });
+    if (!foe.length || !mine.length) return defaultLook(u, units);
+    const avg = (a) => a.reduce((s, x) => s + x, 0) / a.length;
+    const d = avg(foe) - avg(mine);
+    return Math.abs(d) < 0.5 ? defaultLook(u, units) : d > 0 ? 'right' : 'left';
+}
 export const FLANK_LABEL = { side: '측면', back: '배후' };
 
 // (dx,dy) 우세 축 방향(대각선은 x축). 영벡터는 null

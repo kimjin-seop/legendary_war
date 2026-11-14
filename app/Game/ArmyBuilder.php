@@ -120,6 +120,11 @@ final class ArmyBuilder
                 $atk += $eq['atk'];
                 $def += $eq['def'];
             }
+            if (! empty($hero['star_level'])) {   // 별(★) 보너스: 장비 가산 직후 평탄 가산(공·방만, 체력 제외). row 에 star_level 은 HeroStarService::attach 가 PvE(또는 apply_pvp)에서만 채움
+                $sb = StarRules::bonus($t, $hero, (int) $hero['star_level']);
+                $atk += $sb['atk'];
+                $def += $sb['def'];
+            }
         } else {
             $hp = self::scale($t['hp'], $troopGrowth, $level);
             $atk = self::scale($t['atk'], $troopGrowth, $level);

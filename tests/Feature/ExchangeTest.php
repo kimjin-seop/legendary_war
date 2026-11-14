@@ -98,6 +98,7 @@ class ExchangeTest extends TestCase
         $this->artisan('game:seed', ['--force' => true])->assertSuccessful();
         $row = DB::table('exchange_products')->where('code', 'px_helm_a')->first();
         $this->assertSame(0, (int) $row->enabled);
-        $this->assertSame(40, (int) $row->price_gold);   // 가격 등 다른 필드는 파일 값으로 갱신
+        $file = collect(json_decode(file_get_contents(database_path('data/exchange_products.json')), true)['items'] ?? [])->firstWhere('code', 'px_helm_a');
+        $this->assertSame((int) $file['price_gold'], (int) $row->price_gold);   // 가격 등 다른 필드는 파일 값으로 갱신(고정 숫자 대신 파일 값 비교)
     }
 }

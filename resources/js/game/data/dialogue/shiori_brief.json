@@ -1,0 +1,81 @@
+{
+ "_note": "시오리 브리핑 방식 튜토리얼·안내 문구 신규 파일(기존 파일은 수정하지 않음). 적용은 윤프론. 구조: {id, trigger(기존 키 매핑), pages:[{expr, lines:[...]}]}. 한 페이지 2문장 이내. 표정은 neutral/smile/surprise/serious/cheer/regret만. 스테이지별 값(영웅 이름·수·상한·패배 조건)은 모두 토큰. 값이 바뀌는 토큰 뒤에는 받침에 따라 달라지는 조사(이/가/은/는/을/를/과/와)를 붙이지 않고, 명수 단위(명·기·턴)·서술어 '입니다'·도/까지/보다 등 받침과 무관한 말만 잇는다. prologue_short·stage_01 대사 키는 포함하지 않는다.",
+ "meta": { "version": 1, "updated": "2026-11-14", "author": "송서사", "speaker": "shiori" },
+ "tokens": {
+  "{goal}": "goalLines() 결과(승패 규칙 반영 목표 문구) — 기존 G1 방식",
+  "{heroes}": "남은 아군 영웅 이름(기존 battleGuide.js 치환)",
+  "{ally_heroes}": "아군 영웅 수(숫자)",
+  "{ally_squads}": "아군 병사 부대 수(숫자)",
+  "{enemy_count}": "적 유닛 수(숫자)",
+  "{enemy_commander}": "적 지휘관 이름",
+  "{wait_turns}": "적 대기 턴 수(숫자) — 원문 '3턴 전까지'의 3",
+  "{lose_rule}": "스테이지별 패배 조건 완성 문장(예: '주인공이 쓰러지면 패배합니다.'). 값은 데이터에서 생성",
+  "{max_cost}": "출전 코스트 상한(기존 tut 토큰)",
+  "{reward_exp}": "획득 경험치(기존 tut 토큰)",
+  "{reward_gold}": "획득 골드(기존 tut 토큰)"
+ },
+ "skip_modal": {
+  "id": "brief_skip",
+  "trigger": "guide_steps.skip (button_text / confirm_text / confirm_yes / confirm_no)",
+  "button_text": "안내 건너뛰기",
+  "confirm_text": "안내를 건너뛰시겠습니까? 서고에서 언제든 다시 들으실 수 있습니다.",
+  "confirm_yes": "건너뛰기",
+  "confirm_no": "계속 듣기"
+ },
+ "entries": [
+  { "id": "brief_g1_goal", "trigger": "guide_steps G1_goal_banner (bubble 대체)", "pages": [
+   { "expr": "serious", "lines": ["지휘관님, 이번 전장의 목표입니다.", "군령은 이러합니다. 「{goal}」"] } ] },
+  { "id": "brief_g2_select", "trigger": "guide_steps G2_select_unit", "pages": [
+   { "expr": "neutral", "lines": ["먼저 움직일 유닛을 눌러 주십시오.", "영웅이든 부대든 상관없습니다."] } ] },
+  { "id": "brief_g3_move", "trigger": "guide_steps G3_move", "pages": [
+   { "expr": "neutral", "lines": ["청색 칸이 갈 수 있는 곳입니다.", "한 곳을 골라 주십시오."] } ] },
+  { "id": "brief_g4_attack", "trigger": "guide_steps G4_attack (bubble)", "pages": [
+   { "expr": "serious", "lines": ["'공격'을 누르고, 붉은 빗금 안의 적을 고르십시오."] } ] },
+  { "id": "brief_g4_attack_confirm", "trigger": "guide_steps G4_attack (follow_up_bubble)", "pages": [
+   { "expr": "serious", "lines": ["'전투 예측'을 확인하시고 '확정'을 누르십시오.", "손해 보는 싸움은 여기서 걸러내는 법입니다."] } ] },
+  { "id": "brief_g4b_wait", "trigger": "guide_steps G4b_wait_no_target", "pages": [
+   { "expr": "neutral", "lines": ["사거리 안에 적이 없군요.", "이럴 때는 '대기'로 마무리하십시오."] } ] },
+  { "id": "brief_g4c_facing", "trigger": "guide_steps G4c_facing", "pages": [
+   { "expr": "neutral", "lines": ["행동을 마치면 바라볼 방향을 정합니다.", "등을 내주면 더 아프니, 적이 올 쪽을 보게 하십시오."] } ] },
+  { "id": "brief_g4d_others", "trigger": "guide_steps G4d_move_others", "pages": [
+   { "expr": "serious", "lines": ["{heroes}도 아직 움직이지 않았습니다.", "혼자 앞서 나가면 둘러싸이니, 함께 움직이십시오."] } ] },
+  { "id": "brief_g5_end_turn", "trigger": "guide_steps G5_end_turn", "pages": [
+   { "expr": "smile", "lines": ["모두 움직이셨다면 '턴 종료'를 눌러 주십시오.", "다음은 적의 차례입니다."] } ] },
+
+  { "id": "brief_stage01_numbers", "trigger": "stage_hints.stage_01.battle[0]", "pages": [
+   { "expr": "cheer", "lines": ["수는 우리가 앞섭니다. 영웅 {ally_heroes}명과 병사 {ally_squads}기, 적은 {enemy_count}기입니다.", "영웅은 뒤에 두고, 사거리 안의 적만 치십시오."] } ] },
+  { "id": "brief_stage01_wait", "trigger": "stage_hints.stage_01.battle[1]", "pages": [
+   { "expr": "serious", "lines": ["적은 {wait_turns}턴째까지 제자리에서 기다립니다. 그동안 진형을 갖추십시오.", "먼저 노릴 상대는 적 지휘관 {enemy_commander}입니다."] } ] },
+  { "id": "brief_stage01_squads", "trigger": "stage_hints.stage_01.battle[2]", "pages": [
+   { "expr": "neutral", "lines": ["병사는 직접 움직이셔도 됩니다.", "움직이지 않은 병사는 턴 종료 때 영웅을 따라갑니다."] } ] },
+  { "id": "brief_stage01_lose", "trigger": "stage_hints.stage_01.battle[3]", "pages": [
+   { "expr": "serious", "lines": ["한 가지만 기억해 두십시오.", "{lose_rule}"] } ] },
+  { "id": "brief_ch1s1_deploy", "trigger": "stage_hints.ch1_s1.deploy", "pages": [
+   { "expr": "neutral", "lines": ["주인공은 꼭 편성에 넣어 주십시오.", "코스트 합계는 상한 {max_cost}까지입니다."] },
+   { "expr": "serious", "lines": ["영웅은 부대보다 뒤에 두시는 편이 안전합니다."] } ] },
+
+  { "id": "brief_c_affinity", "trigger": "concept_popups C_affinity", "pages": [
+   { "expr": "serious", "lines": ["병종에는 상성이 있습니다.", "공격 전에 뜨는 '상성 유리·불리·대등' 표시를 보십시오."] },
+   { "expr": "neutral", "lines": ["보병은 창병에, 창병은 기병에, 기병은 보병에 강합니다. 궁병은 비행에 강합니다.", "유리하면 훨씬 아프게, 불리하면 훨씬 덜 아프게 들어갑니다."] },
+   { "expr": "smile", "lines": ["유리한 상대를 고르는 것만으로도 전황이 달라집니다."] } ] },
+  { "id": "brief_c_aura", "trigger": "concept_popups C_aura", "pages": [
+   { "expr": "neutral", "lines": ["영웅 곁 가까이의 소속 부대는 오라의 힘을 받습니다.", "부대를 영웅에게서 너무 떼어 놓지 마십시오."] } ] },
+  { "id": "brief_c_terrain", "trigger": "concept_popups C_terrain", "pages": [
+   { "expr": "neutral", "lines": ["지형마다 방어와 이동에 차이가 납니다.", "숲·산·성·언덕에 서면 방어가 올라갑니다."] },
+   { "expr": "serious", "lines": ["산의 방어 보정은 보병 계열만 받고, 기병은 산과 늪에 들어가지 못합니다.", "깊은 물은 비행과 수병만 들어가며, 다리나 여울로는 건널 수 있습니다."] },
+   { "expr": "neutral", "lines": ["비행 유닛은 숲과 산에서는 방어 보정을 받지 못합니다. 성에서는 받습니다.", "칸을 눌러 보정을 확인해 보시지요."] } ] },
+  { "id": "brief_c_facing", "trigger": "concept_popups C_facing", "pages": [
+   { "expr": "serious", "lines": ["유닛에게는 바라보는 방향이 있습니다.", "정면보다 측면과 후면이 더 아픕니다."] },
+   { "expr": "smile", "lines": ["적의 옆구리를 노리고, 아군의 등은 지켜 주십시오."] } ] },
+  { "id": "brief_c_cost", "trigger": "concept_popups C_cost", "pages": [
+   { "expr": "neutral", "lines": ["출전에는 코스트가 듭니다.", "주인공과 필수·고정 영웅도 모두 합계에 들어갑니다."] },
+   { "expr": "serious", "lines": ["병종의 코스트는 영웅의 코스트에 더해집니다.", "합계가 상한 {max_cost}보다 크면 출전할 수 없습니다."] },
+   { "expr": "smile", "lines": ["편성 칸 수에서 빠지는 영웅도 코스트는 셉니다.", "배분이 곧 전략이지요."] } ] },
+  { "id": "brief_c_hero_down", "trigger": "concept_popups C_hero_down", "pages": [
+   { "expr": "serious", "lines": ["영웅이 쓰러지면 그 영웅의 부대도 함께 무너집니다.", "영웅을 너무 앞에 세우지 마십시오."] } ] },
+  { "id": "brief_c_victory", "trigger": "concept_popups C_victory_result", "pages": [
+   { "expr": "cheer", "lines": ["승리입니다, 지휘관님. 획득 보상은 경험치 {reward_exp}, 골드 {reward_gold}입니다.", "레벨이 오른 영웅이 있다면 능력치도 함께 자랍니다."] } ] },
+  { "id": "brief_c_gacha", "trigger": "concept_popups C_gacha", "pages": [
+   { "expr": "smile", "lines": ["로비의 '뽑기'에서 새 영웅을 만나실 수 있습니다.", "소환에는 펜이 쓰입니다. 펜은 스테이지 첫 클리어, 일일 퀘스트, 시즌 보상으로 모으실 수 있습니다."] } ] }
+ ]
+}

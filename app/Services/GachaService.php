@@ -152,7 +152,9 @@ class GachaService
         usort($heroes, fn ($a, $b) => [isset($unaff[$a['hero']]) ? 0 : 1, Rarity::rank($a['rarity'])] <=> [isset($unaff[$b['hero']]) ? 0 : 1, Rarity::rank($b['rarity'])]);   // 서고 풀 구성 목록: 비소속 먼저, 등급순(안정 정렬)
 
         return [
-            'enabled' => true, 'pool_version' => $pool['version'], 'rates' => $rarityRows, 'price' => $pool['price'],
+            'enabled' => true, 'pool_version' => $pool['version'], 'rates' => $rarityRows,
+            'currency' => self::currency(), 'price' => self::currency() === 'pen' ? self::penPrice() : $pool['price'],   // price = 현재 결제 통화 기준 가격(gold 모드면 기존과 동일)
+            'price_gold' => $pool['price'], 'price_pen' => self::penPrice(), 'pen' => $this->pen($userId),
             'pity' => ['rule' => $pool['pity']['rule'], 'min_rarity' => $pool['pity']['min_rarity'], 'applies_to_count' => (int) $pool['pity']['applies_to_count'], 'progress' => $pity],
             'required_pity' => $this->requiredPityInfo($userId, $pool, $owned),
             'hero_count_unaffiliated' => $this->unaffiliatedCount($pool),   // 어떤 시나리오 배너 풀에도 속하지 않은 영웅 수 {total, by_rarity}(서고 전용)
@@ -253,6 +255,33 @@ class GachaService
     private function gold(int $userId): int
     {
         return (int) (DB::table('wallets')->where('user_id', $userId)->where('currency_code', 'gold')->value('balance') ?? 0);
+    }
+
+    private function pen(int $userId): int
+    {
+        return (int) (DB::table('wallets')->where('user_id', $userId)->where('currency_code', 'pen')->value('balance') ?? 0);
+    }
+
+    /** 뽑기 결제 통화(config game.gacha.currency: gold|pen, 그 외 값은 gold). 기본 gold = 기존 동작 */
+    public static function currency(): string
+    {
+        return config('game.gacha.currency', 'gold') === 'pen' ? 'pen' : 'gold';
+    }
+
+    /** @return array{single:int,ten:int} 펜 가격(config game.gacha.pen_price, 후보 B 기본 5/45) */
+    public static function penPrice(): array
+    {
+        $p = (array) config('game.gacha.pen_price', []);
+
+        return ['single' => max(1, (int) ($p['single'] ?? 5)), 'ten' => max(1, (int) ($p['ten'] ?? 45))];
+    }
+
+    /** gacha_pulls 에 결제 통화·펜 사용량 컬럼(마이그레이션 2026_11_14_000100)이 있는지. 없으면 펜 결제는 쓰기 전에 거부한다 */
+    private function currencyCols(): bool
+    {
+        static $c = null;
+
+        return $c ??= Schema::hasColumn('gacha_pulls', 'pay_currency') && Schema::hasColumn('gacha_pulls', 'pen_spent');
     }
 
     /** 필수 영웅 소프트 천장 설정. enabled=false 면 기존 동작 그대로(K=0 이거나 컬럼 미마이그레이션) */
@@ -700,7 +729,8 @@ class GachaService
     private function response(object $log, bool $replay): array
     {
         return ['replay' => $replay, 'pull_id' => (int) $log->id, 'pool_version' => (int) $log->pool_version, 'count' => (int) $log->pull_count,
-            'gold_spent' => (int) $log->gold_spent, 'gold' => $this->gold((int) $log->user_id), 'banner' => $log->banner_key ?? null,
+            'gold_spent' => (int) $log->gold_spent, 'gold' => $this->gold((int) $log->user_id),
+            'currency' => (string) ($log->pay_currency ?? 'gold'), 'pen_spent' => (int) ($log->pen_spent ?? 0), 'pen' => $this->pen((int) $log->user_id), 'banner' => $log->banner_key ?? null,
             'pity' => ['before' => (int) $log->pity_before, 'after' => (int) $log->pity_after, 'guarantee_applied' => (bool) $log->pity_applied],
             'results' => $results = json_decode($log->results, true),
             'required_pity' => ['before' => (object) (json_decode((string) ($log->required_pity_before ?? ''), true) ?: []), 'after' => (object) (json_decode((string) ($log->required_pity_after ?? ''), true) ?: []), 'guarantee_applied' => (bool) array_filter($results, fn ($x) => ($x['required_via'] ?? null) === 'pity')]];
@@ -715,9 +745,14 @@ class GachaService
         if ($r = $this->replay($userId, $count, $requestId, $banner)) {
             return $r;
         }
-        $cost = $count === 10 ? $pool['price']['ten'] : $pool['price']['single'];
-        if ($this->gold($userId) < $cost) {   // 쓰기 전에 거부(차감·로그 없음)
-            throw new IllegalAction('insufficient_gold', '골드가 부족합니다.', 422);
+        $cur = self::currency();
+        $prices = $cur === 'pen' ? self::penPrice() : $pool['price'];
+        $cost = $count === 10 ? $prices['ten'] : $prices['single'];
+        if ($cur === 'pen' && ! $this->currencyCols()) {   // 마이그레이션 전: 쓰기 전에 거부
+            throw new IllegalAction('gacha_pen_unavailable', '펜 결제 준비 중입니다.', 503);
+        }
+        if (($cur === 'pen' ? $this->pen($userId) : $this->gold($userId)) < $cost) {   // 쓰기 전에 거부(차감·로그 없음)
+            throw new IllegalAction($cur === 'pen' ? 'insufficient_pen' : 'insufficient_gold', $cur === 'pen' ? '펜이 부족합니다.' : '골드가 부족합니다.', 422);
         }
         $rates = $pool['rates'];   // 이번에 뽑는 풀(drawPool) 기준 등급 확률
         $min = $pool['pity']['min_rarity'];
@@ -770,6 +805,7 @@ class GachaService
                 $res = $this->heroView($code) + ['user_hero_id' => (int) $uh->id, 'is_new' => false, 'shards_gained' => $gain, 'shards_total' => (int) $uh->shards + $gain];
             } else {
                 $id = DB::table('user_heroes')->insertGetId(['user_id' => $userId, 'hero_id' => $h['id'], 'level' => 1, 'exp' => 0, 'shards' => 0, 'obtained_at' => $now, 'created_at' => $now, 'updated_at' => $now]);
+                app(LineupService::class)->autoAdd((int) $userId, (int) $id);   // 라인업이 5명 미만이면 신규 영웅 자동 추가
                 $res = $this->heroView($code) + ['user_hero_id' => (int) $id, 'is_new' => true, 'shards_gained' => 0, 'shards_total' => 0];
             }
             foreach ($targets as $c) {   // 대상 영웅별 카운터: 획득하면 제거, 아니면 +1 (이 뽑기가 그 영웅이 나올 수 있는 풀에서 이뤄진 경우만 대상에 남아 있음)
@@ -790,9 +826,11 @@ class GachaService
 
         $logId = DB::table('gacha_pulls')->insertGetId([
             'user_id' => $userId, 'request_id' => $requestId, 'pool_version' => $pool['version'], 'rates_snapshot' => json_encode($rates), 'pull_count' => $count,
-            'results' => json_encode($results, JSON_UNESCAPED_UNICODE), 'gold_spent' => $cost, 'pity_before' => $pityBefore, 'pity_after' => $pity, 'pity_applied' => $applied ? 1 : 0, 'created_at' => $now,
-        ] + ($this->bannerCol() ? ['banner_key' => $banner] : []) + ($cfg['column'] ? ['required_pity_before' => json_encode($rpBefore), 'required_pity_after' => json_encode(array_intersect_key($rpAll, $rpBefore))] : []));
-        $this->progress->credit($userId, 'gold', -$cost, 'gacha_pull', 'gacha_pull', $logId);   // 잔액 부족 시 IllegalAction -> 전체 롤백
+            'results' => json_encode($results, JSON_UNESCAPED_UNICODE), 'gold_spent' => $cur === 'pen' ? 0 : $cost, 'pity_before' => $pityBefore, 'pity_after' => $pity, 'pity_applied' => $applied ? 1 : 0, 'created_at' => $now,
+        ] + ($this->currencyCols() ? ['pay_currency' => $cur, 'pen_spent' => $cur === 'pen' ? $cost : 0] : []) + ($this->bannerCol() ? ['banner_key' => $banner] : []) + ($cfg['column'] ? ['required_pity_before' => json_encode($rpBefore), 'required_pity_after' => json_encode(array_intersect_key($rpAll, $rpBefore))] : []));
+        $cur === 'pen'
+            ? $this->progress->credit($userId, 'pen', -$cost, 'gacha_pull_pen', 'gacha_pull', $logId)   // 펜 차감(reason 분리, ref=로그 id 멱등)
+            : $this->progress->credit($userId, 'gold', -$cost, 'gacha_pull', 'gacha_pull', $logId);   // 잔액 부족 시 IllegalAction -> 전체 롤백
         DB::table('gacha_user_states')->upsert([['user_id' => $userId, 'pity_counter' => $pity, 'created_at' => $now, 'updated_at' => $now] + ($cfg['column'] && $cfg['enabled'] ? ['required_pity_counters' => json_encode($rpAll)] : [])], ['user_id'], array_merge(['pity_counter', 'updated_at'], $cfg['column'] && $cfg['enabled'] ? ['required_pity_counters'] : []));   // enabled=false(예: 배너 required_pity=0)는 다른 배너 카운터를 건드리지 않는다(기존 값 보존)
 
         return $this->response(DB::table('gacha_pulls')->find($logId), false);

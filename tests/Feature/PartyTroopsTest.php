@@ -56,7 +56,7 @@ class PartyTroopsTest extends TestCase
         $put = fn (array $body) => $this->withHeaders($h)->putJson('/api/party', $body);
         $put(['user_hero_ids' => $uh])->assertOk();                                                          // 시작 파티는 상한(16) 이내라 통과
         config(['game.rules.troop_cost' => true]);
-        DB::table('user_level_costs')->where('level', 1)->update(['max_cost' => 7]);   // 영웅 코스트 합(8)보다 낮춰 초과 상황을 만든다
+        DB::table('user_level_costs')->where('level', 1)->update(['max_cost' => 7]);   // 영웅 코스트 합(11)보다 낮춰 초과 상황을 만든다
         $put(['user_hero_ids' => $uh])->assertStatus(422);
         $rules = $this->getJson('/api/rules')->assertOk();
         $this->assertTrue($rules->json('rules.troop_cost'));

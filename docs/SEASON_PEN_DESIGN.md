@@ -23,6 +23,7 @@
 - `credit()` 은 재화 마이너스 방지만 한다. 상한 로직은 호출부에서 처리한다.
 
 ## 3. 사용처
+- 2026-11-14 확정: **소환(가챠)은 펜으로 결제**한다(`game.gacha.currency='pen'`, 1회 1펜/10연 9펜, `GAME_GACHA_CURRENCY=gold` 로 골드 롤백). 공급: 신규 시작 10, 튜토리얼 완료 5, PvE 스테이지 첫 클리어 1, 일일 퀘스트 5, 시즌 전쟁·랭크전(일일 상한 20, 시즌 종료 보상은 상한 밖). 기존 계정은 `game:grant-pen-switch` 로 10 보정(개발 DB 전용). 수치는 임밸런 후속 검증.
 - 1차: 교환소(`exchange_products`)에 `price_currency` 컬럼(기본 `gold`)을 추가해 `pen` 으로 결제하는 상품을 허용한다. `ExchangeService::buyTx` 의 골드 차감을 `price_currency` 로 일반화하고, 시즌 전용 상품은 `season_scope`(시즌 시나리오 코드 또는 null) 로 구분한다.
 - 소비 reason: `exchange_buy_pen`, ref=(`exchange_purchase`, 구매 id). 환불·되돌리기는 지원하지 않는다.
 
@@ -70,3 +71,10 @@
 - FE 표시 가이드: 로비/교환소 재화 줄에 골드 옆 펜 표시. 펜 상품은 `price_currency==='pen'` 이면 펜 아이콘·잔액과 비교. 부족 시 서버가 422 `insufficient_pen`.
 - 획득 사유 코드(recent[].reason): `war_pen_attack_win`, `war_pen_capture_bonus`, `rank_pen_win`, `quest_pen`, `war_pen_season`(시즌 종료), 소비 `exchange_buy_pen`.
 - 제약: 교환소 `currency` 상품으로 펜을 지급할 수 없다(획득 상한 우회 방지, 어드민 등록 시 422 invalid_payload). 일일 상한 계산·카운터 증가는 같은 트랜잭션에서 잠금 읽기로 처리한다.
+
+## 펜 공급 권고안 적용 (2026-11-14, 임밸런 pen_supply_v1)
+- 일일 퀘스트 펜은 일일 상한 제외 경로로 지급한다: `PenService::grant(..., bool $ignoreCap=false)`(grantFor 도 동일 옵션). 멱등((reason, ref)=`daily_quest_pen`/user_quest id)·원장 사유는 그대로. 카운터(`pen_earn`)는 증가하지 않아 `earned_today`/`remaining_today` 는 클리어·전쟁·랭크분만 반영.
+- 퀘스트 정의별 `pen`(config `game.quests.defs`): daily_stage_play 2 / daily_stage_win 2 / daily_gacha 3 / daily_pvp 3 = 하루 10. `game.pen.daily_quest`=0(공통 수령 펜 폐지, env GAME_PEN_DAILY_QUEST 로만 복구). 수령 응답 `reward.pen` 은 유지.
+- `game.pen.daily_cap` 20 -> 15: 스테이지 첫 클리어·전쟁·랭크 전용(퀘스트·시작·튜토리얼·시즌 종료는 상한 밖).
+- 교환소 펜 가격(`exchange_products.json`): px_helm_a 4, px_armor_a 6, px_gloves_a 6, px_boots_a 8, px_accessory_s 12(하루 1개 한정 유지). `game:seed` 는 기존 행을 보존하므로 이미 시드된 DB 는 `price_gold` 를 직접 갱신해야 한다(개발 DB 는 갱신 완료, 백업 database.sqlite.bak_pen_20261114).
+- 필수 영웅 천장 카운트: `GachaService::pullTx` 가 슬롯(소환) 단위로 카운터를 +1 하고 슬롯마다 임계 도달을 검사하므로 10연 안에서도 소환 1회=1카운트이며 10연 중간 슬롯에서 확정된다.

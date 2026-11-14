@@ -681,28 +681,43 @@
    "path": "assets/ui/logo_topbar@2x.webp",
    "type": "image",
    "size": [
-    432,
-    144
+    532,
+    120
    ],
    "alpha": true,
    "format": "webp",
-   "bytes": 24372,
+   "bytes": 26564,
    "scope": "boot",
    "generator": {
-    "script": "docker/gemini/quest_ui_pp.py(후처리만)",
+    "script": "docker/gemini/logo_topbar_rebuild.py(후처리만)",
     "calls": 0
    },
    "license": "자체 생성 에셋 재가공",
    "scale": "@2x",
    "display": [
-    216,
-    72
+    266,
+    60
    ],
    "variants": {
     "x1": "assets/ui/logo_topbar.webp"
    },
-   "src": "ui.logo.header@2x(사용자 제공)",
-   "note": "로비 상단 바용 로고(문장 + 현판 + 글자 일체형, 표시 높이 72)"
+   "src": "ui.logo.header@2x(사용자 제공) 재배치",
+   "note": "로비 상단 바용 로고(문장 + 현판 + 글자). 이미지 높이 = 상단 바 높이, 이미지 위 = 바 위. 현판 바깥 윗선 6.25%(바 윗 금띠 안쪽 12/192), 아랫선 84.9%(바 아래 가는 금선 163/192). 백업 assets/ui/_bak_logotopbar_20261114",
+   "align": {
+    "image_h_eq_bar_h": true,
+    "plaque_top_ratio": 0.0625,
+    "plaque_bottom_ratio": 0.849,
+    "emblem_ratio": [
+     0.008,
+     0.992
+    ],
+    "x_offset_hint": 10
+   },
+   "qa": {
+    "verdict": "pass",
+    "checked": "바 스킨 합성 미리보기(@2x 1400x120, @1x 60) — 현판 위 금테가 바 윗 금띠 바로 아래, 아래 금테가 바 아래 가는 금선과 일치, 왕관·방패 이미지 안, 현판 왼끝이 캡 안쪽 선과 겹치지 않음",
+    "revision": "r2(2026-11-14)"
+   }
   },
   {
    "key": "ui.logo.emblem",

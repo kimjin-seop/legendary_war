@@ -1,0 +1,665 @@
+{
+ "_note": "메인 스토리 '잊힌 서고' 지도 노드 아이콘·정적 소품 manifest 조각(안아트 2026-11-14) — 미병합. 병합: docker/gemini/merge_fragments.mjs FRAGMENTS 에 { path: `${A}/maps/library/nodes/manifest_fragment_library_nodes.json` } 1줄 추가 후 --dry 확인(윤프론, 기존 누락 16건 해소 후). 병합 전에는 LibraryMapView 가 배경 bg_entry 처럼 메모리 manifest 에 등록해 쓸 수 있음",
+ "_keyRule": "map.library.node.<kind>(variants: x2, <state>, <state>_x2), map.library.prop.<name>(variants: x2). kind = book|shelf|desk|door (프로필 node 값 boss -> shelf). 상태 = 기본(normal/closed)·locked·cleared·open. 예약(만들지 않음): map.library.fx_*, map.library.fog_<chapter>",
+ "_generated": "2026-11-14",
+ "nodeMap": {
+  "book": "map.library.node.book",
+  "boss": "map.library.node.shelf",
+  "desk": "map.library.node.desk",
+  "door": "map.library.node.door"
+ },
+ "stateRule": {
+  "book/boss/desk": "잠김(!playable && !cleared) -> locked, clear_count>0 -> cleared, 그 외 -> 기본",
+  "door": "clear_count>0 -> open, 그 외 기본(closed). 잠김은 기본 + 코드 알파 0.8/안개",
+  "current": "이미지 변형 없음 — 기존 코드 맥동 링·시오리 얼굴 유지"
+ },
+ "loadHints": {
+  "pick": "표시 크기 x devicePixelRatio > @1x 크기면 x2 변형(대부분 고해상 화면은 x2)",
+  "display": "표시 폭 권장 book 56~64, desk·door 64~72, shelf 80~96 (x u 배율: 지도 높이/300, 기존 0.75~1.4 클램프 대신 0.8~1.2 권장 — 큰 화면에서 과대 방지)",
+  "preload": "서고 지도 진입 시 노드 11장 + x2 일괄(합계 약 0.45MB), 소품은 선택",
+  "shadow": "코드 바닥 그림자 타원 유지(이미지에 그림자 없음)",
+  "sel": "선택 막 노드: setScale(1.12) + 기존 밝은 원판(선택 강조) 유지"
+ },
+ "items": [
+  {
+   "key": "map.library.node.book",
+   "path": "assets/maps/library/nodes/book_normal.png",
+   "type": "map_node",
+   "format": "png",
+   "size": [
+    64,
+    64
+   ],
+   "bytes": 4458,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/book_normal@2x.png",
+     "bytes": 14724,
+     "size": [
+      128,
+      128
+     ],
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/maps/library/nodes/book_locked.png",
+     "bytes": 4522,
+     "size": [
+      64,
+      64
+     ],
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/maps/library/nodes/book_locked@2x.png",
+     "bytes": 15061,
+     "size": [
+      128,
+      128
+     ],
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/maps/library/nodes/book_cleared.png",
+     "bytes": 5033,
+     "size": [
+      64,
+      64
+     ],
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/maps/library/nodes/book_cleared@2x.png",
+     "bytes": 16943,
+     "size": [
+      128,
+      128
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "고서(일반 스테이지 노드)",
+   "use": "LibraryMapView node=book. 기본=해금/진행 가능, locked=먼지·쇠사슬·자물쇠(회갈색), cleared=금테·금빛 책갈피 + 강한 금빛 링",
+   "anchor": "bottom-center(물체 바닥 ≈ x 0.5, y 0.96). setOrigin(0.5, 0.96) 후 노드 좌표(pin)에 배치",
+   "states": {
+    "base": "book_normal",
+    "locked": "book_locked",
+    "cleared": "book_cleared"
+   },
+   "raw": "docker/gemini/library_nodes/raw/n1.jpg 행1",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass_with_notes",
+    "notes": [
+     "세 상태가 같은 축척·같은 바닥 위치로 정렬되어 텍스처만 바꿔도 위치가 튀지 않음. 잔여 마젠타 0px(@2x)",
+     "일반/완료 차이는 작은 크기에서 금빛 책갈피·링 강도로 구분(링 0.45 -> 0.85). 현재 노드 맥동은 코드 담당",
+     "잠김 = 의도적으로 낮은 대비(링 0.22), 코드 안개 아래에서도 쇠사슬 X자 형태로 식별"
+    ],
+    "measure": "docker/gemini/library_nodes/library_nodes_qa.json"
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  },
+  {
+   "key": "map.library.node.shelf",
+   "path": "assets/maps/library/nodes/shelf_normal.png",
+   "type": "map_node",
+   "format": "png",
+   "size": [
+    96,
+    96
+   ],
+   "bytes": 10967,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/shelf_normal@2x.png",
+     "bytes": 38901,
+     "size": [
+      192,
+      192
+     ],
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/maps/library/nodes/shelf_locked.png",
+     "bytes": 11232,
+     "size": [
+      96,
+      96
+     ],
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/maps/library/nodes/shelf_locked@2x.png",
+     "bytes": 42383,
+     "size": [
+      192,
+      192
+     ],
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/maps/library/nodes/shelf_cleared.png",
+     "bytes": 12150,
+     "size": [
+      96,
+      96
+     ],
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/maps/library/nodes/shelf_cleared@2x.png",
+     "bytes": 42806,
+     "size": [
+      192,
+      192
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "장식 서가(막 보스 노드, 큰 아이콘)",
+   "use": "LibraryMapView node=boss. locked=쇠사슬 X자·자물쇠·먼지, cleared=금장 + 크라운 금빛 리본",
+   "anchor": "bottom-center(물체 바닥 ≈ x 0.5, y 0.96). setOrigin(0.5, 0.96) 후 노드 좌표(pin)에 배치",
+   "states": {
+    "base": "shelf_normal",
+    "locked": "shelf_locked",
+    "cleared": "shelf_cleared"
+   },
+   "raw": "docker/gemini/library_nodes/raw/n1.jpg 행2",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass_with_notes",
+    "notes": [
+     "세 상태가 같은 축척·같은 바닥 위치로 정렬되어 텍스처만 바꿔도 위치가 튀지 않음. 잔여 마젠타 0px(@2x)",
+     "주의: 보스 노드 자리가 뒷벽 서가 앞이라 배경과 같은 계열 — 크기 96(@1x)·금빛 링 1.3배로 보강. 코드에서 선택 시 밝은 원판(기존 fillCircle) 유지 권장"
+    ],
+    "measure": "docker/gemini/library_nodes/library_nodes_qa.json"
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  },
+  {
+   "key": "map.library.node.desk",
+   "path": "assets/maps/library/nodes/desk_normal.png",
+   "type": "map_node",
+   "format": "png",
+   "size": [
+    72,
+    72
+   ],
+   "bytes": 5672,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/desk_normal@2x.png",
+     "bytes": 19575,
+     "size": [
+      144,
+      144
+     ],
+     "alpha": true
+    },
+    "locked": {
+     "path": "assets/maps/library/nodes/desk_locked.png",
+     "bytes": 6028,
+     "size": [
+      72,
+      72
+     ],
+     "alpha": true
+    },
+    "locked_x2": {
+     "path": "assets/maps/library/nodes/desk_locked@2x.png",
+     "bytes": 20550,
+     "size": [
+      144,
+      144
+     ],
+     "alpha": true
+    },
+    "cleared": {
+     "path": "assets/maps/library/nodes/desk_cleared.png",
+     "bytes": 6144,
+     "size": [
+      72,
+      72
+     ],
+     "alpha": true
+    },
+    "cleared_x2": {
+     "path": "assets/maps/library/nodes/desk_cleared@2x.png",
+     "bytes": 21206,
+     "size": [
+      144,
+      144
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "안내 데스크(stage_01)",
+   "use": "LibraryMapView node=desk. 곡선 카운터·장부·종·등잔. locked=등잔 꺼짐·먼지·쇠사슬, cleared=등잔 켜짐·금장·장부 책갈피",
+   "anchor": "bottom-center(물체 바닥 ≈ x 0.5, y 0.96). setOrigin(0.5, 0.96) 후 노드 좌표(pin)에 배치",
+   "states": {
+    "base": "desk_normal",
+    "locked": "desk_locked",
+    "cleared": "desk_cleared"
+   },
+   "raw": "docker/gemini/library_nodes/raw/n1.jpg 행3",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass_with_notes",
+    "notes": [
+     "세 상태가 같은 축척·같은 바닥 위치로 정렬되어 텍스처만 바꿔도 위치가 튀지 않음. 잔여 마젠타 0px(@2x)",
+     "배경 로비 왼쪽 아래 카운터와 같은 형태라 자연스럽게 겹침(stage_01 자리)"
+    ],
+    "measure": "docker/gemini/library_nodes/library_nodes_qa.json"
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  },
+  {
+   "key": "map.library.node.door",
+   "path": "assets/maps/library/nodes/door_closed.png",
+   "type": "map_node",
+   "format": "png",
+   "size": [
+    72,
+    72
+   ],
+   "bytes": 7187,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/door_closed@2x.png",
+     "bytes": 25110,
+     "size": [
+      144,
+      144
+     ],
+     "alpha": true
+    },
+    "open": {
+     "path": "assets/maps/library/nodes/door_open.png",
+     "bytes": 7687,
+     "size": [
+      72,
+      72
+     ],
+     "alpha": true
+    },
+    "open_x2": {
+     "path": "assets/maps/library/nodes/door_open@2x.png",
+     "bytes": 26264,
+     "size": [
+      144,
+      144
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "아치 이중문(stage_06)",
+   "use": "LibraryMapView node=door. 기본=닫힘(미클리어), open=열림(클리어 후, 안쪽 금빛)",
+   "anchor": "bottom-center(물체 바닥 ≈ x 0.5, y 0.96). setOrigin(0.5, 0.96) 후 노드 좌표(pin)에 배치",
+   "states": {
+    "base": "door_closed",
+    "open": "door_open"
+   },
+   "raw": "docker/gemini/library_nodes/raw/n1.jpg 행4 열1·2",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass_with_notes",
+    "notes": [
+     "세 상태가 같은 축척·같은 바닥 위치로 정렬되어 텍스처만 바꿔도 위치가 튀지 않음. 잔여 마젠타 0px(@2x)",
+     "open: 원본 빛이 마젠타와 섞인 분홍을 금빛으로 재색. 문 아래 엷은 빛 웅덩이(크림색) 남김 — 바닥 빛 표현으로 허용"
+    ],
+    "measure": "docker/gemini/library_nodes/library_nodes_qa.json"
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  },
+  {
+   "key": "map.library.prop.book_float",
+   "path": "assets/maps/library/nodes/prop_book_float.png",
+   "type": "map_prop",
+   "format": "png",
+   "size": [
+    48,
+    48
+   ],
+   "bytes": 3635,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/prop_book_float@2x.png",
+     "bytes": 11955,
+     "size": [
+      96,
+      96
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "떠다니는 펼친 책",
+   "use": "구역 장식(선택). 정적 이미지, 노드보다 눈에 띄지 않게 금빛 링 없음(외곽선만). 권장 표시 32~48px, 알파 0.85~1, 노드·연결선 아래 층",
+   "anchor": "bottom-center(y 0.96)",
+   "raw": "docker/gemini/library_nodes/raw/n2.jpg",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": [
+     "잔여 마젠타 0px, 손잡이·고리 안 구멍 투명 처리 확인",
+     "잉크병 유리는 어두운 반투명 표현이 아니라 불투명(배경 비침 없음)"
+    ]
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  },
+  {
+   "key": "map.library.prop.candle",
+   "path": "assets/maps/library/nodes/prop_candle.png",
+   "type": "map_prop",
+   "format": "png",
+   "size": [
+    48,
+    48
+   ],
+   "bytes": 2924,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/prop_candle@2x.png",
+     "bytes": 9003,
+     "size": [
+      96,
+      96
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "촛대(불 켜짐)",
+   "use": "구역 장식(선택). 정적 이미지, 노드보다 눈에 띄지 않게 금빛 링 없음(외곽선만). 권장 표시 32~48px, 알파 0.85~1, 노드·연결선 아래 층",
+   "anchor": "bottom-center(y 0.96)",
+   "raw": "docker/gemini/library_nodes/raw/n2.jpg",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": [
+     "잔여 마젠타 0px, 손잡이·고리 안 구멍 투명 처리 확인",
+     "잉크병 유리는 어두운 반투명 표현이 아니라 불투명(배경 비침 없음)"
+    ]
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  },
+  {
+   "key": "map.library.prop.scroll",
+   "path": "assets/maps/library/nodes/prop_scroll.png",
+   "type": "map_prop",
+   "format": "png",
+   "size": [
+    48,
+    48
+   ],
+   "bytes": 3969,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/prop_scroll@2x.png",
+     "bytes": 12289,
+     "size": [
+      96,
+      96
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "끈 묶은 두루마리",
+   "use": "구역 장식(선택). 정적 이미지, 노드보다 눈에 띄지 않게 금빛 링 없음(외곽선만). 권장 표시 32~48px, 알파 0.85~1, 노드·연결선 아래 층",
+   "anchor": "bottom-center(y 0.96)",
+   "raw": "docker/gemini/library_nodes/raw/n2.jpg",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": [
+     "잔여 마젠타 0px, 손잡이·고리 안 구멍 투명 처리 확인",
+     "잉크병 유리는 어두운 반투명 표현이 아니라 불투명(배경 비침 없음)"
+    ]
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  },
+  {
+   "key": "map.library.prop.book_stack",
+   "path": "assets/maps/library/nodes/prop_book_stack.png",
+   "type": "map_prop",
+   "format": "png",
+   "size": [
+    48,
+    48
+   ],
+   "bytes": 4917,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/prop_book_stack@2x.png",
+     "bytes": 16196,
+     "size": [
+      96,
+      96
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "책 3권 더미",
+   "use": "구역 장식(선택). 정적 이미지, 노드보다 눈에 띄지 않게 금빛 링 없음(외곽선만). 권장 표시 32~48px, 알파 0.85~1, 노드·연결선 아래 층",
+   "anchor": "bottom-center(y 0.96)",
+   "raw": "docker/gemini/library_nodes/raw/n2.jpg",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": [
+     "잔여 마젠타 0px, 손잡이·고리 안 구멍 투명 처리 확인",
+     "잉크병 유리는 어두운 반투명 표현이 아니라 불투명(배경 비침 없음)"
+    ]
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  },
+  {
+   "key": "map.library.prop.quill_ink",
+   "path": "assets/maps/library/nodes/prop_quill_ink.png",
+   "type": "map_prop",
+   "format": "png",
+   "size": [
+    48,
+    48
+   ],
+   "bytes": 2705,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/prop_quill_ink@2x.png",
+     "bytes": 8343,
+     "size": [
+      96,
+      96
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "깃펜과 잉크병",
+   "use": "구역 장식(선택). 정적 이미지, 노드보다 눈에 띄지 않게 금빛 링 없음(외곽선만). 권장 표시 32~48px, 알파 0.85~1, 노드·연결선 아래 층",
+   "anchor": "bottom-center(y 0.96)",
+   "raw": "docker/gemini/library_nodes/raw/n2.jpg",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": [
+     "잔여 마젠타 0px, 손잡이·고리 안 구멍 투명 처리 확인",
+     "잉크병 유리는 어두운 반투명 표현이 아니라 불투명(배경 비침 없음)"
+    ]
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  },
+  {
+   "key": "map.library.prop.lantern",
+   "path": "assets/maps/library/nodes/prop_lantern.png",
+   "type": "map_prop",
+   "format": "png",
+   "size": [
+    48,
+    48
+   ],
+   "bytes": 2753,
+   "alpha": true,
+   "scope": "lazy",
+   "filter": "LINEAR",
+   "variants": {
+    "x2": {
+     "path": "assets/maps/library/nodes/prop_lantern@2x.png",
+     "bytes": 8613,
+     "size": [
+      96,
+      96
+     ],
+     "alpha": true
+    }
+   },
+   "desc": "황동 등불(고리)",
+   "use": "구역 장식(선택). 정적 이미지, 노드보다 눈에 띄지 않게 금빛 링 없음(외곽선만). 권장 표시 32~48px, 알파 0.85~1, 노드·연결선 아래 층",
+   "anchor": "bottom-center(y 0.96)",
+   "raw": "docker/gemini/library_nodes/raw/n2.jpg",
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "2K",
+    "script": "docker/gemini/library_nodes_gen.mjs + library_nodes_style.mjs(JOBS n1 노드 시트 3x4, n2 소품 시트 3x2), 후처리·QA library_nodes_pp.py",
+    "calls": 2
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 에셋 지도 배경 미리보기(lib_a3_final_1760, 화풍·시점 참조), n2 는 n1 결과 추가 참조. 외부 레퍼런스·트레이싱 없음",
+    "마젠타 크로마키 알파 + 디스필, 열린 문 안쪽 분홍 번짐 금빛 재색, 어두운 외곽선 + 상태별 금빛 외곽 링 후처리"
+   ],
+   "qa": {
+    "verdict": "pass",
+    "notes": [
+     "잔여 마젠타 0px, 손잡이·고리 안 구멍 투명 처리 확인",
+     "잉크병 유리는 어두운 반투명 표현이 아니라 불투명(배경 비침 없음)"
+    ]
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  }
+ ]
+}

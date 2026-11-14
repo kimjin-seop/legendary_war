@@ -4,6 +4,7 @@ import { view, fs } from '../theme.js';
 import { makeText, fitText } from './common.js';
 import { portraitBox, troopBadges } from './HeroVisual.js';
 import { heroPlainName, heroShortName } from '../systems/names.js';
+import { heroLevelText } from './heroLevel.js';
 
 export const HERO_CARD_RATIO = 1200 / 896;
 const RANKS = ['s', 'a', 'b', 'c'];
@@ -135,12 +136,12 @@ export function heroMenuCard(scene, hero, x, y, w, h, selected = false) {
     const b = P.bar; const barCy = W(b.cy);
     // ③ Lv — 초상화에 묻히지 않게 반투명 칩(등급색 테두리). 좁은 카드(스탯 숨김)는 스탯 바 중앙에 표시
     if (showStats) {
-        const lt = text(0, W(P.lv.cy), `Lv.${hero.level}`, Math.max(minPx(10), W(P.lv.size)), '#FFFFFF', { origin: [0, 0.5], strokeW: 0.005 });
+        const lt = text(0, W(P.lv.cy), heroLevelText(hero, { short: true }), Math.max(minPx(10), W(P.lv.size)), '#FFFFFF', { origin: [0, 0.5], strokeW: 0.005 });
         const cw = lt.width + W(P.lv.padX * 2);
         lt.x = W(P.lv.x) + W(P.lv.padX);
         card.add([chip(W(P.lv.x) + cw / 2, W(P.lv.cy), cw, W(P.lv.h), 0.82, rankColor), lt]);
     } else {
-        card.add(fitText(text(W((b.x0 + b.x1) / 2), barCy, `Lv.${hero.level}`, Math.max(minPx(10), W(b.size)), '#FFFFFF'), W(b.x1 - b.x0)));
+        card.add(fitText(text(W((b.x0 + b.x1) / 2), barCy, heroLevelText(hero, { short: true }), Math.max(minPx(10), W(b.size)), '#FFFFFF'), W(b.x1 - b.x0)));
     }
     // ④ 코스트 숫자(메달 중앙)는 2026-11-08 사용자 요청으로 영웅 정보 화면에서 제거(코스트는 편성 화면에서 표시). 메달은 프레임 이미지에 구워져 있어 빈 메달로 남는다(P.cost 좌표는 보존)
     // ④ 공격/방어 — 바 안쪽을 반으로 나눠 [아이콘+값] 묶음을 각 칸 가운데 정렬, 칸 사이 얇은 구분선

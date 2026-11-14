@@ -5,11 +5,13 @@ return [
     'max_turns' => 30,
     'first_side' => 'a',                 // 선공(a = 유저)
     'max_party_slots' => 3,              // 출격 영웅 상한
-    'max_level' => 30,                   // 영웅 최대 레벨
+    'max_level' => 24,                   // 영웅 레벨 전체 상한(= 등급별 cap 중 최댓값). 실제 cap 은 hero_max_level_by_grade (레벨 곡선 v2, 2026-11-14). 유저 만렙 50 은 user_level_costs 행 수로 결정(재시드 시 반영)
+    'hero_max_level_by_grade' => ['S' => 24, 'A' => 20, 'B' => 18, 'C' => 16],   // 영웅 등급별 만렙(LevelRewards::maxLevel). 알 수 없는 등급=max_level. hero_levels 는 Lv1~23 행(exp_to_next)이면 충분
     'troop_growth_pct' => 3.0,           // 부대 유닛 레벨당 상승률(%)
     'exp_lose_ratio' => 0.3,             // 패배 시 exp 지급 비율
     'gold_lose_ratio' => 0.0,            // 패배 시 gold 지급 비율
-    'starter_heroes' => ['yi_sun_sin', 'gwak_jae_u'],   // 슬롯 순서 = 지휘관 우선(한국 서사 중심 시작 영웅. 잔 다르크는 가챠 풀)
+    'starter_hero_rarity' => 'C',   // 신규 계정 시작 영웅 등급(2026-11-14: 고정 이순신·곽재우 -> C급 무작위). 기존 계정은 건드리지 않는다
+    'starter_hero_count' => 1,      // C급 무작위 지급 수. 추가로 캠페인 키 영웅(S급) 1명(2026-11-14 지시: 이순신 고정 + C 1)
     'starter_gold' => 500,
     // 성장 보상 배율(묶음 C). 기본값은 현행과 동일(1.0·상한 없음). 켜기 전 임밸런 측정 필수. 권장 시작값: star_mult 1.0/1.1/1.2, retry_mult 0.5, low_level_mult 0.2, bench_exp_pct 30
     // star_mult: 승리 별점(1~3)별 보상(영웅 exp·유저 exp·gold) 배율 / retry_mult: 이미 클리어한 스테이지 재도전 승리 배율
@@ -17,8 +19,9 @@ return [
     // low_level_gap/low_level_mult: 스테이지 enemy_level이 영웅 레벨보다 gap 이상 낮으면 해당 영웅 exp 배율(승리·패배 공통)
     // bench_exp_pct: 파티에 있으나 미참전인 영웅이 받는 exp 비율(%, 0=현행: 지급 없음)
     'reward_scale' => [
-        'star_mult' => [1 => 1.0, 2 => 1.0, 3 => 1.0], 'retry_mult' => 1.0, 'stage_daily_cap' => 0,
-        'low_level_gap' => 5, 'low_level_mult' => 1.0, 'bench_exp_pct' => 0,
+        // 레벨 곡선 v2 적용값(2026-11-14): retry 0.5, 스테이지별 일일 5회, 저레벨 gap5 x0.2, 벤치 30%
+        'star_mult' => [1 => 1.0, 2 => 1.0, 3 => 1.0], 'retry_mult' => 0.5, 'stage_daily_cap' => 5,
+        'low_level_gap' => 5, 'low_level_mult' => 0.2, 'bench_exp_pct' => 30,
     ],
     // 자유 대전(방 solo) 승리 보상: 스테이지보다 축소(스테이지 파밍 대체 방지). 패배 비율은 exp_lose_ratio 공유
     'free_reward' => ['exp' => 20, 'user_exp' => 10, 'gold' => 20],
@@ -28,7 +31,7 @@ return [
     // reward_win_exp: 승리 / reward_lose_exp: 패배·무승부 / reward_capture_bonus_exp: 점령 성공 시 승리 exp에 가산 / reward_daily_cap: 유저당 하루 보상 지급 횟수(KST 05:00 기준, 0=무제한)
     'war' => ['reward_win_exp' => 30, 'reward_lose_exp' => 6, 'reward_capture_bonus_exp' => 20, 'reward_daily_cap' => 3],
     // 유저당 진행 중(deployment/in_progress) 스테이지 전투 상한: 초과 시 가장 오래된 전투를 abandoned 처리
-    'max_open_stage_battles' => 3,
+    'max_open_stage_battles' => 1,
     // 제한시간은 PvP 방 대전(battles.mode=pvp)에만 적용. 스테이지(캠페인·튜토리얼)와 solo 방(봇 상대)은 무제한.
     // 내 턴 전체 입력 제한시간(초, 코드 값): 턴 시작부터 이 시간 안에 모든 유닛 행동을 입력해야 함. 0=해제. 방(room.turn_limit_seconds)도 같은 값을 쓴다.
     // 마감 + turn_input_grace_seconds(네트워크 지연 유예) 후 서버가 지연 평가로 남은 유닛을 대기 처리하고 턴을 자동 종료(봇 턴 포함 진행). 그 뒤 도착한 move/attack은 409 turn_timeout, wait/end_turn은 오류 없이 무시.
@@ -38,7 +41,7 @@ return [
     // 방(룸) 시작값
     // turn_limit_seconds = turn_input_seconds와 같은 값(방 생성 시 rooms.turn_limit_seconds에 복사)
     // party_size: 방 대전(solo/pvp) 출전 영웅 수 = 맵 크기(S/M/L)별 고정. 근거: 맵 meta recommended_per_side S[3,4] M[4,6] L[5,6]의 하한. 유저 레벨 슬롯(2/3/4)은 방에서 쓰지 않음
-    'room' => ['party_size' => ['S' => 3, 'M' => 4, 'L' => 5], 'cost_cap' => ['S' => 20, 'M' => 26, 'L' => 30], 'turn_limit_seconds' => 60, 'disconnect_seconds' => 90, 'presence_seconds' => 30, 'max_missed_turns' => 2],
+    'room' => ['party_size' => ['S' => 3, 'M' => 4, 'L' => 5], 'cost_cap' => ['S' => 24, 'M' => 32, 'L' => 40], 'turn_limit_seconds' => 60, 'disconnect_seconds' => 90, 'presence_seconds' => 30, 'max_missed_turns' => 2],
     // 규칙 엔진 옵션 (시작값). 각 항목은 밸런스 측정(game:simulate --rule=key=value)으로 전후 비교한다.
     'rules' => [
         'ally_passthrough_cost' => (int) env('GAME_ALLY_PASSTHROUGH_COST', 2),   // 아군 칸 통과 비용 가산(0=끔). 새 전투 생성 시 state.frozen 에 고정
@@ -136,10 +139,19 @@ return [
     // engage_late_turns: 마지막 n턴 지휘관 교전(0=off)
     // engage_when_no_combat: 전투 부대(지휘관·치유사 제외)가 한쪽이라도 없으면 지휘관이 guard를 풀고 교전(true=어느 한쪽, 'own'=아군만) -- 승인 기본값 'lead'(이전 false): 어느 한쪽 전투 부대 없음 + 턴 상한 판정 앞섬/동률인 쪽만. avoid_threat 승인 1.0(이전 0)
     // 영웅-부대 편성(squad on일 때만 사용): 영웅 레벨별 부대 수 [min_level, n], 영웅당 상한, 진영 총 유닛 상한(12 시작값, 16까지 확장 가능)
-    'troop_slots' => [[1, 2], [10, 3], [20, 4]],
+    'troop_slots' => [[1, 2], [10, 3], [20, 4]],   // 등급 미상 폴백 + /api/rules troop_slots(FE 호환 유지)
+    // 등급별 상대 해금(등급 격차 v1 권고 (a), 2026-11-14): 4번째 부대 해금 레벨 = 영웅 만렙 - 2 (S24->22, A20->18, B18->16, C16->14). 3번째는 전 등급 Lv10. 키 없는 등급은 위 troop_slots.
+    'troop_slots_by_rarity' => ['S' => [[1, 2], [10, 3], [22, 4]], 'A' => [[1, 2], [10, 3], [18, 4]], 'B' => [[1, 2], [10, 3], [16, 4]], 'C' => [[1, 2], [10, 3], [14, 4]]],
     'troop_cap' => 4,
     // 영웅 레벨 마일스톤(레벨업 보상 표시·MP 계단 보너스). 부대 수 라벨은 위 troop_slots와 맞춰 유지. mp_bonus는 MpRules::maxMp에 가산(기존 레벨당 +2 유지)
-    'level_rewards' => ['milestones' => [['level' => 10, 'label' => '부대 3개 편성 · 최대 MP +10', 'mp_bonus' => 10], ['level' => 20, 'label' => '부대 4개 편성', 'mp_bonus' => 0], ['level' => 30, 'label' => '최대 MP +10', 'mp_bonus' => 10]]],
+    // level: 정수 = 절대 레벨, 'max' = 그 영웅의 등급별 만렙(LevelRewards::maxLevel). by_rarity = 등급별 레벨 재정의(부대 4번째 해금 = troop_slots_by_rarity 와 같은 값). rarity 미상이면 level 값(절대)을 쓴다.
+    'level_rewards' => ['milestones' => [
+        ['level' => 10, 'label' => '부대 3개 편성 · 최대 MP +10', 'mp_bonus' => 10],
+        ['level' => 20, 'by_rarity' => ['S' => 22, 'A' => 18, 'B' => 16, 'C' => 14], 'label' => '부대 4개 편성', 'mp_bonus' => 0],
+        ['level' => 'max', 'label' => '만렙 · 최대 MP +10', 'mp_bonus' => 10],
+    ]],
+    // 등급별 영웅 코스트(등급 격차 v1, 2026-11-14): heroes.json/hero_expansion_stats.json 과 동일 값. 주인공 원형(B)·wave3 C 보강 시더가 참조한다.
+    'hero_cost_by_grade' => ['C' => 2, 'B' => 3, 'A' => 5, 'S' => 8],
     // 병종 기본 액티브(database/data/default_active_skills.json): 영웅에 enabled 액티브가 없으면 전투 생성 시 병종별 1개 주입. a측(플레이어·아군 NPC) 기본 on, b측(방 상대·시즌 방어 AI)은 enemy_default_skills(기본 false, 밸런스 보호). 롤백=false
     'default_active_skills' => (bool) env('GAME_DEFAULT_ACTIVE_SKILLS', true),
     'enemy_default_skills' => (bool) env('GAME_ENEMY_DEFAULT_SKILLS', false),
@@ -165,7 +177,10 @@ return [
     'max_units_per_side_stage' => 24,
     // 캠페인(stage) 전투 전용 출격 슬롯 곡선(임밸런 제안). PvP/랭크/방/자유전은 user_level_costs 그대로. enabled=false면 현행(끄기 쉬움).
     // levels: [유저 Lv 하한, 슬롯]. 코스트 상한 = max(user_level_costs.max_cost, 슬롯 x cost_per_slot). 24유닛 한도는 SquadPlanner가 부대 수를 줄여 지킨다.
-    'campaign_slots' => ['enabled' => true, 'levels' => [[1, 2], [3, 3], [5, 4], [7, 5], [9, 6]], 'cost_per_slot' => 8],
+    // cost_cap_by_level(등급 격차 v1, 2026-11-14): [유저 Lv 하한, 캠페인 코스트 상한(영웅+부대)] 표 -- 있으면 위 'slots x cost_per_slot' 계산을 대체한다(표가 있어도 max(user_level_costs) 아래로는 내리지 않음).
+    // 표를 비우거나 키를 지우면 기존 폴백(슬롯 x cost_per_slot). cost_per_slot 은 폴백 + 강제·고정 영웅 1명당 코스트 면세 몫(8=S 등급 코스트)으로 계속 쓴다.
+    'campaign_slots' => ['enabled' => true, 'levels' => [[1, 2], [3, 3], [5, 4], [7, 5], [9, 6]], 'cost_per_slot' => 8,
+        'cost_cap_by_level' => [[1, 16], [3, 24], [5, 32], [7, 39], [9, 48], [13, 49], [14, 50], [15, 51], [17, 52], [32, 53], [35, 54], [39, 55], [42, 56], [46, 57]]],
     'max_units_enemy_stage' => 28,
     'max_alive_per_side_stage' => 32,
     // 영웅 동반 일반병(스테이지 전투 생성 시 런타임 보강, DB/시드 불변): 적 영웅(지휘관+부대장)과 아군 NPC 영웅이 각자 일반병 target기를 거느리게 한다.
@@ -185,10 +200,11 @@ return [
         'cavalry' => ['cavalry', 'archer', 'spear', 'cavalry'], 'mage' => ['mage', 'spear', 'sword', 'archer'], 'healer' => ['healer', 'sword', 'spear', 'archer'],
         'flyer' => ['flyer', 'spear', 'archer', 'sword'], 'gunner' => ['gunner', 'sword', 'spear', 'gunner'],   // gunner: 총병(수치 임시, 사선·이동 후 사격 불가는 Engine gunner_rules)
     ],
+    // gacha.currency: 뽑기 결제 통화 pen(기본, 2026-11-14 전환)|gold. 골드 롤백=환경변수 GAME_GACHA_CURRENCY=gold. pen_price = 펜 결제 가격(1회 1/10연 9, 임밸런 후속 검증 임시값). 펜 결제는 gacha_pulls.pay_currency/pen_spent 마이그레이션(2026_11_14_000100) 적용 후에만 동작(미적용 시 503 gacha_pen_unavailable)
     // 가챠(항상 on, 개발용). 풀·확률·가격은 database/data/gacha_pool.json(가정 시작값, 임밸런 조정 대상). pool_path는 테스트용 오버라이드
     // required_pity/required_boost: 필수 영웅 소프트 천장(docs/GACHA_REQUIRED_PITY_20261108.md). required_pity=0 이면 기능 끔, required_boost=같은 등급 안 가중치 배수. required_library: 서고(전체 풀)에서도 필수 영웅 부스트·천장을 적용할지(기본 false), banner_min_per_rarity/banner_max_pool: 시나리오 배너 풀 검증. required_path: 테스트용 stage_required_heroes.json 오버라이드
     // banner_overrides: 배너별 필수 천장 차등 훅(기본 없음). 예 ['sc_ch1' => ['required_boost' => 3, 'required_pity' => 40]]. 키 없으면 전역 required_boost/required_pity. 시나리오 배너 생성/감사: docs/GACHA_REQUIRED_PITY_20261108.md 3~4장
-    'gacha' => ['enabled' => true, 'pool_path' => null, 'banners_path' => null, 'required_pity' => (int) env('GAME_GACHA_REQUIRED_PITY', 30), 'required_boost' => (int) env('GAME_GACHA_REQUIRED_BOOST', 5), 'required_path' => null, 'required_library' => (bool) env('GAME_GACHA_REQUIRED_LIBRARY', false), 'banner_min_per_rarity' => 1, 'banner_max_pool' => 150, 'banner_overrides' => ['sc_ch1' => ['required_pity' => 8, 'required_boost' => 5]], 'registry_path' => null],
+    'gacha' => ['enabled' => true, 'currency' => in_array($gc = (string) env('GAME_GACHA_CURRENCY', 'pen'), ['gold', 'pen'], true) ? $gc : 'gold', 'pen_price' => ['single' => 1, 'ten' => 9], 'pool_path' => null, 'banners_path' => null, 'required_pity' => (int) env('GAME_GACHA_REQUIRED_PITY', 30), 'required_boost' => (int) env('GAME_GACHA_REQUIRED_BOOST', 5), 'required_path' => null, 'required_library' => (bool) env('GAME_GACHA_REQUIRED_LIBRARY', false), 'banner_min_per_rarity' => 1, 'banner_max_pool' => 150, 'banner_overrides' => ['sc_ch1' => ['required_pity' => 8, 'required_boost' => 5]], 'registry_path' => null],
     // 3차 영웅 확장 입력 경로 오버라이드(null=database/data/proposals/ 기본 파일, 테스트용)
     'hero_wave3' => ['candidates' => null, 'stats' => null, 'gap_fill' => null, 'skill_names' => null],
     // 튜토리얼(코드 값, env 없음). reward: 완료 1회 지급(gold·유저 exp, 가정 시작값 -> 최종 밸런스 단계에서 조정), reward_on_skip: 건너뛰기 완료에도 지급할지(기본 false),
@@ -217,10 +233,10 @@ return [
             ['code' => 'main_ch1_s5', 'kind' => 'main', 'title' => '평양성 탈환 돌파', 'desc' => '1장 5스테이지 「평양성 탈환」을 클리어하세요.', 'event' => 'stage_clear', 'subject' => 'ch1_s5', 'target' => 1, 'gold' => 390, 'user_exp' => 110],
             ['code' => 'main_ch1_s6', 'kind' => 'main', 'title' => '행주산성 돌파', 'desc' => '1장 6스테이지 「행주산성」을 클리어하세요.', 'event' => 'stage_clear', 'subject' => 'ch1_s6', 'target' => 1, 'gold' => 350, 'user_exp' => 100],
             ['code' => 'main_ch1_s7', 'kind' => 'main', 'title' => '노량, 마지막 바다 돌파', 'desc' => '1장 7스테이지 「노량, 마지막 바다」을 클리어하세요.', 'event' => 'stage_clear', 'subject' => 'ch1_s7', 'target' => 1, 'gold' => 560, 'user_exp' => 160],
-            ['code' => 'daily_stage_play', 'kind' => 'daily', 'title' => '오늘의 출정', 'desc' => '스테이지 전투를 1회 마치세요.', 'event' => 'stage_play', 'target' => 1, 'gold' => 30, 'user_exp' => 10],
-            ['code' => 'daily_stage_win', 'kind' => 'daily', 'title' => '오늘의 승전', 'desc' => '스테이지에서 2회 승리하세요.', 'event' => 'stage_win', 'target' => 2, 'gold' => 50, 'user_exp' => 15],
-            ['code' => 'daily_gacha', 'kind' => 'daily', 'title' => '오늘의 소집', 'desc' => '영웅 소집(가챠)을 1회 하세요.', 'event' => 'gacha_pull', 'target' => 1, 'gold' => 30, 'user_exp' => 10],
-            ['code' => 'daily_pvp', 'kind' => 'daily', 'title' => '오늘의 대결', 'desc' => '대인 대전을 1회 마치세요.', 'event' => 'pvp_play', 'target' => 1, 'gold' => 40, 'user_exp' => 15],
+            ['code' => 'daily_stage_play', 'kind' => 'daily', 'title' => '오늘의 출정', 'desc' => '스테이지 전투를 1회 마치세요.', 'event' => 'stage_play', 'target' => 1, 'gold' => 30, 'pen' => 2, 'user_exp' => 10],
+            ['code' => 'daily_stage_win', 'kind' => 'daily', 'title' => '오늘의 승전', 'desc' => '스테이지에서 2회 승리하세요.', 'event' => 'stage_win', 'target' => 2, 'gold' => 50, 'pen' => 2, 'user_exp' => 15],
+            ['code' => 'daily_gacha', 'kind' => 'daily', 'title' => '오늘의 소집', 'desc' => '영웅 소환을 1회 하세요.', 'event' => 'gacha_pull', 'target' => 1, 'gold' => 0, 'pen' => 3, 'user_exp' => 10],
+            ['code' => 'daily_pvp', 'kind' => 'daily', 'title' => '오늘의 대결', 'desc' => '대인 대전을 1회 마치세요.', 'event' => 'pvp_play', 'target' => 1, 'gold' => 40, 'pen' => 3, 'user_exp' => 15],
             ['code' => 'weekly_stage_win', 'kind' => 'weekly', 'title' => '주간 연승 행군', 'desc' => '이번 주 스테이지에서 10회 승리하세요.', 'event' => 'stage_win', 'target' => 10, 'gold' => 250, 'user_exp' => 80],
             ['code' => 'weekly_pvp_win', 'kind' => 'weekly', 'title' => '주간 무패의 기세', 'desc' => '이번 주 대인 대전에서 3회 승리하세요.', 'event' => 'pvp_win', 'target' => 3, 'gold' => 250, 'user_exp' => 80],
             ['code' => 'weekly_gacha', 'kind' => 'weekly', 'title' => '주간 대규모 소집', 'desc' => '이번 주 영웅 소집을 10회 하세요.', 'event' => 'gacha_pull', 'target' => 10, 'gold' => 200, 'user_exp' => 60],
@@ -244,6 +260,9 @@ return [
         'main_chapters' => [101, 102, 103, 104],
         'exclude_shelves' => [],   // 집합에서 뺄 서가 chapter 번호
     ],
+
+    // 시즌 전쟁 쓰기 경로(join/attack) 스위치. false(기본)면 403 season_war_disabled. 읽기·진행 중 데이터·war:tick 정산은 영향 없음.
+    'season_war_enabled' => (bool) env('GAME_SEASON_WAR_ENABLED', false),
 
     'rank' => [
         'enabled' => false, 'elo_k' => 32, 'start_rating' => 1000, 'season_days' => 28,
@@ -282,24 +301,41 @@ return [
     // daily_cap = 유저당 하루(KST 05:00) 획득 상한 합계(초과분은 지급하지 않음, 0=무제한). enabled=false 면 지급 중단(보유분·사용은 유지).
     'pen' => [
         'enabled' => (bool) env('GAME_PEN_ENABLED', true),
-        'daily_cap' => 60,
+        'daily_cap' => (int) env('GAME_PEN_DAILY_CAP', 15),   // 클리어·전쟁·랭크 전용 일일 상한 15(일일 퀘스트·시작·튜토리얼·시즌 종료 보상은 상한 밖). 조정은 환경변수 GAME_PEN_DAILY_CAP
+        'starter' => 10,             // 신규 계정 시작 펜(일일 상한 밖, reason starter_pen)
+        'tutorial_reward' => 5,      // 튜토리얼 완료 펜(일일 상한 밖, reason tutorial_reward_pen)
         'war_attack_win' => 5,       // 시즌 전쟁 영토 공격 승리 1회
         'war_capture' => 15,         // 시즌 전쟁 영토 점령 성공 보너스 1회
         'rank_win' => 8,             // 랭크전 정상 종료 승리 1회(기권·접속끊김 승리는 제외)
-        'daily_quest' => 3,          // 일일 퀘스트 보상 수령 1회
+        'daily_quest' => (int) env('GAME_PEN_DAILY_QUEST', 0),   // 일일 퀘스트 공통 수령 펜(0: 퀘스트 정의별 pen 사용, 합 10/일, 일일 상한 제외)
+        // 스테이지 첫 클리어 펜(스테이지당 1회, ref=user_stage_progress id 멱등, 일일 상한 공유, 소탕·재클리어는 0). 기본 ON(2026-11-14), 끄기: GAME_PEN_PVE_FIRST_CLEAR=false
+        'pve_first_clear' => ['enabled' => (bool) env('GAME_PEN_PVE_FIRST_CLEAR', true), 'amount' => (int) env('GAME_PEN_PVE_FIRST_CLEAR_AMOUNT', 1)],
         // 시즌 종료 보상(일일 상한과 무관, season_members.contribution>0 인 참가자만): 개인 기여 순위 구간별 지급(rank<=max_rank 첫 구간) + 우승 국가 소속 보너스
         'season' => ['rank_table' => [[1, 200], [2, 120], [3, 80], [10, 40]], 'participate' => 15, 'winner_bonus' => 50],
     ],
     // 클라이언트 에러 리포트(POST /api/client-errors) 보관: retention_days 초과 삭제 + max_rows 초과분 오래된 것부터 삭제(client-errors:prune, 매일 04:10)
     'client_errors' => ['retention_days' => 14, 'max_rows' => 5000],
     // 소탕(수동 3성 클리어한 스테이지만, 자동 전투 아님): enabled=false 면 404 sweep_disabled. max_count=1회 요청 최대 횟수. 일일 한도는 reward_scale.stage_daily_cap 카운터를 전투 보상과 공유
-    'sweep' => ['enabled' => (bool) env('GAME_SWEEP_ENABLED', true), 'max_count' => 10, 'daily_cap' => 20],   // daily_cap: 유저·스테이지별 일일 소탕 횟수 상한(KST 05:00). stage_daily_cap 과 별개로 항상 적용(0=무제한은 권장하지 않음)
+    'sweep' => ['enabled' => (bool) env('GAME_SWEEP_ENABLED', true), 'max_count' => 10, 'daily_cap' => 5, 'daily_total' => 10],   // daily_cap: 유저·스테이지별 일일 소탕 횟수 상한(KST 05:00). stage_daily_cap 과 별개로 항상 적용(0=무제한은 권장하지 않음) / daily_total: 유저당 하루 소탕 총횟수(모든 스테이지 합산, 0=무제한)
     'equipment' => [
         'enabled' => true,
         'cap_flat' => ['hp' => 16, 'atk' => 3, 'def' => 2],
         'cap_pct' => ['hp' => 20, 'atk' => 10, 'def' => 40],
         'inventory_cap' => 100,
         'pvp_scale' => 1.0,
+    ],
+    // 영웅 강화(별 ★1~★5, user_heroes.star). 같은 영웅 중복 조각(shards)+골드. 전부 임시값(임밸런 확정 전).
+    // 비용(★n 으로 올리는 단계 = 배열 n-1번째): 조각 = shard_pieces[단계] x shard_unit[등급], 골드 = gold[단계] x gold_mult[등급]. 확정 성공(실패 없음), 최고 단계 거부.
+    // bonus_pct = 해당 별 단계에서의 누적 보너스(Lv1 스탯 대비 %, 공격·방어만, 체력 제외; ★5 최대 +8%). apply_pvp=false: 랭크·자유대전·시즌전쟁에는 미적용(스테이지 PvE만)
+    'star' => [
+        'enabled' => (bool) env('GAME_STAR_ENABLED', true),
+        'apply_pvp' => (bool) env('GAME_STAR_APPLY_PVP', false),
+        'max' => 5,
+        'shard_pieces' => [1, 1, 2, 2, 3],
+        'shard_unit' => ['S' => 50, 'A' => 30, 'B' => 20, 'C' => 10],
+        'gold' => [500, 1000, 2000, 3500, 5500],
+        'gold_mult' => ['C' => 0.6, 'B' => 1.0, 'A' => 1.5, 'S' => 2.0],
+        'bonus_pct' => [2, 3, 5, 6.5, 8],
     ],
     'guest_email_domain' => 'guest.invalid',
 ];

@@ -74,8 +74,10 @@ json.dump({'_note': '퀘스트 code → 썸네일 키(ui.quest.thumb.*). 찾는 
 # ---------- 4) 상단 로고 변형(사용자 제공 ui.logo.header@2x 1000x333 재가공) ----------
 L = Image.open(f'{A}/ui/logo_header@2x.webp').convert('RGBA')
 def to_h(im, h): return im.resize((round(im.width * h / im.height), h), Image.LANCZOS)
-for h, suf in [(72, ''), (144, '@2x')]: to_h(L, h).save(f'{A}/ui/logo_topbar{suf}.webp', 'WEBP', quality=92, method=6, alpha_quality=100)
-add('ui.logo.topbar', f'{A}/ui/logo_topbar@2x.webp', {'scale': '@2x', 'display': [round(1000 * 72 / 333), 72], 'variants': {'x1': 'assets/ui/logo_topbar.webp'}, 'scope': 'boot', 'src': 'ui.logo.header@2x(사용자 제공)', 'note': '로비 상단 바용 로고(문장 + 현판 + 글자 일체형, 표시 높이 72)'})
+# 2026-11-14: logo_topbar 는 docker/gemini/logo_topbar_rebuild.py 가 만든다(바 금테 정렬 재구성). 여기서는 다시 쓰지 않고 항목만 기록
+add('ui.logo.topbar', f'{A}/ui/logo_topbar@2x.webp', {'scale': '@2x', 'display': [266, 60], 'variants': {'x1': 'assets/ui/logo_topbar.webp'}, 'scope': 'boot', 'src': 'ui.logo.header@2x(사용자 제공) 재배치', 'generator': {'script': 'docker/gemini/logo_topbar_rebuild.py(후처리만)', 'calls': 0},
+    'align': {'image_h_eq_bar_h': True, 'plaque_top_ratio': 0.0625, 'plaque_bottom_ratio': 0.849, 'emblem_ratio': [0.008, 0.992], 'x_offset_hint': 10},
+    'note': '로비 상단 바용 로고(문장 + 현판 + 글자). 이미지 높이 = 상단 바 높이, 이미지 위 = 바 위. 현판 바깥 윗선 6.25%(바 윗 금띠 안쪽 12/192), 아랫선 84.9%(바 아래 가는 금선 163/192)'})
 # 문장만(왼쪽 0~290px, 오른쪽 끝 25px 알파 페이드)
 em = L.crop((0, 0, 290, 333)); ea = np.asarray(em).astype(np.float32); ea[..., 3] *= np.clip((290 - np.arange(290)) / 25, 0, 1)[None, :]
 em = Image.fromarray(ea.astype(np.uint8), 'RGBA'); em = em.crop(em.getchannel('A').point(lambda v: 255 if v > 16 else 0).getbbox())

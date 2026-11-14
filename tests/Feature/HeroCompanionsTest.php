@@ -35,6 +35,7 @@ class HeroCompanionsTest extends TestCase
         }
         $this->artisan('game:seed-imjin10', ['--with-npc' => true])->assertSuccessful();
         $r = $this->postJson('/api/guests', ['nickname' => 'comp'])->assertCreated();
+        $this->givePartyHeroes((int) $r->json('user.id'));
         $h = ['X-Guest-Token' => $r->json('guest_token')];
         DB::table('stages')->update(['prerequisite_stage_id' => null]);   // 선행 잠금 해제
         $run = function (string $code) use ($h) {

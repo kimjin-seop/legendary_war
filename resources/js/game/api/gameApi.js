@@ -1,5 +1,6 @@
 import { api, session, sessionCache } from './client.js';
 import { setGachaCultures } from '../systems/names.js';
+import { rememberStageChapters } from '../campaign/stageChapterInfo.js';
 
 // /api/profile 의 공개 규칙(rules) 마지막 값. 로비 탭 구성(rules.gacha) 판단용. 받기 전에는 null(= 모든 플래그 off 로 간주)
 let lastRules = null;
@@ -22,6 +23,26 @@ export const getWarScenario = () => warScenario;
 const wq = () => (warScenario ? { scenario: warScenario } : undefined);
 const mapPreviewCache = new Map(); // code -> Promise(미리보기 응답). 실패 시 제거(재시도 가능)
 
+// POST /api/battles/{id}/forecast 응답 -> FE 예측 형식(서버 필드명은 여기서만 안다). 확정 계약(박백엔 2026-11-14) 200 필드 13개:
+//  target_hp_before, target_hp_after, target_max_hp, attacker_hp_before, attacker_hp_after, attacker_max_hp, dmg, counter_dmg,
+//  target_defeated, attacker_defeated, micro(미시 실제 시뮬 true / shadow false), flank, affinity(null 가능). 격파 = *_hp_after 0 + *_defeated true.
+//  병력 단계는 서버가 주지 않음 -> 호출부가 *_hp_after 를 stepsOf(hp, max_hp)로 환산. target_hp_after 가 없으면 형식 오류(throw -> 호출부 폴백)
+function normalizeForecast(f) {
+    const num = (v) => (v === null || v === undefined || v === '' || !Number.isFinite(Number(v)) ? null : Number(v));
+    const nn = (v) => (num(v) == null ? null : Math.max(0, num(v)));
+    const targetHpAfter = nn(f?.target_hp_after);
+    if (targetHpAfter == null) throw new Error('forecast_malformed');
+    const attackerHpAfter = nn(f.attacker_hp_after);
+    return {
+        targetHpBefore: nn(f.target_hp_before), targetHpAfter, targetMaxHp: nn(f.target_max_hp),
+        attackerHpBefore: nn(f.attacker_hp_before), attackerHpAfter, attackerMaxHp: nn(f.attacker_max_hp),
+        dmg: nn(f.dmg), counterDmg: nn(f.counter_dmg),
+        targetDefeated: f.target_defeated === true || targetHpAfter <= 0,
+        attackerDefeated: f.attacker_defeated === true || attackerHpAfter === 0,
+        micro: f.micro === true, flank: f.flank ?? null, affinity: f.affinity ?? null,
+    };
+}
+
 // 플레이어/스테이지/편성/배치/방 API (전투 진행 API 는 FE A 의 battleApi.js 담당)
 export const gameApi = {
     async profile(force = false) {
@@ -36,6 +57,16 @@ export const gameApi = {
         const d = await api('GET', '/api/heroes');
         sessionCache.setHeroes(d.heroes ?? []);
         return session.heroes;
+    },
+    // 편성 라인업(2026-11-14, routes/api.php): GET {lineup[], count, max, avg_level} / PUT {hero_ids} 전량 교체(같은 응답). 캐시 = session.lineup
+    async lineup(force = false) {
+        if (!force && session.lineup) return session.lineup;
+        const d = await api('GET', '/api/lineup');
+        session.lineup = d; return d;
+    },
+    async saveLineup(heroIds) {
+        const d = await api('PUT', '/api/lineup', { body: { hero_ids: heroIds }, retry: 0 }); // api() 3번째 인자 = {body,query,auth,retry,signal}
+        session.lineup = d; return d;
     },
     async party(force = false) {
         if (!force && session.party && session.profile) return { party: session.party, profile: session.profile, cost: lastPartyCost };
@@ -53,8 +84,15 @@ export const gameApi = {
         keepCost(d);
         return d;
     },
-    // 배열 + .chapters(서가별 필수 영웅 집계 {"<chapter>": {need[{code,name,owned}], need_count, owned_count}}, 없으면 null)
-    stages: () => api('GET', '/api/stages').then((d) => { const a = Array.isArray(d.stages) ? d.stages : []; a.chapters = d.chapters && typeof d.chapters === 'object' ? d.chapters : null; return a; }),
+    // 배열(서버 순서 = 필수 영웅 충족 스테이지 먼저, FE 재정렬 금지) + .chapters(서가별 필수 영웅 집계 {"<chapter>": {need[{code,name,owned}], need_count, owned_count, ready}}, 없으면 null)
+    //  + .chapterOrder(chapter_order: 충족 챕터 먼저 [int], 없으면 null). filter() 후에도 쓰도록 campaign/stageChapterInfo 에도 보관
+    stages: () => api('GET', '/api/stages').then((d) => {
+        const a = Array.isArray(d.stages) ? d.stages : [];
+        a.chapters = d.chapters && typeof d.chapters === 'object' ? d.chapters : null;
+        a.chapterOrder = Array.isArray(d.chapter_order) ? d.chapter_order : null;
+        rememberStageChapters(a.chapters, a.chapterOrder);
+        return a;
+    }),
     // -> {battle, deployment}
     challenge: (stageId) => api('POST', `/api/stages/${stageId}/challenge`, { retry: 0 }),
 
@@ -65,7 +103,20 @@ export const gameApi = {
         confirm: (id) => api('POST', `/api/battles/${id}/confirm`, { retry: 0 }),
         abandon: (id) => api('POST', `/api/battles/${id}/abandon`, { retry: 0 }),
         // 이어하기: {battles:[{battle_id, stage_id, stage_code, stage_name, status(deployment|in_progress), turn, current_side, updated_at}] 최근순, max_open}
-        active: () => api('GET', '/api/battles/active').then((d) => ({ battles: Array.isArray(d?.battles) ? d.battles : [], maxOpen: Math.max(1, Number(d?.max_open) || 3) })),
+        active: () => api('GET', '/api/battles/active').then((d) => ({ battles: Array.isArray(d?.battles) ? d.battles : [], maxOpen: Math.max(1, Number(d?.max_open) || 1) })), // 서버 상한 기본 1(2026-11-14)
+    },
+
+    // 공격 예측(미시 모드 on 전투 전용, 서버 개체별 교전 시뮬). 요청 {unit_id, target_id, x?, y?}(x,y = 임시 이동 칸, 서버 미전송 이동).
+    // 응답 필드명 매핑은 이 함수(normalizeForecast) 한 곳에서만 한다(계약 확정 시 여기만 고침). 재시도 없음 + 짧은 타임아웃(실패 시 호출부가 로컬 예측으로 폴백)
+    // -> normalizeForecast 결과. 오류(404 battle_not_found, 409 out_of_range·not_your_turn 등, 403, 422, 시간 초과 code 'aborted')는 ApiError throw -> 호출부가 토스트 없이 폴백
+    async forecastAttack(battleId, { unitId, targetId, x, y } = {}, { timeoutMs = 2000 } = {}) {
+        const ctl = typeof AbortController === 'function' ? new AbortController() : null;
+        const timer = ctl ? setTimeout(() => ctl.abort(), timeoutMs) : 0;
+        try {
+            const body = { unit_id: unitId, target_id: targetId, ...(Number.isInteger(x) && Number.isInteger(y) ? { x, y } : {}) };
+            const d = await api('POST', `/api/battles/${encodeURIComponent(battleId)}/forecast`, { body, retry: 0, signal: ctl?.signal });
+            return normalizeForecast(d);
+        } finally { clearTimeout(timer); }
     },
 
     rooms: {
@@ -108,7 +159,7 @@ export const gameApi = {
     // 퀘스트(메인·일일·주간). claimable_count = 로비 빨간 점
     quests: {
         list: () => api('GET', '/api/quests'),
-        // -> {claimed, reward{gold,user_exp}, quest, claimable_count}. 같은 퀘스트 중복 수령은 409(멱등 아님) -> 자동 재시도 없음
+        // -> {claimed, reward{gold,user_exp,pen}, quest, claimable_count}. 같은 퀘스트 중복 수령은 409(멱등 아님) -> 자동 재시도 없음
         claim: (code) => api('POST', `/api/quests/${encodeURIComponent(code)}/claim`, { retry: 0 }),
     },
     // 시즌 전쟁(routes/api.php 상단 주석). 공격 응답 {battle_id, territory_battle_id, territory, battle} 이후 전투는 기존 /api/battles/{id}/*

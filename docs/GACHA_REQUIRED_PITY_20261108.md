@@ -3,6 +3,8 @@
 배경: 영웅은 뽑기로만 얻고, 스테이지는 스토리 필수 영웅(`database/data/stage_required_heroes.json`, 190스테이지 48명)을 보유해야 플레이 가능.
 풀 503명 기준 이순신(S) 1명의 기대 뽑기가 약 1,400회라 그대로면 첫 스테이지부터 막히므로 소프트 천장을 둔다.
 
+> 2026-11-14: 소환 결제 통화가 펜으로 전환됨(기본 1회 1펜/10연 9펜). 이 문서의 골드 수치는 골드 모드 기준 기록이며 펜 기준으로는 1골드 100 = 1펜, 즉 '9,400골드'는 약 94펜, '4,500골드'는 약 45펜 규모로 읽는다(시작 펜 10 + 튜토리얼 5 = 단일 15회).
+
 ## 1. 승격(작업 1)
 
 - 필수 영웅 48명 중 DB `heroes.campaign_only=1` 이던 14명(npc_boroldai, npc_eudes_aquitaine, npc_gang_min_cheom, npc_gokbori, npc_guyuk, npc_kim_jong_hyeon, npc_kim_pumil, npc_la_hire, npc_liu_rengui, npc_maeda_toshiie, npc_publius_scipio, npc_qaraqush, npc_so_jeongbang, npc_torii_suneemon)을 기존 방식(`playable: true` + `game:npc-promote`)으로 승격했다.

@@ -27,10 +27,11 @@ class SweepTest extends TestCase
         DB::table('user_stage_progress')->where('user_id', $uid)->update(['best_stars' => 3]);
 
         config(['game.reward_scale.stage_daily_cap' => 2]);
+        $perRun = (int) floor((int) $stage->reward_gold * (float) config('game.reward_scale.star_mult.3') * (float) config('game.reward_scale.retry_mult'));   // 소탕 1회 골드 = 보상 x 3성 배율 x 재도전 배율(레벨 곡선 v2: 0.5)
         $a = $sweep('req-0000002', 3)->assertOk()->assertJsonPath('executed', 2)->assertJsonPath('reward_blocked', 'stage_daily_cap')->assertJsonPath('replay', false);
-        $this->assertSame((int) $stage->reward_gold * 2, $a->json('gold'));
+        $this->assertSame($perRun * 2, $a->json('gold'));
         $sweep('req-0000002', 3)->assertOk()->assertJsonPath('replay', true)->assertJsonPath('executed', 2);   // 멱등
-        $this->assertSame($gold0 + (int) $stage->reward_gold * 2, (int) DB::table('wallets')->where(['user_id' => $uid, 'currency_code' => 'gold'])->value('balance'));
+        $this->assertSame($gold0 + $perRun * 2, (int) DB::table('wallets')->where(['user_id' => $uid, 'currency_code' => 'gold'])->value('balance'));
         $sweep('req-0000003', 1)->assertStatus(422)->assertJsonPath('error.code', 'stage_daily_cap');   // 한도 소진
         $this->assertSame(1, DB::table('stage_sweeps')->where('user_id', $uid)->count());
         $this->getJson('/api/rules')->assertOk()->assertJsonPath('sweep.max_count', (int) config('game.sweep.max_count'))->assertJsonPath('sweep.enabled', true);
@@ -42,5 +43,22 @@ class SweepTest extends TestCase
         $sweep('req-0000005', 0)->assertStatus(422);
         $sweep('req-0000006', 5)->assertOk()->assertJsonPath('executed', 3)->assertJsonPath('reward_blocked', 'stage_daily_cap');   // 이미 소진된 공유 카운터와 무관하게 소탕 상한 5-2(이미 실행 2)
         $sweep('req-0000007', 1)->assertStatus(422)->assertJsonPath('error.code', 'stage_daily_cap');
+    }
+    public function test_유저_일일_소탕_총량은_모든_스테이지_합산으로_제한된다(): void
+    {
+        $this->artisan('game:seed')->assertSuccessful();
+        $r = $this->postJson('/api/guests', ['nickname' => 'swt'])->assertCreated();
+        $uid = (int) $r->json('user.id');
+        $h = ['X-Guest-Token' => $r->json('guest_token')];
+        $stages = DB::table('stages')->orderBy('id')->limit(2)->get();
+        foreach ($stages as $st) {
+            DB::table('user_stage_progress')->insert(['user_id' => $uid, 'stage_id' => $st->id, 'best_stars' => 3, 'clear_count' => 1, 'created_at' => now(), 'updated_at' => now()]);
+        }
+        config(['game.sweep.daily_total' => 4, 'game.sweep.daily_cap' => 0, 'game.reward_scale.stage_daily_cap' => 0]);
+        $sweep = fn (int $sid, string $rid, int $n) => $this->withHeaders($h)->postJson("/api/stages/{$sid}/sweep", ['count' => $n, 'request_id' => $rid]);
+
+        $sweep($stages[0]->id, 'req-tot-0001', 3)->assertOk()->assertJsonPath('executed', 3);
+        $sweep($stages[1]->id, 'req-tot-0002', 3)->assertOk()->assertJsonPath('executed', 1)->assertJsonPath('reward_blocked', 'sweep_daily_total');   // 다른 스테이지여도 잔여 1
+        $sweep($stages[0]->id, 'req-tot-0003', 1)->assertStatus(422)->assertJsonPath('error.code', 'sweep_daily_total');
     }
 }

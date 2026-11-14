@@ -357,6 +357,57 @@ class BattleService
         }
     }
 
+    /**
+     * 편성 라인업 판정(캠페인 출정 전용). 풀 = 라인업 영웅 + 필수/고정/대여 영웅 + 주인공(campaign_only) - 이 스테이지 아군 NPC.
+     * required(min_party) = max(1, 필수·고정·대여 영웅 수; 슬롯 모드 고정 슬롯 포함). 선택 슬롯 수는 요구하지 않는다(기존: 선택 슬롯은 비워도 확정 가능).
+     * reason: null | lineup_empty(필수 영웅 없는데 라인업 영웅도 없음) | below_min_party(풀 < required)
+     *
+     * @param  int[]  $lineupIds
+     * @param  iterable  $rows user_heroes 행(해당 유저)
+     * @return array{ready:bool,required:int,current:int,reason:?string,pool:int[],lineup_count:int}
+     */
+    public function lineupCheck(User $user, ?object $stage, array $forced, array $lineupIds, iterable $rows): array
+    {
+        $npc = $this->allyNpcCodes($stage);
+        $pool = [];
+        $free = 0;
+        foreach ($rows as $uh) {
+            $h = $this->data->heroById((int) $uh->hero_id);
+            if (! $h || in_array($h['code'], $npc, true)) {
+                continue;
+            }
+            $exempt = isset($forced[$h['code']]) || ! empty($h['campaign_only']);
+            $in = in_array((int) $uh->id, $lineupIds, true);
+            if ($exempt || $in) {
+                $pool[] = (int) $uh->id;
+            }
+            $in && ! $exempt && $free++;
+        }
+        $required = max(1, count($forced));
+        $reason = count($pool) >= $required ? null : (($free === 0 && $forced === []) ? 'lineup_empty' : 'below_min_party');
+
+        return ['ready' => $reason === null, 'required' => $required, 'current' => count($pool), 'reason' => $reason, 'pool' => $pool, 'lineup_count' => count($lineupIds)];
+    }
+
+    /**
+     * 총합 권장 레벨용 권장 편성 인원 N_stage: 슬롯 모드 = 고정+선택 슬롯 수, 그 외 = 캠페인 슬롯 곡선에 recommended_level 을 레벨로 대입한 슬롯 수(필수 영웅 슬롯 면제분 제외).
+     * recommended_level 자체는 불변. @return array{recommended_party:int,recommended_total:int}
+     */
+    public function recommendedParty(?object $stage, ?array $slots = null): array
+    {
+        $lv = (int) ($stage->recommended_level ?? 1);
+        $slots ??= $stage ? $this->liveSlots($stage) : null;
+        $n = $slots ? count($slots['fixed']) + count($slots['free']) : $this->progress->maxSlots(max(1, $lv), true);
+
+        return ['recommended_party' => $n, 'recommended_total' => $lv * $n];
+    }
+
+    /** 라인업 적용 범위: 캠페인 스테이지 출정만(방 대전·랭크·시즌 전쟁·자유전은 현행) */
+    private function lineupEnforced(?object $stage, array $state): bool
+    {
+        return $stage !== null && ! empty($state['campaign']) && LineupService::available();
+    }
+
     public function deploymentInfo(User $user, Battle $b): array
     {
         $map = $this->data->map((int) $b->map_id);
@@ -365,13 +416,19 @@ class BattleService
         $slots = $b->state['deploy_slots'] ?? null;   // 슬롯 모드(생성 시 고정 스냅샷), 없으면 현행
         $forced = $this->forcedOf($stageRow, $user, $slots);   // 출전 강제/대여/고정 슬롯: hero code => {unit_type?, troop_type?}
         $npcCodes = $this->allyNpcCodes($stageRow);   // 이 스테이지에서 아군 NPC로 등장하는 영웅은 플레이어 출전 후보에서 제외
+        $enforce = $this->lineupEnforced($stageRow, $b->state);   // 캠페인 스테이지 출정만 라인업 적용
+        $lineupSvc = app(LineupService::class);
+        $lineupIds = $enforce ? $lineupSvc->ids($user) : [];
+        $lc = $enforce ? $this->lineupCheck($user, $stageRow, $forced, $lineupIds, $rows) : null;
+        $poolSet = $lc ? array_flip($lc['pool']) : null;   // null = 제한 없음
         $candidates = [];
         foreach ($rows as $uh) {
             $h = $this->applyForced($this->data->heroById((int) $uh->hero_id), $forced);
             if (in_array($h['code'], $npcCodes, true)) {
                 continue;
             }
-            $candidates[] = ['user_hero_id' => (int) $uh->id, 'hero' => $h['code'], 'name' => $h['name_ko'], 'title' => $h['title'], 'short_name' => $h['short_name'], 'display_name' => $h['display_name'], 'rarity' => $h['rarity'], 'cost' => $h['cost'], 'level' => (int) $uh->level, 'unit_type' => $h['unit_type'], 'troop_type' => $h['troop_type'], 'troop_label' => $this->data->troopLabel($h['troop_type']), 'forced' => isset($forced[$h['code']])];
+            $li = array_search((int) $uh->id, $lineupIds, true);
+            $candidates[] = ['in_lineup' => $li !== false, 'lineup_slot' => $li !== false ? $li + 1 : null, 'in_pool' => $poolSet === null || isset($poolSet[(int) $uh->id]), 'user_hero_id' => (int) $uh->id, 'hero' => $h['code'], 'name' => $h['name_ko'], 'title' => $h['title'], 'short_name' => $h['short_name'], 'display_name' => $h['display_name'], 'rarity' => $h['rarity'], 'cost' => $h['cost'], 'level' => (int) $uh->level, 'unit_type' => $h['unit_type'], 'troop_type' => $h['troop_type'], 'troop_label' => $this->data->troopLabel($h['troop_type']), 'forced' => isset($forced[$h['code']])];
         }
         foreach ($candidates as $ci => $c) {   // 영웅 상세(오라/문화권/능력치)
             $candidates[$ci]['portrait'] = $this->portraitFor($c['hero'], (int) $user->id);
@@ -383,9 +440,9 @@ class BattleService
                 $this->data->heroById((int) $uh->hero_id)['code'] === $fcode && $forcedIds[] = (int) $uh->id;
             }
         }
-        $keep = array_flip(array_column($candidates, 'user_hero_id'));
+        $keep = array_flip(array_column(array_filter($candidates, fn ($c) => $c['in_pool']), 'user_hero_id'));   // 기본 파티·복원은 라인업 풀 안으로 필터
         $defaultParty = array_values(array_filter(array_unique(array_merge($forcedIds, $this->progress->party($user))), fn ($id) => isset($keep[$id])));
-        $slotPlan = $slots ? $this->defaultSlotPlan($user, $slots, $forced, $candidates) : null;
+        $slotPlan = $slots ? $this->defaultSlotPlan($user, $slots, $forced, array_values(array_filter($candidates, fn ($c) => $c['in_pool']))) : null;
         $slots && $defaultParty = array_values(array_filter($slotPlan['party'], fn ($id) => isset($keep[$id])));
         $partyCap = $slots ? count($slots['free']) + count($forced) : $this->progress->maxSlots($this->progress->level($user), true) + count($forced);
         $forcedHeroes = [];
@@ -399,6 +456,16 @@ class BattleService
             $duh && $defCost[$did] = ['uh' => $duh, 'hero' => $this->applyForced($this->data->heroById((int) $duh->hero_id), $forced)];
         }
         $maxCost = $slots['cost_cap'] ?? $this->progress->campaignCostCap($this->progress->level($user), $slots ? count($slots['free']) : $this->progress->maxSlots($this->progress->level($user), true), count($forced), true);
+        // 등급 격차 v1로 영웅 코스트가 오른 기존 유저: 저장 파티(parties)는 그대로 두고 기본 편성에서만 상한 초과분을 뒤쪽 영웅부터 해제하고 안내한다(강제·고정 영웅은 유지).
+        $trim = $this->progress->trimPartyToCost($user, $defCost, $forcedIds, $maxCost, true);
+        $trimmed = [];
+        if ($trim['dropped'] !== []) {
+            foreach ($trim['dropped'] as $did) {
+                $trimmed[] = ['user_hero_id' => $did, 'hero' => $defCost[$did]['hero']['code'], 'name' => $defCost[$did]['hero']['name_ko'], 'cost' => (int) $defCost[$did]['hero']['cost']];
+            }
+            $defCost = $trim['kept'];
+            $defaultParty = array_values(array_filter($defaultParty, fn ($id) => ! in_array($id, $trim['dropped'], true)));
+        }
         $stage = DB::table('stages')->where('id', $b->stage_id)->first(['name', 'recommended_level']);
         $enemy = array_map(fn ($u) => Engine::redactUnitMp($u, 'a'), $this->data->withTitles(array_values(array_filter($b->state['units'], fn ($u) => $u['side'] === 'b'))));   // 적 영웅 MP는 비율만
 
@@ -406,6 +473,9 @@ class BattleService
             'battle_id' => $b->id, 'status' => $b->status, 'map_code' => $this->data->mapMeta((int) $b->map_id)['code'], 'biome' => $this->data->mapMeta((int) $b->map_id)['biome'],
             'objective' => Engine::objectiveView($b->state), 'objective_points' => $this->objectivePoints($b->state), 'triggers' => Engine::triggersView($b->state),
             'forced' => $this->forcedView($user, $forced),
+            'lineup_enforced' => $enforce, 'lineup' => $enforce ? $lineupSvc->view($user)['lineup'] : [], 'lineup_avg_level' => $enforce ? $lineupSvc->view($user)['avg_level'] : null, 'lineup_max' => LineupService::MAX,
+            'recommended_party' => $this->recommendedParty($stageRow, $slots)['recommended_party'], 'recommended_total' => $this->recommendedParty($stageRow, $slots)['recommended_total'],   // 권장 총합 레벨 = recommended_level x 권장 인원
+            'min_party' => $lc['required'] ?? 1, 'pool_size' => $lc ? $lc['current'] : count($candidates), 'lineup_ready' => $lc['ready'] ?? true, 'lineup_reason' => $lc['reason'] ?? null,   // 서버 단일 권위: 풀(라인업+필수/고정/대여+주인공) < min_party 면 PUT deployment 가 lineup_insufficient
             'slot_mode' => $slots !== null, 'slots' => $slots ? $this->slotsView($slots, $forced, $candidates) : [],   // 배치 슬롯(슬롯 스테이지만): kind fixed=잠김(영웅 고정)/free=유저 선택. 슬롯 외 타일 배치는 not_a_slot
             'slot_counts' => $slots ? ['fixed' => count($slots['fixed']), 'free' => count($slots['free']), 'total' => count($slots['fixed']) + count($slots['free'])] : null,
             'forced_cost' => $this->progress->costBreakdown($user, $forcedHeroes, null, true),   // 강제/고정 영웅 코스트(영웅+부대): 코스트 상한 합산에 포함된다
@@ -413,6 +483,7 @@ class BattleService
             'stage_name' => $stage->name ?? null, 'recommended_level' => isset($stage->recommended_level) ? (int) $stage->recommended_level : null,
             'max_cost' => $maxCost, 'max_party_slots' => $slots ? count($slots['free']) : $this->progress->maxSlots($this->progress->level($user), true),   // 캠페인 곡선(슬롯 스테이지: 선택 슬롯 수 = 고정 영웅 제외 출전 가능 수, 코스트 상한은 rules.deploy_slots.cost_cap 우선)
             'default_party' => $defaultParty, 'default_positions' => (object) $this->defaultPositions($user, $b->state, $map['deploy_zones']['a'], array_slice($defaultParty, 0, $partyCap), $forced, $slotPlan['pos'] ?? null), 'default_party_cost' => $this->progress->costBreakdown($user, $defCost, null, true) + ['max' => $maxCost], 'candidates' => $candidates,
+            'default_party_trimmed' => $trimmed, 'default_party_notice' => $trimmed ? '코스트 상한('.$maxCost.')을 넘어 기본 편성에서 '.count($trimmed).'명을 제외했습니다: '.implode(', ', array_column($trimmed, 'name')).'. 저장된 편성은 그대로이며 직접 조정할 수 있습니다.' : null,
             'deploy_zone' => $map['deploy_zones']['a'], 'enemy_units' => $enemy, 'enemy_preview' => $this->safeEnemyPreview($stageRow),
             'width' => $map['width'], 'height' => $map['height'], 'tiles' => $b->state['tiles'],
             'submitted' => $b->deployment,
@@ -509,7 +580,7 @@ class BattleService
             $entry = ['row' => $h, 'level' => (int) $uh->level, 'key' => (int) $uh->id];
             $list = $this->progress->squadTroops([$entry], $user->id, ! empty($state['campaign']))[0];
             $formation[(int) $uh->id] = [
-                'slots' => \App\Game\SquadPlanner::count((int) $uh->level, (int) $h['troop_bonus'], $cfg), 'user_selected' => false, 'troop_type' => $h['troop_type'], 'troop_label' => $this->data->troopLabel($h['troop_type']),   // 고정 병종: 사용자 선택 없음
+                'slots' => \App\Game\SquadPlanner::count((int) $uh->level, (int) $h['troop_bonus'], $cfg, $h['rarity'] ?? null), 'user_selected' => false, 'troop_type' => $h['troop_type'], 'troop_label' => $this->data->troopLabel($h['troop_type']),   // 고정 병종: 사용자 선택 없음
                 'troops' => array_map(fn ($t) => ['class' => $t, 'cost' => $costOf($t)], $list),
             ];
         }
@@ -841,13 +912,33 @@ class BattleService
             }
             $ids[] = $p['user_hero_id'];
         }
+        $enforce = ! $roomFixed && $this->lineupEnforced($stage, $state);
+        $lineupIds = [];
+        if ($enforce) {   // 편성 라인업: 풀(라인업+필수/고정/대여+주인공)이 최소 인원 미달이면 편성 화면으로 유도
+            $lineupIds = app(LineupService::class)->ids($user);
+            $lc = $this->lineupCheck($user, $stage, $forced, $lineupIds, DB::table('user_heroes')->where('user_id', $user->id)->get());
+            if (! $lc['ready']) {
+                throw new IllegalAction('lineup_insufficient', "편성 라인업이 부족합니다(필요 {$lc['required']}명, 현재 {$lc['current']}명). 편성 화면에서 영웅을 편성하세요.", 422, ['required' => $lc['required'], 'current' => $lc['current'], 'reason' => $lc['reason'], 'lineup_count' => $lc['lineup_count'], 'max' => LineupService::MAX]);
+            }
+        }
         $rule = $roomFixed ? $this->progress->roomPartyRule($user, $mapId) : null;   // 방 대전: 맵 크기별 고정 출전수
-        $party = $this->progress->validateParty($user, $ids, null, $forced, ! empty($state['campaign']), $rule['party_size'] ?? ($slots ? count($slots['free']) : null), $rule['cost_cap'] ?? ($slots['cost_cap'] ?? null));   // 슬롯 모드: 슬롯 수 = 선택 슬롯 수(고정 영웅은 슬롯 면제·코스트 포함), 코스트 상한은 cost_cap 우선
+        $party =$this->progress->validateParty($user, $ids, null, $forced, ! empty($state['campaign']), $rule['party_size'] ?? ($slots ? count($slots['free']) : null), $rule['cost_cap'] ?? ($slots['cost_cap'] ?? null));   // 슬롯 모드: 슬롯 수 = 선택 슬롯 수(고정 영웅은 슬롯 면제·코스트 포함), 코스트 상한은 cost_cap 우선
         if ($npcCodes = $this->allyNpcCodes($stage)) {   // 아군 NPC로 등장하는 영웅은 직접 출전 불가
             foreach ($party as $pp) {
                 if (in_array($pp['hero']['code'] ?? null, $npcCodes, true)) {
                     throw new IllegalAction('hero_is_ally_npc', '이 스테이지에서는 아군 NPC로 등장하는 영웅이라 출전시킬 수 없습니다: '.($pp['hero']['name_ko'] ?? $pp['hero']['code']), 422);
                 }
+            }
+        }
+        if ($enforce) {   // 라인업 밖 영웅 거부(필수·고정·대여 영웅과 주인공(campaign_only)은 면제)
+            $out = [];
+            foreach ($party as $uhid => $pp) {
+                if (! isset($forced[$pp['hero']['code'] ?? '']) && empty($pp['hero']['campaign_only']) && ! in_array((int) $uhid, $lineupIds, true)) {
+                    $out[] = ['user_hero_id' => (int) $uhid, 'hero' => $pp['hero']['code'], 'name' => $pp['hero']['name_ko']];
+                }
+            }
+            if ($out) {
+                throw new IllegalAction('not_in_lineup', '편성 라인업에 없는 영웅은 출정할 수 없습니다: '.implode(', ', array_column($out, 'name')).'. 편성 화면에서 라인업을 수정하세요.', 422, ['heroes' => $out, 'user_hero_ids' => array_column($out, 'user_hero_id')]);
             }
         }
         if ($stage === null && empty($state['campaign'])) {   // 방(멀티/자유 대전) 경로: 캠페인 전용 영웅(주인공 등) 출전 금지
@@ -994,6 +1085,7 @@ class BattleService
             }
             $state = $b->state;
             $presetUnits = $this->data->presetUnits((int) $entries[0]['row']['id'], $entries[0]['row']['unit_type']);   // 프리셋 없으면 병종 기본 편성
+            $entries = app(HeroStarService::class)->attach($entries);   // 별(★) 보너스(스테이지 PvE 만 적용)
             $entries = app(EquipmentService::class)->attach($entries);   // 장비 합계(서버가 장착 현황에서 계산, 영웅 유닛만, 스테이지 적 NPC는 해당 없음)
             $squadPlan = $this->squadPlanWithPositions($user, $state, $entries, $b->deployment);   // squad on: 영웅별 부대(+지정 위치)
             ArmyBuilder::addSide($this->engine(), $state, 'a', $entries, $presetUnits, $map['deploy_zones']['a'], $positions, (float) config('game.troop_growth_pct'), $squadPlan);
@@ -1541,6 +1633,7 @@ class BattleService
                 'cleared_at' => now(), 'updated_at' => now(),
             ]);
         }
+        $penFirst = ($win && $stage->id !== null && $prevClears === 0) ? app(PenService::class)->grantStageFirstClear((int) $user->id, (int) $stage->id) : 0;   // 스테이지 첫 클리어 펜(game.pen.pve_first_clear, 기본 OFF=0)
         $joined = ($win && $stage->id !== null && $prevClears === 0) ? $this->grantJoinHeroes($user, $stage) : [];   // 첫 클리어 합류 영웅(stages.join_hero)
         $firstGrant = [];
         if ($win && $stage->id !== null && $prevClears === 0) {   // 첫 클리어 1회 지급(장비·레벨 보장, stage_first_clear_grants.json): 실패해도 승리 정산은 계속(QuestService 훅과 동일하게 로그만)
@@ -1563,7 +1656,7 @@ class BattleService
             'heroes' => $heroResults, 'user' => $userResult, 'reward_blocked' => $rewardBlocked,
             'reward_mult' => round($mult, 4), 'first_clear' => $win && $stage->id !== null ? $prevClears === 0 : null,
             'affinity_kills' => $this->affinityKills($b),
-        ] + ($starDetail !== null ? ['star_detail' => $starDetail] : []) + ($joined !== [] ? ['joined_heroes' => $joined] : []) + (($firstGrant['equipment'] ?? []) !== [] || ($firstGrant['levels'] ?? []) !== [] ? ['first_clear_grant' => $firstGrant] : []);
+        ] + ($starDetail !== null ? ['star_detail' => $starDetail] : []) + ($joined !== [] ? ['joined_heroes' => $joined] : []) + ($penFirst > 0 ? ['pen_first_clear' => $penFirst] : []) + (($firstGrant['equipment'] ?? []) !== [] || ($firstGrant['levels'] ?? []) !== [] ? ['first_clear_grant' => $firstGrant] : []);
         DB::table('battles')->where('id', $b->id)->update(['result' => json_encode($result)]);
         $b->result = $result;
     }
@@ -1633,6 +1726,9 @@ class BattleService
                 'user_id' => $user->id, 'hero_id' => $heroes[$code]['id'], 'level' => 1, 'exp' => 0,
                 'obtained_at' => now(), 'created_at' => now(), 'updated_at' => now(),
             ]);
+            if ($n > 0) {
+                app(LineupService::class)->autoAdd((int) $user->id, (int) DB::table('user_heroes')->where(['user_id' => $user->id, 'hero_id' => $heroes[$code]['id']])->value('id'));
+            }
             $out[] = ['hero' => $code, 'is_new' => $n > 0];
         }
 
@@ -1763,6 +1859,19 @@ class BattleService
         return ['turn_input_seconds' => $secs, 'turn_deadline' => $d, 'server_time' => $this->nowMs()];   // server_time: 시계 차이 보정용(epoch ms)
     }
 
+    /** 일반 공격 예측(조회 전용: state 저장·턴 만료 처리·이벤트 기록 없음). 소유자 전투만(타인 404), 진행 중만, 아군 NPC 거부 */
+    public function forecastAttack(User $user, int $battleId, array $a): array
+    {
+        $b = $this->findOwned($user, $battleId);
+        $this->assertInProgress($b);
+        $unit = (string) $a['unit_id'];
+        if (! empty($b->state['units'][$unit]['npc_ally'])) {
+            throw new IllegalAction('npc_ally_uncontrollable', '아군 NPC는 직접 조종할 수 없습니다.', 403);
+        }
+
+        return $this->engine()->previewAttack($b->state, 'a', $unit, (string) $a['target_id'], $a['x'] ?? null, $a['y'] ?? null);
+    }
+
     /** 유닛 이동 가능 타일·공격 대상 조회(조회 전용) + 턴 마감 정보. $side=조회자 진영 */
     public function unitMoves(Battle $b, string $unit, string $side): array
     {
@@ -1844,7 +1953,7 @@ class BattleService
             'objective' => Engine::objectiveView($b->state), 'objective_points' => $this->objectivePoints($b->state), 'triggers' => Engine::triggersView($b->state),   // capture: points/mode/hold_turns/held/progress. triggers: 증원 예고 [{turn,side,count,zone,cells}]
             // survive_turns: 승리까지 남은 라운드 수(현재 라운드 포함: turns - turn + 1, 종료 후 0). 그 외 목표는 null
             'survive_remaining' => ($sv = Engine::surviveTurns($b->state)) !== null ? ($b->status === 'in_progress' || $b->status === 'deployment' ? max(0, $sv - (int) $b->turn + 1) : 0) : null,
-            'alternate' => Engine::altOn($b->state), 'round' => $b->turn, 'mp_mode' => Engine::mpOn($b->state),
+            'alternate' => Engine::altOn($b->state), 'round' => $b->turn, 'mp_mode' => Engine::mpOn($b->state), 'micro_mode' => $b->state['micro_mode'] ?? 'off',   // 미시 교전 모드(off|shadow|on): FE 공격 예측 문구 분기용(첫 공격 전에도 알 수 있게)
             'alt' => Engine::altOn($b->state) ? $this->engine()->altView($b->state) : null,
             'items' => $b->state['items'] ?? null,   // 전투 소모품 {left, used{code:n}}: 스테이지 전투만, 방·랭크·전쟁은 null(사용 불가)
         ] + (($re = $this->engine()->rulesEffective($b->state)) !== [] ? ['rules_effective' => $re] : []) + \App\Game\StageRules::view($b->state) + $this->data->mapExtras((int) $b->map_id, [(int) $b->state['width'], (int) $b->state['height']]);   // stage_rules(승패 규칙 있을 때만). decor·village_style·tile_layer(있고 state 크기와 같을 때만)

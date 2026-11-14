@@ -183,6 +183,9 @@ export class BattleDialogue {
         }
         if (typeof line.name === 'string' && line.name.trim()) info.name = line.name.trim(); // 데이터가 이름을 주면 우선
         else if (info.npc && (!info.name || /^npc[_:]/.test(info.name))) info.name = '부장'; // 이름을 모르는 NPC: 코드 대신 일반 이름
+        // 초상 폴백(부장/병종 초상)용 병종·문화권: 줄 데이터(액터 sprite.unit_type 등) > 전투 문화권
+        if (typeof line.troop === 'string' && line.troop && info.kind !== 'troop') info.troop = line.troop;
+        if (info.kind !== 'troop') info.culture ??= line.culture ?? this.scene.store?.state?.culture ?? this.scene.store?.state?.map?.culture ?? null;
         return info;
     }
 
@@ -206,7 +209,8 @@ export class BattleDialogue {
         // 초상 없는 일반 화자: 실루엣 자리를 만들지 않고 이름표+대사만(무대의 다른 화자는 전원 dim). 없는 파일 요청도 하지 않는다
         if ((!p || p.id !== id) && !(logical && sc.textures.exists(texKey(logical))) && facelessSpeaker(info, logical)) { this.setActive(null); return; }
         const key = logical ? ensurePortraitTex(sc, logical, (tex) => {
-            if (tex && !this.closed && this.root && this.lineIndex === line && this.portraits.get(side)?.id === id) this.showPortrait(info, expr);
+            // 받기 실패(tex null)여도 논리 키가 폴백(부장/병종 초상)으로 바뀌었으면 다시 그린다(실패 키는 재콜백 없음 -> 반복 없음)
+            if ((tex || dialoguePortraitLogical(info, expr) !== logical) && !this.closed && this.root && this.lineIndex === line && this.portraits.get(side)?.id === id) this.showPortrait(info, expr);
         }) : null;
         if (!p || p.id !== id) {
             p?.c.destroy();

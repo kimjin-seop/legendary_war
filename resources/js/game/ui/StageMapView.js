@@ -5,6 +5,9 @@ import { makeText, fitText } from './common.js';
 import { Button } from './Button.js';
 import { fitLabel } from './Tabs.js';
 import { ScrollList, listRow } from './widgets.js';
+import { campaignCard, infoStrip, ribbonTag } from './campaignInfo.js';
+import { campaignState, myHeroLevel, lineupLevel } from './campaignInfoRules.js';
+import { session } from '../api/client.js';
 import { skinIcon } from './skin.js';
 import { pixelImage } from './PixelBadge.js';
 import { isInstant } from './motion.js';
@@ -253,7 +256,11 @@ export class StageMapView extends Phaser.GameObjects.Container {
             const chipsH = 124; // 대결 구도 2단(아군 줄 / 적군 줄, 0.72배) 또는 한 줄(가운데)
             const SHEET_MIN = 16 + 116 + 8 + 26 + 2 * 64 + 76;
             const mh = Math.max(Math.round(H * 0.24), Math.min(Math.round(H * 0.38), H - chipsH - 8 - SHEET_MIN));
-            this.R = { map: { x: 0, y: 0, w: W, h: mh }, chips: { x: 0, y: mh + 4, w: W, h: chipsH, inMap: false } };
+            // 2026-11-14 모바일 개선: 지도 아래 따로 있던 장수 칩 줄(chipsH + 간격 4)을 지도에 합쳐 지도를 그만큼 세로로 늘리고, 칩은 지도 하단 반투명 띠 위 2단 오버레이(stack).
+            //  시트(요약·목록·출정) 높이는 이전과 같다. 롤백 = localStorage srpg.mapChipsBelow=1(지도 아래 2단 줄)
+            const below = (() => { try { return localStorage.getItem('srpg.mapChipsBelow') === '1'; } catch { return false; } })();
+            const mapH = below ? mh : mh + chipsH + 4; const bandH = Math.min(136, Math.round(mapH * 0.45));
+            this.R = { map: { x: 0, y: 0, w: W, h: mapH }, chips: below ? { x: 0, y: mh + 4, w: W, h: chipsH, inMap: false } : { x: 0, y: mapH - bandH, w: W, h: bandH, inMap: true, stack: true } };
             this.R.side = { x: 0, y: mh + chipsH + 8, w: W, h: H - mh - chipsH - 8 };
             this.compact = this.R.side.h < SHEET_MIN;
             this.sumH = this.compact ? 84 : 116;
@@ -1008,6 +1015,10 @@ export class StageMapView extends Phaser.GameObjects.Container {
                 bg.fillStyle(col, 0.45).fillRoundedRect(-o.pw / 2, -o.ph / 2, o.pw, o.ph, 4);
                 o.add(t);
             }
+            // 좁은 세로 화면(360: 논리 폭 400 < 390 의 433) 판 축소(강화면 2026-11-14: 360 에서 판이 지도에 비해 커 日本 판이 밖으로 밀리고 大明 판이 조선 오른쪽으로 감).
+            //  폭 비율 제곱(360 약 0.85), 390·430 이상은 1(기존 그대로)
+            const ps = !this.wideLayout && L.portrait ? Math.max(0.7, Math.min(1, (L.lw / 433) ** 2)) : 1;
+            if (ps < 1) { o.setScale(ps); o.pw *= ps; o.ph *= ps; }
             o.pos = f.labelPos;
             this.terrPlaques.add(o);
         });
@@ -1059,7 +1070,11 @@ export class StageMapView extends Phaser.GameObjects.Container {
         if (-hw + mx > hw - mx || -hh + my > bottom) return null;
         const hit = (x, y) => taken.some((o) => { const g = o.plaque ? 18 : gap; return Math.abs(x - o.x) * 2 < w + o.w + g && Math.abs(y - o.y) * 2 < h + o.h + g; }); // 국호 판끼리는 간격 18(맞붙어 보이지 않게), 핀·칩 등은 6
         const cx = clamp(x0, -hw + mx, hw - mx); const cy = clamp(y0, -hh + my, bottom);
-        if (!hit(cx, cy)) return { x: cx, y: cy };
+        // label_pos 가 화면 밖이면 그 방향 절반 안에서만 찾는다(강화면 a27n: 360 에서 大明(압록강 서북, 화면 왼쪽 밖) 판이 조선 오른쪽 바다로 감).
+        //  그쪽 절반에 자리가 없으면 반대편에 두지 않고 숨긴다(엉뚱한 위치보다 생략)
+        const sideOk = (x, y) => !((x0 < -hw && x > 0) || (x0 > hw && x < 0) || (y0 < -hh && y > 0) || (y0 > hh && y < 0));
+        const hit0 = hit; const hitS = (x, y) => !sideOk(x, y) || hit0(x, y);
+        if (!hitS(cx, cy)) return { x: cx, y: cy };
         const step = 14; const maxR = Math.max(this.vp.w, this.vp.h) * 0.6;
         for (let r = step; r <= maxR; r += step) {
             const n = Math.max(8, Math.round((Math.PI * 2 * r) / step));
@@ -1067,7 +1082,7 @@ export class StageMapView extends Phaser.GameObjects.Container {
             for (let k = 0; k < n; k += 1) {
                 const a = (k / n) * Math.PI * 2;
                 const x = clamp(cx + Math.cos(a) * r * 1.4, -hw + mx, hw - mx); const y = clamp(cy + Math.sin(a) * r, -hh + my, bottom); // 가로로 조금 더 넓게 탐색(판이 가로로 긺)
-                if (hit(x, y)) continue;
+                if (hitS(x, y)) continue;
                 const d = Math.hypot(x - x0, y - y0);
                 if (d < bd) { bd = d; best = { x, y }; }
             }
@@ -1193,11 +1208,11 @@ export class StageMapView extends Phaser.GameObjects.Container {
         if (!c) { this.plateRect = null; this.layoutHiddenPin(); return; }
         const maxW = Math.min(this.wideLayout ? 380 : this.vp.w - 20, this.vp.w - 20);
         const items = [];
-        const t = fitText(makeText(s, 12, 8, c.title, { size: this.wideLayout ? 17 : 15, heading: true, color: '#f0d58c' }), maxW - 24);
+        const t = fitText(makeText(s, 12, 8, c.title, { size: this.wideLayout ? 19 : 16, heading: true, color: '#FFE08A' }), maxW - 24); // 제목 위계 강화(2026-11-14): 크게·밝게, 부제는 작고 흐리게
         items.push(t);
         let y = 8 + t.height + 2;
         const sub = this.wideLayout ? [c.name && c.name !== c.title ? c.name : '', c.era].filter(Boolean).join(' · ') + (c.placeholder ? '  (준비 중)' : '') : ''; // 세로 화면: 제목 한 줄만(핀 가림 최소화)
-        if (sub) { const st = fitText(makeText(s, 12, y, sub, { size: 13, bold: true, color: CSS.text }), maxW - 24); items.push(st); y += st.height + 2; }
+        if (sub) { const st = fitText(makeText(s, 12, y, sub, { size: 12, color: '#D6D0C0' }), maxW - 24); items.push(st); y += st.height + 2; }
         if (c.region && this.wideLayout) { const rt = fitText(makeText(s, 12, y, c.region, { size: 12, color: CSS.muted, wrap: maxW - 24 }), maxW - 24, { maxLines: 2 }); items.push(rt); y += rt.height + 2; }
         const w = Math.min(maxW, Math.max(...items.map((o) => o.width)) + 24); const h = y + 8;
         const bg = s.add.graphics(); bg.fillStyle(COLOR.ink, 0.78).fillRoundedRect(0, 0, w, h, 8).lineStyle(1, COLOR.accent, 0.7).strokeRoundedRect(0, 0, w, h, 8);
@@ -1437,7 +1452,36 @@ export class StageMapView extends Phaser.GameObjects.Container {
         const ALLY_C = '#9fd8ff'; const FOE_C = '#ffb0a0';
         this.chipRects = []; // 지도 화면 좌표 {x,y,w,h}(중심) — 국호 판·세력 라벨 회피(overlayRects)
         let emblemH = 0;
-        if (inMap) {
+        this.emblemX = null;
+        if (inMap && cr.stack) {
+            // 세로 화면 지도 안 2단(stack, 2026-11-14 모바일 개선): 지도 하단 그라디언트 띠 위 — 윗줄 아군, 아랫줄 적군. 왼쪽 국호 칸(capW)에 두 국호, 그 사이 작은 VS 엠블럼.
+            //  배율 k = 띠 높이(2줄)와 폭(5명 한 줄) 중 작은 쪽(최대 1, 최소 0.45). 진영당 칩은 capSide 로 최대 5명(연합군은 국호 '+N')
+            const rowsDef = vs ? [[allies, 'ally'], [foes, 'enemy']] : [[list, 'all']];
+            const capW = vs ? 52 : 0; const pad = 6; const rg = vs ? 6 : 0; const nRow = rowsDef.length;
+            const maxN = Math.max(1, ...rowsDef.map(([g]) => g.length));
+            const kH = (cr.h - pad * 2 - rg * (nRow - 1)) / (nRow * unitH);
+            const kW = (cr.w - capW - pad * 2) / Math.max(1, maxN * step - gap);
+            const k = clamp(Math.min(kH, kW, 1), 0.45, 1); const rh = unitH * k;
+            const top = cr.h - pad - nRow * rh - rg * (nRow - 1);
+            const gT = Math.max(0, top - 22); const solid = Math.min(cr.h, top + 12);
+            this.chipStrip = s.add.graphics();
+            this.chipStrip.fillGradientStyle(COLOR.ink, COLOR.ink, COLOR.ink, COLOR.ink, 0, 0, 0.8, 0.8).fillRect(0, gT, cr.w, solid - gT); // 위 = 투명 -> 아래 = 짙은 남색
+            this.chipStrip.fillStyle(COLOR.ink, 0.8).fillRect(0, solid, cr.w, cr.h - solid);
+            this.chipBox.addAt(this.chipStrip, 0);
+            rowsDef.forEach(([g, side], r) => {
+                const y = top + r * (rh + rg);
+                const box = s.add.container(capW + pad, y).setScale(k);
+                g.forEach((hh, i) => { const o = mk(hh); o.setPosition(i * step, 0); box.add(o); });
+                this.chipRow.add(box);
+                if (vs) { const ns = fnames(side, side === 'ally' ? '아군' : '적군'); this.chipRow.add(capText(pad + capW / 2, y + (cs * k) / 2, `${ns[0].split(/[\s·]/)[0]}${ns.length > 1 ? `+${ns.length - 1}` : ''}`, side === 'ally' ? ALLY_C : FOE_C, capW - 4, [0.5, 0.5])); }
+            });
+            this.chipRects.push({ x: cr.x + cr.w / 2, y: cr.y + (gT + cr.h) / 2, w: cr.w, h: cr.h - gT }); // 국호 판·세력 라벨 회피 = 띠 전체
+            this.chipRow.contentW = cr.w; this.chipRow.extraH = 0;
+            if (vs) { // VS = 국호 칸 가운데, 두 국호 사이(두 줄 칩 얼굴 중심의 중간)
+                this.stackEmblemD = Math.round(clamp((rh + rg) * 0.5, 24, 34));
+                this.emblemX = cr.x + pad + capW / 2; this.emblemY = cr.y + top + (rh + rg) / 2 + (cs * k) / 2;
+            }
+        } else if (inMap) {
             const groups = vs ? [[allies, 'ally'], [foes, 'enemy']] : [[list, 'all']];
             const em = vs ? this.emblemSize() : 0;
             const avail = vs ? (cr.w - em - 24) / 2 : cr.w - 12;
@@ -1526,9 +1570,10 @@ export class StageMapView extends Phaser.GameObjects.Container {
         this.after((this.chipObjs.length - 1) * MAP_FX.chipGapMs + MAP_FX.chipMs, () => onDone?.());
     }
 
-    portraitsOn() { return this.R.chips.inMap && this.vp.w >= 480 && this.vp.h >= 300; } // 1024x768(지도 폭 약 550)에서도 표시(초상 폭 상한 = 지도 30%)
+    portraitsOn() { return this.R.chips.inMap && !this.R.chips.stack && this.vp.w >= 480 && this.vp.h >= 300; } // 1024x768(지도 폭 약 550)에서도 표시(초상 폭 상한 = 지도 30%)
     // VS 엠블럼 지름: 지도 짧은 변의 20%(56~112). 작은 화면은 크기만 줄이고 가운데 유지
     emblemSize() {
+        if (this.R.chips.stack) return this.stackEmblemD ?? 30; // 세로 화면 지도 안 2단: 국호 칸 안 작은 엠블럼(showChips)
         if (this.emblemAsset()) { // 이미지 엠블럼: 1280 약 112~128, 667 약 72~84, 세로 폰(지도 밖 칩) 64
             if (!this.R.chips.inMap) return 64;
             return Math.round(L.short || this.lowH ? clamp(Math.min(this.vp.w, this.vp.h) * 0.28, 72, 84) : clamp(Math.min(this.vp.w, this.vp.h) * 0.24, 96, 128));
@@ -1539,7 +1584,7 @@ export class StageMapView extends Phaser.GameObjects.Container {
     showEmblem(rowH = 0) {
         const s = this.scene;
         const d = Math.round(rowH && !this.emblemAsset() ? Math.min(this.emblemSize(), Math.max(40, rowH + 12)) : this.emblemSize()); const r = d / 2; // 이미지 엠블럼은 칩 줄 높이로 줄이지 않음(칩 묶음은 emblemSize 폭만큼 비켜 배치)
-        const cx = this.vp.w / 2;
+        const cx = this.emblemX ?? this.vp.w / 2;
         const cy = this.emblemY != null ? this.emblemY : this.vp.h - r - 6;
         const o = s.add.container(cx, cy);
         this.emblemArt(o, r);
@@ -1668,7 +1713,7 @@ export class StageMapView extends Phaser.GameObjects.Container {
         this.keepScroll = this.stageList?.content?.y ?? null; // 목록을 다시 만들어도(요약 높이 변화) 같은 목록이면 스크롤 위치 유지
         this.stageList?.destroy();
         // 주의: Container 예약 속성(list·body·data·state·name·type 등)과 겹치는 이름 금지 — this.list 를 덮으면 자식 배열이 사라져 렌더 루프가 멈춘다
-        this.stageList = new ScrollList(s, { x: this.wideLayout ? 0 : 12, y: ly + hh, w: this.listW, h: Math.max(48, r.h - ly - hh - this.btnH), clip: true, bar: true });
+        this.stageList = new ScrollList(s, { x: this.wideLayout ? 0 : 12, y: ly + hh, w: this.listW, h: Math.max(48, r.h - ly - hh - this.btnH), clip: true, bar: true, barW: 6 }); // 굵은 스크롤바(트랙+손잡이, 2026-11-14)
         this.side.addAt(this.stageList, this.side.getIndex(this.listHead) + 1);
         return true;
     }
@@ -1691,7 +1736,7 @@ export class StageMapView extends Phaser.GameObjects.Container {
             cb.add(makeText(s, protoW / 2, 14, '주인공 열람 카드', { size: 12, bold: true, color: CSS.accent, origin: [0.5, 0.5] }));
             box.add(cb);
         }
-        const tt = fitText(makeText(s, px, y, c.title, { size: wide && !this.lowH ? 19 : 16, heading: true, color: '#f0d58c' }), w - px * 2 - protoW - 8);
+        const tt = fitText(makeText(s, px, y, c.title, { size: wide && !this.lowH ? 22 : 18, heading: true, color: '#FFE08A' }), w - px * 2 - protoW - 8); // 제목 위계 강화(2026-11-14 '타이틀이 눈에 안 들어옴')
         box.add(tt); y += tt.height + 4;
         const sub = [c.name && c.name !== c.title ? c.name : '', c.era, c.preview ? '준비 중' : ''].filter(Boolean).join(' · ');
         // 출정 버튼 자리(가로 = 요약 상자 아래쪽, 세로 = 하단 고정 줄). 가로 요약의 모든 줄은 버튼 위(btnTop)까지만
@@ -1711,35 +1756,45 @@ export class StageMapView extends Phaser.GameObjects.Container {
         const badgeH = wide ? (badgeUp ? 26 : gachaW ? 22 : 28) : 20;
         const btnTop = wide ? (badgeUp ? by0 - badgeH - 10 : by0 - 4) : this.sumH + (this.compact ? 0 : 24); // 세로 시트: 요약이 sumH 를 넘으면 줄 생략(목록이 밀려 줄어들지 않게)
         // 낮은 화면은 부제 생략(난이도·보유 줄 우선)
-        if (sub && y + 18 <= btnTop && !(wide && this.lowH)) { const st = fitText(makeText(s, px, y, sub, { size: 13, bold: true, color: CSS.text }), w - px * 2); box.add(st); y += st.height + 4; }
-        if (c.summaryLines?.length && wide) { // 요약 줄(summary_lines): 줄마다 최대 2줄 줄바꿈, 출정 버튼 위까지만
+        if (sub && y + 18 <= btnTop && !(wide && this.lowH)) { const st = fitText(makeText(s, px, y, sub, { size: 12, color: '#C9C2AE' }), w - px * 2); box.add(st); y += st.height + 4; } // 부제는 작고 흐리게(제목 우선)
+        // 정보 줄(2026-11-14 재디자인: 난이도 불꽃 게이지 · 권장 레벨 방패 배지(내 영웅 상위 5명 평균 대비 녹/주황/적) · 진행 바 + 별 칩, 공통 ui/campaignInfo.infoStrip).
+        //  가로 = 출정 버튼 줄 바로 위에 고정(설명문 아래 빈 여백 활용) -> 설명문·보조 줄은 그 위(tb)까지만. 세로 시트 = 흐름 안 한 줄(compact)
+        const ref = so.stage ?? c.stages[0]?.s;
+        const prog = !c.placeholder && c.total > 0;
+        const hasStrip = !!ref || prog;
+        const stripH = wide ? (this.lowH ? 30 : 44) : 30;
+        const tb = wide && hasStrip ? btnTop - stripH - 8 : btnTop;
+        const tw = Math.min(w - px * 2, 560); // 설명문 최대 줄 길이(가독성)
+        if (c.summaryLines?.length && wide) { // 요약 줄(summary_lines): 줄마다 최대 2줄 줄바꿈, 정보 줄 위까지만
             c.summaryLines.forEach((ln) => {
-                if (y + 16 > btnTop) return;
-                const sm = fitText(makeText(s, px, y, ln, { size: 12, color: '#C9C2AE', wrap: w - px * 2 }), w - px * 2, { maxLines: 2 });
-                if (y + sm.height > btnTop) { sm.destroy(); return; }
-                box.add(sm); y += sm.height + 3;
+                if (y + 17 > tb) return;
+                const sm = fitText(makeText(s, px, y, ln, { size: 13, color: '#D6D0C0', wrap: tw }), tw, { maxLines: 2 });
+                sm.setLineSpacing(3);
+                if (y + sm.height > tb) { sm.destroy(); return; }
+                box.add(sm); y += sm.height + 4;
             });
             y += 3;
-        } else if (c.summary && wide && y + 16 <= btnTop) {
-            const sm = fitText(makeText(s, px, y, c.summary, { size: 13, color: '#C9C2AE', wrap: w - px * 2 }), w - px * 2, { maxLines: Math.max(1, Math.min(3, Math.floor((btnTop - y) / 17))) });
-            if (y + sm.height > btnTop) sm.destroy(); else { box.add(sm); y += sm.height + 6; }
+        } else if (c.summary && wide && y + 17 <= tb) {
+            const sm = fitText(makeText(s, px, y, c.summary, { size: 13, color: '#D6D0C0', wrap: tw }), tw, { maxLines: Math.max(1, Math.min(3, Math.floor((tb - y) / 20))) });
+            sm.setLineSpacing(3);
+            if (y + sm.height > tb) sm.destroy(); else { box.add(sm); y += sm.height + 6; }
         }
-        const ref = so.stage ?? c.stages[0]?.s;
-        const info = [];
-        if (ref) info.push(`난이도 ${stars(ref.difficulty ?? 0, 6)}`, `권장 Lv.${ref.recommended_level}`);
-        if (!c.placeholder && c.total) info.push(`클리어 ${c.cleared}/${c.total} · ★ ${c.stars}/${c.maxStars}`);
-        // 서가 필수 영웅 보유 현황(주인공 제외). 가로: 별도 줄(공간 있을 때), 세로: 정보 줄 끝에 붙임
+        // 비교 기준(2026-11-14 편성): 편성(라인업) 캐시가 있으면 편성 상위 recommended_party 명, 없으면 보유 영웅 상위 3명 평균
+        const party = Number(ref?.recommended_party) || 3; const lu = session.lineup?.lineup ?? []; const ll = lineupLevel(lu, party);
+        const stripO = { d: ref ? (ref.difficulty ?? 0) : null, rec: ref?.recommended_level, my: ll ? ll.avg : myHeroLevel(session.heroes), myTotal: ll?.total, recTotal: Number(ref?.recommended_total) || null, party, lineup: lu, cleared: prog ? c.cleared : 0, total: prog ? c.total : 0, stars: c.stars, maxStars: c.maxStars };
+        // 서가 필수 영웅 보유 현황(주인공 제외). 가로: 별도 줄(공간 있을 때), 세로: 정보 줄 아래
         const needTxt = hn ? `필요 영웅 ${hn.need}명 중 ${hn.owned}명 보유` : '';
-        if (info.length && y + 16 <= btnTop) { const it = fitText(makeText(s, px, y, info.join('   '), { size: 12, color: CSS.accent, wrap: w - px * 2 }), w - px * 2, { maxLines: wide ? 1 : 2 }); box.add(it); y += it.height + 4; }
-        if (needTxt && y + 16 <= btnTop) { const nt = fitText(makeText(s, px, y, needTxt, { size: 12, color: hn.missing.length ? CSS.dangerText : '#C9C2AE' }), w - px * 2); box.add(nt); y += nt.height + 4; } // 별도 줄(잘림 방지)
+        if (hasStrip && !wide && y + stripH <= btnTop) { const sp = infoStrip(s, w - px * 2, stripH, stripO).setPosition(px, y); box.add(sp); y += stripH + 6; }
+        if (needTxt && y + 16 <= tb) { const nt = fitText(makeText(s, px, y, needTxt, { size: 12, color: hn.missing.length ? CSS.dangerText : '#C9C2AE' }), w - px * 2); box.add(nt); y += nt.height + 4; } // 별도 줄(잘림 방지)
         // 지도 메타 요약이 없는 캠페인(튜토리얼 등): 출정 대상 스테이지의 보상·합류 영웅(사실 데이터)으로 빈 칸을 채운다
         if (!c.summary && !c.summaryLines?.length && ref && wide) {
             const rw = ref.rewards ?? {};
             const parts = [rw.exp ? `영웅 EXP ${rw.exp}` : '', rw.user_exp ? `계정 EXP ${rw.user_exp}` : '', rw.gold ? `골드 ${rw.gold}` : ''].filter(Boolean);
             const join = (Array.isArray(ref.join_hero) ? ref.join_hero : []).map((h) => heroNameOf(typeof h === 'string' ? h : h?.hero_code ?? h?.code)).filter(Boolean);
             const lines = [parts.length ? `보상  ${parts.join(' · ')}` : '', join.length ? `첫 클리어 합류  ${join.join(', ')}` : ''].filter(Boolean);
-            lines.forEach((ln) => { if (y + 16 > btnTop) return; const ft = fitText(makeText(s, px, y, ln, { size: 12, color: '#C9C2AE' }), w - px * 2); box.add(ft); y += ft.height + 4; });
+            lines.forEach((ln) => { if (y + 16 > tb) return; const ft = fitText(makeText(s, px, y, ln, { size: 12, color: '#C9C2AE' }), w - px * 2); box.add(ft); y += ft.height + 4; });
         }
+        if (hasStrip && wide) box.add(infoStrip(s, w - px * 2, stripH, stripO).setPosition(px, tb + 2));
         const sumText = c.summary || (c.summaryLines ?? []).join(' ');
         if (sumText && !wide && !this.compact) { const sm = fitText(makeText(s, px, y, sumText, { size: 12, color: '#C9C2AE', wrap: w }), w, { maxLines: 2 }); box.add(sm); y += sm.height + 2; }
         // 세로 시트: 요약 실제 높이에 맞춰 목록을 붙인다(빈 공간 제거). 상한 sumH(넘치면 잘리지 않게 목록이 아래로)
@@ -1845,7 +1900,7 @@ export class StageMapView extends Phaser.GameObjects.Container {
                 row.add(makeText(s, 12, 18, `${t.no}`, { size: 14, bold: true, color: stagePlayable(st) ? CSS.accent : CSS.muted, origin: [0, 0.5] }));
                 const isRec = st.id === this.model.recStageId;
                 row.add(fitText(makeText(s, 34, 18, st.name, { size: 15, bold: true, color: stagePlayable(st) ? CSS.text : CSS.muted, origin: [0, 0.5] }), w - 34 - (isRec ? 58 : 12)));
-                if (isRec) { row.add(s.add.rectangle(w - 52, 9, 44, 18, COLOR.accent, 0.95).setOrigin(0)); row.add(makeText(s, w - 30, 18, '추천', { size: 11, bold: true, color: '#1A1406', origin: [0.5, 0.5] })); }
+                if (isRec) row.add(ribbonTag(s, '추천', { h: 18 }).setPosition(w - 1, 6)); // 캠페인 카드와 같은 모서리 리본
                 const state = stagePlayable(st) ? (st.clear_count > 0 ? `최고 ${stars(st.best_stars ?? 0)}  클리어 ${st.clear_count}회` : '미클리어') : stageLockText(st);
                 const where = [t.year, t.place].filter(Boolean).join(' · ');
                 row.add(fitText(makeText(s, 34, 40, where ? `${state}   ${where}` : state, { size: 11, color: stagePlayable(st) ? '#C9C2AE' : CSS.dangerText, origin: [0, 0.5] }), w - 46));
@@ -1855,21 +1910,21 @@ export class StageMapView extends Phaser.GameObjects.Container {
             });
         } else {
             // 안내 문구('캠페인 · 시대 (한 번 더 누르면 …)') 삭제(사용자 2026-11-06). 같은 캠페인 재선택 -> 스테이지 보기 동작은 select() 그대로
-            const rowH = 56;
-            this.model.campaigns.forEach((c) => {
-                const selected = c === this.sel;
-                const row = listRow(s, { x: 0, y, w, h: rowH, selected, onClick: () => this.select(c) });
-                const col = c.unlocked || c.preview ? CSS.text : CSS.muted;
-                const isRec = c.key === this.model.recKey;
-                row.add(fitText(makeText(s, 12, 18, c.title, { size: 15, bold: true, color: selected ? '#f0d58c' : col, origin: [0, 0.5] }), w - 24 - (isRec ? 52 : 0)));
-                if (isRec) { row.add(s.add.rectangle(w - 52, 9, 44, 18, COLOR.accent, 0.95).setOrigin(0)); row.add(makeText(s, w - 30, 18, '추천', { size: 11, bold: true, color: '#1A1406', origin: [0.5, 0.5] })); }
-                const st = c.hiddenLocked ? `서가 기록 ${c.cleared}/${c.total} · 모든 서가를 마치면 열립니다` // 숨은 종장 잠김: 이름·시대 비노출, 진행도만
-                    : c.preview ? [c.era, '준비 중 · 곧 공개'].filter(Boolean).join(' · ')
-                    : !c.unlocked ? (sortieOf(c).reason || stageLockText(c.stages[0]?.s))
-                        : c.total ? [c.era, `클리어 ${c.cleared}/${c.total} · ★ ${c.stars}/${c.maxStars}`].filter(Boolean).join('   ') : c.era;
-                row.add(fitText(makeText(s, 12, 40, st || '', { size: 11, color: c.unlocked ? CSS.accent : c.preview ? '#C9C2AE' : CSS.muted, origin: [0, 0.5] }), w - 24));
-                row.clipH = rowH;
-                lc.add(row);
+            // 2026-11-14 카드 재디자인(사용자 "디자인이 이상해"): 장식 프레임(row 스킨) 대신 얇은 금테 + 모서리 포인트, 왼쪽 상태 아이콘(완료 체크·잠금 자물쇠·준비 모래시계·장 번호),
+            //  제목 크게 / 아래 줄 [연대 칩][진행 바 n/m][★ 칩], 추천 = 모서리 리본, 선택 = 금 글로우 + 오른쪽 화살표. 높이 56 -> 50(한 화면 노출 증가). 공통 헬퍼 ui/campaignInfo.js
+            const rowH = 50;
+            this.model.campaigns.forEach((c, ci) => {
+                const state = campaignState(c);
+                const note = c.hiddenLocked ? `서가 기록 ${c.cleared}/${c.total} · 모든 서가를 마치면 열립니다` // 숨은 종장 잠김: 이름·시대 비노출, 진행도만
+                    : c.preview ? '준비 중 · 곧 공개'
+                        : !c.unlocked ? (sortieOf(c).reason || stageLockText(c.stages[0]?.s) || '아직 열리지 않았습니다') : '';
+                const card = campaignCard(s, 0, y, {
+                    w, h: rowH, selected: c === this.sel, state, title: c.title, era: c.hiddenLocked ? '' : c.era, note,
+                    cleared: c.cleared, total: c.total, stars: c.stars, maxStars: c.maxStars, rec: c.key === this.model.recKey,
+                    ready: !!c.heroReady && !!c.unlocked && !c.preview && !c.hiddenLocked, // 필수 영웅 전원 보유 + 출정 가능 = '출전 가능'. 미충족은 기존 잠김(흐림 + 필요 영웅 사유) 그대로
+                    no: ci + 1 /* 목록 순번(서가 ch 번호는 비연속이라 쓰지 않음) */, onClick: () => this.select(c),
+                });
+                lc.add(card);
                 y += rowH + 6;
             });
         }
@@ -1885,7 +1940,8 @@ export class StageMapView extends Phaser.GameObjects.Container {
         const pts = c.stages.map((t) => t.pin).filter(Boolean);
         if (!pts.length) return this.shelfCam(c);
         const zMin0 = Math.max(1, c.zoom * 0.5);
-        const f = fitBounds(pts, this.vp, { pad: 0.62, zMin: zMin0, zMax: 144 });
+        const st = this.R.chips.stack ? this.R.chips.h : 0; // 세로 화면 지도 안 칩 띠: 띠 위 영역에 핀을 맞춘다
+        const f = fitBounds(pts, st ? { w: this.vp.w, h: Math.max(80, this.vp.h - st) } : this.vp, { pad: 0.62, zMin: zMin0, zMax: 144 });
         // 넓은 지도(폭 600 이상): 좌우 대표 초상(각 최대 폭 30%, showKeyHero)이 하단 핀을 가리지 않게 핀 가로 범위를 가운데 칸(폭 40%) 안으로(강화면 gacha107: ch14 3·4·7번 핀이 수 양제 초상에 가림).
         //  좁은 화면(390 등)은 초상이 작고 시야가 좁아 기존 그대로
         if (this.vp.w >= 600 && pts.length > 1) {
@@ -1895,7 +1951,7 @@ export class StageMapView extends Phaser.GameObjects.Container {
         // 칩 줄·플레이트를 피해 약간 아래로(데스크톱 칩은 지도 하단)
         // 상한 적용 후 줌 기준으로 칩 회피 오프셋 계산
         const z = this.cc({ x: f.x, y: f.y, z: f.z }).z; const kk = this.vp.w * z;
-        return this.cc({ x: f.x, y: f.y + (this.R.chips.inMap ? 30 : 0) / (kk / 2), z });
+        return this.cc({ x: f.x, y: f.y + (this.R.chips.inMap ? (st ? st / 2 : 30) : 0) / (kk / 2), z });
     }
 
     // ---------- 연출 ----------

@@ -2,7 +2,7 @@ import { Tabs } from '../ui/Tabs.js';
 import { Button } from '../ui/Button.js';
 import { StatBar } from '../ui/StatBar.js';
 import { Modal } from '../ui/Modal.js';
-import { showToast } from '../ui/Toast.js';
+import { showToast, showRewardToast } from '../ui/Toast.js';
 import { makeText, fitText } from '../ui/common.js';
 import { ScrollList, noteText, alertModal, emptyState } from '../ui/widgets.js';
 import { COLOR, CSS } from '../theme.js';
@@ -21,12 +21,13 @@ import { slotIcon, statIcon } from '../ui/GameIcons.js';
 import { itemIcon } from '../ui/ItemIcon.js';
 import { questCard } from '../ui/QuestCard.js';
 import { withUiImage } from '../ui/uiImage.js';
+import { heroLevelText, heroExpToNext, isMaxLevel } from '../ui/heroLevel.js';
 
 // 로비 확장 화면(퀘스트·랭킹·상점·인벤토리·영웅 장비). LobbyScene 의 패널(p)·영역(scene.area)·done()·show() 를 그대로 쓴다(공용 UI 스킨).
 const fmt = (n) => Number(n ?? 0).toLocaleString('ko-KR');
 export const SLOT_KO = { helm: '투구', armor: '갑옷', gloves: '장갑', boots: '신발', accessory: '장신구' };
 const SLOTS = Object.keys(SLOT_KO);
-const rewardText = (r) => [r?.gold ? `골드 ${fmt(r.gold)}` : '', r?.user_exp ? `EXP ${fmt(r.user_exp)}` : ''].filter(Boolean).join(' · ');
+const rewardText = (r) => [r?.gold ? `골드 ${fmt(r.gold)}` : '', r?.user_exp ? `EXP ${fmt(r.user_exp)}` : '', r?.pen ? `펜 ${fmt(r.pen)}` : ''].filter(Boolean).join(' · ');
 const statText = (s) => [s?.hp ? `병력 +${s.hp}` : '', s?.atk ? `공격 +${s.atk}` : '', s?.def ? `방어 +${s.def}` : ''].filter(Boolean).join(' · ') || '-'; // U17: 공격/방어 용어 통일
 const newReqId = (p) => `${p}_${Date.now().toString(36)}_${(globalThis.crypto?.randomUUID?.() ?? Math.random().toString(36).slice(2)).replace(/-/g, '')}`.slice(0, 64);
 // 남은 시간 문구(서버 시각 기준): reset ISO, serverNow ms
@@ -97,9 +98,11 @@ export async function tabQuest(scene, p) {
     p.add(tabs);
     // 수령 가능 배지(시안 '메인 (3)' 옆 점): 라벨 (N) 과 함께 탭 오른쪽 위 붉은 점
     { const ks = Object.keys(groups); const tw0 = Math.min(a.w, 560) / ks.length; ks.forEach((k, i) => { if (!cnt(k)) return; p.add(scene.add.circle(a.x + (i + 1) * tw0 - 12, a.y + 9, 6, 0xe0463c, 1).setStrokeStyle(2, 0x0b1020, 1)); }); }
-    const info = makeText(scene, a.x + a.w, a.y + 22, '', { size: 13, color: CSS.muted, origin: [1, 0.5] });
+    // 탭 줄 오른쪽에 '초기화까지 …' 자리가 없으면(390 등: 탭이 전폭) 탭 아래 줄로 내린다(강화면 v6 Low: 주간/월간 탭과 겹침)
+    const infoBelow = a.w - Math.min(a.w, 560) < 170;
+    const info = makeText(scene, a.x + a.w - (infoBelow ? 4 : 0), infoBelow ? a.y + 60 : a.y + 22, '', { size: 13, color: CSS.muted, origin: [1, 0.5] });
     p.add(info);
-    let y0 = a.y + 54;
+    let y0 = a.y + (infoBelow ? 74 : 54);
     if (d.is_guest) {
         // U07: 안내문 높이만큼 내린다(3줄째 잘림 수정). 좁은 화면은 안내문 전폭 + 버튼 아래 줄
         const nb = a.w < 600;
@@ -140,6 +143,7 @@ export async function tabQuest(scene, p) {
             refreshTabs = true; // 탭 라벨 '(N)'·붉은 점 갱신(정검수): finally 에서 탭 전체 다시 그림
             Object.assign(q, r.quest ?? { claimed: true, claimable: false });
             scene.setQuestBadge?.(r.claimable_count ?? 0);
+            if (r.reward?.pen) scene.refreshPen?.(); // 펜 보상 -> 로비 펜 캡슐 재조회
             await gameApi.profile(true).then(() => scene.refreshBar?.()).catch(() => {});
         } catch (e) {
             console.warn('[quest claim]', errorTag(e));
@@ -278,7 +282,7 @@ export async function tabShop(scene, p) {
             st.gold = r.gold; st.count = r.inventory_count; st.cap = r.inventory_cap ?? st.cap;
             it.owned = (it.owned ?? 0) + (r.replay ? 0 : 1);
             if (session.profile && Number.isFinite(r.gold)) sessionCache.setProfile({ ...session.profile, gold: r.gold });
-            showToast(scene, `${it.name} 구매 완료 (-${fmt(r.gold_spent)} G)`);
+            showRewardToast(scene, { title: '구매 완료', name: it.name, qty: 1, icon: it.code ? (s, z) => equipIcon(s, it, -z / 2, -z / 2, z) : null, amount: r.gold_spent, amountFmt: (n) => `-${fmt(n)} G`, fallback: `${it.name} 구매 완료 (-${fmt(r.gold_spent)} G)` });
             setHead();
         } catch (e) {
             if (e?.status && e.status < 500) delete pending[it.code]; // 확정 오류는 새 요청 ID, 네트워크·5xx 는 같은 ID 재사용(멱등)
@@ -351,7 +355,7 @@ export async function tabShopItems(scene, p) {
             if (Number.isFinite(r.gold)) st.gold = r.gold;
             it.owned = Number.isFinite(r.owned) ? r.owned : (it.owned ?? 0) + (r.replay ? 0 : 1);
             if (session.profile && Number.isFinite(r.gold)) sessionCache.setProfile({ ...session.profile, gold: r.gold });
-            showToast(scene, `${it.name ?? it.code} 구매 완료 (-${fmt(r.gold_spent)} G)`);
+            showRewardToast(scene, { title: '구매 완료', name: it.name ?? it.code, qty: 1, icon: it.code ? (s, z) => itemIcon(s, it, 0, 0, z) : null, amount: r.gold_spent, amountFmt: (n) => `-${fmt(n)} G`, fallback: `${it.name ?? it.code} 구매 완료 (-${fmt(r.gold_spent)} G)` });
             setHead();
         } catch (e) {
             if (e?.status && e.status < 500) delete pending[it.code]; // 확정 오류는 새 요청 ID, 네트워크·5xx 는 같은 ID 재사용(멱등)
@@ -412,6 +416,7 @@ export async function tabExchange(scene, p) {
         list.setContentHeight(Math.ceil(items.length / cols) * (rowH + gap) + 12);
         list.refreshMask?.();
     };
+    { const eq = items.filter((x) => x?.kind === 'equipment' && x.payload?.equipment_code).map((x) => ({ code: x.payload.equipment_code, rarity: x.payload?.rarity })); if (eq.length) withEquipIcons(scene, eq, () => {}); } // 교환 완료 연출용 장비 아이콘 미리 받기(실패해도 문구 토스트 폴백)
     const buy = async (it) => {
         if (busy) return;
         busy = true;
@@ -422,7 +427,9 @@ export async function tabExchange(scene, p) {
             st.gold = r.gold; if (r.pen != null) { st.pen = r.pen; scene.refreshPen?.(r.pen); }
             if (!r.replay) { it.bought_today = (it.bought_today ?? 0) + 1; if (it.remaining != null) it.remaining = Math.max(0, it.remaining - 1); }
             if (session.profile && Number.isFinite(r.gold)) sessionCache.setProfile({ ...session.profile, gold: r.gold });
-            showToast(scene, it.price_currency === 'pen' ? `${it.name ?? it.code} 교환 완료 (펜 -${fmt(r.pen_spent ?? it.price ?? it.price_gold)})` : `${it.name ?? it.code} 교환 완료 (-${fmt(r.gold_spent)} G)`);
+            const penCur = it.price_currency === 'pen'; const spent = penCur ? (r.pen_spent ?? it.price ?? it.price_gold) : r.gold_spent;
+            const ec = it.kind === 'equipment' ? it.payload?.equipment_code : null; // 장비 상품만 아이콘(텍스처가 이미 받아져 있을 때), 재화 상품은 기존 문구 토스트
+            showRewardToast(scene, { title: '교환 완료', name: it.name ?? it.code, qty: 1, icon: ec && scene.textures.exists(`equip_icon_${ec}`) ? (s, z) => equipIcon(s, { code: ec, rarity: it.payload?.rarity }, -z / 2, -z / 2, z) : null, amount: spent, amountFmt: (n) => (penCur ? `펜 -${fmt(n)}` : `-${fmt(n)} G`), fallback: penCur ? `${it.name ?? it.code} 교환 완료 (펜 -${fmt(spent)})` : `${it.name ?? it.code} 교환 완료 (-${fmt(spent)} G)` });
             setHead();
         } catch (e) {
             if (e?.status && e.status < 500) delete pending[it.code]; // 확정 오류는 새 요청 ID, 네트워크·5xx 는 같은 ID 재사용(멱등)
@@ -546,12 +553,18 @@ export async function openEquipment(scene, hh, onChanged, { onDetail } = {}) {
         // 하단 정보 띠
         const by = lh - infoH;
         left.add(scene.add.rectangle(6, by, lw - 12, infoH - 6, COLOR.ink, 0.55).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.35));
-        left.add(makeText(scene, 18, by + 14, `LV.${hh.level}`, { size: 16, bold: true, origin: [0, 0.5] }));
-        left.add(fitText(makeText(scene, 90, by + 14, heroPlainName(hh), { size: 16, bold: true, origin: [0, 0.5] }), lw - 110));
+        const lvT = makeText(scene, 18, by + 14, heroLevelText(hh, { short: true }), { size: 16, bold: true, origin: [0, 0.5] }); // 'Lv.N/만렙'(레벨 곡선 v2)
+        left.add(lvT);
+        const nx = Math.max(90, 18 + lvT.width + 12);
+        left.add(fitText(makeText(scene, nx, by + 14, heroPlainName(hh), { size: 16, bold: true, origin: [0, 0.5] }), Math.max(40, lw - nx - 20)));
         const ex = 18; const ew = lw - 36; const ey = by + (wide ? 30 : 26); const eh = wide ? 18 : 14;
         left.add(scene.add.rectangle(ex, ey, ew, eh, 0x07101f, 1).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.6));
-        if (hh.exp_to_next) {
-            const pct = Math.max(0, Math.min(1, (hh.exp ?? 0) / hh.exp_to_next));
+        const etn = heroExpToNext(hh); // level_info.exp_to_next(이전 코드는 최상위 exp_to_next 를 읽어 항상 'EXP N'으로 표시됨). 만렙 = 0
+        if (isMaxLevel(hh)) {
+            left.add(scene.add.rectangle(ex + 1, ey + 1, ew - 2, eh - 2, 0xc9a23a, 1).setOrigin(0));
+            left.add(makeText(scene, ex + ew / 2, ey + eh / 2, '만렙', { size: 12, bold: true, origin: [0.5, 0.5], stroke: { color: '#0B1020', width: 3 } }));
+        } else if (etn) {
+            const pct = Math.max(0, Math.min(1, (hh.exp ?? 0) / etn));
             left.add(scene.add.rectangle(ex + 1, ey + 1, Math.max(0, (ew - 2) * pct), eh - 2, 0x3fae5a, 1).setOrigin(0));
             left.add(makeText(scene, ex + ew / 2, ey + eh / 2, `${(pct * 100).toFixed(1)}%`, { size: 12, bold: true, origin: [0.5, 0.5], stroke: { color: '#0B1020', width: 3 } }));
         } else left.add(makeText(scene, ex + ew / 2, ey + eh / 2, `EXP ${fmt(hh.exp)}`, { size: 12, bold: true, origin: [0.5, 0.5], stroke: { color: '#0B1020', width: 3 } }));

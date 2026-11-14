@@ -8,6 +8,9 @@ import { tween } from './ui/motion.js';
 import { auraKind, AURA_COLOR } from './systems/glossary.js';
 import { soldierCount, MAX_SOLDIERS, TROOP_DANGER } from './systems/soldiers.js';
 import { showsShip, shipTypeOf, shipTexKey, shipFrame } from './systems/water.js';
+import { isGenericCommander } from './campaign/campaignMapData.js';
+import { heroNameKo } from './dialogue/dialogueData.js';
+import { nameTagText } from './unitNameTag.js'; // 5자 초과 이름 = 성(첫 토큰)만, 말줄임 없음(사용자 2026-11-14)
 
 // 사람 없는 배 NPC 시트(배 자체가 그림): 코드 /^npc_boat_/ 또는 manifest 시트 항목 object:'boat'. 배 오버레이(ship_back/front)를 얹지 않는다
 export function isBoatSheetUnit(unit) {
@@ -31,6 +34,9 @@ const BADGE_H = 12;
 const SEG = { x0: -25, y: TILE / 2 - 8, w: 2.8, gap: 0.6, h: 5 };
 const SEG_MIN_PX = 36; // 타일 CSS 크기가 이보다 작으면 숫자만
 const BADGE_MIN_FONT = 10; // 숫자 최소 CSS 글자 크기(역스케일 목표)
+const NAME_MIN_FONT = 11;
+const NAME_X = -TILE / 2 - 1; // 이름표 왼쪽 끝(타일 왼쪽 가장자리, 이전 병력 바 시작 -25 와 같은 줄)
+const NAME_MAX_R = TILE / 2 - BADGE_W - 2; // 이름표 오른쪽 한계 = 숫자 배지 왼쪽(평소). 확장(선택·호버) 중에는 배지 아래로 지나가도 됨 // 영웅 이름표 최소 CSS 글자 크기(역스케일 목표, a27b QA: 1x 에서 약 7px 로 읽기 어려움)
 const HERO_GOLD = 0xf0d58c;
 const DANGER_COL = 0xff5a4a;
 const WALK_SEQ = [0, 1, 2, 1]; // walk1 - idle - walk2 - idle
@@ -130,11 +136,19 @@ export class UnitView {
         if (unit.team === 'enemy' && this.sprite) this.c.add(scene.add.triangle(TILE / 2 - 7, -TILE / 2 + 7, 0, 0, 8, 0, 4, 8, COLOR.danger).setStrokeStyle(1, COLOR.ink));
         // 아군 영웅 이름표(하플레이 2026-11-09: 맵에서 영웅과 병사 구분이 어려움): 아군 영웅(부대·수레·배 제외)만 머리 위 작은 금색 이름. 역할 마크(대장·지원)가 아니라 이름만.
         //  유닛당 텍스트 1개(아군 영웅 수만큼), 줌 축소(세그먼트 숨김 단계)에서는 가림 방지로 숨김(setDetail)
-        if (unit.team === 'ally' && unit.kind !== 'troop' && !unit.non_hero) {
-            const nm = String(unit.short_name || unit.hero_name || unit.name_ko || unit.name || '').trim();
-            if (nm) {
-                const topY = this.sprite ? this.yOff - (TILE * this.sizeK) / 2 + 4 : -TILE / 2 + 2;
-                this.nameTag = makeText(scene, 0, topY, nm.length > 5 ? `${nm.slice(0, 5)}…` : nm, { size: 10, bold: true, color: '#f0d58c', origin: [0.5, 1], stroke: { color: '#0B1020', width: 3 } });
+        //  적군 영웅(2026-11-14 사용자 지시): 같은 크기·위치 규칙의 붉은 이름. 이름 있는 인물만 — 영웅/NPC 코드가 있거나 이름이 일반 직함('~대장'·'~지휘관' 등, isGenericCommander)이 아닐 때. 부대·수레·배·무명 지휘관 제외
+        const enemyNamed = unit.team === 'enemy' && unit.kind !== 'troop' && !unit.non_hero && unit.generic !== true
+            && !isGenericCommander({ name: unit.short_name || unit.name, hero_code: unit.hero && !/^npc_/.test(String(unit.hero)) ? unit.hero : null }); // 정식 영웅 코드 = 인물. npc_ 코드·코드 없음 = 이름 꼬리(직함)로 판정
+        if ((unit.team === 'ally' && unit.kind !== 'troop' && !unit.non_hero) || enemyNamed) {
+            const nm = String(unit.short_name || unit.hero_name || unit.name_ko || unit.name || heroNameKo(unit.hero) || '').trim();
+            if (nm && !/^[a-z0-9_:.#-]+$/i.test(nm)) { // 코드 모양 이름(영문 키)은 노출하지 않는다
+                // 위치(a27b QA 2026-11-14): 이전엔 타일 위 가장자리 '바깥'(origin 하단)이라 윗칸 유닛의 병력 바·숫자 배지와 겹쳤다 ->
+                //  자기 타일 위 가장자리 '안쪽'(origin 상단, 머리 위)으로 옮겨 이웃 칸을 침범하지 않게 한다. 아군·적 공통 규칙.
+                //  크기: 기본 12 + 외곽선 4, setDetail 에서 CSS 글자 높이 NAME_MIN_FONT 이상이 되게 역스케일(폭은 타일+여유 안으로 제한)
+                // 2026-11-14 사용자 아이디어: 병력 바(10칸 세그먼트)를 없애고 그 자리(발밑 왼쪽, 숫자 배지 왼쪽)에 이름 -> 얼굴·머리 영역은 비운다.
+                //  평소 = 짧은 이름(3자 기준 nameTagText(nm, 3)), 선택·커서(호버) 중 = 전체 규칙(5자, 성 표기) 확장(setNameExpanded). 색 = 아군 금 / 적 붉은색(기존 규칙)
+                this.nameFull = nameTagText(nm); this.nameShort = nameTagText(nm, 3); this.nameExp = false;
+                this.nameTag = makeText(scene, NAME_X, SEG.y, this.nameShort, { size: 12, bold: true, color: unit.team === 'enemy' ? '#ff7a6a' : '#f0d58c', origin: [0, 0.5], stroke: { color: '#0B1020', width: 4 }, res: 3 });
                 this.c.add(this.nameTag);
             }
         }
@@ -337,6 +351,24 @@ export class UnitView {
         if (Math.abs(this.aura.alpha - a) > 0.004) this.aura.setAlpha(a);
     }
 
+    // 이름표 크기: CSS 글자 높이 NAME_MIN_FONT 이상(최대 1.8배)이 목표, 폭은 평소 = 숫자 배지 왼쪽까지 / 확장 = 타일 폭 + 16 까지(넘으면 0.75배까지 축소)
+    fitName() {
+        const t = this.nameTag; if (!t) return;
+        const px = this.tilePx ?? 48;
+        const want = Math.min(1.8, Math.max(1, NAME_MIN_FONT / ((12 * px) / TILE)));
+        const maxW = this.nameExp ? TILE + 16 : NAME_MAX_R - NAME_X;
+        t.setScale(Math.max(0.75, Math.min(want, maxW / Math.max(1, t.width))));
+    }
+
+    // 선택·커서(호버) 중 전체 이름(성 표기 규칙) 확장, 평소 짧은 이름. 확장 중에는 숫자 배지 위로 올라오게 맨 위로
+    setNameExpanded(on) {
+        if (!this.nameTag || this.nameExp === !!on) return;
+        this.nameExp = !!on;
+        this.nameTag.setText(on ? this.nameFull : this.nameShort);
+        if (on) this.c.bringToTop(this.nameTag);
+        this.fitName();
+    }
+
     setSelected(b) {
         this.selected = b;
         this.ring.setVisible(b);
@@ -368,13 +400,11 @@ export class UnitView {
         this.troopN = n;
         this.drawTroops(n);
         if (!animate || prev < 0 || n >= prev) return;
-        if (this.segOn) {
-            const g = this.scene.add.graphics();
-            g.fillStyle(0xffffff, 1);
-            for (let i = n; i < prev; i++) g.fillRect(SEG.x0 + i * (SEG.w + SEG.gap), SEG.y - SEG.h / 2, SEG.w, SEG.h);
-            this.c.add(g);
-            tween(this.scene, { targets: g, to: { alpha: 0 }, duration: 300, onComplete: () => g.destroy() });
-        }
+        // 병력 바 제거(2026-11-14) -> 감소 표시는 숫자 펀치 + 잠깐 흰색 섬광(사라진 칸 섬광 대체)
+        // 섬광 복구는 '복구 시점의 현재 병력 색'(this.countCol)으로: 연속 피격 때 앞선 타이머가 이전 색(예: 영웅 금색)으로 덮어쓰던 문제(강화면 a27h Med: 4~5 인데 금색)
+        this.countText.setColor('#ffffff');
+        this.flashT?.remove(false);
+        this.flashT = this.scene.time?.delayedCall(220, () => { this.flashT = null; if (this.countText?.scene) this.countText.setColor(this.countCol); });
         this.countText.setScale(1.45);
         tween(this.scene, { targets: this.countText, to: { scaleX: 1, scaleY: 1 }, duration: 300, ease: 'Back.easeOut' });
     }
@@ -384,15 +414,9 @@ export class UnitView {
         const danger = n > 0 && n <= TROOP_DANGER;
         const fillCol = danger ? DANGER_COL : (hero ? HERO_GOLD : this.teamColor);
         // 세그먼트 10칸(어두운 바탕 띠 + 채워진 칸)
-        const g = this.segG.clear();
-        const total = MAX_SOLDIERS * SEG.w + (MAX_SOLDIERS - 1) * SEG.gap;
-        g.fillStyle(COLOR.ink, 0.85).fillRect(SEG.x0 - 1, SEG.y - SEG.h / 2 - 1, total + 2, SEG.h + 2);
-        g.lineStyle(1, hero ? HERO_GOLD : this.teamColor, 0.9).strokeRect(SEG.x0 - 1, SEG.y - SEG.h / 2 - 1, total + 2, SEG.h + 2);
-        for (let i = 0; i < MAX_SOLDIERS; i++) {
-            const x = SEG.x0 + i * (SEG.w + SEG.gap);
-            if (i < n) g.fillStyle(fillCol, 1).fillRect(x, SEG.y - SEG.h / 2, SEG.w, SEG.h);
-            else g.fillStyle(0x3a4256, 0.9).fillRect(x, SEG.y - SEG.h / 2 + SEG.h - 1.5, SEG.w, 1.5); // 빈 칸: 바닥 눈금만
-        }
+        // 병력 바(10칸 세그먼트) 제거(2026-11-14 사용자: 숫자가 이미 있으니 바 자리에 이름). segG 는 다른 코드 호환용으로 비워 둔다
+        this.segG.clear(); void fillCol;
+        const mid = !danger && n > 0 && n <= Math.ceil(MAX_SOLDIERS / 2); // 절반 이하 = 주황(위험 <= TROOP_DANGER 는 기존 붉은색 + 경고 삼각형)
         // 숫자 배지: 부대 = 진영색 바탕, 영웅 = 어두운 바탕 + 금테 이중선. 위험이면 어두운 바탕 + 붉은 숫자 + 경고 삼각형
         const b = this.badgeG.clear();
         const bx = -BADGE_W; const by = -BADGE_H;
@@ -406,7 +430,8 @@ export class UnitView {
             b.lineStyle(0.75, COLOR.ink, 1).strokeTriangle(bx - 1, by - 1, bx - 8, by - 1, bx - 4.5, by - 7);
             b.fillStyle(COLOR.ink, 1).fillRect(bx - 5, by - 5.5, 1, 2.5).fillRect(bx - 5, by - 2.5, 1, 1);
         }
-        this.countText.setText(String(n)).setColor(danger ? '#ff8a7a' : hero ? '#f0d58c' : '#ffffff');
+        this.countCol = danger ? '#ff8a7a' : mid ? '#ffbe7a' : hero ? '#f0d58c' : '#ffffff';
+        this.countText.setText(String(n)).setColor(this.flashT ? '#ffffff' : this.countCol);
     }
 
     // 줌 단계별 표시: 타일 CSS 크기(px)가 SEG_MIN_PX 이상이면 세그먼트+숫자, 미만이면 숫자 배지만(최소 글자 크기까지 역스케일, 최대 2.4배)
@@ -417,6 +442,8 @@ export class UnitView {
         this.nameTag?.setVisible(this.segOn);
         const cssFont = (11 * px) / TILE;
         this.badge.setScale(Math.min(2.4, Math.max(1, BADGE_MIN_FONT / cssFont)));
+        this.tilePx = px;
+        this.fitName();
     }
 
     setActed(b) {

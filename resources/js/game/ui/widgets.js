@@ -46,7 +46,8 @@ export function confirmModal(scene, title, body, onOk, { okLabel = '확인', dan
 // 세로 스크롤 목록: 마스크 + 휠/드래그. add(child) 로 항목을 넣고 setContentHeight(h) 로 범위를 알려준다.
 export class ScrollList extends Phaser.GameObjects.Container {
     // bar: 스크롤 단서(우측 스크롤바 + 아래에 더 있을 때 하단 페이드). 내용이 영역보다 길 때만 보인다
-    constructor(scene, { x = 0, y = 0, w, h, clip = false, bar = false, fadeColor = COLOR.navyDeep }) {
+    // barW: 스크롤바 굵기(기본 4). 6 이상이면 트랙 외곽선·둥근 손잡이로 눈에 띄게(캠페인 목록, 2026-11-14)
+    constructor(scene, { x = 0, y = 0, w, h, clip = false, bar = false, fadeColor = COLOR.navyDeep, barW = 4 }) {
         super(scene, x, y);
         this.w = w; this.h = h;
         this.content = scene.add.container(0, 0);
@@ -58,8 +59,11 @@ export class ScrollList extends Phaser.GameObjects.Container {
             // 하단 페이드(4px 띠 6장, 아래로 갈수록 진하게) + 스크롤바(트랙 4px, 썸 최소 24px). 입력은 받지 않는다(아래 목록 탭 통과)
             this.fade = scene.add.container(0, h - 24);
             for (let i = 0; i < 6; i += 1) this.fade.add(scene.add.rectangle(0, i * 4, w, 4, fadeColor, 0.12 + i * 0.13).setOrigin(0));
-            this.track = scene.add.rectangle(w - 4, 0, 4, h, 0xffffff, 0.12).setOrigin(0);
-            this.thumb = scene.add.rectangle(w - 4, 0, 4, 24, COLOR.accent, 0.9).setOrigin(0);
+            this.barW = barW;
+            this.track = scene.add.rectangle(w - barW, 0, barW, h, 0xffffff, barW >= 6 ? 0.1 : 0.12).setOrigin(0);
+            if (barW >= 6) this.track.setStrokeStyle(1, COLOR.accent, 0.35);
+            this.thumb = scene.add.rectangle(w - barW, 0, barW, 24, barW >= 6 ? COLOR.accentLight : COLOR.accent, 0.9).setOrigin(0);
+            if (barW >= 6) this.thumb.setStrokeStyle(1, 0x0b1020, 0.8);
             this.add([this.fade, this.track, this.thumb]);
         }
         const g = scene.add.graphics().setVisible(false);
@@ -158,7 +162,7 @@ export class ScrollList extends Phaser.GameObjects.Container {
         if (!over) return;
         const th = Math.max(24, Math.round(this.h * (this.h / this.contentH)));
         const range = this.contentH - this.h;
-        this.thumb.setSize(4, th).setY(Math.round((this.h - th) * (-this.content.y / range)));
+        this.thumb.setSize(this.barW ?? 4, th).setY(Math.round((this.h - th) * (-this.content.y / range)));
     }
 }
 

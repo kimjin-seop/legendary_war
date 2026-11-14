@@ -3,7 +3,7 @@ import { reachable, fromServerTiles, pathTo, pathBetween, attackTiles, keyOf, un
 import { terrainAttr, typeAlias } from '../data/rules.js';
 import { forecast, auraBonus, setForecastRules } from '../systems/combat.js';
 import { NPC_TROOP_LOOK } from '../assets.js';
-import { troopDelta } from '../systems/soldiers.js';
+import { troopDelta, soldierCount } from '../systems/soldiers.js';
 import { setAuraCatalog } from '../systems/glossary.js';
 import { unitDisplayName } from '../systems/names.js';
 import { settings } from '../settings.js';
@@ -116,6 +116,8 @@ export function createBattleStore() {
         s.surviveRemaining = Number.isFinite(Number(view.survive_remaining)) && view.survive_remaining !== null ? Number(view.survive_remaining) : null;
         s.stageId = view.stage_id ?? s.stageId ?? null;
         s.mpMode = view.mp_mode === true;
+        if (view.micro_mode != null) s.microOn = view.micro_mode === 'on'; // 서버가 view 에 micro_mode 를 주면 그 값(현재 미노출 -> attack 이벤트 micro.mode 'on' 을 보면 켬)
+        if (view.micro_mode != null) s.microMode = String(view.micro_mode); // 서버 view 값 그대로(off|shadow|on). 'on' 일 때만 서버 공격 예측 호출(refineForecast)
         { const il = view.state?.items?.left ?? view.items?.left; s.itemsLeft = s.mode !== 'room' && il != null && Number.isFinite(Number(il)) ? Number(il) : null; } // 키 없음 = 소모품 불가 전투
         s.storyEvents = Array.isArray(view.story_events) ? view.story_events : [];
         if (s.mode !== 'room') s.storyEvents.forEach((event) => ev(event));
@@ -144,8 +146,59 @@ export function createBattleStore() {
         Object.assign(s, { phase: 'idle', facingChoice: null, selectedId: null, origin: null, moved: false, reach: null, standableTiles: [], attackTiles: [], targets: [], targetMode: null, targetId: null, forecast: null, skill: null, itemCode: null, lockedPreview: null, movePath: null });
     }
 
+    // ---- 서버 공격 예측(미시 모드 on 전용) ----
+    // 로컬 forecast()(damageInfo 1회 선형식)는 미시 교전 결과와 어긋날 수 있어, 서버 view micro_mode === 'on' 이면 POST /api/battles/{id}/forecast 로 덮어쓴다.
+    // 요청 중에는 로컬값 그대로(표식 없음), 마지막 요청만 반영(fcSeq + forecast 객체 동일성), 실패·타임아웃이면 로컬값에 tentative(참고용(변동 가능)) 표기.
+    // 캐시 키: 전투·version·턴·공격자·대상·공격자 칸(version 포함: 같은 턴이라도 다른 행동 후엔 대상 HP 가 바뀜). off/shadow 면 아무것도 하지 않는다
+    let fcSeq = 0;
+    const fcCache = new Map();
+    function applyServerForecast(fc, att, def, r) {
+        const remaining = r.targetHpAfter;
+        const killed = r.targetDefeated || remaining <= 0;
+        const withMax = (u, mx) => (mx > 0 ? { ...u, max_hp: mx, maxHp: mx } : u); // 병력 단계 = stepsOf(hp, 서버 max_hp)
+        const tBefore = soldierCount(def);
+        const tAfter = killed ? 0 : Math.max(0, Math.min(tBefore, soldierCount(withMax(def, r.targetMaxHp), remaining)));
+        const aHp = r.attackerHpAfter;
+        let counter = fc.counter; // 서버가 공격자 HP 를 안 주면 로컬 반격 예측 유지
+        if (aHp != null) {
+            const aBefore = soldierCount(att);
+            const aAfter = r.attackerDefeated ? 0 : Math.max(0, Math.min(aBefore, soldierCount(withMax(att, r.attackerMaxHp), aHp)));
+            counter = !killed && aHp < (r.attackerHpBefore ?? att.hp) ? { dmg: r.counterDmg ?? ((r.attackerHpBefore ?? att.hp) - aHp), remaining: aHp, hit: null, troop: { before: aBefore, after: aAfter, loss: aBefore - aAfter } } : null;
+        }
+        if (killed) counter = null; // 격파 = 반격 줄 대신 격파 예상 문구(ContextMenu 기존 문구)
+        // 격파 시 '동시 교전: 반격 피해 가능': 서버가 공격자 손실을 예측했거나 로컬상 반격 가능한 조합일 때. 원거리 등 반격 불가 조합은 '격파 예상 · 반격 없음'
+        const microCounter = killed && ((aHp != null && aHp < (r.attackerHpBefore ?? att.hp)) || !!fc.microCounter || !!fc.counter);
+        return { ...fc, dmg: r.dmg ?? Math.max(0, def.hp - remaining), remaining, counter, microCounter, troop: { before: tBefore, after: tAfter, loss: tBefore - tAfter }, server: true, tentative: false, serverMicro: r.micro, rev: (fc.rev ?? 0) + 1 };
+    }
+    function refineForecast(att, def) {
+        const seq = ++fcSeq;
+        if (!s.forecast) return;
+        s.forecast = { ...s.forecast, reqSeq: seq }; // 씬: 같은 reqSeq 의 말풍선 재생성은 페이드 없이(깜빡임 최소화)
+        if (s.microMode !== 'on' || !s.battleId) return;
+        const key = `${s.battleId}|${s.version}|${s.turn}|${att.id}|${def.id}|${att.x},${att.y}`;
+        const hit = fcCache.get(key);
+        if (hit) { s.forecast = applyServerForecast(s.forecast, att, def, hit); return; } // 호출부가 이어서 change()
+        const fcRef = s.forecast;
+        const live = () => seq === fcSeq && s.forecast === fcRef && s.phase === 'confirm' && s.targetId === def.id;
+        const body = { unitId: att.id, targetId: def.id, ...(s.moved ? { x: att.x, y: att.y } : {}) }; // 임시 이동(서버 미전송) 칸
+        gameApi.forecastAttack(s.battleId, body).then((r) => {
+            fcCache.set(key, r);
+            if (fcCache.size > 64) fcCache.delete(fcCache.keys().next().value);
+            if (!live()) return; // 대상·칸이 바뀌었거나 취소됨: 이전 응답 무시
+            s.forecast = applyServerForecast(s.forecast, get(att.id) ?? att, get(def.id) ?? def, r);
+            change();
+        }).catch(() => {
+            if (!live()) return;
+            s.forecast = { ...s.forecast, tentative: true, rev: (s.forecast.rev ?? 0) + 1 }; // 로컬값 유지 + 참고용(변동 가능)
+            change();
+        });
+    }
+
     // ---- 서버 이벤트 -> 연출 이벤트(순차 큐). 스냅샷으로 경로/HP 를 추적한다 ----
-    function playEvents(events) {
+    // opt.localMove = {unitId,x,y}: 임시 이동(moveTo)으로 이미 걷기 연출을 끝낸 유닛. 그 유닛의 서버 move(같은 도착 칸) 1건은 걷기 연출을 다시 내지 않는다
+    //  (commitMove 응답의 move 는 from=이동 전 칸이라 그대로 재생하면 도착 칸에 서 있던 뷰가 출발 칸 쪽으로 미끄러졌다가 다시 걸어오는 '한 번 더 이동' 버그)
+    function playEvents(events, opt = {}) {
+        let localMove = opt.localMove ?? null;
         const snap = s.units.map((u) => ({ ...u }));
         const sget = (id) => snap.find((u) => u.id === id);
         const merged = new Set(); // 교전 병합으로 이미 처리한 counter 이벤트 인덱스
@@ -201,11 +254,14 @@ export function createBattleStore() {
                     return;
                 }
                 if (e.scripted && Array.isArray(e.from)) ev({ type: 'move', unitId: u.id, path: [], snapTo: { x: e.from[0], y: e.from[1] } }); // cue 이동: 출발 칸에서 걷기 시작(시작 연출은 뷰가 이미 최종 좌표)
-                const path = pathBetween(s.map, snap, u, e.from, e.to);
+                const already = !e.scripted && localMove && String(localMove.unitId) === String(u.id) && e.to?.[0] === localMove.x && e.to?.[1] === localMove.y;
+                if (already) localMove = null; // 1건만
+                const path = already ? [] : pathBetween(s.map, snap, u, e.from, e.to);
                 u.x = e.to[0]; u.y = e.to[1];
                 if (e.facing) { u.facing = e.facing; ev({ type: 'facing', unitId: u.id, facing: e.facing }); }
-                ev({ type: 'move', unitId: u.id, path, scripted: !!e.scripted }); // scripted(cue 이동): 연출 병렬 묶음에서 제외(FxManager)
+                if (!already) ev({ type: 'move', unitId: u.id, path, scripted: !!e.scripted }); // scripted(cue 이동): 연출 병렬 묶음에서 제외(FxManager)
             } else if (e.type === 'attack' || e.type === 'counter') {
+                if (e.micro && typeof e.micro === 'object' && e.micro.mode === 'on') s.microOn = true; // 미시 교전 확정 전투(예측 반격 문구 판정용)
                 const t = sget(e.target_unit_id);
                 const tLoss = t ? -troopDelta(t, t.hp, e.hp_after) : null; // 로그는 병력 단계 감소로 표기(HP 수치 비노출)
                 if (t) t.hp = e.hp_after;
@@ -441,6 +497,7 @@ export function createBattleStore() {
 
     // ---- 배치(임시 자동 배치): FE B 의 Deploy 씬이 생기면 그쪽에서 PUT/confirm 하고 Battle 에는 {battleId} 만 넘긴다 ----
     function autoPlacements(dep) {
+        if (dep.lineup_enforced && Array.isArray(dep.candidates)) dep = { ...dep, candidates: dep.candidates.filter((c) => c.in_pool !== false || c.forced) }; // 편성 라인업 풀 안에서만(2026-11-14)
         const cand = new Map(dep.candidates.map((c) => [c.user_hero_id, c]));
         // 저장된 편성(default_party)만 출전시킨다. 편성이 비었을 때만 보유 영웅으로 채운다
         // (이전: 편성 밖 대기 영웅까지 슬롯을 채워 출전 -> 서버 코스트 합산 초과(cost_exceeded)로 진입 실패)
@@ -594,7 +651,7 @@ export function createBattleStore() {
         if (!s.moved || u.moved) return;
         const res = await act({ type: 'move', unit_id: u.id, x: u.x, y: u.y });
         s.moved = false; // 서버 반영 완료(더 이상 되돌릴 수 없음)
-        playEvents(res.events);
+        playEvents(res.events, { localMove: { unitId: u.id, x: u.x, y: u.y } }); // 걷기 연출은 moveTo 에서 이미 재생함
         if (res.battle) applyView(res.battle);
         applyRoom(res);
         if (s.status === 'finished') { ev({ type: 'sync' }); await loadResult(res.result); }
@@ -951,13 +1008,14 @@ export function createBattleStore() {
                 run(() => finishWith({ type: 'use_skill', skill: code, ...(selfCast ? {} : { target_id: foe.id }) }));
                 return;
             }
-            s.forecast = forecast(s.map, s.units, u, foe, { powerPct: sk?.power_pct, viaSkill: !!sk, origin: s.origin, alternate: s.alternate, rules: s.rulesEffective }); // origin: 임시 이동 전 칸(조건부 패시브 moved 판정), alternate: 후공 보정 off 판정
+            s.forecast = forecast(s.map, s.units, u, foe, { powerPct: sk?.power_pct, viaSkill: !!sk, origin: s.origin, alternate: s.alternate, rules: s.rulesEffective, micro: !!s.microOn }); // origin: 임시 이동 전 칸(조건부 패시브 moved 판정), alternate: 후공 보정 off 판정
             if (sk) s.forecast = { ...s.forecast, skill: { code: sk.code, name: skillDisplayName(sk.name) ?? sk.code, powerPct: sk.power_pct ?? 100 } }; // code: 스킬 아이콘(ui/SkillIcon.js)
             if (s.facingOn) s.forecast = { ...s.forecast, flank: flankOf(u.x, u.y, foe) }; // 참고용(판정은 서버)
             // 오라 분리 표기: 내 공격 오라 % / 적 방어 오라 % (auraBonus 와 같은 규칙)
             const [aAtk] = auraBonus(s.units, u, u.x, u.y);
             const [, dDef] = auraBonus(s.units, foe, foe.x, foe.y);
             s.forecast = { ...s.forecast, auraAtk: aAtk, auraDef: dDef };
+            if (!sk) refineForecast(u, foe); // 미시 on: 서버 예측으로 덮어쓰기(캐시 적중이면 즉시, 아니면 응답 후). 로컬값은 먼저 그린다
             s.phase = 'confirm';
             change();
         },

@@ -40,6 +40,7 @@ class AuthAdminTest extends TestCase
     public function test_가입_후_로그인에_성공한다(): void
     {
         $this->artisan('game:seed')->assertSuccessful();
+        $this->artisan('game:seed-ch1')->assertSuccessful();   // 캠페인 키 영웅(S) 후보는 챕터 스테이지 필수 영웅에서 도출
         $payload = ['name' => 'Tester', 'email' => 'tester@example.com', 'password' => 'abcd1234xyz', 'password_confirmation' => 'abcd1234xyz', 'terms_accepted' => true];
 
         // 토큰 없이는 CSRF로 거부된다 (보호가 실제 동작함을 확인)

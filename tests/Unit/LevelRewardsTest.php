@@ -25,14 +25,13 @@ class LevelRewardsTest extends TestCase
         $this->assertSame(60 + 2 * 29 + 20, MpRules::maxMp('B', 30, 'sword'));           // Lv30 누적 +20
     }
 
-    public function test_마일스톤_부대_라벨이_troop_slots_설정과_일치한다(): void
+    public function test_마일스톤은_등급_상대_해금이고_부대_해금_레벨이_troop_slots_by_rarity와_일치한다(): void
     {
+        $this->assertSame([10, 22, 24], array_column(LevelRewards::milestones('S'), 'level'));   // S: 4번째 부대 Lv22, 만렙 MP Lv24
+        $this->assertSame(14, LevelRewards::milestones('C')[1]['level']);   // C: 4번째 부대 Lv14(컨테이너 없는 단위 테스트라 'max'는 전체 만렙 24)
         $cfg = require dirname(__DIR__, 2).'/config/game.php';
-        $labels = array_column($cfg['level_rewards']['milestones'], 'label', 'level');
-        foreach ($cfg['troop_slots'] as [$lv, $n]) {
-            if ($lv > 1) {
-                $this->assertStringContainsString("부대 {$n}개", $labels[$lv] ?? '', "Lv{$lv} 라벨");
-            }
+        foreach ($cfg['troop_slots_by_rarity'] as $r => $rows) {
+            $this->assertSame($rows[2][0], LevelRewards::milestones($r)[1]['level'], "{$r} 부대 4개 해금 레벨");
         }
     }
 }

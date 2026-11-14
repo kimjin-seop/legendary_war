@@ -7,7 +7,8 @@ namespace App\Game;
  * (사용자 선택 > 영웅 프리셋 > 병종 기본 편성), 진영 유닛 총 상한(균등 감축).
  *
  * entry: ['row' => heroRow(unit_type, troop_bonus?), 'level' => int, 'troops' => ?string[] (사용자 선택), 'preset' => ?string[]]
- * cfg:   ['slots' => [[min_level, n], ...], 'cap' => 4, 'max_units' => 12, 'default_by_type' => [type => string[]]]
+ * cfg:   ['slots' => [[min_level, n], ...], 'slots_by_rarity' => [등급 => [[min_level, n], ...]](선택), 'cap' => 4, 'max_units' => 12, 'default_by_type' => [type => string[]]]
+ *        slots_by_rarity 에 영웅 등급(row.rarity / count 의 $rarity)이 있으면 그 표를, 없으면 slots 를 쓴다.
  */
 final class SquadPlanner
 {
@@ -53,10 +54,12 @@ final class SquadPlanner
         return $n;
     }
 
-    /** 영웅의 부대 슬롯 수 = min(cap, 레벨 슬롯 + troop_bonus) */
-    public static function count(int $level, int $bonus, array $cfg): int
+    /** 영웅의 부대 슬롯 수 = min(cap, 레벨 슬롯(등급별 표 우선) + troop_bonus) */
+    public static function count(int $level, int $bonus, array $cfg, ?string $rarity = null): int
     {
-        return max(0, min((int) $cfg['cap'], self::slots($level, $cfg['slots']) + $bonus));
+        $table = $cfg['slots_by_rarity'][strtoupper((string) $rarity)] ?? $cfg['slots'];
+
+        return max(0, min((int) $cfg['cap'], self::slots($level, $table) + $bonus));
     }
 
     /**
@@ -67,7 +70,7 @@ final class SquadPlanner
     {
         $out = [];
         foreach ($entries as $i => $e) {
-            $n = self::count((int) $e['level'], (int) ($e['row']['troop_bonus'] ?? 0), $cfg);
+            $n = self::count((int) $e['level'], (int) ($e['row']['troop_bonus'] ?? 0), $cfg, $e['row']['rarity'] ?? null);
             $fixed = $e['row']['troop_type'] ?? null;
             if (is_string($fixed) && $fixed !== '') {
                 // 영웅별 고정 병종: 슬롯 수만큼 그 병종 1종으로만 구성(사용자 troops·프리셋·default_by_type 무시)

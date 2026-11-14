@@ -1,0 +1,433 @@
+{
+ "_note": "메인 스토리 '잊힌 서고' 도서관 지도 MVP 프로필(2026-11-14). 좌표 = 지도 정규화 [0,1](x 왼쪽->오른쪽, y 위->아래), 지도 가로세로비 aspect. 임시 좌표·코드 배경: 안아트·맵디자이너가 bg_key(이미지)·좌표를 교체하면 코드 수정 없이 반영. node = desk(안내 데스크)|book(책)|door(문)|boss(서가, 막 마지막). 막 전환 연출은 2차 / 2026-11-14 a27h: bg_key = map.library.base(안아트 배경 3520x1600, mobile 1760x800) 연결, 보스 노드 y 0.22 -> 0.25(구역 라벨과 겹침 방지) / label_y = 구역 라벨 세로 위치(정규화, 맨 위 노드보다 위). bg_entry = manifest 병합 전 임시 등록용(안아트 조각 항목 사본, 병합되면 manifest 우선)",
+ "version": 1,
+ "map_key": "library_main",
+ "aspect": 2.2,
+ "bg_key": "map.library.base",
+ "features": {
+  "territories": false,
+  "lod": false,
+  "globeTravel": false,
+  "chips": false
+ },
+ "zones": [
+  {
+   "chapter": 0,
+   "name": "로비 · 안내 데스크",
+   "rect": [
+    0.02,
+    0.06,
+    0.2,
+    0.94
+   ],
+   "tone": "lobby"
+  },
+  {
+   "chapter": 101,
+   "name": "1막 서가",
+   "rect": [
+    0.22,
+    0.06,
+    0.4,
+    0.94
+   ],
+   "tone": "wing"
+  },
+  {
+   "chapter": 102,
+   "name": "2막 서가",
+   "rect": [
+    0.415,
+    0.06,
+    0.595,
+    0.94
+   ],
+   "tone": "wing"
+  },
+  {
+   "chapter": 103,
+   "name": "3막 서가",
+   "rect": [
+    0.61,
+    0.06,
+    0.79,
+    0.94
+   ],
+   "tone": "wing"
+  },
+  {
+   "chapter": 104,
+   "name": "4막 서가",
+   "rect": [
+    0.805,
+    0.06,
+    0.985,
+    0.94
+   ],
+   "tone": "wing"
+  }
+ ],
+ "shelves": [
+  {
+   "chapter": 0,
+   "shelf_code": "lib_lobby",
+   "name_ko": "로비 · 안내 데스크",
+   "era_label": "",
+   "summary_lines": [
+    "서고에 처음 들어선 지휘관을 위한 안내 구역입니다.",
+    "여섯 개의 기록을 차례로 정리하며 전투의 기본을 익힙니다."
+   ],
+   "map": {
+    "focus": {
+     "x": 0.11,
+     "y": 0.5
+    },
+    "zoom": 1
+   }
+  },
+  {
+   "chapter": 101,
+   "shelf_code": "lib_a1",
+   "name_ko": "1막 서가",
+   "era_label": "",
+   "summary_lines": [],
+   "map": {
+    "focus": {
+     "x": 0.31,
+     "y": 0.5
+    },
+    "zoom": 1
+   }
+  },
+  {
+   "chapter": 102,
+   "shelf_code": "lib_a2",
+   "name_ko": "2막 서가",
+   "era_label": "",
+   "summary_lines": [],
+   "map": {
+    "focus": {
+     "x": 0.505,
+     "y": 0.5
+    },
+    "zoom": 1
+   }
+  },
+  {
+   "chapter": 103,
+   "shelf_code": "lib_a3",
+   "name_ko": "3막 서가",
+   "era_label": "",
+   "summary_lines": [],
+   "map": {
+    "focus": {
+     "x": 0.7,
+     "y": 0.5
+    },
+    "zoom": 1
+   }
+  },
+  {
+   "chapter": 104,
+   "shelf_code": "lib_a4",
+   "name_ko": "4막 서가",
+   "era_label": "",
+   "summary_lines": [],
+   "map": {
+    "focus": {
+     "x": 0.895,
+     "y": 0.5
+    },
+    "zoom": 1
+   }
+  }
+ ],
+ "stages": [
+  {
+   "stage_code": "stage_01",
+   "node": "desk",
+   "map": {
+    "pin": {
+     "x": 0.07,
+     "y": 0.8
+    }
+   }
+  },
+  {
+   "stage_code": "stage_02",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.15,
+     "y": 0.68
+    }
+   }
+  },
+  {
+   "stage_code": "stage_03",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.07,
+     "y": 0.56
+    }
+   }
+  },
+  {
+   "stage_code": "stage_04",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.15,
+     "y": 0.44
+    }
+   }
+  },
+  {
+   "stage_code": "stage_05",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.07,
+     "y": 0.32
+    }
+   }
+  },
+  {
+   "stage_code": "stage_06",
+   "node": "door",
+   "map": {
+    "pin": {
+     "x": 0.15,
+     "y": 0.24
+    }
+   }
+  },
+  {
+   "stage_code": "ch101_s1",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.26,
+     "y": 0.8
+    }
+   }
+  },
+  {
+   "stage_code": "ch101_s2",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.36,
+     "y": 0.67
+    }
+   }
+  },
+  {
+   "stage_code": "ch101_s3",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.26,
+     "y": 0.54
+    }
+   }
+  },
+  {
+   "stage_code": "ch101_s4",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.36,
+     "y": 0.41
+    }
+   }
+  },
+  {
+   "stage_code": "ch101_s5",
+   "node": "boss",
+   "map": {
+    "pin": {
+     "x": 0.31,
+     "y": 0.25
+    }
+   }
+  },
+  {
+   "stage_code": "ch102_s1",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.455,
+     "y": 0.8
+    }
+   }
+  },
+  {
+   "stage_code": "ch102_s2",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.555,
+     "y": 0.67
+    }
+   }
+  },
+  {
+   "stage_code": "ch102_s3",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.455,
+     "y": 0.54
+    }
+   }
+  },
+  {
+   "stage_code": "ch102_s4",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.555,
+     "y": 0.41
+    }
+   }
+  },
+  {
+   "stage_code": "ch102_s5",
+   "node": "boss",
+   "map": {
+    "pin": {
+     "x": 0.505,
+     "y": 0.25
+    }
+   }
+  },
+  {
+   "stage_code": "ch103_s1",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.65,
+     "y": 0.8
+    }
+   }
+  },
+  {
+   "stage_code": "ch103_s2",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.75,
+     "y": 0.67
+    }
+   }
+  },
+  {
+   "stage_code": "ch103_s3",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.65,
+     "y": 0.54
+    }
+   }
+  },
+  {
+   "stage_code": "ch103_s4",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.75,
+     "y": 0.41
+    }
+   }
+  },
+  {
+   "stage_code": "ch103_s5",
+   "node": "boss",
+   "map": {
+    "pin": {
+     "x": 0.7,
+     "y": 0.25
+    }
+   }
+  },
+  {
+   "stage_code": "ch104_s1",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.845,
+     "y": 0.8
+    }
+   }
+  },
+  {
+   "stage_code": "ch104_s2",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.945,
+     "y": 0.67
+    }
+   }
+  },
+  {
+   "stage_code": "ch104_s3",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.845,
+     "y": 0.54
+    }
+   }
+  },
+  {
+   "stage_code": "ch104_s4",
+   "node": "book",
+   "map": {
+    "pin": {
+     "x": 0.945,
+     "y": 0.41
+    }
+   }
+  },
+  {
+   "stage_code": "ch104_s5",
+   "node": "boss",
+   "map": {
+    "pin": {
+     "x": 0.895,
+     "y": 0.25
+    }
+   }
+  }
+ ],
+ "label_y": 0.065,
+ "bg_entry": {
+  "path": "assets/maps/library/library_base_3520.webp",
+  "type": "map_base",
+  "format": "webp",
+  "size": [
+   3520,
+   1600
+  ],
+  "bytes": 394350,
+  "alpha": false,
+  "scope": "lazy",
+  "deferred": true,
+  "filter": "LINEAR",
+  "variants": {
+   "mobile": {
+    "path": "assets/maps/library/library_base_1760.webp",
+    "size": [
+     1760,
+     800
+    ],
+    "bytes": 130950,
+    "alpha": false
+   }
+  }
+ }
+}

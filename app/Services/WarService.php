@@ -372,8 +372,15 @@ class WarService
 
     // ---------------------------------------------------------------- 국가 선택
 
+    /** 시즌 전쟁 쓰기 경로 차단(game.season_war_enabled=false 기본) */
+    private function assertEnabled(): void
+    {
+        config('game.season_war_enabled') || throw new IllegalAction('season_war_disabled', '시즌 전쟁은 오픈 예정입니다.', 403);
+    }
+
     public function join(User $user, string $countryCode, ?string $scenario = null): array
     {
+        $this->assertEnabled();
         if ($user->is_guest && ! config('war.allow_guests')) {
             throw new IllegalAction('guest_not_allowed', '시즌 전쟁은 정식 계정만 참가할 수 있습니다.', 403);
         }
@@ -510,6 +517,8 @@ class WarService
     /** 공격 시작: 검증 -> 방어 AI 부대 구성 -> 기존 solo 전투 경로(battles mode=free, 방 없음)로 전투 생성 + territory_battles 연결 */
     public function attack(User $user, string $territoryCode, ?string $scenario = null): array
     {
+        $this->assertEnabled();
+
         return DB::transaction(function () use ($user, $territoryCode, $scenario) {
             $season = $this->activeSeason(true, $user, $scenario);
             $sc = $this->scenario($season->scenario_code);
@@ -570,6 +579,7 @@ class WarService
             $entries[] = ['row' => $party[$id]['hero'], 'level' => (int) $party[$id]['uh']->level, 'key' => $id];
             $positions[$id] = [$pos[$id]['x'], $pos[$id]['y']];
         }
+        $entries = app(HeroStarService::class)->attach($entries, true);   // 별(★) 보너스: apply_pvp=false(기본)면 불변
         $entries = app(EquipmentService::class)->attach($entries, true);   // 시즌 전투는 PvP와 같은 equipment.pvp_scale 적용(결정 3)
         ArmyBuilder::addSide($engine, $state, 'a', $entries, $this->data->presetUnits((int) $entries[0]['row']['id'], $entries[0]['row']['unit_type']), $zone, $positions, $growth, $this->battles->squadPlanWithPositions($user, $state, $entries, $placements));
 

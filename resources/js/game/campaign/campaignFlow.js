@@ -113,7 +113,8 @@ export function markSeen(id) {
     try { const s = seenSet(); s.add(id); localStorage.setItem(seenKey(), JSON.stringify([...s])); } catch { /* 저장 불가 환경: 매번 재생 */ }
 }
 
-const chapterOfCode = (code) => Number(/^ch(\d+)_/.exec(code ?? '')?.[1] ?? 0);
+// 일반 스테이지 stage_NN = 대사 장 30(ch30_legacy_stages.json, stage_02~06 pre/post). stage_01 은 장면이 없어 그대로(튜토리얼 안내만)
+const chapterOfCode = (code) => (/^stage_\d+$/.test(code ?? '') ? 30 : Number(/^ch(\d+)_/.exec(code ?? '')?.[1] ?? 0));
 
 async function scenesFor(code) {
     const ch = chapterOfCode(code);
@@ -139,8 +140,8 @@ export async function playBeforeStage(scene, stage, next) {
     const { list, all } = await scenesFor(code);
     const ids = [];
     const firstStage = all.find((s) => s.stage_code)?.stage_code;
-    const open = all.find((s) => s.timing === 'chapter_start');
-    if (open && code === firstStage && !isSeen(open.id)) ids.push(open.id);
+    // 장 오프닝(chapter_start)이 여럿이면(시나리오 v2 open_a/open_b 등) 파일 순서대로 모두 재생 — 이전엔 첫 장면만 재생해 나머지가 누락됐다. 장면별 seen 기록은 그대로
+    if (code === firstStage) all.filter((s) => s.timing === 'chapter_start').forEach((open) => { if (!isSeen(open.id)) ids.push(open.id); });
     // 같은 스테이지의 before_battle 장면이 여럿이면(ch12_s3 = 막간 ch12_i1 2줄 + ch12_s3_pre 16줄) 파일 순서대로 모두 재생 — 이전엔 첫 장면만 재생해 2줄 뒤 바로 전투로 넘어갔다
     list.filter((s) => s.timing === 'before_battle').forEach((pre) => { if (!isSeen(pre.id)) ids.push(pre.id); });
     ids.forEach(markSeen);

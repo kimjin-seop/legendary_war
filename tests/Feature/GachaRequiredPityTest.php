@@ -21,6 +21,7 @@ class GachaRequiredPityTest extends TestCase
         $this->artisan('game:seed')->assertSuccessful();
         $r = $this->postJson('/api/guests', ['nickname' => 'rp'])->assertCreated();
         $uid = (int) $r->json('user.id');
+        config(['game.gacha.currency' => 'gold']);   // 천장 로직 검증은 골드 롤백 경로로(결제 통화 무관)
         app(ProgressionService::class)->credit($uid, 'gold', $gold, 'test_grant', 'test', 1);
         $pool = app(GachaService::class)->pool();
         $owned = DB::table('user_heroes')->where('user_id', $uid)->pluck('hero_id')->flip();

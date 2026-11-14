@@ -3,7 +3,10 @@ import { COLOR, CSS, MIN_TOUCH, view } from '../theme.js';
 import { L, setupCamera } from '../layout.js';
 import { session, sessionCache } from '../api/client.js';
 import { gameApi, newGachaRequestId } from '../api/gameApi.js';
-import { messageOf } from '../api/errors.js';
+import { messageOf, gachaPenShortText, GACHA_PEN_SHIORI } from '../api/errors.js';
+import { enqueueBrief, BRIEF_PRI, currentBrief } from '../ui/ShioriBrief.js';
+import { briefPages } from '../tutorial/briefData.js';
+import { briefOn } from '../tutorial/guideFlow.js';
 import { ensureScope, manifestHas, withVer } from '../assets.js';
 import { ensurePortrait } from '../ui/PortraitCard.js';
 import { makeText, addBackdrop, fitText, shrinkToFit } from '../ui/common.js';
@@ -12,6 +15,7 @@ import { Modal } from '../ui/Modal.js';
 import { alertModal, ScrollList } from '../ui/widgets.js';
 import { icon, slice } from '../ui/skin.js';
 import { showToast } from '../ui/Toast.js';
+import { createTabLoadingBadge } from '../ui/TabLoading.js';
 import { rarityColor, rarityCss, normRarity } from '../rarity.js';
 import { heroPlainName, heroShortName, gachaShortName } from '../systems/names.js';
 import { isInstant } from '../ui/motion.js';
@@ -47,6 +51,7 @@ export class GachaScene extends Phaser.Scene {
     init(data) {
         this.backTab = data?.backTab && data.backTab !== 'gacha' ? data.backTab : 'stage';
         this.selKey = data?.sel ?? GachaScene.carry?.sel ?? null;
+        this.focusBlocking = !!data?.focusBlocking; // 출정 불가(필수 영웅 미보유) 안내에서 진입: selKey 가 없으면 서버 blocking 배너를 선택
         this.pendingResult = data?.result ?? GachaScene.carry?.result ?? null;
         GachaScene.carry = null;
         this.rect = data?.rect ?? null;
@@ -91,7 +96,7 @@ export class GachaScene extends Phaser.Scene {
         this.rootC.add([this.bgLayer, this.featLayer, this.petalLayer, this.hudLayer, this.listLayer]);
         this.drawBackdrop();
         if (!this.embedded) this.buildTopBar();
-        this.loadingT = makeText(this, this.AW / 2, this.AY + this.AH / 2, '불러오는 중...', { size: 18, color: CSS.muted, origin: [0.5, 0.5], stroke: { color: '#0B1020', width: 3 } });
+        this.loadingT = createTabLoadingBadge(this, this.AW / 2, this.AY + this.AH / 2); // 로비 탭과 같은 로딩 배지(2026-11-14). destroy 시 회전 트윈 자동 정리
         this.rootC.add(this.loadingT);
         // 뽑기 scope(배경·등급 프레임·카드 뒷면) + 결과 화면 이펙트(result.fx.*). 늦게 오면 배경만 다시 그린다
         ensureScope(this, 'gacha', (ok, n) => { if (ok && n && this.sys.isActive()) { this.drawBackdrop(); if (this.info) this.drawFeature(); } });
@@ -134,11 +139,13 @@ export class GachaScene extends Phaser.Scene {
         this.info = info;
         if (session.profile && Number.isFinite(info.gold) && session.profile.gold !== info.gold) sessionCache.setProfile({ ...session.profile, gold: info.gold });
         this.banners = this.makeBanners(info);
-        const si = this.banners.findIndex((b) => b.key === this.selKey);
+        let si = this.banners.findIndex((b) => b.key === this.selKey);
+        if (si < 0 && this.focusBlocking) si = this.banners.findIndex((b) => b.blocking);
+        this.focusBlocking = false;
         this.selIdx = si >= 0 ? si : 0;
         this.markSeen(this.banners[this.selIdx]);
         // 재시작 전에 보낸 소환 응답이 먼저 도착해 결과 연출 중이면 응답 골드 유지(이 GET 이 소환 전 값일 수 있음, 닫으면 refreshInfo 가 서버 값으로 맞춤)
-        this.setGold(this.reveal?.alive && Number.isFinite(this.lastRes?.gold) ? this.lastRes.gold : info.gold);
+        this.setGold(this.reveal?.alive && Number.isFinite(Number(this.balOf(this.lastRes))) ? this.balOf(this.lastRes) : this.balOf(info)); // 결제 통화 잔액(펜 기본, gold 롤백)
         this.buildMain();
         // 분위기 꽃잎(gacha.particle 시트 10KB)만 진입 시 받는다
         loadGachaFxKeys(this, ['gacha.particle'], () => { if (this.sys.isActive()) this.spawnPetals(); });
@@ -275,8 +282,9 @@ export class GachaScene extends Phaser.Scene {
         const cap = this.add.graphics();
         cap.fillStyle(COLOR.ink, 0.8).fillRoundedRect(cx, y + 4, cw, 36, 18).lineStyle(1.5, COLOR.accent, 0.8).strokeRoundedRect(cx, y + 4, cw, 36, 18);
         bar.add(cap);
-        const gi = icon(this, 'gold', 24);
-        if (gi) bar.add(gi.setPosition(cx + 20, y + 22));
+        this.curBar = { bar, x: cx + 20, y: y + 22 }; // 재화 아이콘 자리: 통화(info.currency)를 알면 setGold 가 펜/골드 아이콘으로 다시 그림
+        this.curIco = null;
+        this.drawCurIcon();
         this.goldT = makeText(this, cx + cw - 14, y + 22, '-', { size: 17, bold: true, color: CSS.accent, origin: [1, 0.5] });
         bar.add(this.goldT);
         const tx = hx + 52 + 14;
@@ -287,9 +295,38 @@ export class GachaScene extends Phaser.Scene {
         }
     }
 
+    // 결제 통화(서버 GET /api/gacha·POST pull 의 currency: 'pen' 기본 | 'gold' 롤백). this.gold = 현재 결제 통화 잔액(이름은 기존 유지)
+    isPen() { return this.info?.currency === 'pen'; }
+    balOf(o) { if (!o) return null; return ((o.currency ?? this.info?.currency) === 'pen') ? o.pen : o.gold; }
+    curName() { return this.isPen() ? '펜' : '골드'; }
+    drawCurIcon() {
+        const cb = this.curBar; if (!cb?.bar?.scene) return;
+        const mode = this.isPen() ? 'pen' : 'gold';
+        if (this.curIco?.scene && this.curIcoMode === mode) return;
+        this.curIco?.destroy(); this.curIcoMode = mode;
+        this.curIco = mode === 'pen' ? penIcon(this, 24) : icon(this, 'gold', 24);
+        if (this.curIco) cb.bar.add(this.curIco.setPosition(cb.x, cb.y));
+        this.goldT?.setColor?.(mode === 'pen' ? '#9FD8FF' : CSS.accent); // 로비 펜 캡슐과 같은 청색 숫자
+    }
+
     setGold(n) {
         this.gold = Number(n) || 0;
         this.goldT?.setText(fmtNum(this.gold));
+        this.drawCurIcon();
+        if (this.isPen() && n != null && Number.isFinite(Number(n))) { const lob = this.scene.get('Lobby'); if (lob?.refreshPen) lob.refreshPen(Number(n)); else LobbyScene.penBalance = Number(n); } // 로비 펜 캡슐 즉시 반영(Lobby.refreshPen(bal), 로비 위 오버레이·복귀 모두)
+    }
+
+    // 펜 부족(버튼 비활성 탭 또는 서버 insufficient_pen): 토스트(송서사 문구, 10연은 서버 가격) + 시오리 말풍선(씬 실행당 1회, 브리핑 꺼짐이면 생략)
+    penShort(count) {
+        const need = this.info?.price?.[count >= 10 ? 'ten' : 'single'];
+        const toast = () => showToast(this, gachaPenShortText({ count, need }), { ms: 3500, kind: 'warn' });
+        if (this.penShioriShown || !briefOn()) { toast(); return; }
+        this.penShioriShown = true;
+        // 시오리 말풍선이 뜨는 경우 토스트를 말풍선 위로 올린다(강화면 v6 Low: 토스트가 말풍선 본문·'알겠습니다' 버튼을 덮음). 말풍선이 그려진 뒤 rect 기준으로 toastInset 설정, 닫히면 해제
+        const queued = enqueueBrief(this, { key: `gacha_pen_short:${this.runId}`, pri: BRIEF_PRI.hint, pages: briefPages('gacha_pen_short', [GACHA_PEN_SHIORI], 'neutral'),
+            onShow: () => this.time.delayedCall(0, () => { if (!this.sys.isActive()) return; const r = currentBrief(this)?.rect; if (r && r.y > L.lh * 0.35) this.toastInset = Math.ceil(L.lh - r.y); toast(); }),
+            onClose: () => { this.toastInset = undefined; } });
+        if (!queued) toast();
     }
 
     // ---------- 본문 ----------
@@ -362,67 +399,91 @@ export class GachaScene extends Phaser.Scene {
         const lx = tx + ts + (framed ? 12 : 16); const lw = w - lx - 10; // 썸네일과 제목 사이 여백(강화면 15차: 제목이 썸네일 끝에 붙어 보임)
         // 이미지 프레임(gacha.list.compact, 480x152)에는 가로 구분선이 y=75/152 에 구워져 있다 -> 타이틀은 선 위, 부제는 선 아래에 배치(2026-11-03 강화면 Low: 부제가 선에 닿음)
         const frameLine = has(this, fk) ? Math.round(h * (75 / 152)) : null;
-        const tt = makeText(this, lx, frameLine != null ? frameLine - 4 : (chip ? 8 : 10), b.title, { size: chip ? 14 : 17, heading: true, color: sel ? '#f6d98c' : '#ffffff', origin: frameLine != null ? [0, 1] : [0, 0] });
-        fitText(tt, lw);
+        // 오른쪽 위 태그('필요 영웅'·'추천')를 먼저 재서 제목 폭에서 뺀다(a27b QA Medium: 390 칩에서 태그가 제목 끝 글자를 덮음 "임진왜ㄹ")
+        const tag = b.blocking ? { t: '필요 영웅', bg: 0x8a2a1c } : b.recommended ? { t: '추천', bg: 0x2a6a3a } : null;
+        const tagT = tag ? makeText(this, 0, 0, tag.t, { size: chip ? 10 : 11, bold: true, color: '#ffffff', origin: [1, 0] }) : null;
+        const tagW = tagT ? tagT.width + 10 : 0;
+        const tt = makeText(this, lx, frameLine != null ? frameLine - 4 : (chip ? 8 : 10), b.title, { size: chip ? (h < 56 ? 13 : 14) : 17, heading: true, color: sel ? '#f6d98c' : '#ffffff', origin: frameLine != null ? [0, 1] : [0, 0] });
+        const ttW = Math.max(40, w - 6 - tagW - 6 - lx); // 태그 왼쪽 6 까지
+        if (tagT) shrinkToFit(tt, Math.min(lw, ttW), chip ? 11 : 13); // 글자 먼저 줄이고 그래도 넘치면 말줄임
+        fitText(tt, Math.min(lw, tagT ? ttW : lw));
         c.add(tt);
+        // '필수 n/m'(오른쪽 아래)을 먼저 만들어 그 폭만큼 부제 폭을 줄인다(강화면 a26 Low: 760x600·1280x720 에서 부제 끝 글자와 겹침)
+        const reqT = b.reqTotal > 0 && b.reqOwned != null && !(chip && h < 44)
+            ? makeText(this, w - 8, h - 6, `필수 ${b.reqOwned}/${b.reqTotal}`, { size: chip ? 10 : 11, bold: true, color: b.reqOwned >= b.reqTotal ? CSS.allyText : '#f0d58c', origin: [1, 1], stroke: { color: '#0B1020', width: 3 } }) : null;
+        const subW = reqT ? Math.max(40, lw - reqT.width - 8) : lw;
         if (b.sub && !(chip && h < 44)) { // 낮은 칩(가로 폰 목록)은 부제 생략
             const sy = frameLine != null ? frameLine + 5 : tt.y + tt.height + 2;
-            const st = makeText(this, lx, sy, b.sub, { size: chip ? 11 : 12, color: CSS.muted, wrap: chip ? undefined : lw });
-            if (chip) shrinkToFit(st, lw, 9); // 390 상단 칩: 한 줄 폭에 맞춰 글자 먼저 줄이고(최소 9), 그래도 넘치면 말줄임(강화면 gacha41 Low)
+            const st = makeText(this, lx, sy, b.sub, { size: chip ? 11 : 12, color: CSS.muted, wrap: chip ? undefined : subW });
+            if (chip) shrinkToFit(st, subW, 9); // 390 상단 칩: 한 줄 폭에 맞춰 글자 먼저 줄이고(최소 9), 그래도 넘치면 말줄임(강화면 gacha41 Low)
             const room = frameLine != null ? h - sy - 6 : Infinity; // 선 아래 남은 높이에 맞춰 줄 수 제한
-            fitText(st, lw, { maxLines: chip || room < (parseInt(st.style.fontSize, 10) || 12) * 2.6 ? 1 : 2 });
+            fitText(st, subW, { maxLines: chip || room < (parseInt(st.style.fontSize, 10) || 12) * 2.6 ? 1 : 2 });
             c.add(st);
         }
         if (b.dynTheme) c.add(this.add.rectangle(3, Math.round(h * 0.12), 4, Math.round(h * 0.76), tint, 0.95).setOrigin(0)); // 동적 테마 배너: 왼쪽 색 띠(이미지 프레임이면 테두리 tint 가 안 보여 구별 표시)
         // 시나리오 배너 안내(서버 응답 있을 때만): 오른쪽 위 태그 '필요 영웅'(blocking = 다음에 막힐 스테이지의 미보유 필수 영웅이 이 풀에 있음) 또는 '추천'(recommended),
         // 오른쪽 아래 '필수 n/m'(required_owned/required_total, 필수 영웅이 있는 배너만)
-        const tag = b.blocking ? { t: '필요 영웅', bg: 0x8a2a1c } : b.recommended ? { t: '추천', bg: 0x2a6a3a } : null;
         if (tag) {
-            const tt2 = makeText(this, 0, 0, tag.t, { size: chip ? 10 : 11, bold: true, color: '#ffffff', origin: [1, 0] });
-            const pw = tt2.width + 10; const ph = tt2.height + 4;
+            const tt2 = tagT;
+            const pw = tagW; const ph = tt2.height + 4;
             c.add(this.add.rectangle(w - 6, 5, pw, ph, tag.bg, 0.95).setOrigin(1, 0).setStrokeStyle(1, 0xffe0b0, 0.8));
             c.add(tt2.setPosition(w - 11, 7));
         }
-        if (b.reqTotal > 0 && b.reqOwned != null && !(chip && h < 44)) {
-            const done = b.reqOwned >= b.reqTotal;
-            c.add(makeText(this, w - 8, h - 6, `필수 ${b.reqOwned}/${b.reqTotal}`, { size: chip ? 10 : 11, bold: true, color: done ? CSS.allyText : '#f0d58c', origin: [1, 1], stroke: { color: '#0B1020', width: 3 } }));
-        }
+        if (reqT) c.add(reqT);
         return c;
     }
 
     // 데스크톱: 왼쪽 위 세로 목록(선택 항목은 오른쪽으로 8 내밀기)
     // 2026-11-08 사용자 요청(시나리오 배너 21개로 목록이 화면 아래까지 늘어짐): 고정 높이 뷰포트 + 스크롤.
     //  서고(맨 위, normal)는 스크롤 밖 고정 -> 그 아래 시나리오 배너는 ScrollList(픽셀 클리핑 + 스크롤바 + 아래 페이드 + 휠).
-    //  뷰포트 아래 끝 = 데스크톱 콘텐츠 높이 60% / 가로 폰 하단 왼쪽 HUD(확률 정보 버튼 등 약 140) 위. 항목 위 드래그(관성)는 씬 입력으로 처리(ScrollList 의 바닥 판은 항목 탭 영역 아래라 못 받음),
+    //  뷰포트 아래 끝 = 소환 버튼 줄 바닥선(2026-11-14, 이전: 데스크톱 60% / 가로 폰 확률 정보 버튼 위). 항목 위 드래그(관성)는 씬 입력으로 처리(ScrollList 의 바닥 판은 항목 탭 영역 아래라 못 받음),
     //  8px 넘게 끌면 탭(선택)으로 치지 않는다. 스크롤 위치는 다시 그려도 유지하고, 선택 배너가 보이게 자동 스크롤
     buildList(r) {
         const gap = L.short ? 4 : 8;
         const h = L.short ? 40 : 64; // 항목 높이 고정(개수와 무관)
         const chipMode = L.short && h < 50; // 낮은 항목: 부제 생략
         const listW = r.w + 12; // 선택 항목 8 내밀기 + 스크롤바 4
-        const item = (b, i, w) => {
+        // 고정 '역사의 서고' 카드: 가로 폰(L.short)에서는 52 로 키워 제목이 위 테두리에 걸리지 않고 부제가 보이게(a27b QA Low, 667x375). 스크롤 목록 항목은 40 유지
+        const pinH = L.short ? 52 : h;
+        const item = (b, i, w, ih = h) => {
+            const h = ih; // 항목별 높이(서고 고정 카드 pinH, 목록 항목 h)
             const sel = i === this.selIdx;
             const v = this.bannerView(b, i, w, h, chipMode);
             v.clipH = h;
             const hit = this.add.rectangle(0, 0, w, h, 0xffffff, 0).setOrigin(0).setInteractive({ useHandCursor: true });
             hit.on('pointerdown', (p) => this.listDragStart(p));
-            hit.on('pointerup', () => { if (this.modalCount > 0 || this.listDrag?.moved) return; sfx('sfx_ui_tap'); this.select(i); });
+            hit.on('pointerup', (p) => {
+                if (this.modalCount > 0 || this.listDrag?.moved) return;
+                // 스크롤 목록 항목이 보이는 영역(뷰포트) 밖에서 눌렸으면 무시 -> 그 자리가 고정 '역사의 서고'면 서고 선택(강화면 a26: 반쯤 가려진 첫 시나리오가 서고 클릭을 가로챔)
+                const list = this.bannerList;
+                if (list?.scene && v.parentContainer === list.content && !list.inside(p)) {
+                    const pr = this.pinRect;
+                    if (pr && p.worldX >= pr.x && p.worldX <= pr.x + pr.w && p.worldY >= pr.y && p.worldY <= pr.y + pr.h) { sfx('sfx_ui_tap'); this.select(0); }
+                    return;
+                }
+                sfx('sfx_ui_tap'); this.select(i);
+            });
             v.add(hit);
             return { v, sel };
         };
         let y0 = r.y;
         const idx = this.banners.map((b, i) => i);
         const pin = this.banners[0]?.normal ? 0 : -1; // 서고 고정
+        this.pinRect = null;
         if (pin === 0) {
-            const { v, sel } = item(this.banners[0], 0, r.w);
+            const { v, sel } = item(this.banners[0], 0, r.w, pinH);
             v.setPosition(r.x + (sel ? 8 : 0), y0);
             this.listLayer.add(v);
-            y0 += h + gap + 2;
+            { const m = v.getWorldTransformMatrix(); this.pinRect = { x: m.tx, y: m.ty, w: r.w, h: pinH }; } // 서고 고정 항목의 화면 영역(가려진 목록 항목 탭 판정용)
+            y0 += pinH + gap + 2;
             idx.shift();
         }
         if (!idx.length) { this.bannerList = null; return; }
         const contentH = idx.length * (h + gap) - gap;
-        const bottom = L.short ? this.AY + this.AH - 140 : this.AY + this.AH * 0.6;
+        // 2026-11-14 사용자 요청: 목록을 아래 끝(소환 버튼 줄 바닥선)까지 꽉 채운다('확률 정보' 버튼은 소환 버튼 왼쪽 아이콘으로 이동).
+        //  소환 버튼 줄이 목록 오른쪽 끝을 침범할 만큼 좁은 화면(listClash)만 하단 HUD 윗선 위에서 끊는다
+        const hg = this.hudGeom();
+        const bottom = hg.listClash ? Math.min(hg.hudTop, hg.icoY) - 8 : hg.by0;
         const vpH = Math.max(h, Math.min(contentH, Math.floor(bottom - y0)));
         const list = new ScrollList(this, { x: r.x, y: y0, w: listW, h: vpH, clip: true, bar: true });
         idx.forEach((i, k) => { const { v, sel } = item(this.banners[i], i, r.w); v.setPosition(sel ? 8 : 0, k * (h + gap)); list.content.add(v); });
@@ -705,43 +766,118 @@ export class GachaScene extends Phaser.Scene {
     }
 
     // 하단: 왼쪽 = 태그·안내 + 상세 정보/확률 정보, 오른쪽 = 천장 게이지 + 1회/10회(10회 금색 강조)
+    // 하단 HUD 배치 계산(buildList 의 목록 바닥선과 drawHud 가 같은 값을 쓴다).
+    // 2026-11-14 사용자 요청: 왼쪽 목록이 아래 끝까지 내려오므로 소환 버튼 줄(+ 왼쪽 확률 아이콘)은 목록 오른쪽에만 놓는다(데스크톱·가로 폰).
+    //  폭이 모자라면 ① 버튼 폭 축소(데스크톱 최대 240·가로 폰 190, 최소 140) ② 확률 아이콘을 천장 게이지 위 왼쪽으로(iconLift) ③ 그래도 모자라면 목록을 HUD 윗선 위에서 끊는다(listClash)
+    hudGeom() {
+        const K = GACHA_KEYS;
+        const info = this.info ?? {};
+        const m = this.mobile;
+        const price = { 1: info.price?.single ?? 0, 10: info.price?.ten ?? 0 };
+        const pad = m ? 16 : 24;
+        const gap = 14;
+        const by0 = this.AY + this.AH - this.SB - pad;
+        const imgBtn = has(this, K.btnSingle) && has(this, K.btnTen);
+        const ico = Math.max(44, Math.ceil(MIN_TOUCH / (view.scale || 1))); // 확률 아이콘 터치 영역(실화면 44px 이상)
+        const icoGap = 10;
+        let bw; let iconLift = m; let listClash = false;
+        if (m) bw = Math.floor((this.AW - L.safe.l - L.safe.r - pad * 2 - gap) / 2);
+        else {
+            const bwMax = L.short ? 190 : 240; const bwMin = 140;
+            const lr = this.R?.list ? this.R.list.x + this.R.list.w + 12 + 8 : L.safe.l + pad; // 목록 오른쪽 끝(선택 내밀기 8 + 스크롤바 4) + 여백 8
+            const room = this.AW - L.safe.r - pad - lr - gap;
+            bw = Math.min(bwMax, Math.floor((room - ico - icoGap) / 2));
+            if (bw < bwMin) { iconLift = true; bw = Math.min(bwMax, Math.floor(room / 2)); }
+            if (bw < bwMin) { bw = bwMin; listClash = true; }
+        }
+        const btnH = imgBtn ? Math.max(52, Math.round(bw * (89 / 300))) : 64; // 가로 폰: 버튼 높이도 함께 줄어듦(비율)
+        const rowW = bw * 2 + gap;
+        const bx = m ? L.safe.l + pad : this.AW - L.safe.r - pad - rowW;
+        const by = by0 - btnH;
+        const disc = price[1] > 0 && price[10] > 0 ? Math.round((1 - price[10] / (price[1] * 10)) * 100) : 0;
+        const gaugeY = by - (disc > 0 ? 34 : 22);
+        const pity = !!info.pity?.min_rarity;
+        const hudTop = pity ? gaugeY - 22 : by - 4;
+        // 확률 아이콘(좌상단): 기본 = 소환 버튼 줄 왼쪽 세로 가운데 / iconLift(모바일 세로 포함) = 천장 게이지(없으면 버튼) 위 왼쪽(오른쪽 정렬된 보장 문구와 반대편)
+        const icoX = iconLift ? bx : bx - icoGap - ico;
+        const icoY = iconLift ? (pity ? gaugeY : by) - 8 - ico : by + (btnH - ico) / 2;
+        return { price, pad, gap, by0, imgBtn, bw, btnH, rowW, bx, by, disc, gaugeY, hudTop, ico, icoX, icoY, iconLift, listClash };
+    }
+
+    // 확률 정보 아이콘(코드로 그린 ⓘ): 짧게 누르기/클릭 = 확률 모달, 마우스 올리기·길게 누르기(450ms) = '확률 정보' 툴팁(길게 누른 뒤 떼면 모달 열지 않음)
+    rateIcon(x, y, S) {
+        const c = this.add.container(x, y);
+        const r = Math.round(Math.min(S, 48) * 0.42);
+        const cx = S / 2; const cy = S / 2;
+        const g = this.add.graphics();
+        const draw = (on) => {
+            g.clear();
+            g.fillStyle(0x05070d, 0.45).fillCircle(cx, cy + 2, r + 2); // 그림자
+            g.fillStyle(on ? 0x1a1408 : COLOR.ink, on ? 0.95 : 0.85).fillCircle(cx, cy, r);
+            g.lineStyle(on ? 2.5 : 2, COLOR.accentLight, on ? 1 : 0.85).strokeCircle(cx, cy, r);
+        };
+        draw(false);
+        const t = makeText(this, cx, cy, 'i', { size: Math.round(r * 1.3), bold: true, color: '#f6d98c', origin: [0.5, 0.5], stroke: { color: '#0B1020', width: 2 } });
+        const hit = this.add.rectangle(0, 0, S, S, 0xffffff, 0).setOrigin(0).setInteractive({ useHandCursor: true });
+        c.add([g, t, hit]);
+        let tip = null; let timer = null; let pressed = false; let longShown = false;
+        const hideTip = () => { tip?.destroy(); tip = null; };
+        const showTip = () => {
+            if (tip || !c.scene) return;
+            const lt = makeText(this, 0, 0, '확률 정보', { size: 13, bold: true, color: '#ffffff', origin: [0.5, 0.5] });
+            const tw = lt.width + 16; const th = lt.height + 8;
+            const tx = Math.max(4 + tw / 2 - x, Math.min(this.AW - 4 - tw / 2 - x, cx)); // 영역 밖으로 나가지 않게(아이콘 기준 로컬 x)
+            tip = this.add.container(tx, -th / 2 - 4);
+            tip.add(this.add.rectangle(0, 0, tw, th, 0x0b1020, 0.92).setStrokeStyle(1, COLOR.accentLight, 0.9));
+            tip.add(lt);
+            c.add(tip);
+        };
+        const cancel = () => { timer?.remove(false); timer = null; };
+        hit.on('pointerover', (p) => { if (this.modalCount > 0) return; draw(true); if (!p?.wasTouch) showTip(); });
+        hit.on('pointerout', () => { pressed = false; cancel(); draw(false); hideTip(); });
+        hit.on('pointerdown', () => {
+            if (this.modalCount > 0) return;
+            pressed = true; longShown = false; draw(true); cancel();
+            timer = this.time.delayedCall(450, () => { timer = null; if (pressed && c.scene) { longShown = true; showTip(); } });
+        });
+        hit.on('pointerup', (p) => {
+            const wasPressed = pressed; pressed = false; cancel();
+            if (p?.wasTouch) { draw(false); if (longShown) { this.time.delayedCall(1200, () => { if (c.scene) hideTip(); }); } else hideTip(); }
+            if (!wasPressed || longShown || this.modalCount > 0) return;
+            hideTip();
+            sfx('sfx_ui_tap');
+            this.openRates();
+        });
+        c.on('destroy', () => cancel());
+        c.hitArea = hit; // QA 접근용
+        return c;
+    }
+
     drawHud() {
         const K = GACHA_KEYS;
         const h = this.hudLayer;
         h.removeAll(true);
         const info = this.info;
         const m = this.mobile;
-        const price ={ 1: info.price?.single ?? 0, 10: info.price?.ten ?? 0 };
-        const pad = m ? 16 : 24;
-        const by0 = this.AY + this.AH - this.SB - pad;
-        // 소환 버튼
-        const gap = 14;
-        const imgBtn = has(this, K.btnSingle) && has(this, K.btnTen);
-        // 가로 폰(L.short): 우측 세로 내비만큼 좁아진 폭에서 왼쪽 '확률 정보'(110) 버튼과 겹치지 않게 소환 버튼 폭을 줄인다(최대 190, 최소 140). 140 미만이면 왼쪽 버튼을 소환 줄 위로(강화면 gacha66)
-        // 2026-11-08 사용자 요청: 왼쪽 '상세 정보' 버튼 제거 -> 왼쪽 버튼 1개 폭만 확보
-        const sPw = 110; const sNeed = sPw + 12;
-        const sBw = L.short && !m ? Math.min(190, Math.floor((this.AW - L.safe.l - L.safe.r - pad * 2 - gap - sNeed) / 2)) : 190;
-        const sLift = L.short && !m && sBw < 140;
-        const bw = m ? Math.floor((this.AW - L.safe.l - L.safe.r - pad * 2 - gap) / 2) : L.short ? (sLift ? 190 : sBw) : 240; // 가로 폰: 버튼 높이도 함께 줄어듦(비율)
-        const btnH = imgBtn ? Math.max(52, Math.round(bw * (89 / 300))) : 64;
-        const rowW = bw * 2 + gap;
-        const bx = m ? L.safe.l + pad : this.AW - L.safe.r - pad - rowW;
-        const by = by0 - btnH;
+        const G = this.hudGeom();
+        const { price, gap, imgBtn, bw, btnH, rowW, bx, by } = G;
         if (m) h.add(gradBand(this, 0, this.AY + this.AH - 230 - this.SB, this.AW, 230 + this.SB, 0x05070d, 0.3, 0.95, 'down', 10));
         this.pullBtns = {};
         [1, 10].forEach((n, i) => {
             const short = this.gold < price[n];
+            const pen = this.isPen(); // 가격·잔액·아이콘 = 서버 currency 기준(가격은 info.price = 현재 통화 가격, 하드코딩 없음)
             const opts = { x: bx + i * (bw + gap), y: by, w: bw, h: btnH, label: `${n === 1 ? '1회' : '10회'} 소환  ${fmtNum(price[n])}`, size: m ? 16 : L.short ? 14 : 19, // 가로 폰: 버튼 폭 190 에 '10회 소환 900' 이 말줄임 없이
-                disabled: short || this.busy, short, reason: short ? `골드가 부족합니다. (필요 ${fmtNum(price[n])}, 보유 ${fmtNum(this.gold)})` : '', onClick: () => this.pull(n) };
+                disabled: short || this.busy, short, pen, reason: short ? (pen ? gachaPenShortText({ count: n, need: price[n] }) : `골드가 부족합니다. (필요 ${fmtNum(price[n])}, 보유 ${fmtNum(this.gold)})`) : '', onClick: () => this.pull(n),
+                onDisabled: pen && short ? () => this.penShort(n) : null };
             const btn = imgBtn ? new PullImgButton(this, { ...opts, tex: n === 10 ? K.btnTen : K.btnSingle })
-                : new Button(this, { ...opts, icon: 'gold', variant: n === 10 ? 'primary' : 'default' });
+                : new Button(this, { ...opts, ...(pen ? { iconFn: (sc, sz) => penIcon(sc, sz) } : { icon: 'gold' }), variant: n === 10 ? 'primary' : 'default' });
             btn.short = short;
             this.pullBtns[n] = btn;
             h.add(btn);
         });
         if (!imgBtn) h.add(this.add.rectangle(bx + bw + gap - 3, by - 3, bw + 6, btnH + 6, 0, 0).setOrigin(0).setStrokeStyle(2, COLOR.accentLight, 0.9)); // 10회 금색 강조(폴백)
         // 10회 할인(서버 가격으로 계산, 있을 때만)
-        const disc = price[1] > 0 && price[10] > 0 ? Math.round((1 - price[10] / (price[1] * 10)) * 100) : 0;
+        const { disc } = G;
         if (disc > 0) {
             const tagImg = has(this, K.tagDiscount);
             const lt = makeText(this, 0, 0, `${disc}% 할인`, { size: 12, bold: true, color: tagImg ? '#ffffff' : '#1A1406', origin: [0.5, 0.5], stroke: tagImg ? { color: '#5A1A17', width: 3 } : undefined });
@@ -753,8 +889,8 @@ export class GachaScene extends Phaser.Scene {
         }
         // 천장 게이지(버튼 위, 버튼 줄 폭)
         const p = info.pity;
-        let gy = by - (disc > 0 ? 34 : 22);
-        this.hudBox = { x: bx - 8, w: rowW + 16, top: p?.min_rarity ? gy - 22 : by - 4 }; // 오른쪽 HUD(천장 보장 안내·게이지·버튼) 윗선
+        const gy = G.gaugeY;
+        this.hudBox = { x: bx - 8, w: rowW + 16, top: G.hudTop }; // 오른쪽 HUD(천장 보장 안내·게이지·버튼) 윗선
         if (p?.min_rarity) {
             const cnt = Math.max(1, Number(p.applies_to_count) || 10);
             const prog = Number(p.progress) || 0;
@@ -763,14 +899,10 @@ export class GachaScene extends Phaser.Scene {
             h.add(slice(this, 'gauge_bg', rowW, 8, 'gauge').setPosition(bx, gy));
             const fw = rowW * Math.min(1, prog / cnt);
             if (fw >= 12) h.add(slice(this, 'gauge_gold', fw, 8, 'gauge').setPosition(bx, gy));
-            gy -= 30;
         }
-        // 왼쪽: 확률 정보(모바일 = 게이지 위 한 줄 전폭, 가로 폰 110, 데스크톱 150 왼쪽 정렬)
-        // 2026-11-08 사용자 요청: 왼쪽 하단 '주목 영웅' 태그 + 대표 영웅 이름 줄과 '상세 정보' 버튼 제거. 확률 안내는 '확률 정보' 버튼
-        const pw = m ? rowW : L.short ? sPw : 150;
-        const py = m || sLift ? gy - 50 : by0 - 44; // sLift: 가로 폰 폭 부족 = 천장 게이지 위
-        const px = m ? bx : L.safe.l + pad;
-        h.add(new Button(this, { x: px, y: py, w: pw, h: 44, label: '확률 정보', size: 15, onClick: () => this.openRates() }));
+        // 확률 정보: 2026-11-14 사용자 요청으로 글자 버튼 -> 작은 ⓘ 아이콘(소환 버튼 줄 왼쪽, 폭 부족·모바일 세로 = 천장 게이지 위 왼쪽). 기능(확률 모달)은 그대로
+        this.rateBtn = this.rateIcon(G.icoX, G.icoY, G.ico);
+        h.add(this.rateBtn);
         // 이름표가 하단 HUD(오른쪽 천장 게이지 줄 · 왼쪽 태그·버튼 줄 중 높은 쪽) 바로 위에 붙지 않게 최소 8px 위로(강화면 28·30회차)
         // (기준선 = 오른쪽 천장 게이지 줄 윗선. 왼쪽 태그·버튼 줄까지 넣으면 이름표가 얼굴 쪽으로 과하게 올라가 제외)
         this.clampTags();
@@ -816,14 +948,17 @@ export class GachaScene extends Phaser.Scene {
         } catch (e) {
             pullState.inFlight = false;
             endSlow();
-            const retryable = e.code === 'network' || e.code === 'gacha_conflict' || e.code === 'db_busy' || e.status >= 500;
+            const retryable = e.code === 'network' || e.code === 'timeout' || e.code === 'gacha_conflict' || e.code === 'db_busy' || e.status >= 500;
             if (!retryable) delete pullState.pending[pk];
             this.busy = false;
             if (!live()) return;
             this.setBusy(false);
             if (retryable) {
-                new Modal(this, { title: '소환 실패', body: `${messageOf(e)}\n같은 요청으로 다시 시도하므로 골드가 두 번 차감되지 않습니다.`, w: 480, h: 290,
+                new Modal(this, { title: '소환 실패', body: `${messageOf(e)}\n같은 요청으로 다시 시도하므로 ${this.curName()}${this.isPen() ? '이' : '가'} 두 번 차감되지 않습니다.`, w: 480, h: 290,
                     buttons: [{ label: '닫기' }, { label: '다시 시도', variant: 'primary', onClick: () => this.pull(count) }] });
+            } else if (e.code === 'insufficient_pen') { // 펜 부족(서버 판정): 토스트 + 시오리, 잔액 재조회
+                this.penShort(count);
+                this.refreshInfo();
             } else {
                 alertModal(this, '소환 실패', messageOf(e), () => {
                     if (e.code === 'gacha_disabled') { gameApi.profile(true).catch(() => {}); this.goBack(); return; }
@@ -845,11 +980,12 @@ export class GachaScene extends Phaser.Scene {
 
     // 응답 반영: 골드·천장·보유 표시(다음 GET 전까지 화면 일관성)
     applyResult(res) {
-        this.setGold(res?.gold);
+        if (this.info && res?.currency) this.info.currency = res.currency; // 응답 통화 우선(서버 전환 직후 GET 과 다를 수 있음)
+        this.setGold(this.balOf(res));
         if (this.info?.pity && Number.isFinite(res?.pity?.after)) this.info.pity.progress = res.pity.after;
         const got = new Set((res?.results ?? []).map((r) => r.hero));
         (this.info?.heroes ?? []).forEach((h) => { if (got.has(h.hero)) h.owned = true; });
-        if (this.info) this.info.gold = this.gold; // 소환 응답 대기 중 화면 크기 변경으로 씬이 다시 시작되면 info 가 아직 없을 수 있다(새 fetchInfo 전) -> 결과 연출은 그대로 연다
+        if (this.info) { if (this.isPen()) this.info.pen = this.gold; else this.info.gold = this.gold; } // 소환 응답 대기 중 화면 크기 변경으로 씬이 다시 시작되면 info 가 아직 없을 수 있다(새 fetchInfo 전) -> 결과 연출은 그대로 연다
     }
 
     openReveal(res, summaryOnly) {
@@ -873,7 +1009,7 @@ export class GachaScene extends Phaser.Scene {
         gameApi.gacha.info().then((info) => {
             if (!this.sys.isActive() || this.reveal?.alive) return;
             this.info = info;
-            this.setGold(info.gold);
+            this.setGold(this.balOf(info));
             const key = this.banners?.[this.selIdx]?.key;
             this.banners = this.makeBanners(info);
             const si = this.banners.findIndex((b) => b.key === key);
@@ -897,18 +1033,28 @@ export class GachaScene extends Phaser.Scene {
     }
 }
 
+// 펜 아이콘(로비 펜 캡슐 Lobby.js 와 같은 펜촉 도형: 청색 마름모 + 가운데 홈 + 점). 가운데 원점, Button iconFn 용 displayWidth
+function penIcon(scene, s) {
+    const c = scene.add.container(0, 0); const k = s / 20;
+    const g = scene.add.graphics();
+    g.fillStyle(0x8fc7ff, 1).fillPoints([{ x: 0, y: -9 * k }, { x: 5 * k, y: -1 * k }, { x: 0, y: 8 * k }, { x: -5 * k, y: -1 * k }], true);
+    g.fillStyle(COLOR.ink, 1).fillRect(-0.75 * k, -5 * k, 1.5 * k, 9 * k).fillCircle(0, -1 * k, 1.6 * k);
+    c.add(g); c.setSize(s * 0.6, s);
+    return c;
+}
+
 // 타이틀 글자 채움이 어두워 어두운 키아트 위에서 대비가 낮은 배너(뒤에 은은한 밝은 글로우)
 const DARK_TITLE_THEMES = new Set(['imjin', 'normal']); // 글자 채움이 어두운 타이틀 이미지(뒤에 아이보리 글로우). normal = 안아트 title_normal(평균색 짙은 갈색, 2026-11-04)
 
 // 이미지 소환 버튼(gacha.btn.pull.single/ten, 고정 비율). 눌림 = scale 0.96 + 어둡게, 비활성 = 회색 틴트·alpha 0.6 + 사유 토스트.
 // 히트 영역은 실제 화면 44px 이상(Button 과 같은 규칙). API: setDisabled(b), short(호출 측 표시)
 class PullImgButton extends Phaser.GameObjects.Container {
-    constructor(scene, { x, y, w, h, tex, label, size = 18, onClick, disabled = false, reason = '', short = false }) {
+    constructor(scene, { x, y, w, h, tex, label, size = 18, onClick, disabled = false, reason = '', short = false, pen = false, onDisabled = null }) {
         super(scene, x, y);
-        this.bw = w; this.bh = h; this.onClick = onClick; this.reason = reason;
+        this.bw = w; this.bh = h; this.onClick = onClick; this.reason = reason; this.onDisabled = onDisabled;
         this.face = scene.add.container(w / 2, h / 2);
         this.img = scene.add.image(0, 0, tex).setDisplaySize(w, h);
-        const gi = icon(scene, 'gold', Math.min(24, h * 0.42));
+        const gi = pen ? penIcon(scene, Math.min(24, h * 0.42)) : icon(scene, 'gold', Math.min(24, h * 0.42));
         this.label = makeText(scene, 0, -1, label, { size, bold: true, color: '#ffffff', origin: [0.5, 0.5], stroke: { color: '#2a1206', width: 4 } });
         shrinkToFit(this.label, w - 56, 11); fitText(this.label, w - 56); // 먼저 글자 축소(최소 11), 그래도 넘칠 때만 말줄임(가로 폰 10회 가격 말줄임, 강화면 gacha43 Low)
         const total = (gi ? gi.displayWidth + 6 : 0) + this.label.width;
@@ -918,7 +1064,7 @@ class PullImgButton extends Phaser.GameObjects.Container {
         if (short) { // 골드 부족: 라벨을 조금 올리고 아래 작은 안내(비활성 원인이 보이게)
             const dy = -Math.round(h * 0.12);
             this.label.y += dy; if (gi) gi.y += dy;
-            this.face.add(makeText(scene, 0, Math.round(h * 0.2), '골드 부족', { size: 12, bold: true, color: '#ffb4a4', origin: [0.5, 0.5], stroke: { color: '#2a1206', width: 3 } }));
+            this.face.add(makeText(scene, 0, Math.round(h * 0.2), pen ? '펜 부족' : '골드 부족', { size: 12, bold: true, color: '#ffb4a4', origin: [0.5, 0.5], stroke: { color: '#2a1206', width: 3 } }));
         }
         const need = Math.ceil(MIN_TOUCH / (view.scale || 1));
         const hw = Math.max(w, need); const hh = Math.max(h, need);
@@ -932,7 +1078,7 @@ class PullImgButton extends Phaser.GameObjects.Container {
             const was = this.down; reset();
             if (was && this.scene && this.scene.modalCount > 0) console.warn('[gacha] 모달 카운트가 남아 소환 버튼 입력 무시', this.scene.modalCount); // 진단(하플레이 #5)
             if (!was || !usable()) return;
-            if (this.disabled) { if (this.reason) showToast(this.scene, this.reason); return; }
+            if (this.disabled) { if (this.onDisabled) this.onDisabled(); else if (this.reason) showToast(this.scene, this.reason); return; }
             sfx('sfx_ui_confirm');
             this.onClick?.();
         });

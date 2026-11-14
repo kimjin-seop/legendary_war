@@ -10,26 +10,36 @@ import { TILE } from '../UnitView.js';
 import { unitType, terrainName, terrainMod, typeAlias } from '../data/rules.js';
 import { unitTex, queueScope, ensureUnitTex } from '../assets.js';
 import { trackLoadProgress } from '../ui/LoadProgress.js';
+import { createLoadingView } from '../ui/LoadingView.js';
 import { rarityColor } from '../rarity.js';
 import { auraDesc } from '../systems/glossary.js';
 import { heroLabel, heroPlainName, skillLines, unitClassName } from '../systems/names.js';
 import { troopIcon } from '../ui/GameIcons.js';
+import { heroLevelText } from '../ui/heroLevel.js';
 import { enemyTypeCounts, counterOf } from '../systems/enemyComp.js';
 
 // 부대 편성(squad on 배치 응답): 병종 8종, 영웅별 색 밴드(배치 마커·부대 칩·연결선 공통)
 const BAND = [0xd8b04a, 0x4fd1c1, 0xb06ad8, 0xf08a55, 0x6aa8f0];
-const MAX_TROOP_SLOTS = 4; // 서버 troop_slots 최대(레벨 1:2 / 10:3 / 20:4). 잠금 칸 표시용
+const CARD_H = 74; // 출격 편성 카드 높이(초상 52 + 여백)
+const CHIP_Y = 47; // 카드 칩 줄 첫 줄 중심 y(2026-11-14 이름·등급·별 한 줄로 합쳐 38/58 -> 21/47)
+const CHIP_LH = 22; // 칩 줄이 넘칠 때 다음 줄 간격(병사 뱃지가 코스트 칩 옆으로 이동, 별도 병사 줄 없음)
 import { Button } from '../ui/Button.js';
 import { CostMeter } from '../ui/CostMeter.js';
 import { StatBar } from '../ui/StatBar.js';
 import { showToast } from '../ui/Toast.js';
 import { makeText, addBackdrop, fitText } from '../ui/common.js';
-import { slice } from '../ui/skin.js';
+import { slice, skinIcon } from '../ui/skin.js';
+import { openHeroDetail } from '../ui/HeroDetailView.js';
 import { raritySlotKey, rarityBadge } from '../rarity.js';
 import { ScrollList, noteText, alertModal, confirmModal } from '../ui/widgets.js';
 import { COLOR, CSS, GRADE, syncView } from '../theme.js';
 import { L, UNIT, setupCamera, relayoutOnChange } from '../layout.js';
 import { MiniMap } from '../ui/MiniMap.js';
+import { isInstant } from '../ui/motion.js';
+import { campLook } from '../systems/facing.js';
+import { waterStateAt, showsShip, shipTypeOf, shipTexKey, shipFrame } from '../systems/water.js';
+import { ensurePortrait } from '../ui/PortraitCard.js';
+import { pixelImage, pixelHas, rarityMark } from '../ui/PixelBadge.js';
 
 // 큰 맵 배치(모바일 세로·좁은 화면): 맞춤 칸이 TOUCH_PX(CSS px) 미만이면 줌/팬 모드. 줌 기본 = 칸 ZOOM_PX, 최대 = MAX_PX
 const TOUCH_PX = 32; const ZOOM_PX = 40; const MAX_PX = 64;
@@ -79,18 +89,20 @@ export class DeployScene extends Phaser.Scene {
 
     create() {
         this.modalCount = 0;
+        this.toastInset = undefined; // 범례·줌 도구 위치로 다시 정함(씬 재사용)
         this.submitting = null; // 배치 확정 진행 중 문구(씬 재사용 시 초기화)
         syncView();
         setupCamera(this, CSS.bg);
         relayoutOnChange(this, () => ({ mode: this.mode, battleId: this.battleId, roomCode: this.roomCode, info: this.info, stageName: this.stageName, placements: this.placements, troops: this.troops, troopsDirty: this.troopsDirty, initialPlacements: this.initialPlacements }));
         addBackdrop(this, L.lw, L.lh);
         audio.bgm(audio.lobbyBgm(), this); // 편성/출격 준비: 로비와 같은 트랙(임시 — 전용 '출진 준비' 트랙 생기면 교체)
-        if (this.mode !== 'room') this.time.delayedCall(900, () => { if (this.sys.isActive() && !conceptPopup(this, 'C_cost')) stageHint(this, this.stageCode, 'deploy'); }); // 코스트 팝업이 안 뜨면 스테이지 편성 안내(1회) // 새 흐름 사용자: 첫 편성 화면 코스트 개념 팝업(1회)
-        this.loading = makeText(this, L.lw / 2, L.lh / 2, '배치 정보를 불러오는 중...', { size: 18, color: CSS.muted, origin: [0.5, 0.5] });
+        if (this.mode !== 'room') this.time.delayedCall(900, () => { if (this.sys.isActive()) { const tok = () => ({ max_cost: this.info?.max_cost ?? session.profile?.campaign_max_cost ?? session.profile?.max_cost }); conceptPopup(this, 'C_cost', tok); stageHint(this, this.stageCode, 'deploy', tok); } }); // 첫 편성 화면 코스트 개념 팝업(1회) + 스테이지 편성 안내(1회). 시오리 브리핑 큐가 차례로 하나씩 표시(코스트 먼저, 로딩 덮개가 걷힌 뒤)
+        // 2026-11-14 로딩 화면 통일: 가운데 글자 대신 로딩 화면(LoadingView 덮개·대기 바). 200ms 안에 끝나면 그리지 않음. .scene/.destroy() 는 이전 글자 객체와 같게 동작
+        this.loading = createLoadingView(this, { tagline: '배치 정보를 불러오는 중…', overlay: true, indeterminate: true, delay: 200 });
         // 주의: Phaser 가 씬 인스턴스에 this.load(LoaderPlugin) 를 주입하므로 메서드 이름 load 는 예약어(덮어쓰기 -> "this.load is not a function")
         this.loadData().catch((e) => {
             if (!this.loading?.scene) return;
-            this.loading.setText('');
+            this.loading.destroy(); // 덮개를 내려야 아래 오류 문구·버튼이 보이고 눌린다
             noteText(this, L.lw / 2, L.lh / 2 - 20, messageOf(e), { kind: 'error', size: 16, origin: [0.5, 0.5], wrap: L.lw - 48 });
             new Button(this, { x: L.lw / 2 - 170, y: L.lh / 2 + 16, w: 160, label: '다시 시도', variant: 'primary', onClick: () => this.scene.restart({}) });
             new Button(this, { x: L.lw / 2 + 10, y: L.lh / 2 + 16, w: 160, label: '로비로', onClick: () => this.scene.start('Lobby', { tab: this.mode === 'room' ? 'room' : 'stage' }) });
@@ -116,6 +128,8 @@ export class DeployScene extends Phaser.Scene {
             info.max_party_slots ??= pf?.campaign_max_party_slots ?? pf?.max_party_slots;
             info.max_cost ??= pf?.campaign_max_cost ?? pf?.max_cost;
         }
+        // 편성 라인업(2026-11-14): 캠페인 스테이지는 라인업 + 필수/고정/대여 영웅 + 주인공 안에서만(서버 in_pool). 후보 목록·자동 편성 모두 이 풀만
+        if (info.lineup_enforced && Array.isArray(info.candidates)) info.candidates = info.candidates.filter((c) => c.in_pool !== false || c.forced);
         this.byId = new Map(info.candidates.map((c) => [c.user_hero_id, c]));
         // 필수 출전(forced[{hero, user_hero_id, unit_type, troop_type, troop_label, free_slot, free_cost}] + candidates[].forced): 해제 불가 고정 슬롯, 슬롯 면제(free_slot). 코스트는 합산(2026-11-08 free_cost=false)
         this.forced = new Map();
@@ -170,6 +184,11 @@ export class DeployScene extends Phaser.Scene {
         }
         if (!this.initialPlacements) this.initialPlacements = this.placements.map((p) => ({ ...p }));
         this.build();
+        // 기본 편성 코스트 초과 제외 안내(서버 default_party_trimmed/default_party_notice, 등급 코스트 C2/B3/A5/S8 개편 후 저장 편성이 상한을 넘는 경우). 문구는 서버 notice 그대로, 배치 정보 1회만
+        if (!info.trimNoticeShown && Array.isArray(info.default_party_trimmed) && info.default_party_trimmed.length && info.default_party_notice) {
+            info.trimNoticeShown = true;
+            this.time.delayedCall(400, () => { if (this.sys.isActive()) alertModal(this, '기본 편성 조정', info.default_party_notice); }); // 문구가 길어(제외 영웅 이름 목록) 2줄 토스트 대신 확인 모달
+        }
     }
 
     // 배치 응답 -> 지형 렌더용 map 객체(battleStore s.map 과 같은 키). 개편 필드가 없으면 null -> mapArtOpts 가 기존 경로 유지
@@ -222,22 +241,32 @@ export class DeployScene extends Phaser.Scene {
         const sideW = portrait ? right - left : Math.min(340, (right - left) * 0.36);
         const sideH = portrait ? Math.min(300, (bottom - top) * 0.42) : bottom - top;
         const side = portrait ? { x: left, y: bottom - sideH, w: sideW, h: sideH } : { x: right - sideW, y: top, w: sideW, h: sideH };
-        const map = portrait ? { x: left, y: top + 44, w: right - left, h: side.y - m - (top + 44) } : { x: left, y: top + 44, w: side.x - m - left, h: bottom - (top + 44) };
-        // 맵 조작 버튼(제목 줄 오른쪽): 부대 자동 배치(수동 지정 해제 -> 영웅 주변으로 모으기) / 초기화(최초 배치 + 병사 자동)
+        // 2026-11-14 배치 화면 개편: 맵 = 가용 영역 전체(제목·안내·적 요약·범례는 맵 위 반투명 패널로 겹침, 맵을 줄이지 않음). 확대/축소·팬은 모든 화면
+        const map = portrait ? { x: left, y: top, w: right - left, h: side.y - m - top } : { x: left, y: top, w: side.x - m - left, h: bottom - top };
+        // 머리 패널(제목·버튼·안내·적 요약) 바탕: 글자보다 먼저 만들어 아래 층에 둔다(크기는 내용 측정 후 drawHdr)
+        this.hdrBg = this.add.graphics();
+        this.hdrSkin = this.add.container(0, 0); // 머리 패널 스킨(9-슬라이스 'panel' 금테·모서리 장식, drawHdr 에서 크기에 맞춰 다시 그림)
+        this.hdrHit = this.add.rectangle(0, 0, 1, 1, 0xffffff, 0.001).setOrigin(0).setInteractive(); // 패널 위 탭이 아래 맵으로 새지 않게
+        // 맵 조작 버튼(제목 줄 오른쪽): 초기화(최초 배치 + 병사 영웅 곁으로). '병사 모으기' 버튼은 사용자 요청으로 제거(2026-11-14)
         const mapRight = portrait ? right : side.x - m;
         // 버튼 높이 44(Secondary 규격·터치 44): Button 은 h 를 MIN_TOUCH(44) 이상으로 올리므로 배치 계산도 44 기준(Mid-5 재수정: 32 로 계산해 안내문과 8px 겹치던 문제)
         const bw = portrait ? 92 : 104; const bH = 44; let bx = mapRight - bw;
         new Button(this, { x: bx, y: top, w: bw, h: bH, label: '초기화', size: 14, onClick: () => this.resetAll() });
-        if (info.squad) { bx -= bw + 8; new Button(this, { x: bx, y: top, w: bw, h: bH, label: '부대 자동 배치', size: 13, onClick: () => this.autoTroops() }); }
         fitText(makeText(this, left, top + bH / 2, `${this.mode === 'room' ? `방 ${this.roomCode} 배치` : `${this.stageTitle()} 배치`}`, { size: portrait ? 18 : 20, heading: true, color: CSS.accent, origin: [0, 0.5] }), Math.max(80, bx - 8 - left), { fallback: this.mode === 'room' ? undefined : this.stageTitle() }); // 좁으면 ' 배치' 생략 → 말줄임
-        this.hintW = mapRight - left;
+        this.hintW = mapRight - left - 44; // 오른쪽 접기 버튼(34) 자리 비움(강화면 a27j: 안내 문구 오른쪽이 접기 버튼에 잘림)
+        this.hdrBtnX = bx; // 맨 왼쪽 상단 버튼 x(접힌 상태 접기 버튼 위치)
         // 안내문: 버튼 줄 아래 4px 부터(위쪽 원점), 최대 2줄 줄바꿈(말줄임 해소). 가장 긴 안내 문구 기준으로 높이를 예약해 문구가 바뀌어도 아래 줄과 겹치지 않게
-        this.hintT = makeText(this, left, top + bH + 4, '초록 칸을 눌러 병사를 옮기세요. 같은 병사를 다시 누르면 자동 배치로 (Esc 취소)', { size: 13, color: CSS.muted, origin: [0, 0], wrap: this.hintW });
+        this.hintT = makeText(this, left, top + bH + 4, '초록 칸을 눌러 병사를 옮기세요. 같은 병사를 다시 누르면 영웅 곁으로 (Esc 취소)', { size: 13, color: CSS.muted, origin: [0, 0], wrap: this.hintW });
         fitText(this.hintT, this.hintW, { maxLines: 2 });
         const hintH = this.hintT.height;
         this.hintT.setText('');
         // 적 정보 미리보기(배치 응답 기준): 적 지휘관·부대 병종 구성·맵 크기·주요 지형. 권장 레벨/맵 이름은 서버 미제공(요청서)
         const en = info.enemy_units ?? [];
+        // 진영 대치 시선(2026-11-14): 배치 구역 무게중심 x vs 적 무게중심 x -> 아군은 적 쪽, 적은 아군 쪽(좌/우). 전투 시작 시선(Battle campLook)과 같은 규칙
+        { // 전투와 같은 규칙(systems/facing.campLook): 아군 = 배치 구역 칸들, 적 = 적 유닛. 무게중심 x 차이 0.5 미만이면 기존 기본 시선(가까운 적 축)
+            const allies = (info.deploy_zone ?? []).map(([x, y]) => ({ team: 'ally', x, y, hp: 1 })); const foes = en.map((u) => ({ team: 'enemy', x: u.x, y: u.y, hp: 1 }));
+            const all = [...allies, ...foes]; const ac = allies[Math.floor(allies.length / 2)] ?? { team: 'ally', x: 0, y: 0, hp: 1 }; const ec = foes[0] ?? { team: 'enemy', x: info.width - 1, y: 0, hp: 1 };
+            this.allyLook = campLook(ac, all); this.enemyLook = campLook(ec, all); }
         const cmdE = en.find((u) => u.kind === 'commander');
         const comp = enemyTypeCounts(en, (u) => u === cmdE); // 병종 집계(systems/enemyComp, 패배 결과창 힌트와 같은 로직)
         const tc = {};
@@ -259,42 +288,78 @@ export class DeployScene extends Phaser.Scene {
         const pvY = top + bH + 4 + hintH + 4;
         const pvW = Math.max(200, (portrait ? right : side.x - m) - left);
         this.previewT = this.buildEnemyChips(left, pvY, pvW, chips);
-        const ph = this.previewT.y + this.previewT.height + 8 - map.y; // 맵은 적 정보 줄 아래부터
-        map.y += ph; map.h -= ph;
+        // 머리 패널: 제목 줄 ~ 적 요약 줄. 접기(▲/▼) = 제목 줄만 남김. 높이 상한 = 맵 높이 40%(390·667 에서 맵을 과하게 가리지 않게, 넘치면 적 요약 줄 생략)
+        const hdrCap = L.lh <= 420 || L.lw <= 667 ? 0.25 : 0.4; // 667·390 이하 = 맵 높이 25%(강화면 a27j: 667 에서 약 40% 가림)
+        const hdrFull = Math.min(this.previewT.y + this.previewT.height + 6 - top, Math.round(map.h * hdrCap));
+        if (this.previewT.y + this.previewT.height + 6 - top > hdrFull) this.previewT.setVisible(false); // 넘치면 적 요약 줄 생략(접기 해제 시에도)
+        void hdrFull; void hintH;
+        // 2026-11-14 사용자 '이거 제거': 안내문 줄·적 정보 줄을 화면에서 뺀다(문구 갱신 syncHint·적 집계 로직은 유지, 객체만 숨김) -> 머리 패널 = 제목·버튼 줄만, 접기 버튼 없음
+        this.hintT.setVisible(false); this.previewT.setVisible(false);
+        const hdrFit = bH + 4;
+        const hdrMini = bH + 4;
+        this.hdr = { x: left - 6, y: top - 6, w: (portrait ? right : side.x - m) - left + 12, full: hdrFit + 12, mini: hdrMini + 12, collapsed: false };
+        const togW = 34;
+        this.hdrTog = new Button(this, { x: this.hdr.x + this.hdr.w - togW - 4, y: top + bH + 2, w: togW, h: 30, label: '▲', size: 12, onClick: () => this.toggleHdr() });
+        this.hdrTog.setVisible(false); // 접을 내용이 없음(제목 줄만)
+        this.hdrTexts = [];
+        this.drawHdr = () => {
+            const h = this.hdr.collapsed ? this.hdr.mini : this.hdr.full;
+            this.hdrBg.clear();
+            this.hdrSkin.removeAll(true);
+            this.hdrSkin.add(slice(this, 'panel', this.hdr.w, h, 'panel').setPosition(this.hdr.x, this.hdr.y)); // 로비·모달과 같은 스킨 패널(새 에셋 없음)
+            this.hdrHit.setPosition(this.hdr.x, this.hdr.y).setSize(this.hdr.w, h); this.hdrHit.input?.hitArea?.setSize?.(this.hdr.w, h);
+            this.hdrTexts.forEach((o) => o?.setVisible(!this.hdr.collapsed && (o !== this.previewT || this.previewFits !== false)));
+            this.hdrTog.setPosition(this.hdr.collapsed ? this.hdrBtnX - togW - 8 : this.hdr.x + this.hdr.w - togW - 4, this.hdr.collapsed ? top + 7 : top + bH + 2).setLabel(this.hdr.collapsed ? '▼' : '▲'); // 접힘 = 상단 버튼 줄 왼쪽(초기화 버튼과 겹침 방지)
+            this.padT = h - 6 + 4; // 맵 시야 위쪽 여백(머리 패널 아래부터 맵이 보이게, applyCam)
+        };
+        this.previewFits = false;
+        this.drawHdr();
         // 맵 아래 범례: 최대 2줄 줄바꿈(말줄임 해소). 실제 높이 + 여백 6 만큼 맵 높이에서 뺀다(I-13: 범례가 화면 아래로 잘림 방지)
         // 강화면 gacha107: 범례가 짧아진 뒤(역할 마크 제거) 한 줄로 그려져 390 화면 밖(x 402)으로 나가고 맵 하단에 겹침 -> 줄바꿈 폭 = 맵 칸 폭과 화면 오른쪽 여백 중 작은 값,
         //  2줄을 넘을 때만 fitText 로 줄이고, 위치는 맵 시야(view) 바로 아래(아래 setPosition)
-        const legW = Math.max(120, Math.min(map.w, L.lw - L.safe.r - 8 - map.x));
-        const legendT = makeText(this, 0, 0, `청색 칸 = 배치 가능${info.squad ? ' · 흐린 병사 = 자동 배치 예정' : ''} · 유닛을 끌거나 눌러 이동`, { size: 12, color: CSS.muted, wrap: legW });
-        if (legendT.height > 12 * 2.8) fitText(legendT, legW, { maxLines: 2 });
-        map.h -= legendT.height + 6;
+        const toolS = L.lw < 480 ? 38 : 44; const toolsW = 4 * toolS + 3 * 6 + 16; // 오른쪽 아래 확대 도구 줄 폭(buildZoomTools 와 같은 값)
+        let legW = Math.min(map.w - toolsW - 16, L.lw - L.safe.r - 8 - map.x - 16);
+        this.legendAbove = legW < 150; // 좁으면(390) 범례를 도구 줄 위로 올리고 맵 폭 전체 사용(강화면 a27j: 범례가 '−' 버튼과 겹침)
+        if (this.legendAbove) legW = map.w - 24;
+        // 강화면 2026-11-14 Low: 390 에서 둘째 줄 '…' 말줄임 -> 좁으면(legendAbove) 짧은 문구 + 넘쳐도 3줄까지 전부 표시(padB 가 실제 높이를 반영)
+        // 범례 짧게(강화면 a27n Low: 길어진 범례를 토스트가 가림). 맞교환·빼기 안내는 한 구절씩만
+        const legendS = this.legendAbove
+            ? `청색 칸: 배치 가능${info.squad ? ' · 흐린 병사: 예정' : ''} · 끌어 이동·교체 · 두 번: 빼기`
+            : `청색 칸 = 배치 가능${info.squad ? ' · 흐린 병사 = 예정' : ''} · 끌어서 이동·교체 · 두 번 눌러 빼기`;
+        const legendT = makeText(this, 0, 0, legendS, { size: 12, color: CSS.muted, wrap: legW });
+        const legMax = this.legendAbove ? 3 : 2;
+        if (legendT.height > 12 * (legMax === 3 ? 4.2 : 2.8)) fitText(legendT, legW, { maxLines: legMax });
+        // 2026-11-14 사용자 '이거도 제거': 범례 띠를 화면에서 뺀다(글자 객체만 숨김). 맵 아래 여백 = 확대 도구 줄(맵 오른쪽 아래 겹침)만큼
+        legendT.setVisible(false);
+        this.padB = 8;
         // 세로: 맵은 폭 기준으로 크기가 정해지므로 남는 세로 공간을 아래 편성 패널(영웅 목록)로 넘긴다(U25: 모바일 목록이 1명만 보이던 문제)
         if (portrait) {
-            const spare = Math.floor(map.h - Math.floor(map.w / info.width) * info.height);
+            const spare = Math.floor(map.h - this.padT - this.padB - Math.floor(map.w / info.width) * info.height);
             if (spare > 0) { map.h -= spare; side.y -= spare; side.h += spare; }
         }
 
         // ---- 맵 ----
         // unity32 지형이면 칸 백킹 px 를 32 의 정수배로 내림(정수 배율 = 도트 선명). 지나치게 작아지면 폭 맞춤 유지(u32SnapTile)
-        const fitTw = Math.floor(Math.min(map.w / info.width, map.h / info.height));
+        const fitTw = Math.floor(Math.min(map.w / info.width, (map.h - this.padT - this.padB) / info.height)); // 머리·범례 패널을 뺀 보이는 영역에 맞춤
         const snap = u32SnapTile(fitTw, L.u || 1, ['unity32', 'v3'].includes(settings.get().terrainStyle));
         const tw = snap.tw;
         this.tw = tw;
         console.info(`[deploy] tile ${fitTw} -> ${Math.round(tw * 100) / 100} (backing ${Math.round(tw * (L.u || 1))}px, ${snap.snapped ? '정수 배율' : '폭 맞춤'})`);
-        const ox = map.x + (map.w - tw * info.width) / 2; const oy = map.y + (map.h - tw * info.height) / 2;
+        const ox = map.x + (map.w - tw * info.width) / 2; const oy = map.y + this.padT + (map.h - this.padT - this.padB - tw * info.height) / 2;
         // 큰 맵 + 모바일(세로/좁은 화면) + 맞춤 칸 < 32 CSS px: 줌/팬 모드(시야 = 맵 영역, 마스크로 자름). 그 외(작은 맵·데스크톱)는 기존 그대로(배율 1 고정)
         const cssTile = tw * L.ui * UNIT;
-        this.zoomable = (portrait || L.lw < 760) && (info.width >= 20 || info.height >= 14) && cssTile < TOUCH_PX;
+        this.zoomable = true; // 2026-11-14: 모든 화면에서 확대/축소·팬(휠·핀치·+/-·맞춤·드래그). 배율 1 = 보이는 영역 맞춤
         this.view = { x: map.x, y: map.y, w: map.w, h: map.h };
         this.cssPerTile = cssTile; // 배율 1 의 칸 CSS px
-        this.zMin = 1; this.zTouch = this.zoomable ? ZOOM_PX / cssTile : 1; this.zMax = this.zoomable ? MAX_PX / cssTile : 1;
+        this.zMin = 1; this.zTouch = Math.max(1, ZOOM_PX / cssTile); this.zMax = Math.max(2.5, MAX_PX / cssTile, this.zTouch);
         this.camZ = 1; this.fullView = null; this.panS = null; this.pinch = null; this.tapBlockUntil = 0; this.fieldPtr = new Set();
         this.slotTags = []; // 슬롯 라벨('고정'·병종 첫 글자): 줌 모드에서 배율 역수로 크기 고정(syncSlotTags)
         // camC(시야 컨테이너: 위치 = 팬, 배율 = 줌) 안에 지형(mapC)·유닛(markC). 배율 1·위치 (ox,oy)면 기존 화면과 같다
         this.camC = this.add.container(ox, oy);
         this.mapC = this.add.container(0, 0);
         this.markC = this.add.container(0, 0);
-        this.camC.add([this.mapC, this.markC]);
+        this.tagC = this.add.container(0, 0); // 슬롯 라벨('고정' 등): 유닛(markC) 위 층(사용자 제보 2026-11-14: '고정'이 영웅 초상 뒤에 가림)
+        this.camC.add([this.mapC, this.markC, this.tagC]);
         if (this.zoomable) this.setupZoomView();
         else this.clipMapView(this.view);
         const mapObj = this.deployMapObj(); // tile_layer: 서버가 있을 때만(names-v1, data/unityPrefabs u32TileLayer). 개편 필드(props·gates·castle_render·ground_tone·culture·painted_bg)는 배치 응답 최상위(GameData::mapExtras)
@@ -315,7 +380,7 @@ export class DeployScene extends Phaser.Scene {
         if (!this.rmGround && rmReady(this)) {
             const artOpts = art ? { forceV3: true, villageArt: !!art.village && tbVillageReady(this, artCulture(mapObj, art)), structArt: art.walls !== false && tbWallReady(this), groundTone: mapObj.groundTone ?? null } : {};
             // 줌 모드는 확대 배율(zTouch) 기준 해상도(상한 48), 그 외 zTouch = 1 이라 기존과 같다
-            try { this.rmGround = new RmGround(this, this.mapC, mapObj, { tile: tw, res: Math.max(12, Math.min(48, Math.round(tw * this.zTouch * (L.u || 1)))), ...artOpts }); } catch (e) { console.warn('[deploy] rm 지형 실패 -> legacy', e); this.rmGround = null; }
+            try { this.rmGround = new RmGround(this, this.mapC, mapObj, { tile: tw, res: Math.max(12, Math.min(48, Math.round(tw * Math.max(this.zTouch, 1.5) * (L.u || 1)))), ...artOpts }); } catch (e) { console.warn('[deploy] rm 지형 실패 -> legacy', e); this.rmGround = null; }
         }
         if (art) {
             const objC = this.add.container(0, 0).setScale(artScale); const upC = this.add.container(0, 0).setScale(artScale);
@@ -345,8 +410,9 @@ export class DeployScene extends Phaser.Scene {
                     if (sl) {
                         const tag = sl.kind === 'fixed' ? '고정' : (Array.isArray(sl.unit_types) && sl.unit_types.length ? sl.unit_types.map((t) => unitClassName(t).slice(0, 1)).join('') : '');
                         if (tag) {
-                            const tagT = makeText(this, x * tw + 3, y * tw + 2, tag, { size: Math.max(9, Math.round(tw * 0.22)), bold: true, color: sl.kind === 'fixed' ? '#f0d58c' : '#cfe8ff', stroke: { color: '#0B1020', width: 3 } });
-                            this.mapC.add(tagT);
+                            // 칸 위쪽 가장자리 바깥(가운데, 아래 끝이 칸 위 모서리에 걸침) -> 칸 안 초상·스프라이트와 겹치지 않고 글자 전체가 보임
+                            const tagT = makeText(this, x * tw + tw / 2, y * tw + 2, tag, { size: Math.max(10, Math.round(tw * 0.26)), bold: true, color: sl.kind === 'fixed' ? '#f0d58c' : '#cfe8ff', origin: [0.5, y === 0 ? 0 : 1], stroke: { color: '#0B1020', width: 4 } });
+                            this.tagC.add(tagT);
                             this.slotTags.push({ t: tagT, x: x * tw, y: y * tw });
                         }
                     }
@@ -364,7 +430,9 @@ export class DeployScene extends Phaser.Scene {
             hit.on('pointerup', (p) => { if (p.getDistance() <= 12 && this.modalCount <= 0 && !this.blockTap(p)) this.showTip(nm, u.x, u.y); });
             this.markC.add([...objs, hit]);
         });
-        legendT.setPosition(map.x, Math.max(oy + tw * info.height, this.zoomable ? map.y + map.h : 0) + 6); // 줌 모드는 시야(맵 영역) 아래, 그 외는 그려진 맵 아래. x = 맵 영역 왼쪽(화면 밖 방지)
+        // 범례: 맵 시야 왼쪽 아래 안쪽, 머리 패널과 같은 반투명 패널(맵 위 겹침)
+        legendT.setPosition(map.x + 8, map.y + map.h - legendT.height - 8 - (this.legendAbove ? (L.lw < 480 ? 38 : 44) + 10 : 0));
+        // (범례 패널 제거: 토스트 기준은 buildZoomTools 의 확대 도구 줄 위. 확대 도구가 없으면 기본 하단)
         // 이름 툴팁(호버/선택 시): 맵 위 텍스트는 이것만
         this.tipT = makeText(this, 0, 0, '', { size: 12, bold: true, color: '#ffffff', origin: [0.5, 1], stroke: { color: '#0B1020', width: 4 } }).setVisible(false);
         this.tipT.setDepth?.(10);
@@ -378,7 +446,7 @@ export class DeployScene extends Phaser.Scene {
             if (!d.ghost) {
                 if (p.getDistance() <= 12) return;
                 this.pick = d.ref; this.render(); // 이동 가능 칸 하이라이트
-                d.ghost = this.add.container(0, 0, this.unitIcon(d.unit, 0, 0, { size: d.size, base: d.base })).setAlpha(0.75);
+                d.ghost = this.add.container(0, 0, this.unitIcon(d.unit, 0, 0, { size: d.size, base: d.base, ship: false })).setAlpha(0.75);
                 this.markC.add(d.ghost);
             }
             const lp = this.toLocal(p);
@@ -410,10 +478,14 @@ export class DeployScene extends Phaser.Scene {
         // ---- 사이드 패널(후보 + 코스트 + 버튼) ----
         const p = new FlatPanel(this, { x: side.x, y: side.y, w: side.w, h: side.h }); // 전투 HUD 와 같은 플랫 톤
         p.bodyY = 48;
-        p.add(makeText(this, 16, 24, '출격 편성', { size: 18, heading: true, color: CSS.accent, origin: [0, 0.5] }));
+        // 디자인 패널(2026-11-14 사용자 '패널 디자인'): 로비·모달과 같은 스킨 패널 'panel'(이중 금테·모서리 장식)을 바탕에. FlatPanel 바탕은 입력 차단용으로만(거의 투명)
+        { const sk = slice(this, 'panel', side.w, side.h, 'panel'); p.addAt(sk, 1); p.bg.setAlpha(0.001); }
+        const sbw = side.w < 320 ? 56 : 96; // 좁은 편성 패널(667, side.w~258): 버튼 폭 56('추천'/'최근' 2글자) -> 제목 칸 68 -> 100(강화면 667 Med: '출격...'·버튼 맞닿음)
+        { const tW = Math.max(40, side.w - 16 - sbw * 2 - 6 - 8 - 16); const tt = fitText(makeText(this, 22, 24, '출격 편성', { size: side.w < 320 ? 15 : 18, heading: true, color: '#f0d58c', origin: [0, 0.5] }), tW - 6);
+            p.add(slice(this, 'ribbon', Math.min(tW + 8, tt.displayWidth + 28), 32, 'ribbon').setPosition(8, 8)); p.add(tt); } // 제목 리본(Panel 제목과 같은 'ribbon' 스킨)
         // 편성 보조: 자동 편성(레벨 높은 순, 코스트·슬롯 안) / 마지막 편성 불러오기(서버가 확정 때 자동 저장한 마지막 출격 구성)
-        p.add(new Button(this, { x: side.w - 16 - 96 * 2 - 6, y: 6, w: 96, h: 36, label: '자동 편성', size: 13, onClick: () => this.autoParty() }));
-        p.add(new Button(this, { x: side.w - 16 - 96, y: 6, w: 96, h: 36, label: '마지막 편성', size: 13, onClick: () => this.loadRecent() }));
+        p.add(new Button(this, { x: side.w - 16 - sbw * 2 - 6, y: 6, w: sbw, h: 36, label: sbw < 96 ? '추천' : '추천 편성', size: 13, onClick: () => this.autoParty() }));
+        p.add(new Button(this, { x: side.w - 16 - sbw, y: 6, w: sbw, h: 36, label: sbw < 96 ? '최근' : '마지막 편성', size: 13, onClick: () => this.loadRecent() }));
         const iw = side.w - 32;
         const maxCost = info.max_cost;
         this.meter = maxCost <= 12 ? new CostMeter(this, { x: 16, y: p.bodyY, max: maxCost, value: 0, label: '코스트', inline: true }) : new StatBar(this, { x: 16, y: p.bodyY, w: iw, max: maxCost, value: 0, skin: 'gold', label: '코스트', h: 24 }); // 바 높이 >= 라벨 글자(I-12)
@@ -421,18 +493,17 @@ export class DeployScene extends Phaser.Scene {
         // 슬롯·코스트 요약은 게이지 아래 별도 줄(게이지 안 '코스트 n/m' 글자와 겹침 방지)
         const meterH = Math.max(20, Math.ceil(this.meter.displayHeight || this.meter.height || 24));
         this.slotIw = iw;
-        // 핵심(자리·코스트) 1줄 + 부대 전투면 보조(유닛 수) 2줄째(강화면·하플레이 2026-11-09: 한 줄에 네 수치가 붙어 말줄임). 적 수는 맵 위 적 미리보기 칩으로 이동
-        const two = !!this.squad;
-        this.slotT = makeText(this, 16, p.bodyY + meterH + 12, '', { size: 13, color: CSS.text, origin: [0, 0.5] });
-        this.slot2T = two ? makeText(this, 16, p.bodyY + meterH + 29, '', { size: 12, color: CSS.muted, origin: [0, 0.5] }) : null;
-        this.reasonT = noteText(this, 16, p.bodyY + meterH + (two ? 40 : 24), '', { kind: 'error', size: 13, wrap: iw });
-        p.add([this.slotT, this.reasonT, ...(this.slot2T ? [this.slot2T] : [])]);
-        const listY = p.bodyY + meterH + (two ? 66 : 50);
+        // 2026-11-14 사용자 요청: 게이지 아래 칩 줄(선택 자리·코스트·유닛) 제거 -> 게이지 바로 아래 = 확정 불가 사유/안내 한 줄, 그 아래 후보 목록(칩 줄 높이만큼 목록이 위로 늘어남)
+        this.reasonT = noteText(this, 16, p.bodyY + meterH + 6, '', { kind: 'error', size: 13, wrap: iw });
+        p.add(this.reasonT);
+        const listY = p.bodyY + meterH + 32;
         const btnH = 50;
+        p.add(slice(this, 'panel_sub', iw + 12, Math.max(24, side.h - listY - btnH - 24 + 12), 'panel').setPosition(10, listY - 6).setAlpha(0.85)); // 목록 바탕(로비 섹션 카드와 같은 panel_sub)
         this.list = new ScrollList(this, { x: side.x + 16, y: side.y + listY, w: iw, h: side.h - listY - btnH - 24, bar: true }); // U25: 스크롤 단서(우측 바 + 아래 더 있음 페이드)
-        this.clipList(this.squad ? 104 : 64); // U25: 이름·칭호·정보 3줄(+ 부대 줄)
+        this.clipList(CARD_H); // 카드형 행(초상 + 이름·등급·칩). 실제 행 높이는 render 가 정해 this.listRowH 로 알림
         // 확정/포기 버튼은 목록보다 나중에 씬에 추가(표시 순서 = 목록 위). 목록 행이 버튼 영역을 덮어 클릭을 가로채던 문제(I-4)
         const by = side.y + side.h - btnH - 12;
+        p.add(slice(this, 'panel_sub', side.w - 20, btnH + 10, 'panel').setPosition(10, by - side.y - 5).setAlpha(0.9)); // 하단 버튼 받침(panel_sub)
         this.confirmBtn = new Button(this, { x: side.x + 16, y: by, w: iw * 0.6, h: btnH, label: '배치 확정', variant: 'primary', size: 18, onClick: () => this.confirm() });
         new Button(this, { x: side.x + 16 + iw * 0.6 + 8, y: by, w: iw * 0.4 - 8, h: btnH, label: this.mode === 'room' ? '나가기' : '포기', variant: 'danger', size: 16, onClick: () => this.back() });
         this.escFn = (e) => { if (e.key === 'Escape' && !(this.modalCount > 0) && (this.selected || this.pick)) { this.selected = null; this.pick = null; this.render(); } };
@@ -447,12 +518,12 @@ export class DeployScene extends Phaser.Scene {
     // 이 목록만 '영역 안에 완전히 들어온 행'만 보이고 입력을 받게 하고, 스크롤을 행 단위(rowH+6)로 맞춘다(행이 반쯤 걸친 상태 없음).
     // 목록 높이가 한 행보다 낮으면(아주 낮은 화면) 위쪽에 걸친 행만 숨기고 첫 보이는 행은 표시한다.
     clipList(rowH) {
-        const list = this.list; const step = rowH + 6;
+        const list = this.list; const stepOf = () => (this.listRowH ?? rowH) + 6; // 행 높이는 render 마다 바뀔 수 있음(칩 줄 수)
         const baseScroll = list.scrollTo.bind(list);
         list.clipChildren = () => {
             const top = list.content.y; const all = list.contentH <= list.h;
             list.content.list.forEach((ch) => {
-                const h = ch.clipH ?? rowH; const y = top + ch.y;
+                const h = ch.clipH ?? this.listRowH ?? rowH; const y = top + ch.y;
                 const vis = all || (y >= -1 && (y + h <= list.h + 1 || (list.h < h && y < list.h)));
                 if (ch.visible !== vis) ch.setVisible(vis);
                 (ch.hits ?? []).forEach((o) => { if (o.input) o.input.enabled = vis; });
@@ -461,6 +532,7 @@ export class DeployScene extends Phaser.Scene {
         // 드래그(시작 위치 + 이동량)는 반올림 스냅(같은 입력 = 같은 결과라 떨림 없음). 맨 아래(min)는 그대로 허용(마지막 행이 바닥에 맞음)
         list.scrollTo = (y) => {
             const min = Math.min(0, list.h - list.contentH);
+            const step = stepOf();
             baseScroll(y <= min ? min : Math.round(y / step) * step);
         };
         // 휠: 이동량을 누적해 30px 이상이면 한 행씩(트랙패드의 작은 delta 도 동작). ScrollList 기본 휠 핸들러 교체
@@ -471,7 +543,7 @@ export class DeployScene extends Phaser.Scene {
             acc += dy;
             if (Math.abs(acc) < 30) return;
             const dir = Math.sign(acc); acc = 0;
-            const cur = list.content.y; const min = Math.min(0, list.h - list.contentH);
+            const cur = list.content.y; const min = Math.min(0, list.h - list.contentH); const step = stepOf();
             const snapped = Math.round(cur / step) * step;
             baseScroll(Math.max(min, Math.min(0, (dir > 0 && cur <= min + 0.5) ? cur : snapped - dir * step)));
         };
@@ -511,6 +583,21 @@ export class DeployScene extends Phaser.Scene {
         const naval = f.unit_type === 'naval' || f.troop_type === 'naval';
         return naval ? `수군 대여${f.troop_label ? `(${f.troop_label})` : ''}` : (f.unit_type || f.troop_type ? `대여 ${f.troop_label ?? unitClassName(f.unit_type ?? f.troop_type)}` : '');
     }
+    // 상태·정보 칩(높이 18, 왼쪽 가운데 원점). d: {text, color, fill, line, icon(pix.*), troop(병종), coin(코스트 동전 폴백), lock(자물쇠)}
+    chipC(d) {
+        const c = this.add.container(0, 0); const h = 18; let x = 6;
+        const parts = [];
+        if (d.lock) { parts.push(this.lockIcon(x + 5, 1, 9, COLOR.accentLight)); x += 13; }
+        if (d.troop) { const ti = troopIcon(this, d.troop, x + 7, 0, 12, { max: 13, glyphSize: 10, stroke: 0 }); if (ti) { const ih = ti.displayHeight || 0; if (ih > 13 && ti.setScale) ti.setScale(ti.scaleX * 13 / ih); parts.push(ti); x += 16; } } // 칩 높이(18) 안: 도트 정수배로 커지면 13 으로 축소(강화면 a27n Low: 아이콘이 칩 테두리 밖으로)
+        else if (d.icon && pixelHas(this, d.icon)) { const im = pixelImage(this, d.icon, x, 0, 13).setOrigin(0, 0.5); parts.push(im); x += im.displayWidth + 3; }
+        else if (d.coin) { const g = this.add.graphics().fillStyle(COLOR.accent, 1).fillCircle(x + 6, 0, 6).lineStyle(1, COLOR.accentLight, 1).strokeCircle(x + 6, 0, 6); parts.push(g); x += 15; }
+        const t = makeText(this, x, 0, d.text ?? '', { size: 11, bold: true, color: d.color ?? CSS.text, origin: [0, 0.5] }); parts.push(t); x += t.width + 6;
+        const bg = this.add.graphics().fillStyle(d.fill ?? 0x141d33, 0.95).fillRoundedRect(0, -h / 2, x, h, h / 2).lineStyle(1, d.line ?? COLOR.accent, 0.6).strokeRoundedRect(0.5, -h / 2 + 0.5, x - 1, h - 1, h / 2);
+        c.add([bg, ...parts]); c.w = x; c.cw = x; // cw: Phaser 4 Container.setPosition 이 this.w 를 0 으로 덮어써 칩이 한 자리에 겹치던 문제(강화면 a27j Med) -> 폭은 cw 로 읽는다
+        return c;
+    }
+
+
     // 잠금 아이콘(도형: 고리 + 몸통). x,y = 몸통 중심
     lockIcon(x, y, size = 12, color = COLOR.accent) {
         const g = this.add.graphics();
@@ -557,7 +644,7 @@ export class DeployScene extends Phaser.Scene {
                 const unit = { kind: 'troop', type: t.class, team: 'ally' };
                 const ln = this.add.line(0, 0, pl.x * tw + tw / 2, pl.y * tw + tw / 2, pos.x * tw + tw / 2, pos.y * tw + tw / 2, band, manual ? 0.6 : 0.3).setOrigin(0).setLineWidth(manual ? 2 : 1);
                 const icon = this.unitIcon(unit, pos.x, pos.y, { size: 0.74, base: band, ring: picked ? 0x6bd67a : band, alpha: manual ? 1 : 0.55 });
-                const nm = `${unitClassName(t.class)} ·${heroLabel(this.byId.get(pl.user_hero_id) ?? {}, { compact: true })} 부대${manual ? '' : ' (자동 배치 예정)'}`;
+                const nm = `${unitClassName(t.class)} ·${heroLabel(this.byId.get(pl.user_hero_id) ?? {}, { compact: true })} 부대${manual ? '' : ' (배치 예정)'}`;
                 addA([ln, ...icon, this.unitHit(ref, pos.x, pos.y, nm, { unit, size: 0.74, base: band })]);
             });
         });
@@ -572,35 +659,94 @@ export class DeployScene extends Phaser.Scene {
         });
         if (this.pick) { const pp = this.posOf(this.pick); if (pp) this.showTip(this.nameOf?.get(this.refKey(this.pick)) ?? '', pp.x, pp.y); }
         this.markC.bringToTop(this.tipT);
-        // 후보 목록
+        // 후보 목록: 카드형(2026-11-14 사용자 '텍스트만 나열돼 중구난방'). 왼쪽 초상(thumb 지연 로드) + 이름 / 등급 뱃지·별 아이콘·칭호 / 칩 줄(레벨·병종·코스트·대여)
+        //  오른쪽 위 상태 칩(필수 = 금 + 자물쇠 / 배치됨 = 청록 / 칸 선택 = 밝은 금) + 정보(i). 상태 색: 배치됨 = 청록 테, 선택 = 금 테 + 빛, 필수 = 금 왼쪽 띠
         this.list.content.removeAll(true);
-        const iw = this.list.w; const rowH = this.squad ? 104 : 64;
-        info.candidates.forEach((c, i) => {
+        // 2026-11-14 사용자 요청 묶음: 카드 배경 = 로비 영웅 탭 카드와 같은 등급 슬롯 스킨(slice raritySlotKey, 새 에셋 없음) + 상태 덧칠(배치됨 청록·선택 금빛·필수 금 띠/테).
+        //  행 높이는 칩 줄 수(병사 뱃지가 코스트 칩 옆으로 와서 2줄이 될 수 있음)의 최댓값으로 정한다 -> 먼저 내용을 그리고, 배경·터치 영역은 높이가 정해진 뒤에 붙인다
+        const iw = this.list.w;
+        const built = [];
+        // 표시 순서만(사용자 2026-11-14): 주인공(protagonist 플래그 / hero 'protagonist_*')을 맨 위로, 나머지는 서버 순서 그대로(안정 정렬).
+        //  배치·지휘관 순서(placements)·추천/기본 편성은 이 목록 순서를 쓰지 않는다
+        const isProto = (c) => !!c.protagonist || String(c.hero ?? '').startsWith('protagonist_');
+        const shown = [...info.candidates.filter(isProto), ...info.candidates.filter((c) => !isProto(c))];
+        shown.forEach((c) => {
             const placed = this.placements.find((p) => p.user_hero_id === c.user_hero_id);
             const sel = this.selected === c.user_hero_id;
-            const row = this.add.container(0, i * (rowH + 6));
-            row.add(this.add.rectangle(0, 0, iw, rowH, COLOR.navyDeep, 0.8).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.4));
-            const rs = slice(this, `${raritySlotKey(c.rarity)}`, 6, rowH, 'slot'); // 등급 색 띠(왼쪽 얇게)
-            row.add(rs);
-            row.clipH = rowH;
-            // 등급 브래킷(9-slice)은 모서리 폭 때문에 지정 폭(6)보다 넓게 그려진다 -> 실제 폭만큼 글자를 오른쪽으로(I-12)
-            const tx = Math.max(12, Math.ceil(Math.max(rs.width ?? 6, (rs.leftWidth ?? 0) + (rs.rightWidth ?? 0)) * Math.abs(rs.scaleX ?? 1)) + 6);
-            if (sel) row.add(this.add.rectangle(3, 3, iw - 6, rowH - 6, COLOR.accentLight, 0.22).setOrigin(0));
-            if (placed) row.add(this.add.rectangle(3, 3, iw - 6, rowH - 6, COLOR.ally, 0.18).setOrigin(0));
-            const ry = this.squad ? 62 : rowH; // 위 세 줄(이름·칭호·정보) 기준 높이
-            // U25: 이름 중심(칭호 생략형, 말줄임 없이) + 칭호는 둘째 줄 부제 + 셋째 줄 등급·레벨·병종. 좌표(배치됨 (x,y))는 숨김
-            const lineY = c.title ? [14, 32, 50] : [16, 38, 38];
-            row.add(fitText(makeText(this, tx, lineY[0], heroLabel(c, { compact: true }), { size: 15, bold: true, origin: [0, 0.5] }), Math.max(60, iw - 40 - 72 - 8 - tx)));
-            if (c.title) row.add(fitText(makeText(this, tx, lineY[1], c.title, { size: 12, color: '#d9c48a', origin: [0, 0.5] }), Math.max(60, iw - 12 - tx)));
             const forced = this.isForced(c.user_hero_id);
-            const fl = forced ? this.forcedLabel(c.user_hero_id) : '';
-            // 오른쪽 상태 글자(필수 출전 · 슬롯 면제 등)를 먼저 만들어 실제 폭만큼 왼쪽 정보 줄 폭을 줄인다(겹침 방지)
-            const stT = makeText(this, iw - 12, lineY[2], forced ? `필수 출전${this.isFreeSlot(c.user_hero_id) ? ' · 슬롯 면제' : ''}` : placed ? '배치됨' : sel ? '칸을 선택하세요' : '', { size: 12, color: forced ? CSS.accent : placed ? CSS.allyText : CSS.accent, origin: [1, 0.5] });
-            row.add(fitText(makeText(this, tx, lineY[2], `${rarityBadge(c.rarity)} · Lv.${c.level}${c.unit_type ? ` · ${unitClassName(c.unit_type)}` : ''}${!this.squad && c.troop_label ? ` · 병사 ${c.troop_label}` : ''}${fl ? ` · ${fl}` : ''}`, { size: 12, color: fl ? '#9fd8c8' : CSS.muted, origin: [0, 0.5] }), Math.max(60, iw - 12 - Math.max(100, stT.width) - 8 - tx)));
-            const costT = makeText(this, iw - 40, lineY[0], `코스트 ${c.cost}`, { size: forced ? 12 : 14, color: CSS.accent, origin: [1, 0.5] });
-            row.add(costT);
-            if (forced) row.add(this.lockIcon(iw - 40 - costT.width - 10, lineY[0], 11)); // 필수 출전 잠금
-            row.add(stT);
+            const row = this.add.container(0, 0);
+            const rc = rarityColor(c.rarity) ?? COLOR.accent;
+            // 초상(52): 등급색 테, 얼굴 위쪽 기준 정사각 크롭. 없으면 병종 아이콘
+            const P = 52; const px = 10; const py = 10;
+            row.add(this.add.rectangle(px, py, P, P, 0x0b1020, 1).setOrigin(0).setStrokeStyle(2, rc, 0.95));
+            const face = this.add.container(px + P / 2, py + P / 2); row.add(face);
+            const put = (k) => { if (!k || !face.scene || !this.textures.exists(k)) return; face.removeAll(true); const im = this.add.image(0, 0, k); const fw = im.frame.realWidth; const fh = im.frame.realHeight; const sd = Math.min(fw, fh); im.setCrop((fw - sd) / 2, 0, sd, sd).setDisplaySize((P - 4) * fw / sd, (P - 4) * fh / sd).setOrigin(0.5, (sd / 2) / fh); face.add(im); };
+            const k0 = c.hero ? ensurePortrait(this, c.hero, put, { thumb: true }) : null;
+            if (k0) put(k0); else { const ti = troopIcon(this, c.unit_type, 0, 0, 28, { max: 32 }); if (ti) face.add(ti); }
+            const tx = px + P + 10;
+            // 오른쪽 위: 상태 칩(정보 i 는 마지막에 맨 위로)
+            const st = forced ? { text: '필수', lock: true, col: '#F6D98C', fill: 0x2a2208, line: COLOR.accent } : placed ? { text: '배치됨', col: '#8ef0e2', fill: 0x0f2e2b, line: 0x4fd1c1 } : sel ? { text: '칸 선택', col: '#FFE08A', fill: 0x2a2208, line: COLOR.accentLight } : null;
+            // 1줄: [등급 뱃지] 이름 — 칭호(직함)·별은 카드에서 제거(사용자 2026-11-14: 등급 뱃지와 별이 같은 뜻). 오른쪽 끝 = 상태 칩·i 버튼(stW + 36) 회피, 이름만 말줄임
+            const L1 = 21;
+            let x1 = tx;
+            const rm = rarityMark(this, c.rarity, { size: 14, stars: false });
+            if (rm) { const rw = rm.w; const rh = rm.h; rm.setPosition(x1, L1 - rh / 2); row.add(rm); x1 += rw + 5; } // w/h 는 setPosition 전에 읽기
+            else { const rt = makeText(this, x1, L1, String(c.rarity ?? '').toUpperCase(), { size: 12, bold: true, color: '#FFE08A', origin: [0, 0.5] }); row.add(rt); x1 += rt.width + 5; }
+            // 이름 폭 우선(강화면 667 Med: '주인...'): 글자 칩이 이름을 밀면 필수 = 자물쇠만 칩, 배치됨/칸 선택 = 칩 생략(카드 테 색으로 표시). 그래도 넘치면 그때 말줄임
+            const nmT = makeText(this, x1, L1, heroLabel(c, { compact: true }), { size: 15, bold: true, color: '#FFF6E0', origin: [0, 0.5] });
+            let stW = 0;
+            if (st) {
+                let sc = this.chipC({ text: st.text, color: st.col, fill: st.fill, line: st.line, lock: st.lock });
+                if (nmT.width > iw - 36 - (sc.cw + 6) - 4 - x1) { sc.destroy(); sc = st.lock ? this.chipC({ text: '', fill: st.fill, line: st.line, lock: true }) : null; }
+                if (sc) { sc.setPosition(iw - 36 - sc.cw, 19); row.add(sc); stW = sc.cw + 6; }
+            }
+            const lineEnd = iw - 36 - stW - 4; // i 버튼(iw-32~iw-6) + 여백, 상태 칩 왼쪽 끝
+            row.add(fitText(nmT, Math.max(24, lineEnd - x1))); // 이름만 말줄임(최후)
+            // 칩 줄: Lv.N · 코스트 · [병사 뱃지(병종 아이콘 + '수병 x 2', 병종별 1개)] · 대여.
+            //  2026-11-14 사용자: '주인공'·'(슬롯) 면제' 칩 제거('코스트 면제'로 오해). 슬롯 면제 판정(isFreeSlot)·코스트 합산(costOf)은 그대로. 코스트 칩 자물쇠도 제거(필수는 상태 칩에 표시)
+            //  영웅 병종 칩은 병사 뱃지와 중복이라 부대 전투에서는 생략(강화면 a27n Low). 부대가 없는 전투만 병종 칩 표시.
+            //  2줄 이내가 목표: 단계 0 원래 -> 1 축약(대여 2글자·'면제'·간격 3) -> 2 병사 뱃지도 축약(병종 첫 글자 'x N'). 그래도 넘치면 다음 줄(생략 없음, 최대 3줄)
+            const fl0 = forced ? this.forcedLabel(c.user_hero_id) : '';
+            const fl = fl0 === '주인공' ? '' : fl0;
+            const groups = [];
+            if (this.squad) (this.troops.get(c.user_hero_id) ?? []).forEach((t) => { const g = groups.find((q) => q.cls === t.class); if (g) g.n += 1; else groups.push({ cls: t.class, n: 1 }); });
+            const mkChips = (lv) => [
+                { text: heroLevelText(c, { short: true }), color: '#FFE08A' }, // 만렙 표기(ui/heroLevel, 영웅 목록 캐시의 level_info.max_level). 쉐브론 아이콘 없이 'Lv.N' 글자 칩
+                !groups.length && c.unit_type ? { troop: c.unit_type, text: lv ? String(unitClassName(c.unit_type) ?? '').slice(0, 1) : unitClassName(c.unit_type), color: CSS.text } : null,
+                { text: `코스트 ${c.cost ?? 0}`, color: '#F6D98C' }, // 사용자 2026-11-14: 보석 아이콘 대신 '코스트 N' 글자 칩(Lv.N 과 같은 모양, 축약하지 않음)
+                ...groups.map((g) => ({ troop: g.cls, text: lv >= 2 ? `${String(unitClassName(g.cls) ?? '').slice(0, 1)} x ${g.n}` : `${unitClassName(g.cls)} x ${g.n}`, color: '#cfe3ff', fill: 0x14223a, line: 0x8fb4e0 })),
+                fl ? { text: lv ? (fl.length > 3 ? fl.slice(0, 2) : fl) : (fl.length > 6 ? fl.slice(0, 2) : fl), color: '#9fd8c8' } : null,
+            ].filter(Boolean).map((d) => this.chipC(d));
+            const xEnd = iw - 8;
+            const linesOf = (cs, g) => { let xx = tx; let ln = 0; cs.forEach((cc) => { if (xx > tx && xx + cc.cw > xEnd) { ln += 1; xx = tx; } xx += cc.cw + g; }); return ln + 1; };
+            let lv = 0; let gap3 = 5; let cs3 = mkChips(0);
+            while (lv < 2 && linesOf(cs3, gap3) > (lv === 0 ? 1 : 2)) { cs3.forEach((cc) => cc.destroy()); lv += 1; gap3 = 3; cs3 = mkChips(lv); }
+            let x3 = tx; let line = 0;
+            cs3.forEach((cc) => {
+                if (x3 > tx && x3 + cc.cw > xEnd) { line += 1; x3 = tx; }
+                if (line > 2) { cc.destroy(); return; }
+                const k = cc.cw > xEnd - tx ? (xEnd - tx) / cc.cw : 1; // 한 칩이 한 줄보다 긴 극단적 경우만 축소
+                if (k < 1) cc.setScale(k);
+                cc.setPosition(x3, CHIP_Y + line * CHIP_LH); row.add(cc); x3 += cc.cw * k + gap3;
+            });
+            built.push({ c, row, placed, sel, forced, lines: Math.min(3, line + 1) });
+        });
+        // 행 높이: 칩 줄 1줄 = CARD_H(초상 기준), 2줄 이상이면 늘림. 모든 행 같은 높이(행 단위 스크롤 스냅)
+        const maxLines = built.reduce((m, o) => Math.max(m, o.lines), 1);
+        const rowH = Math.max(CARD_H, Math.ceil(CHIP_Y + (maxLines - 1) * CHIP_LH + 9 + 8));
+        this.listRowH = rowH; // clipList 스냅 간격
+        built.forEach(({ c, row, placed, sel, forced }, i) => {
+            row.setY(i * (rowH + 6));
+            row.clipH = rowH;
+            // 배경: 등급 슬롯 스킨(로비 영웅 카드와 같은 slice) 아래에 선택 빛, 위에 상태 덧칠·테두리
+            const under = this.add.graphics();
+            if (sel) under.fillStyle(COLOR.accentLight, 0.22).fillRoundedRect(-3, -3, iw + 6, rowH + 6, 10);
+            const skin = slice(this, raritySlotKey(c.rarity), iw, rowH, 'slot');
+            const over = this.add.graphics();
+            if (placed) over.fillStyle(0x1f6f66, 0.22).fillRoundedRect(3, 3, iw - 6, rowH - 6, 6);
+            if (sel || placed || forced) over.lineStyle(sel ? 2 : 1.5, sel ? COLOR.accentLight : placed ? 0x4fd1c1 : COLOR.accent, sel || placed ? 1 : 0.85).strokeRoundedRect(1, 1, iw - 2, rowH - 2, 7);
+            if (forced) over.fillStyle(COLOR.accent, 1).fillRect(2, 8, 3, rowH - 16); // 필수 = 금 왼쪽 띠
+            row.addAt(under, 0); row.addAt(skin, 1); row.addAt(over, 2);
             const hit = this.add.rectangle(0, 0, iw, rowH, 0xffffff, 0).setOrigin(0).setInteractive({ useHandCursor: true });
             hit.on('pointerup', (p) => {
                 if (this.modalCount > 0 || p.getDistance() > 12) return;
@@ -610,11 +756,11 @@ export class DeployScene extends Phaser.Scene {
                 this.render();
             });
             row.add(hit);
-            if (this.squad) this.troopRow(row, c, iw, ry, tx); // 부대 줄(고정 병종 표시만)
-            // 영웅 상세(i): 배치 응답에 있는 정보 + 오라(서버가 주면)
-            const ib = this.add.rectangle(iw - 30, lineY[0] - 10, 20, 20, COLOR.navyDeep, 1).setOrigin(0).setStrokeStyle(1, COLOR.accentLight, 0.8).setInteractive({ useHandCursor: true });
+            // 정보 버튼: UI 스킨 아이콘 ico.info(없으면 코드로 그린 금테 원 + i). 터치 영역 26(투명)
+            const ib = this.add.rectangle(iw - 32, 6, 26, 26, 0xffffff, 0.001).setOrigin(0).setInteractive({ useHandCursor: true });
             ib.on('pointerup', (p) => { if (this.modalCount > 0 || p.getDistance() > 12) return; p.event?.stopPropagation?.(); this.heroInfo(c); });
-            row.add([ib, makeText(this, iw - 20, lineY[0], 'i', { size: 13, bold: true, color: CSS.accent, origin: [0.5, 0.5] })]);
+            const ibT = this.infoIcon(iw - 19, 19, 22);
+            row.add([ibT, ib]);
             row.hits = [hit, ib]; // clipList: 목록 영역 밖으로 숨긴 행은 입력도 끔
             this.list.content.add(row);
         });
@@ -624,24 +770,9 @@ export class DeployScene extends Phaser.Scene {
         const cost = ci.total;
         this.meter.setValue(Math.min(cost, info.max_cost), false);
         const units = this.placements.length + (this.squad ? this.placements.reduce((s, p) => s + (this.troops.get(p.user_hero_id)?.length ?? 0), 0) : 0);
-        const fp = this.placements.filter((p) => this.isForced(p.user_hero_id)).length;
         // 방 대전: 맵 크기별 고정 출전 수(서버 required_party = min(party_size, 보유 영웅)). 필드 없으면(구 응답·스테이지) 기존 슬롯 상한 표기
         const req = this.mode === 'room' && Number(info.required_party) > 0 ? Number(info.required_party) : 0;
-        // 슬롯 모드: '선택 자리 n/free + 고정 k'. 코스트 상한은 서버 max_cost(고정·필수 출전 영웅 코스트 포함 기준), 스테이지 지정 상한이면 '(스테이지)'.
-        // 적 병력: 서버 미리보기(enemy_preview/preview_enemy_counts {initial, reinforce})가 있으면 그 값, 없으면 배치 응답 enemy_units 수
-        const sc = info.slot_counts;
-        const heroPart = req ? `출전 ${this.slotUsed()}/${req}명 필수` : this.slotMode ? `선택 자리 ${this.slotUsed()}/${sc?.free ?? info.max_party_slots}${sc?.fixed ? ` + 고정 ${sc.fixed}` : ''}` : `영웅 ${this.slotUsed()}/${info.max_party_slots}`;
-        // 적 수(+증원)는 맵 위 적 미리보기 칩 첫 칸으로 옮김(build). 여기는 내 편성 수치만
-        const costPart = `코스트 ${cost}/${info.max_cost}${ci.exact ? '' : '(예상)'}`;
-        const unitPart = this.squad ? `유닛 ${units}${info.max_units_per_side ? `/${info.max_units_per_side}` : ''}` : '';
-        const fpPart = fp && !this.slotMode ? `필수 ${fp}명 포함` : '';
-        const capSrc = info.cost_cap_source === 'stage' ? '코스트 상한: 스테이지 지정' : '';
-        if (this.slot2T) {
-            this.slotT.setText(`${heroPart} · ${costPart}`);
-            this.slot2T.setText([unitPart, fpPart, capSrc].filter(Boolean).join(' · '));
-            fitText(this.slot2T, this.slotIw ?? 300);
-        } else this.slotT.setText([`${heroPart}${fpPart ? ` (${fpPart})` : ''}`, `${costPart}${info.cost_cap_source === 'stage' ? '(스테이지)' : ''}`].join(' · '));
-        fitText(this.slotT, this.slotIw ?? 300);
+        // 2026-11-14 사용자 요청: 코스트 바 아래 칩 줄(선택 자리·코스트·유닛·필수·상한 출처) 제거(코스트 바와 중복). 수치는 아래 확정 가능 판정·안내 문구에서만 사용
         let why = '';
         const fcT = Number(info.forced_cost?.total) || 0; // 서버 forced_cost{hero,troop,total}: 고정·필수 출전 영웅 코스트(상한 합산에 포함)
         const fcNote = fcT > 0 ? ` (고정·필수 영웅 ${fcT} 포함)` : '';
@@ -668,7 +799,7 @@ export class DeployScene extends Phaser.Scene {
         const zoomFirst = this.zoomable && !this.touchOk();
         this.hintT.setText(zoomFirst ? '맵을 눌러 확대한 뒤 칸을 선택하세요. 두 손가락으로 확대·축소, 끌어서 이동합니다.'
             : this.selected ? `${heroLabel(this.byId.get(this.selected), { compact: true })} 을(를) 놓을 청색 칸을 선택하세요 (Esc 취소)`
-                : this.pick ? (this.pick.kind === 'troop' ? '초록 칸을 눌러 병사를 옮기세요. 같은 병사를 다시 누르면 자동 배치로 (Esc 취소)' : '초록 칸을 눌러 영웅을 옮기세요. 병사가 함께 따라갑니다 (Esc 취소)')
+                : this.pick ? (this.pick.kind === 'troop' ? '초록 칸을 눌러 병사를 옮기세요. 같은 병사를 다시 누르면 영웅 곁으로 (Esc 취소)' : '초록 칸을 눌러 영웅을 옮기세요. 병사가 함께 따라갑니다 (Esc 취소)')
                     : `영웅을 고른 뒤 청색 칸을 누르세요. 맵의 ${this.squad ? '영웅·병사' : '영웅'}를 끌거나 눌러 옮깁니다. 해제는 목록에서.`);
         fitText(this.hintT, this.hintW ?? 300, { maxLines: 2 }); // 2줄까지 줄바꿈(높이는 build 에서 예약)
     }
@@ -684,14 +815,14 @@ export class DeployScene extends Phaser.Scene {
     // 맵 칸·유닛 탭 차단(줌 모드만): 시야 밖 / 핀치·확대 직후 / 칸이 작을 때(이때 탭은 camGestureUp 이 '확대'로 처리)
     blockTap(p) {
         if (!this.zoomable) return false;
-        return !this.inView(p) || !!this.pinch || this.time.now < this.tapBlockUntil || !this.touchOk();
+        return !this.inView(p) || !!this.pinch || !!this.panS?.moved || this.time.now < this.tapBlockUntil || !this.touchOk(); // panS.moved: 팬(10px) 시작 후 놓은 탭은 배치로 치지 않음(칸 탭 임계 12px 와 불일치 보정)
     }
 
     setupZoomView() {
         const v = this.view;
         this.clipMapView(v);
-        // 초기 시야: 터치 배율로 배치 구역 가운데
-        this.fitZone();
+        // 초기 시야: 칸이 충분히 크면(데스크톱 등) 맵 전체 맞춤(배율 1), 작으면 터치 배율로 배치 구역 가운데
+        if (this.cssPerTile >= TOUCH_PX) this.applyCam(1, this.camC.x, this.camC.y); else this.fitZone();
     }
 
     // 맵 시야 밖 자르기(줌 모드 + 일반 모드 공통). 일반 모드도 맨 윗줄 키 큰 소품(건물 지붕 등)이 맵 영역 위 안내 문구를 가리지 않게(강화면 gacha127 ch12_s2)
@@ -712,8 +843,10 @@ export class DeployScene extends Phaser.Scene {
         const wasOk = this.touchOk();
         this.camZ = Phaser.Math.Clamp(z, this.zMin, this.zMax);
         const W = this.tw * info.width * this.camZ; const H = this.tw * info.height * this.camZ;
+        // 위·아래 겹침 패널(머리·범례) 여백: 맵이 보이는 영역 안에 다 들어가면 그 안 가운데, 크면 패널 아래까지 팬 가능(맨 윗줄·아랫줄을 패널 밖으로 꺼낼 수 있게)
+        const pT = this.padT ?? 0; const pB = this.padB ?? 0; const vh = v.h - pT - pB;
         const cx = W <= v.w ? v.x + (v.w - W) / 2 : Phaser.Math.Clamp(x, v.x + v.w - W, v.x);
-        const cy = H <= v.h ? v.y + (v.h - H) / 2 : Phaser.Math.Clamp(y, v.y + v.h - H, v.y);
+        const cy = H <= vh ? v.y + pT + (vh - H) / 2 : Phaser.Math.Clamp(y, v.y + v.h - pB - H, v.y + pT);
         this.camC.setScale(this.camZ).setPosition(cx, cy);
         this.syncSlotTags();
         if (this.tipT?.visible) this.hideTip();
@@ -728,8 +861,8 @@ export class DeployScene extends Phaser.Scene {
         const z = this.camZ || 1; const tw = this.tw;
         for (const { t, x, y } of this.slotTags) {
             if (!t?.scene) continue;
-            const s = Math.min(1 / z, (tw * 0.45) / Math.max(1, t.width));
-            t.setScale(s).setAlpha(0.85).setPosition(x + 2 / z, y + 1 / z);
+            const s = Math.min(1 / z, (tw * 1.3) / Math.max(1, t.width)); // 화면 글자 크기 고정(배율 역수), 칸 폭의 1.3배까지(작은 칸에서도 '고정' 두 글자 전부)
+            t.setScale(s).setAlpha(0.95).setPosition(x + tw / 2, y + 2 / z);
         }
     }
 
@@ -771,6 +904,18 @@ export class DeployScene extends Phaser.Scene {
         }
         this.fullBtn?.setSelected(!!this.fullView);
     }
+
+    // 머리 패널 접기/펼치기(맵 위 겹침 패널): 접으면 제목 줄만, 시야 여백도 함께 갱신
+    toggleHdr() {
+        if (!this.hdr) return;
+        this.hdr.collapsed = !this.hdr.collapsed;
+        this.drawHdr();
+        if (this.minimap?.scene && this.view) this.minimap.y = this.view.y + (this.padT ?? 0) + 4 + (this.minimapPad ?? 0); // 접기/펴기: 미니맵도 머리 패널 아래로
+        this.applyCam(this.camZ, this.camC.x, this.camC.y);
+    }
+
+    // +/- 버튼: 시야 가운데 기준 1.25배 확대/축소
+    zoomStep(k) { const v = this.view; this.zoomAt(this.camZ * k, v.x + v.w / 2, v.y + (this.padT ?? 0) + (v.h - (this.padT ?? 0) - (this.padB ?? 0)) / 2); }
 
     camGestureDown(p, over) {
         if (this.modalCount > 0 || !this.inView(p)) return;
@@ -826,14 +971,17 @@ export class DeployScene extends Phaser.Scene {
 
     // 시야 오른쪽 아래 아이콘 도구 줄(전투와 같은 아이콘·툴팁: 전체 보기 토글 / 배치 구역 맞춤) + 오른쪽 위 미니맵
     buildZoomTools() {
-        const v = this.view; const S = 44; const gap = 8;
+        const v = this.view; const S = L.lw < 480 ? 38 : 44; const gap = 6;
         const defs = [
+            { key: 'out', fb: '−', tip: () => '축소', onClick: () => this.zoomStep(1 / 1.25) },
+            { key: 'in', fb: '+', tip: () => '확대', onClick: () => this.zoomStep(1.25) },
             { key: 'full', icon: 'fullview', fb: '전체', tip: () => (this.fullView ? '이전 배율' : '전체 보기'), onClick: () => this.toggleFullView() },
             { key: 'fit', icon: 'fit', fb: '맞춤', tip: () => '배치 구역 맞춤', onClick: () => this.fitZone() },
         ];
         const W = defs.length * S + (defs.length - 1) * gap;
-        const x0 = v.x + v.w - 6 - W; const y = v.y + v.h - 6 - S;
+        const x0 = v.x + v.w - 6 - W; const y = v.y + v.h - 6 - S; // 범례 패널(왼쪽 아래)과 같은 줄, 오른쪽 끝
         this.add.rectangle(x0 - 4, y - 4, W + 8, S + 8, COLOR.navyDeep, 0.8).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.6).setInteractive(); // 입력 소비(아래 맵 탭 방지)
+        this.toastInset = Math.max(this.toastInset ?? 0, L.lh - (y - 4) + 6); // 토스트가 줌 버튼 줄도 덮지 않게
         defs.forEach((d, i) => {
             const b = new Button(this, { x: x0 + i * (S + gap), y, w: S, h: S, label: '', icon: d.icon, size: 13, onClick: () => { d.onClick(); this.flashToolTip(b, d.tip()); } });
             b.arrow.setAlpha(0); // 호버 화살표는 아이콘을 덮으므로 숨김
@@ -865,7 +1013,8 @@ export class DeployScene extends Phaser.Scene {
             view: () => { const s = tw * this.camZ; return { x: (v.x - this.camC.x) / s, y: (v.y - this.camC.y) / s, w: v.w / s, h: v.h / s }; },
             focus: (tx, ty) => this.focusTile(tx, ty),
         };
-        this.minimap = new MiniMap(this, { right: v.x + v.w - 4, top: v.y + 4, maxW: Math.min(120, v.w * 0.3), maxH: Math.min(84, (v.h - S - 24) * 0.5), src });
+        this.minimap = new MiniMap(this, { right: v.x + v.w - 4, top: v.y + (this.padT ?? 0) + 4, maxW: Math.min(120, v.w * 0.3), maxH: Math.min(84, (v.h - (this.padT ?? 0) - S - 24) * 0.5), src }); // 머리 패널 아래
+        this.minimapPad = this.minimap.y - (v.y + (this.padT ?? 0) + 4); // MiniMap 내부 여백(접기/펴기 때 같은 간격 유지)
         this.events.once('shutdown', () => { this.minimap?.destroy(); this.minimap = null; this.hideToolTip(); });
     }
 
@@ -981,39 +1130,63 @@ export class DeployScene extends Phaser.Scene {
         this.autoParty(ids);
     }
 
-    heroInfo(c) {
-        const t = unitType(c.unit_type);
-        const lines = [`${rarityBadge(c.rarity)} · Lv.${c.level} · 코스트 ${c.cost}`, `병종 ${t.label ?? c.unit_type} · 이동 ${t.move} · 사거리 ${t.range_min === t.range_max ? t.range_min : `${t.range_min}-${t.range_max}`}`];
-        // 서버 candidates[].detail{culture, aura, stats} 우선(구 응답의 c.aura/c.culture 폴백)
-        const d = c.detail ?? {};
-        const aura = d.aura ?? c.aura;
-        const st = d.stats;
-        if (st) lines.push(`능력치(Lv.1) 공 ${st.atk ?? '?'} · 수 ${st.def ?? '?'}`); // 영웅 체력 고정 10(사용자 2026-11-04): HP 표기 제외
-        if (aura) lines.push(`오라: ${auraDesc(aura)}`);
-        if (d.culture ?? c.culture) lines.push(`문화권 ${d.culture ?? c.culture}`);
-        if (d.troop_label ?? c.troop_label) lines.push(`병사 ${d.troop_label ?? c.troop_label} (고정)`);
-        if (Array.isArray(d.skills) && d.skills.length) lines.push('', ...skillLines(d.skills));
-        if (!aura && !st) lines.push('능력치·스킬·오라 상세는 서버 제공 후 표시됩니다.');
-        if (c.title) lines.unshift(`칭호 「${c.title}」`);
-        alertModal(this, heroPlainName(c), lines.join('\n')); // 상세 = 정식 이름 + 칭호 줄
+    // 영웅 정보((i)): 로비 영웅 탭 카드와 같은 상세 화면(ui/HeroDetailView.openHeroDetail). 보유 영웅이면 영웅 목록(GET /api/heroes, 캐시)의 전체 데이터,
+    //  목록에 없으면(대여·미보유 필수 영웅 등) 배치 후보 데이터만으로 그린다(없는 필드는 상세 뷰가 섹션째 숨김). 모달 위라 배치 상태는 그대로
+    async heroInfo(c) {
+        if (this.heroInfoBusy) return;
+        this.heroInfoBusy = true;
+        let full = null;
+        try { const list = await gameApi.heroes(); full = (list ?? []).find((h) => (h.id ?? h.user_hero_id) === c.user_hero_id) ?? null; } catch { full = null; }
+        this.heroInfoBusy = false;
+        if (!this.sys.isActive()) return;
+        const hh = full ? { ...c, ...full } : { ...c, detail: c.detail ?? {} };
+        openHeroDetail(this, hh, { buttons: [{ label: '닫기' }] });
+    }
+
+    // 정보 아이콘(가운데 cx, cy, 지름 d): 스킨 ico.info -> 폴백 = 금테 원 + 'i'
+    infoIcon(cx, cy, d = 22) {
+        const im = skinIcon(this, 'info', d);
+        if (im) return im.setPosition(cx, cy);
+        const c = this.add.container(cx, cy);
+        c.add(this.add.graphics().fillStyle(COLOR.navyDeep, 1).fillCircle(0, 0, d / 2).lineStyle(1.5, COLOR.accent, 1).strokeCircle(0, 0, d / 2 - 0.75));
+        c.add(makeText(this, 0, 0, 'i', { size: Math.round(d * 0.6), bold: true, color: CSS.accent, origin: [0.5, 0.5] }));
+        return c;
     }
 
     // ---- 맵 유닛 표시(전투와 같은 스프라이트) ----
     // unit{kind, hero?, type, team} -> 칸(x,y) 중심에 받침 + 스프라이트(없으면 병종 글리프 원/마름모) + 지휘관 왕관 칩. 반환 = 표시 객체 배열(입력 없음)
     // size = 칸 대비 배율(영웅 0.92, 병사 0.74): 칸 안에서만 그려 390px(칸 ~24px)에서도 이웃 칸과 겹치지 않는다
-    unitIcon(unit, x, y, { size = 0.92, base = COLOR.ally, ring = null, crown = false, alpha = 1 } = {}) {
+    unitIcon(unit, x, y, { size = 0.92, base = COLOR.ally, ring = null, crown = false, alpha = 1, dir = null, ship: shipOn = true } = {}) {
         const tw = this.tw; const s = tw * size;
         const cx = x * tw + tw / 2; const cy = y * tw + tw / 2;
         const out = [];
         // 받침(발밑 타원): 영웅 = 등급색, 병사 = 영웅 색 밴드, 적 = 적색. 링 = 지휘관 금색/선택 초록
-        out.push(this.add.ellipse(cx, cy + tw * 0.3, s * 0.86, Math.max(4, s * 0.3), base, 0.55 * alpha).setStrokeStyle(Math.max(1.5, tw * 0.06), ring ?? base, alpha));
+        const look = dir ?? (unit.team === 'enemy' ? this.enemyLook : this.allyLook) ?? null; // 진영 대치 시선
+        // 수상 칸(서버 규칙과 같은 지형 판정 systems/water: 바다·암초 = 탑승, 수병 = 항상 자기 배): 전투와 같은 배 오버레이(ship_overlay back/front, 방향 행) + 약한 상하 흔들림
+        const ws = waterStateAt(unit, this.info?.tiles?.[y]?.[x]);
+        let ship = null;
+        if (shipOn && showsShip(ws)) { // ship:false = 드래그 고스트(칸 밖 (0,0) 기준이라 배를 붙이지 않음)
+            let st = shipTypeOf(unit); if (!this.textures.exists(shipTexKey(st, 'back'))) st = 'default';
+            const bk = shipTexKey(st, 'back'); const fk = shipTexKey(st, 'front');
+            if (this.textures.exists(bk) && this.textures.exists(fk)) ship = { bk, fk, fr: shipFrame(look ?? 'down', 0) };
+        }
+        if (!ship) out.push(this.add.ellipse(cx, cy + tw * 0.3, s * 0.86, Math.max(4, s * 0.3), base, 0.55 * alpha).setStrokeStyle(Math.max(1.5, tw * 0.06), ring ?? base, alpha));
+        else out.push(this.add.ellipse(cx, cy + tw * 0.36, s * 0.9, Math.max(4, s * 0.22), ring ?? base, 0.0).setStrokeStyle(Math.max(1.5, tw * 0.06), ring ?? base, alpha)); // 배 위: 받침 대신 진영색 테만
+        const shipBack = ship ? this.add.image(cx, cy - tw * 0.04, ship.bk, ship.fr).setDisplaySize(s * 1.08, s * 1.08).setAlpha(alpha) : null;
+        if (shipBack) out.push(shipBack);
         let tex = null;
-        try { tex = unitTex(this, unit); } catch { tex = null; }
+        try { tex = unitTex(this, unit, look); } catch { tex = null; }
         if (tex) {
             const img = this.add.image(cx, cy - tw * 0.04, tex.key, tex.frame).setDisplaySize(s, s).setFlipX(!!tex.flipX).setAlpha(alpha);
             out.push(img);
+            if (ship) {
+                const shipFront = this.add.image(cx, cy - tw * 0.04, ship.fk, ship.fr).setDisplaySize(s * 1.08, s * 1.08).setAlpha(alpha);
+                out.push(shipFront);
+                // 물결 흔들림: 배·몸통을 함께 1텍셀(칸/32) 올렸다 내림(연출 끄기면 생략)
+                if (!isInstant()) { const dy = Math.max(1, tw / 32); const bob = this.tweens.add({ targets: [shipBack, img, shipFront], y: `-=${dy}`, duration: 700 + ((x * 7 + y * 13) % 5) * 60, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' }); shipBack.once('destroy', () => bob.remove()); } // render() 마다 다시 그려지므로 배 이미지가 지워질 때 반복 트윈도 정리(누수 방지)
+            }
             // 영웅·주인공·NPC 전용 시트는 유닛별 지연 로드(assets PER_UNIT_LAZY): 받기 전엔 병종/문화권 공용 시트로 그려 두고 받으면 같은 이미지의 텍스처만 교체
-            ensureUnitTex(this, unit, (ok) => { if (!ok || !img.active) return; const t2 = unitTex(this, unit); if (t2 && t2.key !== img.texture.key) img.setTexture(t2.key, t2.frame).setDisplaySize(s, s).setFlipX(!!t2.flipX); });
+            ensureUnitTex(this, unit, (ok) => { if (!ok || !img.active) return; const t2 = unitTex(this, unit, look); if (t2 && t2.key !== img.texture.key) img.setTexture(t2.key, t2.frame).setDisplaySize(s, s).setFlipX(!!t2.flipX); });
         } else {
             const col = unit.team === 'enemy' ? COLOR.danger : COLOR.ally;
             const r = s * 0.36;
@@ -1038,7 +1211,11 @@ export class DeployScene extends Phaser.Scene {
         hit.on('pointerout', () => { if (!this.pick) this.hideTip(); });
         // 줌 모드: 시야 밖(마스크로 가려진 부분)·칸이 작을 때(<32px)는 유닛 끌기 대신 맵 팬/확대
         hit.on('pointerdown', (p) => { if (this.modalCount > 0 || this.selected || this.info.confirmed || (this.zoomable && (!this.inView(p) || !this.touchOk()))) return; this.drag = { ref, ...dragInfo, ghost: null }; });
-        hit.on('pointerup', (p) => { if (this.modalCount > 0 || p.getDistance() > 12 || this.blockTap(p)) return; this.tapUnit(ref, x, y); });
+        hit.on('pointerup', (p) => {
+            if (this.modalCount > 0 || p.getDistance() > 12 || this.blockTap(p)) return;
+            if (ref.kind === 'hero' && this.isDoubleTap(ref)) { this.removeHero(ref.uhid); return; } // 영웅 더블클릭/더블탭 = 배치에서 빼기(첫 탭은 평소처럼 집기)
+            this.tapUnit(ref, x, y);
+        });
         return hit;
     }
 
@@ -1145,6 +1322,10 @@ export class DeployScene extends Phaser.Scene {
 
     // 집어 든 유닛을 (x,y)로. 영웅을 옮기면 수동 지정 병사는 상대 위치를 유지해 따라가고, 갈 수 없는 병사는 자동 배치로 돌린다
     dropAt(ref, x, y) {
+        if (ref.kind === 'hero') { // 다른 영웅이 선 칸에 놓으면 두 영웅 자리 맞교환(빈 칸은 기존 이동)
+            const other = this.placements.find((q) => q.x === x && q.y === y && q.user_hero_id !== ref.uhid);
+            if (other) { this.swapHeroes(ref.uhid, other.user_hero_id); return; }
+        }
         const ok = this.canDrop(ref, x, y, true);
         if (ok !== true) { showToast(this, ok); this.pick = null; this.render(); return; }
         if (ref.kind === 'troop') {
@@ -1162,10 +1343,70 @@ export class DeployScene extends Phaser.Scene {
                 const idx = list.indexOf(t);
                 if (this.canDrop({ kind: 'troop', uhid: ref.uhid, idx }, nx, ny)) { t.x = nx; t.y = ny; } else dropped++;
             });
-            if (dropped) showToast(this, `병사 ${dropped}기는 갈 수 없는 칸이라 자동 배치로 돌렸습니다.`);
+            if (dropped) showToast(this, `병사 ${dropped}기는 갈 수 없는 칸이라 영웅 곁으로 돌렸습니다.`);
         }
         this.pick = null;
         this.render();
+    }
+
+    // ---- 배치 칸 영웅 빼기(더블클릭/더블탭)·맞교환(드래그), 2026-11-14 사용자 요청 ----
+    // 이동·제거가 막힌 영웅의 사유(없으면 null). act = 'remove' | 'swap'. 판정 필드: 후보 protagonist / forced[].hero 'protagonist_' 접두(주인공),
+    //  fixedSlotOf(서버 slots[kind=fixed].user_hero_id = 고정 배치), forced(서버 forced[] + candidates[].forced = 필수 출전)
+    lockReason(id, act) {
+        const c = this.byId.get(id) ?? {};
+        const nm = heroLabel(c, { compact: true });
+        const proto = this.isForced(id) && (!!c.protagonist || !!this.forced?.get(id)?.protagonist || String(this.forced?.get(id)?.hero ?? c.hero ?? '').startsWith('protagonist_')); // 서버도 forced 의 protagonist 만 묶는다(방 대전 등 필수가 아닌 주인공은 자유)
+        if (proto) return act === 'remove' ? '주인공은 배치에서 뺄 수 없습니다.' : '주인공은 다른 영웅과 자리를 바꿀 수 없습니다.';
+        if (this.fixedSlotOf?.has(Number(id))) return act === 'remove' ? `${nm}: 고정 배치 영웅은 배치에서 뺄 수 없습니다.` : `${nm}: 고정 배치 영웅은 정해진 자리에서 바꿀 수 없습니다.`;
+        if (this.isForced(id)) return act === 'remove' ? `${nm}: 필수 출전 영웅은 배치에서 뺄 수 없습니다.` : `${nm}: 필수 출전 영웅은 다른 영웅과 자리를 바꿀 수 없습니다.`;
+        return null;
+    }
+
+    // 같은 영웅 칸을 320ms 안에 두 번 탭/클릭했는지(마우스 더블클릭 포함). 목록에서 고른 영웅을 놓는 중·확정 후에는 쓰지 않음
+    isDoubleTap(ref) {
+        if (this.selected || this.info.confirmed) return false;
+        const k = this.refKey(ref); const now = this.time.now; const prev = this.lastUnitTap;
+        this.lastUnitTap = { k, t: now };
+        if (prev && prev.k === k && now - prev.t < 320) { this.lastUnitTap = null; return true; }
+        return false;
+    }
+
+    // 배치 칸에서 회수(목록 '빼기'와 같은 결과: placements 에서 제거 + 병사 수동 위치 해제). 편성 목록에서는 그대로 다시 고를 수 있음
+    removeHero(id) {
+        if (this.info.confirmed) return;
+        const why = this.lockReason(id, 'remove');
+        this.pick = null; this.selected = null;
+        if (why) { showToast(this, why); this.render(); return; }
+        this.placements = this.placements.filter((q) => q.user_hero_id !== id);
+        this.clearTroopPos(id);
+        this.render();
+    }
+
+    // 두 배치 영웅 자리 맞교환. 순서(placements 배열 = 지휘관 순서)는 그대로, 좌표만 바꾼다. 직접 옮긴 병사는 영웅과 같은 거리만큼 따라가고(dropAt 이동 규칙과 같음),
+    //  갈 수 없는 병사는 영웅 곁(수동 지정 해제)으로 돌린다. 양쪽 중 하나라도 고정·필수·주인공이거나 상대 칸에 설 수 없으면(지형·슬롯) 막고 안내
+    swapHeroes(aId, bId) {
+        const done = (msg) => { if (msg) showToast(this, msg); this.pick = null; this.render(); };
+        const why = this.lockReason(aId, 'swap') ?? this.lockReason(bId, 'swap');
+        if (why) { done(why); return; }
+        const a = this.placements.find((q) => q.user_hero_id === aId); const b = this.placements.find((q) => q.user_hero_id === bId);
+        if (!a || !b) { done(''); return; }
+        const fits = (id, x, y) => {
+            if (!this.zone.has(`${x},${y}`)) return '배치 영역 밖입니다.';
+            if (!this.passable(x, y, this.byId.get(id)?.unit_type)) return `${heroLabel(this.byId.get(id) ?? {}, { compact: true })}: 이 영웅이 설 수 없는 지형이라 자리를 바꿀 수 없습니다.`;
+            const se = this.heroSlotError(id, x, y); if (se) return se;
+            return null;
+        };
+        const bad = fits(aId, b.x, b.y) ?? fits(bId, a.x, a.y);
+        if (bad) { done(bad); return; }
+        const moves = [];
+        [[aId, b.x - a.x, b.y - a.y], [bId, a.x - b.x, a.y - b.y]].forEach(([id, dx, dy]) => {
+            (this.troops?.get(id) ?? []).forEach((t, idx) => { if (t.x != null) { moves.push({ id, idx, t, nx: t.x + dx, ny: t.y + dy }); delete t.x; delete t.y; } });
+        });
+        const ax = a.x; const ay = a.y;
+        a.x = b.x; a.y = b.y; b.x = ax; b.y = ay;
+        let dropped = 0;
+        moves.forEach(({ id, idx, t, nx, ny }) => { if (this.canDrop({ kind: 'troop', uhid: id, idx }, nx, ny)) { t.x = nx; t.y = ny; } else dropped++; });
+        done(dropped ? `병사 ${dropped}기는 갈 수 없는 칸이라 영웅 곁으로 돌렸습니다.` : '');
     }
 
     tapUnit(ref, x, y) {
@@ -1180,14 +1421,6 @@ export class DeployScene extends Phaser.Scene {
             if (t && t.x == null) { this.dropAt(this.pick, x, y); return; } // 자동 배치 예정 병사 칸 = 빈 칸 취급
         }
         this.pick = ref;
-        this.render();
-    }
-
-    // '부대 자동 배치': 모든 병사 수동 지정 해제 -> 영웅 주변으로 모으기(서버 자동 배치)
-    autoTroops() {
-        if (this.info.confirmed) return;
-        this.placements.forEach((p) => this.clearTroopPos(p.user_hero_id));
-        this.pick = null;
         this.render();
     }
 
@@ -1237,25 +1470,6 @@ export class DeployScene extends Phaser.Scene {
             }
         }
         return lists.reduce((a, l) => a + l.reduce((b, c) => b + c, 0), 0);
-    }
-
-    // 영웅 카드의 부대 줄(고정 병종, 읽기 전용): 서버 formation[id].troops[].class 를 칩으로만 표시. 병종 선택 모달·'+' 슬롯은 제거(2026-11 영웅 고정 병종).
-    // 병사 위치는 서버가 자동 배치한다.
-    troopRow(row, c, iw, y0, tx = 12) {
-        const f = this.info.formation?.[c.user_hero_id] ?? this.info.formation?.[String(c.user_hero_id)] ?? {};
-        const list = this.troops.get(c.user_hero_id) ?? [];
-        const cw = Math.min(40, (iw - 24 - 150 - (tx - 12)) / Math.max(1, MAX_TROOP_SLOTS) - 4);
-        // 병종 이름은 systems/names(병종 v2 표기) 기준, 병종 코드가 없으면 서버 troop_label
-        const label = list[0]?.class ? unitClassName(list[0].class) : (f.troop_label ?? c.troop_label);
-        row.add(fitText(makeText(this, tx, y0 + 22, label ? `병사 ${label}` : '부대', { size: 12, color: CSS.muted, origin: [0, 0.5] }), 66));
-        list.forEach((t, i) => {
-            const x = tx + 72 + i * (cw + 4);
-            row.add(this.add.rectangle(x, y0 + 8, cw, 28, 0x0b1020, 1).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.6));
-            // 병종 아이콘 단일 소스(GameIcons.troopIcon = 영웅 카드 뱃지와 같은 도트 그림 -> ico.troop -> 글자), 칸(cw x 28) 안으로 상한
-            row.add(troopIcon(this, t.class, x + cw / 2, y0 + 22, Math.min(24, cw - 4), { glyphSize: 13, stroke: 0, max: Math.min(26, cw - 2) }));
-        });
-        const manual = list.filter((t) => t.x != null).length;
-        row.add(makeText(this, iw - 12, y0 + 22, `병사 ${list.length}기 · ${manual ? `직접 ${manual}` : '자동 배치'}`, { size: 12, color: manual ? CSS.allyText : CSS.muted, origin: [1, 0.5] }));
     }
 
     // 빈 배치 칸(청색) 탭: 목록에서 고른 영웅 놓기 / 맵에서 집어 든 유닛 옮기기(검증은 canDrop, 최종 판정은 서버)
@@ -1317,6 +1531,10 @@ export class DeployScene extends Phaser.Scene {
             this.render?.();
             console.warn(`[deploy confirm failed] ${errorTag(e)}`);
             if (e.code === 'deployment_closed' && this.mode === 'room') { this.scene.start('Room', { code: this.roomCode }); return; }
+            if (e.code === 'lineup_insufficient' || e.code === 'not_in_lineup') { // 편성 부족·편성 밖 영웅: 편성 화면 바로가기(배치 중 전투는 로비 '이어하기'로 복귀 가능)
+                confirmModal(this, '편성 확인', messageOf(e), () => this.scene.start('Lobby', { tab: 'lineup' }), { okLabel: '편성 화면으로' });
+                return;
+            }
             alertModal(this, '배치 오류', (e.fields ? Object.values(e.fields).join('\n') + '\n' : '') + messageOf(e));
         }
     }
@@ -1332,7 +1550,7 @@ export class DeployScene extends Phaser.Scene {
         }
         confirmModal(this, '전투 포기', '배치 중인 전투를 포기합니다. 보상은 없습니다.', async () => {
             try { await gameApi.battle.abandon(this.battleId); } catch { /* 이미 종료 */ }
-            this.scene.start('Lobby', { tab: Number(/^ch(\d+)_/.exec(this.stageCode ?? '')?.[1] ?? 0) >= 101 ? 'main' : 'stage' }); // 메인 스토리(ch101+)면 메인 스토리 탭으로
+            this.scene.start('Lobby', { tab: (/^stage_\d+$/.test(this.stageCode ?? '') || ((n) => n >= 101 && n !== 999)(Number(/^ch(\d+)_/.exec(this.stageCode ?? '')?.[1] ?? 0))) ? 'main' : 'stage' }); // 메인 스토리(ch101+)·튜토리얼(stage_NN, chapter 0)이면 메인 스토리 탭으로(2026-11-14)
         }, { okLabel: '포기', danger: true });
     }
 }

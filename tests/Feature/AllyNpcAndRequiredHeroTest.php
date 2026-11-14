@@ -23,6 +23,7 @@ class AllyNpcAndRequiredHeroTest extends TestCase
     private function guest(): array
     {
         $r = $this->postJson('/api/guests', ['nickname' => 'ally'])->assertCreated();
+        $this->givePartyHeroes((int) $r->json('user.id'));
 
         return [['X-Guest-Token' => $r->json('guest_token')], (int) $r->json('user.id')];
     }
@@ -136,5 +137,24 @@ class AllyNpcAndRequiredHeroTest extends TestCase
         }
         $this->assertNotNull($res);
         $this->assertTrue($res->json('battle.status') !== 'in_progress' || $res->json('battle.round') >= 2);
+    }
+
+    public function test_가입시_이순신과_C급1명이_지급되고_ch1_s1에_입장할_수_있다(): void
+    {
+        $r = $this->postJson('/api/guests', ['nickname' => 'keyhero'])->assertCreated();
+        $h = ['X-Guest-Token' => $r->json('guest_token')];
+        $codes = DB::table('user_heroes')->join('heroes', 'heroes.id', '=', 'user_heroes.hero_id')->where('user_id', $r->json('user.id'))->orderBy('user_heroes.id')->get(['heroes.code', 'heroes.rarity']);
+        $this->assertSame(['yi_sun_sin', 'C'], [$codes[0]->code, $codes[1]->rarity]);
+        $this->assertCount(2, $codes);
+        $stages = $this->withHeaders($h)->getJson('/api/stages')->assertOk()->json('stages');
+        $this->assertTrue($stages[0]['hero_ready']);   // 충족 시나리오(서가) 상단
+        $this->assertArrayHasKey('sort_order', $stages[0]);
+        $ch = array_values(array_filter($stages, fn ($x) => $x['chapter'] === $stages[0]['chapter']));
+        $so = array_column($ch, 'sort_order');
+        $sorted = $so;
+        sort($sorted);
+        $this->assertSame($sorted, $so);   // 서가 안 순서는 sort_order 유지
+        $s1 = DB::table('stages')->where('code', 'ch1_s1')->first();
+        $this->withHeaders($h)->postJson('/api/stages/'.$s1->id.'/challenge')->assertCreated();
     }
 }

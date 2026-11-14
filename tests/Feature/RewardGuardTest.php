@@ -122,6 +122,6 @@ class RewardGuardTest extends TestCase
             $ids[] = $this->withHeaders(['X-Guest-Token' => $token])->postJson('/api/stages/1/challenge')->assertCreated()->json('battle.battle_id');
         }
         $this->assertSame('abandoned', DB::table('battles')->where('id', $ids[0])->value('status'));
-        $this->assertSame(3, DB::table('battles')->where('user_id', $uid)->where('status', 'deployment')->count());
+        $this->assertSame(1, DB::table('battles')->where('user_id', $uid)->where('status', 'deployment')->count());
     }
 }

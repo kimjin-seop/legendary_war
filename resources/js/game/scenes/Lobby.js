@@ -24,32 +24,38 @@ import { L, setupCamera, relayoutOnChange } from '../layout.js';
 import { auth, session, sessionCache } from '../api/client.js';
 import { gameApi, publicRules, newGachaRequestId } from '../api/gameApi.js';
 import { ensureScope, warmScope, prefetchPortraits, ensurePortraitTex, unitPortraitLogical, loaded, texKey } from '../assets.js';
-import { protagonistInfo, protagonistName } from '../dialogue/dialogueData.js';
+import { protagonistInfo } from '../dialogue/dialogueData.js';
 import { messageOf, errorTag } from '../api/errors.js';
 import { auraDesc } from '../systems/glossary.js';
 import { heroLabel, heroPlainName, heroShortName, gachaLabel } from '../systems/names.js';
 import { skillDisplayName } from '../systems/skills.js';
 import { withJosa } from '../systems/josa.js';
-import { createSkeleton } from '../ui/Skeleton.js';
+import { createTabSkeleton, createTabLoadingBadge } from '../ui/TabLoading.js';
 import { ensurePortrait } from '../ui/PortraitCard.js';
 import { rarityMark, pixelLabel, pixelImage } from '../ui/PixelBadge.js';
 import { isInstant } from '../ui/motion.js';
 import { audio } from '../audio.js';
-import { addBrandLogo, brandSmall, brandHeader, brandEmblem } from '../brand.js';
+import { addBrandLogo, brandSmall, brandHeader, brandEmblem, BRAND_TITLE } from '../brand.js';
 import { withUiImage } from '../ui/uiImage.js';
 import { rememberStages, objectiveShort, goalLines, normRules, starCondsOf, starCondText, heroNameOf, playBeforeStage } from '../campaign/campaignFlow.js';
 import { maybeCharacterCreate, openCharacterCreate, characterCheckPending } from '../campaign/characterCreate.js';
-import { guideEnabled, markNewFlow } from '../tutorial/guideFlow.js';
-import { loadCampaignMapMeta, buildCampaignMap, stagePlayable, stageLockText, missingHeroesOf, missingHeroText } from '../campaign/campaignMapData.js';
+import { guideEnabled, markNewFlow, guideDone, conceptPopup } from '../tutorial/guideFlow.js';
+import { openBriefReplay } from '../tutorial/briefReplay.js';
+import { loadCampaignMapMeta, buildCampaignMap, stagePlayable, stageLockText, missingHeroesOf, missingHeroText, gachaHintOf } from '../campaign/campaignMapData.js';
 import { StageMapView } from '../ui/StageMapView.js';
+import { LibraryMapView, libraryMeta } from '../ui/LibraryMapView.js'; // 메인 스토리 '잊힌 서고' 도서관 지도(MVP 2026-11-14)
 import { tabDex } from './lobbyDex.js';
 import { tabRank } from './lobbyRank.js';
 import { warSeasonActive, warUnreadCount } from './warEntry.js';
+import { FEATURES, comingSoonOf } from '../features.js'; // 시즌 전쟁·랭크전 잠금 플래그(2026-11-14). 잠금 = 오픈 예정 티저(lobbyComingSoon.js)
+import { tabComingSoon, markSoonTabs } from './lobbyComingSoon.js';
 import { openRecord } from '../ui/RecordPanel.js';
+import { openHeroDetail, heroStatusBody, heroHistorySection, heroRarityTag, heroSectionBg } from '../ui/HeroDetailView.js';
+import { heroLevelText } from '../ui/heroLevel.js';
 
 // icon: 아틀라스 ico.<name>(안아트 생성 예정 ico.tab_*). 없으면 글자만(Tabs 폴백)
 const TABS = [
-    { key: 'stage', label: '스테이지', icon: 'tab_stage' },
+    { key: 'stage', label: '역사 시나리오', icon: 'tab_stage' }, // 2026-11-14 사용자 지시: 표시 라벨만 '역사 시나리오'(key·딥링크·lastSub 불변)
     { key: 'hero', label: '영웅', icon: 'tab_hero' },
     { key: 'room', label: '방 대전', icon: 'tab_room' },
     // (편성 탭 제거 2026-11-01: 캠페인 출전 영웅은 출격(배치) 화면에서 고르고, 마지막 출격 구성은 서버가 자동 저장해 다음 배치 기본값으로 쓴다)
@@ -57,34 +63,38 @@ const TABS = [
     { key: 'quest', label: '퀘스트', icon: 'tab_quest', iconFallback: 'quest' },
     // 랭킹: 전용 아이콘 ico.tab_rank(트로피/왕관, 미제작)이 있으면 사용, 없으면 가장 가까운 ico.log(목록) 폴백(buildTabs)
     { key: 'ranking', label: '랭킹', icon: 'tab_rank', iconFallback: 'log' },
-    { key: 'more', label: '더보기', icon: 'tab_more' },
+    { key: 'more', label: '설정', icon: 'tab_more' }, // 2026-11-14: 더보기 -> 설정(사용자 지시 메뉴명)
 ];
 // 뽑기 탭: 서버 rules.gacha 가 true 일 때만 '방 대전' 다음(퀘스트 앞)에 추가
 const GACHA_TAB = { key: 'gacha', label: '뽑기', icon: 'tab_gacha' };
 // 하단 탭 바에 없는 화면(더보기·상단 버튼에서 진입)
 // protagonist = 영웅 그룹 서브 탭(주인공 스테이터스, fe-proto 2026-11-03: 영웅 카드 목록에서는 주인공 제외)
-const EXTRA_TABS = [{ key: 'protagonist', label: '주인공' }, { key: 'dex', label: '도감' }, { key: 'rank', label: '랭크전' }, { key: 'shop', label: '상점' }, { key: 'exchange', label: '교환소' }, { key: 'inventory', label: '인벤토리' }, { key: 'main', label: '메인 스토리' }]; // main = 싱글 그룹 서브 탭(오리지널 메인 스토리, chapter 101+) // 랭킹은 하단 탭으로 이동
+const EXTRA_TABS = [{ key: 'protagonist', label: '주인공' }, { key: 'dex', label: '도감' }, { key: 'rank', label: '랭크전' }, { key: 'shop', label: '상점' }, { key: 'exchange', label: '교환소' }, { key: 'inventory', label: '인벤토리' }, { key: 'main', label: '메인 스토리' }, { key: 'lineup', label: '편성' }]; // main = 캠페인 그룹 서브 탭(오리지널 메인 스토리, chapter 101+) // 랭킹은 하단 탭으로 이동
 const gachaOn = () => !!publicRules()?.gacha;
 const gachaSceneOn = () => { try { return localStorage.getItem('srpg.gachaScene') !== '0'; } catch { return true; } }; // 뽑기 탭 -> Gacha 씬(0 = 기존 탭)
 const tabItems = () => { if (!gachaOn()) return TABS; const i = TABS.findIndex((t) => t.key === 'quest'); return [...TABS.slice(0, i), GACHA_TAB, ...TABS.slice(i)]; };
-// 하단 탭 그룹(fe26 A안 -> fe45): 싱글(스테이지·메인 스토리) / 영웅 / 뽑기 / 멀티(방 대전·시즌 전쟁) / 성장·보상(퀘스트·랭킹) / 더보기.
+// 하단 탭 그룹(fe26 A안 -> fe45 -> 2026-11-14): 캠페인(스테이지·메인 스토리) / 멀티(방 대전·시즌 전쟁·랭크전·랭킹) / 영웅(영웅·주인공·도감·인벤토리) / 뽑기 / 보상(퀘스트·교환소) / 상점 / 설정.
 // 그룹 안 서브 탭은 본문 상단 Tabs. 내부 tab 키(stage·hero·…)는 그대로. 'war' 서브 탭 = War 씬 직접 진입.
 // 롤백(기존 7칸): TAB_GROUPS.enabled = false 또는 localStorage srpg.tabGroups=0
 export const TAB_GROUPS = { enabled: true };
 const groupsOn = () => { try { if (localStorage.getItem('srpg.tabGroups') === '0') return false; } catch { /* 무시 */ } return TAB_GROUPS.enabled; };
 // fe45(2026-11-03, 사용자 지시 "영웅·뽑기는 싱글 전용이 아니다"): 영웅·뽑기를 싱글 그룹에서 빼 하단 독립 칸으로(모드 무관 접근).
 //  싱글 = 스테이지·메인 스토리만. 뽑기 칸은 rules.gacha 가 true 일 때만(visibleGroups). 롤백 = .bak-fe45-20261103
+// 2026-11-14 메뉴 재구성(사용자 지시): 캠페인 / 멀티 / 영웅 / 뽑기 / 보상 / 상점 / 설정 (뽑기는 rules.gacha 일 때만).
+//  그룹 key 는 기존 값 유지(g_growth = 보상, g_more = 설정 — 퀘스트 배지·lastSub·딥링크 호환). 인벤토리 = 영웅 서브 탭, 랭킹 = 멀티 서브 탭, 상점 = 독립 칸
 const GROUPS = [
-    { key: 'g_single', label: '싱글', icon: 'tab_stage', sub: ['stage', 'main'] }, // main = 메인 스토리(fe38)
-    { key: 'g_hero', label: '영웅', icon: 'tab_hero', sub: ['hero', 'protagonist', 'dex'] }, // protagonist = 주인공 스테이터스(fe-proto), dex = 영웅 도감(전체 플레이 가능 영웅, scenes/lobbyDex.js)
+    { key: 'g_single', label: '캠페인', icon: 'tab_stage', sub: ['main', 'stage'] }, // main = 메인 스토리(fe38). 2026-11-14 사용자 지시: 메인 스토리를 첫 서브 탭(그룹 첫 진입 기본) -> 역사 시나리오
+    { key: 'g_multi', label: '멀티', icon: 'tab_room', sub: ['room', 'war', 'rank', 'ranking'] }, // rank = 랭크 대전(scenes/lobbyRank.js), ranking = 랭킹(레벨·주간 PvP)
+    { key: 'g_hero', label: '영웅', icon: 'tab_hero', sub: ['hero', 'lineup', 'protagonist', 'dex', 'inventory'] }, // lineup = 편성(캠페인 출정 풀, 2026-11-14) // protagonist = 주인공 스테이터스(fe-proto), dex = 영웅 도감(scenes/lobbyDex.js), inventory = 보유 장비(2026-11-14 영웅 안으로)
     { key: 'g_gacha', label: '뽑기', icon: 'tab_gacha', sub: ['gacha'] },
-    { key: 'g_multi', label: '멀티', icon: 'tab_room', sub: ['room', 'war', 'rank'] }, // rank = 랭크 대전(scenes/lobbyRank.js, 2026-11-03 골격)
-    { key: 'g_growth', label: '성장·보상', icon: 'tab_quest', iconFallback: 'quest', sub: ['quest', 'ranking', 'shop', 'exchange'] }, // 2026-11-04: 상점(장비)·일일 교환소를 성장·보상 서브 탭으로(더보기 '장비 상점'은 같은 화면 별칭)
-    { key: 'g_more', label: '더보기', icon: 'tab_more', sub: ['more'], extra: ['inventory'] }, // 인벤토리 = 더보기·상점에서 진입(서브 탭 없음). 상점은 성장·보상 서브 탭
+    { key: 'g_growth', label: '보상', icon: 'tab_quest', iconFallback: 'quest', sub: ['quest', 'exchange'] }, // 퀘스트(일일·주간·월간·메인) + 일일 교환소(골드·펜 상품)
+    { key: 'g_shop', label: '상점', icon: 'shop', sub: ['shop'] }, // 골드 상점(장비·소모품 전환)
+    { key: 'g_more', label: '설정', icon: 'tab_more', sub: ['more'] }, // 게임 설정·공지·튜토리얼·계정·로그아웃
 ];
 // 세로 내비 아이콘(안아트 ui.nav.<이름>, 2026-11-04): 그룹/탭 키 -> 이름. record(기록)는 비그룹 랭킹 탭용
-const NAV_ICON = { g_single: 'single', g_hero: 'hero', g_gacha: 'gacha', g_multi: 'multi', g_growth: 'growth', g_more: 'more', stage: 'single', hero: 'hero', gacha: 'gacha', room: 'multi', quest: 'reward', ranking: 'record', more: 'more' };
+const NAV_ICON = { g_single: 'single', g_hero: 'hero', g_gacha: 'gacha', g_multi: 'multi', g_growth: 'reward', g_more: 'more', stage: 'single', hero: 'hero', gacha: 'gacha', room: 'multi', quest: 'reward', ranking: 'record', more: 'more' };
 // 서브 탭 아이콘(안아트 퀘스트 스펙 top_tab: atlas.uiskin ico.quest / ico.shop / ico.ticket). 아틀라스에 없으면 글자만(Tabs.skinIcon)
+const CARD_LOADING_TABS = new Set(['hero', 'dex', 'inventory']); // 로딩 스켈레톤을 카드 격자로 그리는 탭(나머지 = 목록 행)
 const SUB_ICON = { quest: 'quest', ranking: 'crown', shop: 'shop', exchange: 'ticket' }; // ranking = atlas.uiskin ico.crown(2026-11-04 아틀라스 확장)
 const visibleGroups = () => GROUPS.filter((g) => g.key !== 'g_gacha' || gachaOn());
 const subTabsOf = (g) => g.sub.filter((k) => k !== 'gacha' || gachaOn());
@@ -103,11 +113,15 @@ const devMode = () => { try { return new URLSearchParams(location.search).get('d
 // 스테이지 챕터: 서버 chapter(0 = 튜토리얼·오리지널) > stage code 'ch<N>_' 접두. 헤더 문구
 const stageChapter = (s) => (Number.isFinite(Number(s.chapter)) && s.chapter != null ? Number(s.chapter) : Number(/^ch(\d+)_/.exec(s.code ?? '')?.[1] ?? 0));
 // 화면 제목에는 '○장' 번호 접두를 붙이지 않는다(내부 id ch1/ch18 은 유지)
-const CHAPTER_TITLE = { 0: '튜토리얼 · 오리지널 스테이지', 1: '임진왜란 편', 18: '칭기즈 칸과 몽골 제국', 21: '레그니차의 연기', 22: '파니파트의 수레벽', 23: '헤이스팅스의 방패벽', 24: '투르와 푸아티에', 999: '숨은 종장', 101: '메인 스토리 1막', 102: '메인 스토리 2막', 103: '메인 스토리 3막', 104: '메인 스토리 4막' };
+const CHAPTER_TITLE = { 0: '튜토리얼 · 오리지널 스테이지', 1: '임진왜란', /* 2026-11-14 사용자 지시: '임진왜란 편' -> '임진왜란'(표시명 원천 = 이 표, 서버·메타 아님) */ 18: '칭기즈 칸과 몽골 제국', 21: '레그니차의 연기', 22: '파니파트의 수레벽', 23: '헤이스팅스의 방패벽', 24: '투르와 푸아티에', 999: '숨은 종장', 101: '메인 스토리 1막', 102: '메인 스토리 2막', 103: '메인 스토리 3막', 104: '메인 스토리 4막' };
 // 오리지널 메인 스토리 = chapter 101 이상(1막 101 ~ 4막 104). 서가 지도·스테이지 탭에서는 빼고 '메인 스토리' 탭에만 표시
 export const MAIN_STORY_CHAPTER = 101;
 export const HIDDEN_CHAPTER = 999; // 숨은 종장(서가 지도에 표시, 메인 스토리 탭 아님)
 const isMainStory = (s) => stageChapter(s) >= MAIN_STORY_CHAPTER && stageChapter(s) !== HIDDEN_CHAPTER;
+// 튜토리얼·오리지널 스테이지(chapter 0, stage_01~06): 2026-11-14 사용자 지시로 '메인 스토리' 탭 맨 앞으로 이동(역사 시나리오 지도에서 제외). 집계·해금 로직은 그대로
+export const TUTORIAL_CHAPTER = 0;
+const isTutorial = (s) => stageChapter(s) === TUTORIAL_CHAPTER;
+const inMainTab = (s) => isMainStory(s) || isTutorial(s);
 // 표에 없는 장은 서가 지도 메타(shelf_map_meta.shelves[].name_ko) 이름(지도 메타를 받은 뒤 채움, 강화면 26회차: 서가 11~20 이 '시나리오'로 보임)
 const SHELF_TITLE = {};
 const chapterTitle = (n) => CHAPTER_TITLE[n] ?? SHELF_TITLE[n] ?? '시나리오';
@@ -122,7 +136,7 @@ export class LobbyScene extends Phaser.Scene {
 
     constructor() { super('Lobby'); }
 
-    init(data) { this.tab = data?.tab ?? this.tab ?? 'stage'; this.notice = data?.notice ?? ''; this.noticeMs = data?.noticeMs; this.autoSortie = !!data?.autoSortie; this.sortieStageId = data?.sortieStageId ?? null; } // sortieStageId: 결과 화면 '다음 스테이지' -> 해당 스테이지로 바로 출정
+    init(data) { this.tab = data?.tab ?? this.tab ?? 'main'; /* 기본 = 캠페인 첫 서브 탭 메인 스토리(2026-11-14) */ this.notice = data?.notice ?? ''; this.noticeMs = data?.noticeMs; this.autoSortie = !!data?.autoSortie; this.sortieStageId = data?.sortieStageId ?? null; this.directSortie = this.autoSortie || this.sortieStageId != null; } // sortieStageId: 결과 화면 '다음 스테이지' -> 해당 스테이지로 바로 출정
 
     create() {
         this.modalCount = 0;
@@ -164,7 +178,7 @@ export class LobbyScene extends Phaser.Scene {
         const hold = characterCheckPending();
         const reveal = () => { if (this.sys?.isActive() && this.cameras.main.alpha < 1) this.tweens.add({ targets: this.cameras.main, alpha: 1, duration: 160 }); };
         if (hold) { this.cameras.main.setAlpha(0); this.time.delayedCall(5000, reveal); }
-        gameApi.profile(true).then((prof) => { this.refreshBar(); this.syncGachaTab(); maybeCharacterCreate(this, prof).then((went) => { if (!went) { reveal(); this.drawBadge(); } if (!went && this.sys.isActive()) this.maybeAutoTutorial(prof); }).catch(() => { reveal(); this.maybeAutoTutorial(prof); }); }).catch(() => reveal()); // 캐릭터 생성(protagonist_needed) 우선, 아니면 튜토리얼 자동 시작
+        gameApi.profile(true).then((prof) => { this.refreshBar(); this.syncGachaTab(); maybeCharacterCreate(this, prof).then((went) => { if (!went) { reveal(); this.drawBadge(); } if (!went && this.sys.isActive()) this.maybeAutoTutorial(prof); if (!went && this.sys.isActive()) this.maybeGachaConcept(prof); }).catch(() => { reveal(); this.maybeAutoTutorial(prof); }); }).catch(() => reveal()); // 캐릭터 생성(protagonist_needed) 우선, 아니면 튜토리얼 자동 시작
         refreshQuestBadge(this); // 퀘스트 빨간 점(로비 진입마다)
         this.startWarUnread(); // 시즌 전쟁 전황 읽지 않음 뱃지(로비 진입마다 + 60초, 탭 비활성 시 건너뜀)
         this.time.delayedCall(2500, () => this.idlePrefetch()); // 로비 대기 중 저우선 예열(첫 화면 요청과 경쟁하지 않게 지연)
@@ -259,7 +273,7 @@ export class LobbyScene extends Phaser.Scene {
         this.tabBar = new Tabs(this, { vertical: !!railBox, x: railBox ? railBox.x : L.safe.l, y: railBox ? railBox.y : L.lh - this.tabH, w: railBox ? railBox.w : L.lw - L.safe.l - L.safe.r, h: railBox ? railBox.h : this.tabH - L.safe.b, items: items.map((it) => (it.iconFallback && !skinHas(this, `ico.${it.icon}`) ? { ...it, icon: it.iconFallback } : it)).map((it) => (railBox && NAV_ICON[it.key] ? { ...it, navIcon: `ui.nav.${NAV_ICON[it.key]}` } : it)), active: grouped ? groupOf(this.tab).key : this.tab, size: L.portrait ? 20 : 18, minSize: 10,
             onChange: (k) => { if (!grouped) { this.show(k); return; } const g = GROUPS.find((x) => x.key === k); const subs = subTabsOf(g); const last = LobbyScene.lastSub[k];
                 // fe46: 멀티 = 진행 중 시즌 전쟁이 있으면 시즌 전쟁(War 씬) 먼저, 없으면 기존(마지막 서브 탭 또는 방 대전). 판정 = scenes/warEntry.js
-                if (k === 'g_multi') { warSeasonActive().then((on) => { if (!this.sys.isActive() || this.tabBar?.active !== 'g_multi') return; if (on) this.show('war'); else this.show(subs.includes(last) && last !== 'war' ? last : subs[0]); }); return; }
+                if (k === 'g_multi' && FEATURES.seasonWar) { warSeasonActive().then((on) => { if (!this.sys.isActive() || this.tabBar?.active !== 'g_multi') return; if (on) this.show('war'); else this.show(subs.includes(last) && last !== 'war' ? last : subs[0]); }); return; }
                 this.show(subs.includes(last) && last !== 'war' ? last : subs[0]); } });
         this.applyQuestBadge();
         this.applyWarBadge();
@@ -290,16 +304,25 @@ export class LobbyScene extends Phaser.Scene {
     //  뱃지 = 스테이지 지도 장수 칩과 같은 방식(StageMapView.drawFramedFace): 프레임 map.world.ui.chip_frame + 지름 74% 원형 초상(Phaser 4 내부 Mask 필터,
     //  같은 마스크 텍스처 stagemap_circle_mask·같은 크롭 프레임 stagemap_face). 프레임이 아직 없으면 금테 원(스테이지 탭이 프레임을 받으면 show() 에서 다시 그림).
     //  모든 항목은 바 '안쪽 띠'(topbar.strip 실측 y 12~144/192)의 중심선 cy 에 맞춘다. 상단 설정 버튼은 더보기 탭으로 이동(fe45). 롤백 = .bak-fe45top-20261103
+    // 상단 패널 제거(사용자 2026-11-14): topbar.strip 띠(배경·금테·금선·좌우 덩굴)와 프로필/2단 판을 그리지 않는다. 초상·Lv·닉네임·EXP·재화 캡슐만
+    //  투명 배경 위에 두고, 가독성용으로 위에서 아래로 옅어지는 어두운 그림자(패널 모양 아님)만 깐다. 스킨 띠는 세로 중심선(cy) 계산용으로만 읽고 숨긴다.
+    //  (이전 hideStripConnector 임시 덮개는 띠 자체를 숨기므로 삭제)
     buildBar() {
         const y = L.safe.t;
         const SH = L.short ? 44 : 60; // 상단 바(사용자 2026-11-04 '적당히 얇게'): 72 -> 60, 가로 폰 52 -> 44
         const strip = skinOn(this) ? slice(this, 'topbar', L.lw, SH, 'panel') : null;
         const skinBar = !!strip?.skinAtlas;
         const BH = skinBar ? SH : (L.short ? 42 : 54); // 스킨 없을 때 64 -> 54, 50 -> 42
-        if (skinBar) { if (y > 0) this.add.rectangle(0, 0, L.lw, y + 2, COLOR.navyDeep, 1).setOrigin(0); strip.setPosition(0, y); }
-        else { strip?.destroy(); this.add.rectangle(0, 0, L.lw, y + BH, COLOR.navyDeep, 0.92).setOrigin(0); this.add.rectangle(0, y + BH - 1, L.lw, 2, COLOR.accent).setOrigin(0); }
+        if (skinBar) strip.setVisible(false); else strip?.destroy();
         this.barH = y + BH; // 탭 본문 시작 = 바 아래(show)
         const nb = this.narrowBar = L.lw < 640;
+        // 세로 폰 2단 바(2026-11-14 모바일 로비 개선): 한 줄(390 논리 433)에 문장·뱃지·닉네임·EXP·펜·골드를 넣으면 문장이 바 위로 잘리고(높이 56 > 띠 41)
+        //  좌우 덩굴 캡 위에 문장·골드 캡슐이 겹쳤다. 1단(스킨 띠) = 문장 + 펜·골드(캡 덩굴 안쪽), 2단(띠 아래 얇은 판) = 주인공 뱃지·Lv·닉네임·EXP
+        const two = nb && L.portrait;
+        const ROW2 = two ? 38 : 0;
+        if (two) this.barH = y + BH + ROW2;
+        // 가독성 그림자: 화면 위(안전 영역 포함)에서 바 아래까지 0.45 -> 0 으로 옅어지는 어두운 그라데이션(테두리·모서리 없음)
+        this.add.graphics().fillGradientStyle(COLOR.navyDeep, COLOR.navyDeep, COLOR.navyDeep, COLOR.navyDeep, 0.45, 0.45, 0, 0).fillRect(0, 0, L.lw, this.barH + 8);
         const fr = skinBar ? strip.frame : null;
         const k = fr ? BH / fr.height : 0;
         const bandT = y + (fr ? Math.ceil(fr.height * (12 / 192) * k) : 2);
@@ -307,25 +330,36 @@ export class LobbyScene extends Phaser.Scene {
         const cy = Math.round((bandT + bandB) / 2);
         this.barCy = cy;
         // 좌우 캡 장식(frame.customData.slice.l 의 약 80%) 안쪽에서 시작. 좁은 화면은 캡이 폭의 40% 가까이 먹으므로 캡 위로 내용을 올린다(여백 10)
-        const capL = fr ? (fr.customData?.slice?.l ?? fr.height * (250 / 192)) * k : 0;
+        // 2026-11-14 패널 제거: 좌우 덩굴 캡이 더 이상 그려지지 않으므로 캡 회피 여백 0(양끝 12 여백만)
+        const capL = 0;
         // 좁은 화면: 10/18 이면 로고 방패가 왼쪽 마름모·사선 테두리·구름 덩굴(캡 프레임 x<=137, k=0.375 -> 화면 x<=51)에 겹침(390x844) -> 52.
         // 52 = 프레임 x 139: 로고 17 높이 세로 범위(프레임 y 55~101)에 장식 없음. infoW 가 96~132 구간이면 room 이 xL 과 무관(94)이라 로고 높이 유지, 정보 열만 좁아짐
-        const xL = L.safe.l + (nb ? 52 : Math.max(12, Math.round(capL * 0.8) + 8));
-        const xR = L.lw - L.safe.r - (nb ? 10 : Math.max(12, Math.round(capL * 0.8)));
+        const xL = L.safe.l + (nb ? 12 : Math.max(12, Math.round(capL * 0.8) + 8));
+        // 2단 바: 오른쪽 캡 덩굴(프레임 x 0~160/209 구간 = 캡 폭의 약 77%)과 골드 캡슐이 겹치지 않게 캡 안쪽 80% 에서 끝
+        const xR = L.lw - L.safe.r - (two ? Math.max(12, Math.round(capL * 0.8)) : nb ? 10 : Math.max(12, Math.round(capL * 0.8)));
         // 프로필 패널 배치(오른쪽 끝부터): 골드 캡슐 -> 정보 열 -> 원형 뱃지(패널 왼쪽 끝에 걸친 메달)
-        const sz = L.short ? 36 : nb ? 44 : 48; // 뱃지 지름(바 축소에 맞춤: 40/50/56 -> 36/44/48)
+        const sz = two ? 32 : L.short ? 36 : nb ? 44 : 48; // 뱃지 지름(바 축소에 맞춤: 40/50/56 -> 36/44/48), 2단 바 2단 = 32
         const goldW = nb ? 72 : 128;
-        const penW = nb ? 46 : L.short ? 80 : goldW; // 데스크톱: 펜·골드 캡슐 같은 폭(시안 2026-11-04 '재화 2개 pill') // 가로 폰 96 -> 80(헤더 로고 자리, 2026-11-04) // 펜 캡슐(골드 왼쪽). 좁은 화면 = 펜촉+숫자만 46(닉네임 열 확보, 강화면 gacha45)
-        const infoW = nb ? Math.max(110, Math.min(132, xR - xL - sz - goldW - penW - 136)) : L.short ? 160 : Math.round(Math.min(300, Math.max(210, L.lw * 0.2))); // 가로 폰 210 -> 160(헤더 로고 높이 44 이상 확보, 닉네임은 말줄임)
+        const penW = nb ? (two ? 56 : 46) : L.short ? 80 : goldW; // 데스크톱: 펜·골드 캡슐 같은 폭(시안 2026-11-04 '재화 2개 pill') // 가로 폰 96 -> 80(헤더 로고 자리, 2026-11-04) // 펜 캡슐(골드 왼쪽). 좁은 화면 = 펜촉+숫자만 46(닉네임 열 확보, 강화면 gacha45)
         const goldX1 = xR - 6; const goldX0 = goldX1 - goldW;
         const penX1 = goldX0 - 6; const penX0 = penX1 - penW;
-        const infoX1 = penX0 - 10; const infoX0 = infoX1 - infoW;
-        const bcx = infoX0 - 8 - sz / 2;
-        const ph = L.short ? 34 : nb ? 40 : 42; // 프로필 패널 높이(38/44/48 -> 34/40/42)
-        this.add.graphics().fillStyle(COLOR.navyDeep, 0.82).fillRoundedRect(bcx, cy - ph / 2, xR - bcx, ph, 10).lineStyle(1, COLOR.accent, 0.7).strokeRoundedRect(bcx, cy - ph / 2, xR - bcx, ph, 10);
-        this.bar = { cy, sz, infoX0, infoX1, infoW, goldX0, goldX1, penX0, penX1, nb };
+        let infoW; let infoX0; let infoX1; let bcx; let pcy = cy; let expW = 0; let expX0 = 0;
+        if (two) {
+            // 2단: 띠 아래 얇은 판(좌우 8) 안에 [뱃지][Lv 닉네임 ……][EXP 바]. EXP 바 폭 = 판 폭 40%(120~180)
+            const ry = y + BH + 1; const rx0 = L.safe.l + 8; const rx1 = L.lw - L.safe.r - 8;
+            pcy = Math.round(ry + ROW2 / 2 - 1);
+            bcx = rx0 + 4 + sz / 2;
+            expW = Math.round(Math.max(120, Math.min(180, (rx1 - rx0) * 0.4))); expX0 = rx1 - 8 - expW;
+            infoX0 = bcx + sz / 2 + 8; infoX1 = expX0 - 10; infoW = infoX1 - infoX0;
+        } else {
+            infoW = nb ? Math.max(110, Math.min(132, xR - xL - sz - goldW - penW - 136)) : L.short ? 160 : Math.round(Math.min(300, Math.max(210, L.lw * 0.2))); // 가로 폰 210 -> 160(헤더 로고 높이 44 이상 확보, 닉네임은 말줄임)
+            infoX1 = penX0 - 10; infoX0 = infoX1 - infoW;
+            bcx = infoX0 - 8 - sz / 2;
+            // 프로필 패널(금테 둥근 판)은 2026-11-14 패널 제거로 그리지 않음
+        }
+        this.bar = { cy, pcy, sz, infoX0, infoX1, infoW, goldX0, goldX1, penX0, penX1, nb, two, expW };
         // 원형 뱃지(눌러서 영웅 탭)
-        this.badge = this.add.container(bcx - sz / 2, cy - sz / 2);
+        this.badge = this.add.container(bcx - sz / 2, pcy - sz / 2);
         this.badgeFace = this.add.container(0, 0);
         const hs = Math.max(sz, Math.ceil(MIN_TOUCH / (view.scale || 1))); // 터치 영역 = 실제 화면 44px 이상(보이는 뱃지 크기는 그대로, 강화면 gacha65: 667 에서 32px)
         const hit = this.add.rectangle(-(hs - sz) / 2, -(hs - sz) / 2, hs, hs, 0xffffff, 0.001).setOrigin(0).setInteractive({ useHandCursor: true });
@@ -335,10 +369,11 @@ export class LobbyScene extends Phaser.Scene {
         this.protoHero = (session.heroes ?? []).find((h) => h.protagonist) ?? null; // 영웅 목록 캐시가 있으면 즉시(없으면 preloadHeroThumbs 응답에서)
         // 정보 열: 1줄 = Lv 태그 + 닉네임, 2줄 = EXP 바(트랙 안 'EXP 현재/다음'). 와이드 오른쪽 '코스트 N · 슬롯 N'은 2026-11-08 사용자 요청으로 제거(출전 상한은 편성 화면에서 표시)
         // 가로 폰(L.short, 667x390): 패널 높이 34 안에서 닉네임(15px+외곽선)과 EXP 바(12)가 2~3px 겹치던 문제(강화면 a13) -> 닉네임 13px·바 10·줄 간격 16
-        const r1 = cy - (L.short ? 8 : 9); const r2 = cy + (L.short ? 8 : 9);
+        // 2단 바: Lv·닉네임·EXP 를 한 줄(pcy)에. 닉네임은 정보 열 끝에서 말줄임(refreshBar fitText)
+        const r1 = two ? pcy : cy - (L.short ? 8 : 9); const r2 = two ? pcy : cy + (L.short ? 8 : 9);
         this.lvT = makeText(this, infoX0, r1, '', { size: nb || L.short ? 12 : 13, bold: true, color: CSS.accent, origin: [0, 0.5], stroke: { color: '#0B1020', width: L.short ? 2 : 3 } });
         this.nameT = makeText(this, infoX0, r1, '', { size: nb || L.short ? 13 : 15, bold: true, origin: [0, 0.5], stroke: { color: '#0B1020', width: L.short ? 2 : 3 } });
-        this.expBar = new StatBar(this, { x: infoX0, y: r2 - 9, w: infoW, h: L.short ? 10 : 14, max: 1, value: 0, skin: 'blue', label: 'EXP' });
+        this.expBar = new StatBar(this, { x: two ? expX0 : infoX0, y: r2 - 9, w: two ? expW : infoW, h: L.short ? 10 : 14, max: 1, value: 0, skin: 'blue', label: 'EXP' });
         this.expBar.y = Math.round(r2 - this.expBar.barH / 2);
         // 골드 캡슐(이미지 스킨 currency, 없으면 코드 캡슐) + 아이콘 + 숫자(오른쪽 정렬)
         this.goldCap = skinOn(this) ? slice(this, 'currency', goldW, 30, 'panel') : null;
@@ -368,18 +403,20 @@ export class LobbyScene extends Phaser.Scene {
         this.setBtn = null; // fe45: 상단 설정 버튼 제거 -> 더보기 탭 '설정'
         this.outBtn = null; // U05: 로그아웃은 더보기 탭(확인 모달)
         // 로고(왼쪽): 뱃지 왼쪽까지 남는 폭에 맞춘 높이(최대 32, 좁은 화면 26). 14 미만이면 생략. 실패 시 텍스트 폴백(brand.js)
-        const room = bcx - sz / 2 - 12 - xL;
+        const room = two ? penX0 - 12 - xL : bcx - sz / 2 - 12 - xL; // 2단 바: 1단에는 문장 오른쪽에 펜 캡슐만
         // 새 헤더 로고(가로 현판, ui.logo.header): 넓은 바(390 제외)에서 남는 폭에 맞춰 키우고 바 높이의 1.35배까지 허용(사용자 '넘치면 UI 를 벗어나도 됨').
         //  바 아래로 걸쳐도 본문은 이 뒤에 그려져 버튼이 로고 위에 오고, 이미지는 입력을 받지 않아 터치를 막지 않는다. 화면 위로는 넘지 않게 중심을 내림
         this.logoBox = null;
-        const hv = !nb ? brandHeader() : null;
+        const hv0 = !nb ? brandHeader() : null;
+        // 재제작 현판(2026-11-14)은 이미지 높이 = 바 높이 BH 로 그려야 금테가 바 띠에 맞는다 -> 그 폭(BH / ratio)이 안 들어가는 좁은 바는 문장 로고 폴백
+        const hv = hv0 && (bcx - sz / 2 - 12 - (L.safe.l + 10)) * hv0.ratio >= BH ? hv0 : null;
         if (hv) {
             // 헤더 로고 x = 화면 왼쪽 가장자리 + 10(사용자 2026-11-04 '타이틀이 좌측으로', 이전 = 상단 바 캡 장식 안쪽 xL ≈ 60). 폭 한도는 같은 규칙(뱃지 왼쪽 -12)
             const xH = L.safe.l + 10; const roomH = bcx - sz / 2 - 12 - xH;
             // 사용자 2026-11-04 '로고 더 크게, 넘치면 UI 벗어나도 됨': 서브 탭·본문 위로 걸쳐 내려와도 된다(본문이 로고보다 나중에 그려져 버튼이 위, 로고는 입력 없음).
             //  높이 = 바 높이 x 1.75(1280 약 105, 667 약 77), 폭은 뱃지 왼쪽까지(펜·골드·뱃지·닉네임·EXP 를 가리지 않음)
             // 사용자 2026-11-04 '로고 때문에 UI 가 내려와 이득 없음 -> 줄여서 바 안으로': 높이 = 바 높이 - 6(위아래 3px), 바 세로 가운데. 바 밖으로 나가지 않으므로 본문·레일·뽑기 밀어내림은 logoBox.bottom 기준으로 자동 0
-            const hH = Math.max(14, Math.min(Math.floor(roomH * hv.ratio), BH - 2)); // 시안(2026-11-04): 바 높이를 거의 다 쓰는 현판(위아래 1px), 바 밖으로는 나가지 않음
+            const hH = BH; void roomH; // 2026-11-14: 이미지 높이 = 바 높이(위쪽 y 부터, 가운데 기준 y + BH/2). 재제작 현판의 금테가 바 띠와 일치
             const hy = y + BH / 2;
             const hv2 = brandHeader(hH) ?? hv; // 표시 높이 기준 해상도(@2x)
             // 로고는 레일·본문보다 위(depth 5, 모달 1000 아래), 입력 없음. 레일 첫 칸은 로고 아래 끝 밑에서 시작(buildTabs: this.logoBox)
@@ -389,11 +426,18 @@ export class LobbyScene extends Phaser.Scene {
             return;
         }
         // 좁은 바(390): 문장 로고(ui.logo.emblem, 안아트 2026-11-04). 바 높이 안, 뱃지 왼쪽 남는 폭에 맞춤. 없으면 아래 기존 소형 로고
-        const em0 = nb ? brandEmblem() : null;
+        const em0 = nb || hv0 ? brandEmblem() : null; // 좁은 바(390) 또는 현판 폭이 안 들어가는 바
         if (em0) {
-            const eH = Math.max(14, Math.min(BH - 4, Math.floor(room * em0.ratio)));
+            // 높이 상한 = 바 안쪽 띠(bandT~bandB, 390 약 41). 예전 BH - 4(56)는 띠 중심 cy 기준이라 문장 윗부분이 화면 위로 잘리고 좌측 캡 덩굴을 덮었다(2026-11-14 모바일 로고 깨짐)
+            const eH = Math.max(14, Math.min(BH - 4, bandB - bandT, Math.floor(room * em0.ratio)));
             const em = brandEmblem(eH) ?? em0;
             addBrandLogo(this, em, xL, cy, { maxW: eH / em0.ratio, maxH: eH, origin: [0, 0.5], fallbackSize: 14, onReady: (o) => { this.brandLogo = o; } });
+            // 2단 바: 문장 오른쪽 남는 폭에 게임 이름(들어갈 때만, 비율 고정 이미지 대신 글자 — 현판 이미지는 폭이 모자라 늘림·잘림 위험)
+            if (two) {
+                const tx = xL + eH / em0.ratio + 6; const tw = penX0 - 10 - tx;
+                const tt = makeText(this, tx, cy, BRAND_TITLE, { size: 16, heading: true, color: '#f0d58c', origin: [0, 0.5], stroke: { color: '#0B1020', width: 3 } });
+                if (tw < 60) tt.destroy(); else if (tt.width > tw) tt.setScale(tw / tt.width);
+            }
             this.refreshBar();
             return;
         }
@@ -428,7 +472,8 @@ export class LobbyScene extends Phaser.Scene {
         const nameMax = b.infoX1 - this.nameT.x; // 상단 '코스트·슬롯' 글자 제거(2026-11-08): 이름이 정보 열 오른쪽 끝까지 사용
         fitText(this.nameT, Math.max(30, nameMax), { fallback: nm.replace(/ \(게스트\)$/, '') });
         if (p) { this.expBar.max = Math.max(1, p.exp_to_next || 1); this.expBar.setValue(Math.min(p.exp, this.expBar.max), false); }
-        this.expBar.txt.setScale(1); fitLabel(this.expBar.txt, b.infoW - 8, 14, 9); // 좁은 트랙: 'EXP 현재/다음' 글자 축소(넘치면 말줄임)
+        if (p && Number(p.exp_to_next) === 0 && Number(p.level) > 1) { this.expBar.max = 1; this.expBar.setValue(1, false); this.expBar.txt?.setText?.('만렙'); } // 유저 만렙(user_level_costs 마지막 행, 현행 Lv.50): 서버 exp_to_next=0
+        this.expBar.txt.setScale(1); fitLabel(this.expBar.txt, (b.expW || b.infoW) - 8, 14, 9); // 좁은 트랙: 'EXP 현재/다음' 글자 축소(넘치면 말줄임)
         this.goldT.setText(p ? p.gold.toLocaleString('ko-KR') : '-').setScale(1);
         fitLabel(this.goldT, b.goldX1 - 10 - (this.goldIcon.x + this.goldIcon.displayWidth / 2 + 6), b.nb ? 13 : 16, 10);
         this.drawBadge();
@@ -469,8 +514,8 @@ export class LobbyScene extends Phaser.Scene {
             }
             face.add(img);
         } else {
-            const ch = [...String(protagonistName() ?? '?')][0] ?? '?';
-            face.add(makeText(this, c0, c0, ch, { size: Math.round(sz * 0.4), bold: true, color: CSS.text, origin: [0.5, 0.5], stroke: { color: '#0B1020', width: 3 } }));
+            // 초상 로딩 전·미생성: 이름 첫 글자 대신 중립 실루엣(머리+어깨)(강화면 v10 Low: 신규 게스트 'q' 표기)
+            face.add([this.add.circle(c0, c0 - d * 0.12, d * 0.17, 0x5A6478, 0.9), this.add.ellipse(c0, c0 + d * 0.27, d * 0.54, d * 0.34, 0x5A6478, 0.9)]);
         }
         if (framed) face.add(this.add.image(c0, c0, frameKey).setDisplaySize(sz, sz));
         else face.add(this.add.circle(c0, c0, sz / 2 - 1.5, 0, 0).setStrokeStyle(3, COLOR.accent, 1));
@@ -498,7 +543,7 @@ export class LobbyScene extends Phaser.Scene {
     //  War 씬에서 전황 탭을 열면 feedSeen 이 갱신되므로 로비 복귀(create) 시 다시 조회해 사라진다
     startWarUnread() {
         this.warUnread = 0;
-        if (session.kind === 'guest') return;
+        if (session.kind === 'guest' || !FEATURES.seasonWar) return; // 시즌 전쟁 잠금 중이면 전황 조회 안 함
         const poll = () => {
             if (!this.sys.isActive() || (typeof document !== 'undefined' && document.hidden)) return;
             warUnreadCount().then((n) => { if (!this.sys.isActive()) return; this.warUnread = n; this.applyWarBadge(); });
@@ -512,6 +557,7 @@ export class LobbyScene extends Phaser.Scene {
 
     // 진입점 빨간 숫자 뱃지(최대 9+): 그룹 모드 = 하단 '멀티' 칸 + 멀티 서브 탭 '시즌 전쟁', 비그룹 = 하단 '방 대전' 칸(시즌 전쟁 버튼이 있는 탭)
     applyWarBadge() {
+        markSoonTabs(this, this.subTabs); // 잠긴 서브 탭(시즌 전쟁·랭크전) '오픈 예정' 배지. 서브 탭을 새로 만들 때마다 이 함수가 불린다
         const n = this.warUnread ?? 0;
         const targets = groupsOn() ? [[this.tabBar, 'g_multi'], [this.subTabs, 'war']] : [[this.tabBar, 'room']];
         targets.forEach(([tb, key]) => {
@@ -534,8 +580,16 @@ export class LobbyScene extends Phaser.Scene {
         if (!t || !t.auto_start || t.done || LobbyScene.tutorialTried || this.modalCount > 0) return;
         LobbyScene.tutorialTried = true;
         // 새 흐름(플래그 on): 짧은 프롤로그 6줄 -> 끝나면 로비가 추천 첫 스테이지로 바로 출정(autoSortie) -> 첫 전투 조작 안내. 끄면 기존 10스텝 대사
-        if (guideEnabled()) { markNewFlow(); this.scene.start('Dialogue', { source: 'guide_prologue', next: { scene: 'Lobby', data: { tab: 'stage', autoSortie: true } } }); return; }
+        if (guideEnabled()) { markNewFlow(); this.scene.start('Dialogue', { source: 'guide_prologue', next: { scene: 'Lobby', data: { tab: 'main', autoSortie: true } } }); return; } // 튜토리얼 stage_01 = 메인 스토리 탭(2026-11-14)
         this.scene.start('Dialogue', { source: 'tutorial', server: true, stepIndex: Math.max(0, Number(t.step) || 0), next: { scene: 'Lobby', data: { tab: this.tab } } });
+    }
+
+    // 펜 안내(개념 팝업 C_gacha, 시오리 브리핑 1회): 튜토리얼 완료(서버 tutorial.done 또는 새 흐름 조작 안내 완료) 후 로비 진입 때 한 번.
+    //  뽑기가 열려 있을 때만, 바로 출정(autoSortie·결과 '다음 스테이지')하는 진입은 제외. 중복·완료 기록(srpg.tip.gacha)은 conceptPopup 이 처리(표시 직전 기록)
+    maybeGachaConcept(prof) {
+        if (!gachaOn() || this.directSortie || !this.sys.isActive()) return;
+        if (!(prof?.tutorial?.done || guideDone())) return;
+        conceptPopup(this, 'C_gacha');
     }
 
     logout() {
@@ -553,7 +607,10 @@ export class LobbyScene extends Phaser.Scene {
         if (key !== 'war') this.stopWarOverlay(); // 멀티 > 시즌 전쟁 = 로비 위 오버레이(War 씬, tabWar). 다른 탭이면 닫는다
         if (key === 'gacha' && this.tab !== 'gacha') this.preGachaTab = this.tab; // 소환 화면(Gacha 씬) '뒤로' 복귀 탭
         this.tab = key;
-        if (groupsOn()) { LobbyScene.lastSub = LobbyScene.lastSub ?? {}; LobbyScene.lastSub[groupOf(key).key] = key; }
+        if (groupsOn()) {
+            LobbyScene.lastSub = LobbyScene.lastSub ?? {}; LobbyScene.lastSub[groupOf(key).key] = key;
+            const gk = groupOf(key).key; if (this.tabBar?.scene && this.tabBar.active !== gk && this.tabBar.cells?.some((c) => c.key === gk)) this.tabBar.setActive(gk); // 다른 그룹 화면으로 바로 이동(상점 <-> 인벤토리 등)해도 하단 메뉴 강조 일치
+        }
         this.softShow = soft; // 에셋 도착 후 다시 그리기: 서버 재조회 없이 캐시 사용(U02)
         // 배경: 뽑기 탭 = bgscreen_gacha, 그 외 = bgscreen_lobby(있을 때만)
         if (this.bgImg?.scene) { const bk = key === 'gacha' && this.textures.exists('bgscreen_gacha') ? 'bgscreen_gacha' : 'bgscreen_lobby'; if (this.bgImg.texture.key !== bk) { this.bgImg.setTexture(bk); this.bgImg.setScale(Math.max(L.lw / this.bgImg.width, L.lh / this.bgImg.height)); } }
@@ -591,21 +648,31 @@ export class LobbyScene extends Phaser.Scene {
             p.add(tt);
             p.add(this.add.rectangle(0, L.short ? 26 : 34, Math.min(w, Math.max(160, tt.width + 48)), 2, COLOR.accent, 0.8).setOrigin(0));
         }
-        if (key === 'main') this.addResumeButton(p, w); // 중간 저장: 진행 중 전투가 있으면 본문 상단 오른쪽 '이어하기'. 스테이지 탭은 지도 요약 카드의 출정 옆(지도 폴백 시에만 상단, tabStage)
+        if (key === 'main' || key === 'stage') this.addResumeButton(p, w); // 2026-11-14 위치 통일: 메인 스토리·역사 시나리오(지도형·폴백 모두) 같은 자리(서브 탭 줄 오른쪽). 이전 주석: 중간 저장: 진행 중 전투가 있으면 본문 상단 오른쪽 '이어하기'. 스테이지 탭은 지도 요약 카드의 출정 옆(지도 폴백 시에만 상단, tabStage)
         p.bodyY = L.short ? 36 : 46;
         // 가독성: 탭 본문(목록·카드·버튼 그리드) 뒤 반투명 남색 얇은 판(0x0B1328 a0.6 + 금색 1px). 큰 장식 창 대신 단색 판
         p.add(this.add.rectangle(-8, p.bodyY - 6, w + 16, h - p.bodyY + 10, 0x0b1328, 0.6).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.45));
         this.content.add(p);
         this.panel = p;
         this.area = { x: 0, y: p.bodyY, w, h: h - p.bodyY };
-        this.loading = makeText(this, w / 2, p.bodyY + 40, '불러오는 중...', { size: 18, color: CSS.muted, origin: [0.5, 0.5], stroke: { color: '#0B1020', width: 3 } });
-        p.add(this.loading);
-        // U34: 로딩 스켈레톤(행 3개, 연출 끄기면 정지). done()/fail() 에서 제거. soft 재구성은 캐시라 생략
+        // U34 로딩 표현(2026-11-14 재디자인, ui/TabLoading): 실제 화면 모양 스켈레톤(카드 격자/목록 행, 둥근 모서리·금 헤어라인·완만한 shimmer) + 본문 중앙 배지(금 고리 + 문장 + '불러오는 중…').
+        //  스켈레톤은 done()/fail() 에서 파괴, 배지(this.loading)는 숨김만(fail() 의 탭 생존 판정·ShioriBrief 보류 판정이 loading.scene/visible 을 씀). soft 재구성은 캐시라 스켈레톤 생략
         this.skel?.forEach((o) => o.destroy());
-        this.skel = soft ? [] : [0, 1, 2].map((i) => createSkeleton(this, 0, p.bodyY + 72 + i * 64, Math.min(w, 640), 52));
+        const sa = { x: 0, y: p.bodyY + 4, w, h: Math.max(40, h - p.bodyY - 10) }; // 본문 판(위 rectangle) 안쪽
+        let skelOpt = { kind: 'row' };
+        if (CARD_LOADING_TABS.has(key)) {
+            const gap = 12; const usable = sa.w - 8;
+            const ratio = key === 'hero' ? HERO_CARD_RATIO : 1.3;
+            const cols = L.short ? Math.min(8, Math.max(2, Math.ceil((usable + gap) / (Math.floor((sa.h - 10) / ratio) + gap)))) : this.gridCols(usable, key === 'hero' ? (L.portrait ? 160 : 220) : (L.portrait ? 104 : 132), gap, key === 'hero' ? [4, 6] : [5, 9], key === 'hero' ? 2 : 3);
+            skelOpt = { kind: 'card', cols, ratio, gap };
+        }
+        this.skel = soft ? [] : [createTabSkeleton(this, sa, skelOpt)];
         this.skel.forEach((o) => p.add(o));
-        const fn = { stage: this.tabStage, main: this.tabMain, hero: this.tabHero, protagonist: this.tabProtagonist, dex: (pp) => tabDex(this, pp), rank: (pp) => tabRank(this, pp), war: this.tabWar, room: this.tabRoom, gacha: this.tabGacha, more: this.tabMore, quest: (pp) => tabQuest(this, pp), ranking: (pp) => tabRanking(this, pp), shop: (pp) => tabShop(this, pp), exchange: (pp) => tabExchange(this, pp), inventory: (pp) => tabInventory(this, pp) }[key];
-        fn.call(this, p).catch((e) => this.fail(p, e));
+        this.loading = createTabLoadingBadge(this, w / 2, sa.y + sa.h / 2, { fadeIn: !soft });
+        p.add(this.loading);
+        const fn = { lineup: this.tabLineup, stage: this.tabStage, main: this.tabMain, hero: this.tabHero, protagonist: this.tabProtagonist, dex: (pp) => tabDex(this, pp), rank: (pp) => tabRank(this, pp), war: this.tabWar, room: this.tabRoom, gacha: this.tabGacha, more: this.tabMore, quest: (pp) => tabQuest(this, pp), ranking: (pp) => tabRanking(this, pp), shop: (pp) => tabShop(this, pp), exchange: (pp) => tabExchange(this, pp), inventory: (pp) => tabInventory(this, pp) }[key];
+        const soon = comingSoonOf(key); // 잠긴 기능 = 티저만(War 오버레이·랭크 API 호출 없음)
+        (soon ? tabComingSoon(this, p, soon) : fn.call(this, p)).catch((e) => this.fail(p, e));
     }
 
     // 목록(ScrollList)에서 보이는 카드의 초상화만 지연 로드: 즉시 1회 + 스크롤 대비 250ms 주기 확인(목록 파괴 시 정리)
@@ -625,12 +692,7 @@ export class LobbyScene extends Phaser.Scene {
     }
 
     // 섹션 카드 배경(반투명 남색 panel.sub). 스킨이 없으면 단색 + 얇은 금선
-    sectionBg(x, y, w, h, alpha = 0.82) {
-        const sk = skinOn(this) ? slice(this, 'panel_sub', w, h, 'panel') : null;
-        if (sk?.skinAtlas) return sk.setPosition(x, y).setAlpha(alpha);
-        sk?.destroy();
-        return this.add.rectangle(x, y, w, h, COLOR.navyDeep, alpha).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.5);
-    }
+    sectionBg(x, y, w, h, alpha = 0.82) { return heroSectionBg(this, x, y, w, h, alpha); } // ui/HeroDetailView 공용
 
     fail(p, e) {
         if (!p.scene || !this.loading?.scene) return; // 탭이 바뀌어 패널이 사라짐
@@ -640,22 +702,23 @@ export class LobbyScene extends Phaser.Scene {
         p.add(new Button(this, { x: a.x, y: a.y + 50, w: 160, label: '다시 시도', variant: 'primary', onClick: () => this.show(this.tab) }));
     }
 
-    done() { this.loading?.setText(''); this.skel?.forEach((o) => o.destroy()); this.skel = []; }
+    // 2026-11-14: 로딩 문구는 숨김 처리(파괴하지 않음: fail() 의 '탭 생존' 판정이 loading.scene 을 씀). ShioriBrief 는 visible 까지 봐서 로딩 끝난 뒤 안내 보류가 풀린다
+    done() { this.loading?.stopAnim?.(); this.loading?.setText?.(''); this.loading?.setVisible(false); this.skel?.forEach((o) => o.destroy()); this.skel = []; }
 
     // ---------- 스테이지 ----------
     async tabStage(p) {
         const all = await gameApi.stages();
         rememberStages(all); // 캠페인 흐름(전투 후 대사 판정)용 stage id -> code 캐시
+        await gameApi.lineup().catch(() => null); // 편성 캐시(정보 줄 권장 레벨 비교·말풍선). 실패해도 진행
         if (!p.scene) return;
-        const stages = all.filter((s) => !isMainStory(s)); // 메인 스토리(chapter 101+)는 '메인 스토리' 탭 전용: 서가 지도·카드 그리드에 섞지 않음
+        const stages = all.filter((s) => !inMainTab(s)); // 메인 스토리(chapter 101+)·튜토리얼(chapter 0)은 '메인 스토리' 탭 전용: 서가 지도·카드 그리드에 섞지 않음
         // 캠페인 지도(StageMapView): 메타/좌표가 없거나 꺼져 있으면 아래 기존 카드 그리드. 끄기: ?stagemap=0 또는 localStorage srpg.stageMap=0
         // 안전장치: 메타 로드·모델 생성·뷰 생성 중 예외면 만들던 뷰를 버리고 카드 그리드로 폴백(빈 화면 방지, 콘솔 경고)
         if (stageMapOn() && stages.length) {
-            const actP = this.activeBattles(); // 이어하기(가장 최근 1건): 지도 요약 카드 출정 옆. 실패해도 빈 목록
             const meta = await loadCampaignMapMeta(stages).catch((e) => { console.warn('[StageMap] 지도 메타 로드 실패, 카드 그리드로 폴백', e); return null; });
             (meta?.shelves ?? []).forEach((sh) => { const n = Number(sh?.chapter); if (Number.isFinite(n) && sh?.name_ko && !CHAPTER_TITLE[n]) SHELF_TITLE[n] = sh.name_ko; });
             const hidden = await gameApi.hiddenChapter().catch(() => null); // 숨은 종장 진행도(실패·미배포면 null = 지도에 아무것도 안 함)
-            const resume = (await actP).battles?.[0] ?? null; // 서버 응답 최근순 -> 첫 건
+            const resume = null; // 이어하기는 출정 옆이 아니라 본문 상단(서브 탭 줄 오른쪽, addResumeButton)으로 통일(2026-11-14 사용자 '출정 옆 어색'). StageMapView resume 옵션은 null = 숨김
             if (!p.scene) return;
             let model = null;
             try { model = meta ? buildCampaignMap(stages, meta, { chapterOf: stageChapter, chapterTitle, hidden, hiddenChapter: HIDDEN_CHAPTER }) : null; } catch (e) { console.warn('[StageMap] 지도 모델 생성 실패, 카드 그리드로 폴백', e); }
@@ -663,7 +726,7 @@ export class LobbyScene extends Phaser.Scene {
                 const a = this.area;
                 let view = null;
                 try {
-                    view = new StageMapView(this, { x: a.x, y: a.y, w: a.w, h: a.h, model, wide: (this.wide() || L.short) && !L.portrait, /* 가로 폰(667 포함)도 좌우 배치(띠 지도 + 목록이 하단 탭 뒤로 가려지던 문제, 강화면 gacha44) */ onPick: (s, o) => this.pickStage(s, o), onGacha: gachaOn() ? () => this.goGacha() : null, resume, onResume: (b) => { if (this.modalCount > 0) return; this.resumeBattle(b); }, onProtagonist: () => openCharacterCreate(this, { mode: 'create', next: { scene: 'Lobby', data: { tab: 'stage' } } }) });
+                    view = new StageMapView(this, { x: a.x, y: a.y, w: a.w, h: a.h, model, wide: (this.wide() || L.short) && !L.portrait, /* 가로 폰(667 포함)도 좌우 배치(띠 지도 + 목록이 하단 탭 뒤로 가려지던 문제, 강화면 gacha44) */ onPick: (s, o) => this.pickStage(s, o), onGacha: gachaOn() ? () => this.goGacha({ focusBlocking: true }) : null, resume, onResume: (b) => { if (this.modalCount > 0) return; this.resumeBattle(b); }, onProtagonist: () => openCharacterCreate(this, { mode: 'create', next: { scene: 'Lobby', data: { tab: 'stage' } } }) });
                     // 렌더 중 예외는 try/catch 로 못 잡으므로 생성 직후 Container 자식 배열이 정상인지 확인(예약 속성 덮어쓰기 방지)
                     if (!Array.isArray(view.list)) throw new Error('StageMapView.list 가 배열이 아님(Container 예약 속성 충돌)');
                     this.done();
@@ -678,7 +741,6 @@ export class LobbyScene extends Phaser.Scene {
             }
         }
         this.done();
-        this.addResumeButton(p, p.w); // 지도 폴백(카드 그리드): 이어하기는 기존처럼 본문 상단 오른쪽
         this.stageCards(p, stages, { msg: '열린 스테이지가 없습니다', sub: '잠시 후 다시 시도해 주세요.' });
     }
 
@@ -687,12 +749,41 @@ export class LobbyScene extends Phaser.Scene {
     async tabMain(p) {
         const all = await gameApi.stages();
         rememberStages(all);
+        await gameApi.lineup().catch(() => null); // 편성 캐시(정보 줄 권장 레벨 비교)
         if (!p.scene) return;
-        const stages = all.filter(isMainStory).sort((x, y) => stageChapter(x) - stageChapter(y)); // 같은 막 안은 서버 순서 유지(안정 정렬)
+        // 튜토리얼(chapter 0) 먼저(서버 순서) -> 메인 스토리 1~4막. 같은 막 안은 서버 순서 유지(안정 정렬)
+        const stages = [...all.filter(isTutorial), ...all.filter(isMainStory).sort((x, y) => stageChapter(x) - stageChapter(y))];
         this.done();
-        // 추천 배지는 한 곳에만(하플레이 2026-11-04 '추천 중복'): 스테이지 탭(서가 지도)에 진행할 스테이지가 남아 있으면 메인 스토리 탭은 추천 표시 생략
-        const shelfLeft = all.some((s) => !isMainStory(s) && stagePlayable(s) && !(s.clear_count > 0));
+        // 추천 배지는 한 곳에만(하플레이 2026-11-04 '추천 중복'). 튜토리얼이 이 탭으로 온 뒤(2026-11-14): 튜토리얼에 진행할 스테이지가 남아 있으면 이 탭이 추천,
+        //  아니면 기존 규칙(역사 시나리오 지도에 진행할 스테이지가 남아 있으면 이 탭은 추천 생략)
+        const tutLeft = stages.some((s) => isTutorial(s) && stagePlayable(s) && !(s.clear_count > 0));
+        const shelfLeft = !tutLeft && all.some((s) => !inMainTab(s) && stagePlayable(s) && !(s.clear_count > 0));
+        // 도서관 지도(역사 시나리오 지도와 같은 플래그 stageMapOn). 모델·뷰 생성 예외면 기존 카드 그리드 폴백
+        if (stageMapOn() && stages.length) {
+            let view = null;
+            try {
+                const model = buildCampaignMap(stages, libraryMeta(), { chapterOf: stageChapter, chapterTitle });
+                if (model?.usable) {
+                    const a = this.area;
+                    view = new LibraryMapView(this, { x: a.x, y: a.y, w: a.w, h: a.h, model, wide: (this.wide() || L.short) && !L.portrait, onPick: (s, o) => this.pickStage(s, o), onGacha: gachaOn() ? () => this.goGacha({ focusBlocking: true }) : null, resume: null, onProtagonist: null });
+                    if (!Array.isArray(view.list)) throw new Error('LibraryMapView.list 가 배열이 아님');
+                    p.add(view);
+                    this.mainTabSortie(stages, shelfLeft);
+                    return;
+                }
+            } catch (e) { console.warn('[LibraryMap] 도서관 지도 생성 실패, 카드 그리드로 폴백', e); try { view?.destroy(); } catch { /* 무시 */ } }
+        }
         this.stageCards(p, stages, { msg: '메인 스토리 준비 중', sub: '곧 열립니다.' }, { noRec: shelfLeft });
+        this.mainTabSortie(stages, shelfLeft);
+    }
+
+    // 메인 스토리 탭의 자동 출정(튜토리얼 이동 후): 결과 화면 '다음 스테이지'(sortieStageId)·새 튜토리얼 프롤로그 직후(autoSortie) = 역사 시나리오 지도(tabStage)와 같은 동작
+    mainTabSortie(stages, noRec) {
+        if (this.sortieStageId != null) { const sid = this.sortieStageId; const sN = stages.find((x) => Number(x.id) === Number(sid)); if (sN) { this.sortieStageId = null; if (sN.unlocked !== false) this.time.delayedCall(300, () => { if (this.sys.isActive()) this.pickStage(sN, { direct: true }); }); } }
+        if (this.autoSortie) {
+            const s0 = noRec ? null : stages.find((s) => stagePlayable(s) && !(s.clear_count > 0)); // stageCards 추천과 같은 규칙
+            if (s0) { this.autoSortie = false; this.time.delayedCall(this.noticeMs ? this.noticeMs + 300 : 400, () => { if (this.sys.isActive()) this.pickStage(s0, { direct: true }); }); }
+        }
     }
 
     // 스테이지 카드 그리드(챕터 헤더 + 카드). 빈 목록이면 빈 상태 문구
@@ -714,7 +805,7 @@ export class LobbyScene extends Phaser.Scene {
         groups.forEach((g) => {
             const head = this.add.container(0, y); head.clipH = 36;
             // 캠페인 장(chapter>0): 진행도(클리어 수·별 합계) 병기
-            const prog = g.ch > 0 ? `   클리어 ${g.items.filter(([s]) => s.clear_count > 0).length}/${g.items.length} · ★ ${g.items.reduce((n, [s]) => n + (s.best_stars ?? 0), 0)}/${g.items.length * 3}` : '';
+            const prog = g.ch >= 0 ? `   클리어 ${g.items.filter(([s]) => s.clear_count > 0).length}/${g.items.length} · ★ ${g.items.reduce((n, [s]) => n + (s.best_stars ?? 0), 0)}/${g.items.length * 3}` : '';
             const ht = makeText(this, 0, 18, chapterTitle(g.ch) + prog, { size: 16, heading: true, color: '#f0d58c', origin: [0, 0.5] });
             // 1장 헤더 우측: 주인공 열람 카드(캐릭터 생성·재검사·초상화 변경, 재검사 가능 여부는 BE 정책)
             const cardW = g.ch === 1 ? 132 : 0;
@@ -731,7 +822,9 @@ export class LobbyScene extends Phaser.Scene {
                 const ok = stagePlayable(s);
                 const c = ok ? CSS.text : CSS.muted;
                 const isRec = rec && s.id === rec.id;
-                let tx = 14;
+                // 안쪽 여백: 1열(390·667)은 row 스킨 모서리 장식이 번호·첫 글자를 덮어(강화면 a27c Low) 24, 다열(1280)은 기존 14
+                const pad = cols > 1 ? 14 : 24;
+                let tx = pad;
                 row.add(makeText(this, tx, 10, `${i + 1}`, { size: 12, color: CSS.muted }));
                 // U16: 자물쇠 이모지 대신 도트 pix.lock(없으면 ico.lock, 둘 다 없으면 '잠김' 글자)
                 if (!ok) {
@@ -739,20 +832,20 @@ export class LobbyScene extends Phaser.Scene {
                     if (lk) { lk.setPosition(tx + 8, 37); row.add(lk); tx += 22; } else { const lt = makeText(this, tx, 37, '잠김', { size: 12, bold: true, color: CSS.dangerText, origin: [0, 0.5] }); row.add(lt); tx += lt.width + 6; }
                 }
                 const chipW = isRec ? 52 : 0;
-                row.add(fitText(makeText(this, tx, 37, s.name, { size: cols > 1 ? 18 : 17, bold: true, color: c, origin: [0, 0.5] }), cw - tx - 14 - chipW));
+                row.add(fitText(makeText(this, tx, 37, s.name, { size: cols > 1 ? 18 : 17, bold: true, color: c, origin: [0, 0.5] }), cw - tx - pad - chipW));
                 if (isRec) {
-                    row.add(this.add.rectangle(cw - 14 - 44, 27, 44, 20, COLOR.accent, 0.95).setOrigin(0));
-                    row.add(makeText(this, cw - 14 - 22, 37, '추천', { size: 12, bold: true, color: '#1A1406', origin: [0.5, 0.5] }));
+                    row.add(this.add.rectangle(cw - pad - 44, 27, 44, 20, COLOR.accent, 0.95).setOrigin(0));
+                    row.add(makeText(this, cw - pad - 22, 37, '추천', { size: 12, bold: true, color: '#1A1406', origin: [0.5, 0.5] }));
                 }
                 // 캠페인: 목표 유형 병기(생존 목표만 강조색). 기존 스테이지(chapter 0)는 목표 문구 생략(전부 지휘관 격파)
                 const wr = normRules(s.stage_rules ?? s.rules); // 승패 규칙(only/all) 있으면 그 라벨, 없으면 기존 짧은 목표
                 const objTxt = stageChapter(s) > 0 ? `   목표 ${wr && ['only', 'all'].includes(wr.mode) ? goalLines(s.objective, wr).join(' · ') : objectiveShort(s.objective)}` : '';
-                row.add(fitText(makeText(this, 14, 60, `난이도 ${stars(s.difficulty, 6)}   권장 Lv.${s.recommended_level}${objTxt}`, { size: 12, color: s.objective?.type === 'survive_turns' ? '#9fd8c8' : '#C9C2AE', origin: [0, 0.5] }), cw - 28));
-                row.add(fitText(makeText(this, 14, 78, `보상  EXP ${s.rewards.user_exp} · 영웅 EXP ${s.rewards.exp} · 골드 ${s.rewards.gold}`, { size: 12, color: CSS.accent, origin: [0, 0.5] }), cw - 28));
+                row.add(fitText(makeText(this, pad, 60, `난이도 ${stars(s.difficulty, 6)}   권장 Lv.${s.recommended_level}${objTxt}`, { size: 12, color: s.objective?.type === 'survive_turns' ? '#9fd8c8' : '#C9C2AE', origin: [0, 0.5] }), cw - pad * 2));
+                row.add(fitText(makeText(this, pad, 78, `보상  EXP ${s.rewards.user_exp} · 영웅 EXP ${s.rewards.exp} · 골드 ${s.rewards.gold}`, { size: 12, color: CSS.accent, origin: [0, 0.5] }), cw - pad * 2));
                 const lockMsg = stageLockText(s); // 선행 사유 우선 + '필요 영웅: ...'
                 const joinTxt = s.join_hero?.length && !(s.clear_count > 0) ? `  · 합류 ${s.join_hero.map(heroNameOf).join(', ')}` : ''; // 첫 클리어 합류 영웅(클리어 후엔 생략)
                 const st = ok ? (s.clear_count > 0 ? `최고 ${stars(s.best_stars)}  클리어 ${s.clear_count}회` : `미클리어${joinTxt}`) : lockMsg;
-                row.add(fitText(makeText(this, 14, 96, st, { size: 12, color: ok ? CSS.accent : CSS.dangerText, origin: [0, 0.5] }), cw - 28));
+                row.add(fitText(makeText(this, pad, 96, st, { size: 12, color: ok ? CSS.accent : CSS.dangerText, origin: [0, 0.5] }), cw - pad * 2));
                 list.content.add(row);
             });
             y += Math.ceil(g.items.length / cols) * (rowH + gap) + 8;
@@ -763,7 +856,7 @@ export class LobbyScene extends Phaser.Scene {
 
     // ---------- 이어하기(중간 저장) ----------
     // 서버가 스테이지 전투를 행동마다 저장 -> GET /api/battles/active 로 진행 중 전투 조회. 실패하면 빈 목록(로비 동작에 영향 없음)
-    async activeBattles() { try { return await gameApi.battle.active(); } catch (e) { console.warn('[resume] 진행 중 전투 조회 실패', e); return { battles: [], maxOpen: 3 }; } }
+    async activeBattles() { try { return await gameApi.battle.active(); } catch (e) { console.warn('[resume] 진행 중 전투 조회 실패', e); return { battles: [], maxOpen: 1 }; } } // 서버 열린 전투 상한 기본 1(2026-11-14 config)
 
     // 본문 상단 오른쪽(서브 탭 줄) '이어하기 (스테이지명 · N턴)' 버튼(메인 스토리 탭·스테이지 지도 폴백). 이어하기는 하나만: 진행 중 전투가 여러 개여도 가장 최근 1건(서버 응답 최근순 첫 건)
     async addResumeButton(p, w) {
@@ -771,11 +864,11 @@ export class LobbyScene extends Phaser.Scene {
         if (!p.scene || this.panel !== p || !battles.length) return;
         let used = 200; // 서브 탭(또는 제목) 폭
         try { if (this.subTabs?.scene && this.subTabs.parentContainer === p) used = Math.min(w, this.subTabs.getBounds().width); } catch { /* 기본값 */ }
-        const bw = Math.max(120, Math.min(300, w - used - 8));
+        const bw = Math.max(96, Math.min(300, w - used - 8)); // 서브 탭과 8 이상 띄움(390: 서브 탭 240 -> 남는 폭에 맞춰 축소)
         const one = battles[0];
         const st1 = one.status === 'deployment' ? '배치 중' : `${one.turn}턴`;
-        // 좁은 버튼(390 등 폭 220 미만): 스테이지명 생략(하플레이 #8 라벨 잘림). 스테이지명은 탭 후 진입 화면에서 보인다
-        const label = bw < 220 ? `이어하기 · ${st1}` : `이어하기 (${one.stage_name ?? '전투'} · ${st1})`;
+        // 좁은 버튼: 220 미만이면 스테이지명 생략(하플레이 #8 라벨 잘림), 140 미만이면 '이어하기'만. 스테이지명은 탭 후 진입 화면에서 보인다
+        const label = bw < 140 ? '이어하기' : bw < 220 ? `이어하기 · ${st1}` : `이어하기 · ${one.stage_name ?? '전투'} · ${st1}`;
         const btn = new Button(this, { x: w - bw, y: -4, w: bw, h: L.short ? 34 : 40, label, variant: 'primary', size: 15, onClick: () => { if (this.modalCount > 0) return; this.resumeBattle(one); } }); // v19: 모달 열린 동안 무시(이중 방어)
         p.add(btn);
     }
@@ -795,6 +888,13 @@ export class LobbyScene extends Phaser.Scene {
         if (!stagePlayable(s)) {
             if (s.unlocked && missingHeroesOf(s).length) { this.heroMissingModal(missingHeroesOf(s)); return; }
             showToast(this, '아직 해금되지 않은 스테이지입니다.'); return;
+        }
+        // 편성 라인업 사전 판정(서버 lineup_ready, 최종 판정은 서버): 부족하면 출정 전에 안내 + '편성 화면으로'
+        if (s.lineup_ready === false) {
+            const need = Number(s.min_party) || 1;
+            const why = s.lineup_reason === 'lineup_empty' ? '편성에 영웅이 없습니다.' : `이 스테이지는 최소 ${need}명이 필요합니다.`;
+            confirmModal(this, '편성 필요', `${why}\n영웅 > 편성에서 출전할 영웅을 넣어 주세요.`, () => this.selectTab('lineup'), { okLabel: '편성 화면으로' });
+            return;
         }
         const prof = session.profile;
         const warn = prof && prof.level < s.recommended_level ? `\n! 권장 레벨(${s.recommended_level})보다 낮습니다.` : '';
@@ -819,16 +919,23 @@ export class LobbyScene extends Phaser.Scene {
             }
             if (!opts.capOk && act.battles.length >= act.maxOpen) {
                 const old = act.battles[act.battles.length - 1]; // 최근 갱신순 -> 마지막이 가장 오래됨
-                new Modal(this, { title: '열린 전투 상한', body: `진행 중인 전투가 ${act.battles.length}개입니다(최대 ${act.maxOpen}개).
-새로 도전하면 가장 오래된 '${old?.stage_name ?? '전투'}' 전투가 자동으로 포기 처리됩니다.`, w: 540, h: 240,
-                    buttons: [{ label: '취소' }, { label: '그래도 도전', variant: 'danger', onClick: () => this.pickStage(s, { ...opts, direct: true, fresh: true, capOk: true }) }] });
+                // 상한 1(기본): 진행 중 전투 1개 기준 문구 + 이어하기. 상한이 2 이상이면 기존 '가장 오래된 전투' 문구
+                const oldSt = old ? (old.status === 'deployment' ? '배치 중' : `${old.turn ?? 1}턴`) : '';
+                const body = act.maxOpen <= 1
+                    ? `진행 중인 '${old?.stage_name ?? '전투'}' 전투가 있습니다(${oldSt}).
+새로 시작하면 기존 전투는 포기(패배) 처리됩니다.`
+                    : `진행 중인 전투가 ${act.battles.length}개입니다(최대 ${act.maxOpen}개).
+새로 도전하면 가장 오래된 '${old?.stage_name ?? '전투'}' 전투가 자동으로 포기 처리됩니다.`;
+                new Modal(this, { title: act.maxOpen <= 1 ? '진행 중인 전투' : '열린 전투 상한', body, w: 540, h: 240,
+                    buttons: [{ label: '취소' }, { label: act.maxOpen <= 1 ? '새로 시작' : '그래도 도전', variant: 'danger', onClick: () => this.pickStage(s, { ...opts, direct: true, fresh: true, capOk: true }) },
+                        ...(act.maxOpen <= 1 && old ? [{ label: '이어하기', variant: 'primary', onClick: () => this.resumeBattle(old) }] : [])] });
                 return;
             }
             try {
                 const r = await gameApi.challenge(s.id);
                 const deploy = { scene: 'Deploy', data: { mode: 'stage', battleId: r.battle.battle_id, info: r.deployment, stageName: s.name, stageCode: s.code } };
                 // 캠페인: 미시청 장 시작(ch1_open)·스테이지 전(<code>_pre) 대사를 재생한 뒤 배치 화면으로
-                if (camp) await playBeforeStage(this, s, deploy); else this.scene.start(deploy.scene, deploy.data);
+                if (camp || /^stage_\d+$/.test(s.code ?? '')) await playBeforeStage(this, s, deploy); else this.scene.start(deploy.scene, deploy.data); // 일반 스테이지 stage_NN 도 개전 전 대사(ch30, stage_01 은 장면 없음 -> 바로 배치)
             } catch (e) {
                 if (e?.code === 'required_hero_missing') { this.heroMissingModal(missingHeroesOf(e.details ?? {})); return; } // 원시 서버 문구 대신 영웅 이름 안내
                 alertModal(this, '도전 실패', messageOf(e));
@@ -918,20 +1025,117 @@ export class LobbyScene extends Phaser.Scene {
     }
 
     // 필수 영웅 미보유 안내(대여 없음). 소집(가챠) 탭으로 이동만 하고 자동 구매는 하지 않는다
-    heroMissingModal(missing) {
-        const body = `${missingHeroText(missing) || '필요 영웅을 보유하지 않았습니다.'}
-영웅을 영입하면 출정할 수 있습니다.`;
+    //  해결책 안내(2026-11-14): GET /api/gacha 의 시나리오 배너(pool_heroes·required_pity)에서 그 영웅이 나오는 배너 제목·필수 천장을 찾아 덧붙인다(수치는 서버 값만, 실패 시 기본 문구)
+    async heroMissingModal(missing) {
+        if (this.heroHintBusy) return;
+        this.heroHintBusy = true;
+        let hint = null;
+        try { if (gachaOn()) hint = gachaHintOf(await gameApi.gacha.info(), missing); } catch { /* 안내 없이 기본 문구 */ } finally { this.heroHintBusy = false; }
+        if (!this.sys.isActive()) return;
+        const body = [missingHeroText(missing) || '필요 영웅을 보유하지 않았습니다.', hint?.text || '영웅을 영입하면 출정할 수 있습니다.'].join('\n');
         const buttons = [{ label: '닫기' }];
-        if (gachaOn()) buttons.push({ label: '소집으로 이동', variant: 'primary', onClick: () => this.goGacha() });
-        new Modal(this, { title: '출정 불가', body, w: 460, h: 220, buttons });
+        if (gachaOn()) buttons.push({ label: hint ? '배너로 이동' : '소집으로 이동', variant: 'primary', onClick: () => this.goGacha(hint ? { sel: hint.sel } : { focusBlocking: true }) });
+        // 창 높이 = 본문 실제 줄 수에 맞춤(소탕 모달과 같은 계산, 강화면 2026-11-14: 390 폭에서 고정 260 이면 마지막 줄이 잘림). 최소는 기존 값
+        const mw = Math.min(500, L.lw - 24);
+        const probe = makeText(this, 0, 0, body, { size: L.short ? 16 : 18, wrap: mw - 48 }); const bodyH = probe.height; probe.destroy();
+        new Modal(this, { title: '출정 불가', body, w: 500, h: Math.min(L.lh - 24, Math.max(hint ? 260 : 220, Math.ceil(62 + 12 + 8 + bodyH + 24 + Math.max(48, MIN_TOUCH) + 24))), buttons });
     }
 
-    goGacha() { if (!gachaOn()) return; this.selectTab('gacha'); }
+    // opts.sel = 열 배너 key(Gacha 씬 'theme:<배너 key>'), opts.focusBlocking = 막힌 스테이지 필수 영웅 배너(서버 blocking) 우선 선택
+    goGacha(opts = null) { if (!gachaOn()) return; this.gachaFocus = opts; this.selectTab('gacha'); }
 
     // 코드에서 탭 이동(하단 바 강조 동기화: 그룹 모드면 그 탭이 든 그룹 버튼)
     selectTab(key) { this.tabBar?.setActive(groupsOn() ? groupOf(key).key : key); this.show(key); }
 
     // ---------- 영웅 ----------
+    // ---------- 편성(라인업, 2026-11-14) ----------
+    // 캠페인 스테이지 출정 풀(최대 max 명, 서버 GET/PUT /api/lineup). 위 = 편성 슬롯(탭 = 빼기), 아래 = 보유 영웅(탭 = 넣기·빼기). 저장 = PUT 전량 교체
+    async tabLineup(p) {
+        const [lu, heroes] = await Promise.all([gameApi.lineup(true), gameApi.heroes()]);
+        if (!p.scene) return;
+        this.done();
+        const a = this.area; const max = Number(lu?.max) || 5;
+        let ids = (lu?.lineup ?? []).map((h) => h.user_hero_id);
+        const pool = (heroes ?? []).filter((h) => !h.protagonist && !h.campaign_only);
+        const byId = new Map(pool.map((h) => [h.id ?? h.user_hero_id, h]));
+        (lu?.lineup ?? []).forEach((h) => { if (!byId.has(h.user_hero_id)) byId.set(h.user_hero_id, { ...h, id: h.user_hero_id }); });
+        const root = this.add.container(a.x, a.y); p.add(root);
+        const nameOf = (h) => h?.display_name ?? h?.name ?? h?.hero ?? '';
+        let scrollY = 0; // 넣기/빼기 후 다시 그릴 때 목록 스크롤 위치 유지
+        const draw = () => {
+            const prev = root.list.find((o) => o instanceof ScrollList); if (prev) scrollY = prev.content.y;
+            root.removeAll(true);
+            const lv = ids.map((id) => Number(byId.get(id)?.level) || 0);
+            const avg = lv.length ? (lv.reduce((x, y) => x + y, 0) / lv.length).toFixed(1) : '-';
+            root.add(makeText(this, 0, 0, `편성 ${ids.length}/${max}  ·  평균 Lv.${avg}`, { size: 16, heading: true, color: '#f0d58c' }));
+            const note = makeText(this, 0, 24, '캠페인 출정은 편성 영웅(+ 필수·고정 영웅, 주인공) 안에서만 고를 수 있습니다.', { size: 12, color: CSS.muted, wrap: a.w });
+            root.add(note);
+            // 편성 슬롯 = 초상 카드(heroCard 비아트형: 초상 지연 로드 + 등급 표식 + 이름 1줄 + Lv, 2026-11-14 모바일 개선). 탭 = 빼기, 길게 = 영웅 상세
+            //  높이 = 폭 + 60(초상 >= 50 확보), 가로 폰(L.short)은 목록 자리를 위해 116 상한
+            const sw = Math.min(120, Math.floor((a.w - (max - 1) * 8) / max)); const sh = L.short ? Math.min(sw + 60, 116) : sw + 60; const sy = Math.max(52, Math.ceil(note.y + note.height + 8)); // 안내문이 2줄로 접히면(390) 슬롯 카드를 그 아래로
+            for (let i = 0; i < max; i += 1) {
+                const id = ids[i]; const h = id != null ? byId.get(id) : null;
+                if (h) {
+                    const card = this.heroCard(h, i * (sw + 8), sy, sw, sh, null, true);
+                    this.pressCard(card, sw, sh, () => { ids = ids.filter((x) => x !== id); draw(); }, () => this.heroDetail(h));
+                    card.portrait?.load();
+                    root.add(card);
+                } else {
+                    const row = listRow(this, { x: i * (sw + 8), y: sy, w: sw, h: sh, selected: false });
+                    row.add(makeText(this, sw / 2, sh / 2, '빈 칸', { size: 13, bold: true, color: CSS.muted, origin: [0.5, 0.5] }));
+                    root.add(row);
+                }
+            }
+            const saveY = sy + sh + 10;
+            root.add(new Button(this, { x: a.w - 140, y: saveY, w: 140, h: 40, label: '편성 저장', variant: 'primary', size: 15, disabled: !ids.length, reason: '영웅을 1명 이상 넣어 주세요', onClick: async () => {
+                try { const d = await gameApi.saveLineup(ids); ids = (d?.lineup ?? []).map((h) => h.user_hero_id); showToast(this, '편성을 저장했습니다'); draw(); } catch (e) { alertModal(this, '편성 저장 실패', messageOf(e)); }
+            } }));
+            const grid = L.portrait; // 세로 폰: 보유 영웅 = 초상 카드 그리드(3열), 가로·PC = 기존 텍스트 행
+            root.add(fitText(makeText(this, 0, saveY + 20, grid ? '보유 영웅 (탭 = 넣기/빼기 · 길게 = 상세)' : '보유 영웅 (탭 = 넣기/빼기)', { size: 13, bold: true, color: CSS.text, origin: [0, 0.5] }), a.w - 150));
+            const ly = saveY + 48; const list = new ScrollList(this, { x: 0, y: ly, w: a.w, h: Math.max(60, a.h - ly), clip: true, bar: true });
+            root.add(list);
+            const sorted = [...pool].sort((x, y) => (Number(y.level) || 0) - (Number(x.level) || 0));
+            const toggle = (id, inL) => {
+                if (inL) ids = ids.filter((x) => x !== id); else if (ids.length < max) ids = [...ids, id]; else { showToast(this, `편성은 최대 ${max}명입니다`); return; }
+                draw();
+            };
+            if (grid) {
+                const gap = 8; const usable = a.w - 8; // 스크롤바 여유
+                const cols = this.gridCols(usable, 104, gap, [4, 6], 3); // 433(390)·400(360)·478(430) 논리 폭 모두 3열
+                const cw = Math.floor((usable - gap * (cols - 1)) / cols); const ch = Math.round(cw * 0.95) + 64;
+                sorted.forEach((h, k) => {
+                    const id = h.id ?? h.user_hero_id; const inL = ids.includes(id);
+                    const card = this.heroCard(h, (k % cols) * (cw + gap), Math.floor(k / cols) * (ch + gap), cw, ch, null, inL);
+                    if (inL) { // 편성됨 표식: 초상 아래쪽 가운데 금색 칩
+                        const py = ch - 64 - (h.title && ch - 76 >= 50 ? 12 : 0);
+                        card.add(this.add.rectangle(cw / 2, py - 6, 46, 18, COLOR.accent, 0.95).setStrokeStyle(1, COLOR.ink, 1));
+                        card.add(makeText(this, cw / 2, py - 6, '편성됨', { size: 11, bold: true, color: '#0B1020', origin: [0.5, 0.5] }));
+                    }
+                    this.pressCard(card, cw, ch, () => toggle(id, inL), () => this.heroDetail(h));
+                    list.content.add(card);
+                });
+                list.setContentHeight(Math.ceil(sorted.length / cols) * (ch + gap));
+                list.scrollTo(scrollY);
+                list.refreshMask?.();
+                this.lazyPortraits(list); // 보이는 카드 초상만 로드
+                return;
+            }
+            sorted.forEach((h, k) => {
+                const id = h.id ?? h.user_hero_id; const inL = ids.includes(id);
+                const r = listRow(this, { x: 0, y: k * 50, w: a.w - 10, h: 44, selected: inL, onClick: () => {
+                    if (inL) ids = ids.filter((x) => x !== id); else if (ids.length < max) ids = [...ids, id]; else { showToast(this, `편성은 최대 ${max}명입니다`); return; }
+                    draw();
+                } });
+                r.add(fitText(makeText(this, 12, 22, `${nameOf(h)}  ${heroLevelText(h, { short: true })}`, { size: 14, bold: true, color: inL ? '#f0d58c' : CSS.text, origin: [0, 0.5] }), a.w - 120));
+                r.add(makeText(this, a.w - 22, 22, inL ? '편성됨' : '', { size: 12, color: CSS.accent, origin: [1, 0.5] }));
+                list.content.add(r);
+            });
+            list.setContentHeight(sorted.length * 50);
+            list.scrollTo(scrollY);
+        };
+        draw();
+    }
+
     async tabHero(p) {
         // 주인공(protagonist:true)은 영웅 카드 목록에서 제외 -> '주인공' 서브 탭(tabProtagonist)에서 스테이터스 확인(fe-proto 2026-11-03, 사용자 지시)
         const heroes = [...(await gameApi.heroes(!this.softShow))].filter((h) => !h.protagonist).sort((x, y) => compareRarity(x.rarity, y.rarity) || (y.level - x.level));
@@ -940,7 +1144,7 @@ export class LobbyScene extends Phaser.Scene {
         const a = this.area;
         const list = new ScrollList(this, { x: a.x, y: a.y, w: a.w, h: a.h, clip: true, bar: true });
         p.add(list);
-        if (!heroes.length) { list.content.add(emptyState(this, { w: a.w, msg: '보유 영웅이 없습니다', sub: '스테이지를 클리어하거나 뽑기로 영웅을 얻으세요.', cta: gachaOn() ? '뽑기로 이동' : '스테이지로 이동', onCta: () => this.selectTab(gachaOn() ? 'gacha' : 'stage') })); return; }
+        if (!heroes.length) { list.content.add(emptyState(this, { w: a.w, msg: '보유 영웅이 없습니다', sub: '스테이지를 클리어하거나 뽑기로 영웅을 얻으세요.', cta: gachaOn() ? '뽑기로 이동' : '역사 시나리오로 이동', onCta: () => this.selectTab(gachaOn() ? 'gacha' : 'stage') })); return; }
         // 합성 프레임 고정 비율: 데스크톱 4~6열, 좁은 화면 2열. 편성의 작은 카드는 기존 UI 유지.
         const gap = 12;
         const usable = a.w - 8; // 우측 스크롤바(4px)가 마지막 열 테두리를 덮지 않게 여유
@@ -980,21 +1184,20 @@ export class LobbyScene extends Phaser.Scene {
         };
         p.add(new Button(this, { x: a.x + a.w - bw, y: by, w: bw, h: btnH, label: '장비', variant: 'primary', size: 16, onClick: () => openEquipment(this, hh, onChanged, { onDetail: () => this.show('protagonist') }) }));
         p.add(new Button(this, { x: a.x + a.w - bw * 2 - gapB, y: by, w: bw, h: btnH, label: '열람 카드', size: 16, onClick: () => this.openProtoCard() }));
-        // 주인공 이름: 서브 탭 줄 오른쪽 빈 자리(서브 탭 폭 = 2 x 120|160)에 오른쪽 정렬. 자리가 부족하면 생략
-        const nameW = p.w - (this.subTabs?.scene ? this.subTabs.x + Math.min(p.w, 2 * (L.portrait ? 120 : 160)) : 160) - 12;
+        // 주인공 이름: 서브 탭 줄 오른쪽 빈 자리에 오른쪽 정렬. 자리가 부족하면 생략
+        //  서브 탭 폭 = 실제 서브 탭 수 x 120|160(refreshSubTabs 와 같은 식). 이전엔 2개로 가정해 영웅 그룹 5칸(390)에서 '인벤토리' 위에 이름이 겹쳤다(강화면 2026-11-14)
+        const subN = groupsOn() ? Math.max(2, subTabsOf(groupOf(this.tab)).length) : 2;
+        const nameW = p.w - (this.subTabs?.scene ? this.subTabs.x + Math.min(p.w, subN * (L.portrait ? 120 : 160)) : 160) - 12;
         if (nameW >= 60) p.add(fitText(makeText(this, p.w, 16, heroPlainName(hh), { size: 15, bold: true, color: CSS.accent, origin: [1, 0.5], stroke: { color: '#0B1020', width: 3 } }), nameW, { fallback: heroShortName(hh) }));
     }
 
     // 등급 표식: 도트 badge.rarity.<R> + 별(pix.star/star_empty). 아틀라스 없으면 기존 텍스트(S ★★★★). 좌상단 (x, y)
-    rarityTag(rarity, x, y, textStyle) {
-        const mk = rarityMark(this, rarity, { size: Math.round((textStyle?.size ?? 12) * 1.3) });
-        return mk ? mk.setPosition(x, y) : makeText(this, x, y, rarityBadge(rarity), textStyle);
-    }
+    rarityTag(rarity, x, y, textStyle) { return heroRarityTag(this, rarity, x, y, textStyle); } // ui/HeroDetailView 공용
 
     // Lv 표식(pix.level + 숫자, 가운데 정렬 cx, cy). 아틀라스 없으면 텍스트. 영웅 코스트는 2026-11-08 사용자 요청으로 영웅 정보 화면에서 제거(편성 화면에서만 표시)
     lvTag(hh, cx, cy, size) {
-        const lv = pixelLabel(this, 'pix.level', `Lv.${hh.level}`, makeText, { size: size + 2, textStyle: { color: CSS.accent } });
-        if (!lv) return makeText(this, cx, cy, `Lv.${hh.level}`, { size, color: CSS.accent, origin: [0.5, 0.5] });
+        const lv = pixelLabel(this, 'pix.level', heroLevelText(hh, { short: true }), makeText, { size: size + 2, textStyle: { color: CSS.accent } });
+        if (!lv) return makeText(this, cx, cy, heroLevelText(hh, { short: true }), { size, color: CSS.accent, origin: [0.5, 0.5] });
         const c = this.add.container(0, 0);
         const lw = lv.w; // Phaser 4 Container.setPosition 이 .w 를 0 으로 덮어써 먼저 보관
         lv.setPosition(cx - lw / 2, cy);
@@ -1005,6 +1208,7 @@ export class LobbyScene extends Phaser.Scene {
     heroCard(hh, x, y, w, h, onClick, selected = false, art = false) {
         const c = (art && heroMenuCard(this, hh, x, y, w, h, selected)) || this.add.container(x, y);
         c.clipH = h;
+        let badgeMaxH = h - 16; // 병종 뱃지 세로 상한(초상 카드 = 초상 영역 안, 아래 칭호·이름을 가리지 않게)
         if (!c.cardArt) {
         const bg = slice(this, `${raritySlotKey(hh.rarity)}`, w, h, 'slot');
         c.add(bg);
@@ -1012,10 +1216,13 @@ export class LobbyScene extends Phaser.Scene {
         const sub = hh.title && h - 6 - 70 >= 50 ? hh.title : ''; // U14: 칭호는 이름 위 부제(공간 있을 때만)
         const ph = h - 6 - 58 - (sub ? 12 : 0); // 초상화 높이(아래 이름·Lv 2줄 48 + 하단 프레임 장식 여유 10, Low-3: Lv 줄이 장식에 잘림). 병종은 우상단 뱃지로
         if (ph >= 50) {
+            badgeMaxH = ph - 4;
             // 초상화 카드: 초상화(지연 로드, 폴백 스프라이트/이니셜) + 등급 배지 + 이름·칭호 + Lv
             c.portrait = portraitBox(this, hh, 6, 6, w - 12, ph, { lazy: true }); // 보이는 카드만 로드(lazyPortraits)
             c.add(c.portrait);
-            c.add(this.rarityTag(hh.rarity, 10, 9, { size: 12, heading: true, color: rarityCss(hh.rarity), stroke: { color: '#0B1020', width: 3 } }));
+            const rtag = this.rarityTag(hh.rarity, 10, 9, { size: 12, heading: true, color: rarityCss(hh.rarity), stroke: { color: '#0B1020', width: 3 } });
+            if (w < 110 && rtag.cw > w - 20) rtag.setScale((w - 20) / rtag.cw); // 좁은 카드(390 편성 슬롯 75폭): 등급 별이 카드 오른쪽 밖으로(강화면 a27n Low)
+            c.add(rtag);
             let ny = ph + 6;
             if (sub) { c.add(fitText(makeText(this, w / 2, ny + 8, sub, { size: 12, color: CSS.muted, origin: [0.5, 0.5] }), w - 12)); ny += 12; }
             c.add(fitText(makeText(this, w / 2, ny + 14, heroPlainName(hh), { size: w < 130 ? 13 : 15, bold: true, origin: [0.5, 0.5] }), w - 10, { fallback: heroShortName(hh) }));
@@ -1038,25 +1245,39 @@ export class LobbyScene extends Phaser.Scene {
         if (ut && !c.cardArt) {
             const tl = hh.troop_label ?? hh.detail?.troop_label;
             const tt = hh.troop_type ?? hh.detail?.troop_type;
-            const vertical = w < 140;
-            const bs = Math.round(Math.max(18, Math.min(30, w * (vertical ? 0.19 : 0.17))));
+            // 아주 좁은 초상 카드(w < 110, 390 편성 슬롯): 우상단 세로 2개가 초상 얼굴을 덮음(강화면 a27n Low) -> 작게 가로로, 초상 아래쪽 모서리(얼굴 아래)에 둔다
+            const tiny = w < 110 && badgeMaxH < h - 16;
+            const vertical = !tiny && w < 140;
+            const bs = tiny ? 14 : Math.round(Math.max(18, Math.min(30, w * (vertical ? 0.19 : 0.17))));
             const tb = troopBadges(this, { heroClass: ut, troopClass: tt, troopLabel: tl, size: bs, vertical });
-            tb.setPosition(w - 8 - tb.w, 8);
+            // 도트 뱃지는 정수 배율로 맞춰져 요청 크기보다 커질 수 있다(390 편성 슬롯 75폭: 세로 2개가 초상 아래 칭호·이름까지 내려와 겹침, 강화면 2026-11-14) -> 상한 안으로 축소
+            const ts = Math.min(1, (tiny ? 16 : badgeMaxH) / Math.max(1, tb.h), (w - 16) / Math.max(1, tb.w));
+            if (ts < 1) tb.setScale(ts);
+            tb.setPosition(w - 8 - tb.w * ts, tiny ? 6 + badgeMaxH + 4 - tb.h * ts - 2 : 8);
             c.add(tb);
         }
         return c;
     }
 
+    // 카드 탭/길게 누르기(편성 탭 초상 카드): 탭(이동 12 이하) = onTap, 450ms 누름 = onHold(영웅 상세). 스크롤 드래그·모달 중에는 무시
+    pressCard(c, w, h, onTap, onHold) {
+        const hit = this.add.rectangle(0, 0, w, h, 0xffffff, 0).setOrigin(0).setInteractive({ useHandCursor: true });
+        let t = null; let held = false;
+        const cancel = () => { t?.remove(false); t = null; };
+        hit.on('pointerdown', () => { held = false; cancel(); t = this.time.delayedCall(450, () => { t = null; if (this.modalCount > 0 || !hit.scene) return; held = true; onHold(); }); });
+        hit.on('pointermove', (pt) => { if (pt.isDown && pt.getDistance() > 12) cancel(); });
+        hit.on('pointerout', cancel);
+        hit.on('pointerup', (pt) => { cancel(); if (held || this.modalCount > 0 || pt.getDistance() > 12) return; onTap(); });
+        c.add(hit);
+        return hit;
+    }
+
     heroDetail(hh) {
         // 레이아웃: 와이드 = 좌(큰 초상화 + 전투 유닛 스프라이트) / 우(섹션 카드 스크롤: 2열 + 전폭 표), 좁은 화면 = 상(초상화·스프라이트) / 하(섹션 1열)
         // 섹션: 기본 정보 · 능력치 · 병종 · 장비 (라벨-값 표) / 스킬 (표) / 역사적 설명 (라벨-값 + 요약 박스, 서버 미제공 시 숨김)
-        const W = Math.min(1180, L.lw - 24); const H = Math.min(720, L.lh - 24);
         // 주인공(서버 protagonist:true): '열람 카드' = 초상화 변경(PUT face)·다시 작성(재검사) 진입. 돌아오면 주인공 탭(영웅 카드 목록에서는 주인공 제외)
         const protoBtn = hh.protagonist ? [{ label: '열람 카드', onClick: () => this.openProtoCard() }] : [];
-        const m = new Modal(this, { title: heroPlainName(hh), w: W, h: H, buttons: [...protoBtn, { label: '장비', variant: 'primary', onClick: () => openEquipment(this, hh, () => sessionCache.setHeroes(null), { onDetail: () => this.heroDetail(hh) }) }, { label: '닫기' }], footer: true });
-        // 표·섹션 영역은 하단 고정 버튼 바(footerY) 위까지만
-        const bodyH = m.footerY - (m.panel.bodyY + 12) - 8;
-        this.heroStatusBody(m.inner, hh, { x: 24, y: 0, w: W - 48, h: bodyH, wide: W >= 760 || L.short }); // 가로 폰(667 포함)은 좌우 배치(세로 쌓기면 스크롤 영역이 28px)
+        openHeroDetail(this, hh, { buttons: [...protoBtn, { label: '장비', variant: 'primary', onClick: () => openEquipment(this, hh, () => sessionCache.setHeroes(null), { onDetail: () => this.heroDetail(hh) }) }, { label: '닫기' }] }); // 모달·본문 = ui/HeroDetailView
     }
 
     // 주인공 열람 카드(초상화 변경·다시 작성) 진입. 돌아오면 주인공 탭 + 영웅 목록 재조회(초상화 갱신)
@@ -1064,240 +1285,17 @@ export class LobbyScene extends Phaser.Scene {
 
     // 영웅 스테이터스 본문(초상화·스프라이트 + 기본 정보·능력치·(오라)·장비·스킬·역사 섹션). 영웅 상세 모달과 주인공 탭이 공용
     // tgt: 담을 컨테이너, (ix, iy, iw, bodyH): 영역, wideM: 좌우 배치 여부
-    heroStatusBody(tgt, hh, { x: ix, y: iy = 0, w: iw, h: bodyH, wide: wideM }) {
-        const skills = (hh.detail?.skills ?? []).filter((k) => k && k.name);
-        const tl = hh.troop_label ?? hh.detail?.troop_label;
-        const ut = hh.unit_type ?? hh.detail?.unit_type;
-        const aura = hh.aura ?? hh.detail?.aura;
-        const st = hh.detail?.stats;
-        const eqT = hh.equip_total;
-        // 역사 프로필(서버 미제공 시 섹션 숨김): profile{era,region,role,summary,evidence_level,needs_verify} — BE 요청 필드
-        const pf = hh.profile ?? hh.detail?.profile ?? null;
-        // 비주얼 영역
-        // 가로 폰(L.short, 와이드): 왼쪽 열 = 초상 + 스프라이트 상자를 본문 높이 안에 나눠 담는다(상자 = 본문 40% 최대 110, 초상 = 나머지, 폭 = 높이/1.3)
-        const sbH0 = wideM && L.short ? Math.min(110, Math.round(bodyH * 0.4)) : 0;
-        const pw = wideM ? (L.short ? Math.max(90, Math.min(280, Math.floor(iw * 0.28), Math.round((bodyH - sbH0 - 8) / 1.3))) : Math.min(280, Math.floor(iw * 0.28))) : Math.min(150, Math.floor(iw * 0.42));
-        const phh = wideM ? (L.short ? Math.max(80, bodyH - sbH0 - 8) : Math.min(Math.round(pw * 1.3), bodyH - 140)) : Math.round(pw * 1.25);
-        tgt.add(sCard(this, hh, ix, iy, pw, phh, (x0, y0, sl) => portraitBox(this, hh, x0, y0, pw, phh, { focus: 0.02, thumb: false, bare: sl }))); // 상세: 원본(S 등급 = 배경 판 -> 인물 -> 등급 프레임 -> 장식)
-        const rTag = this.rarityTag(hh.rarity, ix + 8, iy + 6, { size: 14, heading: true, color: rarityCss(hh.rarity), stroke: { color: '#0B1020', width: 3 } });
-        tgt.add(rTag);
-        // 병종 뱃지(초상화 우상단). 좁은 초상(390 등)에서 등급 별과 겹치면 세로로 쌓고, 그래도 겹치면 별 줄 아래로 내린다(강화면 Low: 별 4개가 3개로 가려 보임)
-        if (ut) {
-            // 등급 표식 실제 폭: 컨테이너(rarityMark)는 width 가 0 이라 겹침 판정이 빠져 별 4번째가 병종 뱃지에 가렸다(강화면 gacha41 Low, 390) -> getBounds 우선
-            const rbx = rTag.getBounds?.(); const rw = (rbx?.width || 0) > 0 ? rbx.width : (rTag.w ?? rTag.displayWidth ?? rTag.width ?? 0); const rh = (rbx?.height || 0) > 0 ? rbx.height : (rTag.h ?? rTag.displayHeight ?? rTag.height ?? 18);
-            const mk = (vertical) => troopBadges(this, { heroClass: ut, troopClass: hh.troop_type ?? hh.detail?.troop_type, troopLabel: tl, size: wideM ? 34 : 26, vertical });
-            let tb = mk(false);
-            if (ix + 8 + rw + 6 > ix + pw - 6 - tb.w) { tb.destroy(); tb = mk(true); }
-            const below = ix + 8 + rw + 6 > ix + pw - 6 - tb.w;
-            tb.setPosition(ix + pw - 6 - tb.w, below ? iy + 6 + rh + 4 : iy + 6);
-            tgt.add(tb);
-        }
-        const sbW = wideM ? pw : Math.min(120, iw - pw - 12); const sbH = wideM ? Math.min(128, bodyH - phh - 8) : phh;
-        const sbx = wideM ? ix : ix + pw + 12; const sby = iy + (wideM ? phh + 8 : 0);
-        if (sbW >= 60 && sbH >= 60) {
-            tgt.add(this.sectionBg(sbx, sby, sbW, sbH, 0.7));
-            // 2026-11-03 사용자 요청: 영웅 유닛 오른쪽에 일반 병사(troop_type) 스프라이트를 나란히.
-            // 2026-11-08 사용자 요청: 아래 캡션('전투 유닛 · <병종>' / '병사 · <병종>') 제거 -> 캡션 자리 없이 칸 세로 가운데에 배치
-            const trT = troopTypeOf(hh);
-            const spS = trT ? Math.max(24, Math.min(Math.floor(sbW * 0.44), sbH - 24)) : Math.min(sbW, sbH) - 24;
-            const spY = sby + sbH / 2;
-            const hx = trT ? sbx + sbW * 0.3 : sbx + sbW / 2; const qx = sbx + sbW * 0.72;
-            const shadow = (x) => tgt.add(this.add.ellipse(x, spY + spS / 2 - 4, Math.min(44, spS * 0.7), 10, 0x000000, 0.35));
-            // 영웅 스프라이트: 전용 시트가 아직 안 왔는데 같은 문화권·병종 공용 시트가 이미 로드돼 있으면(병사 스프라이트·다른 화면이 받음) unitTex 가 공용을 돌려준다.
-            // 그래서 항상 전용 시트 지연 로드를 먼저 요청하고(받을 것이 있으면 true), 도착하면 공용으로 그린 것을 전용으로 바꿔 그린다(사용자 제보 2026-11-03: 마르쿠스가 공용 보병으로 표시)
-            let heroObjs = [];
-            const putSp = () => { const sp = heroSprite(this, hh, hx, spY, spS); if (!sp) return false; heroObjs.forEach((o) => o.destroy()); const sh = this.add.ellipse(hx, spY + spS / 2 - 4, Math.min(44, spS * 0.7), 10, 0x000000, 0.35); tgt.add([sh, sp]); heroObjs = [sh, sp]; return true; };
-            const drawn = putSp();
-            const wait = drawn ? null : makeText(this, hx, spY, trT ? '준비 중' : '스프라이트 준비 중', { size: 12, color: CSS.muted, origin: [0.5, 0.5] });
-            if (wait) tgt.add(wait);
-            ensureHeroSprite(this, hh, () => { if (!tgt.scene) return; if (putSp()) wait?.destroy(); }); // 이 영웅 시트 1장만 지연 로드(전용 > 문화권 > 공용 중 manifest 의 첫 후보)
-            if (trT) {
-                // 병사도 영웅 칸과 같은 방식(강화면 gacha41 Low): 공용 시트가 이미 있으면 먼저 그리고, 문화권 시트(korea_sword 등)를 항상 요청해 도착하면 교체
-                let trObjs = [];
-                const putTr = () => { const sp = troopSprite(this, hh, qx, spY, Math.round(spS * 0.86)); if (!sp) return false; trObjs.forEach((o) => o.destroy()); const sh = this.add.ellipse(qx, spY + spS / 2 - 4, Math.min(44, spS * 0.7), 10, 0x000000, 0.35); tgt.add([sh, sp]); trObjs = [sh, sp]; return true; }; // 병사는 영웅보다 조금 작게
-                const trDrawn = putTr();
-                const w2 = trDrawn ? null : makeText(this, qx, spY, '준비 중', { size: 12, color: CSS.muted, origin: [0.5, 0.5] });
-                if (w2) tgt.add(w2);
-                const trLoading = ensureTroopSprite(this, hh, () => { if (!tgt.scene) return; if (putTr()) w2?.destroy(); });
-                if (!trLoading && w2) { w2.destroy(); tgt.add(troopIcon(this, trT, qx, spY, Math.min(32, spS), { max: spS })); } // 받을 시트도 없고 그린 것도 없으면 병종 아이콘(단일 소스)
-            }
-        }
-        // 정보 영역(스크롤) — 섹션 카드
-        const tx = wideM ? ix + pw + 16 : ix; const ty0 = wideM ? 0 : phh + 12;
-        const tw = wideM ? iw - pw - 16 : iw; const th = bodyH - ty0 - 8; // 하단 버튼 바와 8 간격(U01 겹침)
-        const list = new ScrollList(this, { x: tx, y: iy + ty0, w: tw, h: Math.max(80, th), clip: true, bar: true }); // U01: 스크롤바 + 하단 페이드(스킬 표 등 아래 내용 단서) // clip: 경계에 걸친 섹션 카드가 모달 밖·초상화 위로 비치지 않게 픽셀 클리핑(Mid-1)
-        tgt.add(list);
-        const gap = 10;
-        // 섹션 카드: 배경 + 제목(18) + 본문 컨테이너. build(c, innerW) 가 본문 높이를 반환
-        const section = (title, w, build, chipText, chipColor) => {
-            const c = this.add.container(0, 0);
-            const body = this.add.container(12, 40);
-            const t = makeText(this, 12, 20, title, { size: 18, heading: true, color: '#f0d58c', origin: [0, 0.5] });
-            const bh = build(body, w - 24);
-            c.add(this.sectionBg(0, 0, w, bh + 52, 0.8));
-            c.add(t);
-            if (chipText) { const ct = makeText(this, w - 14, 20, chipText, { size: 12, bold: true, origin: [1, 0.5] }); c.add(this.add.rectangle(ct.x - ct.width - 6, 10, ct.width + 12, 20, chipColor ?? COLOR.ink, 0.9).setOrigin(0)); c.add(ct); }
-            c.add(body);
-            c.h = bh + 52; c.clipH = c.h;
-            return c;
-        };
-        const kv = (pairs) => (c, w) => { const tb = kvTable(this, { w, pairs, labelW: Math.min(110, Math.round(w * 0.36)), size: 14 }); c.add(tb); return tb.h; };
-        const cols = wideM && tw >= 640 ? 2 : 1;
-        const colW = Math.floor((tw - gap * (cols - 1)) / cols);
-        const small = [
-            ['기본 정보', kv([
-                ...(hh.title ? [['칭호', { text: hh.title, color: CSS.accent, bold: true }]] : []),
-                ['등급', { text: `${rarityLabel(hh.rarity)} ${'★'.repeat(RARITY_STARS[normRarity(hh.rarity)] ?? 1)}`, color: rarityCss(hh.rarity) }], // 'S등급 ★★★★'(S 중복 제거, 2026-11-08 강화면 Low)
-                ['레벨', `Lv.${hh.level}  (EXP ${fmtNum(hh.exp)}${(() => { const need = Number(hh.level_info?.exp_to_next ?? hh.exp_to_next); return need > 0 ? ` / 다음까지 ${fmtNum(Math.max(0, need - (Number(hh.exp) || 0)))}` : ''; })() /* exp_to_next = 현재 레벨 필요 총량, exp = 레벨 안 누적 -> 남은 양 = 총량 - 현재 */})`],
-                ...(hh.level_info?.next_reward?.label && hh.level_info.next_reward.level != null ? [['다음 레벨 보상', { text: `Lv.${hh.level_info.next_reward.level} ${hh.level_info.next_reward.label}`, color: CSS.accent }]] : []), // 박백엔 level_info.next_reward(없으면 생략)
-                // 코스트·성급·조각 줄은 2026-11-08 사용자 요청으로 제거(코스트는 편성 화면, 조각은 가챠 결과에서 표시)
-            ])],
-            ['능력치', st ? (c, w) => { // 공격·방어 = 라벨 + 게이지 + 숫자(사용자 2026-11-04: 영웅 체력은 고정 10이라 능력치에서 제외. 장비 체력(병력) 보너스는 장비창·장비 칩에서만)(ui/StatGauges, 상한 STAT_GAUGE_CAP, 장비분 금색 + '(+N)'), 그 아래 성장률·기준은 표
-                const sn = hh.level_info?.stats_now; // 현재 레벨 능력치(서버 level_info.stats_now). 있으면 게이지를 현재 값으로, 없으면 Lv.1 기본값
-                const gs = statGauges(this, { w, rows: [...((sn?.mp_max ?? st.mp_max) != null ? [{ key: 'mp', label: '마력', base: sn?.mp_max ?? st.mp_max }] : []), { key: 'atk', label: '공격', base: sn?.atk ?? st.atk, bonus: eqT?.atk }, { key: 'def', label: '방어', base: sn?.def ?? st.def, bonus: eqT?.def }] });
-                c.add(gs);
-                const tb = kvTable(this, { y: gs.h + 4, w, labelW: Math.min(110, Math.round(w * 0.36)), size: 14, pairs: [
-                ...(st.growth_atk_pct != null || st.growth_def_pct != null ? [['성장률', [st.growth_atk_pct != null ? `공격 ${st.growth_atk_pct}%` : '', st.growth_def_pct != null ? `방어 ${st.growth_def_pct}%` : ''].filter(Boolean).join(' · ')]] : []), // 값 없으면 'undefined' 대신 생략(정검수)
-                ['기준', { text: sn ? `현재 Lv.${hh.level ?? 1} 능력치 (괄호·금색 = 장비)` : `Lv.1 기본값 · 현재 Lv.${hh.level ?? 1}은 성장률만큼 더 높음 (괄호·금색 = 장비)`, color: CSS.muted, size: 12 }], // 하플레이 gacha104: Lv2 인데 Lv.1 수치로 읽힘(서버가 레벨별 수치를 주지 않아 표기만 명확히)
-                ] });
-                c.add(tb);
-                return gs.h + 4 + tb.h;
-            } : kv([['능력치', { text: '정보 없음', color: CSS.muted }]])],
-            ...(Array.isArray(hh.level_info?.milestones) && hh.level_info.milestones.length ? [['성장 보상', (c, w) => { // 레벨 마일스톤(level_info.milestones[{level,label,reached}]): 도달 = 녹색 체크, 미도달 = 회색 원
-                const rh = 24; let yy = 0;
-                hh.level_info.milestones.forEach((m) => {
-                    const cy = yy + rh / 2; const g = this.add.graphics();
-                    if (m.reached) g.fillStyle(0x3fae5a, 1).fillCircle(8, cy, 7).lineStyle(2, 0xffffff, 1).lineBetween(4.5, cy, 7, cy + 3).lineBetween(7, cy + 3, 12, cy - 3);
-                    else g.lineStyle(1.5, 0x8a93a6, 1).strokeCircle(8, cy, 6.5);
-                    c.add(g);
-                    c.add(makeText(this, 22, cy, `Lv.${m.level}`, { size: 13, bold: true, color: m.reached ? CSS.allyText : CSS.muted, origin: [0, 0.5] }));
-                    c.add(fitText(makeText(this, 76, cy, m.label ?? '', { size: 13, color: m.reached ? CSS.text : CSS.muted, origin: [0, 0.5] }), Math.max(40, w - 76)));
-                    yy += rh;
-                });
-                return yy;
-            }]] : []),
-            // '병종' 섹션(영웅 병종·병사 표)은 2026-11-08 사용자 요청으로 제거(병종은 초상화 우상단 뱃지·툴팁으로 표시). 같은 카드에 있던 오라 행은 병종 정보가 아니라 별도 섹션으로 유지
-            ...(aura ? [['오라', kv([['오라', { text: auraDesc(aura), color: CSS.accent }]])]] : []),
-            ['장비', (c, w) => {
-                const eq = hh.equipment ?? {};
-                const tb = kvTable(this, { w, labelW: Math.min(110, Math.round(w * 0.36)), pairs: Object.entries(SLOT_KO).map(([k, lb]) => [lb, eq[k] ? { text: `${rarityBadge(eq[k].rarity)} ${eq[k].name}`, color: rarityCss(eq[k].rarity) } : { text: '비어 있음', color: CSS.muted }]) });
-                c.add(tb);
-                return tb.h;
-            }],
-        ];
-        let y = 0;
-        for (let i = 0; i < small.length; i += cols) {
-            const row = small.slice(i, i + cols).map(([t, b], j) => { const c = section(t, colW, b); c.setPosition(j * (colW + gap), y); return c; });
-            row.forEach((c) => list.content.add(c));
-            y += Math.max(...row.map((c) => c.h)) + gap;
-        }
-        // 스킬 표: 구분 칩 · 스킬명 · 효과 요약 · 조건/쿨다운 · 횟수 (준비 중 = 회색 행)
-        if (skills.length) {
-            const narrowT = tw < 560;
-            const c = section(`스킬 (${skills.length})`, tw, (b, w) => {
-                const typeKo = (k) => (k.type === 'active' ? '액티브' : k.type === 'passive' ? '패시브' : k.type ?? '-');
-                const chipC = (k) => (k.type === 'active' ? 0x8a4a1c : 0x2f5d8a);
-                // 좁은 표(390·667): 액티브 쿨다운·횟수 줄(강화면 gacha106: 넓은 표의 '조건 / 쿨다운'·'횟수' 열 내용이 좁은 표에서 빠짐). 값 없으면 생략
-                const actLine = (k) => (k.type === 'active' ? (k.mp_cost != null ? `마력 ${k.mp_cost}` : [k.cooldown != null ? `쿨 ${k.cooldown}턴` : '', k.uses != null ? `${k.uses}회` : ''].filter(Boolean).join(' · ')) : ''); // MP 방식(mp_cost 있음) = '마력 N', 레거시 = 쿨·횟수
-                const condOf = (k) => [k.condition, k.mp_cost != null ? `마력 ${k.mp_cost}` : k.cooldown != null ? `쿨 ${k.cooldown}턴` : ''].filter(Boolean).join(' · ') || '-'; // MP 방식은 쿨다운 대신 마력
-                // T_TERRAIN_MASTER(지형 장인): 서버 효과 요약에 이동비용 할인 문구가 없으면 덧붙인다(params.move_discount.amount, 상세 응답에 params 가 없으면 데이터 기준 1)
-                const effOf = (k) => { const e0 = k.effect || ''; if (k.template !== 'T_TERRAIN_MASTER' || /이동/.test(e0)) return e0 || '-'; const amt = Number(k.params?.move_discount?.amount ?? 1) || 1; return `${e0 ? `${e0} · ` : ''}해당 지형 이동 비용 -${amt}(최소 1)`; };
-                // 스킬 아이콘 열(48, atlas skill_icons 지연 로드 — manifest 에 있을 때만 열 추가). 로드 전에는 칸만 두고 완료 시 아이콘을 얹는다. 해석 실패 행은 비움(빈 사각 없음)
-                const withIco = skillIconsListed();
-                const icoCol = withIco ? [{ label: '', width: 56, align: 'center' }] : [];
-                const icoCell = withIco ? [''] : [];
-                const colsT = narrowT
-                    ? [...icoCol, { label: '구분', width: 64, align: 'center' }, { label: '스킬 · 효과', ratio: 1, wrap: true }]
-                    : [...icoCol, { label: '구분', width: 70, align: 'center' }, { label: '스킬명', ratio: 1.1 }, { label: '효과 요약', ratio: 2, wrap: true }, { label: skills.some((k) => k.mp_cost != null) ? '조건 / 마력' : '조건 / 쿨다운', ratio: 1.3, wrap: true }, { label: '횟수', width: 52, align: 'center' }];
-                const rows = skills.map((k) => ({ muted: k.enabled === false, cells: narrowT
-                    ? [...icoCell, { text: typeKo(k), chip: chipC(k), size: 12, bold: true }, `${skillDisplayName(k.name)}${k.enabled === false ? ' (준비 중)' : ''}\n${effOf(k)}${k.condition ?`\n조건: ${k.condition}` : ''}${actLine(k) ? `\n${actLine(k)}` : ''}`]
-                    : [...icoCell, { text: typeKo(k), chip: chipC(k), size: 12, bold: true }, { text: `${skillDisplayName(k.name)}${k.enabled === false ? ' (준비 중)' : ''}`, bold: true }, effOf(k), condOf(k), k.mp_cost == null && k.uses != null ? `${k.uses}회` : '-'] }));
-                const tb = new TableView(this, { w, cols: colsT, rows, rowH: withIco ? 56 : 38, size: 14 });
-                b.add(tb);
-                if (withIco) {
-                    const put = () => {
-                        if (!tb.scene) return; // 모달이 닫혀 표가 파괴됨
-                        const col = tb.colBoxes[0];
-                        skills.forEach((k, i) => {
-                            const rb = tb.rowBoxes[i];
-                            const f = rb && skillIconFrame(this, k.code, { kind: k.type === 'active' ? 'active' : k.type === 'aura' ? 'aura' : 'passive', unitType: ut, template: k.template });
-                            const ic = f ? skillIconImage(this, f, col.x + col.w / 2, rb.y + Math.min(rb.h, 56) / 2, 48) : null;
-                            if (ic) { if (k.enabled === false) ic.setAlpha(0.45); tb.add(ic); }
-                        });
-                    };
-                    if (skillIconsReady(this)) put(); else ensureSkillIcons(this, (ok) => { if (ok) put(); });
-                }
-                return tb.h;
-            });
-            c.setPosition(0, y); list.content.add(c); y += c.h + gap;
-        }
-        // 역사적 설명(BE GameData::heroProfile, 스펙 database/data/HERO_HISTORY_SPEC.md): one_line 헤더 · 시대/지역/역할/생애 표 · 요약 박스(좁은 화면 긴 글 '더 보기')
-        // · 전투 스타일 · 일화(있을 때만, 전승/검증 필요 태그) · 인연(최대 3 + 외 N명) · game_note. 필드 없으면 해당 블록 숨김, 전부 없으면 섹션 숨김(근거 없는 창작 금지)
-        const hasHist = pf && (pf.summary || pf.era || pf.region || pf.role || pf.one_line || pf.life || pf.battle_style || pf.anecdote?.text || pf.relations?.length);
-        const histY = y;
-        let histC = null; let noteT = null; let sumOpen = false;
-        const renderTail = () => {
-            histC?.destroy(); noteT?.destroy(); histC = null;
-            let yy0 = histY;
-            if (hasHist) { histC = this.historySection(pf, tw, section, { open: sumOpen, onToggle: () => { sumOpen = !sumOpen; this.time.delayedCall(0, () => { if (!list.scene) return; const keep = list.content.y; renderTail(); list.scrollTo(Math.max(keep, -histY)); }); } }); /* 펼침/접기 후 스크롤 보정: 이전 위치 유지하되 역사 섹션 머리(소개 줄)가 위 경계 밖으로 나가지 않게(강화면 18차 390) */ histC.setPosition(0, yy0); list.content.add(histC); yy0 += histC.h + gap; }
-            // 등급 면책 문구는 화면 정리로 제거(2026-11-02, docs/PRE_RELEASE_NOTICES.md 에 보존)
-            list.setContentHeight(yy0 + 8);
-            list.refreshMask();
-        };
-        renderTail();
-    }
+    heroStatusBody(tgt, hh, opts) { return heroStatusBody(this, tgt, hh, opts); } // 본문 = ui/HeroDetailView(출전 배치 (i) 와 공용)
 
     // 영웅 상세 '역사적 설명' 섹션 카드(heroDetail 의 section 빌더 사용). open: 요약 펼침 여부, onToggle: '더 보기/접기'
-    historySection(pf, tw, section, { open = false, onToggle = null } = {}) {
-        // 근거 수준·전승·검증 필요·game_note 표기는 렌더하지 않는다(사용자 방침 2026-11-03, 데이터 필드는 유지)
-        const REL_KO = { ally: '동맹', rival: '라이벌', mentor: '스승·제자', kin: '혈연', lord_vassal: '군신', same_event: '같은 사건', lineage: '계보' };
-        const SUM_CUT = 110; // 좁은 화면(390px 등)에서 이보다 긴 요약은 접어 둔다
-        // 접기 사용 안 함(2026-11-03 강화면 17~19차: 390 상세에서 '더 보기'가 반영되지 않는 결함 반복). 상세 본문은 이미 스크롤 목록이라 요약 전문을 항상 그대로 보여 준다.
-        // 되돌리려면 아래를 tw < 560 && 길이 > SUM_CUT + 10 으로(렌더·토글 코드는 남겨 둠)
-        const fold = false && tw < 560 && String(pf.summary ?? '').length > SUM_CUT + 10;
-        // 정렬 규칙(2026-11-03 사용자 요청 '정렬이 안 맞고 지저분함'): 모든 소제목·본문 왼쪽 x=0 정렬, 문단은 같은 글자 크기(14)·줄 간격(4)·문단 간격(GAP).
-        // 긴 글(요약·전투 스타일·일화)은 같은 '인용' 모양(왼쪽 금색 세로줄 + 들여쓰기 IND) 하나로 통일. 라벨-값 항목(시대·지역·역할·생애, 인연)은 같은 폭의 표(kvTable)로 정렬
-        return section('역사적 설명', tw, (b, w) => {
-            const GAP = 14; const IND = 14; const LS = 4;
-            const labelW = Math.min(110, Math.round(w * 0.36)); // 영웅 상세 다른 표(기본 정보 등)와 같은 라벨 폭
-            let yy = 0;
-            const gap = () => { if (yy > 0) yy += GAP; };
-            const sub = (txt) => { gap(); const t = makeText(this, 0, yy, txt, { size: 13, bold: true, color: '#d9c08a' }); b.add(t); yy += t.height + 6; };
-            const para = (txt, { quote = true } = {}) => {
-                const x = quote ? IND : 0;
-                const t = makeText(this, x, yy, txt, { size: 14, wrap: w - x - 4 }).setLineSpacing(LS);
-                if (quote) b.add(this.add.rectangle(0, yy + 1, 3, Math.max(8, t.height - 2), COLOR.accent, 0.55).setOrigin(0));
-                b.add(t); yy += t.height;
-                return t;
-            };
-            if (pf.one_line) { const t = makeText(this, 0, yy, pf.one_line, { size: 16, bold: true, color: '#f0d58c', wrap: w - 4 }).setLineSpacing(LS); b.add(t); yy += t.height; }
-            const facts = [pf.era && ['시대', pf.era], pf.region && ['지역', pf.region], pf.role && ['역할', pf.role], pf.life && ['생애', pf.life]].filter(Boolean);
-            if (facts.length) { gap(); const tb = kvTable(this, { y: yy, w, labelW, size: 14, pairs: facts }); b.add(tb); yy += tb.h; }
-            if (pf.summary) {
-                const s = String(pf.summary);
-                sub('요약');
-                para(fold && !open ? `${[...s].slice(0, SUM_CUT).join('').trimEnd()}…` : s);
-                // 영웅 상세는 모달 안: modal:true 가 없으면 modalCount>0 이라 usable() 가 거짓(클릭 무반응)
-                if (fold && onToggle) { yy += 8; b.add(new Button(this, { x: w - 100, y: yy, w: 100, h: 32, label: open ? '접기' : '더 보기', size: 13, modal: true, onClick: onToggle })); yy += 32; }
-            }
-            if (pf.battle_style) { sub('전투 스타일'); para(pf.battle_style); }
-            if (pf.anecdote?.text) { sub('일화'); para(pf.anecdote.text); }
-            const rel = (Array.isArray(pf.relations) ? pf.relations : []).filter((r) => r?.name_ko);
-            if (rel.length) {
-                sub('인연');
-                const tb = kvTable(this, { y: yy, w, labelW, size: 14, pairs: rel.slice(0, 3).map((r) => [r.name_ko, `${REL_KO[r.type] ?? r.type ?? '관계'}${r.note ? ` — ${r.note}` : ''}`]) });
-                b.add(tb); yy += tb.h;
-                if (rel.length > 3) { const t = makeText(this, 0, yy + 4, `외 ${rel.length - 3}명`, { size: 13, color: CSS.muted }); b.add(t); yy += t.height + 4; }
-            }
-            return Math.max(0, yy + 4);
-        }, '', COLOR.ink);
-    }
+    // 영웅 상세 '역사적 설명' 섹션 카드 -> ui/HeroDetailView.heroHistorySection
+    historySection(pf, tw, section, opts = {}) { return heroHistorySection(this, pf, tw, section, opts); }
 
     // ---------- 방 대전 ----------
     async tabRoom(p) {
         const a = this.area;
         // 시즌 전쟁 진입(제목 줄 오른쪽, 기존 Button). 국가 선택·시즌 지도는 scenes/War.js
-        if (!groupsOn()) p.add(new Button(this, { x: p.w - 150, y: -6, w: 150, h: 44, label: '시즌 전쟁', variant: 'primary', size: 15, onClick: () => this.show('war') })); // 그룹 모드는 멀티 > 시즌 전쟁 서브 탭
+        if (!groupsOn()) p.add(new Button(this, { x: p.w - 150, y: -6, w: 150, h: 44, label: FEATURES.seasonWar ? '시즌 전쟁' : '시즌 전쟁 · 오픈 예정', variant: FEATURES.seasonWar ? 'primary' : undefined, size: FEATURES.seasonWar ? 15 : 13, onClick: () => this.show('war') })); // 그룹 모드는 멀티 > 시즌 전쟁 서브 탭
         p.add(new Button(this, { x: p.w - (groupsOn() ? 0 : 158) - 110, y: -6, w: 110, h: 44, label: '내 전적', size: 15, onClick: () => openRecord(this) })); // 개인 PvP 전적(ui/RecordPanel.js)
         // U11: 좁은 화면(두 줄) = [방 만들기][새로고침] / [입장 코드 입력][참가]. 입력칸은 버튼과 같은 높이 48(같은 줄 규격 통일)
         const nb = a.w < 600;
@@ -1410,10 +1408,11 @@ export class LobbyScene extends Phaser.Scene {
     async tabGacha(p) {
         // 소환 전용 화면(scenes/Gacha.js, 2026-11-03). 롤백: localStorage srpg.gachaScene=0 -> 아래 기존 탭 화면
         // 2026-11-03: 별도 화면 전환 대신 로비 위 오버레이(scene.launch) — 상단 바·하단 탭은 로비가 그대로 그린다. 다른 탭·씬 전환 때 stopGachaOverlay
+        const focus = this.gachaFocus; this.gachaFocus = null; // 출정 불가 안내에서 온 경우만 해당 배너 선택(1회)
         if (gachaSceneOn()) {
             this.done();
             this.stopGachaOverlay();
-            this.scene.launch('Gacha', { rect: { y: this.barH, h: Math.max(240, L.lh - this.barH - this.tabH), x: this.railW || 0, w: L.lw - (this.railW || 0), logo: this.logoBox ? { x: this.logoBox.x, r: this.logoBox.x + this.logoBox.w, bottom: this.logoBox.bottom } : null }, backTab: this.preGachaTab ?? 'stage' }); // x·w = 왼쪽 세로 레일 오른쪽부터 화면 끝까지
+            this.scene.launch('Gacha', { ...(focus?.sel ? { sel: focus.sel } : {}), focusBlocking: !!focus?.focusBlocking, rect: { y: this.barH, h: Math.max(240, L.lh - this.barH - this.tabH), x: this.railW || 0, w: L.lw - (this.railW || 0), logo: this.logoBox ? { x: this.logoBox.x, r: this.logoBox.x + this.logoBox.w, bottom: this.logoBox.bottom } : null }, backTab: this.preGachaTab ?? 'stage' }); // x·w = 왼쪽 세로 레일 오른쪽부터 화면 끝까지
             return;
         }
         const info = await gameApi.gacha.info();
@@ -1495,7 +1494,7 @@ export class LobbyScene extends Phaser.Scene {
             res = await gameApi.gacha.pull(count, rid);
             delete this.gachaPending[count];
         } catch (e) {
-            const retryable = e.code === 'network' || e.code === 'gacha_conflict' || e.code === 'db_busy' || e.status >= 500;
+            const retryable = e.code === 'network' || e.code === 'timeout' || e.code === 'gacha_conflict' || e.code === 'db_busy' || e.status >= 500;
             if (!retryable) delete this.gachaPending[count];
             this.setGachaBusy(false);
             if (!this.sys.isActive()) return;
@@ -1528,7 +1527,7 @@ export class LobbyScene extends Phaser.Scene {
             onClose: () => { timers.forEach((t) => t.remove(false)); if (this.sys.isActive() && this.tab === 'gacha') this.show('gacha'); } });
         const iw = W - 48;
         const innerH = H - (m.panel.bodyY + 12) - 84;
-        const summary = [`골드 -${fmtNum(r.gold_spent)} · 남은 골드 ${fmtNum(r.gold)}`];
+        const summary = [r.currency === 'pen' ? `펜 -${fmtNum(r.pen_spent)} · 남은 펜 ${fmtNum(r.pen)}` : `골드 -${fmtNum(r.gold_spent)} · 남은 골드 ${fmtNum(r.gold)}`]; // 결제 통화(서버 currency: pen 기본, gold 롤백)
         if (r.pity?.guarantee_applied) summary.push(`${this.gachaInfo?.pity?.min_rarity ?? 'A'} 이상 보장 적용`);
         if (r.replay) summary.push('이전 요청 결과');
         const sumT = makeText(this, 24, 0, summary.join(' · '), { size: 14, color: CSS.muted, wrap: iw });
@@ -1687,35 +1686,85 @@ export class LobbyScene extends Phaser.Scene {
         list.refreshMask();
     }
 
-    // ---------- 더보기 ----------
+    // ---------- 설정(구 더보기, 2026-11-14 개편) ----------
+    // 용도별 섹션 카드(게임 / 계정 / 로그아웃) + 공통 Button(primary·default·danger 변형, 호버·눌림 모션과 클릭음은 Button 공통).
+    // 아이콘 = 코드 도형(menuGlyph, 새 이미지 없음). 버튼 높이 48(터치 44 이상), 좁은 화면 1열·넓은 화면 2~3열, 넘치면 세로 스크롤.
+    // 상점·인벤토리 바로가기는 하단 메뉴 '상점'·'영웅 > 인벤토리'로 옮겨 여기서 뺐다(기능 중복 제거). 로그아웃은 확인 모달(logout) 유지
     async tabMore(p) {
         this.done();
         const a = this.area;
-        const w = Math.min(480, a.w); // 좁은 화면: 본문 폭 가득(이전 300 고정 = 390 에서 오른쪽이 비어 보임, 하플레이 #9)
-        const items = [
-            // fe45: 설정은 상단 바에서 내려와 여기(첫 항목). 글꼴 변경 시 더보기 탭으로 씬 재시작(기존 상단 버튼과 같은 콜백). 로그아웃은 여기만(확인 모달). 개발용 항목은 devMode() 에서만
-            ['설정', () => openSettings(this, ({ fontChanged }) => { if (fontChanged) this.scene.restart({ tab: this.tab }); })],
-            [session.kind === 'guest' ? '회원 가입(진행 데이터 유지)' : '계정 정보', () => (session.kind === 'guest' ? this.scene.start('Auth', { mode: 'register' }) : alertModal(this, '계정', `${session.name}\n${session.user?.email ?? ''}`))],
-            ['로그아웃', () => this.logout()],
-            ['상점 (장비·소모품)', () => this.show('shop')],
-            ['공지', () => this.openNotices()],
-            ['인벤토리', () => this.show('inventory')],
-            ['튜토리얼 보기', () => this.scene.start('Dialogue', { source: 'tutorial', server: !session.profile?.tutorial?.done, stepIndex: 0, next: { scene: 'Lobby', data: { tab: 'more' } } })], // 이미 완료한 튜토리얼 재열람은 서버에 진행·건너뛰기를 보내지 않음
-            ...(devMode() ? [['전투 프로토타입(오프라인)', () => this.scene.start('Battle', { fresh: true })], ['UI 스킨 데모', () => this.scene.start('UiDemo')]] : []),
+        const reload = ({ fontChanged } = {}) => { if (fontChanged) this.scene.restart({ tab: this.tab }); }; // 글꼴 변경 시 설정 탭으로 씬 재시작(기존 콜백)
+        const sections = [
+            { title: '게임', items: [
+                { label: '게임 설정 (소리·화면)', glyph: 'gear', variant: 'primary', fn: () => openSettings(this, reload) },
+                { label: '공지', glyph: 'scroll', fn: () => this.openNotices() },
+                { label: '튜토리얼 보기', glyph: 'book', fn: () => this.scene.start('Dialogue', { source: 'tutorial', server: !session.profile?.tutorial?.done, stepIndex: 0, next: { scene: 'Lobby', data: { tab: 'more' } } }) }, // 이미 완료한 튜토리얼 재열람은 서버에 진행·건너뛰기를 보내지 않음
+                { label: '도움말 다시 보기', glyph: 'scroll', fn: () => openBriefReplay(this) }, // 2026-11-14 시오리 브리핑: 본 안내(개념 팝업·스테이지 안내·전투 조작 안내)를 골라 다시 재생
+            ] },
+            { title: '계정', items: [
+                session.kind === 'guest'
+                    ? { label: '회원 가입 (진행 데이터 유지)', glyph: 'person', variant: 'primary', fn: () => this.scene.start('Auth', { mode: 'register' }) }
+                    : { label: '계정 정보', glyph: 'person', fn: () => alertModal(this, '계정', `${session.name}\n${session.user?.email ?? ''}`) },
+            ] },
+            ...(devMode() ? [{ title: '개발', items: [{ label: '전투 프로토타입(오프라인)', glyph: 'gear', fn: () => this.scene.start('Battle', { fresh: true }) }, { label: 'UI 스킨 데모', glyph: 'gear', fn: () => this.scene.start('UiDemo') }] }] : []),
+            { title: null, danger: true, items: [{ label: '로그아웃', glyph: 'exit', variant: 'danger', fn: () => this.logout() }] }, // 위험 동작은 맨 아래 단독(적색 + 확인 모달)
         ];
-        // 로그아웃은 맨 끝(위험 동작은 마지막, Danger 44)
-        const oi = items.findIndex(([lb]) => lb === '로그아웃'); if (oi >= 0) items.push(...items.splice(oi, 1));
-        if (this.wide()) {
-            // 와이드: 가로 그리드(3~5열, 행 우선)로 화면 폭 전체 사용
-            const gap = 14;
-            const cols = this.gridCols(a.w, 240, gap, [3, 5]);
-            const cw = Math.floor((a.w - gap * (cols - 1)) / cols);
-            items.forEach(([label, fn], i) => p.add(new Button(this, { x: a.x + (i % cols) * (cw + gap), y: a.y + Math.floor(i / cols) * 72, w: cw, h: 58, label, size: 17, variant: label === '로그아웃' ? 'danger' : 'default', onClick: fn })));
-            return;
-        }
-        // 항목이 늘어 세로 공간이 부족하면 2열
-        const perCol = Math.max(1, Math.floor(a.h / 58));
-        const cw = items.length > perCol ? Math.min(360, (a.w - 12) / 2) : w;
-        items.forEach(([label, fn], i) => p.add(new Button(this, { x: a.x + Math.floor(i / perCol) * (cw + 12), y: a.y + (i % perCol) * 58, w: cw, h: 48, label, size: 17, variant: label === '로그아웃' ? 'danger' : 'default', onClick: fn })));
+        const W = Math.min(a.w, this.wide() ? 980 : 560);
+        const pad = 14; const bh = 48; const gap = 10;
+        const cols = this.wide() ? 3 : W >= 500 ? 2 : 1;
+        const list = new ScrollList(this, { x: a.x, y: a.y + 4, w: a.w, h: a.h - 4, clip: true, bar: true });
+        p.add(list);
+        let y = 0;
+        sections.forEach((sec) => {
+            const n = sec.items.length; const rows = Math.ceil(n / cols);
+            const head = sec.title ? 34 : 0;
+            const h = pad + head + rows * bh + (rows - 1) * gap + pad;
+            const c = this.add.container(0, y); c.clipH = h;
+            if (sec.danger) { // 로그아웃 구역: 카드 없이 적색 가는 구분선 + 버튼
+                c.add(this.add.rectangle(0, 2, W, 1, COLOR.danger, 0.55).setOrigin(0));
+            } else {
+                c.add(this.sectionBg(0, 0, W, h, 0.85));
+                const t = makeText(this, pad, pad + 10, sec.title, { size: 16, heading: true, color: '#f0d58c', origin: [0, 0.5], stroke: { color: '#0B1020', width: 3 } });
+                c.add(t);
+                c.add(this.add.rectangle(pad + t.width + 10, pad + 10, Math.max(0, W - pad * 2 - t.width - 10), 1, COLOR.accent, 0.45).setOrigin(0, 0.5)); // 제목 옆 금색 가는 선
+            }
+            const bw = Math.floor((W - pad * 2 - gap * (cols - 1)) / cols);
+            sec.items.forEach((it, i) => {
+                const col = i % cols; const row = Math.floor(i / cols);
+                const glyphColor = it.variant === 'primary' ? 0x1a1406 : it.variant === 'danger' ? 0xffffff : 0xf0d58c;
+                c.add(new Button(this, { x: pad + col * (bw + gap), y: pad + head + row * (bh + gap), w: bw, h: bh, label: it.label, size: 16, variant: it.variant ?? 'default', iconFn: (sc, z) => menuGlyph(sc, it.glyph, z, glyphColor), onClick: it.fn }));
+            });
+            list.content.add(c);
+            y += h + 12;
+        });
+        list.setContentHeight(y);
+        list.refreshMask?.();
     }
+}
+
+// 설정 메뉴 버튼 아이콘(코드 도형, 가운데 원점). Button.layoutContent 가 displayWidth 를 쓰므로 컨테이너 크기를 지정한다
+function menuGlyph(scene, kind, size, color = 0xf0d58c) {
+    const c = scene.add.container(0, 0).setSize(size, size);
+    const g = scene.add.graphics(); c.add(g);
+    const r = size / 2; const lw = Math.max(1.5, size / 11);
+    g.lineStyle(lw, color, 1); g.fillStyle(color, 1);
+    if (kind === 'gear') {
+        for (let i = 0; i < 8; i += 1) { const an = (i / 8) * Math.PI * 2; g.fillCircle(Math.cos(an) * r * 0.72, Math.sin(an) * r * 0.72, r * 0.2); }
+        g.fillCircle(0, 0, r * 0.62); g.fillStyle(0x0b1020, 1).fillCircle(0, 0, r * 0.26);
+    } else if (kind === 'scroll') {
+        g.strokeRect(-r * 0.55, -r * 0.7, r * 1.1, r * 1.4);
+        g.fillRect(-r * 0.75, -r * 0.85, r * 1.5, r * 0.22).fillRect(-r * 0.75, r * 0.63, r * 1.5, r * 0.22);
+        g.lineBetween(-r * 0.3, -r * 0.25, r * 0.3, -r * 0.25).lineBetween(-r * 0.3, r * 0.05, r * 0.3, r * 0.05).lineBetween(-r * 0.3, r * 0.35, r * 0.15, r * 0.35);
+    } else if (kind === 'book') {
+        g.strokeRect(-r * 0.85, -r * 0.6, r * 0.82, r * 1.25).strokeRect(r * 0.03, -r * 0.6, r * 0.82, r * 1.25);
+        g.lineBetween(-r * 0.6, -r * 0.25, -r * 0.25, -r * 0.25).lineBetween(r * 0.25, -r * 0.25, r * 0.6, -r * 0.25).lineBetween(-r * 0.6, r * 0.1, -r * 0.25, r * 0.1).lineBetween(r * 0.25, r * 0.1, r * 0.6, r * 0.1);
+    } else if (kind === 'person') {
+        g.fillCircle(0, -r * 0.35, r * 0.34);
+        g.beginPath().arc(0, r * 0.75, r * 0.7, Math.PI, 0, false).closePath().fillPath();
+    } else if (kind === 'exit') {
+        g.strokeRect(-r * 0.8, -r * 0.8, r * 0.9, r * 1.6);
+        g.lineBetween(-r * 0.2, 0, r * 0.75, 0);
+        g.fillTriangle(r * 0.9, 0, r * 0.5, -r * 0.35, r * 0.5, r * 0.35);
+    } else g.fillCircle(0, 0, r * 0.4);
+    return c;
 }

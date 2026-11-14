@@ -1,0 +1,854 @@
+{
+ "_note": "전투 유닛 툴팁 보조 도트 에셋 manifest 조각(병합 대기 - 기존 manifest 병합 누락 16건 이슈로 manifest.json 미수정). 키 규칙 tip.<name>",
+ "generated": "2026-11-14",
+ "basePath": "public",
+ "load": "개별 PNG(합계 수 KB). Phaser load.image(key, path) 후 setFilter(NEAREST). 툴팁 표시 기준 x2(아이콘 24px, 칩 높이 24, 구분선 높이 14). UI 배율이 클 때 x3. 비정수 확대 금지",
+ "reuse": {
+  "troop": "sym.troop.<code>(틀 없는 도트 24, GameIcons.troopIcon) / badge.troop.<code>(방패 은테 30x32)",
+  "stat": "pix.atk / pix.def / pix.heart(12~14 기준 x1~x3), ico.stat.<atk|def|hp>.32",
+  "buff": "pix.star(12 기준, 자기 오라·버프용)",
+  "notReused": "icon.adv_up/down/even(128 회화풍, 녹색 - 도트 툴팁과 화풍·색 불일치), deco.divider/ribbon_end(1024 회화풍), ui/battle ico_flag(48 회화풍)"
+ },
+ "colors": {
+  "chipFill": "#141D33",
+  "contrast": {
+   "gold text #F0D58C on chip #141D33": 11.65,
+   "teal text #5CC4BC on chip #141D33": 8.04,
+   "red text #EE8A76 on chip #141D33": 6.81,
+   "teal text #5CC4BC on panel #232F4B": 6.38,
+   "red text #EE8A76 on panel #232F4B": 5.4,
+   "muted #A9B1C0 on panel #232F4B": 6.16
+  }
+ },
+ "qaPreview": [
+  "assets/ui/tooltip/qa/tooltip_mock_x1.png",
+  "assets/ui/tooltip/qa/icons_x8.png"
+ ],
+ "count": 16,
+ "items": [
+  {
+   "key": "tip.adv_up",
+   "path": "assets/ui/tooltip/x2/adv_up.png",
+   "type": "icon",
+   "label": "유리 상성(청록 위 화살표)",
+   "baseSize": [
+    12,
+    12
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/adv_up.png",
+     "size": [
+      12,
+      12
+     ],
+     "bytes": 196
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/adv_up.png",
+     "size": [
+      24,
+      24
+     ],
+     "bytes": 232
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/adv_up.png",
+     "size": [
+      36,
+      36
+     ],
+     "bytes": 244
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.adv_down",
+   "path": "assets/ui/tooltip/x2/adv_down.png",
+   "type": "icon",
+   "label": "불리 상성(붉은 아래 화살표)",
+   "baseSize": [
+    12,
+    12
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/adv_down.png",
+     "size": [
+      12,
+      12
+     ],
+     "bytes": 216
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/adv_down.png",
+     "size": [
+      24,
+      24
+     ],
+     "bytes": 235
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/adv_down.png",
+     "size": [
+      36,
+      36
+     ],
+     "bytes": 258
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.warn",
+   "path": "assets/ui/tooltip/x2/warn.png",
+   "type": "icon",
+   "label": "주의(삼각 경고)",
+   "baseSize": [
+    12,
+    12
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/warn.png",
+     "size": [
+      12,
+      12
+     ],
+     "bytes": 215
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/warn.png",
+     "size": [
+      24,
+      24
+     ],
+     "bytes": 250
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/warn.png",
+     "size": [
+      36,
+      36
+     ],
+     "bytes": 267
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.aura",
+   "path": "assets/ui/tooltip/x2/aura.png",
+   "type": "icon",
+   "label": "받는 효과·오라(깃발)",
+   "baseSize": [
+    12,
+    12
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/aura.png",
+     "size": [
+      12,
+      12
+     ],
+     "bytes": 232
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/aura.png",
+     "size": [
+      24,
+      24
+     ],
+     "bytes": 249
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/aura.png",
+     "size": [
+      36,
+      36
+     ],
+     "bytes": 263
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.troops",
+   "path": "assets/ui/tooltip/x2/troops.png",
+   "type": "icon",
+   "label": "병력(병사 흉상)",
+   "baseSize": [
+    12,
+    12
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/troops.png",
+     "size": [
+      12,
+      12
+     ],
+     "bytes": 228
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/troops.png",
+     "size": [
+      24,
+      24
+     ],
+     "bytes": 236
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/troops.png",
+     "size": [
+      36,
+      36
+     ],
+     "bytes": 251
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.pip.ally",
+   "path": "assets/ui/tooltip/x2/pip_ally.png",
+   "type": "bar-piece",
+   "label": "병력 눈금 1칸(아군)",
+   "baseSize": [
+    5,
+    8
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/pip_ally.png",
+     "size": [
+      5,
+      8
+     ],
+     "bytes": 137
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/pip_ally.png",
+     "size": [
+      10,
+      16
+     ],
+     "bytes": 134
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/pip_ally.png",
+     "size": [
+      15,
+      24
+     ],
+     "bytes": 138
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.pip.enemy",
+   "path": "assets/ui/tooltip/x2/pip_enemy.png",
+   "type": "bar-piece",
+   "label": "병력 눈금 1칸(적)",
+   "baseSize": [
+    5,
+    8
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/pip_enemy.png",
+     "size": [
+      5,
+      8
+     ],
+     "bytes": 137
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/pip_enemy.png",
+     "size": [
+      10,
+      16
+     ],
+     "bytes": 133
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/pip_enemy.png",
+     "size": [
+      15,
+      24
+     ],
+     "bytes": 137
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.pip.empty",
+   "path": "assets/ui/tooltip/x2/pip_empty.png",
+   "type": "bar-piece",
+   "label": "병력 눈금 1칸(손실)",
+   "baseSize": [
+    5,
+    8
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/pip_empty.png",
+     "size": [
+      5,
+      8
+     ],
+     "bytes": 103
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/pip_empty.png",
+     "size": [
+      10,
+      16
+     ],
+     "bytes": 111
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/pip_empty.png",
+     "size": [
+      15,
+      24
+     ],
+     "bytes": 115
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.divider",
+   "path": "assets/ui/tooltip/x2/divider.png",
+   "type": "deco",
+   "label": "금 구분선(가운데 보석, 고정 폭)",
+   "baseSize": [
+    96,
+    7
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/divider.png",
+     "size": [
+      96,
+      7
+     ],
+     "bytes": 276
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/divider.png",
+     "size": [
+      192,
+      14
+     ],
+     "bytes": 365
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/divider.png",
+     "size": [
+      288,
+      21
+     ],
+     "bytes": 401
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.chip.gold",
+   "path": "assets/ui/tooltip/x2/chip_gold.png",
+   "type": "nineslice",
+   "label": "섹션 소제목 칩(금, 기본)",
+   "baseSize": [
+    32,
+    12
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/chip_gold.png",
+     "size": [
+      32,
+      12
+     ],
+     "bytes": 210
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/chip_gold.png",
+     "size": [
+      64,
+      24
+     ],
+     "bytes": 237
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/chip_gold.png",
+     "size": [
+      96,
+      36
+     ],
+     "bytes": 291
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "slice": {
+    "left": 4,
+    "right": 4,
+    "top": 0,
+    "bottom": 0,
+    "unit": "x1 px(표시 배율만큼 곱함)",
+    "mode": "가로 3-slice(높이 고정 12*배율)"
+   },
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.chip.teal",
+   "path": "assets/ui/tooltip/x2/chip_teal.png",
+   "type": "nineslice",
+   "label": "섹션 소제목 칩(청록, 유리)",
+   "baseSize": [
+    32,
+    12
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/chip_teal.png",
+     "size": [
+      32,
+      12
+     ],
+     "bytes": 213
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/chip_teal.png",
+     "size": [
+      64,
+      24
+     ],
+     "bytes": 238
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/chip_teal.png",
+     "size": [
+      96,
+      36
+     ],
+     "bytes": 289
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "slice": {
+    "left": 4,
+    "right": 4,
+    "top": 0,
+    "bottom": 0,
+    "unit": "x1 px(표시 배율만큼 곱함)",
+    "mode": "가로 3-slice(높이 고정 12*배율)"
+   },
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.chip.red",
+   "path": "assets/ui/tooltip/x2/chip_red.png",
+   "type": "nineslice",
+   "label": "섹션 소제목 칩(붉은, 불리·주의)",
+   "baseSize": [
+    32,
+    12
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/chip_red.png",
+     "size": [
+      32,
+      12
+     ],
+     "bytes": 209
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/chip_red.png",
+     "size": [
+      64,
+      24
+     ],
+     "bytes": 237
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/chip_red.png",
+     "size": [
+      96,
+      36
+     ],
+     "bytes": 284
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "slice": {
+    "left": 4,
+    "right": 4,
+    "top": 0,
+    "bottom": 0,
+    "unit": "x1 px(표시 배율만큼 곱함)",
+    "mode": "가로 3-slice(높이 고정 12*배율)"
+   },
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.divider.cap_l",
+   "path": "assets/ui/tooltip/x2/divider_cap_l.png",
+   "type": "deco-part",
+   "baseSize": [
+    6,
+    7
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/divider_cap_l.png",
+     "size": [
+      6,
+      7
+     ],
+     "bytes": 105
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/divider_cap_l.png",
+     "size": [
+      12,
+      14
+     ],
+     "bytes": 153
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/divider_cap_l.png",
+     "size": [
+      18,
+      21
+     ],
+     "bytes": 148
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "label": "구분선 왼끝",
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.divider.line",
+   "path": "assets/ui/tooltip/x2/divider_line.png",
+   "type": "deco-part",
+   "baseSize": [
+    1,
+    7
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/divider_line.png",
+     "size": [
+      1,
+      7
+     ],
+     "bytes": 80
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/divider_line.png",
+     "size": [
+      2,
+      14
+     ],
+     "bytes": 90
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/divider_line.png",
+     "size": [
+      3,
+      21
+     ],
+     "bytes": 90
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "label": "구분선 1px 반복",
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.divider.gem",
+   "path": "assets/ui/tooltip/x2/divider_gem.png",
+   "type": "deco-part",
+   "baseSize": [
+    9,
+    7
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/divider_gem.png",
+     "size": [
+      9,
+      7
+     ],
+     "bytes": 165
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/divider_gem.png",
+     "size": [
+      18,
+      14
+     ],
+     "bytes": 223
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/divider_gem.png",
+     "size": [
+      27,
+      21
+     ],
+     "bytes": 205
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "label": "구분선 가운데 보석",
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  },
+  {
+   "key": "tip.divider.cap_r",
+   "path": "assets/ui/tooltip/x2/divider_cap_r.png",
+   "type": "deco-part",
+   "baseSize": [
+    6,
+    7
+   ],
+   "variants": {
+    "1x": {
+     "path": "assets/ui/tooltip/x1/divider_cap_r.png",
+     "size": [
+      6,
+      7
+     ],
+     "bytes": 115
+    },
+    "2x": {
+     "path": "assets/ui/tooltip/x2/divider_cap_r.png",
+     "size": [
+      12,
+      14
+     ],
+     "bytes": 174
+    },
+    "3x": {
+     "path": "assets/ui/tooltip/x3/divider_cap_r.png",
+     "size": [
+      18,
+      21
+     ],
+     "bytes": 161
+    }
+   },
+   "alpha": true,
+   "filter": "NEAREST",
+   "pixel": true,
+   "label": "구분선 오른끝",
+   "generator": {
+    "method": "code-drawn pixel art(Pillow 13.0.0, 모델 호출 0회)",
+    "script": "docker/gemini/tooltip_icons_build.py"
+   },
+   "license": "자체 코드 작도(외부 소스·생성형 모델 미사용)",
+   "qa": {
+    "verdict": "pass",
+    "checked": "2026-11-14",
+    "notes": "투명 0/255만, 1px 외곽선 연속, 24px(x2) 판독 확인"
+   },
+   "verify": false
+  }
+ ]
+}

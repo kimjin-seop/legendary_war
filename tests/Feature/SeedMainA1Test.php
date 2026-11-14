@@ -28,6 +28,7 @@ class SeedMainA1Test extends TestCase
     {
         $this->artisan('game:seed')->assertSuccessful();
         $this->artisan('game:seed-main', ['--with-npc' => true])->assertSuccessful();
+        $this->assertSame((int) DB::table('stages')->where('code', 'stage_06')->value('id'), (int) DB::table('stages')->where('code', 'ch101_s1')->value('prerequisite_stage_id'));   // 튜토리얼 끝 stage_06 -> ch101_s1
         $before = DB::table('stages')->count();
         $this->artisan('game:seed-main', ['--act' => 2, '--with-npc' => true, '--dry-run' => true])->assertSuccessful();
         $this->assertSame($before, DB::table('stages')->count());

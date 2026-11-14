@@ -88,6 +88,7 @@ class GameFlowTest extends TestCase
         $this->withHeaders($this->h($token))->putJson('/api/party', ['user_hero_ids' => $ids])->assertStatus(422)->assertJsonPath('error.code', 'too_many_slots');
         DB::table('users')->where('id', $uid)->update(['level' => 10]);   // 슬롯 3, max_cost 26
         $this->withHeaders($this->h($token))->putJson('/api/party', ['user_hero_ids' => $ids])->assertOk();
+        $this->withHeaders($this->h($token))->putJson('/api/lineup', ['hero_ids' => $ids])->assertOk();   // 편성 라인업에 신규 영웅 포함(캠페인 출정은 라인업 안에서만)
 
         $this->putDeployment($this->h($token), $id, [
             ['user_hero_id' => $party[0], 'x' => 2, 'y' => 3], ['user_hero_id' => $party[1], 'x' => 1, 'y' => 3], ['user_hero_id' => $third, 'x' => 1, 'y' => 2],
@@ -141,6 +142,6 @@ class GameFlowTest extends TestCase
 
     public function test_시뮬레이션이_완주한다(): void
     {
-        $this->artisan('game:simulate', ['--per-hero' => 14, '--mirror' => 2, '--levels' => 2])->assertSuccessful();
+        $this->artisan('game:simulate', ['--sections' => 'mirror,level', '--mirror' => 2, '--levels' => 2])->assertSuccessful();
     }
 }

@@ -11,9 +11,11 @@ import { CSS, syncView } from '../theme.js';
 import { Button } from '../ui/Button.js';
 import { Modal } from '../ui/Modal.js';
 import { makeText, addBackdrop, prewrapText } from '../ui/common.js';
+import { createLoadingView } from '../ui/LoadingView.js';
 import { slice, setSliceSize } from '../ui/skin.js';
 import { tween, isInstant } from '../ui/motion.js';
 import { gameApi } from '../api/gameApi.js';
+import { session } from '../api/client.js';
 import { loadDialogueFont, useDialogueFont } from '../dialogue/dialogueFont.js';
 import { LineFx } from '../dialogue/lineFx.js';
 import { withUiImage } from '../ui/uiImage.js';
@@ -25,6 +27,7 @@ import { withUiImage } from '../ui/uiImage.js';
 // 없는 초상화는 실루엣+이름만(콘솔 warn 1회). 연출 끄기(fxLevel 2)/스킵 중에는 즉시 표시. 글자 크기 3단계는 makeText(fs) 가 반영.
 const warned = new Set();
 const TYPE_MS = 28; // 글자당(배속으로 나눔)
+const PROLOGUE_BG = 'bg.archive.hall'; // 짧은 프롤로그(guide_prologue) 기본 배경(manifest 에 없으면 setBackground 가 그라데이션+서고 장식 폴백)
 
 export class DialogueScene extends Phaser.Scene {
     constructor() { super('Dialogue'); }
@@ -47,6 +50,8 @@ export class DialogueScene extends Phaser.Scene {
         this.log = data?.log ?? [];
         // 서버 연동 튜토리얼(server:true): steps 를 stepIndex 부터 이어서 재생, 스텝 끝마다 PUT /api/tutorial {step}, 끝 = done(보상), 건너뛰기 = skipped
         this.server = !!data?.server && this.src === 'tutorial';
+        // 재열람(설정 > 튜토리얼 보기, 완료 계정 server:false·id 없음): 서버 모드처럼 stepIndex 부터 마지막 스텝까지 이어서 재생하되 진행 저장(PUT)은 하지 않는다
+        this.replayAll = this.src === 'tutorial' && !this.server && !this.id;
         // 새 튜토리얼 흐름: source 'guide_prologue' = tutorial_guide.json prologue_short(6줄). 끝 = 서버 튜토리얼 done(보상, 현행처럼 대사 끝에 지급), 건너뛰기 = skipped
         this.guideProlog = this.src === 'guide_prologue';
         this.stepIndex = data?.stepIndex ?? 0;
@@ -60,10 +65,12 @@ export class DialogueScene extends Phaser.Scene {
         audio.bgm(audio.currentBgm() ?? audio.lobbyBgm(), this); // 직전 화면 음악 유지, 없으면 로비 트랙(임시 — 전용 '대화/스토리' 트랙 생기면 교체)
         this.layout();
         this.buildBackground();
-        this.loading = makeText(this, L.lw / 2, L.lh / 2, '대사를 불러오는 중…', { size: 18, color: CSS.muted, origin: [0.5, 0.5] });
+        // 2026-11-14 로딩 화면 통일: 가운데 글자 대신 로딩 화면(LoadingView 덮개·대기 바). 200ms 안에 끝나면 그리지 않음
+        this.loading = createLoadingView(this, { tagline: '대사를 불러오는 중…', overlay: true, indeterminate: true, delay: 200 });
         Promise.all([this.loadLines(), loadDialogueFont()]).then(() => { if (this.scene.isActive()) this.build(); }).catch((e) => {
             console.error('[dialogue]', e);
-            this.loading?.setText('대사를 불러오지 못했습니다');
+            this.loading?.destroy();
+            this.loading = makeText(this, L.lw / 2, L.lh / 2, '대사를 불러오지 못했습니다', { size: 18, color: CSS.muted, origin: [0.5, 0.5] });
             new Button(this, { x: L.lw / 2 - 80, y: L.lh / 2 + 24, w: 160, label: '돌아가기', variant: 'primary', onClick: () => this.finish('error') });
         });
         this.events.once('shutdown', () => { this.typing?.remove(); this.input.keyboard?.removeAllListeners(); });
@@ -88,18 +95,23 @@ export class DialogueScene extends Phaser.Scene {
             const p = g?.prologue_short;
             if (!p?.lines?.length) throw new Error('prologue_short not found');
             this.steps = (await loadTutorial()).steps; // 서버 done 저장 시 step 최댓값(= 기존 스텝 수)
-            this.meta = { caption: p.title ?? '', what_if: false, bgKey: null };
+            // 배경: 데이터(bg_key/bg/매핑표) > 서고 홀(시오리 첫 대사 '여기는 시간의 서고', 튜토리얼 tut_00_opening 과 같은 bg.archive.hall). 2026-11-14 '프롤로그 배경 없음'
+            // 캡션: 데이터 title '프롤로그(단축)'의 작업용 꼬리표 '(단축)'은 화면에 보이지 않게(v9 실화면: 캡션 띠에 그대로 노출)
+            this.meta = { caption: String(p.caption ?? p.title ?? '').replace(/\s*\(단축\)\s*$/, ''), what_if: false, bgKey: sceneBgKey(p) ?? PROLOGUE_BG };
             this.lines = p.lines;
         } else {
             const d = await loadTutorial();
             this.steps = d.steps;
-            if (this.server) this.stepIndex = Math.max(0, Math.min(d.steps.length - 1, this.stepIndex));
-            const st = this.server ? d.steps[this.stepIndex] : (d.steps.find((s) => s.id === this.id) ?? d.steps[0]);
+            const seq = this.server || this.replayAll;
+            if (seq) this.stepIndex = Math.max(0, Math.min(d.steps.length - 1, this.stepIndex));
+            const st = seq ? d.steps[this.stepIndex] : (d.steps.find((s) => s.id === this.id) ?? d.steps[0]);
             if (!st) throw new Error('step not found');
             this.meta = this.stepMeta(st);
             this.lines = st.lines;
         }
         this.lineIndex = Math.min(this.lineIndex, Math.max(0, this.lines.length - 1));
+        // {hero_name} = 실제 보유 영웅(dialogueData.firstHeroName). 목록 캐시가 없으면 한 번 받아 둔다(실패 시 중립 문구 '첫 영웅')
+        if (session.authed && !session.heroes && [...this.lines, ...(this.steps ?? []).flatMap((s) => s?.lines ?? [])].some((l) => /\{hero_name[}:]/.test(String(l?.text ?? '')))) await gameApi.heroes().catch(() => null);
     }
 
     build() {
@@ -289,7 +301,8 @@ export class DialogueScene extends Phaser.Scene {
             applySpeakerFocus(this, tween, this.portraitLayer, this.portraits, null, this.lay);
             return;
         }
-        const key = this.portraitTexFor(info, expr, (tex) => { if (tex && this.sys.isActive() && this.lineIndex === line && this.portraits.get(side)?.id === speakerId(info)) this.showPortrait(info, expr); });
+        // 받기 실패(tex null)여도 논리 키가 폴백(부장/병종 초상)으로 바뀌었으면 다시 그린다(실패 키는 재요청·재콜백 없음 -> 반복 없음)
+        const key = this.portraitTexFor(info, expr, (tex) => { if ((tex || dialoguePortraitLogical(info, expr) !== logical) && this.sys.isActive() && this.lineIndex === line && this.portraits.get(side)?.id === speakerId(info)) this.showPortrait(info, expr); });
         const baseY = this.lay.baseY; // 패널 위에 살짝 겹치게(바닥 기준, 공용 규칙)
         if (!p || p.id !== speakerId(info)) {
             p?.c.destroy();
@@ -411,7 +424,7 @@ export class DialogueScene extends Phaser.Scene {
         audio.play('sfx_tut_next');
         this.hideCaption();
         if (this.lineIndex + 1 >= this.lines.length) {
-            if (this.server && this.stepIndex + 1 < (this.steps?.length ?? 0)) { this.nextStep(); return; }
+            if ((this.server || this.replayAll) && this.stepIndex + 1 < (this.steps?.length ?? 0)) { this.nextStep(); return; }
             this.finish('end');
         } else this.showLine(this.lineIndex + 1);
     }
@@ -432,7 +445,7 @@ export class DialogueScene extends Phaser.Scene {
     // 서버 모드: 다음 스텝으로(진행 저장은 실패해도 계속 — 서버 step 은 단조 증가·멱등)
     nextStep() {
         this.stepIndex += 1;
-        gameApi.tutorial.put({ step: this.stepIndex }).catch((e) => console.warn('[tutorial] 진행 저장 실패', e?.code ?? e));
+        if (this.server) gameApi.tutorial.put({ step: this.stepIndex }).catch((e) => console.warn('[tutorial] 진행 저장 실패', e?.code ?? e));
         const st = this.steps[this.stepIndex];
         this.meta = this.stepMeta(st);
         this.lines = st.lines;
@@ -449,14 +462,14 @@ export class DialogueScene extends Phaser.Scene {
         audio.play('sfx_tut_complete');
         const n = this.next ?? { scene: 'Lobby', data: { tab: 'stage' } };
         let notice = '';
-        const skipNote = '튜토리얼은 더보기 → 튜토리얼 보기에서\n다시 볼 수 있어요.'; // 건너뛰기 안내(보상 여부는 언급하지 않음). 저장 실패여도 표시
+        const skipNote = '튜토리얼은 설정 → 튜토리얼 보기에서\n다시 볼 수 있어요.'; // 건너뛰기 안내(보상 여부는 언급하지 않음). 저장 실패여도 표시
         if (kind === 'skip' && (this.server || this.guideProlog)) notice = skipNote;
         if ((this.server || this.guideProlog) && kind !== 'error') {
             const max = this.steps?.length ?? 0;
             try {
                 const r = kind === 'end' ? await gameApi.tutorial.put({ step: max, done: true }) : await gameApi.tutorial.put({ step: this.stepIndex, skipped: true });
                 const g = r?.granted;
-                if (g && (g.gold || g.user_exp)) notice = `튜토리얼 완료 보상: ${[g.gold ? `골드 ${g.gold}` : '', g.user_exp ? `EXP ${g.user_exp}` : ''].filter(Boolean).join(' · ')}`;
+                if (g && (g.gold || g.user_exp || g.pen)) notice = `튜토리얼 완료 보상: ${[g.gold ? `골드 ${g.gold}` : '', g.user_exp ? `EXP ${g.user_exp}` : '', g.pen ? `펜 ${g.pen}` : ''].filter(Boolean).join(' · ')}`; // granted.pen(소환용 펜, 2026-11-14)
                 gameApi.profile(true).catch(() => {});
             } catch (e) { console.warn('[tutorial] 종료 저장 실패', e?.code ?? e); }
         }

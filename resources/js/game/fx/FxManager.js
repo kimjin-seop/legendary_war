@@ -7,7 +7,7 @@ import { audio } from '../audio.js';
 import { TILE } from '../UnitView.js';
 import { BattleCutscene } from './BattleCutscene.js';
 import { voiceHeroFall } from './BattleVoice.js';
-import { unitDisplayName, heroPlainName, isHeroUnit } from '../systems/names.js';
+import { unitDisplayName, heroPlainName, isHeroUnit, unitClassName } from '../systems/names.js';
 import { playAttackMotion, playHealFx } from './AttackMotion.js';
 import { axisDir } from '../systems/facing.js';
 import { auraBonus } from '../systems/combat.js';
@@ -69,7 +69,15 @@ export class FxManager {
         };
         // 연출 단계 감시(입력 멈춤 감사 2026-11-04): done 이 끝내 안 불리면(트윈 대상 파괴로 onComplete 누락 등) fx.playing 이 영구 true -> 행동 메뉴·팝업이 안 뜬다.
         //  씬 시간 20초(백그라운드에선 루프와 함께 멈춤) 안에 끝나지 않으면 경고 후 강제 진행
-        try { wd = this.scene?.time?.delayedCall?.(20000, () => { if (!called) { console.warn('[fx] 연출 단계가 20초 안에 끝나지 않아 강제 진행', fn.fxMeta ?? ''); done(); } }) ?? null; } catch { wd = null; }
+        //  단, 이벤트 대사(scene.storyDialogue)가 열려 있으면 사용자가 읽는 중 = 정상 대기 -> 강제 진행하지 않고 다시 20초 감시(강화면 v8: 대사를 20초 넘게 읽으면
+        //  큐가 대사 뒤로 흘러 적 턴·전투 판정·결과창이 대사창 아래에서 먼저 진행되던 문제)
+        const arm = () => { try { wd = this.scene?.time?.delayedCall?.(20000, () => {
+            if (called) return;
+            const dlg = this.scene?.storyDialogue;
+            if (dlg && !dlg.closed) { arm(); return; }
+            console.warn('[fx] 연출 단계가 20초 안에 끝나지 않아 강제 진행', fn.fxMeta ?? ''); done();
+        }) ?? null; } catch { wd = null; } };
+        arm();
         try { fn(done); } catch (e) { console.error('[fx]', e); done(); }
     }
 
@@ -260,7 +268,7 @@ export class FxManager {
                 // 부대(troop)의 소속 지휘관: 서버에 소속 필드가 없어 같은 진영의 지휘관(kind=commander)으로 본다(현재 서버는 프리셋 지휘관 1명 + 그 부대 구조). 소속 필드가 오면 u.leader_id 우선
                 const units = this.d.getState?.()?.units ?? [];
                 const leaderOf = (u) => (u.non_hero ? null : u.kind !== 'troop' ? u : units.find((x) => x.id === u.leader_id) ?? units.find((x) => x.side === u.side && x.kind === 'commander') ?? null); // 수레·배(non_hero): 지휘관 이름·초상 없음(장수로 표시하지 않음)
-                const spec = (u, v, left) => ({ unit: u, side: left ? 'left' : 'right', hp: v.hp, hpMax: v.maxHp ?? u.max_hp ?? u.maxHp, soldiers: u.kind === 'troop' ? u.soldiers : undefined, stats: this.statsOf(u), portraitHero: leaderOf(u)?.hero ?? null, leader: leaderOf(u), displayName: unitDisplayName(u, units), shortName: unitDisplayName(u, units, { short: true }), leaderName: leaderOf(u) ? heroPlainName(leaderOf(u)) : null, water: v.water ?? null }); // water: 맵 뷰의 수상 상태(배 탑승/수병) -> 컷신 배·수면 배경
+                const spec = (u, v, left) => ({ unit: u, side: left ? 'left' : 'right', hp: v.hp, hpMax: v.maxHp ?? u.max_hp ?? u.maxHp, soldiers: u.kind === 'troop' ? u.soldiers : undefined, stats: this.statsOf(u), portraitHero: leaderOf(u)?.hero ?? null, leader: leaderOf(u), displayName: u.kind === 'troop' && !u.non_hero ? unitClassName(u.troop_type ?? u.type) : unitDisplayName(u, units), shortName: u.kind === 'troop' && !u.non_hero ? unitClassName(u.troop_type ?? u.type) : unitDisplayName(u, units, { short: true }), leaderName: leaderOf(u) ? heroPlainName(leaderOf(u)) : null, water: v.water ?? null }); // water: 맵 뷰의 수상 상태(배 탑승/수병) -> 컷신 배·수면 배경
                 const dStats = this.statsOf(tu);
                 // 적·NPC·상대(플레이어가 직접 조작하지 않는 유닛)의 공격: 이동 연출(앞 큐 항목) 뒤 커서가 대상 칸을 지정(d.aim, 약 0.28초)한 다음 컷신. 반격 단독 이벤트·플레이어 조작 공격은 기존대로 바로 컷신
                 const playerOwned = au.team === 'ally' && !au.npc_ally;

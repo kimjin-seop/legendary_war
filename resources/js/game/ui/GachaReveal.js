@@ -776,7 +776,7 @@ export class GachaReveal {
         const r = this.res ?? {};
         const y0 = this.ST + 36;
         this.stage.add(makeText(s, L.lw / 2, y0, `${n}회 소환 결과`, { size: 26, heading: true, color: '#f0d58c', origin: [0.5, 0.5] }));
-        const sum = [`골드 -${fmtNum(r.gold_spent)} · 남은 골드 ${fmtNum(r.gold)}`];
+        const sum = [r.currency === 'pen' ? `펜 -${fmtNum(r.pen_spent)} · 남은 펜 ${fmtNum(r.pen)}` : `골드 -${fmtNum(r.gold_spent)} · 남은 골드 ${fmtNum(r.gold)}`]; // 결제 통화 분기(서버 currency·pen_spent·pen, 강화면 v6)
         const dup = this.results.filter((x) => !x.is_new);
         if (dup.length) sum.push(`중복 ${dup.length}명 · 조각 +${fmtNum(dup.reduce((a, x) => a + (Number(x.shards_gained) || 0), 0))}`);
         if (r.pity?.guarantee_applied) sum.push(`${this.minRarity} 이상 보장 적용`);
@@ -804,6 +804,10 @@ export class GachaReveal {
             }
             const card = this.cardFn?.(res, x, y, cw, ch);
             if (!card) return;
+            // 카드 뒤 불투명 받침(강화면 v8 Low): 딤(0.9) 너머 로비 배너 목록 글자('필수 n/m')가 카드의 반투명 부분으로 비치지 않게. 딤과 같은 색이라 모서리는 티 나지 않음
+            const backing = s.add.rectangle(x, y, cw, ch, 0x04060b, 1).setOrigin(0);
+            this.stage.add(backing);
+            if (!isInstant()) { backing.setAlpha(0); this.tw({ targets: backing, alpha: 1, duration: 200, delay: i * 45 }); }
             this.stage.add(card);
             const hit = s.add.rectangle(x, y, cw, ch, 0xffffff, 0).setOrigin(0).setInteractive({ useHandCursor: true });
             hit.on('pointerup', () => { if (!this.detail) this.showDetail(res); });

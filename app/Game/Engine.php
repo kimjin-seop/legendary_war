@@ -1120,6 +1120,48 @@ final class Engine
     }
 
     /**
+     * 일반 공격 예측(읽기 전용). 복사본 state 에 실제 행동과 같은 경로(apply: [move ->] attack)를 돌려 확정될 결과를 돌려준다.
+     * 인자 state 는 값 전달이라 원본·rng 불변(저장 금지는 호출자 책임). 스킬 공격은 제외(미시 교전 제외·별도 공식).
+     * $x,$y 가 현재 칸과 다르면 먼저 move 를 적용한다(doMove: 검증·facing·move_from·moved). 이미 이동한 유닛이 다른 칸을 주면 already_moved 로 거부.
+     *
+     * @return array{target_hp_before:int,target_hp_after:int,target_max_hp:int,attacker_hp_before:int,attacker_hp_after:int,attacker_max_hp:int,dmg:int,counter_dmg:int,target_defeated:bool,attacker_defeated:bool,micro:bool,flank:?string,affinity:?string}
+     */
+    public function previewAttack(array $state, string $side, string $unitId, string $targetId, ?int $x = null, ?int $y = null): array
+    {
+        $u = $state['units'][$unitId] ?? null;
+        $t = $state['units'][$targetId] ?? null;
+        if ($u === null || $t === null) {
+            throw new IllegalAction('invalid_target', '대상을 찾을 수 없습니다.', 404);
+        }
+        if (($x === null) !== ($y === null)) {
+            throw new IllegalAction('invalid_action', 'x, y는 함께 지정해야 합니다.');
+        }
+        if ($x !== null && ($x !== $u['x'] || $y !== $u['y'])) {
+            [$state] = $this->apply($state, $side, ['type' => 'move', 'unit_id' => $unitId, 'x' => $x, 'y' => $y]);
+        }
+        [$after, $events] = $this->apply($state, $side, ['type' => 'attack', 'unit_id' => $unitId, 'target_id' => $targetId]);
+        $atk = null;
+        $ctr = null;
+        foreach ($events as $e) {
+            if ($e['type'] === 'attack' && $atk === null) {
+                $atk = $e;
+            } elseif ($e['type'] === 'counter' && $ctr === null) {
+                $ctr = $e;
+            }
+        }
+        $ha = $after['units'][$unitId]['hp'] ?? 0;   // 격파돼 제거된 유닛은 0
+        $ht = $after['units'][$targetId]['hp'] ?? 0;
+
+        return [
+            'target_hp_before' => (int) $t['hp'], 'target_hp_after' => (int) $ht, 'target_max_hp' => (int) $t['max_hp'],
+            'attacker_hp_before' => (int) $u['hp'], 'attacker_hp_after' => (int) $ha, 'attacker_max_hp' => (int) $u['max_hp'],
+            'dmg' => (int) $t['hp'] - (int) $ht, 'counter_dmg' => (int) $u['hp'] - (int) $ha,
+            'target_defeated' => $ht <= 0, 'attacker_defeated' => $ha <= 0,
+            'micro' => isset($atk['micro']) && ($state['micro_mode'] ?? 'off') === 'on', 'flank' => $atk['flank'] ?? null, 'affinity' => $atk['affinity'] ?? null,
+        ];
+    }
+
+    /**
      * 미시 교전 실행(shadow/on 공통). 개체당 기본 타격 피해는 기존 damageInfo 산출값(공격측 $info, 방어측은 반격 취급=정면)을 재사용한다.
      * state['rng']는 쓰지 않는다. micro_no_snowball 이면 이 산출에서만 스노볼을 끈다(복사본 사용, 원본 state 불변).
      *

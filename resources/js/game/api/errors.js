@@ -98,11 +98,12 @@ export const ERROR_MESSAGES = {
     product_unavailable: '지금은 교환할 수 없는 상품입니다.',
     product_not_found: '상품을 찾을 수 없습니다. 목록을 새로 고쳐 주세요.',
     exchange_conflict: '교환 처리 중 충돌이 발생했습니다. 잠시 후 다시 시도해 주세요.',
-    gacha_conflict: '요청이 잠시 충돌했습니다. 다시 시도해 주세요. (골드는 한 번만 차감됩니다)',
+    gacha_conflict: '요청이 잠시 충돌했습니다. 다시 시도해 주세요. (재화는 한 번만 차감됩니다)', // 펜/골드 공용(결제 통화 전환 2026-11-14)
     request_id_reused: '이전 뽑기 요청과 충돌했습니다. 화면을 새로 고친 뒤 다시 시도해 주세요.',
     banner_unknown: '지금은 소환할 수 없는 배너입니다. 화면을 새로 고친 뒤 다른 배너를 골라 주세요.',
     db_busy: '서버가 혼잡합니다. 잠시 후 다시 시도해 주세요.',
     network: '네트워크에 연결할 수 없습니다. 연결을 확인해 주세요.',
+    timeout: '서버 응답이 늦습니다. 잠시 후 다시 시도해 주세요.', // client.js 기본 타임아웃(20초)
     server: '서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.',
     maintenance: '서버 점검 중입니다. 잠시 후 다시 접속해 주세요.',
     // 시즌 전쟁(WarService)
@@ -142,10 +143,20 @@ function costNumbers(err) {
 
 export function costExceededText(err) {
     const { used, max, hero, troop } = costNumbers(err);
-    if (used == null && max != null) return `편성 코스트가 상한을 초과했습니다. 이 맵의 코스트 상한은 ${max}입니다.`; // 방 대전: details.max = 맵 크기별 상한(S20/M26/L30)
+    if (used == null && max != null) return `편성 코스트가 상한을 초과했습니다. 이 맵의 코스트 상한은 ${max}입니다.`; // 방 대전: details.max = 맵 크기별 상한(서버 cost_cap, 현행 S24/M32/L40)
     if (used == null || max == null) return ERROR_MESSAGES.cost_exceeded;
     const parts = hero != null && troop != null ? ` (영웅 ${hero} + 부대 ${troop})` : '';
-    return `출전 코스트 ${used} / 상한 ${max}${parts}로 상한을 초과했습니다. 편성을 수정해 주세요.`;
+    const over = used > max ? ` ${used - max}만큼 넘습니다.` : '';
+    return `출전 코스트 ${used} / 상한 ${max}${parts}로 상한을 초과했습니다.${over} 코스트가 큰 영웅을 바꾸거나 부대를 줄여 주세요.`; // 등급 코스트 C2/B3/A5/S8(서버값)
+}
+
+// 소환(가챠) 펜 부족 안내(송서사 확정 2026-11-14). 10연은 서버 price_pen.ten 숫자로 '10연 소환에는 펜 N개가 필요합니다.'를 앞에 붙인다.
+//  ERROR_MESSAGES.insufficient_pen 은 교환소(펜 결제 상품) 공용 문구라 그대로 두고, 소환 화면만 이 함수를 쓴다.
+export const GACHA_PEN_SHORT = '펜이 부족합니다. 스테이지 첫 클리어·일일 퀘스트·시즌 보상으로 모을 수 있습니다.';
+export const GACHA_PEN_SHIORI = '펜이 모자랍니다, 지휘관님. 스테이지 첫 클리어나 일일 퀘스트로 모아 오시지요.';
+export function gachaPenShortText({ count = 1, need = null } = {}) {
+    const n = Number(need);
+    return count >= 10 && Number.isFinite(n) && n > 0 ? `10연 소환에는 펜 ${n}개가 필요합니다. ${GACHA_PEN_SHORT}` : GACHA_PEN_SHORT;
 }
 
 // 콘솔 기록용 짧은 태그(민감정보 없음: 코드·HTTP 상태·수치만)
@@ -175,12 +186,25 @@ export const CODE_FIELD = {
     name_length: 'name', name_invalid_chars: 'name', name_digits_only: 'name', name_forbidden: 'name', name_taken: 'name',
     password_same_as_identity: 'password', invalid_credentials: 'password',
 };
+// 편성 라인업 오류(2026-11-14): 문구는 messageOf 가 details 로 조립
+Object.assign(ERROR_MESSAGES, {
+    lineup_empty: '편성에 영웅이 없습니다. 영웅 > 편성에서 영웅을 넣어 주세요.',
+    lineup_too_many: '편성 인원이 최대를 넘었습니다.',
+    duplicate_hero: '같은 영웅을 두 번 넣을 수 없습니다.',
+    hero_not_owned: '보유하지 않은 영웅입니다.',
+    hero_not_allowed: '주인공·전용 영웅은 편성에 넣을 수 없습니다.',
+    lineup_insufficient: '편성 인원이 부족합니다. 영웅 > 편성에서 영웅을 더 넣어 주세요.',
+    not_in_lineup: '편성에 없는 영웅은 출전할 수 없습니다.',
+});
 
 export function messageOf(err) {
     if (!err) return ERROR_MESSAGES.server;
     const code = err.code;
     if (code === 'cost_exceeded') return costExceededText(err);
     if (code === 'party_size_mismatch') { const n = Number(err.details?.required); return n > 0 ? `이 맵은 ${n}명을 출전시켜야 합니다.` : ERROR_MESSAGES.party_size_mismatch; }
+    if (code === 'lineup_insufficient') { const d = err.details ?? {}; const need = Number(d.required); return need > 0 ? `이 스테이지는 ${need}명이 필요하지만 편성 인원은 ${Number(d.current ?? d.lineup_count) || 0}명입니다. 영웅 > 편성에서 영웅을 더 넣어 주세요.` : ERROR_MESSAGES.lineup_insufficient; }
+    if (code === 'not_in_lineup') { const hs = (err.details?.heroes ?? []).map((h) => h?.name).filter(Boolean); return hs.length ? `편성에 없는 영웅은 출전할 수 없습니다: ${hs.join(', ')}` : ERROR_MESSAGES.not_in_lineup; }
+    if (code === 'lineup_too_many') { const m = Number(err.details?.max); return m > 0 ? `편성은 최대 ${m}명입니다.` : ERROR_MESSAGES.lineup_too_many; }
     if (code && ERROR_MESSAGES[code]) return ERROR_MESSAGES[code];
     if (err.status === 429) return ERROR_MESSAGES.too_many_attempts;
     if (err.status === 503) return ERROR_MESSAGES.maintenance;

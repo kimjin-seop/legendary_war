@@ -117,6 +117,7 @@ class EnemyV3SeedTest extends TestCase
     {
         $this->seedV3();
         $r = $this->postJson('/api/guests', ['nickname' => 'lead'])->assertCreated();
+        $this->givePartyHeroes((int) $r->json('user.id'));
         $uid = (int) $r->json('user.id');
         $h = ['X-Guest-Token' => $r->json('guest_token')];
         $this->assertSame(0, DB::table('user_protagonists')->where('user_id', $uid)->count());

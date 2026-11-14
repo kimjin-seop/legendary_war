@@ -25,14 +25,25 @@ class ProgressionService
         $base = (int) ($row->max_cost ?? 10);
         $cs = config('game.campaign_slots');
         if ($campaign && ! empty($cs['enabled'])) {
-            return max($base, $this->maxSlots($level, true) * (int) $cs['cost_per_slot']);   // 곡선은 현행보다 낮추지 않는다
+            if (! empty($cs['cost_cap_by_level'])) {   // 레벨별 상한표(등급 격차 v1): 슬롯 x cost_per_slot 계산을 대체. 표에 없는 하위 레벨은 폴백
+                $cap = null;
+                foreach ($cs['cost_cap_by_level'] as [$minLv, $v]) {
+                    $level >= $minLv && $cap = (int) $v;
+                }
+                if ($cap !== null) {
+                    return max($base, $cap);   // 곡선(user_level_costs)보다 낮추지 않는다
+                }
+            }
+
+            return max($base, $this->maxSlots($level, true) * (int) $cs['cost_per_slot']);   // 폴백(표 없음): 곡선은 현행보다 낮추지 않는다
         }
 
         return $base;
     }
 
     /**
-     * 캠페인 코스트 상한(강제/고정 영웅 포함 합산용): max(현행 곡선, (선택 슬롯 수 + 강제·고정 영웅 수) x cost_per_slot). 강제 영웅도 슬롯 1칸 몫(8)의 코스트 예산을 갖는다
+     * 캠페인 코스트 상한(강제/고정 영웅 포함 합산용): 표(cost_cap_by_level) 모드 = 레벨 상한 + 강제·고정 영웅 수 x cost_per_slot, 폴백 모드 = max(현행 곡선, (선택 슬롯 수 + 강제·고정 영웅 수) x cost_per_slot).
+     * 강제 영웅도 슬롯 1칸 몫(8)의 코스트 예산을 갖는다
      * (코스트 면제 폐지로 신규 유저 기본 편성이 곡선 상한에 걸려 막히지 않게 함). 강제 영웅이 없거나 캠페인이 아니면 maxCost 와 같다.
      */
     public function campaignCostCap(int $level, int $slots, int $forcedCount, bool $campaign): int
@@ -40,6 +51,10 @@ class ProgressionService
         $base = $this->maxCost($level, $campaign);
         $cs = config('game.campaign_slots');
         if ($campaign && $forcedCount > 0 && ! empty($cs['enabled'])) {
+            if (! empty($cs['cost_cap_by_level'])) {
+                return $base + $forcedCount * (int) $cs['cost_per_slot'];
+            }
+
             return max($base, ($slots + $forcedCount) * (int) $cs['cost_per_slot']);
         }
 
@@ -136,13 +151,24 @@ class ProgressionService
         });
     }
 
-    /** 신규 유저 시작 영웅/골드/기본 편성 지급 (멱등) */
+    /**
+     * 신규 유저 시작 영웅/골드/기본 편성 지급 (멱등).
+     * 시작 영웅 = ① 이순신(KEY_HERO) 고정 + ② game.starter_hero_rarity(C) 등급 무작위 1명(이순신 제외). 서버가 가입 시 1회만 추첨하고
+     * 지급 원장(starter_grant)이 이미 있으면(재호출·기존 계정) 영웅은 건드리지 않는다.
+     */
+    /** 가입 시 고정 지급하는 캠페인 키 영웅(ch1_s1 필수 영웅) */
+    public const KEY_HERO = 'yi_sun_sin';
+
     public function grantStarter(User $user): void
     {
         DB::transaction(function () use ($user) {
+            if (! $this->credit($user->id, 'gold', (int) config('game.starter_gold'), 'starter_grant', 'user', $user->id)) {
+                return;   // 이미 지급됨: 재추첨 금지
+            }
+            $this->credit($user->id, 'pen', (int) config('game.pen.starter', 0), 'starter_pen', 'user', $user->id);   // 시작 펜(소환 통화). 일일 상한 밖
             $heroes = $this->data->heroes();
             $slot = 1;
-            foreach (config('game.starter_heroes') as $code) {
+            foreach ($this->pickStarterCodes() as $code) {
                 if (! isset($heroes[$code])) {
                     continue;
                 }
@@ -153,8 +179,64 @@ class ProgressionService
                 $uhId = DB::table('user_heroes')->where(['user_id' => $user->id, 'hero_id' => $heroes[$code]['id']])->value('id');
                 DB::table('parties')->insertOrIgnore(['user_id' => $user->id, 'slot' => $slot++, 'user_hero_id' => $uhId, 'created_at' => now(), 'updated_at' => now()]);
             }
-            $this->credit($user->id, 'gold', (int) config('game.starter_gold'), 'starter_grant', 'user', $user->id);
         });
+    }
+
+    /**
+     * 시작 영웅 후보 추첨: 시작 등급 풀(뽑기 풀 기준, 없으면 영웅 데이터 기준)에서 서로 다른 병종 우선으로 N명.
+     * 우선순위: 기본 전투 병종(sword/spear/archer/cavalry)·일반 영웅(npc_ 아님) -> 기본 병종 -> 나머지. 풀이 N명 미만이면 있는 만큼만.
+     *
+     * @return string[]
+     */
+    public function pickStarterCodes(): array
+    {
+        $rarity = (string) config('game.starter_hero_rarity', 'C');
+        $count = max(0, (int) config('game.starter_hero_count', 1));
+        $heroes = $this->data->heroes();
+        try {
+            $pool = app(GachaService::class)->pool()['by_rarity'][$rarity] ?? [];
+        } catch (\Throwable) {
+            $pool = [];
+        }
+        if ($pool === []) {
+            foreach ($heroes as $c => $h) {
+                ($h['rarity'] ?? null) === $rarity && empty($h['campaign_only']) && empty($h['is_protagonist']) && $pool[] = $c;
+            }
+        }
+        $pool = array_values(array_filter($pool, fn ($c) => $c !== self::KEY_HERO && isset($heroes[$c]) && empty($heroes[$c]['campaign_only']) && empty($heroes[$c]['is_protagonist'])));
+        $core = ['sword', 'spear', 'archer', 'cavalry'];
+        $tiers = [[], [], []];
+        foreach ($pool as $c) {
+            $isCore = in_array($heroes[$c]['unit_type'] ?? '', $core, true);
+            $tiers[$isCore ? (str_starts_with((string) $c, 'npc_') ? 1 : 0) : 2][] = $c;
+        }
+        $order = [];
+        foreach ($tiers as $t) {
+            shuffle($t);
+            array_push($order, ...$t);
+        }
+        $picked = [];
+        $types = [];
+        foreach ($order as $c) {   // 1차: 병종이 안 겹치는 영웅만
+            if (count($picked) >= $count) {
+                break;
+            }
+            $ut = $heroes[$c]['unit_type'] ?? '';
+            if (! isset($types[$ut])) {
+                $picked[] = $c;
+                $types[$ut] = true;
+            }
+        }
+        foreach ($order as $c) {   // 2차: 병종 종류가 부족하면 겹침 허용
+            if (count($picked) >= $count) {
+                break;
+            }
+            in_array($c, $picked, true) || $picked[] = $c;
+        }
+
+        array_unshift($picked, self::KEY_HERO);   // 슬롯 1 = 캠페인 키 영웅(이순신 고정), 슬롯 2 = C급 무작위
+
+        return $picked;
     }
 
     /**
@@ -232,6 +314,32 @@ class ProgressionService
         return ['hero' => $hero, 'troop' => $troop, 'total' => $hero + $troop];
     }
 
+    /**
+     * 코스트 상한 초과 파티 보정(등급 격차 v1로 영웅 코스트가 오른 기존 유저 보호). 저장 데이터(parties)는 건드리지 않고, 출전 기본 편성에서만 초과분을 뒤쪽 영웅부터 뺀다.
+     * 보호 대상(강제·고정·대여 영웅 = $protectedIds)은 빼지 않는다. 보호 영웅만으로도 초과면 더 못 빼고 그대로 반환(validateParty 가 cost_exceeded 로 안내).
+     *
+     * @param array<int,array> $heroes user_hero id => ['uh'=>row,'hero'=>heroRow] (기본 편성 순서)
+     * @param int[] $protectedIds
+     * @return array{kept:array<int,array>,dropped:int[]}
+     */
+    public function trimPartyToCost(User $user, array $heroes, array $protectedIds, int $max, bool $campaign = false): array
+    {
+        $dropped = [];
+        while ($heroes !== [] && $this->costBreakdown($user, $heroes, null, $campaign)['total'] > $max) {
+            $pick = null;
+            foreach (array_keys($heroes) as $id) {
+                in_array($id, $protectedIds, true) || $pick = $id;   // 마지막 비보호 영웅
+            }
+            if ($pick === null) {
+                break;
+            }
+            unset($heroes[$pick]);
+            $dropped[] = $pick;
+        }
+
+        return ['kept' => $heroes, 'dropped' => $dropped];
+    }
+
     /** 저장된 파티의 코스트 합산(FE 표시용). 보유하지 않는 행은 무시. @return array{hero:int,troop:int,total:int,max:int} */
     public function savedPartyCost(User $user, bool $campaign = false): array
     {
@@ -289,7 +397,7 @@ class ProgressionService
         $max = $campaign ? \App\Game\ArmyBuilder::allyStageCap() : max(1, min(\App\Game\ArmyBuilder::unitHardCap(), (int) config('game.max_units_per_side')));
 
         return [
-            'slots' => config('game.troop_slots'), 'cap' => (int) config('game.troop_cap'), 'max_units' => $max,
+            'slots' => config('game.troop_slots'), 'slots_by_rarity' => (array) config('game.troop_slots_by_rarity'), 'cap' => (int) config('game.troop_cap'), 'max_units' => $max,
             'default_by_type' => config('game.troop_default_by_type'),
         ];
     }
@@ -366,7 +474,7 @@ class ProgressionService
         $uh = DB::table('user_heroes')->where('id', $userHeroId)->first();
         $from = $level = (int) $uh->level;
         $exp = (int) $uh->exp + $amount;
-        $max = (int) config('game.max_level');
+        $max = \App\Game\LevelRewards::maxLevel($this->data->heroById((int) $uh->hero_id)['rarity'] ?? null);   // 등급별 만렙(만렙 초과 보유 영웅은 레벨 유지·상승만 정지)
         $needs = DB::table('hero_levels')->pluck('exp_to_next', 'level')->all();   // 1회 조회(레벨업 루프 내 쿼리 제거)
         while ($level < $max) {
             $need = (int) ($needs[$level] ?? 0);
@@ -381,6 +489,6 @@ class ProgressionService
         $toNext = $level < $max ? (int) ($needs[$level] ?? 0) : 0;
 
         return ['user_hero_id' => $userHeroId, 'hero' => $this->data->heroById((int) $uh->hero_id)['code'], 'gained' => $amount, 'from_level' => $from, 'level' => $level, 'exp' => $exp,
-            'leveled' => $level > $from, 'exp_to_next' => $toNext, 'rewards_unlocked' => \App\Game\LevelRewards::unlocked($from, $level)];
+            'leveled' => $level > $from, 'exp_to_next' => $toNext, 'rewards_unlocked' => \App\Game\LevelRewards::unlocked($from, $level, $this->data->heroById((int) $uh->hero_id)['rarity'] ?? null)];
     }
 }

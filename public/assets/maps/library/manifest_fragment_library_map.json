@@ -1,0 +1,62 @@
+{
+ "_note": "메인 스토리 '잊힌 서고' 도서관 지도 배경 manifest 조각(안아트 2026-11-14) — 미병합. 병합: docker/gemini/merge_fragments.mjs FRAGMENTS 에 { path: `${A}/maps/library/manifest_fragment_library_map.json` } 1줄 추가 후 --dry 확인(윤프론). 프로필 연결: resources/js/game/data/library_map_profile.json bg_key = \"map.library.base\"",
+ "_keyRule": "map.library.<name> — base = 지도 전체 배경(순수 배경, 글자·노드 없음). 예약: map.library.fog_<chapter>(잠김 안개 오버레이), map.library.fx_*(빛 입자)",
+ "_generated": "2026-11-14",
+ "items": [
+  {
+   "key": "map.library.base",
+   "path": "assets/maps/library/library_base_3520.webp",
+   "type": "map_base",
+   "format": "webp",
+   "size": [3520, 1600],
+   "bytes": 394350,
+   "alpha": false,
+   "scope": "lazy",
+   "deferred": true,
+   "filter": "LINEAR",
+   "variants": {
+    "mobile": { "path": "assets/maps/library/library_base_1760.webp", "size": [1760, 800], "bytes": 130950, "alpha": false }
+   },
+   "aspect": 2.2,
+   "coords": "library_map_profile.json 정규화 좌표 [0,1] 와 1:1 (x*W, y*H). 이미지 전체 = 지도 rect(geom 의 mw x mh), 여백·크롭 없음",
+   "usage": "LibraryMapView 지도 배경. 코드 바닥(나무 판자)·구역 판(fillRoundedRect)·윗벽 책등 띠는 이미지가 있을 때 생략, 구역 테두리(선택 강조)·안개·연결선·노드·라벨은 그대로 위에 그림",
+   "loadHints": {
+    "pick": "표시 높이(mh x devicePixelRatio) <= 800 이면 variants.mobile, 그 이상이면 base",
+    "display": "setDisplaySize(mw, mh) 로 지도 rect 에 정확히 맞춤(비율 2.2 고정이라 늘어남 없음). 넓은 화면 contain, 좁은 화면 높이 맞춤 + 가로 드래그(기존 geom 그대로)",
+    "preload": "서고 지도 진입 시 mobile 먼저, base 는 지연 교체 가능"
+   },
+   "zones_in_image": {
+    "0": "로비: 아래 입구 아치, 왼쪽 아래 곡선 안내 카운터, 바닥 나침반 문양, 오른쪽 위 아치 출입구(stage_06 문 노드 자리)",
+    "101": "1막: 따뜻한 황금 등불, 떠다니는 책",
+    "102": "2막: 청록 유리 등, 오른쪽 칸막이의 고목(가지가 윗띠를 덮음)",
+    "103": "3막: 붉은 기·자수 깔개·촛대, 아래 붉은 계단",
+    "104": "4막: 보랏빛 별자리 돔 천장, 별빛 입자"
+   },
+   "generator": {
+    "model": "gemini-nano-banana-2.1",
+    "api": "Interactions API",
+    "size": "4K",
+    "aspect": "21:9 (6336x2688) -> 가운데 2.2 비 크롭 5914x2688 -> LANCZOS 축소",
+    "script": "docker/gemini/library_map_gen.mjs + library_map_style.mjs(JOBS lib_a2 생성 -> lib_a3 편집), 배치 가이드 library_map_guide.py, 후처리 library_map_pp.py, 미리보기 library_map_qa.py",
+    "raw": "docker/gemini/library_map/raw/lib_a3.jpg",
+    "calls": 5
+   },
+   "provenance": [
+    "이미지 모델 생성(오리지널). 입력 = 자체 제작 색 구획 가이드(프로필 좌표에서 생성) + 자체 에셋 bg.archive.hall(화풍 참조). 외부 레퍼런스·트레이싱 없음"
+   ],
+   "qa": {
+    "verdict": "pass_with_notes",
+    "notes": [
+     "구역 정렬: 생성 방 5개의 중심이 프로필 zones 중심과 화면 폭 약 1.5% 이내로 일치(로비만 왼쪽 가장자리까지 넓음), 26개 노드 모두 각 구역 바닥 위",
+     "노드 가림: 큰 소품 위 노드 없음. 경미: ch102_s2(0.555,0.67)·ch102_s4 근처 고목 뿌리 끝, stage_01 이 안내 카운터 가장자리와 맞닿음(데스크 노드라 의도와 맞음), 보스 노드 4개는 윗벽 서가 앞",
+     "가독성: 노드 자리 배경 대비(금색 accent 0xc9a24b 대비) 중앙값 2.46, 2 미만 3곳(ch101_s2, ch102_s2, ch102_s3) — 노드 아래 어두운 그림자 원 권장",
+     "글자: 없음. 로비 나침반 띠의 장식 무늬는 글자 아닌 문양(읽히는 글자 없음)",
+     "톤: 로비·1막 바닥을 후처리로 낮춤(0.76/0.70), 비네트 최대 10%"
+    ],
+    "measure": "docker/gemini/library_map/library_map_qa.json"
+   },
+   "verify": false,
+   "license": "프로젝트 자체 생성물"
+  }
+ ]
+}

@@ -18,6 +18,7 @@ class BattleStoryTest extends TestCase
         $this->artisan('game:seed-ch1')->assertSuccessful();
         config(['game.first_side' => 'a', 'game.rules.alternate_activation' => false]);
         $guest = $this->postJson('/api/guests', ['nickname' => 'storytest'])->assertCreated();
+        $this->givePartyHeroes((int) $guest->json('user.id'));
         $headers = ['X-Guest-Token' => $guest->json('guest_token')];
         $stage = DB::table('stages')->where('code', 'ch1_s1')->value('id');
         $challenge = $this->withHeaders($headers)->postJson("/api/stages/$stage/challenge")->assertCreated();

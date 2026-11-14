@@ -12,7 +12,7 @@ import { isInstant } from './motion.js';
 //  썸네일 ui.quest.thumb.*(320x192@2x, 표시 160x96, 매핑 quest_thumb_map.json: quests[code] -> fallback), 수령 완료 = 밝기 75%
 //  상태 버튼: 수령 완료(체크, 어두움) / 진행 중 ›(어두움) / 수령(상자 result.ico.chest.sm + btn.glow 맥동). XP 아이콘 result.ico.exp.sm, 골드 ico.gold
 //  키가 아직 없거나 로드 전이면 기존 스킨(panel_sub)·코드 도형으로 그린다(텍스트는 모두 FE 렌더)
-const SPEC = { title: '#F4E6C0', desc: '#B8B2A2', gold: '#F0C65A', xp: '#9FD3FF', doneLabel: '#BDB6A2', thumb: [160, 96] };
+const SPEC = { title: '#F4E6C0', desc: '#B8B2A2', gold: '#F0C65A', xp: '#9FD3FF', pen: '#E7B6FF', doneLabel: '#BDB6A2', thumb: [160, 96] };
 
 // 썸네일 매핑(지연 1회 로드). 실패하면 null(빈 판)
 let mapP = null; let mapFailAt = 0;
@@ -105,7 +105,8 @@ export function questCard(scene, q, w, h, { onClaim, onSignup } = {}) {
     if (q.reward?.user_exp) {
         const fx = rx; const fb = scene.add.container(0, 0); fb.add(scene.add.rectangle(fx, -7, 14, 14, 0x2a4a6a, 1).setOrigin(0).setStrokeStyle(1, 0x9fd3ff, 1)); rw.add(fb);
         withUiImage(scene, 'result.ico.exp.sm', (k) => { if (!rw.scene) return; fb.setVisible(false); rw.add(scene.add.image(fx + 9, 0, k).setDisplaySize(18, 18)); });
-        rw.add(makeText(scene, rx + 22, 0, `XP ${fmt(q.reward.user_exp)}`, { size: narrow ? 13 : 15, bold: true, color: SPEC.xp, origin: [0, 0.5] }));
+        const xt = makeText(scene, rx + 22, 0, `XP ${fmt(q.reward.user_exp)}`, { size: narrow ? 13 : 15, bold: true, color: SPEC.xp, origin: [0, 0.5] }); rw.add(xt); rx += 22 + xt.width + 14;
     }
+    if (q.reward?.pen) rw.add(makeText(scene, rx, 0, `펜 ${fmt(q.reward.pen)}`, { size: narrow ? 13 : 15, bold: true, color: SPEC.pen, origin: [0, 0.5] })); // 서버 reward.pen(일일 퀘스트 펜 + 개별 펜, 2026-11-14). 펜 아이콘 키 없음 -> 텍스트만
     return c;
 }

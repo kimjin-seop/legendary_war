@@ -354,6 +354,7 @@ class RoomService
                 $positions[$pl['user_hero_id']] = [$pl['x'], $pl['y']];
                 $hostLevels[$p->side][] = (int) $party[$pl['user_hero_id']]['uh']->level;
             }
+            $entries = app(HeroStarService::class)->attach($entries, true);   // 별(★) 보너스: apply_pvp=false(기본)면 불변
             $entries = app(EquipmentService::class)->attach($entries, $room->mode === 'pvp', $rankNorm !== null ? (float) $rankNorm['equip_scale'] : 1.0);   // 장비 합계(solo/PvP 공통, pvp는 equipment.pvp_scale 적용)
             $presetId = DB::table('presets')->where('hero_id', $entries[0]['row']['id'])->value('id');
             $rankNorm !== null && $state['no_variants'] = true;   // 랭크전은 특수유닛(variant) 비활성: 기본 병종

@@ -231,9 +231,9 @@ class GameAuditStages extends Command
         $maxBonus = (int) collect($this->gd->heroes())->filter(fn ($h) => empty($h['campaign_only']))->max('troop_bonus');
         $troops = 0;
         foreach ($ds['fixed'] as $fs) {
-            $troops += SquadPlanner::count($level, (int) ($this->gd->heroes()[$fs['hero']]['troop_bonus'] ?? 0), $cfg);
+            $troops += SquadPlanner::count($level, (int) ($this->gd->heroes()[$fs['hero']]['troop_bonus'] ?? 0), $cfg, $this->gd->heroes()[$fs['hero']]['rarity'] ?? null);
         }
-        $troops += count($ds['free']) * SquadPlanner::count($level, $maxBonus, $cfg);
+        $troops += count($ds['free']) * max(array_map(fn ($r) => SquadPlanner::count($level, $maxBonus, $cfg, $r), ['S', 'A', 'B', 'C']));   // 선택 슬롯 영웅 등급 미상: 등급별 부대 수 최댓값(상한 추정)
         $troops = min($troops, max(0, ArmyBuilder::allyStageCap() - $heroes));
         $set = ArmyBuilder::companionSettings((string) $s->code);
         $npc = 0;

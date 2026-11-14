@@ -158,6 +158,7 @@ export async function loadCampaign(chapter = 1) {
         : chapter === 19 ? await import('../data/dialogue/ch19_holy_land.json')
         : chapter === 20 ? await import('../data/dialogue/ch20_nagashino.json')
         : chapter === 999 ? await import('../data/dialogue/ch999_finale.json') // 숨은 종장
+        : chapter === 30 ? await import('../data/dialogue/ch30_legacy_stages.json') // 일반 스테이지 stage_02~06 대사(송서사 원본 -> sync_dialogue_data.mjs)
         : chapter === 12 ? await import('../data/dialogue/ch12_redcliff.json') // 서가 12장 적벽(준비 중, 대사만 선탑재)
         : chapter === 13 ? await import('../data/dialogue/ch13_hwangsanbeol.json') // 서가 13장 황산벌
         : chapter === 16 ? await import('../data/dialogue/ch16_orleans.json') // 서가 16장 오를레앙
@@ -236,19 +237,32 @@ export function josa(word, spec) {
 }
 
 // {토큰} / {토큰:조사} 치환. 값이 없으면 토큰을 그대로 둔다(누락이 눈에 보이도록). protagonist_name 기본값 = 현재 계정 이름
-// 정합(2026-11-01): 시작 영웅 이순신 고정 병종 = sword(hero_troop_types.json) -> 표시명은 names.unitClassName, max_cost 는 현재 프로필 값(Lv1=16, user_level_costs),
+// 정합(2026-11-01, unit_type_name 은 당시 기준 유지): 시작 영웅 이순신 고정 병종 = sword(hero_troop_types.json) -> 표시명은 names.unitClassName, max_cost 는 현재 프로필 값(Lv1=16, user_level_costs),
 // reward_* 는 stage_01(stages.json reward_exp 60 / reward_gold 100). 프로필이 아직 없을 때만 Lv1 값 16
-export const DEFAULT_TOKENS = { hero_name: '이순신', unit_type_name: '보병', max_cost: 16, reward_exp: 60, reward_gold: 100 };
+// hero_name(2026-11-14): 시작 영웅이 C급 무작위 2명(ProgressionService starter, config game.starter_hero_count) -> 특정 영웅명 고정 금지.
+//  실제 보유 영웅 중 먼저 받은 순(user_hero_id 오름차순, 주인공·캠페인 전용 제외) 앞 STARTER_COUNT 명을 'A, B'로. 목록이 없으면 중립 문구
+export const DEFAULT_TOKENS = { hero_name: '첫 영웅들', unit_type_name: '보병', max_cost: 16, reward_exp: 60, reward_gold: 100 };
+const STARTER_COUNT = 2;
+export function starterHeroNames(heroes = session?.heroes) {
+    const own = (Array.isArray(heroes) ? heroes : []).filter((h) => h && !h.protagonist && !h.campaign_only)
+        .sort((a, b) => Number(a.user_hero_id ?? Infinity) - Number(b.user_hero_id ?? Infinity));
+    const names = own.slice(0, STARTER_COUNT).map((h) => String(h.short_name || h.name_ko || h.name || '').trim()).filter(Boolean);
+    return names.length ? names.join(', ') : null;
+}
 const dynamicToken = (k) => {
     if (k === 'protagonist_name') return protagonistName();
+    if (k === 'hero_name') return starterHeroNames();
     if (k === 'unit_type_name') return unitClassName('sword');
     if (k === 'max_cost') return session?.profile?.max_cost ?? null;
     if (k === 'result_class') return PROTAGONIST.clsName; // 시나리오 P-03 자리표시(확정 전)
     if (k === 'result_troop') return PROTAGONIST.troopName;
     return null;
 };
-export const fillTokens = (text, tokens = {}) => String(text).replace(/\{(\w+)(?::([^}]+))?\}/g, (m, k, j) => {
+// 토큰 바로 뒤에 조사 한 글자가 고정으로 붙어 있으면({reward_gold}를 -> '100를') 값의 받침에 맞춰 보정. 뒤가 한글 음절이면(예: {x}이다) 조사가 아닌 것으로 보고 그대로 둔다
+const BARE_JOSA = { 은: '은/는', 는: '은/는', 이: '이/가', 가: '이/가', 을: '을/를', 를: '을/를', 와: '와/과', 과: '와/과' };
+export const fillTokens = (text, tokens = {}) => String(text).replace(/\{(\w+)(?::([^}]+))?\}(?:([은는이가을를와과])(?![가-힣]))?/g, (m, k, j, bare) => {
     const v = tokens[k] ?? dynamicToken(k) ?? DEFAULT_TOKENS[k];
     if (v == null) return m;
-    return j ? `${v}${josa(v, j)}` : String(v);
+    if (j) return `${v}${josa(v, j)}${bare ?? ''}`;
+    return bare ? `${v}${josa(v, BARE_JOSA[bare])}` : String(v);
 });

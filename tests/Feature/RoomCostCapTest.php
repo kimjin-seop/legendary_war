@@ -14,14 +14,14 @@ class RoomCostCapTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** 지정 병종·코스트 4 영웅 5명을 Lv1 유저에게 지급하고 편성 검증. */
-    private function validate(?string $unitType): array
+    /** 지정 병종·코스트(등급 격차 v1: B=3, A=5) 영웅 5명을 Lv1 유저에게 지급하고 편성 검증. unitType null = 검/창(부대 코스트 1)만. */
+    private function validate(?string $unitType, int $cost): array
     {
         $this->artisan('game:seed')->assertSuccessful();
         $token = $this->postJson('/api/guests', ['nickname' => 'cap'])->assertCreated()->json('guest_token');
         $user = User::query()->latest('id')->first();
         $this->assertSame(1, (int) $user->level);
-        $heroes = array_values(array_filter(app(GameData::class)->heroes(), fn ($h) => (int) $h['cost'] === 4 && empty($h['campaign_only']) && ($unitType === null || ($h['unit_type'] ?? null) === $unitType)));
+        $heroes = array_values(array_filter(app(GameData::class)->heroes(), fn ($h) => (int) $h['cost'] === $cost && empty($h['campaign_only']) && ($unitType === 'any' || ($unitType === null ? in_array($h['unit_type'] ?? null, ['sword', 'spear'], true) : ($h['unit_type'] ?? null) === $unitType))));
         $this->assertGreaterThanOrEqual(5, count($heroes));
         $ids = [];
         foreach (array_slice($heroes, 0, 5) as $h) {
@@ -32,23 +32,23 @@ class RoomCostCapTest extends TestCase
         return [$user, $ids];
     }
 
-    public function test_Lv1_계정도_L방에서_4코스트_영웅_5명_편성이_통과한다(): void
+    public function test_Lv1_계정도_L방에서_3코스트_영웅_5명_편성이_통과한다(): void
     {
-        [$user, $ids] = $this->validate(null);
+        [$user, $ids] = $this->validate(null, 3);
         $cap = (int) config('game.room.cost_cap')['L'];
         $out = app(ProgressionService::class)->validateParty($user, $ids, null, [], false, 5, $cap);
         $this->assertCount(5, $out);
     }
 
-    public function test_4코스트_기병_5명은_L방_상한_30을_넘어_cost_exceeded다(): void
+    public function test_8코스트_S급_5명은_L방_상한을_넘어_cost_exceeded다(): void
     {
-        [$user, $ids] = $this->validate('cavalry');
+        [$user, $ids] = $this->validate('any', 8);
         try {
             app(ProgressionService::class)->validateParty($user, $ids, null, [], false, 5, (int) config('game.room.cost_cap')['L']);
             $this->fail('cost_exceeded 기대');
         } catch (IllegalAction $e) {
             $this->assertSame('cost_exceeded', $e->reason);
-            $this->assertSame(30, $e->extra['max'] ?? null);
+            $this->assertSame(40, $e->extra['max'] ?? null);
         }
     }
 }

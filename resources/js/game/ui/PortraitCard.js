@@ -25,7 +25,7 @@ export function ensurePortrait(scene, code, onReady, { thumb = false } = {}) { /
 }
 
 // 게이지 상한: 임밸런 근거(Lv30 최대 공격 86·방어 40 + 장비) -> 공 90 / 수 45. 넘으면 막대는 가득(숫자는 그대로). 이동·사거리는 칸 눈금
-export const STAT_CAP = { at: 90, df: 45 }; // 임밸런 근거(2026-11-02): Lv30 최대 공격 86·방어 40 + 장비
+export const STAT_CAP = { at: 92, df: 54 }; // 재산정(2026-11-14 레벨 곡선 v2·등급 만렙 S24): 개발 DB 영웅 만렙 최대 공 83·방 38(S, 중앙값 74·25) + 장비 상한(공 +10%≈8, 방 +40%≈15). 이전 90/45(Lv30 기준)
 export const SEG_CAP = { move: 8, range: 3 }; // 이동 상한 8(2026-11-03): 기병·비행 기본 8. 넘으면 눈금 가득(숫자는 그대로)
 export class PortraitCard extends Phaser.GameObjects.Container {
     // portMax: 큰 초상 높이 상한(px), topLimit: 초상이 올라갈 수 있는 최상단 y(상단 바 아래)

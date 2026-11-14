@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
  * 소탕: 직접 3성 클리어한 스테이지의 보상만 재수령(전투 없음, 자동 전투가 아님).
  * - 조건: user_stage_progress.best_stars = 3 (수동 전투 정산으로만 올라간다). 아니면 422 sweep_not_available.
  * - 보상: 스테이지 보상 x 별점3 배율 x 재도전 배율(reward_scale). 영웅 exp 는 현재 파티 영웅에게 균등(레벨 격차 규칙 동일).
+ * - 유저 일일 총량: game.sweep.daily_total(기본 10, 0=무제한, 모든 스테이지 합산, 스코프 'stage_sweep_total:user:U'). 소진 시 422 sweep_daily_total, 일부만 남으면 잔여만큼만 실행(reward_blocked=sweep_daily_total).
  * - 일일 한도: (1) 전투 보상과 같은 카운터('stage_reward:user:U:stage:S', reward_scale.stage_daily_cap, 0=무제한)를 횟수만큼 소모, (2) 소탕 자체 상한('stage_sweep:user:U:stage:S', game.sweep.daily_cap, 기본 20)은 항상 적용.
  *   둘 중 작은 잔여만큼만 실행하고 초과분은 실행되지 않는다(0회면 422 stage_daily_cap).
  * - 영웅 exp: 전투와 달리 현재 파티 영웅 전원이 동일하게 받는다(전투의 벤치 bench_exp_pct 구분 없음).
@@ -66,7 +67,11 @@ class SweepService
         $shareScope = 'stage_reward:user:'.$user->id.':stage:'.$stageId;
         $sweepScope = 'stage_sweep:user:'.$user->id.':stage:'.$stageId;
         $sweepCap = (int) config('game.sweep.daily_cap', 20);
-        $executed = $count;
+        $totalScope = 'stage_sweep_total:user:'.$user->id;   // 유저 하루 소탕 총량(모든 스테이지 합산)
+        $totalCap = (int) config('game.sweep.daily_total', 0);
+        $totalLeft = $totalCap > 0 ? max(0, $totalCap - DailyCounter::valueLocked($totalScope)) : PHP_INT_MAX;
+        $totalCap > 0 && $totalLeft === 0 && throw new IllegalAction('sweep_daily_total', "오늘 소탕 총 {$totalCap}회를 모두 사용했습니다.", 422);
+        $executed = min($count, $totalLeft);
         $cap > 0 && $executed = min($executed, max(0, $cap - DailyCounter::valueLocked($shareScope)));   // 트랜잭션 안 잠금 읽기
         $sweepCap > 0 && $executed = min($executed, max(0, $sweepCap - DailyCounter::valueLocked($sweepScope)));
         if ($executed === 0) {
@@ -75,6 +80,7 @@ class SweepService
         // 증가가 거부되면(동시 요청이 먼저 소모) 예외로 전체 롤백: 보상 없이 카운터만 남는 일이 없다
         ($cap > 0 && ! DailyCounter::tryIncrement($shareScope, $cap, $executed)) && throw new IllegalAction('stage_daily_cap', '오늘 이 스테이지의 소탕·보상 횟수를 모두 사용했습니다.', 422);
         ($sweepCap > 0 && ! DailyCounter::tryIncrement($sweepScope, $sweepCap, $executed)) && throw new IllegalAction('stage_daily_cap', '오늘 이 스테이지의 소탕·보상 횟수를 모두 사용했습니다.', 422);
+        ($totalCap > 0 && ! DailyCounter::tryIncrement($totalScope, $totalCap, $executed)) && throw new IllegalAction('sweep_daily_total', "오늘 소탕 총 {$totalCap}회를 모두 사용했습니다.", 422);
         $mult = (float) ($rs['star_mult'][3] ?? 1.0) * (float) $rs['retry_mult'];
         $heroGain = (int) floor((int) $stage->reward_exp * $mult) * $executed;
         $userGain = (int) floor((int) $stage->reward_user_exp * $mult) * $executed;
@@ -85,7 +91,7 @@ class SweepService
             $heroResults[] = $this->progress->addHeroExp((int) $uhId, $this->battles->levelGapExp($heroGain, (int) $uhId, $stage, $rs));
         }
         $userResult = $this->progress->addUserExp($user, $userGain);
-        $result = ['stage_id' => $stageId, 'requested' => $count, 'executed' => $executed, 'reward_blocked' => $executed < $count ? 'stage_daily_cap' : null,
+        $result = ['stage_id' => $stageId, 'requested' => $count, 'executed' => $executed, 'reward_blocked' => $executed < $count ? ($executed === $totalLeft ? 'sweep_daily_total' : 'stage_daily_cap') : null, 'daily_total_remaining' => $totalCap > 0 ? max(0, $totalLeft - $executed) : null,
             'gold' => $gold, 'hero_exp_total' => $heroGain, 'user_exp' => $userGain, 'heroes' => $heroResults, 'user' => $userResult];
         $sid = DB::table('stage_sweeps')->insertGetId(['user_id' => $user->id, 'request_id' => $requestId, 'stage_id' => $stageId, 'requested' => $count, 'executed' => $executed,
             'result' => json_encode($result, JSON_UNESCAPED_UNICODE), 'created_at' => now()]);

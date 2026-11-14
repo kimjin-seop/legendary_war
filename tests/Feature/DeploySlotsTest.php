@@ -14,6 +14,7 @@ class DeploySlotsTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+        config(['game.max_open_stage_battles' => 3]);   // 테스트가 동시 진행 전투 2건을 쓰므로 상한을 명시(운영 기본값은 별도)
         $this->artisan('game:seed')->assertSuccessful();
         $this->artisan('game:seed-protagonist')->assertSuccessful();
     }
@@ -21,6 +22,7 @@ class DeploySlotsTest extends TestCase
     private function guest(): array
     {
         $r = $this->postJson('/api/guests', ['nickname' => 'slot'])->assertCreated();
+        $this->givePartyHeroes((int) $r->json('user.id'));
 
         return [['X-Guest-Token' => $r->json('guest_token')], (int) $r->json('user.id')];
     }

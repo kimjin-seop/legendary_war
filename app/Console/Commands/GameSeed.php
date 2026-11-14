@@ -468,6 +468,7 @@ class GameSeed extends Command
                     DB::table('stages')->where('code', $s['code'])->update(['rules' => \App\Support\StageRulesMerge::resolve($s['code'], $s['rules'], array_key_exists('forced_heroes', $s) ? (array) $s['forced_heroes'] : null)]);
                 }
             }
+            $this->mergeLegacyBattleCues($stages);   // 레거시 stage_NN 전투 중 대사(database/data/ch30_*.json battle_cues) -> rules.cues 병합(멱등)
             $sid = DB::table('stages')->pluck('id', 'code');
             foreach ($stages as $s) {
                 if ($s['prerequisite'] !== null) {
@@ -499,6 +500,33 @@ class GameSeed extends Command
     }
 
     /** exchange_products.json -> 교환소 기본 상품 멱등 적재(code 기준, --force 면 덮어쓰기). 장비 코드·payload 는 검증하고 테이블/파일 없으면 건너뜀 */
+    /**
+     * 레거시 스테이지(stage_NN, 장 번호 30)의 전투 중 대사: database/data/ch30_*.json battle_cues.<stage_code> 를 해당 스테이지 rules.cues 에 병합한다.
+     * GameSeedShelf::mergeBattleCues 재사용(같은 cue 는 한 번만 = 멱등, 기존 rules 의 다른 키·기존 cues 보존). 데이터에 cue 가 없는 스테이지는 불변.
+     * 엔진이 버리는 cue 등 병합 오류는 예외(시드 트랜잭션 롤백). rules 컬럼이 없으면 건너뜀.
+     */
+    private function mergeLegacyBattleCues(array $stages): void
+    {
+        if (! \Illuminate\Support\Facades\Schema::hasColumn('stages', 'rules') || (glob(database_path('data/ch30_*.json')) ?: []) === []) {
+            return;
+        }
+        $shelf = app(GameSeedShelf::class);
+        $shelf->setOutput($this->output);
+        $merge = new \ReflectionMethod($shelf, 'mergeBattleCues');
+        $errs = new \ReflectionProperty($shelf, 'bcueErrors');
+        foreach ($stages as $s) {
+            if (! preg_match('/^stage_\d+$/', (string) $s['code'])) {
+                continue;
+            }
+            $cur = json_decode((string) DB::table('stages')->where('code', $s['code'])->value('rules'), true) ?: [];
+            $new = $merge->invoke($shelf, 30, $s['code'], $cur, [], []);
+            if (json_encode($new) !== json_encode($cur)) {
+                DB::table('stages')->where('code', $s['code'])->update(['rules' => json_encode($new, JSON_UNESCAPED_UNICODE)]);
+            }
+        }
+        ($e = (array) $errs->getValue($shelf)) === [] || throw new \RuntimeException('legacy battle_cues 병합 불일치: '.implode(' / ', $e));
+    }
+
     private function seedExchange(): void
     {
         if (! Schema::hasTable('exchange_products') || ! is_file(database_path('data/exchange_products.json'))) {

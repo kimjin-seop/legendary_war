@@ -116,7 +116,8 @@ export function canCounter(att, def) {
 // {attackerId, defenderId, dmg, aff, affinity, terrain, terrain_def_pct, remaining, counter:{dmg, remaining}|null, hit:null(서버에 명중 개념 없음)}
 // opts.powerPct: 액티브 스킬 위력(%). 서버 Engine::doAttack 과 같이 일반 피해식 결과에 x power_pct/100(최소 1). 반격은 일반 피해식 그대로
 // opts.viaSkill: 스킬 공격이면 돌진(surge) 배율을 쓰지 않는다. opts.origin/alternate/firstSide: damageInfo ctx
-export function forecast(map, units, att, def, { powerPct, viaSkill = false, origin = null, alternate = false, firstSide = 'a', rules = null } = {}) {
+// opts.micro: 서버 병사 미시 교전(micro_mode 'on') 전투. 동시 교전이라 방어자가 격파돼도 공격자 손실(반격) 가능 -> 격파 예상이어도 '반격 없음'을 단정하지 않는다(microCounter = true, 수치 예측은 안 함)
+export function forecast(map, units, att, def, { powerPct, viaSkill = false, origin = null, alternate = false, firstSide = 'a', rules = null, micro = false } = {}) {
     const ctx = { origin, alternate, firstSide, rules };
     const main = damageInfo(map, units, att, att.x, att.y, def, false, ctx);
     // 서버 doAttack: 일반 공격이고 돌진(surge) skill_attack_pct > 100 이면 그 배율(그 턴 첫 일반 공격), 아니면 스킬 위력
@@ -130,7 +131,8 @@ export function forecast(map, units, att, def, { powerPct, viaSkill = false, ori
         const cRem = Math.max(0, att.hp - c.dmg);
         counter = { dmg: c.dmg, remaining: cRem, hit: null, troop: troopForecast(att, cRem) };
     }
-    return { attackerId: att.id, defenderId: def.id, attType: att.type, defType: def.type, ...main, aff: affToNum(main.affinity), remaining, counter, hit: null, estimated: true, troop: troopForecast(def, remaining) };
+    const microCounter = !!micro && !counter && remaining === 0 && canCounter(att, def); // MICRO_COMBAT_SPEC: 격파여도 동시 교전 피해 가능
+    return { attackerId: att.id, defenderId: def.id, attType: att.type, defType: def.type, ...main, aff: affToNum(main.affinity), remaining, counter, microCounter, hit: null, estimated: true, troop: troopForecast(def, remaining) };
 }
 
 // 예측 HP -> 병력 단계(화면 표기용 {before, after, loss}). 단계 변환은 systems/soldiers 한 곳

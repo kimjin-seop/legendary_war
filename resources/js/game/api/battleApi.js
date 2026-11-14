@@ -49,7 +49,7 @@ export const ERROR_TEXT = {
     out_of_bounds: '맵 밖 좌표입니다', invalid_target: '공격할 수 없는 대상입니다', invalid_action: '알 수 없는 행동입니다', battle_not_found: '전투를 찾을 수 없습니다',
     deployment_closed: '이미 확정된 전투입니다', deployment_missing: '배치를 먼저 제출하세요', outside_deploy_zone: '배치 가능 영역 밖입니다', impassable_tile: '배치할 수 없는 지형입니다',
     stage_locked: '선행 스테이지를 먼저 클리어해야 합니다', stage_not_found: '스테이지를 찾을 수 없습니다', battle_not_finished: '아직 종료되지 않은 전투입니다',
-    timeout: '응답이 없습니다(시간 초과)', network: '서버에 연결할 수 없습니다', no_party: '배치할 영웅이 없습니다',
+    timeout: '서버 응답이 늦습니다. 잠시 후 다시 시도해 주세요',network: '서버에 연결할 수 없습니다', no_party: '배치할 영웅이 없습니다',
     // 교대 행동(부대 단위 활성화)
     squad_locked: '현재 활성 부대의 행동을 먼저 끝내세요', squad_already_activated: '이번 라운드에 이미 행동한 부대입니다', squad_not_found: '행동할 수 있는 내 부대가 아닙니다',
 };

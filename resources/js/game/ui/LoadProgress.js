@@ -1,20 +1,14 @@
-import { makeText } from './common.js';
-import { createSkeleton } from './Skeleton.js';
-import { CSS } from '../theme.js';
-import { L, setupCamera } from '../layout.js';
-import { syncView } from '../theme.js';
+import { createLoadingView } from './LoadingView.js';
 import { loaded } from '../assets.js';
 
-// 로더 진행 표시: '불러오는 중 45% · 3.2/8.1MB · 남은 12개'. MB 는 manifest bytes 기준(없는 파일은 0으로 계산, 표시는 추정치).
+// 로더 진행 표시: 로딩 화면(LoadingView: 로고 + 얇은 진행 바 + 진행률 % + 용량 'x/yMB'). MB 는 manifest bytes 기준(없는 파일은 0으로 계산, 표시는 추정치).
 // - 씬 preload() 에서 호출. 로더에 받을 파일이 없으면 아무것도 그리지 않는다(재시작·재진입 시 깜빡임 없음).
-// - label 을 주면(Preload 처럼 직접 그린 글자) 그 글자만 갱신하고, 없으면 화면 가운데 진행 바·글자를 만들고 완료 시 지운다.
-export function fmtProgress(Ld, p, doneBytes, totalBytes) {
-    const left = Math.max(0, (Ld.totalToLoad ?? 0) - (Ld.totalComplete ?? 0) - (Ld.totalFailed ?? 0));
-    const mb = totalBytes > 0 ? ` · ${(Math.min(doneBytes, totalBytes) / 1e6).toFixed(1)}/${(totalBytes / 1e6).toFixed(1)}MB` : '';
-    return `불러오는 중 ${Math.round(p * 100)}%${mb}${left ? ` · 남은 ${left}개` : ''}`;
+// - view 를 주면(Preload 처럼 직접 만든 로딩 화면) 그 화면만 갱신하고, 없으면 로딩 화면을 만들고 완료 시 지운다(title = 문구, 예: '전장 준비' -> '전장 준비 중…').
+export function fmtDetail(doneBytes, totalBytes) {
+    return totalBytes > 0 ? `${(Math.min(doneBytes, totalBytes) / 1e6).toFixed(1)} / ${(totalBytes / 1e6).toFixed(1)}MB` : '';
 }
 
-export function trackLoadProgress(scene, { label = null, title = '' } = {}) {
+export function trackLoadProgress(scene, { view = null, title = '' } = {}) {
     const Ld = scene.load;
     const counted = new Set();
     let total = 0;
@@ -27,28 +21,23 @@ export function trackLoadProgress(scene, { label = null, title = '' } = {}) {
     const add = (key) => { if (key == null || sizes.has(key)) return; const b = bytesOf(key); sizes.set(key, b); total += b; };
     const resync = () => { sizes.forEach((b, key) => { const now = bytesOf(key); if (now > b) { total += now - b; sizes.set(key, now); } }); };
     try { Ld.list?.forEach?.((f) => add(f.key)); Ld.inflight?.forEach?.((f) => add(f.key)); } catch { /* 무시 */ }
-    let ui = null;
+    let own = null;
     const ensureUi = () => {
-        if (label || ui) return;
-        syncView();
-        setupCamera(scene, CSS.bg);
-        const sk = createSkeleton(scene, L.lw / 2 - 160, L.lh / 2 - 8, 320, 16);
-        const t = makeText(scene, L.lw / 2, L.lh / 2 + 24, title ? `${title}` : '불러오는 중', { size: 16, color: CSS.muted, origin: [0.5, 0] });
-        ui = { sk, t };
+        if (view || own) return;
+        own = createLoadingView(scene, { tagline: title ? `${title} 중…` : '' });
     };
-    const text = () => label ?? ui?.t;
     const onAdd = (key) => add(key);
     const onFile = (key) => { if (key == null || counted.has(key)) return; counted.add(key); add(key); resync(); done += sizes.get(key) ?? 0; }; // 추적 전에 큐에 들어간 파일도 총량에 포함
-    const onProg = (p) => { resync(); ensureUi(); const t = text(); if (t?.scene) t.setText(`${title ? `${title} · ` : ''}${fmtProgress(Ld, p, done, total)}`); };
+    const onProg = (p) => { resync(); ensureUi(); (view ?? own)?.set(p, fmtDetail(done, total)); };
     const cleanup = () => {
         Ld.off('addfile', onAdd); Ld.off('filecomplete', onFile); Ld.off('progress', onProg);
-        if (ui) { ui.sk?.destroy(); ui.t?.destroy(); ui = null; }
+        if (own) { own.destroy(); own = null; }
     };
     Ld.on('addfile', onAdd);
     Ld.on('filecomplete', onFile);
     Ld.on('progress', onProg);
     Ld.once('complete', cleanup);
     scene.events.once('shutdown', cleanup);
-    if ((Ld.list?.size ?? 0) > 0 && !label) ensureUi();
+    if ((Ld.list?.size ?? 0) > 0 && !view) ensureUi();
     return cleanup;
 }

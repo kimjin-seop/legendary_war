@@ -22,11 +22,12 @@ const SMALL = { 32: [190, 35], 64: [382, 70], 96: [575, 105] };
 export const LOGO_FILES = {
     main: { path: '/assets/ui/logo_main.webp', size: [768, 1024] },
     // 상단 바 로고(안아트 2026-11-04 퀘스트 시안 세트: ui.logo.topbar = 글자 일체형 현판 216x72 + @2x 432x144). 이전 header 600x200 은 교체
-    header: { path: '/assets/ui/logo_topbar.webp', size: [216, 72], x2: { path: '/assets/ui/logo_topbar@2x.webp', h: 144 } },
+    // 2026-11-14 안아트 재제작: 현판 금테가 상단 바 띠에 맞게 이미지 높이 = 바 높이(266x60 + @2x 532x120). 표시 높이 = 바 높이 BH 그대로(Lobby.buildBar)
+    header: { path: '/assets/ui/logo_topbar.webp', size: [266, 60], x2: { path: '/assets/ui/logo_topbar@2x.webp', h: 120 } },
     // 좁은 화면용 문장(ui.logo.emblem 67x72 + @2x 134x144)
     emblem: { path: '/assets/ui/logo_emblem.webp', size: [67, 72], x2: { path: '/assets/ui/logo_emblem@2x.webp', h: 144 } },
 };
-const LOGO_SIZE = { main: [768, 1024], header: [216, 72], emblem: [67, 72] };
+const LOGO_SIZE = { main: [768, 1024], header: [266, 60], emblem: [67, 72] };
 function logoSrc(kind, dispH = 0) {
     const c = LOGO_FILES[kind];
     const e = c?.path ? c : loaded.manifest?.[`ui.logo.${kind}`];
@@ -34,7 +35,7 @@ function logoSrc(kind, dispH = 0) {
     const size = Array.isArray(e.size) && e.size.length === 2 ? e.size : LOGO_SIZE[kind];
     const hi = !!c?.x2?.path && dispH * L.u > size[1]; // 표시 높이 x 백킹 배율이 1x 높이를 넘으면 @2x(header·emblem)
     const p = String(hi ? c.x2.path : e.path);
-    return { key: `brand_logo_${kind}_new${hi ? '_2x' : ''}`, url: withVer(p.startsWith('/') ? p : `/${p}`), ratio: size[1] / size[0] };
+    return { key: `brand_logo_${kind}_new${kind === 'header' ? '_v2' : ''}${hi ? '_2x' : ''}`, /* header _v2: 재제작 266x60(같은 세션 이전 텍스처 재사용 방지) */ url: withVer(p.startsWith('/') ? p : `/${p}`), ratio: size[1] / size[0] };
 }
 export const mainLogoOn = () => !!logoSrc('main');
 // 헤더(가로 현판) 로고 변형(dispH = 표시 높이, 해상도 선택용): 없으면 null(호출 측 = 기존 소형 로고)

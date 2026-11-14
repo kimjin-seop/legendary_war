@@ -76,9 +76,13 @@ export class Tabs extends Phaser.GameObjects.Container {
             const cell = { key: it.key, bg, label, ic, vert: true, glyph: ic ? null : it.label.slice(0, 1), fs: Math.round(Math.min(w * 0.9, chV * 0.72)) };
             this.cells.push(cell);
             // 안아트 내비 스킨(ui.nav.<이름> 아이콘 + ui.nav.frame / frame_selected 원형 프레임): 도착하면 코드 원·아틀라스 아이콘 대신. 아이콘 = 프레임 지름 60% 가운데
-            if (it.navIcon) {
+            // 전용 내비 아이콘이 없는 칸(상점 = ico.shop 등)도 프레임 이미지는 같이 쓴다(a27b QA: 상점만 금테 없는 어두운 원)
+            if (it.navIcon || ic) {
                 const re = () => { if (this.scene) this.setActive(this.active); };
                 withUiImage(scene, 'ui.nav.frame', re); withUiImage(scene, 'ui.nav.frame_selected', re);
+            }
+            if (it.navIcon) {
+                const re = () => { if (this.scene) this.setActive(this.active); };
                 withUiImage(scene, it.navIcon, (k) => {
                     if (!this.scene || !label.scene) return;
                     cell.navIc?.destroy();
@@ -111,10 +115,12 @@ export class Tabs extends Phaser.GameObjects.Container {
                 const { cx, cy, r } = c.bg.vr;
                 c.bg.clear();
                 const fk = texKey(on ? 'ui.nav.frame_selected' : 'ui.nav.frame');
-                if (c.navIc && this.scene.textures.exists(fk)) { // 이미지 스킨: 프레임 이미지(선택/기본) + 내비 아이콘
-                    if (!c.navFr?.scene) { c.navFr = this.scene.add.image(cx, cy, fk); this.addAt(c.navFr, this.getIndex(c.navIc)); }
+                const fg = c.navIc ?? c.ic; // 전용 내비 아이콘이 없으면 아틀라스 아이콘(ico.*)을 같은 프레임 위에
+                if (fg && this.scene.textures.exists(fk)) { // 이미지 스킨: 프레임 이미지(선택/기본) + 내비 아이콘
+                    if (!c.navFr?.scene) { c.navFr = this.scene.add.image(cx, cy, fk); this.addAt(c.navFr, this.getIndex(fg)); }
                     c.navFr.setTexture(fk).setDisplaySize(c.fs, c.fs);
-                    c.navIc.setAlpha(on ? 1 : 0.82);
+                    if (!c.navIc) fg.clearTint(); // 비선택 흐림 틴트 대신 알파만(다른 칸과 같은 규칙)
+                    fg.setAlpha(on ? 1 : 0.82);
                     c.label.setColor(on ? '#F6D98C' : CSS.text);
                     return;
                 }

@@ -16,7 +16,7 @@ class HeroGenerateAuditTest extends TestCase
         $this->assertSame(file_get_contents($a), file_get_contents($b));                         // 같은 입력 = 같은 출력
         $items = json_decode(file_get_contents($a), true)['items'];
         $this->assertSame(['yi_sun_sin', 'hannibal'], array_column($items, 'code'));
-        $this->assertSame(6, $items[0]['cost']);                                                  // S 등급
+        $this->assertSame(8, $items[0]['cost']);                                                  // S 등급(등급 격차 v1: C2/B3/A5/S8)
         $this->artisan('game:hero-generate', ['--only' => 'yi_sun_sin', '--out' => $a])->assertFailed();   // 기존 파일 덮어쓰기 금지
         $this->artisan('game:hero-generate', ['--out' => database_path('data/heroes.json')])->assertFailed();   // heroes.json 하드 차단
         // rarity가 없거나 pending_review인 풀 항목(데이터에 따라 달라짐)은 건너뜀

@@ -7,7 +7,7 @@
   보유 필수(대여 없음): 주인공 외 영웅을 미보유하면 입장 422 `required_hero_missing`.
 - 선택 슬롯(free_slots): 스테이지가 정한 지정 타일에 유저가 보유 영웅을 자유롭게 둔다(비워도 확정 가능). `unit_types` 로 병종을 제한할 수 있다(선택).
 - 총 영웅 수 = 고정 + 선택. 슬롯 모드에서 이 슬롯 수가 유저 레벨 곡선 `maxSlots` 를 대체한다(고정 영웅은 슬롯 수 면제, 선택 슬롯 수만 `max_party_slots`).
-- 코스트: 고정(강제 출전) 영웅의 영웅 코스트 + 부대 코스트도 합산에 포함한다(2026-11-08 사용자 번복, 이전에는 면제). 상한 = `rules.deploy_slots.cost_cap`(정수, 선택) 우선, 없으면 `max(현행 곡선 max(user_level_costs, 슬롯x8), (선택 슬롯 수 + 강제·고정 영웅 수) x 8)` (`ProgressionService::campaignCostCap`).
+- 코스트: 고정(강제 출전) 영웅의 영웅 코스트 + 부대 코스트도 합산에 포함한다(2026-11-08 사용자 번복, 이전에는 면제). 상한 = `rules.deploy_slots.cost_cap`(정수, 선택) 우선, 없으면 `max(현행 곡선 max(user_level_costs, 슬롯x8), (선택 슬롯 수 + 강제·고정 영웅 수) x 8)` (`ProgressionService::campaignCostCap`). 2026-11-14 등급 격차 v1 이후 곡선 부분은 `game.campaign_slots.cost_cap_by_level` 표(없으면 슬롯x8 폴백) + 강제 영웅 수 x 8 로 계산한다(HANDOFF '등급 격차 v1' 절).
   강제·고정 영웅도 슬롯 1칸 몫(8)의 코스트 예산을 가진다. 코스트 면제를 폐지하자 신규 유저 stage_01 기본 편성(주인공 3 + 이순신 6 + 곽재우 2 + 부대 6 = 17)이 곡선 상한 16에 걸려 422 cost_exceeded 가 났기 때문(2026-11-08 강화면 발견). 강제 영웅이 없거나 캠페인이 아니면(방·PvP·자유전) 종전과 같다.
 - 이 코스트 포함 규칙은 기존 `forced_heroes` 에도 적용된다(슬롯 면제는 유지, 코스트 면제 폐지). `ProgressionService::validateParty` 가 단일 출처.
 - 봇 아군(`rules.ally_npcs`)은 기존 그대로(슬롯·코스트 소비 없음). 부대는 영웅에 딸려 기존 SquadPlanner / `troop_place_radius` 자동 배치.

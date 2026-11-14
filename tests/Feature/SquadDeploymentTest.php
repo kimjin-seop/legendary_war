@@ -17,6 +17,7 @@ class SquadDeploymentTest extends TestCase
         $this->stripDeploySlots();
         config(['game.rules.squad' => true]);
         $r = $this->postJson('/api/guests', ['nickname' => 'deploy'])->assertCreated();
+        $this->givePartyHeroes((int) $r->json('user.id'));   // 오라가 있는 영웅 기준 검증(C급 시작 영웅은 오라가 없을 수 있음)
         $h = ['X-Guest-Token' => $r->json('guest_token')];
         $sid = DB::table('stages')->orderBy('sort_order')->value('id');
         $ch = $this->withHeaders($h)->postJson("/api/stages/$sid/challenge")->assertCreated();

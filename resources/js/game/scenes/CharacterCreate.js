@@ -3,12 +3,16 @@ import { L, setupCamera, relayoutOnChange } from '../layout.js';
 import { COLOR, CSS, syncView } from '../theme.js';
 import { Button } from '../ui/Button.js';
 import { Modal } from '../ui/Modal.js';
+import { ScrollList } from '../ui/widgets.js';
 import { makeText, addBackdrop, fitText } from '../ui/common.js';
 import { PortraitPicker, renderProtagonistArt } from '../ui/PortraitPicker.js';
 import { protagonistName } from '../dialogue/dialogueData.js';
 import { messageOf } from '../api/errors.js';
 import { getProtagonist, saveProtagonist, changeFace, mergeState } from '../campaign/protagonistApi.js';
 import { classTitle, classTroop, applyProtagonistState } from '../campaign/protagonistQuiz.js';
+import { dialogueBgTex } from '../dialogue/portraitStage.js';
+import { bgCoverScale } from '../dialogue/dialogueLayout.js';
+const ARCHIVE_BG = 'bg.archive.aisle'; // 열람 카드 화면 배경(튜토리얼 tut_02~07 과 같은 서고 통로)
 // import { isSeen, markSeen } from '../campaign/campaignFlow.js'; // (원복 시 복원: complete 의 ch1_open 분기용)
 
 // 캐릭터 생성(열람 카드). 모든 표시 데이터(성별·초상화 후보·클래스·문항·재검사 한도)는 서버 GET /api/protagonist.
@@ -36,9 +40,25 @@ export class CharacterCreateScene extends Phaser.Scene {
         relayoutOnChange(this, () => ({ next: this.next, mode: this.mode, state: this.st, data0: this.data0 }));
         addBackdrop(this, L.lw, L.lh);
         this.add.graphics().fillGradientStyle(0x0b1328, 0x0b1328, 0x1b2a4a, 0x1b2a4a, 1).fillRect(0, 0, L.lw, L.lh);
+        this.bgLayer = this.add.container(0, 0); // 2026-11-14: 서고 통로 배경(root 아래). 없거나 로드 실패면 위 그라데이션 그대로
+        this.addArchiveBg();
         this.root = this.add.container(0, 0);
         if (this.data0 && this.st.step !== 'loading') { this.render(); return; }
         this.loadData();
+    }
+
+    // 열람 카드 배경: 기존 대화 배경 bg.archive.aisle(manifest 등록분만, 작은 화면은 1280 변형) + 남색 덮개(글자 가독성). 새 에셋 없음
+    addArchiveBg() {
+        // 2026-11-14 강화면 v10(Low): 창 크기 변경(relayoutOnChange = 씬 restart) 뒤 배경이 사라지던 문제.
+        //  원인: 텍스처가 이미 캐시돼 있으면 put 이 create() 안에서 동기 호출되는데, 그 시점 씬 상태는 CREATING 이라 sys.isActive()(RUNNING)가 false -> 그리지 않고 끝났다.
+        //  (처음 진입은 비동기 로드 콜백이라 RUNNING 이어서 정상). 살아 있는 판정은 이번 create 의 bgLayer 가 파괴되지 않았는지(scene 참조)로 한다.
+        const put = (k) => {
+            if (!k || !this.bgLayer?.scene || !this.textures.exists(k) || this.bgLayer.length) return;
+            const img = this.add.image(L.lw / 2, L.lh / 2, k).setOrigin(0.5);
+            img.setScale(bgCoverScale(img.width, img.height));
+            this.bgLayer.add([img, this.add.rectangle(0, 0, L.lw, L.lh, 0x0b1328, 0.62).setOrigin(0)]);
+        };
+        put(dialogueBgTex(this, ARCHIVE_BG, put));
     }
 
     loadData() { // 이름 주의: load() 는 Phaser 씬의 LoaderPlugin(this.load)을 덮어쓴다
@@ -206,15 +226,52 @@ export class CharacterCreateScene extends Phaser.Scene {
     stepPick() {
         const a = this.frame('지휘 성향 직접 고르기', '원하는 성향을 고르십시오. 곁에 둘 병사의 병종이 함께 정해집니다.');
         const list = this.classes;
-        const cols = a.w >= 720 ? 2 : 1;
         const gap = 12;
-        const cw = Math.floor((a.w - gap * (cols - 1)) / cols);
-        const ch = 76;
+        // 설명문은 버튼 안(금테 안쪽 여백 18)에 라벨 아래로 줄바꿈해 넣는다(이전: 버튼 하단 금테에 걸쳐 잘림·겹침, a27b QA).
+        // 행 높이 = 가장 긴 설명문 줄 수 기준으로 통일. 본문 영역(a.h = 하단 이전/건너뛰기 버튼 영역 제외)에 맞을 때까지
+        // 설명문 2줄 -> 1줄 -> (좁은 1열이면) 2열 -> 최소 행 높이 축소 순으로 줄이고, 그래도 넘치면 스크롤 목록(휠·드래그)으로 둔다.
+        // (2026-11-14 강화면 v10: 667x375 에서 1열 5행이 하단 버튼과 겹치고 5번째 카드가 화면 밖 = 선택 불가)
+        const labelH = 22; const padV = 14; const sumGap = 4;
+        const measure = (cols, maxLines, minH) => {
+            const cw = Math.floor((a.w - gap * (cols - 1)) / cols);
+            const tw = cw - 36;
+            const sums = list.map((c) => (c.summary ? fitText(makeText(this, 0, 0, c.summary, { size: 13, color: CSS.muted, wrap: tw, align: 'center', origin: [0.5, 0] }), tw, { maxLines }) : null));
+            const sh = Math.max(0, ...sums.map((t) => (t ? t.height : 0)));
+            const ch = Math.max(minH, padV * 2 + labelH + (sh ? sumGap + sh : 0));
+            const rows = Math.ceil(list.length / cols);
+            return { cols, cw, sums, sh, ch, total: rows * ch + (rows - 1) * gap };
+        };
+        const tries = [[a.w >= 720 ? 2 : 1, 2, 76], [a.w >= 720 ? 2 : 1, 1, 76]];
+        if (a.w < 720 && a.w >= 480) tries.push([2, 2, 76], [2, 1, 76]);
+        tries.push([tries[tries.length - 1][0], 1, 60]);
+        let lay = null;
+        for (const [cols, lines, minH] of tries) {
+            lay?.sums.forEach((t) => t?.destroy());
+            lay = measure(cols, lines, minH);
+            if (lay.total <= a.h) break;
+        }
+        const { cols, cw, sums, sh, ch } = lay;
+        const scroll = lay.total > a.h;
+        const sl = scroll ? new ScrollList(this, { x: a.x, y: a.y, w: a.w, h: a.h, clip: true, bar: true }) : null;
+        if (sl) this.root.add(sl);
+        const ox = sl ? 0 : a.x; const oy = sl ? 0 : a.y;
+        const cwS = sl ? cw - (cols === 1 ? 10 : 5) : cw; // 스크롤바 자리
         list.forEach((c, i) => {
-            const x = a.x + (i % cols) * (cw + gap); const y = a.y + Math.floor(i / cols) * (ch + gap);
-            this.root.add(new Button(this, { x, y, w: cw, h: ch, label: `${classTitle(c)} · ${classTroop(c.code)}`, size: 17, variant: this.st.cls === c.code ? 'primary' : 'default', onClick: () => this.save({ mode: 'manual', cls: c.code }, (d) => this.go('result', { cls: d.cls ?? c.code, source: 'manual', flow: 'done' })) }));
-            if (c.summary) this.root.add(fitText(makeText(this, x + 12, y + ch - 4, c.summary, { size: 12, color: CSS.muted, origin: [0, 1] }), cw - 24));
+            const x = ox + (i % cols) * (cwS + gap); const y = oy + Math.floor(i / cols) * (ch + gap);
+            const selected = this.st.cls === c.code;
+            const b = new Button(this, { x, y, w: cwS, h: ch, label: `${classTitle(c)} · ${classTroop(c.code)}`, size: 17, variant: selected ? 'primary' : 'default', onClick: () => this.save({ mode: 'manual', cls: c.code }, (d) => this.go('result', { cls: d.cls ?? c.code, source: 'manual', flow: 'done' })) });
+            const t = sums[i];
+            const blockH = labelH + (sh ? sumGap + sh : 0);
+            const top = -b.h / 2 + Math.round((b.h - blockH) / 2); // face 원점 = 버튼 중앙
+            b.label.y = top + labelH / 2;
+            if (t) {
+                t.setPosition(0, top + labelH + sumGap);
+                if (selected) t.setColor('#3a2a08'); // 금색 primary 위 대비
+                b.face.add(t); // 호버 확대·눌림 하강을 라벨과 함께 따른다
+            }
+            if (sl) { b.clipH = ch; sl.content.add(b); } else this.root.add(b);
         });
+        sl?.setContentHeight(lay.total);
         this.backBtn('이전', () => this.go('method'));
     }
 
@@ -321,7 +378,7 @@ export class CharacterCreateScene extends Phaser.Scene {
     //   로비 자동 시작 프롤로그(tutorial_guide prologue_short)와 연달아 보이는 문제 방지. 원복 = 아래 주석의 분기 복원)
     complete(notice = '열람 카드를 작성했습니다') {
         if (this.next) { this.scene.start(this.next.scene, this.next.data); return; }
-        const lobby = { scene: 'Lobby', data: { tab: 'stage', notice } };
+        const lobby = { scene: 'Lobby', data: { tab: 'main', notice } }; // 신규: 튜토리얼(stage_01~06)이 있는 메인 스토리 탭으로(2026-11-14 튜토리얼 이동)
         // (원복용) if (!isSeen('ch1_open')) { markSeen('ch1_open'); this.scene.start('Dialogue', { source: 'campaign', chapter: 1, id: 'ch1_open', next: lobby }); return; }
         this.scene.start(lobby.scene, lobby.data);
     }

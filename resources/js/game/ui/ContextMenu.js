@@ -84,10 +84,11 @@ export class ContextMenu extends Phaser.GameObjects.Container {
         const icoS = two ? 18 : 22;
         const rows = Math.ceil(items.length / cols);
         const w = pad * 2 + ig + cols * cw + (cols - 1) * gap;
-        // 항목 설명 줄(it.desc, 1열만: MP 방식 스킬 효과 등) + 경고(it.descWarn, 붉은 글자 앞줄). 들어갈 높이에 따라 2줄 -> 1줄 -> 생략
-        const anyDesc = !two && items.some((it) => it.desc || it.descWarn);
+        // 항목 설명 줄(it.desc, 1열만: MP 방식 스킬 효과 등). 들어갈 높이에 따라 2줄 -> 1줄 -> 생략.
+        // 비활성 사유(it.reason)는 목록 사이에 끼워 넣지 않는다(사용자 2026-11-14 '안내문구를 UI 중간에 끼워 깨뜨리지 마'): 호버·탭 시 패널 옆 말풍선(ui/ReasonTip). 구 it.descWarn 은 무시
+        const anyDesc = !two && items.some((it) => it.desc);
         const descH0 = (lines) => (anyDesc ? lines * 15 + 2 : 0);
-        const hOf = (dh) => pad * 2 + rows * bh + (rows - 1) * gap + items.filter((it) => it.desc || it.descWarn).length * dh;
+        const hOf = (dh) => pad * 2 + rows * bh + (rows - 1) * gap + items.filter((it) => it.desc).length * dh;
         const dLines = anyDesc ? ([2, 1].find((n) => hOf(descH0(n)) <= bounds.h) ?? 0) : 0;
         const descH = descH0(dLines) * (dLines ? 1 : 0);
         const h = hOf(descH);
@@ -95,6 +96,7 @@ export class ContextMenu extends Phaser.GameObjects.Container {
         this.setPosition(pos.x, pos.y);
         this.w = w;
         this.h = h;
+        this.tipOpts = { bounds }; // 말풍선 화면 안 영역(메뉴 배치 영역과 같은 좌표계)
         const bgp = slice(scene, 'panel', w, h, 'panel');
         if (pos.hit) bgp.setAlpha(0.72); // 대상 적을 피할 자리가 없으면 바탕을 반투명으로(아래 적이 비쳐 보이게, 하플레이 2026-11-04)
         this.add(bgp);
@@ -103,7 +105,7 @@ export class ContextMenu extends Phaser.GameObjects.Container {
         let yAcc = pad;
         this.btns = items.map((it, i) => {
             const by = cols === 1 ? yAcc : pad + Math.floor(i / cols) * (bh + gap);
-            const dh = descH && (it.desc || it.descWarn) ? descH : 0;
+            const dh = descH && it.desc ? descH : 0;
             if (cols === 1) yAcc += bh + dh + gap;
             const b = new Button(scene, {
                 x: pad + ig + (i % cols) * (cw + gap), y: by, w: cw, h: bh,
@@ -111,14 +113,14 @@ export class ContextMenu extends Phaser.GameObjects.Container {
                 onHover: () => this.select(i), iconFn: it.icon ? (sc) => actionIcon(sc, it.icon, icoS) : undefined,
             });
             if (!b.icon && b.label?.width > cw - 14) fitText(b.label, cw - 14); // 아이콘 버튼은 Button.layoutContent 가 아이콘 폭을 빼고 축소·말줄임
+            b.tipHost = this; // 비활성 사유 말풍선 호스트(Button 이 호버·탭 시 사용)
             if (it.disabled) b.setAlpha(0.55); // 비활성 확실히 표시(secondary 비활성 텍스처가 일반과 거의 같아 활성처럼 보이던 문제, 강화면 2026-11-06)
             const ic = ig ? skillIconImage(scene, it.iconFrame, pad + ICON / 2, by + bh / 2, ICON) : null;
             if (ic) { if (it.disabled) ic.setAlpha(0.45); this.add(ic); }
             this.add(b);
             if (it.dotColor != null) { const dx = pad + ig + 9; const dy = by + 9; const d = scene.add.circle(dx, dy, 5, it.dotColor, it.disabled ? 0.5 : 1).setStrokeStyle(1.5, 0x0b1020, 0.9); this.add(d); } // 속성 색 점(버튼 왼쪽 위)
-            if (dh) { // 설명: 경고(붉은) 다음 효과(회색), 버튼 바로 아래 dLines 줄까지
-                const txt = [it.descWarn, it.desc].filter(Boolean).join(' · ');
-                const dt = makeText(scene, pad + ig, by + bh + 2, txt, { size: 12, color: it.descWarn ? '#ff9a8a' : '#c9c2ae', wrap: cw, lineSpacing: 0 });
+            if (dh) { // 설명(회색), 버튼 바로 아래 dLines 줄까지
+                const dt = makeText(scene, pad + ig, by + bh + 2, it.desc, { size: 12, color: '#c9c2ae', wrap: cw, lineSpacing: 0 });
                 if (dt.height > dLines * 15 + 1) fitText(dt, cw, { maxLines: dLines });
                 if (it.disabled) dt.setAlpha(0.85);
                 this.add(dt);
@@ -159,7 +161,7 @@ export class ContextMenu extends Phaser.GameObjects.Container {
 
 // 전투 예측 말풍선(대상 옆): 상성 / 예상 피해 / 반격 / 확정·취소. 예측은 참고용(판정은 서버), hit 가 null 이면 명중 표기 생략
 export class ForecastBubble extends Phaser.GameObjects.Container {
-    constructor(scene, { anchor, bounds, fc, onConfirm, onCancel, narrow = false, touch = false }) {
+    constructor(scene, { anchor, bounds, fc, onConfirm, onCancel, narrow = false, touch = false, instant = false }) { // instant: 같은 예측의 값 갱신(서버 예측 도착) = 페이드 생략
         super(scene, 0, 0);
         const bh = itemH();
         const pad = 12;
@@ -173,8 +175,9 @@ export class ForecastBubble extends Phaser.GameObjects.Container {
         const skT = fc.skill ? makeText(scene, skIco ? 28 : 0, 0, `스킬 「${fc.skill.name}」 위력 ${fc.skill.powerPct}%`, { size: 15, bold: true, color: '#FFE08A', wrap: w - pad * 2 - (skIco ? 28 : 0) }) : null;
         if (skT) items.unshift(skT);
         const ct = fc.counter?.troop;
-        const counterTxt = fc.counter ? `반격 병력 -${ct?.loss ?? '?'}${ct ? ` (내 병력 ${ct.after}/10)` : ''}${fc.counter.hit != null ? ` (명중 ${fc.counter.hit}%)` : ''}` : (fc.remaining === 0 ? '격파 예상 · 반격 없음' : '반격 없음');
+        const counterTxt = fc.counter ? `반격 병력 -${ct?.loss ?? '?'}${ct ? ` (내 병력 ${ct.after}/10)` : ''}${fc.counter.hit != null ? ` (명중 ${fc.counter.hit}%)` : ''}` : (fc.remaining === 0 ? (fc.microCounter ? '격파 예상 · 동시 교전: 반격 피해 가능' : '격파 예상 · 반격 없음') : '반격 없음');
         items.push(makeText(scene, 0, 0, counterTxt, { size: 15, color: fc.counter ? CSS.dangerText : CSS.muted, wrap: w - pad * 2 }));
+        if (fc.tentative) items.push(makeText(scene, 0, 0, '참고용(변동 가능)', { size: 13, color: CSS.muted, wrap: w - pad * 2 })); // 미시 on 서버 예측 실패·시간 초과: 로컬 근사값
         // 방향 on 이고 후면/측면 타격이면 보너스 줄(색 + 글자 병행). 값은 서버 config 노출 전까지 시작값 상수(systems/facing.js TODO)
         if (fc.auraAtk || fc.auraDef) items.push(makeText(scene, 0, 0, `오라 공+${fc.auraAtk ?? 0}% · 적 방+${fc.auraDef ?? 0}%`, { size: 14, bold: true, color: '#f0d58c', wrap: w - pad * 2 }));
         if (fc.flank === 'back' || fc.flank === 'side') items.push(makeText(scene, 0, 0, `${FLANK_LABEL[fc.flank]} +${FLANK_PCT[fc.flank]}%`, { size: 15, bold: true, color: fc.flank === 'back' ? CSS.dangerText : CSS.accent, wrap: w - pad * 2 }));
@@ -200,7 +203,7 @@ export class ForecastBubble extends Phaser.GameObjects.Container {
         this.cancelBtn = new Button(scene, { x: pad + cw + 8, y, w: cw, h: bh, label: '취소', onClick: onCancel, size: 18 });
         this.add([this.confirmBtn, this.cancelBtn]);
         scene.add.existing(this);
-        popIn(scene, this);
+        if (!instant) popIn(scene, this);
     }
 
     contains(px, py) { return px >= this.x - 8 && px <= this.x + this.w + 8 && py >= this.y - 8 && py <= this.y + this.h + 8; }

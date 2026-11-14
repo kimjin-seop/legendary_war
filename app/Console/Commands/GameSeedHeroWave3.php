@@ -85,9 +85,12 @@ class GameSeedHeroWave3 extends Command
                 $src = (string) ($c['source'] ?? '');
                 $row = DB::table('heroes')->where('code', $code)->first();
                 $s = $stats[$code] ?? null;
+                if ($s !== null && isset($s['rarity'])) {   // 등급 격차 v1(2026-11-14): 등급 단일 코스트(config game.hero_cost_by_grade)로 통일. 후보 JSON의 cost 는 무시
+                    $s['cost'] = (int) (config('game.hero_cost_by_grade')[strtoupper((string) $s['rarity'])] ?? $s['cost'] ?? 3);
+                }
                 if ($s !== null && isset($boost[$code])) {
                     $s['rarity'] = 'C';
-                    $s['cost'] = 2;
+                    $s['cost'] = (int) config('game.hero_cost_by_grade.C', 2);
                     if (count((array) ($s['passives'] ?? [])) > 1) {   // C 등급 스킬 규칙(패시브 1+액티브 1): 첫 패시브만 유지
                         $this->line("  C 보강 {$code}: 패시브 ".implode(',', array_slice($s['passives'], 1)).' 연결 제외(C 규칙 1+1)');
                         $s['passives'] = array_slice($s['passives'], 0, 1);

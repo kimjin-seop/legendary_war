@@ -122,8 +122,10 @@ class TutorialService
         if (! $this->progress->credit($user->id, 'gold', $gold, self::REASON, 'user', $user->id)) {
             return null;
         }
+        $pen = (int) config('game.pen.tutorial_reward', 0);
+        $pen > 0 && $this->progress->credit($user->id, 'pen', $pen, self::REASON.'_pen', 'user', $user->id);   // 소환용 펜(상한 밖)
         $exp > 0 && $this->progress->addUserExp($user, $exp);
 
-        return ['gold' => $gold, 'user_exp' => $exp];
+        return ['gold' => $gold, 'user_exp' => $exp, 'pen' => $pen];
     }
 }

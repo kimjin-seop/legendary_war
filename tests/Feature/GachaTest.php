@@ -12,6 +12,12 @@ class GachaTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        config(['game.gacha.currency' => 'gold']);   // 기존 테스트는 골드 롤백 경로 검증. 펜(기본)은 아래 test_펜_결제_*
+    }
+
     private function actor(int $gold = 2000): array
     {
         $this->artisan('game:seed')->assertSuccessful();
@@ -62,6 +68,27 @@ class GachaTest extends TestCase
         $this->withHeaders($h)->postJson('/api/gacha/pull', ['count' => 1, 'request_id' => 'req-0000009'])->assertStatus(422)->assertJsonPath('error.code', 'insufficient_gold');
         $this->assertSame(0, (int) DB::table('wallets')->where('user_id', $uid)->value('balance'));
         $this->assertSame(5, DB::table('gacha_pulls')->count());
+    }
+
+    public function test_펜_결제_성공_잔액부족_422_멱등_replay_이중차감_없음(): void
+    {
+        config(['game.gacha.currency' => 'pen']);
+        [$uid, $h] = $this->actor(500);
+        $pen = fn () => (int) DB::table('wallets')->where(['user_id' => $uid, 'currency_code' => 'pen'])->value('balance');
+        $this->assertSame(10, $pen());   // 신규 시작 펜
+        $info = $this->withHeaders($h)->getJson('/api/gacha')->assertOk();
+        $this->assertSame(['pen', 1, 9, 10], [$info->json('currency'), $info->json('price.single'), $info->json('price.ten'), $info->json('pen')]);
+
+        $a = $this->withHeaders($h)->postJson('/api/gacha/pull', ['count' => 10, 'request_id' => 'pen-ten-0001'])->assertOk();
+        $this->assertSame([9, 1, 500, 0], [$a->json('pen_spent'), $a->json('pen'), $a->json('gold'), $a->json('gold_spent')]);
+        $this->withHeaders($h)->postJson('/api/gacha/pull', ['count' => 10, 'request_id' => 'pen-ten-0001'])->assertOk()->assertJsonPath('replay', true);
+        $this->assertSame(1, $pen());
+        $this->assertSame(1, DB::table('wallet_transactions')->where('reason_code', 'gacha_pull_pen')->count());
+
+        $this->withHeaders($h)->postJson('/api/gacha/pull', ['count' => 1, 'request_id' => 'pen-one-0001'])->assertOk();
+        $this->withHeaders($h)->postJson('/api/gacha/pull', ['count' => 1, 'request_id' => 'pen-one-0002'])->assertStatus(422)->assertJsonPath('error.code', 'insufficient_pen');
+        $this->assertSame(0, $pen());
+        $this->assertSame(2, DB::table('gacha_pulls')->count());
     }
 
     public function test_10연은_A이상_1회_보장되고_중복은_조각이_된다(): void

@@ -64,7 +64,7 @@ use Illuminate\Support\Facades\Route;
 |                                           heroes[{hero,name,title,short_name,display_name,rarity,unit_type,owned}]}  (원본 database/data/gacha_pool.json, 추첨과 같은 값)
 |  POST /api/gacha/pull                    {count:1|10, request_id(클라 생성 8~64자 [A-Za-z0-9_-], 멱등키)} -> {replay, pull_id, pool_version, count, gold_spent, gold,
 |                                           pity{before,after,guarantee_applied}, results[{hero,name,title,short_name,display_name,rarity,unit_type,user_hero_id,is_new,shards_gained,shards_total}]}
-|                                          같은 request_id 재전송 = 같은 결과(replay=true, 이중 차감 없음). 오류: 404 gacha_disabled, 422 insufficient_gold(차감 없음)|검증 오류(count/request_id),
+|                                          같은 request_id 재전송 = 같은 결과(replay=true, 이중 차감 없음). 오류: 404 gacha_disabled, 422 insufficient_pen(기본 통화; gold 모드는 insufficient_gold, 차감 없음)|검증 오류(count/request_id),
 |                                          409 request_id_reused(같은 request_id에 다른 count)|gacha_conflict. 10연은 A 이상 1회 보장(전부 미만이면 마지막 슬롯 S/A 재추첨).
 |                                          중복 영웅은 user_heroes.shards += duplicate_shards[등급]. 로그 gacha_pulls, 차감 wallet_transactions(reason=gacha_pull, ref=로그 id). 값은 모두 가정 시작값.
 |  (튜토리얼, 서버 저장) GET /api/profile 의 profile.tutorial{step(도달한 대사 수, 0=미시작), done(완료 또는 건너뛰기로 종료), skipped, reward_claimed, auto_start(첫 로비 자동 시작 여부: 미시작·미종료 + config game.tutorial.auto_start_after 이후 가입자만),
@@ -115,7 +115,14 @@ use Illuminate\Support\Facades\Route;
 |     전투 units[]에 장비 있는 영웅만 equip_total{hp,atk,def}(적용값)·equipment{slot:{code,name}} 추가(없으면 키 없음), battle state.equip_applied{unit_id:{hp,atk,def,hero}}. PvP는 equipment.pvp_scale(기본 1.0)을 합계에 곱해 내림. 스테이지 적 NPC는 장비 없음.
 |  GET  /api/party | PUT /api/party        {user_hero_ids:[..]} 슬롯 순서, 1번=지휘관. 코스트/보유/중복/슬롯 검증
 |     (deprecated, 호환용) 별도 '편성' 메뉴는 제거됨: 영웅 선택은 출격(배치) 화면에서만. parties = '마지막 출격 구성'으로, POST /api/battles/{id}/confirm 성공 시 자동 저장(강제/대여 영웅 제외, 배치 순서)되고 다음 deployment의 default_party로 복원(강제 영웅이 항상 맨 앞).
-|     (캠페인 슬롯 곡선) 스테이지 전투에만 game.campaign_slots 적용: 유저 Lv1~2=2슬롯, 3~4=3, 5~6=4, 7~8=5, 9+=6, 코스트 상한=max(user_level_costs, 슬롯x8). deployment의 max_party_slots/max_cost와 profile.campaign_max_party_slots/campaign_max_cost가 캠페인 값, profile.max_party_slots/max_cost는 PvP·방·자유전(불변).
+|  (편성 라인업, 2026-11-14) 영웅 메뉴 '편성' 탭. 캠페인 스테이지 출정은 라인업(최대 5명)+필수/고정/대여 영웅+주인공 안에서만 선택(방 대전·랭크·시즌 전쟁·자유전·소탕은 현행). 별도 테이블 user_lineups(parties 와 무관).
+|     GET  /api/lineup                   -> {lineup[{slot,user_hero_id,hero,name,display_name,rarity,cost,level,unit_type,troop_type,troop_label,portrait}], count, max(5), avg_level(소수 1자리|null)}. 라인업이 비어 있으면 이 조회에서 보유 일반 영웅 레벨 상위 5명으로 자동 채움(신규 영웅 획득 시 5명 미만이면 자동 추가)
+|     PUT  /api/lineup {hero_ids:[user_hero_id..]} 순서=슬롯, 전량 교체 -> GET 과 같은 응답. 오류 422: lineup_empty | lineup_too_many{max} | duplicate_hero | hero_not_owned | hero_not_allowed{user_hero_id}(주인공/campaign_only)
+|     GET  /api/stages 추가: 행마다 min_party(필수/고정/대여 영웅 수, 최소 1), lineup_ready(bool: 풀>=min_party), lineup_reason(null|lineup_empty|below_min_party); 최상위 lineup{count,max}. FE 사전 판정은 이 값만, 최종 판정은 서버.
+|     GET /api/stages 행·deployment 추가: recommended_party(N_stage: 슬롯 모드=고정+선택 슬롯 수, 그 외=campaign_slots 곡선에 recommended_level 대입한 슬롯 수[필수 영웅 면제분 제외]), recommended_total(= recommended_level x recommended_party, 서버 계산). recommended_level 값·의미는 불변.
+|     deployment 응답 추가: lineup_enforced, lineup[](GET /api/lineup 과 같은 항목), lineup_avg_level, lineup_max, min_party, pool_size, lineup_ready, lineup_reason; candidates[] 항목에 in_lineup, lineup_slot|null, in_pool. default_party 는 풀 안으로 필터.
+|     PUT /api/battles/{id}/deployment · confirm 신규 오류 422: lineup_insufficient{required,current,reason(lineup_empty|below_min_party),lineup_count,max} (FE: '편성 화면에서 편성' 얼럿) | not_in_lineup{heroes[{user_hero_id,hero,name}],user_hero_ids[]} (필수/고정/대여·주인공 면제)
+|     (캠페인 슬롯 곡선) 스테이지 전투에만 game.campaign_slots 적용: 유저 Lv1~2=2슬롯, 3~4=3, 5~6=4, 7~8=5, 9+=6, 코스트 상한=max(user_level_costs, game.campaign_slots.cost_cap_by_level 표[없으면 슬롯x8]). /api/rules 에 troop_slots_by_rarity 추가(등급별 부대 해금, troop_slots 는 FE 호환 유지). GET /api/battles/{id}/deployment 에 default_party_trimmed·default_party_notice 추가. deployment의 max_party_slots/max_cost와 profile.campaign_max_party_slots/campaign_max_cost가 캠페인 값, profile.max_party_slots/max_cost는 PvP·방·자유전(불변).
 |     (배치 슬롯, 2026-11-08, docs/DEPLOY_SLOTS_20261108.md) stages.rules.deploy_slots={fixed_slots[{id,x,y,hero('코드'|'@protagonist'),unit_type?,troop_type?}], free_slots[{id,x,y,unit_types?[]}], cost_cap?} 가 있는 스테이지만 슬롯 모드(전투 생성 시 state.deploy_slots 에 고정, 진행 중 전투·키 없음=현행 검증).
 |        deployment 응답 추가 키: slot_mode(bool), slots[{id,kind:'fixed'|'free',locked,x,y, fixed: hero,user_hero_id|null,unit_type?,troop_type? / free: unit_types|null}], slot_counts{fixed,free,total}|null, forced_cost{hero,troop,total}, cost_cap_source('stage'|'level').
 |        슬롯 모드에서 max_party_slots = 선택(free) 슬롯 수(고정 영웅은 슬롯 면제), max_cost = rules.deploy_slots.cost_cap 우선(없으면 캠페인 곡선 max(user_level_costs, 슬롯x8)). default_party/default_positions 는 고정 영웅=자기 슬롯 + 저장 파티를 맞는 선택 슬롯에 배치.
@@ -185,7 +192,8 @@ use Illuminate\Support\Facades\Route;
 |      이벤트 추가(교대 on 전투만): activation_start{actor_unit_id=squad_id, unit_ids, side, turn}, activation_end{actor_unit_id, side, reason:end|done|collapse|timeout, turn},
 |        round_end{turn, reason:exhausted|cap}, 이어서 기존 turn_start{turn,side}(새 라운드 선공). end_turn/turn_start 의미는 off 전투에서 불변.
 |      솔로: 플레이어 활성화 종료 후 봇이 1부대 처리(플레이어에게 활성 가능 부대가 없으면 봇이 연속 상한까지 이어서 진행). GET /units/{unit}/moves는 활성 부대 유닛만 결과 반환(잠기면 tiles=[] + locked=true, reason=squad_locked, active_squad). alt_implicit_activate(기본 on): 활성 부대가 없을 때 ready 부대 유닛의 move/attack/wait는 암묵 activate.
-|  GET  /api/battles/{id}/units/{unit}/moves  이동 가능 타일[{x,y,cost}]과 현재 위치 공격 대상(조회 전용, 판정은 서버)
+|  POST /api/battles/{id}/forecast         일반 공격 예측(조회 전용·저장 없음): {unit_id,target_id,x?,y?(임시 이동 칸, 함께)} -> {target_hp_before,target_hp_after,target_max_hp,attacker_hp_before,attacker_hp_after,attacker_max_hp,dmg,counter_dmg,target_defeated,attacker_defeated,micro,flank,affinity}. 실제 /actions(move->attack) 와 동일 경로(미시 on 포함). 오류는 actions 와 동일(IllegalAction)·타인 전투 404 battle_not_found. 스킬 공격 제외
+|  GET  /api/battles/{id}/units/{unit}/moves 이동 가능 타일[{x,y,cost}]과 현재 위치 공격 대상(조회 전용, 판정은 서버)
 |  POST /api/battles/{id}/abandon          포기(배치/진행 중만): 패배 처리, 보상 없음(시작값), 중복 호출 멱등
 |  POST /api/battles/{id}/bot-turn         봇 차례에 멈춘 전투 재처리
 |  GET  /api/battles/{id}/result           종료 후 정산 결과(exp/gold/레벨업/max_cost)
@@ -273,6 +281,11 @@ Route::middleware(['game.actor', 'throttle:game'])->group(function () {
     Route::get('/quests', [\App\Http\Controllers\QuestController::class, 'index']);
     Route::post('/quests/{code}/claim', [\App\Http\Controllers\QuestController::class, 'claim'])->where('code', '[a-z0-9_]{1,48}');
     Route::get('/heroes', [GameController::class, 'heroes']);
+    // 영웅 강화(★): POST /api/heroes/{user_hero_id}/star-up {request_id(8~64자 [A-Za-z0-9_-], 멱등키)} -> {replay,star_up_id,user_hero_id,hero,star_before,star,shards_spent,gold_spent,shards(남은 조각),gold,bonus_pct,star_next{gold,shards_need,bonus_pct}|null}
+    //   한 트랜잭션: 조각 차감+골드 차감(wallet_transactions reason=hero_star_up, ref=hero_star_ups.id)+star+1+audit_logs. 확정 성공(실패 없음). 같은 request_id 재전송=replay=true(이중 차감 없음).
+    //   오류: 404 hero_not_found|star_disabled(config game.star.enabled off 또는 hero_star_ups 마이그레이션 전), 422 star_max|insufficient_shards|insufficient_gold(쓰기 없음), 409 request_id_reused|star_conflict, 검증 오류(request_id).
+    //   GET /api/heroes[] 추가 필드: star(0~5), star_max, star_next{gold,shards_need,bonus_pct}|null(최고 단계), star_bonus_pct(현재 누적 공·방 보너스 %). 별 보너스는 스테이지 PvE 전투만 적용(공·방, 체력 제외; 랭크·자유대전·시즌전쟁은 game.star.apply_pvp=false 기본). 비용·보너스 config game.star(임시값).
+    Route::post('/heroes/{userHeroId}/star-up', [\App\Http\Controllers\HeroStarController::class, 'starUp'])->whereNumber('userHeroId');
     Route::get('/shop', [EquipmentController::class, 'shop']);
     Route::post('/shop/buy', [EquipmentController::class, 'buy']);
     // 일일 교환소(골드): GET /api/exchange {products[{code,name,description,kind(equipment|currency),payload,price(=price_gold),price_currency(gold|pen),daily_limit(0=무제한),bought_today,remaining|null}],gold,period_key,reset_at(다음 KST 05:00)}
@@ -294,9 +307,14 @@ Route::middleware(['game.actor', 'throttle:game'])->group(function () {
     Route::put('/heroes/{userHeroId}/equipment', [EquipmentController::class, 'equip'])->whereNumber('userHeroId');
     Route::get('/party', [GameController::class, 'party']);
     Route::put('/party', [GameController::class, 'saveParty']);
+    Route::get('/lineup', [GameController::class, 'lineup']);
+    Route::put('/lineup', [GameController::class, 'saveLineup']);
     // 도감 '조우 장수'(서가 NPC) 열람 전용: GET /api/dex/encounter -> {heroes[{code,name_ko|null,culture,unit_type,grade,one_line|null,life|null,shelf_code,shelf_name,portrait_key,revealed,silhouette}]}
     //   서가 스테이지 1개 이상 클리어 시 revealed=true, 아니면 name_ko·one_line·life=null + silhouette=true. 끄기: config game.encounter_dex.enabled(env GAME_ENCOUNTER_DEX) -> 404 encounter_dex_disabled
     Route::get('/dex/encounter', [\App\Http\Controllers\EncounterDexController::class, 'index']);
+    // 가챠 결제 통화(config game.gacha.currency pen|gold, 기본 pen=2026-11-14 전환, GAME_GACHA_CURRENCY=gold 로 롤백; 기본 가격 1회 1펜/10연 9펜): GET /api/gacha 추가 필드 currency, price(현재 통화 기준 {single,ten}), price_gold, price_pen{single,ten}, pen(잔액). POST /api/gacha/pull 응답 추가 currency, pen_spent, pen.
+    //   펜 결제 시 gold_spent=0, pen_spent=가격, 차감 reason=gacha_pull_pen, 오류 422 insufficient_pen, 503 gacha_pen_unavailable(gacha_pulls.pay_currency/pen_spent 마이그레이션 전). 천장 카운터·확률 공개 불변.
+    //   펜 획득 설정(game.pen): daily_cap(기본 60, 권고 80)·daily_quest(기본 3, 권고 5)·pve_first_clear{enabled(기본 false),amount} -> 스테이지 첫 클리어 승리 정산 result.pen_first_clear(지급 시만 포함, 소탕·재클리어 0).
     Route::get('/gacha', [GachaController::class, 'show']);
     Route::post('/gacha/pull', [GachaController::class, 'pull']);
     // 시즌 전쟁(수직 슬라이스): 국가 선택·지도·영토 공격. 전투 진행/정산은 기존 /battles/{id}/* (정산 시 BattleService::settle 훅이 WarService로 위임)
@@ -348,6 +366,7 @@ Route::middleware(['game.actor', 'throttle:game'])->group(function () {
         Route::post('/confirm', [GameController::class, 'confirmDeployment']);
         Route::post('/actions', [GameController::class, 'action']);
         Route::get('/units/{unit}/moves', [GameController::class, 'moves']);
+        Route::post('/forecast', [GameController::class, 'forecast']);   // 일반 공격 예측(조회 전용, throttle:game 그룹 공통)
         Route::post('/abandon', [GameController::class, 'abandon']);
         Route::post('/bot-turn', [GameController::class, 'botTurn']);
         Route::get('/result', [GameController::class, 'result']);

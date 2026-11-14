@@ -265,7 +265,8 @@ class GameSeedMain extends Command
     /** 직전 막 스테이지(ch10{act-1}_sN)의 DB id. 해당 접두가 아니거나 없으면 null */
     private function prevActStageId(string $code): ?int
     {
-        if ($this->act < 2 || ! preg_match('/^ch10'.($this->act - 1).'_s[1-5]$/', $code)) {
+        $tutorialTail = $this->act === 1 && $code === 'stage_06';   // 1막 s1 은 튜토리얼 마지막 stage_06 클리어로 해금
+        if (! $tutorialTail && ($this->act < 2 || ! preg_match('/^ch10'.($this->act - 1).'_s[1-5]$/', $code))) {
             return null;
         }
         $id = DB::table('stages')->where('code', $code)->value('id');

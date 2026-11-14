@@ -52,7 +52,7 @@ final class Duel
     {
         $t = $hero['troop_type'] ?? null;
 
-        return is_string($t) && $t !== '' ? array_fill(0, SquadPlanner::count($level, (int) ($hero['troop_bonus'] ?? 0), $cfg), $t) : null;
+        return is_string($t) && $t !== '' ? array_fill(0, SquadPlanner::count($level, (int) ($hero['troop_bonus'] ?? 0), $cfg, $hero['rarity'] ?? null), $t) : null;
     }
 
     /**

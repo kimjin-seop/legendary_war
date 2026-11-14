@@ -8,8 +8,8 @@ import { statIcon } from './GameIcons.js';
 // 숫자 = 'base' (+bonus 가 있으면 ' (+bonus)' 금색, 기존 '괄호 = 장비 적용값' 표기 유지). 반환 컨테이너: 좌상단 원점, .h = 전체 높이
 //
 // 게이지 상한(표시용 기준값, 같은 항목은 화면 간 같은 기준):
-//   공격 atk  90 — STAT_CAP.at(임밸런 2026-11-02: Lv30 최대 공격 86 + 장비), 전투 카드·컷신과 같음
-//   방어 def  45 — STAT_CAP.df(Lv30 최대 방어 40 + 장비)
+//   공격 atk  92 — STAT_CAP.at(2026-11-14 재산정: S 만렙 최대 공격 83 + 장비), 전투 카드·컷신과 같음
+//   방어 def  54 — STAT_CAP.df(S 만렙 최대 방어 38 + 장비 40%)
 //   이동 move  8 — SEG_CAP.move(기병·비행 기본 8)
 //   사거리 range 3 — SEG_CAP.range
 //   마력 mp   160 — 기본안(MP 방식 2026-11-04, 영웅 상세 stats.mp_max Lv1 기준). 임밸런 수치 확정 시 교체

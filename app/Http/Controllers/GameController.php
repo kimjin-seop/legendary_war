@@ -45,7 +45,7 @@ class GameController extends Controller
             // 주인공: display_name=계정 사용자명, portrait=protagonist_{face}(face 변경 즉시 반영)
             $pv = $isP ? ['protagonist' => true, 'campaign_only' => true, 'portrait' => $proto->portraitFor((int) $request->user()->id), 'name' => $proto->displayName($request->user()), 'display_name' => $proto->displayName($request->user())] : [];
             $out[] = $pv + ['user_hero_id' => (int) $uh->id, 'hero' => $h['code'], 'name' => $h['name_ko'], 'title' => $h['title'], 'short_name' => $h['short_name'], 'display_name' => $h['display_name'], 'rarity' => $h['rarity'], 'cost' => $h['cost'], 'troop_type' => $h['troop_type'], 'troop_label' => $this->data->troopLabel($h['troop_type']),
-                'level' => (int) $uh->level, 'exp' => (int) $uh->exp, 'star' => (int) $uh->star, 'shards' => (int) $uh->shards,
+                'level' => (int) $uh->level, 'exp' => (int) $uh->exp, 'star' => (int) $uh->star, 'star_max' => \App\Game\StarRules::max(), 'star_next' => \App\Game\StarRules::next($h['rarity'], (int) $uh->star), 'star_bonus_pct' => \App\Game\StarRules::bonusPct((int) $uh->star), 'shards' => (int) $uh->shards,
                 'detail' => $this->data->heroDetail($h), 'level_info' => $this->levelInfo($h, (int) $uh->level, $expNeed)] + $eqSvc->heroView($h, $equipped[(int) $uh->id] ?? []);   // equipment{slot:{id,code,name,rarity}}, equip_total(클램프 후 적용값), equip_raw
         }
 
@@ -56,13 +56,14 @@ class GameController extends Controller
     private function levelInfo(array $h, int $level, array $expNeed): array
     {
         $t = $this->data->rules()->unitType($h['unit_type']);
-        $max = (int) config('game.max_level');
+        $max = \App\Game\LevelRewards::maxLevel($h['rarity'] ?? null);
         $scale = fn (int $base, $bonus, $growth) => \App\Game\ArmyBuilder::scale($base + $bonus, (float) $growth, $level);
 
         return [
+            'max_level' => $max,   // 등급별 만렙(FE 만렙 표기용)
             'exp_to_next' => $level < $max ? (int) ($expNeed[$level] ?? 0) : 0,
-            'next_reward' => \App\Game\LevelRewards::next($level),
-            'milestones' => \App\Game\LevelRewards::view($level),
+            'next_reward' => \App\Game\LevelRewards::next($level, $h['rarity'] ?? null),
+            'milestones' => \App\Game\LevelRewards::view($level, $h['rarity'] ?? null),
             'stats_now' => [
                 'hp' => $scale($t['hp'], $h['hp_bonus'], $h['growth_hp_pct']), 'atk' => $scale($t['atk'], $h['atk_bonus'], $h['growth_atk_pct']), 'def' => $scale($t['def'], $h['def_bonus'], $h['growth_def_pct']),
                 'mp_max' => \App\Game\MpRules::maxMp($h['rarity'] ?? null, $level, (string) $h['unit_type']),
@@ -85,6 +86,19 @@ class GameController extends Controller
         $this->progress->saveParty($request->user(), array_values($data['user_hero_ids']));
 
         return $this->party($request);
+    }
+
+    /** 영웅 편성 라인업(최대 5명, 캠페인 출정 후보 풀). 비어 있으면 최초 조회 때 레벨 상위 5명으로 자동 채움 */
+    public function lineup(Request $request): JsonResponse
+    {
+        return response()->json(app(\App\Services\LineupService::class)->view($request->user()));
+    }
+
+    public function saveLineup(Request $request): JsonResponse
+    {
+        $data = $request->validate(['hero_ids' => ['required', 'array', 'max:20'], 'hero_ids.*' => ['integer']]);
+
+        return response()->json(app(\App\Services\LineupService::class)->save($request->user(), array_values($data['hero_ids'])));
     }
 
     /** 숨은 종장 진행도: 해금 전에도 호출 가능. 잠김이면 chapter=null(이름·위치·스테이지 비노출), 해금 후 ch999 스테이지 요약 */
@@ -113,6 +127,8 @@ class GameController extends Controller
         $byId = $rows->keyBy('id');
         $ownedCodes = DB::table('user_heroes')->join('heroes', 'heroes.id', '=', 'user_heroes.hero_id')->where('user_heroes.user_id', $user->id)->pluck('heroes.code')->all();   // 필수 영웅 보유 판정(주인공은 항상 보유로 간주)
         $metas = DB::table('maps')->whereIn('id', $rows->pluck('map_id')->unique()->all())->pluck('meta', 'id');   // capture.points 'map' 해석용(meta.objective_points)
+        $lineupIds = app(\App\Services\LineupService::class)->ids($user);
+        $ownedRows = DB::table('user_heroes')->where('user_id', $user->id)->get();
         $hidden = app(\App\Services\HiddenChapterService::class);
         $hiddenOpen = $hidden->unlocked($user);
         foreach ($rows as $s) {
@@ -129,8 +145,10 @@ class GameController extends Controller
             }
             $pre = $s->prerequisite_stage_id !== null ? ($byId[$s->prerequisite_stage_id] ?? null) : null;
             $obj = \App\Game\Engine::resolveObjective(json_decode((string) ($s->objective ?? ''), true), json_decode((string) ($metas[$s->map_id] ?? ''), true) ?: []);
-            $out[] = [
-                'id' => (int) $s->id, 'code' => $s->code, 'name' => $s->name, 'difficulty' => (int) $s->difficulty,
+            $lc = $this->battles->lineupCheck($user, $s, $this->battles->forcedOf($s, $user, $this->battles->liveSlots($s)), $lineupIds, $ownedRows);
+            $out[] = $this->battles->recommendedParty($s) + ['_i' => count($out)] + [
+                'min_party' => $lc['required'], 'lineup_ready' => $lc['ready'], 'lineup_reason' => $lc['reason'],   // 라인업 기준 사전 판정(서버 단일 권위, 인원·필수 영웅만): 출정 시 lineup_insufficient 와 같은 판정
+                'id' => (int) $s->id, 'code' => $s->code, 'name' => $s->name, 'sort_order' => (int) $s->sort_order, 'difficulty' => (int) $s->difficulty,
                 'recommended_level' => (int) $s->recommended_level, 'unlocked' => $unlocked,
                 // 필수 영웅 미보유 잠금(대여 없음): hero_locked=true면 플레이 불가, missing_heroes=[{code,name}] 사유 표시용. playable = 선행 해금 && 영웅 충족
                 'required_heroes' => $reqHeroes,   // [{code,name,owned}] 이 스테이지 필수 영웅(주인공 제외)
@@ -138,7 +156,7 @@ class GameController extends Controller
                 'enemy_commander' => $this->battles->enemyCommanderView($s),   // {name,hero_code,npc_ref,unit_type}|null 적 대표(보스)
                 'factions' => $this->battles->factionsView($s),   // {ally,enemy}|null 진영 국호(예: 조선군/일본군)
                 'deploy_slot_counts' => ($ds = $this->battles->liveSlots($s)) ? ['fixed' => count($ds['fixed']), 'free' => count($ds['free']), 'cost_cap' => $ds['cost_cap']] : null,   // 배치 슬롯 스테이지 요약(없으면 null = 현행 편성)
-                'hero_locked' => $missing !== [], 'missing_heroes' => $missing, 'playable' => $unlocked && $missing === [],
+                'hero_ready' => $missing === [], 'hero_locked' => $missing !== [], 'missing_heroes' => $missing, 'playable' => $unlocked && $missing === [],
                 'rewards' => ['exp' => (int) $s->reward_exp, 'user_exp' => (int) $s->reward_user_exp, 'gold' => (int) $s->reward_gold],
                 'best_stars' => (int) ($p->best_stars ?? 0), 'clear_count' => (int) ($p->clear_count ?? 0),
                 // 캠페인 확장(추가 키): chapter 0=기존 모험 스테이지, 1=캠페인 1장 / objective / star_conditions(null=기존 기본 별 규칙) / locked_by(잠겼을 때 선행 스테이지) / join_hero(첫 클리어 합류 영웅 코드)
@@ -156,10 +174,17 @@ class GameController extends Controller
         $chapterOut = [];
         foreach ($chapters as $c => $v) {   // chapters[chapter] = {need:[{code,name,owned}], need_count, owned_count}
             $list = array_values($v['heroes'] ?? []);
-            $chapterOut[(string) $c] = ['need' => $list, 'need_count' => count($list), 'owned_count' => count(array_filter($list, fn ($r) => $r['owned']))];
+            $owned = count(array_filter($list, fn ($r) => $r['owned']));
+            $chapterOut[(string) $c] = ['need' => $list, 'need_count' => count($list), 'owned_count' => $owned, 'ready' => $owned === count($list)];
         }
+        $chapterOrder = array_keys($chapterOut);   // 챕터 표시 순서: 충족 챕터 먼저(그 안에서는 기존 순서). JSON 객체 키 순서는 JS 에서 보장되지 않으므로 별도 배열
+        usort($chapterOrder, fn ($a, $b) => ((int) $chapterOut[$b]['ready'] <=> (int) $chapterOut[$a]['ready']));
+        $rank = array_flip(array_map('intval', $chapterOrder));   // 챕터 순위: 영웅 충족 서가가 상단. 스테이지는 서가 안 기존 sort_order(s1→s2…)를 유지한다
+        usort($out, fn ($a, $b) => (($rank[$a['chapter']] ?? PHP_INT_MAX) <=> ($rank[$b['chapter']] ?? PHP_INT_MAX)) ?: ($a['_i'] <=> $b['_i']));
 
-        return response()->json(['stages' => $out, 'chapters' => (object) $chapterOut]);
+        $out = array_map(fn ($r) => array_diff_key($r, ['_i' => 1]), $out);
+
+        return response()->json(['stages' => $out, 'chapters' => (object) $chapterOut, 'chapter_order' => array_map('intval', $chapterOrder), 'lineup' => ['count' => count($lineupIds), 'max' => \App\Services\LineupService::MAX]]);
     }
 
     public function challenge(Request $request, int $stage): JsonResponse
@@ -244,7 +269,7 @@ class GameController extends Controller
         }
 
         return response()->json(['terrains' => $terrains, 'unit_types' => $types, 'auras' => $this->data->auras(), 'matchups' => $matchups, 'rules' => $this->publicRules(),
-            'sweep' => ['enabled' => (bool) config('game.sweep.enabled'), 'max_count' => (int) config('game.sweep.max_count'), 'daily_cap' => (int) config('game.sweep.daily_cap')]])   // 소탕 규칙표(FE 는 sweep.max_count 우선 사용)
+            'sweep' => ['enabled' => (bool) config('game.sweep.enabled'), 'max_count' => (int) config('game.sweep.max_count'), 'daily_cap' => (int) config('game.sweep.daily_cap'), 'daily_total' => (int) config('game.sweep.daily_total', 0)]])   // 소탕 규칙표(FE 는 sweep.max_count 우선 사용)
             ->header('Cache-Control', 'public, max-age=60');
     }
 
@@ -264,7 +289,8 @@ class GameController extends Controller
             'gacha' => (bool) config('game.gacha.enabled'),   // FE 가챠 탭 표시 여부
             'squad' => (bool) $r['squad'], 'squad_aura_self' => (bool) $r['squad_aura_self'], 'troop_cost' => (bool) $r['troop_cost'],
             // 영웅-부대 편성표(FE 편성 UI용): 레벨별 부대 수, 영웅당 상한, 진영 유닛 상한(병종 코스트는 unit_types[].cost)
-            'troop_slots' => array_map(fn ($s) => ['min_level' => $s[0], 'troops' => $s[1]], config('game.troop_slots')),
+            'troop_slots' => array_map(fn ($s) => ['min_level' => $s[0], 'troops' => $s[1]], config('game.troop_slots')),   // 등급 미상 폴백(FE 호환 유지)
+            'troop_slots_by_rarity' => array_map(fn ($rows) => array_map(fn ($s) => ['min_level' => $s[0], 'troops' => $s[1]], $rows), (array) config('game.troop_slots_by_rarity')),   // 등급별 상대 해금(영웅 등급으로 조회)
             'troop_cap' => (int) config('game.troop_cap'), 'max_units_per_side' => max(1, min(\App\Game\ArmyBuilder::unitHardCap(), (int) config('game.max_units_per_side'))),
             'max_units_per_side_stage' => \App\Game\ArmyBuilder::allyStageCap(), 'max_units_enemy_stage' => \App\Game\ArmyBuilder::enemyStageCap(), 'max_alive_per_side_stage' => (int) config('game.max_alive_per_side_stage'),   // 스테이지(캠페인) 전투 전용 한도(PvP는 위 max_units_per_side)
             // 수상(해전) 규칙 안내(FE 툴팁): 수병 수상 공격 배율 / 배 탑승 비수병 공격 배율 / 수병 육상 공격 배율
@@ -302,6 +328,14 @@ class GameController extends Controller
         }
 
         return response()->json($this->battles->unitMoves($b, $unit, 'a') + ['turn_timed_out' => $timedOut]);
+    }
+
+    /** 일반 공격 예측(조회 전용, state 저장 없음): body {unit_id, target_id, x?, y?(임시 이동 칸, 둘 다)} -> Engine::previewAttack 결과 */
+    public function forecast(Request $request, int $id): JsonResponse
+    {
+        $data = $request->validate(['unit_id' => ['required', 'string', 'max:16'], 'target_id' => ['required', 'string', 'max:16'], 'x' => ['required_with:y', 'integer'], 'y' => ['required_with:x', 'integer']]);
+
+        return response()->json($this->battles->forecastAttack($request->user(), $id, $data));
     }
 
     public function botTurn(Request $request, int $id): JsonResponse

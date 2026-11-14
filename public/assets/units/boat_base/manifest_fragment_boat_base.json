@@ -1,0 +1,239 @@
+{
+ "fragment": "boat_base",
+ "version": 1,
+ "date": "2026-11-14",
+ "merge": "manifest.json 에 병합하지 않음(조각 전용)",
+ "source": "generated(procedural) — docker/gemini/boat_base_build.py, 이미지 생성 모델 호출 0회, pillow 13.0.0 / numpy 2.5.4",
+ "license": "프로젝트 자체 제작(절차적 도트)",
+ "purpose": "출전(배치)·전투에서 바다 칸 유닛이 배에 탄 모습. 유닛 시트는 그대로 두고 별도 레이어로 깐다",
+ "frame": {
+  "w": 64,
+  "h": 64,
+  "cols": 2,
+  "rows": 4,
+  "row_order": [
+   "down",
+   "left",
+   "right",
+   "up"
+  ],
+  "row_note": "assets.js SHEET_ROW / ship_overlay 와 같은 행 순서",
+  "anim": "열 0,1 = 물결 프레임(깃발 나부낌·흘수선 거품 이동). 선체 윤곽은 두 프레임 동일",
+  "fps_hint": 2,
+  "frame_index": "row*2 + (f % 2)",
+  "flip": "left 행 = right 행 좌우 반전(동일 픽셀). left 행만 쓰고 flipX 해도 됨"
+ },
+ "scales": {
+  "x1": {
+   "sheet": [
+    128,
+    256
+   ],
+   "frame": [
+    64,
+    64
+   ],
+   "dir": "/assets/units/boat_base"
+  },
+  "x2": {
+   "sheet": [
+    256,
+    512
+   ],
+   "frame": [
+    128,
+    128
+   ],
+   "dir": "/assets/units/boat_base/x2"
+  },
+  "note": "x2 = x1 NEAREST 2배. 표시는 setDisplaySize(TILE,TILE), NEAREST 필터(pixelKeys 정규식에 boat_base 접두 추가 필요)"
+ },
+ "layers": {
+  "back": "유닛 body 바로 뒤(갑판 안쪽·먼 뱃전·깃대·깃발)",
+  "front": "유닛 body 바로 앞(가까운 뱃전·선체·뱃머리·흘수선 물결). HP 바·팀 마커·배지보다는 아래",
+  "under": "back+front 합본. 레이어를 하나만 쓸 수 있는 화면(배치 목록 썸네일 등)용 폴백, 유닛 아래에 깔면 발이 가려지지 않음"
+ },
+ "anchor": {
+  "origin": [
+   0.5,
+   0.5
+  ],
+  "unit_center_px": [
+   32,
+   32
+  ],
+  "note": "유닛 body 와 같은 원점·같은 표시 크기. 배 이미지 자체 오프셋 0",
+  "unit_foot_y_offset_px64": -8,
+  "unit_foot_y_offset_formula": "body.y += -8 * (TILE / 64)  (= -TILE/8)",
+  "unit_foot_y_after_offset_px64": 55,
+  "deck_y_px64": {
+   "side": "뱃전 윗선 y=42~48(이물 쪽 높음), 바닥 59, 흘수선 물결 60~61",
+   "down_up": "선체 y=32~57, 옆면 띠 ~61, 물결 ~62"
+  },
+  "note2": "오프셋 -8 이면 유닛 발(원래 y=63)이 55로 올라가 측면에서는 정강이 아래가 앞 뱃전에 가려진다. 배치 화면의 발광 원판(팀 마커)은 배 아래 또는 숨김 권장"
+ },
+ "bob": {
+  "mode": "code",
+  "desc": "선체(back/front)와 유닛 body 를 함께 0 또는 -(TILE/32)(64셀 기준 -2px) 만큼 띄운다. 기존 UnitView.tickBob 과 같은 값·방식, 유닛별 위상차. 물결 프레임(열)과 독립",
+  "period_ms_hint": 1600
+ },
+ "teams": {
+  "ally": {
+   "trim": [
+    "#96c8f6",
+    "#4b87db",
+    "#22509e"
+   ],
+   "flag": "청"
+  },
+  "enemy": {
+   "trim": [
+    "#f696a8",
+    "#db4b5e",
+    "#9e2230"
+   ],
+   "flag": "적"
+  },
+  "neutral": {
+   "trim": [
+    "#bd9670",
+    "#835b4b",
+    "#5a3a37"
+   ],
+   "flag": "#f0e6c8 미색"
+  }
+ },
+ "palette": {
+  "outline": "#140C1C",
+  "wood": [
+   "#cd9f73",
+   "#ae815e",
+   "#987158",
+   "#835b4b",
+   "#664940",
+   "#463030"
+  ],
+  "foam": [
+   "#e8f8ff",
+   "#9ad8f0",
+   "#5aa8d8"
+  ],
+  "note": "팀색 3단·나무 = npc_boat_2_b14 시트와 같은 값. 광원 왼쪽 위"
+ },
+ "keys": {
+  "boat_base_ally_back": {
+   "x1": "/assets/units/boat_base/boat_base_ally_back.png",
+   "x2": "/assets/units/boat_base/x2/boat_base_ally_back.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frameWidth_x2": 128,
+   "frameHeight_x2": 128,
+   "alpha": true,
+   "load": "lazy(바다 칸이 있는 맵에서만)"
+  },
+  "boat_base_ally_front": {
+   "x1": "/assets/units/boat_base/boat_base_ally_front.png",
+   "x2": "/assets/units/boat_base/x2/boat_base_ally_front.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frameWidth_x2": 128,
+   "frameHeight_x2": 128,
+   "alpha": true,
+   "load": "lazy(바다 칸이 있는 맵에서만)"
+  },
+  "boat_base_ally_under": {
+   "x1": "/assets/units/boat_base/boat_base_ally_under.png",
+   "x2": "/assets/units/boat_base/x2/boat_base_ally_under.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frameWidth_x2": 128,
+   "frameHeight_x2": 128,
+   "alpha": true,
+   "load": "lazy(바다 칸이 있는 맵에서만)"
+  },
+  "boat_base_enemy_back": {
+   "x1": "/assets/units/boat_base/boat_base_enemy_back.png",
+   "x2": "/assets/units/boat_base/x2/boat_base_enemy_back.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frameWidth_x2": 128,
+   "frameHeight_x2": 128,
+   "alpha": true,
+   "load": "lazy(바다 칸이 있는 맵에서만)"
+  },
+  "boat_base_enemy_front": {
+   "x1": "/assets/units/boat_base/boat_base_enemy_front.png",
+   "x2": "/assets/units/boat_base/x2/boat_base_enemy_front.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frameWidth_x2": 128,
+   "frameHeight_x2": 128,
+   "alpha": true,
+   "load": "lazy(바다 칸이 있는 맵에서만)"
+  },
+  "boat_base_enemy_under": {
+   "x1": "/assets/units/boat_base/boat_base_enemy_under.png",
+   "x2": "/assets/units/boat_base/x2/boat_base_enemy_under.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frameWidth_x2": 128,
+   "frameHeight_x2": 128,
+   "alpha": true,
+   "load": "lazy(바다 칸이 있는 맵에서만)"
+  },
+  "boat_base_neutral_back": {
+   "x1": "/assets/units/boat_base/boat_base_neutral_back.png",
+   "x2": "/assets/units/boat_base/x2/boat_base_neutral_back.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frameWidth_x2": 128,
+   "frameHeight_x2": 128,
+   "alpha": true,
+   "load": "lazy(바다 칸이 있는 맵에서만)"
+  },
+  "boat_base_neutral_front": {
+   "x1": "/assets/units/boat_base/boat_base_neutral_front.png",
+   "x2": "/assets/units/boat_base/x2/boat_base_neutral_front.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frameWidth_x2": 128,
+   "frameHeight_x2": 128,
+   "alpha": true,
+   "load": "lazy(바다 칸이 있는 맵에서만)"
+  },
+  "boat_base_neutral_under": {
+   "x1": "/assets/units/boat_base/boat_base_neutral_under.png",
+   "x2": "/assets/units/boat_base/x2/boat_base_neutral_under.png",
+   "type": "spritesheet",
+   "frameWidth": 64,
+   "frameHeight": 64,
+   "frameWidth_x2": 128,
+   "frameHeight_x2": 128,
+   "alpha": true,
+   "load": "lazy(바다 칸이 있는 맵에서만)"
+  }
+ },
+ "qa": {
+  "alpha": "0/255 이진(반투명·헤일로 없음)",
+  "cell_gutter": "전 셀 1px 여백(이웃 프레임 번짐 없음)",
+  "colors_per_sheet": "10~15",
+  "preview": [
+   "docker/gemini/boat_base_preview/preview_ally8.png",
+   "docker/gemini/boat_base_preview/preview_enemy.png",
+   "docker/gemini/boat_base_preview/preview_faceoff.png"
+  ],
+  "verdict": "pass(측면) / pass-약(정면·후면: 넓은 유닛이 배 가운데를 가려 뱃전 테두리만 보임)",
+  "verify": "게임 내 실화면(배치 화면 TILE 크기, 발광 원판과 겹침 순서) 미확인 — 강화면 검증 필요"
+ },
+ "relation": {
+  "ship_overlay": "/assets/sprites/ship_overlay/ship_spec.json — 문화권별 대형 배(전투 탑승·수병, 이미 UnitView 에 연결). boat_base 는 팀색 소형 배로 배치 화면·문화권 미지정 유닛·팀 식별이 필요한 곳용. 같은 유닛에 둘을 동시에 그리지 말 것"
+ }
+}

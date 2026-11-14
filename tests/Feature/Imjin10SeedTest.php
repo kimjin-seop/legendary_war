@@ -80,6 +80,7 @@ class Imjin10SeedTest extends TestCase
     {
         $this->artisan('game:seed-imjin10', ['--with-npc' => true])->assertSuccessful();
         $r = $this->postJson('/api/guests', ['nickname' => 'naval'])->assertCreated();
+        $this->givePartyHeroes((int) $r->json('user.id'));
         $h = ['X-Guest-Token' => $r->json('guest_token')];
         $s1 = DB::table('stages')->where('code', 'ch1_s1')->first();
         $b = $this->withHeaders($h)->postJson('/api/stages/'.$s1->id.'/challenge')->assertCreated();

@@ -16,6 +16,7 @@ class PartyCostTest extends TestCase
     {
         $this->artisan('game:seed')->assertSuccessful();
         $r = $this->postJson('/api/guests', ['nickname' => 'cost'])->assertCreated();
+        $this->givePartyHeroes((int) $r->json('user.id'));
 
         return [['X-Guest-Token' => $r->json('guest_token')], (int) $r->json('user.id'), DB::table('user_heroes')->where('user_id', $r->json('user.id'))->pluck('id')->map(fn ($v) => (int) $v)->all()];
     }
@@ -42,7 +43,7 @@ class PartyCostTest extends TestCase
         [$h, , $uh] = $this->guest();
         DB::table('user_level_costs')->where('level', 1)->update(['max_cost' => 10]);   // 시작 파티가 통과하는 곡선이라 초과 상황을 만들기 위해 상한을 낮춘다
         $res = $this->withHeaders($h)->putJson('/api/party', ['user_hero_ids' => $uh])->assertStatus(422);
-        $res->assertJsonPath('error.code', 'cost_exceeded')->assertJsonPath('error.max', 10)->assertJsonPath('error.hero_cost', 8);
+        $res->assertJsonPath('error.code', 'cost_exceeded')->assertJsonPath('error.max', 10)->assertJsonPath('error.hero_cost', 11);   // 이순신 S8 + 곽재우 B3(등급 격차 v1)
         $this->assertGreaterThan(10, $res->json('error.used'));
         $this->assertSame($res->json('error.hero_cost') + $res->json('error.troop_cost'), $res->json('error.used'));
         $this->assertSame(2, DB::table('parties')->where('user_id', DB::table('user_heroes')->find($uh[0])->user_id)->count());   // 거부 시 기존 파티 불변

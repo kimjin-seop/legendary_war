@@ -162,6 +162,10 @@ export class CuePlayer {
         const sp = a?.sprite ?? {};
         ln.speaker = sp.hero ? `hero:${sp.hero}` : sp.npc_ref ? `npc:${sp.npc_ref}` : `npc:actor_${ln.actor}`;
         if (a?.name && !ln.name) ln.name = a.name;
+        // 초상 폴백용(portraitStage.fallbackPortraitLogical): 액터 병종·문화권 -> 부장/병종 초상
+        if (sp.unit_type && !ln.troop) ln.troop = String(sp.unit_type);
+        const cul = a?.pseudo?.culture ?? this.scene.store?.state?.culture ?? this.scene.store?.state?.map?.culture ?? null;
+        if (cul && !ln.culture) ln.culture = String(cul);
     }
 
     actorRec(id) { return (this.scene.store?.state?.cueActors ?? []).find((x) => String(x?.id) === String(id)) ?? null; }

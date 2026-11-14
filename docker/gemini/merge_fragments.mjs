@@ -103,6 +103,7 @@ const FRAGMENTS = [
     { path: `${A}/gacha_ui/manifest_fragment_keyart_sc.json`, kind: 'assets', excludeKeys: ['gacha.keyart.sc_ch101', 'gacha.keyart.sc_ch102', 'gacha.keyart.sc_ch103', 'gacha.keyart.sc_ch104'] }, // 안아트 시나리오 배너 전용 키아트 gacha.keyart.sc_chNN(scope gacha_ui). 메인스토리 배너(ch101~104) 제거로 13개만 병합(excludeKeys). 2026-11-08
     { path: `${A}/tiles/terrain_buildings/kits/L/manifest_fragment_kit_L.json`, kind: 'flat' }, // 안아트 서고 실내(L) 키트 tile.kit_l.*(scope map_kit, 부팅 제외 기록용 — 실제 로드는 tb_manifest.json / mapArt). 스펙 kits/L/kit_L_spec.json. 2026-11-08
     { path: `${A}/result_ui/manifest_fragment.json`, kind: 'assets' },
+    { path: `${A}/maps/library/manifest_fragment_library_map.json` }, // 안아트 메인 스토리 '잊힌 서고' 도서관 지도 배경 map.library.base(3520x1600, variants.mobile 1760x800, scope lazy). LibraryMapView·library_map_profile.json bg_key. 2026-11-14
     { path: `${A}/portraits/portrait_redo5_manifest_fragment.json` }, // 안아트 초상 얼굴 다양성 감사 3배치(132항목 replaces_existing_keys, 같은 경로 교체). 반드시 맨 마지막: 같은 키가 portrait_npc_story·portrait_npc_v3·samguk_recraft·npc_ch26·npc_b14·ch25·portrait_npc_alias 등 이전 조각에도 있어 REPL 소유자가 redo5 가 되도록 순서 고정. 2026-11-10 // 결과 화면(result.*): assets 배열, scope 'result'(결과 창 진입 시 지연 로드) // 안아트 수상 세트(tileset.water_set_* 기록용 — 로드는 assets.js queueRmTiles) + ship_overlay.*(전투 scope). 최상위 키 = 항목(_ 접두사 제외)
 ];
 const DRY = process.argv.includes('--dry');

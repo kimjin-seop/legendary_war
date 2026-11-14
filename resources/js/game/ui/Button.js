@@ -5,6 +5,7 @@ import { loop, tween } from './motion.js';
 import { slice, setSliceSize, skinIcon } from './skin.js';
 import { sfx } from '../audio.js';
 import { showToast } from './Toast.js';
+import { showReasonTip, hideReasonTip } from './ReasonTip.js';
 
 // 스킨 버튼(9-슬라이스 5상태 x 3변형). API: {x,y,w,h,label,onClick,variant,size,disabled,modal,reason}
 // - 실제 화면(CSS) 44px 이상 히트 영역 보장(보이는 크기와 별개로 확장)
@@ -40,14 +41,15 @@ export class Button extends Phaser.GameObjects.Container {
         this.hit = scene.add.rectangle(-(hitW - w) / 2, -(hitH - h) / 2, hitW, hitH, 0xffffff, 0).setOrigin(0);
         this.add([this.face, this.hit]);
         this.hit.setInteractive({ useHandCursor: true });
-        this.hit.on('pointerover', () => this.hover(true));
-        this.hit.on('pointerout', () => { this.pressed = false; this.hover(false); });
+        // tipHost(ContextMenu 등 버튼 묶음 컨테이너)가 있으면 비활성 사유 = 호버·탭 시 패널 옆 말풍선(ui/ReasonTip), 없으면 기존 탭 토스트
+        this.hit.on('pointerover', () => { this.hover(true); if (this.disabled && this.reason && this.tipHost && this.usableScene()) showReasonTip(this.tipHost, this, this.reason, this.tipHost.tipOpts); });
+        this.hit.on('pointerout', () => { this.pressed = false; this.hover(false); if (this.tipHost) hideReasonTip(this.tipHost, this); });
         this.hit.on('pointerdown', () => { this.pressed = true; this.setState('pressed'); });
         this.hit.on('pointerup', () => {
             if (!this.pressed) return;
             this.pressed = false;
             this.setState(this.disabled ? 'disabled' : this.hovered ? 'hover' : this.selected ? 'selected' : 'normal');
-            if (this.disabled) { if (this.reason && this.usableScene()) showToast(this.scene, this.reason); return; }
+            if (this.disabled) { if (this.reason && this.usableScene()) { if (this.tipHost) showReasonTip(this.tipHost, this, this.reason, this.tipHost.tipOpts); else showToast(this.scene, this.reason); } return; }
             if (!this.usable()) return;
             sfx(this.skin === 'danger' ? 'sfx_ui_cancel' : this.skin === 'primary' ? 'sfx_ui_confirm' : 'sfx_ui_tap');
             this.onClick?.();

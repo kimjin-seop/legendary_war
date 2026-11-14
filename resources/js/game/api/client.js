@@ -6,7 +6,7 @@ import { ERROR_MESSAGES, FIELD_MESSAGES } from './errors.js';
 // - 회원: Sanctum SPA 쿠키. 쓰기 요청 전 GET /sanctum/csrf-cookie 후 X-XSRF-TOKEN(쿠키값 URL 디코드)
 // - 회원/쿠키 요청에는 X-Guest-Token 을 붙이지 않는다. 토큰·비밀번호는 로그/콘솔/URL 에 남기지 않는다.
 // - 오류: ApiError{status, code, message, fields, retryAfter}. 401 -> session 'unauthenticated' 이벤트.
-// - 503 db_busy / 네트워크 오류는 Retry-After(없으면 지수 백오프)로 재시도(기본 2회).
+// - 503 db_busy / 네트워크 오류는 Retry-After(없으면 지수 백오프)로 재시도(기본 2회). 네트워크·시간 초과(기본 20초)·502/504 재시도는 멱등 요청만(api() 주석).
 const GUEST_KEY = 'srpg.guest.v1';
 const GUEST_USER_KEY = 'srpg.guest.user.v1'; // 게스트 표시명 복구용(토큰 아님)
 let memGuest = null;
@@ -43,6 +43,7 @@ export const session = {
     profile: null, // {level, exp, exp_to_next, max_cost, max_party_slots, gold}
     party: null, // [user_hero_id]
     heroes: null, // [{user_hero_id, hero, name, rarity, cost, level, ...}]
+    lineup: null, // GET /api/lineup 캐시(편성, 2026-11-14)
     restored: false,
     on: events.on,
     get name() { return this.user?.name ?? ''; },
@@ -62,10 +63,39 @@ function readCookie(name) {
     return m ? decodeURIComponent(m.slice(name.length + 1)) : '';
 }
 
+// 요청 기본 타임아웃(2026-11-14 강화면 v10 Medium: 응답이 안 오면 로딩이 영구히 남음). api(..., {timeout}) 로 연장, 0 이면 끔
+export const DEFAULT_TIMEOUT_MS = 20000;
+const timeoutError = () => new ApiError({ status: 0, code: 'timeout', message: ERROR_MESSAGES.timeout });
+
+// fetch + (선택) JSON 본문 읽기까지를 타임아웃으로 감싼다. 호출자 signal 취소는 AbortError 그대로, 시간 초과는 e.timedOut = true
+async function timedFetch(url, init, { timeout = DEFAULT_TIMEOUT_MS, signal, json = false } = {}) {
+    const ctl = new AbortController();
+    let timedOut = false;
+    const onAbort = () => ctl.abort();
+    if (signal) { if (signal.aborted) ctl.abort(); else signal.addEventListener('abort', onAbort, { once: true }); }
+    const timer = timeout > 0 ? setTimeout(() => { timedOut = true; ctl.abort(); }, timeout) : null;
+    try {
+        const res = await fetch(url, { ...init, signal: ctl.signal });
+        let data = null;
+        if (json && res.status !== 204) { try { data = await res.json(); } catch (e) { if (e?.name === 'AbortError') throw e; data = null; } }
+        return { res, data };
+    } catch (e) {
+        if (timedOut) e.timedOut = true;
+        throw e;
+    } finally {
+        if (timer) clearTimeout(timer);
+        if (signal) signal.removeEventListener('abort', onAbort);
+    }
+}
+
 let csrfReady = false;
 async function ensureCsrf() {
     if (csrfReady && readCookie('XSRF-TOKEN')) return;
-    const r = await fetch('/sanctum/csrf-cookie', { credentials: 'same-origin', headers: { Accept: 'application/json' } });
+    let r;
+    try { ({ res: r } = await timedFetch('/sanctum/csrf-cookie', { credentials: 'same-origin', headers: { Accept: 'application/json' } })); } catch (e) {
+        if (e?.timedOut) throw timeoutError();
+        throw new ApiError({ status: 0, code: 'network', message: ERROR_MESSAGES.network });
+    }
     if (!r.ok && r.status !== 204) throw new ApiError({ status: r.status, code: 'server', message: ERROR_MESSAGES.server });
     csrfReady = true;
 }
@@ -79,8 +109,12 @@ function fieldErrors(errors) {
     return out;
 }
 
-// api(method, path, {body, query, auth:'auto'|'guest'|'cookie'|'none', retry})
-export async function api(method, path, { body, query, auth = 'auto', retry = 2, signal } = {}) {
+// api(method, path, {body, query, auth:'auto'|'guest'|'cookie'|'none', retry, signal, timeout, idempotent})
+// - timeout(ms, 기본 20초, 0=끔): 시간 초과 -> ApiError code 'timeout'(status 0). 호출자 signal 취소 -> code 'aborted'
+// - idempotent: 네트워크 오류·시간 초과·502/504 자동 재시도는 멱등 요청만(GET/HEAD 또는 body.request_id 가 있는 POST).
+//   멱등하지 않은 쓰기(전투 행동·확정·포기 등)는 서버가 이미 처리했을 수 있어 재전송하지 않고 바로 오류를 던진다(중복 전송 방지)
+export async function api(method, path, { body, query, auth = 'auto', retry = 2, signal, timeout = DEFAULT_TIMEOUT_MS, idempotent } = {}) {
+    const canResend = idempotent ?? (method === 'GET' || method === 'HEAD' || (body != null && typeof body === 'object' && body.request_id != null));
     let url = path;
     if (query) {
         const q = Object.entries(query).filter(([, v]) => v !== undefined && v !== null).map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`).join('&');
@@ -97,20 +131,25 @@ export async function api(method, path, { body, query, auth = 'auto', retry = 2,
     }
     for (let attempt = 0; ; attempt++) {
         let res;
+        let data = null;
         try {
-            res = await fetch(url, { method, headers, credentials: 'same-origin', body: body === undefined ? undefined : JSON.stringify(body), signal });
+            ({ res, data } = await timedFetch(url, { method, headers, credentials: 'same-origin', body: body === undefined ? undefined : JSON.stringify(body) }, { timeout, signal, json: true }));
         } catch (e) {
+            if (e?.timedOut) {
+                // 시간 초과 재시도는 최대 1회(기본 20초 x 2 + 백오프 = 약 41초 안에 '다시 시도' 노출)
+                if (canResend && attempt < Math.min(retry, 1) && !signal?.aborted) { await sleep(600 * 2 ** attempt); continue; }
+                throw timeoutError();
+            }
             if (e?.name === 'AbortError') throw new ApiError({ status: 0, code: 'aborted', message: '요청이 취소되었습니다.' });
-            if (attempt < retry) { await sleep(600 * 2 ** attempt); continue; }
+            if (canResend && attempt < retry) { await sleep(600 * 2 ** attempt); continue; }
             throw new ApiError({ status: 0, code: 'network', message: ERROR_MESSAGES.network });
         }
         if (res.status === 204) return null;
-        let data = null;
-        try { data = await res.json(); } catch { data = null; }
         if (res.ok) return data;
         const retryAfter = Number(res.headers.get('Retry-After')) || 0;
         const code = data?.error?.code ?? (res.status === 422 && data?.errors ? 'validation' : res.status === 401 ? 'unauthenticated' : res.status === 429 ? 'too_many_attempts' : res.status === 503 ? 'db_busy' : res.status >= 500 ? 'server' : null);
-        if ((res.status === 503 || res.status === 502 || res.status === 504) && attempt < retry) {
+        // 503(db_busy: 서버가 처리 전 거절)은 기존대로 재시도, 502/504(게이트웨이: 서버가 처리했을 수 있음)는 멱등 요청만
+        if ((res.status === 503 || ((res.status === 502 || res.status === 504) && canResend)) && attempt < retry) {
             await sleep(retryAfter ? retryAfter * 1000 : 800 * 2 ** attempt);
             continue;
         }
@@ -118,7 +157,7 @@ export async function api(method, path, { body, query, auth = 'auto', retry = 2,
         const err = new ApiError({ status: res.status, code, message: data?.error?.message ?? data?.message ?? '', fields: fieldErrors(data?.errors), retryAfter, details: errorDetails(data?.error) });
         if (res.status === 401) {
             if (useGuest) storage.clear();
-            if (session.kind !== 'none') { setSession({ kind: 'none', user: null, profile: null, party: null, heroes: null }); }
+            if (session.kind !== 'none') { setSession({ kind: 'none', user: null, profile: null, party: null, heroes: null, lineup: null }); }
             events.emit('unauthenticated', err);
         }
         throw err;
@@ -139,7 +178,7 @@ export const auth = {
         storage.set(data.guest_token);
         // 게스트 표시명은 /api/profile 에 없어(이름을 주는 게스트용 API 부재) 로컬에 함께 보관해 복구 시 표시한다(토큰과 별개, 민감정보 아님)
         try { localStorage.setItem(GUEST_USER_KEY, JSON.stringify({ id: data.user?.id, name: data.user?.name ?? '', is_guest: true })); } catch { /* 무시 */ }
-        setSession({ kind: 'guest', user: data.user, profile: null, party: null, heroes: null, restored: true });
+        setSession({ kind: 'guest', user: data.user, profile: null, party: null, heroes: null, lineup: null, restored: true });
         return data.user;
     },
 
@@ -156,7 +195,7 @@ export const auth = {
         await ensureCsrf().catch(() => {});
         // 가입 직후 세션 쿠키가 없을 수 있어 로그인으로 세션을 만든다(실패해도 가입은 성공)
         try { await api('POST', '/api/auth/login', { body: { email: fields.email, password: fields.password }, auth: 'cookie', retry: 0 }); } catch { /* 로그인 화면에서 재시도 */ }
-        setSession({ kind: 'member', user: data.user, profile: null, party: null, heroes: null, restored: true });
+        setSession({ kind: 'member', user: data.user, profile: null, party: null, heroes: null, lineup: null, restored: true });
         return data.user;
     },
 
@@ -165,7 +204,7 @@ export const auth = {
         const data = await api('POST', '/api/auth/login', { body: { email, password }, auth: 'cookie', retry: 0 });
         bumpRestore();
         storage.clear(); // 회원 세션으로 전환: 로컬 게스트 토큰 사용 중단
-        setSession({ kind: 'member', user: data.user, profile: null, party: null, heroes: null, restored: true });
+        setSession({ kind: 'member', user: data.user, profile: null, party: null, heroes: null, lineup: null, restored: true });
         return data.user;
     },
 
@@ -176,7 +215,7 @@ export const auth = {
         bumpRestore();
         storage.clear();
         csrfReady = false;
-        setSession({ kind: 'none', user: null, profile: null, party: null, heroes: null });
+        setSession({ kind: 'none', user: null, profile: null, party: null, heroes: null, lineup: null });
     },
 
     // 새로고침 복구: 게스트 토큰 -> /api/profile, 없으면 쿠키 -> /api/auth/me. 둘 다 아니면 none.
@@ -226,5 +265,5 @@ export const sessionCache = {
     setProfile(p) { setSession({ profile: p }); },
     setParty(ids) { setSession({ party: ids }); },
     setHeroes(h) { setSession({ heroes: h }); },
-    clearGame() { setSession({ profile: null, party: null, heroes: null }); },
+    clearGame() { setSession({ profile: null, party: null, heroes: null, lineup: null }); },
 };

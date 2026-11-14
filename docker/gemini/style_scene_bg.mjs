@@ -12,6 +12,7 @@
 import { UISKIN_PAL } from './style_guide.mjs';
 import { extraJobs, EXTRA_MAP, EXTRA_CROP } from './scene_bg_ch2124.mjs';
 import { extraJobs2, EXTRA_MAP2, SCENE_JOB2, CROP2 } from './scene_bg_ch1120.mjs'; // 2026-11-03 서가 ch11~17·19·20·999 배경 38장
+import { FILL_MAP } from './scene_bg_map_fill.mjs'; // 2026-11-14 메인 a1~a4·ch30·ch11~24 공백 보충(기존 배경 재사용, 기존 매핑 우선)
 import { existsSync as _ex } from 'node:fs'; // 2026-11-03 ch18·21~24 대사 배경 29장 + 서고 매핑
 
 export const SCENE_BG_STYLE =
@@ -97,6 +98,7 @@ export const CROP_FIX = { ...EXTRA_CROP, ...CROP2,
 
 // ---- 매핑(장면 id → 배경 키). 근거: 각 장면 bg(설명문) ----
 export const SCENE_BG_MAP = {
+  ...FILL_MAP, // 맨 앞: 아래 기존 매핑이 같은 id 를 덮어씀(빈 곳만 채움)
   // 튜토리얼(시간의 서고)
   tut_00_opening: 'bg.archive.hall', tut_01_world: 'bg.archive.hall', tut_02_first_hero: 'bg.archive.aisle', tut_03_battle_basic: 'bg.archive.aisle',
   tut_04_affinity: 'bg.archive.aisle', tut_05_terrain_aura: 'bg.archive.aisle', tut_06_cost_formation: 'bg.archive.aisle', tut_07_deploy: 'bg.archive.aisle',

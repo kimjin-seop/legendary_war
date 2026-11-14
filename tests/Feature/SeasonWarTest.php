@@ -62,6 +62,15 @@ class SeasonWarTest extends TestCase
         $this->assertSame(1, DB::table('season_members')->count());
     }
 
+    public function test_시즌전쟁_비활성이면_가입과_공격_거부(): void
+    {
+        config(['game.season_war_enabled' => false]);
+        [$t] = $this->player('waroff');
+        $this->as($t)->postJson('/api/war/join', ['country' => 'japan'])->assertStatus(403)->assertJsonPath('error.code', 'season_war_disabled');
+        $this->as($t)->postJson('/api/war/territories/busan/attack')->assertStatus(403)->assertJsonPath('error.code', 'season_war_disabled');
+        $this->assertSame(0, DB::table('season_members')->count());
+    }
+
     public function test_비인접_영토와_자국_영토_공격_거부(): void
     {
         [$t] = $this->player('war2');

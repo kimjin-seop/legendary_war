@@ -47,17 +47,33 @@ export function protagonistPortraitLogical({ face, gender } = {}, expr0 = 'neutr
     return c.find((k) => manifestHas(k)) ?? null;
 }
 
+function ownPortraitLogical(info, expr) {
+    if (info.kind === 'troop') return troopPortraitLogical(info.troop, info.culture, { thumb: false });
+    if (!info.code) return null;
+    const code = portraitCode(info.code); // NPC 별칭(npc_boorchu -> borchu 등)
+    return manifestHas(`portrait.${code}.${expr}`) ? `portrait.${code}.${expr}` : `portrait.${code}`;
+}
+// 고유 초상이 없는 화자(연출 액터 '왜군'·초상 미제작 NPC·영웅) 폴백(2026-11-14 사용자 제보 '이름표만 있고 초상 없음'):
+//  기본 부장 초상(captain_map: 이름 규칙 '^(일본|왜)' -> jp16 등·현재 스테이지 그룹·문화권) -> 병종 초상(문화권 -> default, 병종 모르면 sword). 새 이미지 없이 기존 에셋만
+export function fallbackPortraitLogical(info) {
+    if (!info) return null;
+    const troop = info.troop ?? 'sword';
+    return captainPortraitLogical({ name: info.name, culture: info.culture ?? null, troop }, { thumb: false })
+        ?? troopPortraitLogical(troop, info.culture ?? null, { thumb: false });
+}
 export function dialoguePortraitLogical(info, expr) {
     if (!info) return null;
     if (info.kind === 'shiori') return `portrait.shiori.${SHIORI_EXPRS.includes(expr) ? expr : 'neutral'}`;
     if (info.kind === 'protagonist') return protagonistPortraitLogical(info, expr);
-    if (info.kind === 'troop') return troopPortraitLogical(info.troop, info.culture, { thumb: false });
-    if (!info.code) return info.npc ? captainPortraitLogical({ name: info.name }, { thumb: false }) : null; // 고유 초상 없는 NPC 화자 -> 기본 부장 초상(이름 규칙·현재 스테이지 그룹), 없으면 실루엣
-    const code = portraitCode(info.code); // NPC 별칭(npc_boorchu -> borchu 등)
-    return manifestHas(`portrait.${code}.${expr}`) ? `portrait.${code}.${expr}` : `portrait.${code}`;
+    const own = ownPortraitLogical(info, expr);
+    if (own && manifestHas(own) && !portraitFailed(own)) return own;
+    // manifest 로드 전이면 기존 동작(고유 키 그대로, 받는 중 실루엣). 로드 후 고유 초상이 없거나 받기 실패면 폴백
+    if (!loaded.manifest) return own;
+    return fallbackPortraitLogical(info) ?? own;
 }
 
-// 초상이 없는 일반 화자(연출 액터 '왜군'·초상 미제작 NPC 등): 회색 실루엣 자리표시를 크게 세우지 않고 이름표 + 대사만 보인다(2026-11-09 강화면 결함).
+// 초상이 없는 일반 화자: 회색 실루엣 자리표시를 크게 세우지 않고 이름표 + 대사만 보인다(2026-11-09 강화면 결함).
+//  2026-11-14: dialoguePortraitLogical 이 부장/병종 초상으로 폴백하므로 이 분기는 폴백 에셋까지 없거나 받기 실패한 경우에만 걸린다.
 //  판정 = 논리 키 없음 / manifest(fragment 병합)에 그 초상 항목 없음(=파일 없음, 요청도 하지 않음) / 이미 로드 실패. manifest 로드 전이면 기존 동작(false).
 //  시오리·주인공은 제외(주인공 성별 미정 실루엣은 의도된 자리표시). 초상이 있는 화자는 그대로
 export function facelessSpeaker(info, logical) {
