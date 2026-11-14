@@ -98,7 +98,9 @@ php artisan key:generate    # 최초 1회(APP_KEY 비어 있을 때만)
 - 가산 전용이라 코드만 이전 버전으로 되돌리고 스키마는 둔 채 운영해도 구 코드는 새 컬럼·테이블을 쓰지 않는다(구 코드의 `gacha_pulls` insert 가 새 컬럼의 기본값으로 동작하는지는 **확인 필요**).
 
 ### 3.3 게임 데이터(시드) 적재
-게임 설정·맵·스테이지·영웅은 DB 테이블이며 `database/data/*.json` 을 artisan 커맨드로 적재한다. `DatabaseSeeder` 에서 호출되는 시드는 확인하지 못했다. 운영 최초 적재의 정확한 순서와 목록은 **확인 필요**(개발 DB 를 이관하는지, 시드로 재구성하는지도 미확정).
+게임 설정·맵·스테이지·영웅은 DB 테이블이며 `database/data/*.json` 을 artisan 커맨드로 적재한다. `DatabaseSeeder` 는 테스트 유저 1명만 만들 뿐 게임 시드를 호출하지 않는다. 대사·배너·칭호·챕터 문구는 별도 테이블이 아니라 `database/data/*.json` 을 런타임에 읽으므로 배포 코드에 해당 JSON 이 모두 있어야 한다.
+
+**검증 결과(2026-11-14, 임시 SQLite 리허설)**: 아래 시드만으로는 개발 DB 와 동등해지지 않는다. 개발 DB 에만 있고 시드 원본(JSON)이 없는 스킬이 47개(`rd_*` 28, `w3_*` 18, `divine_banner`) 있어 `game:seed-hero-wave3` 가 롤백되고 그 영향으로 영웅·스테이지 일부가 빠진다. 또한 `seed-active-skills`·`seed-skill-grades`·`seed-hero-wave3`·`troop-v2-apply`·`apply-grade-gap`·`npc-promote` 는 `APP_ENV=production` 이면 코드가 실행을 거부한다. 따라서 운영 최초 적재는 개발 DB 의 콘텐츠 테이블 읽기 전용 덤프 이관을 권장한다(결정 대기). 리허설에서 통과한 시드 순서(참고): `migrate --force` → `game:seed` → `game:seed-protagonist` → `game:seed-maps-pack --path=` (maps_pack20, maps_pack20_v2, maps_scaleup_pilot/ch1/swap/late 순) → `game:seed-ch1` → `game:seed-imjin10 --with-npc`(NPC 182·im_* 맵·ch1_s1~10 의 유일한 출처이나 개발 전용 도구) → `game:troop-v2-apply` → `game:seed-ch18` → `game:seed-main --act=1..4 --with-npc` → `game:seed-active-skills` → `game:seed-skill-grades` → `game:seed-shelf --chapters=N --with-npc --with-ext`(챕터 11,13~17,19~26,999 는 개별 실행 통과, 12 는 wave3 영웅 zhang_fei 필요로 실패).
 
 커맨드 성격 (각 커맨드 `$signature`/docblock 기준)
 

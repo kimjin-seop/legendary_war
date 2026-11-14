@@ -238,6 +238,9 @@ use Illuminate\Support\Facades\Route;
 |     영웅당 복수 스킬은 hero_skills(hero_id, skill_id, sort_order)이며 passive는 키별 합산(heroes.skill_id 단일 연결 호환). params.effects[]로
 |     효과 배열(when 조건 필드 보존, 현재 조건부 효과는 무시) 허용 - 어드민 PATCH는 기존 params 키만 허용(effects 편집 미지원).
 |  GET /api/admin/users[?banned=1]  POST /api/admin/users/{id}/ban|unban
+|  POST /api/admin/users/{id}/reset-progress {confirm:대상 이름 정확 일치, reason:2~200자 필수} -> 200 {ok,counts{테이블:삭제행수,battles_abandoned,wallet_balance_zeroed},granted{gold,pen,level,heroes[]},audit_id,warning,kept[]}
+|     계정·채팅·신고·감사로그·재화 원장·종료 전투 기록은 유지하고 진행도만 신규 가입 상태로 초기화. 422 confirm_mismatch|cannot_reset_self|cannot_reset_admin, 409 user_in_active_room, 404 not_found.
+|     운영 실행 전 DB 백업 필수(docs/BACKUP_PROCEDURE.md). docs/ADMIN_API_SPEC.md
 |  GET /api/admin/battles[?status=&user_id=]  GET /api/admin/battles/{id}/actions
 |  GET /api/admin/audit-logs  GET /api/admin/chat/reports  DELETE /api/admin/chat/messages/{id}
 */
@@ -380,6 +383,7 @@ Route::prefix('admin')->middleware(['auth:sanctum', 'admin', 'throttle:60,1'])->
     Route::get('/users', [AdminController::class, 'users']);
     Route::post('/users/{id}/ban', [AdminController::class, 'ban'])->whereNumber('id');
     Route::post('/users/{id}/unban', [AdminController::class, 'unban'])->whereNumber('id');
+    Route::post('/users/{id}/reset-progress', [AdminController::class, 'resetProgress'])->whereNumber('id');   // 진행도 초기화(계정 유지). confirm=대상 이름, reason 필수
     Route::get('/battles', [AdminController::class, 'battles']);
     Route::get('/battles/{id}/actions', [AdminController::class, 'battleActions'])->whereNumber('id');
     Route::get('/audit-logs', [AdminController::class, 'auditLogs']);

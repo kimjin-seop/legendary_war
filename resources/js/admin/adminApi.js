@@ -22,6 +22,8 @@ export const adminApi = {
     users: (query) => A('GET', '/users', { query }),
     ban: (id, reason) => A('POST', `/users/${id}/ban`, { body: { reason } }),
     unban: (id, reason) => A('POST', `/users/${id}/unban`, { body: { reason } }),
+    // 진행도 초기화: confirm = 대상 이름 정확 일치, reason 2~200자. 되돌릴 수 없음(운영은 사전 DB 백업 필수)
+    resetProgress: (id, confirm, reason) => A('POST', `/users/${id}/reset-progress`, { body: { confirm, reason } }),
     // 전투 기록
     battles: (query) => A('GET', '/battles', { query }),
     battleActions: (id) => A('GET', `/battles/${id}/actions`),

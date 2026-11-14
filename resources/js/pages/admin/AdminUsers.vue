@@ -1,9 +1,11 @@
 <script setup>
-// 사용자 관리: 검색(이름·이메일, 서버 q)·필터(정지/게스트/역할)·페이지네이션, 정지/해제(사유 입력 → 감사 로그 after.reason)
+// 사용자 관리: 검색(이름·이메일, 서버 q)·필터(정지/게스트/역할)·페이지네이션, 정지/해제(사유 입력 → 감사 로그 after.reason), 진행도 초기화(ResetProgressModal)
 import { onMounted, reactive, ref } from 'vue';
 import { adminApi, errText, fmtTime } from '../../admin/adminApi.js';
 import Pager from '../../admin/components/Pager.vue';
 import ConfirmModal from '../../admin/components/ConfirmModal.vue';
+import ResetProgressModal from '../../admin/components/ResetProgressModal.vue';
+import { adminUser } from '../../admin/adminGuard.js';
 
 const f = reactive({ q: '', banned: '', is_guest: '', role: '' });
 const page = ref(null); const err = ref(''); const ok = ref(''); const loading = ref(false);
@@ -20,6 +22,10 @@ async function doIt({ reason }) {
     try { await (ban ? adminApi.ban(u.id, reason) : adminApi.unban(u.id, reason)); ok.value = `${u.name}(#${u.id}) ${ban ? '정지' : '정지 해제'} 완료`; pending.value = null; load(page.value?.current_page ?? 1); }
     catch (e) { mErr.value = errText(e); } finally { mBusy.value = false; }
 }
+// 진행도 초기화: 관리자·본인 행은 버튼 숨김(서버도 422 거부). 성공 시 목록 새로고침, 결과는 모달에 유지
+const resetting = ref(null);
+const canReset = (u) => u.role !== 'admin' && u.id !== adminUser.value?.id;
+function onResetDone() { const u = resetting.value; ok.value = `${u.name}(#${u.id}) 진행도 초기화 완료`; load(page.value?.current_page ?? 1); }
 onMounted(() => load());
 </script>
 
@@ -46,6 +52,7 @@ onMounted(() => load());
                     <td>
                         <button v-if="!u.banned_at" class="sm danger" :disabled="u.role === 'admin'" @click="ask(u, true)">정지</button>
                         <button v-else class="sm" @click="ask(u, false)">해제</button>
+                        <button v-if="canReset(u)" class="sm danger" style="margin-left: 6px" @click="resetting = u">진행도 초기화</button>
                         <RouterLink class="sm" :to="{ path: '/admin/battles', query: { user_id: u.id } }" style="margin-left: 6px">전투</RouterLink>
                     </td>
                 </tr>
@@ -55,5 +62,6 @@ onMounted(() => load());
         </div>
         <ConfirmModal v-if="pending" :title="pending.ban ? '사용자 정지' : '정지 해제'" :message="`${pending.u.name} (#${pending.u.id}${pending.u.email ? `, ${pending.u.email}` : ''})${pending.ban ? '\n정지하면 활성 세션이 즉시 끊깁니다.' : ''}`"
             need-reason :danger="pending.ban" :ok-label="pending.ban ? '정지' : '해제'" :busy="mBusy" :error="mErr" @cancel="pending = null" @ok="doIt" />
+        <ResetProgressModal v-if="resetting" :key="resetting.id" :user="resetting" @close="resetting = null" @done="onResetDone" />
     </div>
 </template>

@@ -1,0 +1,306 @@
+{
+    "generated_at": "2026-11-14T10:07:48+00:00",
+    "latest_migration": "2026_11_14_000300_create_user_lineups",
+    "latest_batch": 48,
+    "tables": {
+        "unit_types": {
+            "file": "unit_types.ndjson",
+            "rows": 12,
+            "columns": [
+                "id",
+                "code",
+                "name",
+                "move",
+                "range_min",
+                "range_max",
+                "hp",
+                "atk",
+                "def",
+                "move_type",
+                "heal",
+                "created_at",
+                "updated_at",
+                "cost"
+            ],
+            "sha256": "7464cd34aae4e39bf321e4505e093b3af2d5708d1824901841cef61fb5e2df36"
+        },
+        "auras": {
+            "file": "auras.ndjson",
+            "rows": 3,
+            "columns": [
+                "id",
+                "code",
+                "name",
+                "radius",
+                "atk_pct",
+                "def_pct",
+                "created_at",
+                "updated_at"
+            ],
+            "sha256": "4000584876cfc19fa35c2790d16a686e1834d3f77dbeffc7d8edcb22519c6723"
+        },
+        "terrains": {
+            "file": "terrains.ndjson",
+            "rows": 20,
+            "columns": [
+                "id",
+                "code",
+                "name",
+                "symbol",
+                "created_at",
+                "updated_at",
+                "elevation",
+                "cover",
+                "heals",
+                "water",
+                "boarding",
+                "blocks_line_of_fire"
+            ],
+            "sha256": "eef01d401af5f35180bdc903adf58ba0c8b31325f1a49ec0acfce34c9ba90a50"
+        },
+        "terrain_modifiers": {
+            "file": "terrain_modifiers.ndjson",
+            "rows": 100,
+            "columns": [
+                "id",
+                "terrain_id",
+                "move_type",
+                "move_cost",
+                "def_pct",
+                "created_at",
+                "updated_at"
+            ],
+            "sha256": "275cdb2d6521e3d5fb8f27e76f1189033b74b920e412bc736ea0ca8d48362202"
+        },
+        "matchup_rules": {
+            "file": "matchup_rules.ndjson",
+            "rows": 35,
+            "columns": [
+                "id",
+                "attacker_unit_type_id",
+                "defender_unit_type_id",
+                "multiplier",
+                "created_at",
+                "updated_at"
+            ],
+            "sha256": "640472fd7005ad954084d920b7e9688ad1182bdb52ddf260a4376be54fad7869"
+        },
+        "skills": {
+            "file": "skills.ndjson",
+            "rows": 683,
+            "columns": [
+                "id",
+                "code",
+                "name",
+                "type",
+                "params",
+                "description",
+                "created_at",
+                "updated_at",
+                "template",
+                "tags",
+                "evidence_level",
+                "source",
+                "is_invented",
+                "rarity_min",
+                "fx_key",
+                "flavor",
+                "enabled",
+                "needs_verify",
+                "review_status"
+            ],
+            "sha256": "63cfabe81141eaacdf8e3b0770d04e5b70236cd1f9345eb48c9cceb0698ce8eb"
+        },
+        "heroes": {
+            "file": "heroes.ndjson",
+            "rows": 657,
+            "columns": [
+                "id",
+                "code",
+                "name_ko",
+                "name_en",
+                "born",
+                "died",
+                "era",
+                "region",
+                "unit_type_id",
+                "rarity",
+                "cost",
+                "hp_bonus",
+                "atk_bonus",
+                "def_bonus",
+                "growth_hp_pct",
+                "growth_atk_pct",
+                "growth_def_pct",
+                "skill_id",
+                "aura_id",
+                "verify",
+                "note",
+                "created_at",
+                "updated_at",
+                "culture",
+                "troop_bonus",
+                "title",
+                "short_name",
+                "troop_type",
+                "campaign_only",
+                "is_protagonist"
+            ],
+            "sha256": "99b0162626bb6171c0f37941cec88e56615fdb91238cf437760ba0bc63a1aacb"
+        },
+        "hero_skills": {
+            "file": "hero_skills.ndjson",
+            "rows": 813,
+            "columns": [
+                "id",
+                "hero_id",
+                "skill_id",
+                "sort_order",
+                "created_at",
+                "updated_at"
+            ],
+            "sha256": "326c89dad8fc136b381f9a89f875ba6c55a0626285a5462e7243fae4dab034c2"
+        },
+        "presets": {
+            "file": "presets.ndjson",
+            "rows": 8,
+            "columns": [
+                "id",
+                "code",
+                "name",
+                "hero_id",
+                "units",
+                "created_at",
+                "updated_at"
+            ],
+            "sha256": "8aa96502eab7fe7a71d38ac3cce7cd8acaaa926e3563f98b58c6aa15257e3830"
+        },
+        "maps": {
+            "file": "maps.ndjson",
+            "rows": 241,
+            "columns": [
+                "id",
+                "code",
+                "name",
+                "width",
+                "height",
+                "tiles",
+                "spawns",
+                "deploy_zones",
+                "created_at",
+                "updated_at",
+                "rules",
+                "biome",
+                "meta"
+            ],
+            "sha256": "1c3da9995c26a704b33db430c9237b77d251a8ebf62ca3a2bc3e544ca90b5e2f"
+        },
+        "stages": {
+            "file": "stages.ndjson",
+            "rows": 200,
+            "columns": [
+                "id",
+                "code",
+                "name",
+                "map_id",
+                "enemy_preset_id",
+                "recommended_level",
+                "enemy_level",
+                "reward_exp",
+                "reward_user_exp",
+                "reward_gold",
+                "prerequisite_stage_id",
+                "difficulty",
+                "sort_order",
+                "created_at",
+                "updated_at",
+                "enemy_extra_troops",
+                "enemy_level_offset",
+                "chapter",
+                "objective",
+                "star_conditions",
+                "enemy_squad",
+                "join_hero",
+                "forced_heroes",
+                "triggers",
+                "required_hero",
+                "rules"
+            ],
+            "sha256": "d8a8c6b7838ce3c0d41c9ec89cffc6b5e6425a034272de6efb4b1911d7600b4b"
+        },
+        "hero_levels": {
+            "file": "hero_levels.ndjson",
+            "rows": 29,
+            "columns": [
+                "level",
+                "exp_to_next"
+            ],
+            "sha256": "ea7b5e8534aacd49865c31db41478fd8c7caeec3a34d1294ff0ec2f9cbba1ce3"
+        },
+        "user_level_costs": {
+            "file": "user_level_costs.ndjson",
+            "rows": 50,
+            "columns": [
+                "level",
+                "exp_to_next",
+                "max_cost",
+                "party_slots"
+            ],
+            "sha256": "0c735ddc0c2cd508ad7b2938a74a923e17ab143f3b70c4ebe716258530e75b91"
+        },
+        "equipment_items": {
+            "file": "equipment_items.ndjson",
+            "rows": 25,
+            "columns": [
+                "id",
+                "code",
+                "slot",
+                "rarity",
+                "hp",
+                "atk",
+                "def",
+                "req_level",
+                "price_gold",
+                "name_ko",
+                "description",
+                "culture",
+                "evidence_level",
+                "enabled",
+                "sort_order",
+                "created_at",
+                "updated_at"
+            ],
+            "sha256": "d7d7c0abd1731aadf39bbae16ec14db0b9b1592a945ae2480ff56c90dbd44c6d"
+        },
+        "exchange_products": {
+            "file": "exchange_products.ndjson",
+            "rows": 15,
+            "columns": [
+                "id",
+                "code",
+                "name_ko",
+                "description",
+                "kind",
+                "payload",
+                "price_gold",
+                "daily_limit",
+                "enabled",
+                "sort_order",
+                "created_at",
+                "updated_at",
+                "price_currency"
+            ],
+            "sha256": "e4f6276ae04859de6289c120fe6b2a29edcbdbe13a67ed0593a46b9624dea0dc"
+        },
+        "app_settings": {
+            "file": "app_settings.ndjson",
+            "rows": 1,
+            "columns": [
+                "key",
+                "value",
+                "updated_at"
+            ],
+            "sha256": "fe562efeb5478c11f2272231ac19f4c8358943f121a16880098e6c53bbb27898"
+        }
+    }
+}

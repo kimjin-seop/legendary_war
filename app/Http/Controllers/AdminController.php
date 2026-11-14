@@ -188,6 +188,19 @@ class AdminController extends Controller
         return response()->json(['ok' => true, 'banned' => $ban]);
     }
 
+    /**
+     * POST /users/{id}/reset-progress {confirm: 대상 이름과 정확히 일치, reason: 2~200자}. 계정은 유지하고 게임 진행도만 신규 가입 상태로 초기화(AdminProgressResetService).
+     * 운영에서는 실행 전 DB 백업 필수(docs/BACKUP_PROCEDURE.md).
+     */
+    public function resetProgress(Request $request, int $id, \App\Services\AdminProgressResetService $svc): JsonResponse
+    {
+        $v = $request->validate(['confirm' => ['required', 'string', 'max:64'], 'reason' => ['required', 'string', 'min:2', 'max:200']]);
+        $res = $svc->reset((int) $request->user()->id, $id, $v['confirm'], $v['reason']);
+
+        return response()->json(['ok' => true, 'counts' => $res['counts'], 'granted' => $res['granted'], 'audit_id' => $res['audit_id'],
+            'warning' => '운영 환경에서는 실행 전 DB 백업이 필수입니다. docs/BACKUP_PROCEDURE.md', 'kept' => \App\Services\AdminProgressResetService::KEPT]);
+    }
+
     /** GET /battles[?status=&user_id=&stage_id=&from=&to=&per_page=] 페이지네이션 */
     public function battles(Request $request): JsonResponse
     {

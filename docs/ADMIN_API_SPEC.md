@@ -78,3 +78,13 @@
 
 ## /api/rules 소탕 규칙 (2026-11-04)
 - 최상위 `sweep: {enabled, max_count, daily_cap}` 추가(FE 는 `sweep.max_count` 를 우선 사용).
+
+## 유저 진행도 초기화 (2026-11-14)
+- `POST /api/admin/users/{id}/reset-progress {confirm, reason}`: `confirm` 은 대상 유저 이름과 정확히 일치해야 하고 `reason` 은 2~200자 필수. 게스트 포함 일반 유저만(본인·관리자 계정 422).
+- 응답: `{ok, counts{테이블:삭제행수, battles_abandoned, wallet_balance_zeroed}, granted{gold,pen,level,heroes[{hero_id,name_ko,rarity}]}, audit_id, warning, kept[]}`. 오류: 422 `confirm_mismatch|cannot_reset_self|cannot_reset_admin`, 409 `user_in_active_room`, 404 `not_found`, 403 비관리자.
+- 초기화(삭제): user_lineups, parties, hero_equipment, user_equipment, equipment_purchases, user_heroes, hero_star_ups, user_stage_progress(캠페인 진행), stage_sweeps, user_quests, quest_event_log, user_items, item_purchases, exchange_purchases, gacha_pulls, gacha_user_states, user_protagonists, season_members(+국가 member_count 감소), territory_contributions, rank_ratings, rank_queue, 해당 유저 daily_counters. users.level/exp=1/0, 튜토리얼 진행 리셋. 진행 중 전투는 abandoned.
+- 유지: users 행(이름·이메일·권한·정지), 인증 토큰·세션, guests, 채팅 메시지·신고, audit_logs, wallets 행과 wallet_transactions 원장 전체(잔액은 `admin_reset` 상쇄 행으로 0 처리, 시작 지급 행은 reason 에 `_r{audit_id}` 접미), 종료된 battles·rank_matches·rooms.
+- **원장 행의 reason_code 개명이 일어난다**: 기존 `starter_grant`·`starter_pen` 행은 `starter_grant_r{audit_id}`·`starter_pen_r{audit_id}`로 바뀐다(grantStarter 재지급 허용 목적, 원장 합계는 보존, audit_logs 에 audit_id 기록). DB 드라이버 무관(PHP 행별 update).
+- 초기화 후 ProgressionService::grantStarter 재사용(시작 골드·펜, 이순신+시작 등급 영웅·편성). 튜토리얼 보상(tutorial_reward)은 원장 멱등키로 재지급되지 않는다.
+- 단일 트랜잭션 + 대상 users 행 잠금, 진행 중(waiting|deployment|in_progress) 방에 있으면 409. audit_logs: action=reset_progress, before(레벨·골드·펜)/after(reason·counts·granted).
+- **운영에서는 실행 전 DB 백업 필수**: docs/BACKUP_PROCEDURE.md. 코드는 자동 스냅샷을 만들지 않는다.
