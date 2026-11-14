@@ -1,14 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from './pages/Home.vue';
-import About from './pages/About.vue';
 import { adminGuard } from './admin/adminGuard.js';
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', name: 'home', component: Home },
-        { path: '/about', name: 'about', component: About },
-        { path: '/game', name: 'game', component: () => import('./pages/Game.vue') },
+        // 운영 진입점 = 게임 메인(/battle)
+        { path: '/', redirect: '/battle' },
         // Phaser 번들이 크므로 lazy import로 분리
         { path: '/battle', name: 'battle', component: () => import('./pages/Battle.vue') },
         // 관리자 화면(게임 Phaser 와 분리, 별도 청크). 가드: role=admin 쿠키 세션만(admin/adminGuard.js), 비로그인 = /admin/login, 비관리자 = 홈
@@ -28,6 +25,8 @@ const router = createRouter({
                 { path: 'exchange', name: 'admin-exchange', component: () => import('./pages/admin/AdminExchange.vue') },
             ],
         },
+        // 알 수 없는 경로는 게임 메인으로(/admin/* 는 위 라우트·가드가 먼저 처리)
+        { path: '/:pathMatch(.*)*', redirect: '/battle' },
     ],
 });
 router.beforeEach(adminGuard);

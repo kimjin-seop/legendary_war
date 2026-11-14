@@ -23,7 +23,7 @@ async function logout() { await adminLogout(); setAdminUser(null); router.push('
             <div class="who">
                 <div v-if="adminUser">{{ adminUser.name }} (관리자)</div>
                 <button class="sm" style="margin-top: 6px" @click="logout">로그아웃</button>
-                <a href="/game" style="padding: 6px 0; display: inline-block; margin-left: 8px">게임으로</a>
+                <a href="/battle"style="padding: 6px 0; display: inline-block; margin-left: 8px">게임으로</a>
             </div>
         </nav>
         <main class="adm-main"><RouterView /></main>

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
-/** 신규 가입 시 C급 시작 영웅 2명(서로 다른 영웅·병종) 무작위 지급·편성, 멱등, Lv1 코스트 상한 내 편성 가능 여부. */
+/** 신규 가입 시 시작 영웅 2명(이순신 고정 + C급 무작위 1명) 지급·편성, 멱등, Lv1 코스트 상한 내 편성 가능 여부. */
 class StarterHeroesTest extends TestCase
 {
     use RefreshDatabase;
@@ -21,11 +21,10 @@ class StarterHeroesTest extends TestCase
         $rows = DB::table('parties')->where('parties.user_id', $uid)->orderBy('slot')
             ->join('user_heroes', 'user_heroes.id', '=', 'parties.user_hero_id')
             ->join('heroes', 'heroes.id', '=', 'user_heroes.hero_id')->get(['heroes.code', 'heroes.rarity']);
-        $gd = app(\App\Services\GameData::class)->heroes();
         $this->assertCount(2, $rows);
-        $this->assertSame(['C', 'C'], $rows->pluck('rarity')->all());
+        $this->assertSame('yi_sun_sin', $rows[0]->code);   // 슬롯 1 = 이순신 고정, 슬롯 2 = C급 무작위
+        $this->assertSame('C', $rows[1]->rarity);
         $this->assertCount(2, $rows->pluck('code')->unique());
-        $this->assertCount(2, $rows->map(fn ($r) => $gd[$r->code]['unit_type'])->unique());   // 병종 종류가 충분하므로 겹치지 않는다
 
         $svc = app(ProgressionService::class);
         $user = User::find($uid);
