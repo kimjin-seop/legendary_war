@@ -31,8 +31,11 @@ final class ContentDump
         'app_settings' => 'key',
     ];
 
+    /** 테스트 전용: 덤프 디렉터리 대체 */
+    public static ?string $dirOverride = null;
+
     public static function dir(): string
     {
-        return database_path(self::DIR);
+        return self::$dirOverride ?? database_path(self::DIR);
     }
 }
