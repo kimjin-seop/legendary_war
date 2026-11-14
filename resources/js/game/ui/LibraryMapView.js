@@ -4,7 +4,7 @@ import { isInstant } from './motion.js';
 import { StageMapView } from './StageMapView.js';
 import { stagePlayable } from '../campaign/campaignMapData.js';
 import { ensurePortraitTex, loaded, manifestHas, texKey } from '../assets.js';
-import { L } from '../layout.js';
+import { L, texPxPerUnit } from '../layout.js';
 import { withVer } from '../assetVersion.js';
 import Phaser from 'phaser';
 import PROFILE from '../data/library_map_profile.json';
@@ -93,7 +93,7 @@ export class LibraryMapView extends StageMapView {
         if (k && !manifestHas(k) && PROFILE.bg_entry?.path && loaded.manifest) loaded.manifest[k] = { ...PROFILE.bg_entry };
         if (!k || !manifestHas(k)) return;
         const g = this.geom();
-        const px = g.mh * (Number(L.u) || 1) * (globalThis.devicePixelRatio ?? 1);
+        const px = g.mh * texPxPerUnit(); // 표시 높이(백킹 px). 예전 L.u x dpr 은 DPR 이중 곱(2026-11-14 수정, 롤백 settings.texDprLegacy)
         const lg = px <= 800 ? (variantOf(k, 'mobile') ?? k) : k;
         this.loadPhase([lg], null, () => this.attachBg(lg));
     }

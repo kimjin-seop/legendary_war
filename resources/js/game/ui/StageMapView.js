@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { COLOR, CSS } from '../theme.js';
-import { L } from '../layout.js';
+import { L, texHi } from '../layout.js';
+import { settings } from '../settings.js';
 import { makeText, fitText } from './common.js';
 import { Button } from './Button.js';
 import { fitLabel } from './Tabs.js';
@@ -13,7 +14,7 @@ import { pixelImage } from './PixelBadge.js';
 import { isInstant } from './motion.js';
 import { ensurePortrait } from './PortraitCard.js';
 import { portraitCodeByName as portraitCodeByNameA, directLeaderBase } from '../assets.js';
-import { loaded, manifestHas, ensureScope, scopeOf, texKey, withVer, portraitCode, captainPortraitLogical, ensureCaptainMap, ensurePortraitTex, npcPersonCode } from '../assets.js';
+import { loaded, manifestHas, texFits, ensureScope, scopeOf, texKey, withVer, portraitCode, captainPortraitLogical, ensureCaptainMap, ensurePortraitTex, npcPersonCode } from '../assets.js';
 import { heroNameOf } from '../campaign/campaignFlow.js';
 import HERO_TIPS from '../data/hero_tips.json';
 import { sortieOf, stageLockText, stagePlayable, loadTerritories, territoriesFor, isGenericCommander } from '../campaign/campaignMapData.js';
@@ -94,7 +95,9 @@ function variantKey(lg, name) {
     if (!loaded.manifest[k]) loaded.manifest[k] = { path: typeof vv === 'string' ? vv : vv.path, size: typeof vv === 'string' ? undefined : vv.size, type: 'image', scope: v.scope ?? 'map', variant_of: lg };
     return k;
 }
-const hiDpi = () => (Number(L.u) || 1) * (globalThis.devicePixelRatio ?? 1) >= 2;
+// 지역판 고해상 키: 최대 텍스처(4096 기기)를 넘으면(east_asia 4200x2400) 4096 축소판(variants.max4096, 런타임 manifest 보강) > mobile 판
+function regionHi(lg) { const v = loaded.manifest?.[lg]; if (!v || texFits(v)) return lg; return (texFits(v.variants?.max4096) ? variantKey(lg, 'max4096') : null) ?? variantKey(lg, 'mobile') ?? lg; }
+const hiDpi = () => texHi(); // 1u 백킹 px 기준(layout.texHi). 예전 L.u x dpr 은 DPR 이중 곱(2026-11-14 수정, 롤백 settings.texDprLegacy)
 // 적 진영 수장(대장 표식 대상): 메타 영웅 leader:true > 적 국호(factions side=enemy) id 와 같은 코드(조조 세력 id 'cao_cao' -> 조조) > 메타 적 인물 첫 번째(서가 메타 순서 = 기획 우선순위). 없으면 null
 // 서가별 적 진영 수장(메타에 leader 표시가 없고 '메타 첫 적'이 현장 지휘관인 서가만). 진영의 우두머리(군주·가문 당주)를 대장으로.
 //  데이터(shelf_map_meta heroes[].leader:true)가 생기면 그쪽이 우선. 표에 있는데 메타 적 목록에 없으면 칩을 새로 만든다
@@ -160,7 +163,9 @@ export function chipShortName(name) {
     if (w[0].length < 2) return base; // '기 드 뤼지냥' 처럼 첫 단어가 한 글자면 전체
     return w[0];
 }
-const mobileMap = () => L.portrait || (L.cls === 'phone' && !L.short); // 가로 폰(L.short)은 좌우 배치(wideLayout)라 데스크톱 지도 에셋(가로 비율)과 맞춘다
+// 모바일 지도(저해상 variants.mobile) 사용 조건. 2026-11-14 성능: 가로 폰(L.short)도 phone 이면 모바일 지도(예전엔 데스크톱 4000px 판을 받아 메모리·다운로드 과다).
+//  레이어는 지도 영역 비율에 맞춰 그려지므로 배치는 같고 해상도만 낮다. 롤백: settings.set({ landscapePhoneDesktopMap: true }) 후 새로고침
+const mobileMap = () => L.portrait || (L.cls === 'phone' && !(L.short && settings.get().landscapePhoneDesktopMap === true));
 // 레이어 논리 키(해상도 선택)
 function layerLogical(lg) { if (!manifestHas(lg)) return null; return (mobileMap() ? variantKey(lg, 'mobile') : null) ?? lg; }
 // 아이콘 논리 키(state: normal|locked|cleared, 고해상 x2)
@@ -219,7 +224,7 @@ export class StageMapView extends Phaser.GameObjects.Container {
         this.vb = worldView();
         // 지역판: hi = 항목(고해상), lo = variants.mobile(없으면 hi). pending = 요청 중인 논리 키
         this.regions = MAP_LOD.regions.map((r) => ({ ...r, b: normBounds(r.bounds) })).filter((r) => r.b && manifestHas(r.key))
-            .map((r) => ({ ...r, hi: r.key, lo: variantKey(r.key, 'mobile') ?? r.key, pending: new Set(), im: null }));
+            .map((r) => ({ ...r, hi: regionHi(r.key), lo: variantKey(r.key, 'mobile') ?? r.key, pending: new Set(), im: null }));
         this.lodState = null;
         this.battles = MAP_LOD.battles.filter((bt) => manifestHas(bt.key)).map((bt) => {
             const v = loaded.manifest[bt.key];

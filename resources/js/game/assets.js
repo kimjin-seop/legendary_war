@@ -5,7 +5,7 @@ import { RM_DIR, RM_SHEETS, rmTexKey } from './data/rmTileset.js';
 import { U32_EXT, U32_EXT2, U32_EXT3, U32_KEY, U32_PATH, U32_PX, U32_TV2, U32_TV2_SHEETS, U32_WS, U32_WS_SHEETS } from './data/unityTileset.js';
 import { TV3_BASE_KEY, TV3_BASE_PATH, TV3_OBJECTS, TV3_PIER_KEY, TV3_PIER_PATH, TV3_SETS, tv3ObjKey, tv3ObjPath, tv3SetKey, tv3SetPath } from './data/terrainV3.js';
 import { TB_MANIFEST_KEY, TB_MANIFEST_PATH, artNeeded, tbTexKey } from './data/mapArt.js';
-import { L } from './layout.js';
+import { texHi, texScreenW } from './layout.js';
 import { setSkinUnitPx } from './ui/skin.js';
 import { ASSET_VERSION, withVer } from './assetVersion.js';
 import { typeAlias } from './data/rules.js';
@@ -71,15 +71,33 @@ const loadable = (logical, v) => !logical.startsWith('__') && v?.path && !SKIP_P
 export function queueAssets(scene) {
     const Ld = scene.load;
     loaded.failed = [];
-    Ld.json('assets_manifest', withVer('/assets/manifest.json'));
+    loaded.maxTex = Number(scene.sys.game?.renderer?.getMaxTextureSize?.()) || 4096; // 최대 텍스처 변(px). texFits 판정(4096 기기에서 4200·4794px 텍스처 회피)
+    // 2026-11-14 성능 1단계: 런타임 manifest(scripts/build_runtime_manifest.mjs, 제작 메타 제외)를 먼저 받는다.
+    //  text 로 받아 직접 파싱 -> 없거나(SPA 폴백 HTML 200 포함) 파싱 실패면 원본 manifest.json 으로 폴백(Phaser json 파싱 실패는 예외를 던져 클라이언트 오류 리포트로 남으므로 피함).
+    //  원본 강제: 콘솔 settings.set({ manifestFull: true }) 후 새로고침
+    const full = () => Ld.json('assets_manifest', withVer('/assets/manifest.json'));
+    if (settings.get().manifestFull === true) full();
+    else {
+        Ld.text('assets_manifest_rt', withVer('/assets/manifest.runtime.json'));
+        Ld.once('filecomplete-text-assets_manifest_rt', (_k, _t, txt) => {
+            let data = null;
+            try { data = JSON.parse(txt); } catch { data = null; }
+            try { scene.cache.text.remove('assets_manifest_rt'); } catch { /* 무시 */ }
+            if (!Array.isArray(data?.items)) { console.warn('[assets] manifest.runtime.json 없음/형식 오류 -> manifest.json 폴백'); full(); return; }
+            loaded.manifestSource = 'runtime';
+            onManifest(data);
+        });
+    }
+    const onManifest = (data) => { loaded.terrainMap = data?.terrainMap ?? null; loaded.terrainByCode = null; setManifest(normalizeManifest(data)); queueScope(scene, 'boot'); }; // terrainMap: 지형 기호 -> 타일 키 후보(systems/terrainTiles)
     Ld.json('audio_manifest', withVer('/assets/audio/manifest.json'));
     Ld.json('hero_sprite_map', withVer('/assets/hero_sprite_map.json')); // 선택(없으면 무시)
     Ld.json('hero_sprite_map_v2', withVer('/assets/hero_sprite_map_v2.json')); // 안아트 감사 v2 재매핑(36명, {heroes:{code: 'unit.<문화권>.<병종>' | 'unit.hero.<에셋 코드>'}}) — 기존 맵 위에 덮어씀
     Ld.json('hero_sprite_map_v4', withVer('/assets/sprites/hero_sprite_map_v4.json')); // 안아트 v4: 영웅 101명 -> 초상화 1:1 전용 시트 base(unit.hero.<asset>[_v4]). v1·v2 보다 우선(manifest 조각 hero_v4 병합과 한 묶음)
     Ld.json('cutscene_sfx_cues', withVer('/assets/audio/cutscene_sfx_cues.json')); // 교전 컷신 효과음 큐(선택). sfx_battle_* 파일은 audio manifest 슬롯으로 함께 로드된다
-    Ld.once('filecomplete-json-assets_manifest', (_k, _t, data) => { loaded.terrainMap = data?.terrainMap ?? null; loaded.terrainByCode = null; setManifest(normalizeManifest(data)); queueScope(scene, 'boot'); }); // terrainMap: 지형 기호 -> 타일 키 후보(systems/terrainTiles)
+    Ld.once('filecomplete-json-assets_manifest', (_k, _t, data) => { loaded.manifestSource = 'full'; onManifest(data); });
     Ld.once('filecomplete-json-audio_manifest', (_k, _t, data) => queueAudio(scene, data));
     Ld.on('loaderror', (f) => {
+        if (f?.key === 'assets_manifest_rt') { console.warn('[assets] manifest.runtime.json 로드 실패 -> manifest.json 폴백'); full(); return; }
         if (f?.key === 'assets_manifest') { setManifest(FALLBACK); queueScope(scene, 'boot'); return; }
         if (f?.key !== 'audio_manifest' && f?.key !== 'hero_sprite_map' && f?.key !== 'hero_sprite_map_v2' && f?.key !== 'hero_sprite_map_v4' && f?.key !== 'cutscene_sfx_cues') loaded.failed.push(`${f?.type}:${f?.key}`);
     });
@@ -276,6 +294,7 @@ function queueItem(scene, logical, v) {
     if (!IMAGE_TYPES.has(type) && !/\.(png|jpg|jpeg|webp|gif)$/i.test(v.path)) return false;
     const key = texKey(logical);
     if (scene.textures.exists(key) || FAILED.has(key)) return false;
+    if (!v.frameWidth && !v.grid && !v.frame && type !== 'spritesheet' && !/\.sheet$/.test(logical)) v = fitVariant(v); // 단일 이미지만: 최대 텍스처 초과면 맞는 변형(시트는 프레임 계산이 원본 기준이라 제외)
     const url = withVer(abs(v.path));
     // 프레임 크기: manifest frameWidth > size("WxH" 또는 [W,H]) + grid("3x4...") 로 계산 > 방향 시트(.sheet)는 3x4 > 그 외 spritesheet 32.
     // (영웅 방향 시트 26종은 frameWidth 가 없고 size 가 [192,256] 배열이라 예전 기본값 32 로 잘못 쪼개져 유닛이 조각나 보였다)
@@ -359,26 +378,46 @@ export function ensureScope(scene, scope, cb, { filter = null } = {}) {
 // ---- UI 스킨(manifest 병합분: textureKey 가 있는 항목) ----
 // 캐시 버스팅: ASSET_VERSION/withVer 는 assetVersion.js(위에서 re-export). manifest 항목 URL 전부에 ?v= 를 붙인다.
 const abs = (p) => (p.startsWith('/') || p.startsWith('http') ? p : `/${p}`);
-// 해상도 선택(가이드): 화면 1u 가 2px 이상이면 @3x, 아니면 @1.5x. 세션 안에서 섞지 않는다(최초 1회 결정)
+// 최대 텍스처 크기 판정(2026-11-14 성능 1단계). size("WxH" | [W,H])를 모르면 true(기존 동작 유지).
+//  4096 한도 기기(구형 안드로이드 등)에서 4096 초과 텍스처는 업로드 실패(검은 사각형)·드라이버 축소가 날 수 있어 저해상 변형을 고른다
+export const sizeOf = (v) => { const s = v?.size; const [w, h] = Array.isArray(s) ? s.map(Number) : String(s ?? '').split(/[x,]/).map(Number); return [w || 0, h || 0]; };
+export function texFits(v) {
+    const [w, h] = sizeOf(v);
+    const max = loaded.maxTex || 4096;
+    return !(w > max || h > max);
+}
+// 한도를 넘는 항목이면 변형 중 한도 안에서 가장 큰 것(없으면 원본)
+export function fitVariant(v) {
+    if (!v || texFits(v) || !v.variants) return v;
+    let best = null; let bw = 0;
+    Object.values(v.variants).forEach((vv) => { if (!vv || typeof vv !== 'object' || !vv.path) return; const [w] = sizeOf(vv); if (w > 0 && texFits(vv) && w > bw) { best = vv; bw = w; } });
+    return best ? { ...v, ...best, variants: v.variants } : v;
+}
+// 해상도 선택(가이드): 화면 1u 가 백킹 1.7px 이상이면 @3x, 아니면 @1.5x(layout.texHi — DPR 이중 곱 수정 2026-11-14). 세션 안에서 섞지 않는다(최초 1회 결정)
 let hiRes = null;
-const pickHiRes = () => { if (hiRes == null) hiRes = (Number(L.u) || 1) * (globalThis.devicePixelRatio ?? 1) >= 2; return hiRes; };
+const pickHiRes = () => { if (hiRes == null) hiRes = texHi(); return hiRes; };
 loaded.unitPx = {}; // 아틀라스 텍스처 키 -> 1u 당 px(3 | 1.5)
 loaded.deferred = {}; // textureKey -> {logical, v}
 // 스킨 항목의 실제 파일(해상도 변형 선택 포함). [{url, kind:'img'|'json'}], bytes
 function skinFiles(v) {
     const hi = pickHiRes();
     if (v.type === 'pixel-atlas') { // 도트 뱃지: 같은 해상도 규칙(hi -> @3x), 저해상도는 @2x(@1.5x 비정수 금지). 표시 배율은 ui/PixelBadge.js
-        const vv = hi ? (v.variants?.['3x'] ?? v) : (v.variants?.['2x'] ?? v);
-        loaded.pixelScale = Number(vv.scale ?? (hi ? 3 : 2));
+        // @3x 아틀라스(4794x108)가 최대 텍스처(4096 기기)를 넘으면 @2x(3196x72). size 는 런타임 manifest 가 헤더에서 보강, 없으면 알려진 폭 4794 로 판정
+        const v3 = v.variants?.['3x'] ?? v;
+        const v3fits = v3.size ? texFits(v3) : (loaded.maxTex ?? 4096) >= 4794;
+        const vv = hi && v3fits ? v3 : (v.variants?.['2x'] ?? v);
+        if (hi && !v3fits) console.warn(`[assets] 최대 텍스처 ${loaded.maxTex}px 초과 -> 도트 뱃지 @2x 사용`);
+        loaded.pixelScale = Number(vv.scale ?? (vv === v3 ? 3 : 2));
         return { vv, img: abs(vv.path), json: abs(vv.json), bytes: Number(vv.bytes ?? v.bytes) || 0 };
     }
     if (v.type === 'atlas' || v.type === 'nineslice') {
-        const vv = hi ? v : (v.variants?.['1.5x'] ?? v.variants?.['1x'] ?? v); // '1x': 스킬 아이콘 @1x(48px 칸, unitPx 1) — 저해상도만
+        const lo = v.variants?.['1.5x'] ?? v.variants?.['1x'] ?? v;
+        const vv = hi && texFits(v) ? v : lo; // '1x': 스킬 아이콘 @1x(48px 칸, unitPx 1) — 저해상도만
         return { vv, img: abs(vv.path), json: v.type === 'atlas' ? abs(vv.json) : null, bytes: Number(vv.bytes ?? v.bytes) || 0 };
     }
     if (v.type === 'bg') {
-        const big = (L.lw || 1280) * (Number(L.u) || 1) * (globalThis.devicePixelRatio ?? 1) > 1400;
-        const p = big ? v : (v.variants?.['1280'] ?? v);
+        const big = texScreenW() > 1400; // 화면 백킹 폭(예전 식은 x dpr 이중 곱)
+        const p = big && texFits(v) ? v : (v.variants?.['1280'] ?? v);
         return { vv: p, img: abs(p.path ?? v.path), json: null, bytes: Number(p.bytes ?? v.bytes) || 0 };
     }
     if (v.type === 'tile-bg') {
@@ -405,9 +444,15 @@ export function ensureSkinTexture(scene, tk, cb) {
 
 // ---- HTTP 캐시 예열(저우선): 텍스처를 만들지 않고 파일만 받아 둔다(GPU 메모리 0). 로비 대기 중 다음 화면(전투) 대비 ----
 // 서버 캐시 헤더가 없으면 효과가 줄어든다(재방문 캐시 0 이슈는 서버 설정 확인 필요).
+// 2026-11-14 성능 1단계: 예열 기본 꺼짐(WARM_DEFAULT). 서버가 /assets/* 에 캐시 헤더(장기 max-age/immutable)를 주는지 확인되기 전에는
+//  받은 파일이 캐시되지 않아 같은 파일을 전투 진입 때 다시 받는다(대역폭·모바일 데이터 2배). 확인 후 WARM_DEFAULT=true 로 켠다(docs/deploy_nginx_tuning.md).
+//  시험 켜기(UI 없음): 콘솔 settings.set({ warmPrefetch: true }). 대상: 로비 warmScope('battle')·prefetchPortraits·뽑기 연출 공용 FX 예열(gachaKeys.warmGachaFxCommon)
+const WARM_DEFAULT = false;
+const warmEnabled = () => { const v = settings.get().warmPrefetch; return v === true || v === false ? v : WARM_DEFAULT; };
 const WARM_MAX = 2;
 const warm = { q: [], active: 0, seen: new Set() };
 export function warmUrls(urls) {
+    if (!warmEnabled()) return;
     urls.forEach((u) => { if (u && !warm.seen.has(u)) { warm.seen.add(u); warm.q.push(u); } });
     pumpWarm();
 }
@@ -423,7 +468,7 @@ function pumpWarm() {
 // scope 의 파일 URL(이미 텍스처가 있는 항목 제외)을 예열 큐에 넣는다
 export function warmScope(scene, scope, { filter = null } = {}) {
     const m = loaded.manifest;
-    if (!m || typeof fetch !== 'function') return 0;
+    if (!m || typeof fetch !== 'function' || !warmEnabled()) return 0;
     const urls = [];
     Object.entries(m).forEach(([lg, v]) => {
         if (!loadable(lg, v) || lg.startsWith('portrait.') || scopeOf(lg, v) !== scope) return;

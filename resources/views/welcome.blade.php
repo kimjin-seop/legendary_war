@@ -10,6 +10,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon_32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/brand/favicon_16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/brand/app_icon_180.png">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="레전드리 워">
     <meta property="og:type" content="website">
     <meta property="og:title" content="레전드리 워">
     <meta property="og:url" content="{{ url('/') }}">

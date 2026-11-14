@@ -14,7 +14,9 @@ import { DialogueScene } from './scenes/Dialogue.js';
 import { WarScene } from './scenes/War.js';
 import { GachaScene } from './scenes/Gacha.js';
 import { CSS } from './theme.js';
-import { L, computeLayout, watchLayout, startPerfGuard, applyCanvasRendering } from './layout.js';
+import { L, computeLayout, watchLayout, startPerfGuard, applyCanvasRendering, installFrameCap } from './layout.js';
+import { settings, MSAA_STATE } from './settings.js';
+import { watchContextLoss } from './contextLoss.js';
 import { session } from './api/client.js';
 import { mountPerfOverlay } from './perfOverlay.js';
 
@@ -42,7 +44,9 @@ export function createGame(parent, { scene, sceneData } = {}) {
         height: L.bh,
         backgroundColor: CSS.bg,
         scale: { mode: Phaser.Scale.NONE, zoom: 1 / L.R },
-        render: { antialias: true, roundPixels: true },
+        // antialiasGL = WebGL 컨텍스트 MSAA(가장자리 계단 완화). 2026-11-14 성능 1단계: 설정 msaa('auto' = 사용자 품질 높음일 때만 켬, 새로고침 후 적용).
+        //  주의: antialias:false 는 텍스처 필터까지 NEAREST 로 바꾸므로(초상화·일러스트 모아레) 절대 끄지 않는다 — MSAA 만 antialiasGL 로 끈다
+        render: { antialias: true, antialiasGL: (MSAA_STATE.on = settings.msaaWanted()), roundPixels: true },
         input: { activePointers: 3 },
         disableContextMenu: true,
         banner: false,
@@ -54,7 +58,9 @@ export function createGame(parent, { scene, sceneData } = {}) {
     game.registry.set('startScene', scene ?? 'Title');
     game.registry.set('startData', sceneData ?? undefined); // 시작 씬에 넘길 data(예: Dialogue {source,id})
     const stopWatch = watchLayout(game, parent);
+    const stopCap = installFrameCap(game); // 프레임 상한(settings.fpsCap, 120Hz 이상에서만 실제 건너뜀, blur 30)
     const stopPerf = startPerfGuard(game);
+    const stopCtx = watchContextLoss(game); // WebGL 컨텍스트 손실 안내·복구 실패 시 새로고침 안내
     const stopGuard = installInputGuard(game); // 앱 복귀 시 입력 복구 + 모달 잠금 누수 감시(inputGuard.js)
     const stopPerfOverlay = mountPerfOverlay(game); // ?perf=1 일 때만 측정 오버레이 + window.__perf()(없으면 아무것도 안 함)
     // 401(세션 만료/토큰 무효): 어느 씬이든 타이틀로 보낸다(이미 타이틀/인증 화면이면 유지)
@@ -63,6 +69,6 @@ export function createGame(parent, { scene, sceneData } = {}) {
         if (!active || ['Title', 'Auth', 'Boot', 'Preload', 'UiDemo'].includes(active.scene.key)) return;
         active.scene.start('Title', { notice: '세션이 만료되었습니다. 다시 로그인하거나 게스트로 시작해 주세요.' });
     });
-    game.events.once('destroy', () => { stopWatch(); stopPerf(); stopGuard(); stopPerfOverlay(); offAuth(); });
+    game.events.once('destroy', () => { stopWatch(); stopCap(); stopPerf(); stopCtx(); stopGuard(); stopPerfOverlay(); offAuth(); });
     return game;
 }

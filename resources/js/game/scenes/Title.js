@@ -10,6 +10,8 @@ import { messageOf } from '../api/errors.js';
 import { withJosa } from '../systems/josa.js';
 import { audio } from '../audio.js';
 import { addBrandLogo, titleLogoBox } from '../brand.js';
+import { openInstallGuide, installButtonLabel } from '../ui/InstallModal.js';
+import { shouldGate } from '../../pwa.js';
 
 // 타이틀: 세션 복구(게스트 토큰/쿠키) 후 3경로(게스트로 시작 / 로그인 / 가입). 복구된 세션이 있으면 '계속하기'.
 // data.notice: 다른 씬에서 넘어온 안내(세션 만료 등)
@@ -35,7 +37,8 @@ export class TitleScene extends Phaser.Scene {
         this.noteObj = noteText(this, cx, this.by - 34, this.notice, { kind: 'error', size: 16, origin: [0.5, 0.5], wrap: tb.side ? L.lw * 0.5 : L.lw - 48 });
         this.status = makeText(this, cx, this.by + 20, '세션 확인 중...', { size: 18, color: CSS.muted, origin: [0.5, 0.5] });
         this.menu = this.add.container(0, 0);
-        this.restore();
+        // PWA 설치 게이트(pwa.js PWA_GATE, 기본 꺼짐): 모바일 브라우저면 설치 안내 후 '브라우저로 계속' 시에만 진행
+        if (shouldGate()) { this.status.setText(''); openInstallGuide(this, { gate: true, onContinue: () => { this.status.setText('세션 확인 중...'); this.restore(); } }); } else this.restore();
     }
 
     async restore() {
@@ -53,6 +56,7 @@ export class TitleScene extends Phaser.Scene {
                 { label: `${withJosa(who, '으로/로')} 계속`, variant: 'primary', onClick: () => this.scene.start('Lobby') },
                 { label: '다른 계정으로 로그인', onClick: () => this.scene.start('Auth', { mode: 'login' }) },
                 ...(session.kind === 'guest' ? [{ label: '회원 가입(게스트 승격)', onClick: () => this.scene.start('Auth', { mode: 'register' }) }] : []),
+                ...this.installItem(),
                 { label: '설정', onClick: () => this.settings() },
             ]);
             return;
@@ -61,6 +65,7 @@ export class TitleScene extends Phaser.Scene {
             { label: '게스트로 시작', variant: 'primary', onClick: () => this.scene.start('Auth', { mode: 'guest' }) },
             { label: '로그인', onClick: () => this.scene.start('Auth', { mode: 'login' }) },
             { label: '회원 가입', onClick: () => this.scene.start('Auth', { mode: 'register' }) },
+            ...this.installItem(),
             { label: '설정', onClick: () => this.settings() },
         ]);
     }
@@ -78,6 +83,9 @@ export class TitleScene extends Phaser.Scene {
             this.menu.add(new Button(this, { x: mx - w / 2, y: y + i * (h + gap), w, h, size: 20, label: it.label, variant: it.variant, onClick: it.onClick }));
         });
     }
+
+    // '앱으로 설치' 메뉴(이미 앱으로 실행 중이면 숨김, ui/InstallModal.js)
+    installItem() { const label = installButtonLabel(); return label ? [{ label: '앱으로 설치', onClick: () => openInstallGuide(this) }] : []; }
 
     settings() { openSettings(this, ({ fontChanged }) => { if (fontChanged) this.scene.restart({ notice: this.notice }); }); }
 }

@@ -2,7 +2,7 @@ import { Modal } from './Modal.js';
 import { Tabs } from './Tabs.js';
 import { Button } from './Button.js';
 import { makeText } from './common.js';
-import { settings } from '../settings.js';
+import { settings, MSAA_STATE } from '../settings.js';
 import { FONT_LABELS, CSS, MIN_TOUCH } from '../theme.js';
 import { FX } from '../fx_config.js';
 import { L, QUALITY } from '../layout.js';
@@ -75,6 +75,17 @@ export function openSettings(scene, onClose) {
             page.add(makeText(scene, 24, 4 * STEP + LY, '확인 창', { size: LS, color: CSS.muted, origin: [0, 0.5] }));
             if (skipped.length) page.add(new Button(scene, { x: 24 + labelW, y: 4 * STEP, w: inner - labelW, ...(L.short ? { h: 36 } : {}), label: "'다시 묻지 않기' 해제", modal: true, size: 16, onClick: () => { settings.set(Object.fromEntries(skipped.map((k) => [k, false]))); build(1); } }));
             else page.add(makeText(scene, 24 + labelW, 4 * STEP + LY, '다시 묻지 않기로 끈 확인 창이 없습니다.', { size: L.short ? 13 : 14, color: CSS.muted, origin: [0, 0.5], wrap: inner - labelW })); // 좁은 화면 줄바꿈(I-10)
+        } else if (p === 3) {
+            // 성능(2026-11-14 성능 1단계): 프레임 상한(settings.fpsCap, 즉시 적용 — 120Hz 이상 화면에서만 실제로 프레임을 건너뜀, 창 포커스를 잃으면 30)
+            //  가장자리 보정(MSAA, settings.msaa): WebGL 컨텍스트 옵션이라 새로고침 후 적용. 자동 = 그래픽 품질 '높음'일 때만 켬
+            row(0, '프레임 상한', [{ key: 30, label: '30' }, { key: 60, label: '60' }, { key: 0, label: '무제한' }], Number(s.fpsCap ?? 60), (k) => settings.set({ fpsCap: k }));
+            const ms = s.msaa === true ? 1 : s.msaa === false ? 0 : 2;
+            row(1, '가장자리 보정', [{ key: 2, label: '자동' }, { key: 1, label: '켜기' }, { key: 0, label: '끄기' }], ms, (k) => { settings.set({ msaa: k === 2 ? 'auto' : k === 1 }); build(3); });
+            const now = MSAA_STATE.on; const want = settings.msaaWanted();
+            const st = (v) => (v ? '켜짐' : '꺼짐');
+            const msg = now == null || now === want ? `가장자리 보정 변경은 새로고침 후 적용됩니다. (현재 ${st(want)})` : `새로고침하면 가장자리 보정이 ${st(want)}으로 바뀝니다. (현재 ${st(now)})`;
+            page.add(makeText(scene, 24, 2 * STEP + LY, msg, { size: L.short ? 13 : 14, color: CSS.muted, origin: [0, 0.5], wrap: inner - 24 }));
+            if (now != null && now !== want) page.add(new Button(scene, { x: 24 + labelW, y: 3 * STEP, w: inner - labelW, ...(L.short ? { h: 36 } : {}), label: '지금 새로고침', modal: true, size: 16, onClick: () => location.reload() }));
         } else {
             // 소리: 배경음(bgmVolume/bgmMuted, audio.js BGM 매니저가 즉시 반영) / 효과음(sfxVolume/sfxMuted) / 전투 음성(voiceVolume/voiceMuted)
             const vols = [0, 0.25, 0.5, 0.75, 1];
@@ -86,7 +97,7 @@ export function openSettings(scene, onClose) {
             rowStack(2, '전투 음성', vols.map((v) => ({ key: v, label: v === 0 ? '끔' : `${Math.round(v * 100)}%` })), nearOf(s.voiceMuted ? 0 : (s.voiceVolume ?? 1)), (k) => settings.set({ voiceVolume: k, voiceMuted: k === 0 }));
         }
     };
-    m.inner.add(new Tabs(scene, { x: 24, y: 0, w: inner, items: [{ key: 0, label: '화면' }, { key: 1, label: '전투' }, { key: 2, label: '소리' }], active: 0, onChange: (k) => build(k), size: 16, modal: true }));
+    m.inner.add(new Tabs(scene, { x: 24, y: 0, w: inner, items: [{ key: 0, label: '화면' }, { key: 1, label: '전투' }, { key: 2, label: '소리' }, { key: 3, label: '성능' }], active: 0, onChange: (k) => build(k), size: 16, modal: true }));
     build(0);
     return m;
 }

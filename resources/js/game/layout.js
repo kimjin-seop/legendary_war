@@ -31,6 +31,25 @@ function readSafe(cssPerUnit) {
     return safe;
 }
 
+// R 결정(2026-11-14 성능 1단계: DPR 1 화면에서도 품질 조절이 실제로 R 을 낮추게).
+//  예전: clamp(dpr x q, min(1, dpr), 4K) -> DPR 1 모니터는 하한 1 때문에 보통·낮음이 모두 R=1(품질 설정·자동 하향이 무효).
+//  지금:
+//   높음(q 1)  : 예전과 같음(백킹 = 디바이스 px, 상한 4K)
+//   보통(q .75): 예전 값(하한 min(1,dpr) 유지 -> 1080p DPR1 은 그대로 R=1·도트 선명) + 백킹 px 상한 MED_BACKING_PX(2560x1440).
+//               1440p 초과 DPR1 대형 모니터·초광폭에서만 R<1(이 경우 비정수 배율이라 applyCanvasRendering 이 auto 보간)
+//   낮음(q .5) : dpr x 0.5(하한 없음) -> 디바이스 대비 정확히 2배 = 정수 배율이라 crisp(pixelated) 규칙 그대로 유지
+//  롤백: 콘솔 settings.set({ rLegacy: true }) (즉시 레이아웃 재계산)
+const MED_BACKING_PX = 2560 * 1440;
+function resolveR(dpr, q, cssW, cssH, long) {
+    const hi = 3840 / long;
+    if (settings.get().rLegacy === true || q >= 1) return clamp(dpr * q, Math.min(1, dpr), hi);
+    if (q <= 0.5) return clamp(dpr * q, 0.25, hi);
+    let R = clamp(dpr * q, Math.min(1, dpr), hi);
+    const cap = Math.sqrt(MED_BACKING_PX / Math.max(1, cssW * cssH));
+    if (R > cap) R = Math.max(cap, dpr * 0.5);
+    return R;
+}
+
 export function computeLayout(cssW, cssH) {
     const dpr = window.devicePixelRatio || 1;
     const long = Math.max(cssW, cssH);
@@ -39,7 +58,7 @@ export function computeLayout(cssW, cssH) {
     // R(백킹 px / CSS px) = DPR x 품질. (2026-11 도트 선명도) 예전 하한 '최소 1920x1080급'(BASE.w*q/long)은 1280x720 등에서 R=1.5 비정수로
     // 백킹을 CSS 축소(bilinear)시켜 32px 도트가 뭉개졌다 -> 하한을 min(1, dpr)(= CSS 1px 당 백킹 1px 이상)로 바꿔 품질 '높음'이면 백킹 = 디바이스 px(무리샘플).
     // 상한 4K(3840) 유지(초대형 화면만 비정수가 됨 -> applyCanvasRendering 이 auto 보간으로 둔다).
-    const R = clamp(dpr * q, Math.min(1, dpr), 3840 / long);
+    const R = resolveR(dpr, q, cssW, cssH, long);
     const ui = clamp(short / BASE.h, 0.6, 2);
     const cssPerUnit = ui * UNIT;
     const u = cssPerUnit * R;
@@ -57,6 +76,22 @@ export function computeLayout(cssW, cssH) {
     });
     return L;
 }
+
+// 텍스처 해상도 선택 기준(2026-11-14 성능 1단계): 1 설계 단위(u)가 차지하는 '백킹(디바이스) px'.
+//  L.u = ui x 1.5 x R 이고 R 에 이미 DPR(x 품질)이 들어 있다. 예전 선택식(L.u x devicePixelRatio)은 DPR 을 두 번 곱해
+//  DPR 2~3 기기가 거의 항상 @3x·4000px 에셋을 받았다(실제 백킹 해상도보다 2배 이상 큰 텍스처 -> 다운로드·VRAM 낭비).
+//  롤백: 콘솔 settings.set({ texDprLegacy: true }) 후 새로고침(예전 L.u x dpr 식 + 예전 임계값으로 선택).
+export const texDprLegacy = () => settings.get().texDprLegacy === true;
+export function texPxPerUnit() {
+    const u = Number(L.u) || 1;
+    return texDprLegacy() ? u * (globalThis.devicePixelRatio ?? 1) : u;
+}
+// @3x(1u=3px) / @1.5x(1u=1.5px) 계열 아틀라스 선택 임계값: 1u 가 1.7 백킹 px 이상이면 @3x.
+//  @1.5x 를 확대해 쓰는 비율이 최대 1.13배(1.7/1.5)로 제한돼 번짐이 눈에 띄지 않고, 그 이상은 @3x 를 축소(선명)해 쓴다. 예전 식은 2(dpr 곱 포함)
+export const HI_TEX_PX = 1.7; // 안드로이드 DPR 2.625 보통(u 1.77)은 @3x 유지
+export const texHi = () => texPxPerUnit() >= (texDprLegacy() ? 2 : HI_TEX_PX);
+// 화면 전체 폭(백킹 px). 예전 식은 L.lw x L.u x dpr(= 백킹 x dpr)
+export const texScreenW = () => (L.lw || 1280) * texPxPerUnit();
 
 // 호스트 요소 크기로 레이아웃 적용. 크기/품질이 바뀐 경우에만 'layout' 이벤트를 발행한다.
 export function applyLayout(game, el) {
@@ -163,6 +198,57 @@ function capped30(buf, n) {
     for (let i = 0; i < n; i++) { const d = buf[i] - mean; v += d * d; if (buf[i] > 45) spikes += 1; }
     return Math.sqrt(v / n) < 4 && spikes <= n * 0.05; // 표준편차 4ms 미만 + 긴 프레임(45ms 초과) 5% 이하
 }
+// ---- 프레임 상한(2026-11-14 성능 1단계) ----
+// Phaser fps.limit(TimeStep.stepLimitFPS)은 '누적 delta >= 1000/limit' 비교라 60Hz 화면에 limit 60 을 걸면 rAF 지터(16.5ms 등)로 프레임을 건너뛴다.
+// 그래서 Phaser limit 을 쓰지 않고 '단계 비교' 방식: rAF 간격 중앙값(최근 60프레임)으로 주사율을 재고, 상한 간격의 정수 배(every)마다 1번만 게임 step 을 돌린다.
+//  60Hz + 상한 60 -> every 1(건너뜀 없음) / 120Hz -> 2(60fps) / 144Hz -> 2(72fps) / 165Hz -> 3(55fps) / 60Hz + 상한 30 -> 2.
+//  건너뛴 프레임의 delta 는 누적해 다음 step 에 넘긴다(게임 시간 손실 없음). 창 포커스를 잃으면(blur) 상한 30.
+// 설정: settings.fpsCap(0 무제한 / 30 / 60). 상태는 FRAME_CAP(perfGuard·perfOverlay 가 읽음)
+export const FRAME_CAP = { cap: 0, every: 1, rawMs: 16.7, blurred: false };
+export function installFrameCap(game) {
+    const loop = game.loop;
+    const raws = new Float32Array(60); let rI = 0; let rN = 0;
+    let acc = 0; let n = 0;
+    let wrapped = null; let orig = null;
+    const median = () => { const a = Array.from(raws.subarray(0, rN)).sort((x, y) => x - y); return a.length ? a[a.length >> 1] : 16.7; };
+    const recompute = () => {
+        const user = Number(settings.get().fpsCap ?? 60) || 0;
+        const cap = FRAME_CAP.blurred ? (user > 0 ? Math.min(user, 30) : 30) : user;
+        FRAME_CAP.cap = cap;
+        FRAME_CAP.rawMs = rN >= 20 ? median() : 16.7;
+        // 주사율이 상한보다 충분히 높을 때만 건너뜀(상한 간격 / rAF 간격 반올림). 60Hz 에서 상한 60 이면 1 = 상한 없음과 같다
+        FRAME_CAP.every = cap > 0 ? Math.max(1, Math.round((1000 / cap) / Math.max(1, FRAME_CAP.rawMs))) : 1;
+    };
+    const wrap = () => {
+        if (typeof loop.callback !== 'function' || loop.callback === wrapped) return;
+        orig = loop.callback;
+        wrapped = (time, delta) => {
+            const r = loop.rawDelta;
+            if (r > 0 && r < 250) { raws[rI] = r; rI = (rI + 1) % raws.length; if (rN < raws.length) rN += 1; }
+            acc += delta; n += 1;
+            if (n < FRAME_CAP.every) return;
+            n = 0; const d = acc; acc = 0;
+            orig(time, d);
+        };
+        loop.callback = wrapped;
+    };
+    // loop.start 는 READY 이후에 callback 을 설정한다 -> 첫 step 에서 감싼다. 이후에도 콜백이 교체되면 주기 점검에서 다시 감싼다
+    game.events.once('step', wrap);
+    const id = setInterval(() => { wrap(); recompute(); }, 1000);
+    const onBlur = () => { FRAME_CAP.blurred = true; recompute(); };
+    const onFocus = () => { FRAME_CAP.blurred = false; acc = 0; n = 0; recompute(); };
+    window.addEventListener('blur', onBlur);
+    window.addEventListener('focus', onFocus);
+    const off = settings.subscribe(recompute);
+    recompute();
+    return () => {
+        clearInterval(id); off();
+        window.removeEventListener('blur', onBlur);
+        window.removeEventListener('focus', onFocus);
+        if (wrapped && loop.callback === wrapped && orig) loop.callback = orig;
+    };
+}
+
 export function startPerfGuard(game) {
     let low = 0;
     let high = 0;
@@ -172,15 +258,30 @@ export function startPerfGuard(game) {
     const touch = () => { lastInput = performance.now(); };
     ['pointerdown', 'pointermove', 'pointerup', 'keydown', 'wheel'].forEach((e) => window.addEventListener(e, touch, { passive: true }));
     const dts = new Float32Array(CAP_N); let dtI = 0; let dtN = 0;
-    const onStep = () => { const d = game.loop.rawDelta; if (d > 0 && d < 1000) { dts[dtI] = d; dtI = (dtI + 1) % CAP_N; if (dtN < CAP_N) dtN += 1; } };
+    // 2026-11-14: 판정 기준을 loop.actualFps(rAF 횟수 — 프레임 상한으로 건너뛴 프레임도 셈) 대신 '실제 게임 step 간격'으로.
+    //  기준값도 상한 반영: 목표 fps(상한, 무제한이면 60)의 75% 미만을 저하로, 90% 이상을 회복으로 본다(각각 최대 45/54. 상한 30 이면 22.5/27)
+    //  (측정한 rAF 간격을 기준으로 삼지 않는다: 기기가 실제로 느리면 rAF 간격 자체가 늘어 저하를 놓친다)
+    let lastStepAt = 0; let steps = 0; let windowStart = performance.now();
+    const onStep = () => {
+        const now = performance.now();
+        const d = lastStepAt ? now - lastStepAt : 0;
+        lastStepAt = now; steps += 1;
+        if (d > 0 && d < 1000) { dts[dtI] = d; dtI = (dtI + 1) % CAP_N; if (dtN < CAP_N) dtN += 1; }
+    };
     game.events.on('step', onStep);
     const id = setInterval(() => {
-        if (document.hidden) { low = 0; high = 0; dtN = 0; dtI = 0; return; }
-        const fps = game.loop.actualFps;
-        low = fps > 1 && fps < 45 && !capped30(dts, dtN) ? low + 1 : 0;
+        const now = performance.now();
+        const span = now - windowStart; const nSteps = steps;
+        windowStart = now; steps = 0;
+        if (document.hidden || FRAME_CAP.blurred) { low = 0; high = 0; dtN = 0; dtI = 0; lastStepAt = 0; return; }
+        const fps = span > 0 ? (nSteps * 1000) / span : 0;
+        const target = FRAME_CAP.cap > 0 ? Math.min(60, FRAME_CAP.cap) : 60;
+        const lowAt = Math.min(45, target * 0.75); const highAt = Math.min(54, target * 0.9);
+        FRAME_CAP.stepFps = fps;
+        low = fps > 1 && fps < lowAt && !capped30(dts, dtN) ? low + 1 : 0;
         const q = settings.get().quality;
         const userQ = settings.userQuality();
-        high = q > userQ && fps >= 55 ? high + 1 : 0;
+        high = q > userQ && fps >= highAt ? high + 1 : 0;
         // 하향/복귀는 레이아웃 재구성을 동반하므로 입력이 2초 이상 없을 때만 적용한다(입력 중 탭 누락 방지)
         const idle = performance.now() - lastInput > 2000 && !game.input.activePointer.isDown;
         if (!idle || performance.now() <= cooldownUntil) return;

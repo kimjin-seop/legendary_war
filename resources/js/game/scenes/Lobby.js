@@ -6,6 +6,7 @@ import { Button } from '../ui/Button.js';
 import { StatBar } from '../ui/StatBar.js';
 import { Modal } from '../ui/Modal.js';
 import { openSettings } from '../ui/SettingsModal.js';
+import { openInstallGuide, installButtonLabel } from '../ui/InstallModal.js';
 import { showToast } from '../ui/Toast.js';
 import { makeText, addBackdrop, fitText, scrollDragged } from '../ui/common.js';
 import { slice, icon, skinOn, setSliceSize, skinImage, skinIcon, skinHas } from '../ui/skin.js';
@@ -1700,6 +1701,7 @@ export class LobbyScene extends Phaser.Scene {
                 { label: '공지', glyph: 'scroll', fn: () => this.openNotices() },
                 { label: '튜토리얼 보기', glyph: 'book', fn: () => this.scene.start('Dialogue', { source: 'tutorial', server: !session.profile?.tutorial?.done, stepIndex: 0, next: { scene: 'Lobby', data: { tab: 'more' } } }) }, // 이미 완료한 튜토리얼 재열람은 서버에 진행·건너뛰기를 보내지 않음
                 { label: '도움말 다시 보기', glyph: 'scroll', fn: () => openBriefReplay(this) }, // 2026-11-14 시오리 브리핑: 본 안내(개념 팝업·스테이지 안내·전투 조작 안내)를 골라 다시 재생
+                ...(installButtonLabel() ? [{ label: installButtonLabel(), glyph: 'install', fn: () => openInstallGuide(this) }] : []), // PWA 설치(이미 앱 실행 중이면 숨김, ui/InstallModal.js)
             ] },
             { title: '계정', items: [
                 session.kind === 'guest'
@@ -1761,6 +1763,10 @@ function menuGlyph(scene, kind, size, color = 0xf0d58c) {
     } else if (kind === 'person') {
         g.fillCircle(0, -r * 0.35, r * 0.34);
         g.beginPath().arc(0, r * 0.75, r * 0.7, Math.PI, 0, false).closePath().fillPath();
+    } else if (kind === 'install') { // 아래 화살표 + 받침(앱 설치)
+        g.lineBetween(0, -r * 0.8, 0, r * 0.2);
+        g.fillTriangle(0, r * 0.45, -r * 0.4, 0, r * 0.4, 0);
+        g.lineBetween(-r * 0.8, r * 0.75, r * 0.8, r * 0.75);
     } else if (kind === 'exit') {
         g.strokeRect(-r * 0.8, -r * 0.8, r * 0.9, r * 1.6);
         g.lineBetween(-r * 0.2, 0, r * 0.75, 0);

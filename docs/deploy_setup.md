@@ -175,6 +175,10 @@ npm run build          # vite build -> public/build (manifest.json, assets/)
 - 개발 컨테이너는 `php artisan serve --host=0.0.0.0 --port=8000 --no-reload` 를 쓴다(Dockerfile CMD). 운영 부적합으로 보이며 운영은 php-fpm + nginx/apache 권장.
 - 정적 에셋(`/assets/**`, `/build/**`)은 웹서버가 직접 서빙하고 장기 캐시를 걸어도 `?v=`/해시 덕분에 갱신된다.
 - 헬스체크: `/up`(`bootstrap/app.php`).
+- PWA(홈 화면 설치, 2026-11-14): `public/manifest.webmanifest` + `public/sw.js`(스코프 `/`, fetch 핸들러 없음·캐시 없음). 설치는 **HTTPS 필수**(로컬은 `localhost`만 예외).
+  - `/sw.js` 는 반드시 `Cache-Control: no-cache`(또는 `max-age=0`)로 서빙한다. 위 `/assets`·`/build` 장기 캐시 규칙에 `/sw.js`·`/manifest.webmanifest` 가 걸리지 않게 할 것(장기 캐시되면 SW 갱신이 늦어짐). 예(nginx): `location = /sw.js { add_header Cache-Control "no-cache"; try_files $uri =404; }`
+  - `/sw.js` 를 하위 경로(`/build/` 등)로 옮기면 스코프가 그 경로로 좁아진다(루트 유지). `.webmanifest` MIME 은 `application/manifest+json` 권장(필수 아님).
+  - 설치 게이트(모바일 브라우저 차단 안내)는 `resources/js/pwa.js` `PWA_GATE.enabled`(기본 false). iOS 저장소 분리(게스트 토큰 유실) 대책 전에는 켜지 않는다.
 - HTTPS 종료를 프록시가 한다면 `TRUSTED_PROXIES` 설정.
 - 용량: `public/assets`(게임 에셋)가 크므로 서버 디스크·전송 방식(rsync 등)을 확인할 것. 에셋 manifest(`public/assets/manifest.json`)와 실제 파일이 함께 올라가야 한다.
 
