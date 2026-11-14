@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { createBattleStore } from '../store/battleStore.js';
 import { terrainAt, pathTo, lineOfFire } from '../systems/grid.js';
-import { terrainMod, unitType, TERRAINS, terrainAttr, terrainName, typeAlias } from '../data/rules.js';
+import { terrainMod, unitType, TERRAINS, terrainAttr, terrainName, typeAlias, matchupOf } from '../data/rules.js';
 import { UnitView, TILE } from '../UnitView.js';
 import { tileSrc, tileTexKey, portraitKey, ensureSkinTexture, queueScope, ensureScope, ensurePortraitTex, portraitLogical, unitPortraitLogical, ensureBattleBgs, setCaptainStage, texKey, loadMapArtAssets, ensureSkillFx, manifestHas } from '../assets.js';
 import { cutsceneBgGroups } from '../fx/BattleCutscene.js';
@@ -1862,8 +1862,9 @@ export class BattleScene extends Phaser.Scene {
         // 커서(hover/키보드) 유닛은 아군·적 모두 카드 표시. 단 그 유닛 칸이 카드 자리와 겹치면 카드가 클릭을 가로채므로 hover 카드는 띄우지 않는다.
         // 카드에 띄울 유닛(초점) 후보를 먼저 정하고 그 유닛 기준으로 자리를 고른다(초점 유닛이 카드에 가려질 때만 좌상단으로)
         const focus0 = this.touch ? (sel || (this.userCursor ? cu : null)) : ((this.userCursor ? cu : null) || sel);
-        const slot = this.cardSlot(focus0); // 기본 좌하단 도킹, 초점 유닛이 그 자리 정보 패널에 가려지면 좌상단
-        const pm = this.cardPortMax(slot); // 큰 초상 높이(아래 유닛을 가리면 축소, 그래도 가리면 생략)
+        const compact = this.cardCompact(); // 모바일(터치 + 세로/가로 폰/좁은 폭): 초상·게이지 없는 한 줄 띠(2026-11-14 사용자 제보). 데스크톱은 기존 그대로
+        const slot = compact ? this.compactCardSlot(focus0) : this.cardSlot(focus0); // 기본 좌하단 도킹, 초점 유닛이 그 자리 정보 패널에 가려지면 좌상단
+        const pm = compact ? 0 : this.cardPortMax(slot); // 큰 초상 높이(아래 유닛을 가리면 축소, 그래도 가리면 생략)
         const hov = cu && !this.cardHits(cu, slot, pm) ? cu : null; // 정보 패널 + 초상 액자
         // 우선순위: 마우스/키보드는 hover 우선(커서가 빈 칸으로 가면 선택 유닛으로 복귀), 터치는 기존대로 선택 우선(탭 동작 유지)
         // 전투 시작 시 커서가 자동으로 지휘관 칸에 놓이므로, 사용자가 커서를 움직이기 전(userCursor=false)에는 커서 카드를 띄우지 않는다(하플레이·강화면 gacha78: 터치는 this.touch 가 첫 터치 전까지 false 라 데스크톱 규칙으로 떠 있었음).
@@ -2880,9 +2881,12 @@ export class BattleScene extends Phaser.Scene {
                 onCancel: guard(() => this.store.cancel()),
             });
             this.ui.add(this.bubble);
-        } else if ((s.phase === 'move' || s.phase === 'target') && touch) {
+        } else if (s.phase === 'target' && touch && !this.drag?.moved) {
             // 2026-11-03 사용자 요청: 마우스는 커서 툴팁(updateHoverTip)만 — 선택 유닛 옆 고정 팝업은 터치 대체 동작으로만.
-            // 터치: 탭한 유닛 옆(이동 범위·대상을 덜 가리는 쪽)에 잠깐 표시 후 자동 숨김(이동·대상 선택을 가리지 않게). 입력은 원래 소비하지 않는다
+            // 터치: 탭한 유닛 옆(대상을 덜 가리는 쪽)에 잠깐 표시 후 자동 숨김. 입력은 원래 소비하지 않는다
+            // 2026-11-14 모바일 제보(툴팁이 이동 경로 지정 방해): 이동 칸 선택(move) 단계에서는 띄우지 않는다(390 폭에서 툴팁이 화면 폭 ~70%라 이동 칸을 덮고,
+            //  드래그 팬마다 popupKey 초기화로 재생성되며 2.2초 타이머가 계속 리셋돼 사라지지 않았음). 선택 유닛 정보는 좌하단 선택 카드(refreshCard, 터치=선택 우선)로 확인.
+            //  드래그 팬 중(this.drag.moved)에도 재생성하지 않는다
             const tp = this.unitInfoTip(u, s);
             this.tip = tp;
             this.placeTip(tp, u, bounds);

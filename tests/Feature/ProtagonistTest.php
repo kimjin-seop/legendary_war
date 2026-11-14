@@ -92,11 +92,15 @@ class ProtagonistTest extends TestCase
     public function test_건너뛰기_기본_원형과_profile_needed_와_캠페인_전용_제외(): void
     {
         [$uid, $h] = $this->guest();
-        $this->withHeaders($h)->getJson('/api/profile')->assertJsonPath('profile.protagonist_needed', false);   // 게스트는 유도 안 함
-        DB::table('users')->where('id', $uid)->update(['is_guest' => false]);
-        $this->withHeaders($h)->getJson('/api/profile')->assertOk()->assertJsonPath('profile.protagonist_needed', true);
+        $this->withHeaders($h)->getJson('/api/profile')->assertJsonPath('profile.protagonist_needed', true);   // 게스트도 유도
+        config(['game.protagonist_for_guests' => false]);
+        $this->withHeaders($h)->getJson('/api/profile')->assertJsonPath('profile.protagonist_needed', false);   // 플래그 끄면 구 동작
+        config(['game.protagonist_for_guests' => true]);
         $this->withHeaders($h)->postJson('/api/protagonist', ['mode' => 'skip'])->assertOk()->assertJsonPath('protagonist.hero.code', 'protagonist_male_sword')->assertJsonPath('protagonist.source', 'skip');
         $this->withHeaders($h)->getJson('/api/profile')->assertJsonPath('profile.protagonist_needed', false);
+        DB::table('users')->where('id', $uid)->update(['is_guest' => false]);   // 정식 전환(같은 users 행 승격): 주인공 데이터 유지
+        $this->withHeaders($h)->getJson('/api/profile')->assertJsonPath('profile.protagonist_needed', false);
+        $this->assertSame(1, DB::table('user_protagonists')->where('user_id', $uid)->count());
 
         // 가챠 풀·컴퓨터 무작위 편성에서 제외
         $rows = app(GameData::class)->heroes();

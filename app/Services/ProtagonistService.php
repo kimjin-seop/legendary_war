@@ -115,7 +115,7 @@ class ProtagonistService
 
     public function needed(User $user): bool
     {
-        return $this->available() && ! $user->is_guest && ! DB::table('user_protagonists')->where('user_id', $user->id)->exists();
+        return $this->available() && (! $user->is_guest || config('game.protagonist_for_guests', true)) && ! DB::table('user_protagonists')->where('user_id', $user->id)->exists();
     }
 
     private function heroUserRow(int $userId): ?object

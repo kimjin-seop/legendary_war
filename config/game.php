@@ -338,4 +338,5 @@ return [
         'bonus_pct' => [2, 3, 5, 6.5, 8],
     ],
     'guest_email_domain' => 'guest.invalid',
+    'protagonist_for_guests' => true,   // 게스트에게도 첫 로그인 캐릭터 생성(protagonist_needed) 노출. false면 정식 계정만(구 동작)
 ];

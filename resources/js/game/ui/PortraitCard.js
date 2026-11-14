@@ -47,7 +47,7 @@ export class PortraitCard extends Phaser.GameObjects.Container {
     }
 
     contains(px, py) {
-        if (!this.visible) return false;
+        if (!this.visible || this.compact) return false; // 압축형(모바일 한 줄 띠)은 입력 비소비: 아래 이동 칸·유닛 탭이 그대로 맵으로
         if (px >= this.x && px <= this.x + this.w && py >= this.y && py <= this.y + this.h) return true;
         const r = this.portRect; // 초상 상자도 입력을 소비(투명 표시지만 Battle.cardHits 가림 판정과 같은 사각형 유지)
         return !!r && px >= this.x + r.x && px <= this.x + r.x + r.w && py >= this.y + r.y && py <= this.y + r.y + r.h;
@@ -64,13 +64,15 @@ export class PortraitCard extends Phaser.GameObjects.Container {
     show(u, leader, extra = {}) {
         // 초상화(썸네일): 영웅 = 본인 / 부대 = 병종 초상화(문화권 -> default) -> 소속 영웅 -> 이니셜
         const pc = unitPortraitLogical(u, leader);
-        const key = `${u.id}|${u.hp}|${u.mp ?? ''}|${u.mp_max ?? ''}|${u.mp_pct ?? ''}|${!!extra.mpMode}|${!!extra.mpInline}|${extra.title ?? ''}|${extra.shortName ?? ''}|${extra.resist ?? ''}|${u.acted}|${extra.status ?? ''}|${extra.name ?? ''}|${(extra.stats ?? []).join(',')}|${JSON.stringify(extra.gauges ?? null)}|${extra.terrain ?? ''}|${Math.round(this.y)}|${Math.round(this.portMax)}|${pc}|${!!pc && this.scene.textures.exists(texKey(pc))}`;
+        const key = `${u.id}|${u.hp}|${extra.compact ? JSON.stringify(extra.compact) + `|${this.w}x${this.h}` : ''}|${u.mp ?? ''}|${u.mp_max ?? ''}|${u.mp_pct ?? ''}|${!!extra.mpMode}|${!!extra.mpInline}|${extra.title ?? ''}|${extra.shortName ?? ''}|${extra.resist ?? ''}|${u.acted}|${extra.status ?? ''}|${extra.name ?? ''}|${(extra.stats ?? []).join(',')}|${JSON.stringify(extra.gauges ?? null)}|${extra.terrain ?? ''}|${Math.round(this.y)}|${Math.round(this.portMax)}|${pc}|${!!pc && this.scene.textures.exists(texKey(pc))}`;
         if (key === this.key && this.visible) return;
         const fresh = !this.visible || this.key.split('|')[0] !== u.id;
         this.key = key;
-        this.build(u, leader, pc, extra);
+        this.compact = !!extra.compact;
+        this.bg.setVisible(!this.compact);
+        if (this.compact) this.buildCompact(u, extra.compact); else this.build(u, leader, pc, extra);
         this.setVisible(true);
-        this.bg.setInteractive();
+        if (this.compact) this.bg.disableInteractive(); else this.bg.setInteractive();
         if (fresh) { this.setAlpha(0); tween(this.scene, { targets: this, to: { alpha: 1 }, duration: 140 }); } // 크로스페이드(끄기면 즉시)
     }
 
@@ -197,6 +199,36 @@ export class PortraitCard extends Phaser.GameObjects.Container {
         }
         if (extra.stats?.length) { const st = fitParts(extra.stats, { size: 12, color: CSS.text }); st.setY(y); b.add(st); y += st.height + 2; }
         this.buildTail(u, extra, fitParts, y);
+    }
+
+    // 압축형(2026-11-14 모바일 제보 '카드가 화면 상당 부분을 차지'): 초상·게이지 없이 한 줄 능력치 + (있으면) 한 줄 상성 요약. 입력 비소비(contains=false, bg 비활성)
+    //  c: { name, shortName, cls, parts[], strong[], weak[] }. 폭이 모자라면 짧은 이름 -> 11px -> 병종 생략 -> 뒤 조각부터 생략 -> 말줄임
+    buildCompact(u, c) {
+        const sc = this.scene; const b = this.body;
+        b.removeAll(true); this.port.removeAll(true); this.portRect = null;
+        const { w, h } = this; const enemy = u.team !== 'ally';
+        const g = sc.add.graphics(); b.add(g);
+        g.fillStyle(COLOR.navyDeep, 0.88).fillRect(0, 0, w, h);
+        g.fillStyle(u.rarity ? rarityColor(u.rarity) : (enemy ? COLOR.danger : COLOR.ally), 1).fillRect(0, 0, 3, h);
+        g.lineStyle(1, enemy ? COLOR.danger : COLOR.accent, 0.8).strokeRect(0, 0, w, h);
+        const ic = troopIcon(sc, u.type, 13, 11, 14, { glyph: false });
+        const tx = ic ? 23 : 8; const tw = w - tx - 6;
+        if (ic) b.add(ic);
+        const tries = [[c.name, c.cls, 12], [c.shortName, c.cls, 12], [c.shortName, c.cls, 11], [c.shortName, '', 11]];
+        let t = null; let list = null;
+        for (const [nm, cls, size] of tries) {
+            t?.destroy();
+            list = [enemy ? `적 ${nm}` : nm, cls, ...(c.parts ?? [])].filter(Boolean);
+            t = makeText(sc, tx, 11, list.join(' · '), { size, bold: true, color: enemy ? CSS.dangerText : CSS.text, origin: [0, 0.5] });
+            if (t.width <= tw) break;
+        }
+        while (list.length > 2 && t.width > tw) { list.pop(); t.setText(list.join(' · ')); }
+        b.add(fitText(t, tw));
+        if (c.strong?.length || c.weak?.length) {
+            let x = tx; const y = 29;
+            if (c.strong?.length) { const s = fitText(makeText(sc, x, y, `강함: ${c.strong.join('·')}`, { size: 11, bold: true, color: '#4fd1c1', origin: [0, 0.5] }), tw / 2 - 4); b.add(s); x += s.width + 10; }
+            if (c.weak?.length) b.add(fitText(makeText(sc, x, y, `약함: ${c.weak.join('·')}`, { size: 11, bold: true, color: '#ff8f80', origin: [0, 0.5] }), Math.max(40, tx + tw - x)));
+        }
     }
 
     // 지형·속성·오라 한 줄(넘치면 오라부터 생략). 카드 높이 안에 들어갈 때만

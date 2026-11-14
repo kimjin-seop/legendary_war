@@ -26,7 +26,7 @@ class GameController extends Controller
         $profile = $this->progress->profile($request->user());
         $profile['tutorial'] = app(\App\Services\TutorialService::class)->state($request->user());   // 튜토리얼 진행(서버 저장)
 
-        $profile['protagonist_needed'] = app(\App\Services\ProtagonistService::class)->needed($request->user());   // true면 FE가 주인공 생성 화면으로 유도(정식 계정만)
+        $profile['protagonist_needed'] = app(\App\Services\ProtagonistService::class)->needed($request->user());   // true면 FE가 주인공 생성 화면으로 유도(게스트 포함, game.protagonist_for_guests)
 
         return response()->json(['profile' => $profile, 'rules' => $this->publicRules()]);
     }
