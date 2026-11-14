@@ -416,7 +416,7 @@ export class BattleScene extends Phaser.Scene {
                     const W = m.w * TILE * w.scaleX; const H = m.h * TILE * w.scaleY;
                     const sx = u ? w.x + (u.x + 0.5) * TILE * w.scaleX : null; const sy = u ? w.y + (u.y + 0.5) * TILE * w.scaleY : null;
                     return { active: !!c, key: c?.key ?? null, unit: u?.id ?? null, k: this.k, scale: +w.scaleX.toFixed(4), base: c?.base ?? null, world: { x: Math.round(w.x), y: Math.round(w.y), w: Math.round(W), h: Math.round(H) }, screen: { w: Math.round(L.lw), h: Math.round(L.lh) },
-                        covers: w.x <= 0.5 && w.y <= 0.5 && w.x + W >= L.lw - 0.5 && w.y + H >= L.lh - 0.5, tileCss: Math.round((w.scaleX * TILE * L.u) / (L.R || 1)), unitScreen: u ? { x: Math.round(sx), y: Math.round(sy), fx: +(sx / L.lw).toFixed(2), fy: +(sy / L.lh).toFixed(2) } : null, tweening: !!c?.tween };
+                        covers: w.x <= 0.5 && w.y <= 0.5 && w.x + W >= L.lw - 0.5 && w.y + H >= L.lh - 0.5, tileCss: Math.round((w.scaleX * TILE * L.u) / (L.R || 1)), unitScreen: u ? { x: Math.round(sx), y: Math.round(sy), fx: +(sx / L.lw).toFixed(2), fy: +(sy / L.lh).toFixed(2) } : null, tweening: !!c?.tween, zoomK: c?.zoomK ?? null };
                 },
             };
             this.events.once('shutdown', () => { delete window.__qa; });
@@ -917,11 +917,11 @@ export class BattleScene extends Phaser.Scene {
     syncFullBtn() { if (this.fullBtn?.scene) { this.fullBtn.setSelected(!!this.fullView); if (!this.fullBtn.icon) this.fullBtn.setLabel(this.fullView ? '이전' : '전체'); } } // 아이콘 전용: 전체 보기 중 = 눌림(selected) 표시, 이름은 툴팁('전체 보기'/'이전 배율')
 
     // 월드 위치 클램프: 맵 경계 밖으로 나가지 않는다. 맵이 화면보다 작은 축은 안전 영역 가운데 고정.
-    clampPos(x, y) {
+    clampPos(x, y, s = null) { // s: 계산용 배율(생략 = 현재 월드 배율. 대사 카메라 줌 트윈의 목표 배율 계산용)
         const m = this.store.state.map;
         const a = this.lay.fit;
-        const w = m.w * TILE * this.world.scaleX;
-        const h = m.h * TILE * this.world.scaleY;
+        const w = m.w * TILE * (s ?? this.world.scaleX);
+        const h = m.h * TILE * (s ?? this.world.scaleY);
         return {
             x: snap(w <= L.lw ? a.x + (a.w - w) / 2 : clamp(x, L.lw - w, 0)),
             // 세로: HUD(상단 바·하단 카드/시트) 높이만큼 패딩을 둬 가장자리 행을 HUD 밖으로 끌어낼 수 있다(바깥은 MapBackdrop 배경)
@@ -1569,7 +1569,11 @@ export class BattleScene extends Phaser.Scene {
     //  - 같은 화자 다음 줄은 이동 없음. 화자 유닛이 없으면(캡션·시오리·병사·퇴장) 카메라를 움직이지 않는다
     //  - 데이터 camera 큐가 같은 대사 묶음 직전에 실행됐거나 cue follow 추적 중이면 camera 큐가 이긴다(대사 카메라는 이동하지 않음)
     //  - 대사가 끝나도 원위치로 되돌리지 않는다(그 자리 유지). 대사 중에는 전투 followTile·focus 가 끼어들지 않고, 끝난 뒤 다음 연출이 이어받는다
-    //  - 배율(줌)은 바꾸지 않는다(구 규칙의 채움·확대·복귀 줌 제거: 화자 전환·종료 때마다 확대/축소·원복 점프가 '멋대로 움직임'으로 보였다)
+    //  - 배율(줌)은 원칙적으로 바꾸지 않는다(구 규칙의 채움·확대·복귀 줌 제거: 화자 전환·종료 때마다 확대/축소·원복 점프가 '멋대로 움직임'으로 보였다)
+    //  - 예외(2026-11-14 사용자 승인 '초반에 포커스 맞출 때 세로로 사이즈 맞춰서 확대한 상태로 포커스'): 대사 묶음에서 처음으로 화자 유닛·액터에 포커스할 때 1회,
+    //    맵 세로가 '상단 바 아래 ~ 대사창 윗변' 가용 높이보다 작게 보이면 그 높이에 맞는 배율(kMax 상한)로 확대하면서 팬(dlgCamZoomOnce).
+    //    화자 유닛이 없으면 줌도 없음, camera 큐·cue follow 우선이면 줌도 없음, 이후 줄은 배율 불변, 대사 종료 후 원래 배율로 되돌리지 않음.
+    //    맵 가로가 화면보다 좁으면(가로 폰의 20x14 등) 가로는 여전히 가운데 정렬이라 화자가 정확히 가로 중앙에 오지 않을 수 있다
     // 이 상태(this.dlgCam)는 대사 진행 중 표시용이며, 모든 대사 종료 경로(onStoryEvent·CuePlayer.say·QA)가 dlgCamEnd 로 해제한다.
     // BattleDialogue.showLine 이 줄마다 호출(info = speakerOf 결과, line = 원본 줄, instant = 재배치 복원(즉시), boxTop = 하단 대사 패널 윗변 y)
     dialogueFocus(info, line, instant = false, boxTop = null) {
@@ -1587,8 +1591,8 @@ export class BattleScene extends Phaser.Scene {
             const key = `a:${line.actor}`;
             if (key === c.key && !instant) return;
             c.key = key; c.unitId = null; c.actorC = ac;
-            if (c.hold || this.cues?.follow) return;
-            this.dlgCamApply(instant);
+            if (c.hold || this.cues?.follow) { c.zoomTried = true; return; } // 데이터 카메라 우선: 이 대사 묶음은 줌하지 않음
+            this.dlgCamApply(instant, this.dlgCamZoomOnce(c));
             return;
         }
         const u = matchSpeakerUnit(line?.speaker, info, this.store.state.units);
@@ -1596,14 +1600,30 @@ export class BattleScene extends Phaser.Scene {
         const key = `u:${u.id}`;
         if (key === c.key && !instant) return; // 같은 화자 다음 줄·쪽: 그대로
         c.key = key; c.unitId = u.id; c.actorC = null;
-        if (c.hold || this.cues?.follow) return; // 데이터 camera 큐 우선
-        this.dlgCamApply(instant);
+        if (c.hold || this.cues?.follow) { c.zoomTried = true; return; } // 데이터 camera 큐 우선(줌도 하지 않음)
+        this.dlgCamApply(instant, this.dlgCamZoomOnce(c));
+    }
+
+    // 대사 묶음의 첫 화자 포커스 1회: 맵 세로가 대사창 위 가용 높이(padT ~ 대사창 윗변)보다 작으면 그 높이에 맞는 배율 k(kMax 상한)를 돌려준다. 아니면 null(배율 유지)
+    dlgCamZoomOnce(c) {
+        if (!c || c.zoomTried) return null;
+        c.zoomTried = true;
+        const m = this.store.state.map;
+        const top = this.padT();
+        const boxTop = Number.isFinite(c.boxTop) ? c.boxTop : L.lh;
+        const avail = boxTop - top;
+        if (!m?.h || avail < 40) return null;
+        const kV = ((avail / (m.h * TILE)) * TILE * L.u) / tileSrc(); // setZoomK 배율식의 역산: world.scale = tileSrc * k / (TILE * L.u)
+        const k = Math.min(kV, this.kMax ?? kV);
+        if (!(k > (this.k ?? 0) + 0.01)) return null; // 이미 그 이상으로 보이면 줌 없음
+        c.zoomK = k;
+        if (this.fullView) { this.fullView = null; this.syncFullBtn(); } // 전체 보기 토글 상태 해제(대사 후 '이전' 버튼이 엉뚱한 배율로 돌아가지 않게)
+        return k;
     }
 
     // 화자 유닛을 가로 중앙 · 대사창 위 영역의 DLG_ANCHOR_Y 높이에 두는 월드 위치(현재 배율, 맵 경계 클램프. 대사창 뒤로만 마지막 행을 더 끌어올릴 수 있다)
-    dlgCamPlan() {
+    dlgCamPlan(s = this.world.scaleX) { // s: 목표 배율(첫 포커스 줌이면 줌 후 배율)
         const c = this.dlgCam;
-        const s = this.world.scaleX;
         let ux; let uy;
         if (c?.actorC?.scene) { ux = c.actorC.x; uy = c.actorC.y; } // 화자 연출 액터
         else {
@@ -1617,21 +1637,33 @@ export class BattleScene extends Phaser.Scene {
         const want = { x: L.lw / 2 - ux * s, y: top + (Math.max(top + 40, boxTop) - top) * DLG_ANCHOR_Y - uy * s };
         const m = this.store.state.map;
         const h = m.h * TILE * s;
-        const p = this.clampPos(want.x, want.y);
+        const p = this.clampPos(want.x, want.y, s);
         const padB = Math.max(this.padB(), L.lh - boxTop);
-        const y = h <= L.lh - top - padB ? p.y : snap(clamp(want.y, L.lh - h - padB, this.padTopPan()));
+        // 맵 세로가 대사창 위 영역에 다 들어가면 그 영역 가운데(예전: HUD 기준 가운데 = 아래 행이 대사창 뒤로 갈 수 있었다). 넘치면 화자 기준 클램프
+        const y = h <= L.lh - top - padB ? snap(top + (L.lh - padB - top - h) / 2) : snap(clamp(want.y, L.lh - h - padB, this.padTopPan()));
         return { x: p.x, y };
     }
 
-    dlgCamApply(instant) {
-        const p = this.dlgCamPlan();
-        if (!p) return;
+    // zoomK: 첫 포커스 줌 목표 배율(dlgCamZoomOnce, null = 배율 유지). 팬과 같은 트윈으로 배율·위치를 함께 옮기고 끝에서 setZoomK 로 k·타일 표시 상태를 맞춘다
+    dlgCamApply(instant, zoomK = null) {
         const c = this.dlgCam;
-        c.tween?.stop(); c.tween = null;
+        if (!c) return;
+        if (c.tween) { const zk = c.tweenZoomK; c.tween.stop(); c.tween = null; c.tweenZoomK = null; if (zk != null) this.setZoomK(zk); } // 줌 트윈 도중 다음 줄: 목표 배율로 확정 후 계획
+        const s = zoomK != null ? (tileSrc() * zoomK) / (TILE * L.u) : this.world.scaleX;
+        const p = this.dlgCamPlan(s);
+        if (!p) return;
         const fin = () => { this.popupKey = ''; this.updatePopups(); };
-        if (Math.abs(p.x - this.world.x) < 1 && Math.abs(p.y - this.world.y) < 1) return; // 이미 그 자리
-        if (instant || isInstant()) { this.world.setPosition(p.x, p.y); fin(); return; }
-        c.tween = this.tweens.add({ targets: this.world, x: p.x, y: p.y, duration: DLG_PAN_MS / (settings.get().speed || 1), ease: 'Sine.easeInOut', onComplete: () => { if (c.tween) c.tween = null; fin(); } });
+        if (zoomK == null && Math.abs(p.x - this.world.x) < 1 && Math.abs(p.y - this.world.y) < 1) return; // 이미 그 자리
+        if (instant || isInstant()) { if (zoomK != null) this.setZoomK(zoomK); this.world.setPosition(p.x, p.y); fin(); return; }
+        const to = zoomK != null ? { x: p.x, y: p.y, scaleX: s, scaleY: s } : { x: p.x, y: p.y };
+        c.tweenZoomK = zoomK;
+        c.tween = this.tweens.add({ targets: this.world, ...to, duration: DLG_PAN_MS / (settings.get().speed || 1), ease: 'Sine.easeInOut', onComplete: () => {
+            if (zoomK != null) { this.setZoomK(zoomK); this.world.setPosition(p.x, p.y); } // k·tileCssPx·유닛 표시 세부(setDetail) 동기화
+            if (c.tween) { c.tween = null; c.tweenZoomK = null; }
+            fin();
+        }, onStop: () => { // 외부에서 월드 트윈을 끊어도(다음 연출·리사이즈) 배율 상태(k)와 월드 배율이 어긋나지 않게 목표로 확정
+            if (zoomK != null && c.tweenZoomK === zoomK && this.world?.scene) { this.setZoomK(zoomK); this.world.setPosition(p.x, p.y); c.tweenZoomK = null; }
+        } });
     }
 
     // 대사 종료: 원위치 복귀 없이 그 자리 유지. 진행 중인 화자 팬은 끝까지 진행(멈추면 중간에서 끊겨 보임)하고 상태만 해제한 뒤 cb
@@ -1649,8 +1681,10 @@ export class BattleScene extends Phaser.Scene {
     dlgCamRebase() {
         const c = this.dlgCam;
         if (!c) return;
-        c.tween?.stop(); c.tween = null;
-        if (!c.hold && !this.cues?.follow) this.dlgCamApply(true);
+        c.tweenZoomK = null; c.tween?.stop(); c.tween = null; // fitMap 이 배율을 새로 잡았으므로 진행 중 줌 목표는 버린다
+        if (c.hold || this.cues?.follow) return;
+        const z = c.zoomK != null ? (c.zoomTried = false, this.dlgCamZoomOnce(c)) : null; // 첫 포커스 줌을 했던 대사면 새 화면 기준으로 다시 맞춤
+        this.dlgCamApply(true, z);
     }
 
     // 교대 행동 이벤트(연출 큐 순서대로): 아군 활성화 시작 = '건너뛰기'(skipTurn) 해제, 상대 활성화 = 알림 칩 + 영웅 쪽으로 카메라,
