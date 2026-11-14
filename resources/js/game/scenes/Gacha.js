@@ -486,6 +486,7 @@ export class GachaScene extends Phaser.Scene {
         const bottom = hg.listClash ? Math.min(hg.hudTop, hg.icoY) - 8 : hg.by0;
         const vpH = Math.max(h, Math.min(contentH, Math.floor(bottom - y0)));
         const list = new ScrollList(this, { x: r.x, y: y0, w: listW, h: vpH, clip: true, bar: true });
+        list.dragScroll = false; // 배너 목록은 자체 드래그(listDragStart/bindListDrag: 탭 판정·관성·위치 기억) 사용 -> ScrollList 공통 드래그 끔(이중 스크롤 방지)
         idx.forEach((i, k) => { const { v, sel } = item(this.banners[i], i, r.w); v.setPosition(sel ? 8 : 0, k * (h + gap)); list.content.add(v); });
         this.listLayer.add(list);
         list.setContentHeight(contentH);

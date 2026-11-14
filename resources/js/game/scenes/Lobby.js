@@ -7,7 +7,7 @@ import { StatBar } from '../ui/StatBar.js';
 import { Modal } from '../ui/Modal.js';
 import { openSettings } from '../ui/SettingsModal.js';
 import { showToast } from '../ui/Toast.js';
-import { makeText, addBackdrop, fitText } from '../ui/common.js';
+import { makeText, addBackdrop, fitText, scrollDragged } from '../ui/common.js';
 import { slice, icon, skinOn, setSliceSize, skinImage, skinIcon, skinHas } from '../ui/skin.js';
 import { DomInput, bindInputsToModal } from '../ui/DomInput.js';
 import { raritySlotKey, rarityBadge, rarityCss, rarityLabel, compareRarity, rarityColor, RARITY_STARS, normRarity } from '../rarity.js';
@@ -1265,9 +1265,9 @@ export class LobbyScene extends Phaser.Scene {
         let t = null; let held = false;
         const cancel = () => { t?.remove(false); t = null; };
         hit.on('pointerdown', () => { held = false; cancel(); t = this.time.delayedCall(450, () => { t = null; if (this.modalCount > 0 || !hit.scene) return; held = true; onHold(); }); });
-        hit.on('pointermove', (pt) => { if (pt.isDown && pt.getDistance() > 12) cancel(); });
+        hit.on('pointermove', (pt) => { if (pt.isDown && (pt.getDistance() > 12 || scrollDragged(pt))) cancel(); });
         hit.on('pointerout', cancel);
-        hit.on('pointerup', (pt) => { cancel(); if (held || this.modalCount > 0 || pt.getDistance() > 12) return; onTap(); });
+        hit.on('pointerup', (pt) => { cancel(); if (held || this.modalCount > 0 || pt.getDistance() > 12 || scrollDragged(pt)) return; onTap(); });
         c.add(hit);
         return hit;
     }

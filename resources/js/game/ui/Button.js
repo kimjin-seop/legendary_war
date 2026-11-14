@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { CSS, MIN_TOUCH, view } from '../theme.js';
-import { makeText, fitText } from './common.js';
+import { makeText, fitText, scrollDragged } from './common.js';
 import { loop, tween } from './motion.js';
 import { slice, setSliceSize, skinIcon } from './skin.js';
 import { sfx } from '../audio.js';
@@ -45,10 +45,11 @@ export class Button extends Phaser.GameObjects.Container {
         this.hit.on('pointerover', () => { this.hover(true); if (this.disabled && this.reason && this.tipHost && this.usableScene()) showReasonTip(this.tipHost, this, this.reason, this.tipHost.tipOpts); });
         this.hit.on('pointerout', () => { this.pressed = false; this.hover(false); if (this.tipHost) hideReasonTip(this.tipHost, this); });
         this.hit.on('pointerdown', () => { this.pressed = true; this.setState('pressed'); });
-        this.hit.on('pointerup', () => {
+        this.hit.on('pointerup', (p) => {
             if (!this.pressed) return;
             this.pressed = false;
             this.setState(this.disabled ? 'disabled' : this.hovered ? 'hover' : this.selected ? 'selected' : 'normal');
+            if (scrollDragged(p)) return; // 목록 드래그 스크롤로 판정된 누름(ScrollList, 8px 초과)은 클릭 아님
             if (this.disabled) { if (this.reason && this.usableScene()) { if (this.tipHost) showReasonTip(this.tipHost, this, this.reason, this.tipHost.tipOpts); else showToast(this.scene, this.reason); } return; }
             if (!this.usable()) return;
             sfx(this.skin === 'danger' ? 'sfx_ui_cancel' : this.skin === 'primary' ? 'sfx_ui_confirm' : 'sfx_ui_tap');

@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
 import { COLOR, CSS, MIN_TOUCH, view } from '../theme.js';
 import { L } from '../layout.js';
-import { makeText } from './common.js';
+import { makeText, DRAG_SCROLL_PX, markScrollDrag, scrollDragged } from './common.js';
 import { slice, skinOn } from './skin.js';
 import { sfx } from '../audio.js';
 import { Modal } from './Modal.js';
@@ -20,7 +20,7 @@ export class Checkbox extends Phaser.GameObjects.Container {
         this.text = makeText(scene, 62, 14, label, { size, origin: [0, 0.5], wrap });
         const h = Math.max(28, this.text.height, Math.ceil(MIN_TOUCH / (view.scale || 1)));
         const hit = scene.add.rectangle(0, 14 - h / 2, 62 + this.text.width, h, 0xffffff, 0).setOrigin(0).setInteractive({ useHandCursor: true });
-        hit.on('pointerup', () => { if (!modal && scene.modalCount > 0) return; sfx('sfx_ui_tap'); this.set(!this.checked); this.onChange?.(this.checked); });
+        hit.on('pointerup', (p) => { if (!modal && scene.modalCount > 0) return; if (scrollDragged(p)) return; sfx('sfx_ui_tap'); this.set(!this.checked); this.onChange?.(this.checked); });
         this.add([this.box, this.knob, this.text, hit]);
         scene.add.existing(this);
     }
@@ -71,14 +71,59 @@ export class ScrollList extends Phaser.GameObjects.Container {
         this.refreshMask();
         const hit = scene.add.rectangle(0, 0, w, h, 0xffffff, 0).setOrigin(0).setInteractive();
         this.addAt(hit, 0);
-        let dragY = null; let startScroll = 0;
-        hit.on('pointerdown', (p) => { dragY = p.worldY; startScroll = this.content.y; });
-        hit.on('pointermove', (p) => { if (dragY !== null && p.isDown) this.scrollTo(startScroll + (p.worldY - dragY)); });
-        hit.on('pointerup', () => { dragY = null; });
-        hit.on('pointerout', () => { dragY = null; });
-        this.onWheel = (p, go, dx, dy) => { if (this.owns(p, go)) this.scrollTo(this.content.y - dy * 0.6); };
+        // 드래그 스크롤(2026-11-14 모바일 '도감 등 스크롤 안 됨'): 예전엔 맨 아래 hit 사각형에서만 끌기를 받아, 항목(행·카드·버튼 hit)이 덮은
+        // 곳(= 목록 대부분)에서 터치로 끌면 최상단 항목이 입력을 가져가 스크롤이 안 됐다. -> 씬 입력(pointerdown/move/up)으로 받되
+        // 누른 곳의 최상단 객체에서 가장 가까운 ScrollList 가 자신일 때만(owns: 모달·위 패널·중첩 목록 차단, 휠과 같은 규칙) 시작.
+        // 8px 초과 이동부터 스크롤 + 그 누름을 드래그로 표시(markScrollDrag) -> Button/Tabs/Chips 등이 같은 누름의 pointerup 클릭을 무시.
+        // 놓을 때 속도가 있으면 짧은 관성. dragScroll = false 로 끌 수 있다(자체 드래그를 가진 목록: 가챠 배너 목록)
+        this.dragScroll = true;
+        let drag = null; let inertia = null;
+        const stopInertia = () => { if (inertia) { scene.events.off('update', inertia); inertia = null; } };
+        this.onDragDown = (p, objs) => {
+            stopInertia(); drag = null;
+            if (!this.dragScroll || !this.scene || !this.owns(p, objs ?? [])) return;
+            const now = performance.now();
+            drag = { id: p.id, y0: p.worldY, s0: this.content.y, moved: false, ly: p.worldY, lt: now, v: 0 };
+        };
+        this.onDragMove = (p) => {
+            const d = drag;
+            if (!d || d.id !== p.id || !this.scene) return;
+            if (!p.isDown) { drag = null; return; }
+            const dy = p.worldY - d.y0;
+            if (!d.moved) { if (Math.abs(dy) <= DRAG_SCROLL_PX) return; d.moved = true; markScrollDrag(p); }
+            const now = performance.now(); const dt = Math.max(1, now - d.lt);
+            d.v = 0.7 * ((p.worldY - d.ly) / dt) + 0.3 * d.v; d.ly = p.worldY; d.lt = now;
+            this.scrollTo(d.s0 + dy);
+        };
+        this.onDragUp = (p) => {
+            const d = drag;
+            if (!d || d.id !== p.id) return;
+            drag = null;
+            if (!d.moved || !this.scene || performance.now() - d.lt > 120 || Math.abs(d.v) < 0.15) return;
+            let v = Math.max(-4, Math.min(4, d.v)); let pos = this.content.y; let last = performance.now();
+            inertia = () => {
+                if (!this.scene) { stopInertia(); return; }
+                const now = performance.now(); const dt = Math.min(48, now - last); last = now;
+                pos += v * dt; v *= Math.pow(0.94, dt / 16);
+                const min = Math.min(0, this.h - this.contentH);
+                this.scrollTo(pos);
+                if (Math.abs(v) < 0.03 || pos <= min || pos >= 0) stopInertia();
+            };
+            scene.events.on('update', inertia);
+        };
+        scene.input.on('pointerdown', this.onDragDown);
+        scene.input.on('pointermove', this.onDragMove);
+        scene.input.on('pointerup', this.onDragUp);
+        scene.input.on('pointerupoutside', this.onDragUp);
+        this.onWheel = (p, go, dx, dy) => { if (this.owns(p, go)) { stopInertia(); this.scrollTo(this.content.y - dy * 0.6); } };
         scene.input.on('wheel', this.onWheel);
-        this.once('destroy', () => { scene.input.off('wheel', this.onWheel); g.destroy(); });
+        this.once('destroy', () => {
+            stopInertia();
+            scene.input.off('wheel', this.onWheel);
+            scene.input.off('pointerdown', this.onDragDown); scene.input.off('pointermove', this.onDragMove);
+            scene.input.off('pointerup', this.onDragUp); scene.input.off('pointerupoutside', this.onDragUp);
+            g.destroy();
+        });
     }
 
     // Phaser 4 setPosition 이 this.w 를 0 으로 덮어쓰므로 목록 폭 보존(inside 판정)
@@ -181,7 +226,7 @@ export function listRow(scene, { x = 0, y = 0, w, h, onClick, selected = false, 
         bg.setInteractive({ useHandCursor: !disabled });
         bg.on('pointerover', () => { if (!disabled && !(scene.modalCount > 0)) { if (img) img.setTexture('row_hover'); else bg.setFillStyle(COLOR.panelLight, 1); } });
         bg.on('pointerout', () => { if (img) img.setTexture(rest); else bg.setFillStyle(selected ? COLOR.panelLight : COLOR.navyDeep, disabled ? 0.5 : 0.85); });
-        bg.on('pointerup', (p) => { if (scene.modalCount > 0) return; if (p.getDistance() > 12) return; sfx('sfx_ui_tap'); onClick(); });
+        bg.on('pointerup', (p) => { if (scene.modalCount > 0) return; if (p.getDistance() > 12 || scrollDragged(p)) return; sfx('sfx_ui_tap'); onClick(); });
     }
     return c;
 }

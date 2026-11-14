@@ -151,6 +151,18 @@ export function setupCamera(scene, bg) {
 // 복귀: 하향 상태에서 55fps 이상이 10초 지속되면 한 단계씩 사용자 선택값 쪽으로 올린다.
 //  올린 뒤 다시 하향되는 진동을 막기 위해 복귀는 세션당 RECOVER_MAX 회까지만(이후는 하향 유지).
 const RECOVER_MAX = 2;
+// 프레임 상한 판정(iOS 저전력 모드 30fps 등): 최근 프레임 간격(rawDelta) 평균이 30Hz(33.3ms) 근처이고 분산이 작으면
+//  '기기가 30fps 로 묶인 안정 상태'로 보고 저하로 치지 않는다(품질을 낮춰도 30fps 상한은 그대로라 품질만 손해).
+const CAP_N = 60;
+function capped30(buf, n) {
+    if (n < 30) return false;
+    let sum = 0; for (let i = 0; i < n; i++) sum += buf[i];
+    const mean = sum / n;
+    if (mean < 30 || mean > 37) return false;
+    let v = 0; let spikes = 0;
+    for (let i = 0; i < n; i++) { const d = buf[i] - mean; v += d * d; if (buf[i] > 45) spikes += 1; }
+    return Math.sqrt(v / n) < 4 && spikes <= n * 0.05; // 표준편차 4ms 미만 + 긴 프레임(45ms 초과) 5% 이하
+}
 export function startPerfGuard(game) {
     let low = 0;
     let high = 0;
@@ -159,10 +171,13 @@ export function startPerfGuard(game) {
     let lastInput = performance.now();
     const touch = () => { lastInput = performance.now(); };
     ['pointerdown', 'pointermove', 'pointerup', 'keydown', 'wheel'].forEach((e) => window.addEventListener(e, touch, { passive: true }));
+    const dts = new Float32Array(CAP_N); let dtI = 0; let dtN = 0;
+    const onStep = () => { const d = game.loop.rawDelta; if (d > 0 && d < 1000) { dts[dtI] = d; dtI = (dtI + 1) % CAP_N; if (dtN < CAP_N) dtN += 1; } };
+    game.events.on('step', onStep);
     const id = setInterval(() => {
-        if (document.hidden) { low = 0; high = 0; return; }
+        if (document.hidden) { low = 0; high = 0; dtN = 0; dtI = 0; return; }
         const fps = game.loop.actualFps;
-        low = fps > 1 && fps < 45 ? low + 1 : 0;
+        low = fps > 1 && fps < 45 && !capped30(dts, dtN) ? low + 1 : 0;
         const q = settings.get().quality;
         const userQ = settings.userQuality();
         high = q > userQ && fps >= 55 ? high + 1 : 0;
@@ -186,6 +201,7 @@ export function startPerfGuard(game) {
     }, 500);
     return () => {
         clearInterval(id);
+        game.events.off('step', onStep);
         ['pointerdown', 'pointermove', 'pointerup', 'keydown', 'wheel'].forEach((e) => window.removeEventListener(e, touch));
     };
 }

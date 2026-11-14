@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { COLOR, CSS, MIN_TOUCH, view } from '../theme.js';
-import { makeText, fitText } from './common.js';
+import { makeText, fitText, scrollDragged } from './common.js';
 import { slice, skinIcon } from './skin.js';
 import { sfx } from '../audio.js';
 import { withUiImage } from './uiImage.js';
@@ -43,8 +43,8 @@ export class Tabs extends Phaser.GameObjects.Container {
             // 터치 영역: 칸이 낮아도(가로 폰 34~36) 실제 화면 최소 터치 크기(MIN_TOUCH CSS px)만큼 위아래로 넓힌다(보이는 크기는 그대로, Button 과 같은 규칙)
             const needH = Math.ceil(MIN_TOUCH / (view.scale || 1)); const hh = Math.max(ch, needH);
             const hit = scene.add.rectangle(i * cw, -(hh - ch) / 2, cw, hh, 0xffffff, 0).setOrigin(0).setInteractive({ useHandCursor: true });
-            hit.on('pointerup', () => {
-                if (!ok() || this.active === it.key) return;
+            hit.on('pointerup', (p) => {
+                if (!ok() || this.active === it.key || scrollDragged(p)) return;
                 sfx('sfx_ui_tap');
                 this.setActive(it.key);
                 this.onChange?.(it.key);
@@ -70,7 +70,7 @@ export class Tabs extends Phaser.GameObjects.Container {
             const label = makeText(scene, cx, Math.min(y0 + chV - ls * 0.6 - 2, cy + r + ls * 0.75), it.label, { size: ls, bold: true, origin: [0.5, 0.5], stroke: { color: '#0B1020', width: 3 } });
             fitLabel(label, w - 6, ls, 9);
             const hit = scene.add.rectangle(0, y0, w, chV, 0xffffff, 0).setOrigin(0).setInteractive({ useHandCursor: true });
-            hit.on('pointerup', () => { if (!ok() || this.active === it.key) return; sfx('sfx_ui_tap'); this.setActive(it.key); this.onChange?.(it.key); });
+            hit.on('pointerup', (p) => { if (!ok() || this.active === it.key || scrollDragged(p)) return; sfx('sfx_ui_tap'); this.setActive(it.key); this.onChange?.(it.key); });
             hit.on('pointerover', () => { if (ok() && this.active !== it.key) sfx('sfx_ui_hover'); });
             this.add(ic ? [bg, ic, label, hit] : [bg, label, hit]);
             const cell = { key: it.key, bg, label, ic, vert: true, glyph: ic ? null : it.label.slice(0, 1), fs: Math.round(Math.min(w * 0.9, chV * 0.72)) };

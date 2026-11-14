@@ -31,6 +31,9 @@ function battleSrc(scene) {
     };
 }
 
+let texSeq = 0;
+const hex = (n) => `#${(n >>> 0).toString(16).padStart(6, '0').slice(-6)}`;
+
 export class MiniMap extends Phaser.GameObjects.Container {
     // right = 오른쪽 끝 x, top(위 기준) 또는 bottom(아래 기준), maxW/maxH = 최대 크기(화면 논리 단위). 칸 크기는 맵 비율 유지. src = 데이터 어댑터(선택)
     constructor(scene, { right, top, bottom, maxW, maxH, src = null }) {
@@ -45,7 +48,9 @@ export class MiniMap extends Phaser.GameObjects.Container {
         const x = Math.max(pad, right - pad - this.mmW); const y = top != null ? top + pad : bottom - pad - this.mmH;
         this.setPosition(x, y);
         this.bg = scene.add.rectangle(-pad, -pad, this.mmW + pad * 2, this.mmH + pad * 2, COLOR.navyDeep, 0.85).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.8);
-        this.terrain = scene.add.graphics();
+        // 지형 = 캔버스 텍스처 1장(drawTerrain 이 구움). Phaser 4 Graphics 는 매 프레임 w*h 사각형을 다시 삼각화하므로 이미지로 대체(2026-11-14 모바일 성능)
+        this.texKey = `minimap_terrain_${++texSeq}`;
+        this.terrain = scene.add.image(0, 0, '__WHITE').setOrigin(0).setVisible(false);
         this.dyn = scene.add.graphics();
         this.hit = scene.add.rectangle(-pad, -pad, this.mmW + pad * 2, this.mmH + pad * 2, 0xffffff, 0.001).setOrigin(0).setInteractive({ useHandCursor: true });
         this.add([this.bg, this.terrain, this.dyn, this.hit]);
@@ -72,10 +77,27 @@ export class MiniMap extends Phaser.GameObjects.Container {
 
     drawTerrain() {
         const tiles = this.src.map()?.tiles ?? [];
-        const g = this.terrain.clear(); const c = this.cell;
-        for (let y = 0; y < this.mh; y++) for (let x = 0; x < this.mw; x++) g.fillStyle(colorOf(tiles[y]?.[x]), 1).fillRect(x * c, y * c, Math.ceil(c), Math.ceil(c));
+        const c = this.cell; const cc = Math.ceil(c);
+        // 논리 크기(기존 Graphics 와 같은 범위: 마지막 칸은 ceil(c) 폭) x 해상도 배율(카메라 줌 L.u = 논리 1 -> 백킹 u px, 선명도 유지)
+        const lw = Math.max(1, Math.ceil((this.mw - 1) * c + cc)); const lh = Math.max(1, Math.ceil((this.mh - 1) * c + cc));
+        const res = Math.min(4, Math.max(1, L.u || 1));
+        const pw = Math.max(1, Math.round(lw * res)); const ph = Math.max(1, Math.round(lh * res));
+        const tm = this.scene.textures;
+        let tex = tm.exists(this.texKey) ? tm.get(this.texKey) : null;
+        if (tex && (tex.width !== pw || tex.height !== ph)) tex.setSize(pw, ph);
+        if (!tex) tex = tm.createCanvas(this.texKey, pw, ph);
+        const g = tex.getContext();
+        g.setTransform(1, 0, 0, 1, 0, 0);
+        g.clearRect(0, 0, pw, ph);
+        g.setTransform(res, 0, 0, res, 0, 0);
+        g.globalAlpha = 1;
+        for (let y = 0; y < this.mh; y++) for (let x = 0; x < this.mw; x++) { g.fillStyle = hex(colorOf(tiles[y]?.[x])); g.fillRect(x * c, y * c, cc, cc); }
         // 선택: 정적 강조 칸(배치 화면의 배치 구역 [[x,y]]) — 아군 청색 반투명
-        (this.src.zone?.() ?? []).forEach(([zx, zy]) => g.fillStyle(COLOR.ally, 0.55).fillRect(zx * c, zy * c, Math.ceil(c), Math.ceil(c)));
+        const zone = this.src.zone?.() ?? [];
+        if (zone.length) { g.globalAlpha = 0.55; g.fillStyle = hex(COLOR.ally); zone.forEach(([zx, zy]) => g.fillRect(zx * c, zy * c, cc, cc)); g.globalAlpha = 1; }
+        g.setTransform(1, 0, 0, 1, 0, 0);
+        tex.refresh();
+        this.terrain.setTexture(this.texKey).setDisplaySize(lw, lh).setVisible(true);
         this.tilesRef = tiles;
     }
 
@@ -101,5 +123,10 @@ export class MiniMap extends Phaser.GameObjects.Container {
         if (x1 > x0 && y1 > y0) g.lineStyle(1.5, 0xffffff, 0.95).strokeRect(x0 * c, y0 * c, (x1 - x0) * c, (y1 - y0) * c);
     }
 
-    destroy(fromScene) { this.timer?.remove(); this.timer = null; super.destroy(fromScene); }
+    destroy(fromScene) {
+        this.timer?.remove(); this.timer = null;
+        const tm = this.scene?.textures; const key = this.texKey;
+        super.destroy(fromScene);
+        if (tm && key && tm.exists(key)) tm.remove(key); // 지형 텍스처 해제(이미지 파괴 뒤)
+    }
 }

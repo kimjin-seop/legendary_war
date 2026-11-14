@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { COLOR, CSS, MIN_TOUCH, view } from '../theme.js';
-import { makeText, fitText } from './common.js';
+import { makeText, fitText, scrollDragged } from './common.js';
 import { sfx } from '../audio.js';
 
 // 작은 칩 세그먼트(필터·옵션 선택용, 장식 테두리 없는 둥근 칩). Tabs 와 같은 인터페이스(items [{key,label}]·active·onChange·setActive).
@@ -27,8 +27,8 @@ export class Chips extends Phaser.GameObjects.Container {
             const label = labels[i].setX(cx + cw / 2);
             fitText(label, cw - 8);
             const hit = scene.add.rectangle(cx, -(hh - h) / 2, cw, hh, 0xffffff, 0).setOrigin(0).setInteractive({ useHandCursor: true });
-            hit.on('pointerup', () => {
-                if (!ok() || this.active === it.key) return;
+            hit.on('pointerup', (p) => {
+                if (!ok() || this.active === it.key || scrollDragged(p)) return;
                 sfx('sfx_ui_tap');
                 this.setActive(it.key);
                 this.onChange?.(it.key);

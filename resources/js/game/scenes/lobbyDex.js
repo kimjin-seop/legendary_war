@@ -6,7 +6,7 @@
 import Phaser from 'phaser';
 import { Button } from '../ui/Button.js';
 import { Modal } from '../ui/Modal.js';
-import { makeText, fitText } from '../ui/common.js';
+import { makeText, fitText, scrollDragged } from '../ui/common.js';
 import { ScrollList, emptyState } from '../ui/widgets.js';
 import { portraitBox, sCard } from '../ui/HeroVisual.js';
 import { COLOR, CSS } from '../theme.js';
@@ -116,7 +116,7 @@ function dexCard(scene, r, x, y, w, ph, h, onClick) {
     c.add(fitText(makeText(scene, w / 2, ph + 30, [rarityLabel(r.rarity) ?? r.rarity, r.unit_type ? unitClassName(r.unit_type) : ''].filter(Boolean).join(' · '), { size: 11, color: CSS.muted, origin: [0.5, 0.5] }), w - 8));
     const hit = scene.add.rectangle(0, 0, w, h, 0, 0).setOrigin(0).setInteractive({ useHandCursor: true });
     hit.on('pointerup', (pt) => {
-        if ((scene.modalCount ?? 0) > 0 || pt.getDistance() > 16) return; // 터치 미세 흔들림 허용(12 -> 16)
+        if ((scene.modalCount ?? 0) > 0 || pt.getDistance() > 16 || scrollDragged(pt)) return; // 터치 미세 흔들림 허용(12 -> 16)
         try { onClick(); } catch (e) { console.error('[dex] 상세 열기 실패', r.hero, e); } // 미보유 상세가 안 열리던 원인 추적용(예외가 나도 탭이 조용히 사라지지 않게 로그)
     });
     c.add(hit);
@@ -232,7 +232,7 @@ function encCard(scene, h, shelfName, x, y, w, ph, ch) {
     c.add(fitText(makeText(scene, w / 2, ph + 30, [rarityLabel(h.grade) ?? h.grade, h.unit_type ? unitClassName(h.unit_type) : ''].filter(Boolean).join(' · '), { size: 11, color: CSS.muted, origin: [0.5, 0.5] }), w - 8));
     const hit = scene.add.rectangle(0, 0, w, ch, 0, 0).setOrigin(0).setInteractive({ useHandCursor: true });
     hit.on('pointerup', (pt) => {
-        if ((scene.modalCount ?? 0) > 0 || pt.getDistance() > 16) return;
+        if ((scene.modalCount ?? 0) > 0 || pt.getDistance() > 16 || scrollDragged(pt)) return;
         try { openEncDetail(scene, h, shelfName); } catch (e) { console.error('[dex] 조우 장수 상세 실패', h.code, e); }
     });
     c.add(hit);

@@ -8,7 +8,8 @@ function load() {
 }
 
 const prefersReduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
-const mobile = typeof navigator !== 'undefined' && /Android|iPhone|iPad|Mobile/i.test(navigator.userAgent);
+// iPadOS 13+ Safari 는 데스크톱 맥 UA(Macintosh)를 보낸다 -> 터치 포인트(>1)로 구분(데스크톱 맥은 maxTouchPoints 0). 2026-11-14 모바일 성능: iPad 기본 품질 '보통'
+const mobile = typeof navigator !== 'undefined' && (/Android|iPhone|iPad|Mobile/i.test(navigator.userAgent) || (/Macintosh/i.test(navigator.userAgent) && (navigator.maxTouchPoints ?? 0) > 1));
 const lowSpec = mobile || (navigator.hardwareConcurrency ?? 8) <= 4 || (navigator.deviceMemory ?? 8) <= 4;
 // notify: 전투 알림 표시 방식 0 끄기 / 1 최소(기본) / 2 보통 / 3 상세 (Battle 상단 안내 배너·알림 토스트·로그 빨간 점)
 // terrainSmooth: 지형 변형 표현 매끄럽게(기본)/격자. terrainBlend: 코드 경계 전이(GroundBlend) — 기본 꺼짐(전이 타일 에셋 전 임시 보조, UI 없음·콘솔 settings 로만)

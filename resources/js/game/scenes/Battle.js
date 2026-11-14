@@ -153,15 +153,24 @@ function battleLayout() {
     // 우하단 열 폭 통일(사용자 2026-11-04 '미니맵·도구 줄·턴 종료 폭이 중구난방, 가장 긴 쪽으로'): 가장 긴 요소 = 도구 줄(최대 5칸: 확대·축소·전체·맞춤·병사 추종 + 좌우 여백 6).
     //  열 폭 colW 에 '턴 종료'·도구 줄 배경·(가로) 미니맵 패널을 모두 맞추고 오른쪽 끝(right)을 같이 둔다. 도구 버튼은 열 안에 고르게 배치(buildTools)
     const toolsRowW = 5 * btnS + 4 * lay.toolGap + 12;
+    // 2026-11-14 사용자 '확대 축소 같은 버튼은 모바일에서 세로로 두 줄씩 나오게 하면 왼쪽 공간이 확보': 모바일은 도구 버튼(최대 5개)을 가로 한 줄(264) 대신 격자로.
+    //  가로 폰(L.short) = 3열 x 2행(폭 3x44+2x6+8 = 152 -> 열 폭 max(152, '턴 종료' ew 160~220), 높이 2x44+6+8 = 102). 2열 x 3행(높이 152)은 가로 폰 높이(논리 417~433)에서
+    //   우하단 묶음이 47%까지 커져 3열 x 2행을 쓴다(열 폭 264 -> 160, '턴 종료' 왼쪽 줄 +104).
+    //  좁은 세로 폰(기존 '턴 종료' 축소 조건과 같음: 열 왼쪽 줄 < 280) = 2열 x 3행(버튼 열 2x44+8 = 96, 좌우 여백 8 -> 열 폭 112, 높이 3x44+2x8+8 = 156).
+    //   '턴 종료'도 열 폭 112(아이콘 22 + 6 + 라벨 약 66 = 94 < 100), 정보 띠는 격자 왼쪽(턴 종료 줄 위)으로 내려 전폭 줄 하나를 없앤다. 데스크톱·세로 태블릿은 기존 그대로
+    const gridPad = 4; const portGrid = portrait && (right - left) - toolsRowW - 8 < 280; const landGrid = shortL;
     lay.cy = safe.t + Math.round((barH - safe.t) / 2); // 상단 칩 줄 세로 중심(이전 28)
     if (!portrait) {
         const cardH = L.short ? 82 : 158; // 정보 패널 124 -> 158(2026-11-06 사용자 '능력치 한 줄에 하나씩': 병력·마력·공격·수비·이동·범위 세로 6줄). 가로 폰(L.short): 선택 유닛 카드 접기(능력치 게이지 생략, 큰 초상 없음) — docs/PLAN_LANDSCAPE_PHONE.md ⑤
         const cardW = Math.min(330, Math.max(240, lw * 0.26));
         // 전투 HUD 시안(사용자 2026-11-04 참고 이미지): 우하단 세로 묶음 = 미니맵 -> 도구 줄 -> 큰 '턴 종료'. 정보 바는 하단 가운데(카드와 '턴 종료' 사이)
         const ew = Math.round(Math.min(220, Math.max(160, lw * 0.16))); const endH2 = L.short ? endH : 52;
-        const colW = Math.min(right - left, Math.max(toolsRowW, ew)); lay.colW = colW;
+        const gridW = 3 * btnS + 2 * lay.toolGap + 2 * gridPad; const gridH = 2 * btnS + lay.toolGap + 2 * gridPad;
+        const colW = Math.min(right - left, Math.max(landGrid ? gridW : toolsRowW, ew)); lay.colW = colW;
         lay.endBtn = { x: right - colW, y: bottom - endH2, w: colW, h: endH2 };
-        lay.tools = { x: right - colW, y: lay.endBtn.y - vGap - toolsH, w: colW, h: toolsH };
+        lay.toolsY0 = lay.endBtn.y - vGap - toolsH; // 한 줄 도구 기준 윗단: 초기 배율(kScr)·팝업 영역은 격자 전환 전과 같게 유지(카메라 배율 불변)
+        lay.tools = { x: right - colW, y: landGrid ? lay.endBtn.y - vGap - gridH : lay.toolsY0, w: colW, h: landGrid ? gridH : toolsH };
+        if (landGrid) lay.toolGrid = { cols: 3, rows: 2, pad: gridPad };
         lay.infoY = bottom - infoH;
         lay.infoX = { x0: left + cardW + 8, x1: lay.endBtn.x - 8 };
         lay.mini = { right, bottom: lay.tools.y - vGap, maxW: colW - 20, maxH: Math.min(120, Math.round(lh * 0.18)) }; // 시안 묶음 높이 축소(이전 130·22%)
@@ -173,25 +182,36 @@ function battleLayout() {
         lay.banner = { y: bY, maxW: Math.min(640, right - left) };
         lay.B = { x: (lw - lay.banner.maxW) / 2, y: bY, w: lay.banner.maxW, h: bannerH };
         const pY = bY + bannerH + 6;
-        lay.popup = { x: left, y: pY, w: right - left, h: lay.tools.y - 8 - pY }; // 우측 패널 제거로 전체 폭 사용(도구 줄 위까지)
+        lay.popup = { x: left, y: pY, w: right - left, h: lay.toolsY0 - 8 - pY }; // 우측 패널 제거로 전체 폭 사용(도구 줄 위까지. 가로 폰 격자는 한 줄 기준 높이 유지)
     } else {
         // 세로: 하단 줄 = '턴 종료'(남는 폭 가운데) + 우하단 아이콘 도구. 그 위 정보 바, 그 위 초상화 카드. 미니맵은 우상단(칩 줄 아래)
         // 강화면 gacha95: 도구 줄(5개)이 '턴 종료'를 덮던 문제 -> 세로 폰도 '턴 종료'(오른쪽 아래, 정보 바와 같은 줄) 위에 도구 줄을 독립 줄로
         // 열 폭 통일(위 colW): '턴 종료'를 도구 줄 폭으로 넓히면 같은 줄의 정보 띠 자리가 없어져 정보 띠는 도구 줄 위 전폭 한 줄로 올린다(gacha96·97: 정보 띠가 '턴 종료'를 덮지 않게)
-        const colW = Math.min(right - left, toolsRowW); lay.colW = colW;
-        // 2026-11-14 사용자 '모바일에서 턴 종료 가로 사이즈를 줄이면': 좁은 세로(턴 종료 왼쪽 줄 < 280)는 '턴 종료'만 폭 128(오른쪽 정렬 유지, 높이 44 = 터치 최소)로 줄여
-        //  같은 줄 왼쪽(약 230~290)에 압축 카드를 도킹(compactCardSlot). 128 = 아이콘 22 + 6 + '턴 종료'(20px 약 66) + 좌우 여백 12 이상. 도구 줄·미니맵은 colW 그대로
-        const endW = (right - left) - colW - 8 < 280 ? Math.min(colW, 128) : colW; lay.endNarrow = endW < colW;
+        // 2026-11-14 사용자 '모바일에서 턴 종료 가로 사이즈를 줄이면': 좁은 세로(턴 종료 왼쪽 줄 < 280)는 '턴 종료'를 줄여 같은 줄 왼쪽에 압축 카드를 도킹(compactCardSlot).
+        //  같은 날 격자 전환(위 portGrid): 열 폭 = 112(2열 격자·'턴 종료' 공통), 격자는 '턴 종료' 위, 정보 띠는 격자 왼쪽('턴 종료' 줄 바로 위). 도구 줄 한 줄 + 전폭 정보 띠 줄이 없어진다
+        const gridW = 2 * btnS + lay.toolGap + 16; const gridH = 3 * btnS + 2 * lay.toolGap + 2 * gridPad;
+        const colW = Math.min(right - left, portGrid ? gridW : toolsRowW); lay.colW = colW;
+        const endW = colW; lay.endNarrow = portGrid;
         lay.endBtn = { x: right - endW, y: bottom - endH, w: endW, h: endH };
-        lay.tools = { x: right - colW, y: lay.endBtn.y - 8 - toolsH, w: colW, h: toolsH };
-        lay.infoY = lay.tools.y - 8 - infoH;
-        lay.infoX = { x0: left, x1: right };
+        if (portGrid) {
+            lay.toolGrid = { cols: 2, rows: 3, pad: gridPad };
+            lay.tools = { x: right - colW, y: lay.endBtn.y - 8 - gridH, w: colW, h: gridH };
+            lay.infoY = lay.endBtn.y - 8 - infoH;
+            lay.infoX = { x0: left, x1: lay.tools.x - 8 };
+        } else {
+            lay.tools = { x: right - colW, y: lay.endBtn.y - 8 - toolsH, w: colW, h: toolsH };
+            lay.infoY = lay.tools.y - 8 - infoH;
+            lay.infoX = { x0: left, x1: right };
+        }
+        // 초상 카드(데스크톱 마우스 세로 창의 큰 카드)·카메라 기준 영역(lay.fit)·팝업 영역은 격자 전환 전 위치(한 줄 도구 + 전폭 정보 띠 위) 그대로: 초기 배율 불변.
+        //  격자와 세로로 겹치면 카드 폭만 격자 왼쪽까지로 줄인다
+        const cardY0 = bottom - endH - 8 - toolsH - 8 - infoH - 8 - 158;
         lay.A = { x: left, y: aY, w: Math.min(right - left, 340), h: 160 };
         const bY = barH + 6;
         lay.banner = { y: bY, maxW: right - left };
         lay.B = { x: left, y: bY, w: right - left, h: bannerH };
         lay.mini = { right, top: barH + 6, maxW: Math.min(130, Math.round((right - left) * 0.3)), maxH: 100 };
-        lay.card = { x: left, y: lay.infoY - 8 - 158, w: Math.min(right - left, 320), h: 158 /* 124 -> 158(능력치 세로 6줄, 2026-11-06) */, portMax: Math.round(Math.min(190, lh * 0.22)) }; // 정보 패널 124 + 큰 초상 상한(모바일 화면 높이 22%, 최대 190. 이전 18%·150, 사용자 2026-11-04 '초상 더 크게')
+        lay.card = { x: left, y: cardY0, w: Math.min(portGrid && cardY0 + 158 > lay.tools.y ? lay.tools.x - 8 - left : right - left, 320), h: 158 /* 124 -> 158(능력치 세로 6줄, 2026-11-06) */, portMax: Math.round(Math.min(190, lh * 0.22)) }; // 정보 패널 124 + 큰 초상 상한(모바일 화면 높이 22%, 최대 190. 이전 18%·150, 사용자 2026-11-04 '초상 더 크게')
         const pY = bY + bannerH + 6;
         lay.popup = { x: left, y: pY, w: right - left, h: lay.card.y - 8 - pY };
     }
@@ -435,7 +455,9 @@ export class BattleScene extends Phaser.Scene {
         // 앱 복귀(inputGuard 'app-wake'): 드래그·핀치·필드 포인터 고착 해제 + 전투가 끝났는데 결과창이 없거나 가려졌으면 다시 띄움(결과창 상태에서 다른 창 보고 오면 클릭 먹통 제보)
         this.onWake = () => {
             if (!this.sys?.isActive()) return;
+            const panned = !!this.drag?.moved;
             this.drag = null; this.pinch = null; this.fieldPointers?.clear?.();
+            if (panned) { this.popupKey = ''; this.updatePopups(); } // 팬 중 숨긴 팝업 복구
             if (this.store?.state?.status === 'finished' && this.lastResult) this.reshowResult();
         };
         this.game.events.on('app-wake', this.onWake);
@@ -810,7 +832,7 @@ export class BattleScene extends Phaser.Scene {
         // 작은 맵은 초기 배율도 kScr 이하(cover 정수 배율이 화면을 넘지 않게), 전체 보기는 HUD 기준 contain(비정수, unity32 면 0.5 단위로 내려 너무 작아짐) 대신 kScr 이 더 크면 kScr.
         let kScr = 0;
         if (!(L.portrait || L.lw < 760)) {
-            const scrH = Math.max(1, this.lay.tools.y - 8 - this.lay.barH);
+            const scrH = Math.max(1, (this.lay.toolsY0 ?? this.lay.tools.y) - 8 - this.lay.barH); // 가로 폰 도구 격자(2026-11-14)는 한 줄 기준 윗단 유지(배율 불변)
             kScr = Math.floor(Math.min((usableW * L.u) / (m.w * src), (scrH * L.u) / (m.h * src)) + 0.001);
             if (kScr >= 1 && !this.isBigMap(m)) k = Math.min(k, kScr);
         }
@@ -1061,6 +1083,14 @@ export class BattleScene extends Phaser.Scene {
     relayout() {
         if (!this.scene.isActive()) return;
         this.fx.skip();
+        // D8(모바일 성능 2026-11-14): 회전·창 크기·품질 하향 재배치에서 줌 단계·화면 중심 타일을 보존(초기 진입은 기존 fitMap 그대로).
+        //  보존 기준 = 타일 CSS 크기(품질 하향으로 해상도 배율 L.R 이 바뀌어도 같은 크기) -> 새 줌 단계(정수 배율 규칙) 중 가장 가까운 값. 전체 보기(kAll) 상태면 새 kAll.
+        let keep = null;
+        if (this.worldBuilt && this.k != null && this.lay?.fit && this.store.state.map) {
+            const a = this.lay.fit; const s = this.world.scaleX * TILE;
+            keep = { css: this.tileCssPx, all: !!this.fullView || Math.abs(this.k - (this.kAll ?? -1)) < 0.01, full: this.fullView,
+                tx: (a.x + a.w / 2 - this.world.x) / s - 0.5, ty: (a.y + a.h / 2 - this.world.y) / s - 0.5 };
+        }
         syncView();
         setupCamera(this, CSS.bg);
         this.lay = battleLayout();
@@ -1071,10 +1101,26 @@ export class BattleScene extends Phaser.Scene {
         this.zone?.destroy();
         this.buildUI();
         this.makeZone();
-        if (this.worldBuilt) { this.fitMap(); this.placeCursor(false); this.dlgCamRebase(); }
+        if (this.worldBuilt) { this.fitMap(); if (keep) this.restoreView(keep); this.placeCursor(false); this.dlgCamRebase(); }
         this.popupKey = '';
         this.refresh();
         this.storyDialogue?.relayout();
+    }
+
+    // relayout 의 fitMap 직후: 직전 줌(타일 CSS 크기 기준 가장 가까운 줌 단계)·중심 타일·전체 보기 상태 복원(toggleFullView 복원 방식과 같음)
+    restoreView(keep) {
+        const m = this.store.state.map;
+        let k = this.k;
+        if (keep.all) k = this.kAll;
+        else if (keep.css > 0) {
+            const want = (keep.css * (L.R || 1)) / tileSrc();
+            const stops = this.zoomStops();
+            const dist = (v) => Math.abs(Math.log(v / want));
+            if (stops.length) k = stops.reduce((b, v) => (dist(v) < dist(b) - 0.001 ? v : b), stops[0]);
+        }
+        this.setZoomK(clamp(k, this.kMin, this.kMax));
+        if (keep.full) { this.fullView = keep.full; this.syncFullBtn(); this.focusTile((m.w - 1) / 2, (m.h - 1) / 2, false); }
+        else this.focusTile(clamp(keep.tx, 0, m.w - 1), clamp(keep.ty, 0, m.h - 1), false);
     }
 
     // ================= UI 구성 =================
@@ -1178,9 +1224,22 @@ export class BattleScene extends Phaser.Scene {
         const g2 = colW && defs.length > 1 ? Math.max(gap, (colW - 12 - defs.length * S) / (defs.length - 1)) : gap;
         const W = defs.length * S + (defs.length - 1) * g2;
         const x0 = colW ? t.x + (colW - W) / 2 : t.x + t.w - 4 - W; const y = t.y + (t.h - S) / 2;
-        const bx0 = colW ? t.x : x0 - 6; const bw0 = colW ? colW : W + 12;
-        const bg = this.add.rectangle(bx0, t.y - 2, bw0, t.h + 4, COLOR.navyDeep, 0.8).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.6).setInteractive();
-        this.toolRect = { x: bx0, y: t.y - 2, w: bw0, h: t.h + 4 };
+        let bx0 = colW ? t.x : x0 - 6; const bw0 = colW ? colW : W + 12;
+        let by0 = t.y - 2; let bh0 = t.h + 4;
+        // 모바일 도구 격자(battleLayout lay.toolGrid, 2026-11-14): 열 폭 안 가운데, 아래('턴 종료' 쪽) 정렬. 빈 칸은 맨 윗줄 왼쪽.
+        //  3열(가로 폰): 5개 = [ _ 확대 축소 ] / [ 전체 맞춤 추종 ](확대·축소 같은 줄), 4개(추종 없음) = 2열 x 2행. 2열(세로 폰): [ _ 추종 ] / [ 확대 축소 ] / [ 전체 맞춤 ]
+        let cellAt = null;
+        const G = lay.toolGrid;
+        if (G && !followAlone) {
+            if (G.cols === 3 && defs[0]?.key === 'follow') defs.push(defs.shift());
+            const n = defs.length; const cols = G.cols === 3 && n <= 4 ? 2 : G.cols; const rows = Math.ceil(n / cols); const e = rows * cols - n;
+            const iw = cols * S + (cols - 1) * gap; const ih = rows * S + (rows - 1) * gap;
+            const gx = t.x + (t.w - iw) / 2; const gy = t.y + t.h - G.pad - ih;
+            cellAt = (i) => { const c = i + e; return { x: gx + (c % cols) * (S + gap), y: gy + Math.floor(c / cols) * (S + gap) }; };
+            bx0 = t.x; by0 = gy - G.pad; bh0 = ih + 2 * G.pad;
+        }
+        const bg = this.add.rectangle(bx0, by0, bw0, bh0, COLOR.navyDeep, 0.8).setOrigin(0).setStrokeStyle(1, COLOR.accent, 0.6).setInteractive();
+        this.toolRect = { x: bx0, y: by0, w: bw0, h: bh0 };
         this.ui.add(bg); this.toolObjs.push(bg);
         const fy = (lay.infoY ?? t.y) - 8 - S; // 따로 둘 때: 정보 바 위 오른쪽 끝(세로 화면 미니맵은 우상단이라 겹치지 않음)
         if (followAlone) {
@@ -1191,7 +1250,8 @@ export class BattleScene extends Phaser.Scene {
         }
         [...defs, ...(followAlone ? [followDef] : [])].forEach((d, i) => {
             const alone = followAlone && d === followDef;
-            const b = new Button(this, { x: alone ? t.x + t.w - 4 - S : x0 + i * (S + g2), y: alone ? fy : y, w: S, h: S, label: '', icon: d.icon, size: 13, onClick: () => { d.onClick(); this.flashTip(b, d.tip()); } });
+            const cell = cellAt && !alone ? cellAt(i) : null;
+            const b = new Button(this, { x: cell ? cell.x : alone ? t.x + t.w - 4 - S : x0 + i * (S + g2), y: cell ? cell.y : alone ? fy : y, w: S, h: S, label: '', icon: d.icon, size: 13, onClick: () => { d.onClick(); this.flashTip(b, d.tip()); } });
             if (d.key === 'follow') { // 아이콘: 금색 영웅(큰 원) + 청색 병사 둘 + 영웅 쪽 화살표. 켜짐 = 눌림(selected)
                 const g = this.add.graphics();
                 g.fillStyle(COLOR.accent, 1).fillCircle(7, -4, 6).lineStyle(2, COLOR.text, 1).strokeCircle(7, -4, 6);
@@ -1236,7 +1296,7 @@ export class BattleScene extends Phaser.Scene {
               const fh = this.add.rectangle(-10, -10, fs0 + 20, fs0 + 20, 0xffffff, 0.001).setOrigin(0).setInteractive({ useHandCursor: true });
               // 접힘 위치: 세로 = 미니맵 자리 아래 끝 / 가로 = 도구 줄 왼쪽 옆(강화면 gacha96: 접어도 묶음이 미니맵 자리만큼 높게 남던 문제)
               const tr = this.toolRect ?? lay.tools;
-              const placeFold = () => { const p = this.miniOn ? { x: fx, y: fy } : lay.portrait ? { x: fx, y: r.y + r.h - fs0 } : { x: tr.x - fs0 - 8, y: tr.y + (tr.h - fs0) / 2 }; fold.setPosition(p.x, p.y); this.foldRect = this.miniOn ? { x: fx - 10, y: fy - 10, w: fs0 + 20, h: r.h + 20 } : { x: p.x - 10, y: p.y - 10, w: fs0 + 20, h: fs0 + 20 }; };
+              const placeFold = () => { const p = this.miniOn ? { x: fx, y: fy } : lay.portrait ? { x: fx, y: r.y + r.h - fs0 } : { x: tr.x - fs0 - 8, y: lay.toolGrid ? tr.y + 4 : tr.y + (tr.h - fs0) / 2 }; /* 가로 폰 격자: 격자 왼쪽 위(아래쪽 격자 옆은 엄지 [취소] 자리) */ fold.setPosition(p.x, p.y); this.foldRect = this.miniOn ? { x: fx - 10, y: fy - 10, w: fs0 + 20, h: r.h + 20 } : { x: p.x - 10, y: p.y - 10, w: fs0 + 20, h: fs0 + 20 }; };
               fh.on('pointerup', () => { if (this.modalCount) return; this.miniOn = !this.miniOn; try { localStorage.setItem('srpg.minimap', this.miniOn ? '1' : '0'); } catch { /* 무시 */ } this.minimap?.setVisible(this.miniOn); this.miniBtn?.setSelected(this.miniOn); placeFold(); drawArrow(); this.refreshSubObjectives?.(); /* 세로: 목표 패널 폭(미니맵 회피) 재계산 */ fold.icoImg?.setFlipY(!this.miniOn); });
               fold.add([fbg, fg, fh]);
               withUiImage(this, 'ui.battle.ico.collapse', (k) => { if (!fold.scene) return; fbg.setVisible(false); fg.setVisible(false); const im = this.add.image(fs0 / 2, fs0 / 2, k).setDisplaySize(fs0, fs0).setFlipY(!this.miniOn); fold.addAt(im, 0); fold.icoImg = im; });
@@ -1282,6 +1342,21 @@ export class BattleScene extends Phaser.Scene {
 
     overPopup(q) { return [this.menuCtx, this.bubble, this.facingPicker].some((o) => o && o.contains(q.x, q.y)); }
 
+    // 팬(드래그·핀치) 시작: 호버 툴팁·행동 메뉴·말풍선을 숨긴다. 이동 중에는 updatePopups/syncPopups 가 건너뛰고 pointerup 에서 1회 재생성(D1)
+    beginPan() {
+        if (this.drag) this.drag.moved = true;
+        this.hideHoverTip();
+        this.clearPopups();
+    }
+
+    // 핀치 시작·종료 시 남은(눌린) 필드 포인터 기준으로 드래그 기준점 재설정(D3). 남은 손가락이 없으면 그대로
+    rebaseDrag() {
+        const rest = this.input.manager.pointers.find((x) => x.isDown && this.fieldPointers.has(x.id));
+        if (!rest) return;
+        const q = this.pt(rest);
+        this.drag = { id: rest.id, sx: q.x, sy: q.y, wx: this.world.x, wy: this.world.y, moved: true };
+    }
+
     makeZone() {
         const a = this.lay.map;
         this.zone = this.add.rectangle(a.x, a.y, a.w, a.h, 0x000000, 0).setOrigin(0).setDepth(-10).setInteractive();
@@ -1292,6 +1367,8 @@ export class BattleScene extends Phaser.Scene {
             if (this.fx.skip()) { this.drag = null; return; } // 탭 1회: 현재 연출 스킵(입력 소비)
             this.fieldPointers.add(p.id);
             const q = this.pt(p);
+            const cur = this.drag;
+            if (cur?.moved && cur.id !== p.id && this.input.manager.pointers.some((x) => x.id === cur.id && x.isDown)) return; // 팬 중 두 번째 손가락: 팬 상태 유지(핀치로 이어짐, 탭으로 오인하지 않음)
             this.drag = { id: p.id, sx: q.x, sy: q.y, wx: this.world.x, wy: this.world.y, moved: false };
         });
     }
@@ -1305,17 +1382,23 @@ export class BattleScene extends Phaser.Scene {
             const p2 = this.input.pointer2;
             if (p1?.isDown && p2?.isDown && this.fieldPointers.has(p1.id) && this.fieldPointers.has(p2.id)) { // 핀치: 거리 비율이 임계를 넘을 때 정수 배율 한 단계씩
                 const d = Phaser.Math.Distance.Between(p1.x, p1.y, p2.x, p2.y);
-                if (!this.pinch) this.pinch = { d };
-                else if (d / this.pinch.d > 1.35) { this.zoomStep(1, (p1.x + p2.x) / 2 / L.u, (p1.y + p2.y) / 2 / L.u); this.pinch.d = d; }
-                else if (d / this.pinch.d < 0.74) { this.zoomStep(-1, (p1.x + p2.x) / 2 / L.u, (p1.y + p2.y) / 2 / L.u); this.pinch.d = d; }
-                if (this.drag) this.drag.moved = true;
+                const mx = (p1.x + p2.x) / 2 / L.u; const my = (p1.y + p2.y) / 2 / L.u;
+                if (this.drag && !this.drag.moved) this.beginPan();
+                if (!this.pinch) { this.pinch = { d, mx, my, wx: this.world.x, wy: this.world.y }; return; }
+                const pc = this.pinch;
+                // D4: 두 손가락 중점 이동만큼 맵 이동(기준 = 핀치 시작/직전 줌 단계 시점의 중점·월드 위치)
+                const cp = this.clampPos(pc.wx + mx - pc.mx, pc.wy + my - pc.my);
+                if (cp.x !== this.world.x || cp.y !== this.world.y) this.world.setPosition(cp.x, cp.y);
+                const z = d / pc.d > 1.35 ? 1 : d / pc.d < 0.74 ? -1 : 0;
+                if (z) { this.zoomStep(z, mx, my); Object.assign(pc, { d, mx, my, wx: this.world.x, wy: this.world.y }); } // 줌 후 기준 재설정(점프 방지)
                 return;
             }
-            this.pinch = null;
+            if (this.pinch) { this.pinch = null; this.rebaseDrag(); } // 핀치가 끝났는데 pointerup 을 놓친 경우: 남은 손가락 기준으로 팬 재시작
             const dr = this.drag;
             if (dr && p.id === dr.id && p.isDown) {
-                if (Math.hypot(q.x - dr.sx, q.y - dr.sy) > 10) dr.moved = true;
-                if (dr.moved) { this.hideHoverTip(); const cp = this.clampPos(dr.wx + q.x - dr.sx, dr.wy + q.y - dr.sy); this.world.setPosition(cp.x, cp.y); this.popupKey = ''; this.updatePopups(); }
+                if (!dr.moved && Math.hypot(q.x - dr.sx, q.y - dr.sy) > 10) this.beginPan();
+                // D1: 이동 중에는 팝업(행동 메뉴·말풍선)을 재생성하지 않는다 — beginPan 에서 숨기고 pointerup 에서 한 번만 다시 그림
+                if (dr.moved) { const cp = this.clampPos(dr.wx + q.x - dr.sx, dr.wy + q.y - dr.sy); if (cp.x !== this.world.x || cp.y !== this.world.y) this.world.setPosition(cp.x, cp.y); }
             } else if (!p.wasTouch && this.inMap(q) && !this.overUi(q) && !this.overPopup(q) && this.worldBuilt) {
                 // 마우스 호버 = 타일 커서 이동. 메뉴/말풍선 위에서는 갱신하지 않는다(메뉴 재생성으로 클릭이 씹히는 문제 방지)
                 const t = this.tileAt(p);
@@ -1327,6 +1410,7 @@ export class BattleScene extends Phaser.Scene {
         this.input.on('pointerup', (p) => {
             this.fieldPointers.delete(p.id);
             const dr = this.drag;
+            const wasPinch = !!this.pinch;
             if (dr && p.id === dr.id) {
                 this.drag = null;
                 if (!dr.moved && !this.pinch && !this.modalCount && this.worldBuilt) {
@@ -1335,6 +1419,9 @@ export class BattleScene extends Phaser.Scene {
                 }
             }
             if (!(this.input.pointer1?.isDown && this.input.pointer2?.isDown)) this.pinch = null;
+            // D3: 핀치 중 한 손가락을 떼면 남은 손가락 기준으로 드래그 재설정(떼는 순서와 무관하게 이어서 팬, 위치 점프 없음)
+            if (wasPinch && !this.pinch) this.rebaseDrag();
+            if (dr?.moved && !this.drag?.moved) { this.popupKey = ''; this.updatePopups(); } // 팬·핀치 종료: 팝업 1회 재생성
         });
         this.input.on('wheel', (p, objs, dx, dy) => {
             if (objs?.[0] && objs[0] !== this.zone) return; // 최상단 입력이 맵(zone)이 아니면(대화창·컷신·팝업·패널 위) 줌 안 함
@@ -1797,7 +1884,7 @@ export class BattleScene extends Phaser.Scene {
             const nm = unitDisplayName(u, s.units, { short: L.lw < 760 || u.kind !== 'troop' }); // 영웅은 이름 중심(칭호 생략: 칭호는 카드 부제)
             // 세로 좁은 폰(정보 띠가 '턴 종료' 앞까지만, 390 약 210): 병종 생략 + 병력 > 공 > 수 순으로 남긴다(강화면 gacha97: 띠에 이름만 남던 문제)
             // 띠 폭(아래 배치와 같은 규칙)이 좁으면(390 세로·667 가로 약 130): 병종 생략 + 이름은 수치보다 먼저 생략(pri 3, 강화면 gacha108: 667 에서 이름만 남고 병력·공·수가 빠짐)
-            const lb = this.lay; const barW = lb.portrait ? (lb.right - lb.left) : lb.infoX ? (this.card?.visible ? lb.infoX.x1 - (this.cardDockX1 != null ? this.cardDockX1 + 8 : lb.infoX.x0) : lb.infoX.x1 - lb.left) : 400; // 가로: 카드가 없으면 띠가 왼쪽 끝부터(아래 배치와 같은 규칙)
+            const lb = this.lay; const barW = lb.portrait ? ((lb.infoX?.x1 ?? lb.right) - lb.left) : lb.infoX ? (this.card?.visible ? lb.infoX.x1 - (this.cardDockX1 != null ? this.cardDockX1 + 8 : lb.infoX.x0) : lb.infoX.x1 - lb.left) : 400; // 가로: 카드가 없으면 띠가 왼쪽 끝부터(아래 배치와 같은 규칙)
             const tight = (this.lay.portrait && L.lw < 480) || barW < 300;
             // 생략 순서(InfoBar 는 pri 큰 것부터 뺀다, gacha109): 지형·소속·오라 -> 이름 -> 사거리 -> 이동 -> 마력. 병력·공·수(pri 1)는 끝까지 남긴다
             segs.push({ text: `[${nm}${u.kind === 'troop' || tight ? '' : ` · ${unitClassName(u.type)}`}]`, color: enemy ? CSS.dangerText : CSS.allyText, bold: true, pri: tight ? 4.6 : 0 });
@@ -2004,12 +2091,13 @@ export class BattleScene extends Phaser.Scene {
         const l = this.lay; const h = 40;
         const row = l.endBtn ? l.endBtn.x - 8 - l.left : 0;
         let d;
-        if (!l.portrait && row >= 400) d = { x: l.left, y: l.bottom - h, w: Math.round(Math.min(400, row - 8 - 160)), h, portMax: 0, dock: true };
-        // 세로 폰(턴 종료 폭 128로 축소, battleLayout): 줄 전체를 카드가 쓴다(정보 띠는 기존 자리 = 도구 줄 위 전폭, 다른 줄이라 겹침 없음). 아래 끝 = bottom(턴 종료 44와 아래 정렬)
-        //  390x844(논리 433): 줄 273 / 360x740(논리 400): 줄 240 / 412x915(논리 458): 줄 298. 넓은 세로(태블릿, 턴 종료 미축소)는 기존 위치
+        // 도구 격자 전환(2026-11-14, 가로 폰 열 폭 264 -> 160): 844 줄 650 -> 746(카드 상한 400 -> 460, 띠 278) / 667 줄 453 -> 549(카드 285 -> 381, 띠 160)
+        if (!l.portrait && row >= 400) d = { x: l.left, y: l.bottom - h, w: Math.round(Math.min(l.toolGrid ? 460 : 400, row - 8 - 160)), h, portMax: 0, dock: true };
+        // 세로 폰('턴 종료' = 도구 격자 열 폭 112, battleLayout): 줄 전체를 카드가 쓴다(정보 띠는 바로 위 줄 = 격자 왼쪽, 다른 줄이라 겹침 없음). 아래 끝 = bottom(턴 종료 44와 아래 정렬)
+        //  390x844(논리 433): 줄 273 -> 289 / 360x740(논리 400): 줄 240 -> 256 / 412x915(논리 458): 줄 298 -> 314. 넓은 세로(태블릿, 턴 종료 미축소)는 기존 위치
         else if (l.portrait && l.endNarrow && row >= 220) d = { x: l.left, y: l.bottom - h, w: Math.round(Math.min(400, row)), h, portMax: 0, dock: true };
         else {
-            const x1 = l.portrait ? l.right : Math.min(l.left + 560, (l.endBtn?.x ?? l.right) - 8);
+            const x1 = l.portrait ? (l.toolGrid ? l.tools.x - 8 : l.right) : Math.min(l.left + 560, (l.endBtn?.x ?? l.right) - 8); // 세로 도구 격자: 격자 왼쪽까지(정보 띠 위 줄이 격자 옆)
             d = { x: l.left, y: (l.infoY ?? l.bottom - l.infoH) - 6 - h, w: Math.max(200, x1 - l.left), h, portMax: 0 };
         }
         if (!focus || !this.worldBuilt || !this.tileHits(focus, d)) return d;
@@ -2676,12 +2764,13 @@ export class BattleScene extends Phaser.Scene {
     placeThumbCancel(c) {
         const old = this.thumbCancel?.scene ? this.thumbCancel : null;
         if (!c || !this.lay?.endBtn) { old?.setVisible(false); this.thumbCancelRect = null; return; }
-        const l = this.lay; const bh = Math.max(MIN_TOUCH, Math.ceil(MIN_TOUCH / (view.scale || 1))); const w = 104; const x = snap(l.right - w);
-        const R = [l.endBtn, l.tools && { x: l.tools.x, y: l.tools.y - 2, w: l.tools.w, h: l.tools.h + 4 }, this.toolRect, this.followRect];
+        // 모바일 도구 격자(2026-11-14): 오른쪽 열이 격자로 높아져 열 위로 올리면 엄지에서 멀어진다 -> 격자 바로 왼쪽(같은 높이대)에서 시작해 위로 회피
+        const l = this.lay; const bh = Math.max(MIN_TOUCH, Math.ceil(MIN_TOUCH / (view.scale || 1))); const w = 104; const x = snap(l.toolGrid ? l.tools.x - 8 - w : l.right - w);
+        const R = [l.endBtn, l.tools && { x: l.tools.x, y: l.tools.y - 2, w: l.tools.w, h: l.tools.h + 4 }, this.toolRect, this.followRect, this.minimap?.scene && !this.miniOn ? this.foldRect : null];
         const mr = this.minimap?.scene ? this.minimap.rect() : null; if (mr) R.push({ x: mr.x - 10, y: mr.y - 10, w: mr.w + 20, h: mr.h + 20 });
         if (this.squadStrip?.visible) R.push(this.squadStripRect);
         if (this.card?.visible) R.push({ x: this.card.x, y: this.card.y, w: this.card.w, h: this.card.h });
-        if (l.portrait && l.infoY != null) R.push({ x: l.left, y: l.infoY, w: l.right - l.left, h: l.infoH });
+        if (l.portrait && l.infoY != null) R.push({ x: l.left, y: l.infoY, w: (l.infoX?.x1 ?? l.right) - l.left, h: l.infoH });
         let y = l.endBtn.y - 8 - bh;
         for (let k = 0, moved = true; moved && k < 10; k++) { moved = false; for (const r of R) if (r && r.x < x + w && r.x + r.w > x && r.y < y + bh && r.y + r.h > y) { y = r.y - 8 - bh; moved = true; } }
         y = snap(Math.max(l.barH + 8, y));
@@ -2837,7 +2926,7 @@ export class BattleScene extends Phaser.Scene {
     }
 
     updatePopups() {
-        if (!this.worldBuilt) return;
+        if (!this.worldBuilt || this.drag?.moved) return; // 팬·핀치 중에는 재생성하지 않음(pointerup 에서 1회)
         const key = this.popupKeyOf();
         if (key === this.popupKey && !this.fx.playing) return;
         if (this.fx.playing) {
@@ -2854,6 +2943,7 @@ export class BattleScene extends Phaser.Scene {
     syncPopups() {
         this.clearPopups();
         if (this.pausing) return; // 일시정지 중: 행동 메뉴 숨김(U21), 재개 시 resumeFromPause 가 다시 그린다
+        if (this.drag?.moved) return; // 팬·핀치 중: 숨긴 채 유지(popupKey='' 라 pointerup 에서 다시 그린다)
         const s = this.store.state;
         this.popupKey = this.popupKeyOf();
         if (s.status !== 'battle' || s.side !== 'ally' || !s.selectedId || s.busy) return;

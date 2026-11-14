@@ -49,6 +49,8 @@ export class MapBackdrop {
         this.ts.setTileScale(this.base, this.base);
         this.border = null;
         this.s0 = null;
+        this.mapPx = null; // 맵 월드 크기 {w,h}(makeBorder 가 기록). 덮음 판정용
+        this.covered = false;
     }
 
     // 안아트 에셋 도착 시 텍스처 키만 교체
@@ -65,11 +67,26 @@ export class MapBackdrop {
         g.lineStyle(lw, COLOR.accent, 0.85).strokeRect(-lw / 2, -lw / 2, w * tile + lw, h * tile + lw);
         parent.add(g);
         this.border = g;
+        this.mapPx = { w: w * tile, h: h * tile };
         return g;
+    }
+
+    // 맵(불투명 지면)이 화면 전체를 덮으면 전체 화면 배경 2장(씬 기본 scene.backdrop + 이 TileSprite)을 숨겨 overdraw 를 줄인다(2026-11-14 모바일 성능).
+    // 판정: 월드 컨테이너는 화면 논리 좌표(L.lw x L.lh)에 직접 놓이므로 맵 사각형 [world.x, world.x + w*scale] 이 [0, lw] 를 포함하면 덮음. 1 단위 여유.
+    syncCover(world) {
+        const m = this.mapPx;
+        const cov = !!m && world.visible !== false && world.alpha >= 1 && world.rotation === 0
+            && world.x <= -1 && world.y <= -1 && world.x + m.w * world.scaleX >= L.lw + 1 && world.y + m.h * world.scaleY >= L.lh + 1;
+        if (cov === this.covered) return cov;
+        this.covered = cov;
+        this.ts.setVisible(!cov);
+        const bd = this.scene.backdrop; if (bd?.setVisible && bd.scene) bd.setVisible(!cov);
+        return cov;
     }
 
     // 매 프레임: 월드 위치·배율에 약하게 따라감
     follow(world) {
+        if (this.syncCover(world)) return; // 가려진 동안은 무늬 위치 갱신 생략(다시 보일 때 아래에서 즉시 맞춤)
         if (settings.get().fxLevel >= 1) { if (this.ts.tilePositionX || this.ts.tilePositionY) this.ts.setTilePosition(0, 0); return; }
         if (this.s0 == null) this.s0 = world.scaleX || 1;
         const z = Phaser.Math.Clamp(1 + (world.scaleX / this.s0 - 1) * PARALLAX, 0.8, 1.25);
@@ -78,5 +95,8 @@ export class MapBackdrop {
         this.ts.setTilePosition((-world.x * PARALLAX) / zs, (-world.y * PARALLAX) / zs);
     }
 
-    destroy() { this.ts.destroy(); this.border?.destroy(); }
+    destroy() {
+        const bd = this.scene?.backdrop; if (this.covered && bd?.scene) bd.setVisible(true);
+        this.ts.destroy(); this.border?.destroy();
+    }
 }

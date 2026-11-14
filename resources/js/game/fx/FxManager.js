@@ -620,9 +620,10 @@ export class FxManager {
     //  교전 컷신(BattleCutscene) -> 월드 공격 모션, 스킬 컷인(SkillCutin) -> 생략(done 즉시). 데스크톱은 기존 그대로
     //  2026-11-14 후속('모바일에서 컷씬을 살리고 싶은데 느리다'): 기본은 계속 끔. 사용자가 설정 '교전 컷신'을 직접 켜면(settings.cutscene === true, 미설정은 끔으로 본다)
     //  모바일은 경량 재생(mobileLite: 교전 컷신 lite = 시간 x0.45·무거운 효과 생략, 스킬 컷인 lite = 0.7초 간소 컷인)
+    //  2026-11-14 재후속('배틀씬 모바일에서 나오게'): 모바일도 기본 켜짐(경량). 사용자가 설정에서 명시적으로 끈 경우(cutscene === false)만 끔
     mobileCompact() { try { return !!this.scene?.cardCompact?.(); } catch { return false; } }
-    mobileNoCut() { return this.mobileCompact() && settings.get().cutscene !== true; }
-    mobileLite() { return this.mobileCompact() && settings.get().cutscene === true; }
+    mobileNoCut() { return this.mobileCompact() && settings.get().cutscene === false; }
+    mobileLite() { return this.mobileCompact() && settings.get().cutscene !== false; }
 
     // 컷인 초상 주인: 영웅·지휘관 = 본인, 부대 = 소속 지휘관(attack 컷신의 leaderOf 와 같은 규칙), 수레·배(non_hero) = 없음(병종 엠블럼)
     cutinOwner(u) {
@@ -654,7 +655,7 @@ export class FxManager {
         const now = this.scene.time?.now ?? 0;
         const chained = this.lastCutinEnd != null && now - this.lastCutinEnd < CUTIN.chainGapMs;
         const st = settings.get();
-        const lite = this.mobileLite() || st.quality >= 2 || st.quality > (settings.userQuality?.() ?? st.quality); // 모바일(사용자가 켠 경우) = 간소 컷인
+        const lite = this.mobileLite() || st.quality >= 2 || st.quality > (settings.userQuality?.() ?? st.quality); // 모바일(끄지 않은 경우) = 간소 컷인
         const ms = lite ? CUTIN.liteMs : cutinMs({ repeat: n > 0, chained, reduced: fxScale() < 1 });
         const end = () => { this.lastCutinEnd = this.scene.time?.now ?? 0; done(); };
         try { playSkillCutin(this.scene, { ...base, ms, lite, onTap: () => this.skip() }, end); } catch (err) { console.error('[fx] cutin', err); end(); }

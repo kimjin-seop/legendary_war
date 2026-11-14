@@ -70,3 +70,9 @@ export function keepW(Cls) {
     Cls.prototype.setPosition = function (x, y, z, w) { const bw = this.w; base.call(this, x, y, z, w); if (bw !== undefined) this.w = bw; return this; };
     return Cls;
 }
+
+// 목록 드래그 스크롤 판정 공유(2026-11-14 모바일 터치 스크롤): ScrollList 가 드래그(8px 초과 이동)로 판정한 포인터는
+// 그 누름(downTime)에 표시를 남긴다 -> 같은 누름의 pointerup 에서 버튼·탭 클릭을 무시. 다음 누름(downTime 갱신)부터는 자동 해제
+export const DRAG_SCROLL_PX = 8;
+export const markScrollDrag = (p) => { if (p) p.lwScrollDragAt = p.downTime; };
+export const scrollDragged = (p) => !!p && p.lwScrollDragAt !== undefined && p.lwScrollDragAt === p.downTime;

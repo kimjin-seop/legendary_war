@@ -16,6 +16,7 @@ import { GachaScene } from './scenes/Gacha.js';
 import { CSS } from './theme.js';
 import { L, computeLayout, watchLayout, startPerfGuard, applyCanvasRendering } from './layout.js';
 import { session } from './api/client.js';
+import { mountPerfOverlay } from './perfOverlay.js';
 
 // 방어: 파괴된 Text(장면 shutdown·모달 닫힘 뒤 비동기 콜백의 setText)는 frame.data 가 null 이라
 // Phaser 내부 Frame.updateUVs 에서 "Cannot read properties of null (reading 'drawImage')" 가 난다 -> 파괴된 Text 갱신은 무시
@@ -55,12 +56,13 @@ export function createGame(parent, { scene, sceneData } = {}) {
     const stopWatch = watchLayout(game, parent);
     const stopPerf = startPerfGuard(game);
     const stopGuard = installInputGuard(game); // 앱 복귀 시 입력 복구 + 모달 잠금 누수 감시(inputGuard.js)
+    const stopPerfOverlay = mountPerfOverlay(game); // ?perf=1 일 때만 측정 오버레이 + window.__perf()(없으면 아무것도 안 함)
     // 401(세션 만료/토큰 무효): 어느 씬이든 타이틀로 보낸다(이미 타이틀/인증 화면이면 유지)
     const offAuth = session.on('unauthenticated', () => {
         const active = game.scene.getScenes(true)[0];
         if (!active || ['Title', 'Auth', 'Boot', 'Preload', 'UiDemo'].includes(active.scene.key)) return;
         active.scene.start('Title', { notice: '세션이 만료되었습니다. 다시 로그인하거나 게스트로 시작해 주세요.' });
     });
-    game.events.once('destroy', () => { stopWatch(); stopPerf(); stopGuard(); offAuth(); });
+    game.events.once('destroy', () => { stopWatch(); stopPerf(); stopGuard(); stopPerfOverlay(); offAuth(); });
     return game;
 }

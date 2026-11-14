@@ -69,7 +69,7 @@ function ensureStyle() {
 .srpg-chat .hd{display:flex;align-items:center;gap:6px;padding:4px 6px 4px 10px;border-bottom:1px solid rgba(201,162,75,.4)}
 .srpg-chat .hd b{flex:1;color:#f0d58c;font-size:13px}
 .srpg-chat .sm{min-height:30px;padding:0 8px;border-radius:6px;background:#141e38;border:1px solid rgba(201,162,75,.6);color:#e8e4d8;font-size:12px}
-.srpg-chat .list{flex:1;overflow-y:auto;padding:6px 8px;display:flex;flex-direction:column;gap:4px;overscroll-behavior:contain}
+.srpg-chat .list{flex:1;overflow-y:auto;padding:6px 8px;display:flex;flex-direction:column;gap:4px;overscroll-behavior:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch}
 .srpg-chat .empty{color:#7f8899;font-size:12px;text-align:center;padding:8px 0}
 .srpg-chat .msg{display:flex;flex-direction:column;max-width:88%;align-self:flex-start}
 .srpg-chat .msg.mine{align-self:flex-end;align-items:flex-end}
@@ -82,7 +82,7 @@ function ensureStyle() {
 .srpg-chat .rbox span{width:100%;font-size:12px;color:#ee8a76}
 .srpg-chat .note{padding:4px 8px;font-size:12px;color:#f0c27a;border-top:1px solid rgba(201,162,75,.25)}
 .srpg-chat .note.err{color:#ee8a76}
-.srpg-chat .quick{display:flex;gap:4px;padding:6px 8px 0;overflow-x:auto;flex-wrap:nowrap}
+.srpg-chat .quick{display:flex;gap:4px;padding:6px 8px 0;overflow-x:auto;flex-wrap:nowrap;touch-action:pan-x;-webkit-overflow-scrolling:touch}
 .srpg-chat .quick.wrap{flex-wrap:wrap;padding-bottom:6px}
 .srpg-chat .quick button{flex:0 0 auto;min-height:32px;padding:0 8px;border-radius:16px;background:#141e38;border:1px solid rgba(201,162,75,.6);color:#e8e4d8;font-size:12px;white-space:nowrap}
 .srpg-chat .in{display:flex;gap:6px;padding:6px 8px;align-items:center}
