@@ -1874,6 +1874,7 @@ export class BattleScene extends Phaser.Scene {
         this.cardState = { visible: !!u, unit: u?.id ?? null, userCursor: !!this.userCursor }; // QA 확인용(__qa.card)
         if (!u || s.status !== 'battle') { this.card.hide(); this.cardUnitId = null; return; }
         if (this.card.x !== slot.x || this.card.y !== slot.y) this.card.setPosition(slot.x, slot.y);
+        this.card.w = slot.w; this.card.h = slot.h; // 압축형 <-> 기본 전환 시 크기(contains·배경 그리기 기준)
         this.card.portMax = pm;
         const leader = u.kind !== 'troop' ? u : (u.leader_id != null ? this.store.get(u.leader_id) : s.units.find((x) => x.side === u.side && x.kind === 'commander' && x.hp > 0)) ?? null;
         const sqSt = s.alternate ? s.alt?.squads?.find((q) => q.unitIds.includes(String(u.id)))?.status : null; // 교대: 부대 상태
@@ -1888,6 +1889,16 @@ export class BattleScene extends Phaser.Scene {
         if (code) { const dp = terrainMod(code, t.move_type).def_pct; stats.push(`${this.terrainLabel(code)} 방어 ${dp >= 0 ? '+' : ''}${dp}%`); }
         const hero = isHeroUnit(u); // 수레·배(non_hero)는 장수 카드(칭호·영웅 초상) 대신 일반 유닛 카드
         const mpTxt = mpTextOf(s, u); // MP 방식 영웅 마력(가로 폰 = 능력치 줄 맨 앞 글자, 그 외 카드 MP 바)
+        if (compact) { // 한 줄: 이름 · 병종 · 병력 · (마력) · 공 · 방 · 이동 · 범위 · (지형 방어, 0%면 생략) / 둘째 줄: 강함·약함(배율 생략, 최대 3종)
+            const tdp0 = code ? terrainMod(code, t.move_type).def_pct : 0;
+            const mo = u.type ? matchupOf(u.type) : { strong: [], threats: [] };
+            const parts = [troopLabel(soldierCount(u)), mpTextOf(s, u, { short: true }), st ? `공 ${st.atBase + st.atBonus}` : '', st ? `방 ${st.dfBase + st.dfBonus}` : '', `이동 ${u.move ?? t.move}`, `범위 ${t.range_min === t.range_max ? t.range_min : `${t.range_min}-${t.range_max}`}`, status, code && tdp0 ? `${this.terrainLabel(code)} 방어 ${tdp0 > 0 ? '+' : ''}${tdp0}%` : ''].filter(Boolean);
+            if (!mo.strong.length && !(mo.threats ?? []).length && this.card.h > 22) { const dy = slot.atTop ? 0 : this.card.h - 22; this.card.h = 22; if (dy) this.card.setPosition(slot.x, slot.y + dy); } // 상성 줄 없음: 한 줄 높이(아래 도킹이면 아래 끝 유지)
+            this.card.show(u, leader, { compact: { name: hero ? heroLabel(u, { compact: true }) : unitDisplayName(u, s.units), shortName: unitDisplayName(u, s.units, { short: true }), cls: unitClassName(u.type), parts, strong: mo.strong.slice(0, 3).map((x) => unitClassName(x.type)), weak: (mo.threats ?? []).slice(0, 3).map((x) => unitClassName(x.type)) } });
+            this.card.bg?.disableInteractive(); // 입력 비소비(이동 칸·대상 탭이 그대로 맵으로)
+            this.cardUnitId = u.id;
+            return;
+        }
         // 이름 중심 + 칭호 부제(영웅). 부대는 '<영웅>의 <부대명>'(넘치면 축약형)
         // 게이지용 수치(공·수 = [기본, 보정], 이동, 사거리 [min,max]) + 지형 한 줄
         const gauges = { at: st ? [st.atBase, st.atBonus] : null, df: st ? [st.dfBase, st.dfBonus] : null, move: u.move ?? t.move, range: [t.range_min, t.range_max] };
@@ -1943,6 +1954,26 @@ export class BattleScene extends Phaser.Scene {
     //  덜 가리는 좌상단(턴 배너·목표 패널 아래)으로 옮겨, 1280 에서 배너 -> 목표 -> 카드가 위쪽에 한 열로 쌓였다(초상은 이미 cardPortMax 가 가리면 줄이거나 생략하는데도).
     //  지금: 기본 = 좌하단 도킹(도구 열·턴 종료와 다른 쪽). 좌상단으로 옮기는 경우 = 카드에 띄우는 초점 유닛(선택/hover) 자체가 좌하단 정보 패널에 가려질 때만
     //  (다른 유닛 가림은 초상 축소·생략으로 처리). 좌상단도 그 유닛을 가리면 좌하단 유지
+    // 모바일 압축 카드 사용 여부: 터치 입력 + (세로 화면 | 가로 폰 L.short | 논리 폭 < 760). 마우스(데스크톱)는 항상 기존 카드
+    cardCompact() { return !!this.touch && !!this.lay && (!!this.lay.portrait || !!L.short || L.lw < 760); }
+
+    // 압축 카드 자리(높이 40 = 능력치 한 줄 + 상성 한 줄): 하단 정보 띠 바로 위 전폭(가로 폰은 '턴 종료' 열 앞까지, 최대 560).
+    //  초점 유닛 칸이 그 띠에 가려지면 상단(칩 줄·안내 배너·목표 패널 아래)으로. 상단도 가리면 하단 유지
+    compactCardSlot(focus = null) {
+        const l = this.lay; const h = 40;
+        const x1 = l.portrait ? l.right : Math.min(l.left + 560, (l.endBtn?.x ?? l.right) - 8);
+        const w = Math.max(200, x1 - l.left);
+        const d = { x: l.left, y: (l.infoY ?? l.bottom - l.infoH) - 6 - h, w, h, portMax: 0 };
+        if (!focus || !this.worldBuilt || !this.tileHits(focus, d)) return d;
+        let ay = l.barH + 8;
+        const B = this.panelB;
+        if (B?.shown && B.x < d.x + d.w && B.x + (B.w ?? 0) > d.x) ay = Math.max(ay, B.y + (B.h ?? l.B.h) + 6);
+        const O = this.subObjBox?.scene && this.subObjBox.visible !== false ? this.subObjRect : null;
+        if (O && O.x < d.x + d.w && O.x + O.w > d.x) ay = Math.max(ay, O.y + O.h + 6);
+        const a = { ...d, y: ay, atTop: true };
+        return this.tileHits(focus, a) ? d : a;
+    }
+
     cardSlot(focus = null) {
         const d = this.lay?.card;
         if (!d || this.lay.portrait || !this.worldBuilt) return d;
@@ -2881,7 +2912,8 @@ export class BattleScene extends Phaser.Scene {
                 onCancel: guard(() => this.store.cancel()),
             });
             this.ui.add(this.bubble);
-        } else if (s.phase === 'target' && touch && !this.drag?.moved) {
+        } else if (s.phase === 'target' && touch && !this.drag?.moved && !this.cardCompact()) {
+            // 2026-11-14 모바일 제보(큰 상성 툴팁이 지도를 덮음): 모바일(cardCompact)은 이 툴팁을 띄우지 않는다. 같은 정보(병력·능력치·강함/약함)는 하단 압축 카드 두 줄로 표시
             // 2026-11-03 사용자 요청: 마우스는 커서 툴팁(updateHoverTip)만 — 선택 유닛 옆 고정 팝업은 터치 대체 동작으로만.
             // 터치: 탭한 유닛 옆(대상을 덜 가리는 쪽)에 잠깐 표시 후 자동 숨김. 입력은 원래 소비하지 않는다
             // 2026-11-14 모바일 제보(툴팁이 이동 경로 지정 방해): 이동 칸 선택(move) 단계에서는 띄우지 않는다(390 폭에서 툴팁이 화면 폭 ~70%라 이동 칸을 덮고,
