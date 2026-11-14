@@ -214,15 +214,19 @@ export class PortraitCard extends Phaser.GameObjects.Container {
         const ic = troopIcon(sc, u.type, 13, 11, 14, { glyph: false });
         const tx = ic ? 23 : 8; const tw = w - tx - 6;
         if (ic) b.add(ic);
+        // parts 항목 = 문자열 또는 { t, keep }(keep = 병력·공·방: 끝까지 남김). 넘치면 이름 축약 -> 병종 생략 -> 뒤의 비필수 항목부터 생략 -> 이름 말줄임(좁은 세로 폰 도킹 약 240)
+        const P = (c.parts ?? []).filter(Boolean).map((x) => (typeof x === 'string' ? { t: x } : x));
         const tries = [[c.name, c.cls, 12], [c.shortName, c.cls, 12], [c.shortName, c.cls, 11], [c.shortName, '', 11]];
-        let t = null; let list = null;
+        let t = null; let head = null;
+        const line = () => [head, ...P.map((x) => x.t)].filter(Boolean).join(' · ');
         for (const [nm, cls, size] of tries) {
             t?.destroy();
-            list = [enemy ? `적 ${nm}` : nm, cls, ...(c.parts ?? [])].filter(Boolean);
-            t = makeText(sc, tx, 11, list.join(' · '), { size, bold: true, color: enemy ? CSS.dangerText : CSS.text, origin: [0, 0.5] });
+            head = [enemy ? `적 ${nm}` : nm, cls].filter(Boolean).join(' · ');
+            t = makeText(sc, tx, 11, line(), { size, bold: true, color: enemy ? CSS.dangerText : CSS.text, origin: [0, 0.5] });
             if (t.width <= tw) break;
         }
-        while (list.length > 2 && t.width > tw) { list.pop(); t.setText(list.join(' · ')); }
+        while (t.width > tw) { let i = -1; for (let k = P.length - 1; k >= 0; k--) if (!P[k].keep) { i = k; break; } if (i < 0) break; P.splice(i, 1); t.setText(line()); }
+        if (t.width > tw && P.length) { const full = head; for (let n = full.length - 1; n >= 2 && t.width > tw; n--) { head = `${full.slice(0, n)}…`; t.setText(line()); } } // 이름 말줄임(병력·공·방 유지)
         b.add(fitText(t, tw));
         if (c.strong?.length || c.weak?.length) {
             let x = tx; const y = 29;

@@ -179,7 +179,10 @@ function battleLayout() {
         // 강화면 gacha95: 도구 줄(5개)이 '턴 종료'를 덮던 문제 -> 세로 폰도 '턴 종료'(오른쪽 아래, 정보 바와 같은 줄) 위에 도구 줄을 독립 줄로
         // 열 폭 통일(위 colW): '턴 종료'를 도구 줄 폭으로 넓히면 같은 줄의 정보 띠 자리가 없어져 정보 띠는 도구 줄 위 전폭 한 줄로 올린다(gacha96·97: 정보 띠가 '턴 종료'를 덮지 않게)
         const colW = Math.min(right - left, toolsRowW); lay.colW = colW;
-        lay.endBtn = { x: right - colW, y: bottom - endH, w: colW, h: endH };
+        // 2026-11-14 사용자 '모바일에서 턴 종료 가로 사이즈를 줄이면': 좁은 세로(턴 종료 왼쪽 줄 < 280)는 '턴 종료'만 폭 128(오른쪽 정렬 유지, 높이 44 = 터치 최소)로 줄여
+        //  같은 줄 왼쪽(약 230~290)에 압축 카드를 도킹(compactCardSlot). 128 = 아이콘 22 + 6 + '턴 종료'(20px 약 66) + 좌우 여백 12 이상. 도구 줄·미니맵은 colW 그대로
+        const endW = (right - left) - colW - 8 < 280 ? Math.min(colW, 128) : colW; lay.endNarrow = endW < colW;
+        lay.endBtn = { x: right - endW, y: bottom - endH, w: endW, h: endH };
         lay.tools = { x: right - colW, y: lay.endBtn.y - 8 - toolsH, w: colW, h: toolsH };
         lay.infoY = lay.tools.y - 8 - infoH;
         lay.infoX = { x0: left, x1: right };
@@ -1274,7 +1277,7 @@ export class BattleScene extends Phaser.Scene {
         // 상단 띠 제거(2026-11-03): 상단은 턴 칩·우상단 버튼 줄(로그 버튼 왼쪽 끝부터)만 HUD. 하단 '턴 종료'·도구 줄·미니맵 포함
         const topBtns = q.y <= l.barH && q.x >= (this.logBtn?.x ?? L.lw) - 4;
         const chip = this.turnChip?.scene ? { x: this.turnChip.x, y: this.turnChip.y, w: this.turnChip.width, h: this.turnChip.height } : null;
-        return topBtns || inR(chip) || inR(this.toolRect ?? l.tools) || inR(this.followRect) || inR(this.foldRect) || inR(l.endBtn) || !!this.minimap?.contains(q.x, q.y) || (this.squadStrip?.visible && inR(this.squadStripRect)) || [this.panelB, this.card, this.guide, this.__briefQ?.cur].some((p) => p?.contains(q.x, q.y));
+        return topBtns || inR(chip) || inR(this.toolRect ?? l.tools) || inR(this.followRect) || inR(this.foldRect) || inR(l.endBtn) || inR(this.thumbCancel?.visible ? this.thumbCancelRect : null) || !!this.minimap?.contains(q.x, q.y) || (this.squadStrip?.visible && inR(this.squadStripRect)) || [this.panelB, this.card, this.guide, this.__briefQ?.cur].some((p) => p?.contains(q.x, q.y));
     }
 
     overPopup(q) { return [this.menuCtx, this.bubble, this.facingPicker].some((o) => o && o.contains(q.x, q.y)); }
@@ -1794,7 +1797,7 @@ export class BattleScene extends Phaser.Scene {
             const nm = unitDisplayName(u, s.units, { short: L.lw < 760 || u.kind !== 'troop' }); // 영웅은 이름 중심(칭호 생략: 칭호는 카드 부제)
             // 세로 좁은 폰(정보 띠가 '턴 종료' 앞까지만, 390 약 210): 병종 생략 + 병력 > 공 > 수 순으로 남긴다(강화면 gacha97: 띠에 이름만 남던 문제)
             // 띠 폭(아래 배치와 같은 규칙)이 좁으면(390 세로·667 가로 약 130): 병종 생략 + 이름은 수치보다 먼저 생략(pri 3, 강화면 gacha108: 667 에서 이름만 남고 병력·공·수가 빠짐)
-            const lb = this.lay; const barW = lb.portrait ? (lb.right - lb.left) : lb.infoX ? (this.card?.visible ? lb.infoX.x1 - lb.infoX.x0 : lb.infoX.x1 - lb.left) : 400; // 가로: 카드가 없으면 띠가 왼쪽 끝부터(아래 배치와 같은 규칙)
+            const lb = this.lay; const barW = lb.portrait ? (lb.right - lb.left) : lb.infoX ? (this.card?.visible ? lb.infoX.x1 - (this.cardDockX1 != null ? this.cardDockX1 + 8 : lb.infoX.x0) : lb.infoX.x1 - lb.left) : 400; // 가로: 카드가 없으면 띠가 왼쪽 끝부터(아래 배치와 같은 규칙)
             const tight = (this.lay.portrait && L.lw < 480) || barW < 300;
             // 생략 순서(InfoBar 는 pri 큰 것부터 뺀다, gacha109): 지형·소속·오라 -> 이름 -> 사거리 -> 이동 -> 마력. 병력·공·수(pri 1)는 끝까지 남긴다
             segs.push({ text: `[${nm}${u.kind === 'troop' || tight ? '' : ` · ${unitClassName(u.type)}`}]`, color: enemy ? CSS.dangerText : CSS.allyText, bold: true, pri: tight ? 4.6 : 0 });
@@ -1826,7 +1829,7 @@ export class BattleScene extends Phaser.Scene {
             const terrOnly = !u && l.infoX && !this.card?.visible; // 지형 정보(유닛 없음): 시안처럼 좌하단(카드 자리)에
             if (terrOnly) { bar.hide(); this.showTerrainPanel(code); return; }
             this.terrPanel?.setVisible(false);
-            const x0 = terrOnly ? l.left : l.infoX ? (this.card?.visible ? l.infoX.x0 : l.left) /* 카드가 없으면 카드 자리까지 써서 병력·공·수가 들어가게(gacha109: 667 약 130 폭) */ : l.left + (this.card?.visible && this.card.y >= l.card.y ? l.card.w + 8 : 0); // 카드가 좌상단으로 비켜 있으면 정보 바는 왼쪽 끝부터
+            const x0 = terrOnly ? l.left : l.infoX ? (this.card?.visible ? (this.cardDockX1 != null ? this.cardDockX1 + 8 /* 압축 카드가 '턴 종료' 왼쪽 띠에 도킹: 카드 오른쪽부터(겹침 없음) */ : l.infoX.x0) : l.left) /* 카드가 없으면 카드 자리까지 써서 병력·공·수가 들어가게(gacha109: 667 약 130 폭) */ : l.left + (this.card?.visible && this.card.y >= l.card.y ? l.card.w + 8 : 0); // 카드가 좌상단으로 비켜 있으면 정보 바는 왼쪽 끝부터
             const x1 = terrOnly ? l.left + l.card.w : l.infoX ? l.infoX.x1 : l.tools.x - 8;
             bar.show(segs, { x: x0, y: l.infoY ?? l.bottom - l.infoH, w: Math.max(120, x1 - x0), h: l.infoH }, 'center'); // '턴 종료' 줄 위
         } else {
@@ -1906,6 +1909,7 @@ export class BattleScene extends Phaser.Scene {
         const hv = this.userCursor ? hov : null;
         const u = this.touch ? (sel || hv) : (hv || sel);
         this.cardState = { visible: !!u, unit: u?.id ?? null, userCursor: !!this.userCursor }; // QA 확인용(__qa.card)
+        this.cardDockX1 = compact && slot?.dock && u && s.status === 'battle' ? slot.x + slot.w : null; // '턴 종료' 왼쪽 띠에 도킹한 압축 카드 오른쪽 끝(정보 띠는 그 오른쪽부터, refreshInfoBar)
         if (!u || s.status !== 'battle') { this.card.hide(); this.cardUnitId = null; return; }
         if (this.card.x !== slot.x || this.card.y !== slot.y) this.card.setPosition(slot.x, slot.y);
         this.card.w = slot.w; this.card.h = slot.h; // 압축형 <-> 기본 전환 시 크기(contains·배경 그리기 기준)
@@ -1926,7 +1930,7 @@ export class BattleScene extends Phaser.Scene {
         if (compact) { // 한 줄: 이름 · 병종 · 병력 · (마력) · 공 · 방 · 이동 · 범위 · (지형 방어, 0%면 생략) / 둘째 줄: 강함·약함(배율 생략, 최대 3종)
             const tdp0 = code ? terrainMod(code, t.move_type).def_pct : 0;
             const mo = u.type ? matchupOf(u.type) : { strong: [], threats: [] };
-            const parts = [troopLabel(soldierCount(u)), mpTextOf(s, u, { short: true }), st ? `공 ${st.atBase + st.atBonus}` : '', st ? `방 ${st.dfBase + st.dfBonus}` : '', `이동 ${u.move ?? t.move}`, `범위 ${t.range_min === t.range_max ? t.range_min : `${t.range_min}-${t.range_max}`}`, status, code && tdp0 ? `${this.terrainLabel(code)} 방어 ${tdp0 > 0 ? '+' : ''}${tdp0}%` : ''].filter(Boolean);
+            const parts = [{ t: troopLabel(soldierCount(u)), keep: true }, mpTextOf(s, u, { short: true }), st ? { t: `공 ${st.atBase + st.atBonus}`, keep: true } : '', st ? { t: `방 ${st.dfBase + st.dfBonus}`, keep: true } : '', `이동 ${u.move ?? t.move}`, `범위 ${t.range_min === t.range_max ? t.range_min : `${t.range_min}-${t.range_max}`}`, status, code && tdp0 ? `${this.terrainLabel(code)} 방어 ${tdp0 > 0 ? '+' : ''}${tdp0}%` : ''].filter(Boolean);
             if (!mo.strong.length && !(mo.threats ?? []).length && this.card.h > 22) { const dy = slot.atTop ? 0 : this.card.h - 22; this.card.h = 22; if (dy) this.card.setPosition(slot.x, slot.y + dy); } // 상성 줄 없음: 한 줄 높이(아래 도킹이면 아래 끝 유지)
             this.card.show(u, leader, { compact: { name: hero ? heroLabel(u, { compact: true }) : unitDisplayName(u, s.units), shortName: unitDisplayName(u, s.units, { short: true }), cls: unitClassName(u.type), parts, strong: mo.strong.slice(0, 3).map((x) => unitClassName(x.type)), weak: (mo.threats ?? []).slice(0, 3).map((x) => unitClassName(x.type)) } });
             this.card.bg?.disableInteractive(); // 입력 비소비(이동 칸·대상 탭이 그대로 맵으로)
@@ -1993,18 +1997,28 @@ export class BattleScene extends Phaser.Scene {
 
     // 압축 카드 자리(높이 40 = 능력치 한 줄 + 상성 한 줄): 하단 정보 띠 바로 위 전폭(가로 폰은 '턴 종료' 열 앞까지, 최대 560).
     //  초점 유닛 칸이 그 띠에 가려지면 상단(칩 줄·안내 배너·목표 패널 아래)으로. 상단도 가리면 하단 유지
+    // 2026-11-14 사용자 '턴 종료 왼쪽에 우겨넣기': 가로 화면이고 '턴 종료' 왼쪽 줄(left ~ endBtn.x - 8)이 400 이상이면 그 줄(턴 종료와 같은 높이 띠, 아래 끝 = bottom)에
+    //  카드(왼쪽, 폭 = min(400, 줄 - 8 - 160)) + 정보 띠(오른쪽, 160 이상)를 나란히 둔다(dock: true -> refreshInfoBar 가 카드 오른쪽부터 정보 띠를 그림).
+    //  844x390(논리 938x433): 줄 650 -> 카드 400 + 띠 242 / 667x375(논리 741x417): 줄 453 -> 카드 285 + 띠 160. 세로 폰(390: 줄 145)·568 가로(줄 343)는 기존 위치
     compactCardSlot(focus = null) {
         const l = this.lay; const h = 40;
-        const x1 = l.portrait ? l.right : Math.min(l.left + 560, (l.endBtn?.x ?? l.right) - 8);
-        const w = Math.max(200, x1 - l.left);
-        const d = { x: l.left, y: (l.infoY ?? l.bottom - l.infoH) - 6 - h, w, h, portMax: 0 };
+        const row = l.endBtn ? l.endBtn.x - 8 - l.left : 0;
+        let d;
+        if (!l.portrait && row >= 400) d = { x: l.left, y: l.bottom - h, w: Math.round(Math.min(400, row - 8 - 160)), h, portMax: 0, dock: true };
+        // 세로 폰(턴 종료 폭 128로 축소, battleLayout): 줄 전체를 카드가 쓴다(정보 띠는 기존 자리 = 도구 줄 위 전폭, 다른 줄이라 겹침 없음). 아래 끝 = bottom(턴 종료 44와 아래 정렬)
+        //  390x844(논리 433): 줄 273 / 360x740(논리 400): 줄 240 / 412x915(논리 458): 줄 298. 넓은 세로(태블릿, 턴 종료 미축소)는 기존 위치
+        else if (l.portrait && l.endNarrow && row >= 220) d = { x: l.left, y: l.bottom - h, w: Math.round(Math.min(400, row)), h, portMax: 0, dock: true };
+        else {
+            const x1 = l.portrait ? l.right : Math.min(l.left + 560, (l.endBtn?.x ?? l.right) - 8);
+            d = { x: l.left, y: (l.infoY ?? l.bottom - l.infoH) - 6 - h, w: Math.max(200, x1 - l.left), h, portMax: 0 };
+        }
         if (!focus || !this.worldBuilt || !this.tileHits(focus, d)) return d;
         let ay = l.barH + 8;
         const B = this.panelB;
         if (B?.shown && B.x < d.x + d.w && B.x + (B.w ?? 0) > d.x) ay = Math.max(ay, B.y + (B.h ?? l.B.h) + 6);
         const O = this.subObjBox?.scene && this.subObjBox.visible !== false ? this.subObjRect : null;
         if (O && O.x < d.x + d.w && O.x + O.w > d.x) ay = Math.max(ay, O.y + O.h + 6);
-        const a = { ...d, y: ay, atTop: true };
+        const a = { ...d, y: ay, atTop: true, dock: false }; // 상단 대체 자리: 정보 띠는 기존 자리(카드와 무관)
         return this.tileHits(focus, a) ? d : a;
     }
 
@@ -2599,6 +2613,11 @@ export class BattleScene extends Phaser.Scene {
             head = fc.skill ? `스킬 예측 · ${fc.skill.name} ${fc.skill.powerPct}%` : '전투 예측'; headFb = fc.skill ? `${fc.skill.name} ${fc.skill.powerPct}%` : undefined; brief = `병력 -${fc.troop?.loss ?? '?'} · ${counterTxt}${fc.tentative ? ' · 참고용(변동 가능)' : ''}`;
             detail = `${brief} · 상성 ${fc.attType && fc.defType ? matchupPair(fc.attType, fc.defType, fc.multiplier) : `x${fc.multiplier}`}${fc.aff > 0 ? '(유리)' : fc.aff < 0 ? '(불리)' : ''} · 지형 방어 +${fc.terrain_def_pct}%${fc.auraAtk || fc.auraDef ? ` · 오라 공격 +${fc.auraAtk ?? 0}% / 적 방어 +${fc.auraDef ?? 0}%` : ''} (참고용, 판정은 서버)`;
         }
+        // 2026-11-14 사용자(가로 폰 캡처) '공격 대상 선택 [취소]가 화면 가운데라 불편': 모바일(터치 + 세로/가로 폰/좁은 폭)의 선택 단계(이동·방향·공격/스킬/소모품 대상)는
+        //  [취소]를 배너에서 빼 오른쪽 아래 엄지 자리(도구 줄·미니맵 위, placeThumbCancel)로 옮기고, 배너는 버튼 없는 작은 한 줄(제목 + 짧은 안내)만. 데스크톱은 기존 그대로
+        const thumb = !!this.touch && !!lay && (lay.portrait || !!L.short || L.lw < 760) && ['move', 'facing', 'target'].includes(s.phase) && btns.includes(cancel);
+        if (thumb) btns.splice(btns.indexOf(cancel), 1);
+        this.placeThumbCancel(thumb ? cancel : null);
         // 숨김: 아군 대기, 또는 알림 끄기인데 눌러야 할 버튼도 없을 때(오류·전투 종료는 끄기여도 제목은 보인다)
         const must = s.status === 'error' || s.status === 'finished';
         const textOn = nl > 0 || must;
@@ -2621,10 +2640,11 @@ export class BattleScene extends Phaser.Scene {
             fitText(ht, textMax, { fallback: headFb }); // 좁으면 '스킬 예측 · ' 접두어를 뺀 짧은 제목으로
             b.add(ht);
             tw = ht.width; th = ht.height;
-            const sub = nl >= 3 ? detail : nl === 2 ? brief : '';
-            if (sub) {
-                const room = textMax - ht.width - 10;
-                if (nl === 2 && room >= 90) { // 보통: 제목 옆 같은 줄
+            const sub = thumb ? (nl >= 2 ? brief : '') : nl >= 3 ? detail : nl === 2 ? brief : ''; // 엄지 취소 모드: 상세여도 짧은 안내 한 줄만(지도 가림 최소)
+            const room0 = textMax - ht.width - 10;
+            if (sub && !(thumb && room0 < 90)) { // 엄지 취소 모드는 같은 줄에 안 들어가면 안내 생략(제목만 한 줄)
+                const room = room0;
+                if ((nl === 2 || thumb) && room >= 90) { // 보통: 제목 옆 같은 줄
                     const st = makeText(this, pad + ht.width + 10, 0, sub, { size: 14, color: CSS.muted });
                     fitText(st, room);
                     b.add(st);
@@ -2637,7 +2657,7 @@ export class BattleScene extends Phaser.Scene {
                     tw = Math.max(tw, st.width); th += 2 + st.height;
                 }
             }
-            if (nl >= 3) extra.forEach((l) => { const t = makeText(this, pad, th + 2, l.text, { size: 12, bold: true, color: l.color, wrap: textMax }); fitText(t, textMax); b.add(t); tw = Math.max(tw, t.width); th += 2 + t.height; });
+            if (nl >= 3 && !thumb) extra.forEach((l) => { const t = makeText(this, pad, th + 2, l.text, { size: 12, bold: true, color: l.color, wrap: textMax }); fitText(t, textMax); b.add(t); tw = Math.max(tw, t.width); th += 2 + t.height; });
         }
         const h = Math.max(btns.length ? bh + 8 : 0, th + 12);
         const w = Math.min(maxW, pad * 2 + tw + (btns.length ? (tw ? 10 : 0) + btnsW : 0));
@@ -2649,6 +2669,27 @@ export class BattleScene extends Phaser.Scene {
         });
         P.resize(w, h);
         P.setPosition(snap(mmL != null ? lay.left : (L.lw - w) / 2), lay.banner.y);
+    }
+
+    // 모바일 선택 단계의 엄지 [취소](refreshAction): 오른쪽 열(right 정렬, 폭 104 x 높이 터치 최소)에서 '턴 종료' 위로 올리며 HUD(도구 줄·미니맵(프레임 포함, 접힘이어도 자리 확보)·
+    //  병사 추종·부대 칩 줄·카드·세로 정보 띠)와 겹치지 않는 가장 낮은 자리. c = null 이면 숨김
+    placeThumbCancel(c) {
+        const old = this.thumbCancel?.scene ? this.thumbCancel : null;
+        if (!c || !this.lay?.endBtn) { old?.setVisible(false); this.thumbCancelRect = null; return; }
+        const l = this.lay; const bh = Math.max(MIN_TOUCH, Math.ceil(MIN_TOUCH / (view.scale || 1))); const w = 104; const x = snap(l.right - w);
+        const R = [l.endBtn, l.tools && { x: l.tools.x, y: l.tools.y - 2, w: l.tools.w, h: l.tools.h + 4 }, this.toolRect, this.followRect];
+        const mr = this.minimap?.scene ? this.minimap.rect() : null; if (mr) R.push({ x: mr.x - 10, y: mr.y - 10, w: mr.w + 20, h: mr.h + 20 });
+        if (this.squadStrip?.visible) R.push(this.squadStripRect);
+        if (this.card?.visible) R.push({ x: this.card.x, y: this.card.y, w: this.card.w, h: this.card.h });
+        if (l.portrait && l.infoY != null) R.push({ x: l.left, y: l.infoY, w: l.right - l.left, h: l.infoH });
+        let y = l.endBtn.y - 8 - bh;
+        for (let k = 0, moved = true; moved && k < 10; k++) { moved = false; for (const r of R) if (r && r.x < x + w && r.x + r.w > x && r.y < y + bh && r.y + r.h > y) { y = r.y - 8 - bh; moved = true; } }
+        y = snap(Math.max(l.barH + 8, y));
+        let b = old;
+        if (!b) { b = new Button(this, { x, y, w, h: bh, label: '취소', size: 16, onClick: () => this.thumbCancelFn?.() }); this.ui.add(b); this.thumbCancel = b; }
+        this.thumbCancelFn = c.onClick;
+        b.setPosition(x, y).setVisible(true);
+        this.thumbCancelRect = { x, y, w, h: bh };
     }
 
     // 상단 알림 칩(배너 아래). 동시에 최대 2개.
