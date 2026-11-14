@@ -83,6 +83,31 @@ function applyDuck() {
         B.cur.setVolume(targetVol(B.curKey));
     } catch { /* 무시 */ }
 }
+// iOS(WebKit) 오디오 잠금 해제 보강.
+// Phaser 기본 unlock 은 body 의 touchstart 에서도 context.resume() 을 부르는데, WebKit 은 touchstart 를 사용자 제스처로 인정하지 않아
+// resume() 을 NotAllowedError 로 reject 하고, Phaser 는 reject 시 touchend 등 모든 리스너까지 제거한다 -> sound.locked 가 영구 true(BGM·효과음 전부 무음).
+// 여기서는 사용자 활성화로 인정되는 이벤트(touchend/pointerup/click/keydown/mousedown)마다 suspended/interrupted 컨텍스트를 resume 하고,
+// 구형 iOS 대비 1샘플 무음 버퍼를 재생, running 이 되면 Phaser 의 unlocked 플래그를 세워 'unlocked' 이벤트(hookUnlock)가 정상 발생하게 한다.
+// 리스너는 유지(통화·Siri 등으로 'interrupted' 된 뒤 다음 터치에서 복구). 데스크톱은 이미 running 이라 아무것도 하지 않는다.
+const UNLOCK_EVENTS = ['touchend', 'pointerup', 'click', 'keydown', 'mousedown'];
+function installGestureUnlock(sm) {
+    if (typeof window === 'undefined' || !sm?.context || sm.__gestureUnlock) return;
+    sm.__gestureUnlock = true;
+    const kick = () => {
+        const ctx = sm.context;
+        if (!ctx || ctx.state === 'closed') return;
+        const markUnlocked = () => { if (ctx.state === 'running' && sm.locked) sm.unlocked = true; }; // Phaser update() 가 locked=false + 'unlocked' emit
+        if (ctx.state === 'running') { markUnlocked(); return; }
+        try {
+            const src = ctx.createBufferSource();
+            src.buffer = ctx.createBuffer(1, 1, 22050);
+            src.connect(ctx.destination);
+            src.start(0);
+        } catch { /* 무시 */ }
+        try { const p = ctx.resume(); if (p?.then) p.then(markUnlocked, () => { /* 제스처 아님: 다음 입력에서 재시도 */ }); else markUnlocked(); } catch { /* 무시 */ }
+    };
+    UNLOCK_EVENTS.forEach((ev) => window.addEventListener(ev, kick, { capture: true, passive: true }));
+}
 settings.subscribe(() => { try { if (alive(B.cur) && B.cur.isPlaying) { cancelFade(B.cur); B.cur.setVolume(targetVol(B.curKey)); } } catch { /* 무시 */ } });
 
 export const audio = {
@@ -98,7 +123,7 @@ export const audio = {
     // 전투 씬 진입 시 fx/BattleVoice.voicePreload 가 지연 로드, 재생도 BattleVoice 전용(audio.play 핸들러 없음)
     voiceCatalog: new Map(),
     // BGM: assets.js(finishAssets)가 initBgm 으로 사운드 매니저·캐시·트랙 목록(audio manifest 의 bgm 슬롯)을 넘긴다.
-    initBgm({ sm, cache, catalog }) { B.sm = sm; B.cache = cache; B.catalog = catalog ?? new Map(); },
+    initBgm({ sm, cache, catalog }) { B.sm = sm; B.cache = cache; B.catalog = catalog ?? new Map(); installGestureUnlock(sm); },
     // key 트랙으로 전환. 같은 트랙이면 이어서 재생, 다른 트랙이면 크로스페이드. scene 을 주면 미로드 트랙을 그 씬 로더로 지연 로드.
     bgm(key, scene = null) {
         try {
