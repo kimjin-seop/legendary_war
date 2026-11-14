@@ -133,15 +133,18 @@ export class BattleCutscene {
         });
     }
 
-    constructor(scene, parent, { attacker, defender, result = {}, counter = false, flank = null, onTap = null, terrain = 'plain', terrainAtk = null, distance = 1, skill = null, hit = null, micro = null }) {
+    constructor(scene, parent, { attacker, defender, result = {}, counter = false, flank = null, onTap = null, terrain = 'plain', terrainAtk = null, distance = 1, skill = null, hit = null, micro = null, lite = false }) {
         this.scene = scene;
+        // 경량(lite, 2026-11-14 모바일 '켜면 간소 재생'): 시간 x0.45(와이프아웃 포함, 약 1.0~1.2초 @1배속) + '풀' 전용 효과(플래시·충격파·흔들림·줌·히트스톱) 생략 + 파티클 1/3
+        //  + 속도선·상성 리본 이미지·원본 초상 로드·초상 페이드 캔버스 생성·미시 교전 생략(썸네일 초상만). 데스크톱(lite=false)은 기존 그대로
+        this.lite = !!lite;
         this.counterCut = !!counter; // 이 컷 자체가 반격(왼쪽 = 반격하는 쪽)
         this.hit = hit; // {crit, affinity, counterCrit, counterAffinity}: 충돌 시 한 줄 강조(없으면 표시 없음)
         this.skill = skill; // 액티브 스킬 교전({name, powerPct, template}): 이름 배너 + 시전자 오라 + 충돌 강화 임팩트(fx/SkillFx). null 이면 기존과 동일
         this.mutual = !!result.mutual; // 반격이 있는 교전: 양쪽이 동시에 돌격·피해
         // 후면 공격 시 방어측이 등을 보이던 처리(up 행) 제거(사용자 2026-11-04 '배후공격도 똑같이 상대를 보게'): 스프라이트·배 방향은 항상 서로 마주 봄. '배후!' 표기·흔들림·보너스 표시는 this.flank 로 그대로
         this.flankIn = null;
-        this.k = fxScale() < 1 ? 0.65 : 1; // 축약: 더 짧게, 먼지 생략
+        this.k = this.lite ? 0.45 : fxScale() < 1 ? 0.65 : 1; // 축약: 더 짧게, 먼지 생략(경량은 더 짧게)
         this.distance = distance; // 화살 아치 높이 보정용
         this.short = this.k < 1;
         this.W = L.lw;
@@ -198,7 +201,7 @@ export class BattleCutscene {
         // 병사 미시 교전(서버 micro_mode shadow/on 의 attack.micro): 형식이 맞으면 무대 병사 군집을 개체 단위 재생으로 교체(패널·초상·배경은 그대로).
         //  액티브 스킬 교전(서버 미시 제외)·배 탑승(개체 배 연출 미구현) 은 기존 연출. micro 가 없으면(off) 아무것도 바뀌지 않는다
         this.micro = null;
-        if (micro && !skill && !this.shipOn.some(Boolean) && microPlayable(micro)) buildMicro(this, micro, [attacker, defender]);
+        if (micro && !this.lite && !skill && !this.shipOn.some(Boolean) && microPlayable(micro)) buildMicro(this, micro, [attacker, defender]);
         if (this.micro?.tl) this.sfx.voice.noCounter = !!this.micro.tl.noCounter; // 미시 교전: 서버 결과의 반격 없음 판정 우선
     }
 
@@ -1027,13 +1030,13 @@ export class BattleCutscene {
         this.stage.addAt(layer, this.stage.getIndex(g) + 1);
         const under = (o, ref) => { if (this.destroyed || !ref.scene) { o.destroy(); return; } this.stage.addAt(o, this.stage.getIndex(ref)); }; // ref 바로 아래(병사 뒤)
         const rnd = (a, b) => a + Math.random() * (b - a);
-        this.cutFx('fx.cut_speedlines', (key) => {
+        if (!this.lite) this.cutFx('fx.cut_speedlines', (key) => { // 경량: 속도선(반투명 대형 이미지 2장 = 화면 절반 이상 겹쳐 그리기) 생략
             if (this.destroyed || !g.scene) return;
             g.clear();
             [0, 1].forEach((i) => under(sc.add.image(i ? W : 0, SH * 0.46, key).setOrigin(i ? 1 : 0, 0.5).setFlipX(!!i).setDisplaySize(W * (compact ? 0.55 : 0.42), SH * 0.92).setAlpha(0.9), g));
         });
         // 속도선: 양 끝에서 안쪽으로 뻗는 흰 쐐기(가늘고 긴 삼각형)
-        [0, 1].forEach((i) => {
+        if (!this.lite) [0, 1].forEach((i) => {
             const ex = i === 0 ? 0 : W; const d = i === 0 ? 1 : -1;
             const n = compact ? 9 : 14;
             for (let j = 0; j < n; j += 1) {
@@ -1043,7 +1046,8 @@ export class BattleCutscene {
         });
         this.cutImgs = []; this.cutRank = [];
         [0, 1].forEach((i) => {
-            const keys = this.cut[i] ?? [];
+            const keys0 = this.cut[i] ?? [];
+            const keys = this.lite && keys0.some((k) => /\.thumb$/.test(k)) ? keys0.filter((k) => /\.thumb$/.test(k)) : keys0; // 경량: 썸네일만(원본 대형 초상 지연 로드·GPU 업로드 생략)
             const isLeft = i === 0; const d = isLeft ? 1 : -1;
             // 크기: 직전의 1.5배(사용자 2026-11-04 '50% 늘려봐'). 데스크톱·가로 폰 = 화면 높이 54%(무대 81% 상한), 세로 폰 = 화면 폭 37.5% 기준(무대 37.5% 상한)
             const ph = Math.round(compact ? Math.min(SH * 0.375, (W * 0.375) / 0.75) : Math.min(H * 0.54, SH * 0.81));
@@ -1059,7 +1063,7 @@ export class BattleCutscene {
                 const r = rankOf(key0); if (this.cutRank[i] != null && this.cutRank[i] <= r) return; // 이미 더 좋은(또는 같은) 초상이 있으면 무시(늦은 썸네일이 원본을 덮지 않게)
                 const swap = !!this.cutImgs[i]?.scene && this.cutRank[i] != null; this.cutRank[i] = r;
                 if (this.cutImgs[i]?.scene) this.cutImgs[i].destroy(); // 실루엣·썸네일 -> 실제/원본 초상으로 교체
-                const key = compact ? fadeBottom(sc, key0, 0.3) : key0; // 세로 폰은 패널 뒤로 숨지 않으므로 아래 30% 페이드
+                const key = compact && !this.lite ? fadeBottom(sc, key0, 0.3) : key0; // 경량: 캔버스 텍스처 생성 생략 // 세로 폰은 패널 뒤로 숨지 않으므로 아래 30% 페이드
                 const img = sc.add.image(cx, by, key).setOrigin(0.5, 1).setFlipX(!isLeft);
                 img.setScale(Math.min(pw / Math.max(1, img.frame.realWidth), ph / Math.max(1, img.frame.realHeight)));
                 layer.add(img); this.cutImgs[i] = img;
@@ -1116,7 +1120,7 @@ export class BattleCutscene {
         g.fillStyle(0xffffff, 0.08).fillRect(-rw / 2 + rh, -rh / 2 + 3, rw - rh * 2, 2); // 붓결 하이라이트
         c.add([g, ...ts]);
         // 안아트 리본(ui.cut_ribbon 1024x247, 가운데 70% 폭 일정 -> 가로 늘림): 있으면 코드 띠 대신
-        this.cutFx('ui.cut_ribbon', (key) => { if (this.destroyed || !c.scene) return; g.clear(); c.addAt(sc.add.image(0, 2, key).setDisplaySize(rw + fs * 2.4, rh * 1.9), 0); });
+        if (!this.lite) this.cutFx('ui.cut_ribbon', (key) => { if (this.destroyed || !c.scene) return; g.clear(); c.addAt(sc.add.image(0, 2, key).setDisplaySize(rw + fs * 2.4, rh * 1.9), 0); });
         const base = Math.min(1, (W - 16) / Math.max(1, rw + 18));
         this.root.add(c);
         if (isInstant()) c.setScale(base); else { c.setScale(base * 1.25).setAlpha(0); tween(sc, { targets: c, to: { scale: base, alpha: 1 }, duration: 200, ease: 'Back.easeOut' }); }
@@ -1541,7 +1545,7 @@ export class BattleCutscene {
         const curtain = this.curtain;
         const wipeOut = () => {
             curtain.setPosition(0, -this.H).setVisible(true);
-            tween(sc, { targets: curtain, to: { y: 0 }, duration: T.out, ease: 'Quad.easeIn', onComplete: end });
+            tween(sc, { targets: curtain, to: { y: 0 }, duration: this.lite ? T.out * k : T.out, ease: 'Quad.easeIn', onComplete: end }); // 경량만 와이프아웃도 축소(데스크톱 불변)
         };
         // 원위치 복귀 후 결과 유지 -> 와이프아웃 -> 맵 복귀
         const hold = () => wait(sc, (CUT_STYLE === 'ref' ? T.refHoldEnd : T.hold) * k, wipeOut); // 참고 구성: 마지막 정지 1060 -> 520ms(강화면 gacha84: 끝 1~1.5초 정지, 목표 근접 약 2.5초·원거리 3초)

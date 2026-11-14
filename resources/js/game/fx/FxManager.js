@@ -273,6 +273,7 @@ export class FxManager {
                 // 적·NPC·상대(플레이어가 직접 조작하지 않는 유닛)의 공격: 이동 연출(앞 큐 항목) 뒤 커서가 대상 칸을 지정(d.aim, 약 0.28초)한 다음 컷신. 반격 단독 이벤트·플레이어 조작 공격은 기존대로 바로 컷신
                 const playerOwned = au.team === 'ally' && !au.npc_ally;
                 const play = () => BattleCutscene.play(this.scene, this.d.cut ?? this.d.ui, {
+                    lite: this.mobileLite(), // 모바일에서 사용자가 켠 경우만 경량(데스크톱 false = 기존 그대로)
                     onTap: () => { if (settings.get().cutTapSkip !== false) this.skip(); }, // 컷신이 입력을 막으므로(HUD 차단) 탭 스킵은 여기서(설정 '켜짐'이면 탭해도 끝까지)
                     attacker: spec(au, a, true),
                     defender: spec(tu, t, false),
@@ -617,7 +618,11 @@ export class FxManager {
 
     // 2026-11-14 사용자 '모바일에서는 전투 컷씬 빼자': 모바일(Battle.cardCompact = 터치 + 세로/가로 폰/좁은 폭)은
     //  교전 컷신(BattleCutscene) -> 월드 공격 모션, 스킬 컷인(SkillCutin) -> 생략(done 즉시). 데스크톱은 기존 그대로
-    mobileNoCut() { try { return !!this.scene?.cardCompact?.(); } catch { return false; } }
+    //  2026-11-14 후속('모바일에서 컷씬을 살리고 싶은데 느리다'): 기본은 계속 끔. 사용자가 설정 '교전 컷신'을 직접 켜면(settings.cutscene === true, 미설정은 끔으로 본다)
+    //  모바일은 경량 재생(mobileLite: 교전 컷신 lite = 시간 x0.45·무거운 효과 생략, 스킬 컷인 lite = 0.7초 간소 컷인)
+    mobileCompact() { try { return !!this.scene?.cardCompact?.(); } catch { return false; } }
+    mobileNoCut() { return this.mobileCompact() && settings.get().cutscene !== true; }
+    mobileLite() { return this.mobileCompact() && settings.get().cutscene === true; }
 
     // 컷인 초상 주인: 영웅·지휘관 = 본인, 부대 = 소속 지휘관(attack 컷신의 leaderOf 와 같은 규칙), 수레·배(non_hero) = 없음(병종 엠블럼)
     cutinOwner(u) {
@@ -649,7 +654,7 @@ export class FxManager {
         const now = this.scene.time?.now ?? 0;
         const chained = this.lastCutinEnd != null && now - this.lastCutinEnd < CUTIN.chainGapMs;
         const st = settings.get();
-        const lite = st.quality >= 2 || st.quality > (settings.userQuality?.() ?? st.quality);
+        const lite = this.mobileLite() || st.quality >= 2 || st.quality > (settings.userQuality?.() ?? st.quality); // 모바일(사용자가 켠 경우) = 간소 컷인
         const ms = lite ? CUTIN.liteMs : cutinMs({ repeat: n > 0, chained, reduced: fxScale() < 1 });
         const end = () => { this.lastCutinEnd = this.scene.time?.now ?? 0; done(); };
         try { playSkillCutin(this.scene, { ...base, ms, lite, onTap: () => this.skip() }, end); } catch (err) { console.error('[fx] cutin', err); end(); }

@@ -61,7 +61,10 @@ export function openSettings(scene, onClose) {
         } else if (p === 1) {
             // 교전 컷신: 연출 '풀'에서만 재생(축약·끄기에서는 월드 공격 모션)
             // 2026-11-04: 탭 넘기기 옵션 통합(켜짐·탭 넘김 = 기본 / 켜짐 = 탭해도 끝까지 / 끄기 = 컷신 없이 맵 위 공격 모션·데미지 숫자)
-            row(0, '교전 컷신', [{ key: 2, label: '켜짐·탭 넘김' }, { key: 1, label: '켜짐' }, { key: 0, label: '끄기' }], s.cutscene === false ? 0 : s.cutTapSkip === false ? 1 : 2, (k) => settings.set({ cutscene: k !== 0, cutTapSkip: k !== 1 }));
+            // 2026-11-14: 모바일(Battle.cardCompact 와 같은 조건 = 터치 + 세로/가로 폰/좁은 폭)은 미설정이면 실제로 꺼져 있으므로(FxManager.mobileNoCut) '끄기'로 표시.
+            //  터치 판정: 전투 씬은 scene.touch(맵 탭 기준), 그 외/맵 탭 전은 설정을 연 포인터의 wasTouch
+            const mob = (!!scene.touch || !!scene.input?.activePointer?.wasTouch) && (!!L.portrait || !!L.short || L.lw < 760);
+            row(0, '교전 컷신', [{ key: 2, label: '켜짐·탭 넘김' }, { key: 1, label: '켜짐' }, { key: 0, label: '끄기' }], s.cutscene === false || (mob && s.cutscene !== true) ? 0 : s.cutTapSkip === false ? 1 : 2, (k) => settings.set({ cutscene: k !== 0, cutTapSkip: k !== 1 }));
             row(1, '대기 시 방향', [{ key: 1, label: '선택' }, { key: 0, label: '자동' }], s.waitFacing === false ? 0 : 1, (k) => settings.set({ waitFacing: k === 1 }));
             // 전투 알림 표시 방식: 상단 안내 배너 문구 양·알림 토스트·로그 빨간 점(전체 로그는 상단 '로그' 버튼으로 항상 볼 수 있음)
             row(2, '전투 알림', [{ key: 1, label: '최소' }, { key: 2, label: '보통' }, { key: 3, label: '상세' }, { key: 0, label: '끄기' }], s.notify ?? 1, (k) => settings.set({ notify: k }));
