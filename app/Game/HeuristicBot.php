@@ -359,7 +359,8 @@ final class HeuristicBot
         $ctx = $this->threatContext($work, $u);
         foreach ($tiles as $key => $_) {
             [$x, $y] = array_map('intval', explode(',', $key));
-            $unsafe = $ctx !== null && $this->threatAhead($ctx, $u, $x, $y) && $ctx['risk']($x, $y) >= $ctx['limit'];
+            // aggressive(적 b 비지휘관·비치유·HP 충분)는 approach 와 같은 기준으로 위협 회피를 면제한다(공격만 버리고 같은 칸으로 걸어 들어가 이동만 하던 문제 방지)
+            $unsafe = ! $this->aggressive($work, $u) && $ctx !== null && $this->threatAhead($ctx, $u, $x, $y) && $ctx['risk']($x, $y) >= $ctx['limit'];
             foreach ($e->targetsFrom($work, $u, $x, $y) as $tid) {
                 if ($unsafe && $e->damage($work, $u, $x, $y, $work['units'][$tid]) < $work['units'][$tid]['hp']) {
                     continue;   // avoid_threat: 전열 밖 위험 칸에서의 비처치 공격은 하지 않음

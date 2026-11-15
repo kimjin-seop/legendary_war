@@ -283,6 +283,7 @@ class ChatService
                 'hidden_from_side' => $other && $other->chat_muted ? $other->side : null, 'created_at' => now(),
             ]);
             $this->prune((int) $room->id);
+            \App\Support\RoomRealtime::chat($code, (int) $id);   // 웹소켓 ping(커밋 후): 수신 측이 messages?after_id 재조회
 
             return ['message' => $this->view(DB::table('room_messages')->where('id', $id)->first(), $me, $this->name($user))];
         });

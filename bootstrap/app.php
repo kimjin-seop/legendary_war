@@ -15,6 +15,8 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    // 웹소켓 채널 인증: POST /api/broadcasting/auth. game.actor = 회원(세션 쿠키)·게스트(X-Guest-Token) 공통 행위자 식별
+    ->withBroadcasting(__DIR__.'/../routes/channels.php', ['prefix' => 'api', 'middleware' => ['api', 'game.actor']])
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->statefulApi();   // Sanctum SPA 쿠키 인증 (같은 도메인)
         // 프록시 신뢰: 기본은 신뢰 안 함(X-Forwarded-* 무시 -> 리미터 IP 위조 방지). 배포 토폴로지 확정 후

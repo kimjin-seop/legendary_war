@@ -6,6 +6,13 @@ use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 abstract class TestCase extends BaseTestCase
 {
+    /** compose env_file(.env.reverb)의 BROADCAST_CONNECTION=reverb 가 테스트로 새면 실제 Reverb 로 전송을 시도하므로 항상 null 로 시작(웹소켓 테스트만 명시적으로 reverb 설정) */
+    protected function setUp(): void
+    {
+        parent::setUp();
+        config(['broadcasting.default' => 'null']);
+    }
+
     /** 시작 영웅이 C급 무작위로 바뀌었으므로(2026-11-14), 역사 시나리오(ch1) 필수 영웅 이순신·곽재우가 필요한 테스트용: 해당 유저의 보유/편성을 이순신(1)·곽재우(2)로 교체 */
     protected function givePartyHeroes(int $uid, array $codes = ['yi_sun_sin', 'gwak_jae_u']): void
     {

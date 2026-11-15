@@ -50,7 +50,7 @@ export class Button extends Phaser.GameObjects.Container {
             this.pressed = false;
             this.setState(this.disabled ? 'disabled' : this.hovered ? 'hover' : this.selected ? 'selected' : 'normal');
             if (scrollDragged(p)) return; // 목록 드래그 스크롤로 판정된 누름(ScrollList, 8px 초과)은 클릭 아님
-            if (this.disabled) { if (this.reason && this.usableScene()) { if (this.tipHost) showReasonTip(this.tipHost, this, this.reason, this.tipHost.tipOpts); else showToast(this.scene, this.reason); } return; }
+            if (this.disabled) { if (this.reason && this.usableScene()) { if (this.tipHost) showReasonTip(this.tipHost, this, this.reason, this.tipHost.tipOpts); else showToast(this.scene, this.reason, { kind: 'warn' }); } return; }
             if (!this.usable()) return;
             sfx(this.skin === 'danger' ? 'sfx_ui_cancel' : this.skin === 'primary' ? 'sfx_ui_confirm' : 'sfx_ui_tap');
             this.onClick?.();

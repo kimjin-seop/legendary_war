@@ -772,7 +772,7 @@ export class DeployScene extends Phaser.Scene {
         this.list.refreshMask();
         const ci = this.costInfo();
         const cost = ci.total;
-        this.meter.setValue(Math.min(cost, info.max_cost), false);
+        this.meter.setValue(cost, false); // 초과값 그대로(숫자 '7/6' + 위험색). 다이아·게이지 그림은 CostMeter/StatBar 가 상한에서 자름
         const units = this.placements.length + (this.squad ? this.placements.reduce((s, p) => s + (this.troops.get(p.user_hero_id)?.length ?? 0), 0) : 0);
         // 방 대전: 맵 크기별 고정 출전 수(서버 required_party = min(party_size, 보유 영웅)). 필드 없으면(구 응답·스테이지) 기존 슬롯 상한 표기
         const req = this.mode === 'room' && Number(info.required_party) > 0 ? Number(info.required_party) : 0;

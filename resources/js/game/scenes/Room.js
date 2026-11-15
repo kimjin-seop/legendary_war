@@ -11,6 +11,7 @@ import { messageOf } from '../api/errors.js';
 import { audio } from '../audio.js';
 import { mountRoomChat, markRoomChatUnavailable } from '../ui/RoomChat.js';
 import { sizePartyText } from '../ui/MapPicker.js';
+import { watchRealtime, WS_SAFETY_POLL_MS } from '../api/realtime.js';
 
 // 맵 code -> 이름(세션 캐시). 서버 room.map_name 미제공 대비: 모드별 /api/maps 목록을 1회 조회해 채운다(실패 시 code 표시 유지)
 const mapNames = new Map();
@@ -73,7 +74,13 @@ export class RoomScene extends Phaser.Scene {
         this.alive = true;
         this.onVis = () => this.schedule(0);
         document.addEventListener('visibilitychange', this.onVis);
-        this.events.once('shutdown', () => { this.alive = false; clearTimeout(this.timer); this.abort?.abort(); document.removeEventListener('visibilitychange', this.onVis); });
+        // 웹소켓 푸시(room.changed) -> 즉시 재조회. 구독 중엔 폴링을 안전망 간격으로 늘리고, 끊기면 즉시 기존 주기로 복귀(폴링은 제거하지 않음)
+        this.rt = watchRealtime(`room.${this.code}`, {
+            events: { '.room.changed': () => this.kick() },
+            onLive: () => this.kick(),
+            onDown: () => this.kick(),
+        });
+        this.events.once('shutdown', () => { this.alive = false; clearTimeout(this.timer); this.abort?.abort(); this.rt?.leave(); document.removeEventListener('visibilitychange', this.onVis); });
         if (this.state) this.render();
         this.schedule(0);
     }
@@ -84,8 +91,14 @@ export class RoomScene extends Phaser.Scene {
         this.timer = setTimeout(() => this.poll(), ms);
     }
 
+    // 푸시·연결 상태 변화로 즉시 재조회(진행 중이면 끝난 뒤 한 번 더)
+    kick() { clearTimeout(this.timer); this.poll(); }
+
+    pollDelay() { return this.rt?.live() ? WS_SAFETY_POLL_MS : (document.hidden ? 4000 : 1500); }
+
     async poll() {
-        if (!this.alive || this.polling) return;
+        if (!this.alive) return;
+        if (this.polling) { this.again = true; return; }
         this.polling = true;
         try {
             this.abort = new AbortController();
@@ -97,7 +110,9 @@ export class RoomScene extends Phaser.Scene {
             this.errT.setText('');
             if (this.transition(st)) return;
             this.render();
-            this.schedule(document.hidden ? 4000 : 1500);
+            const next = this.again ? 0 : this.pollDelay();
+            this.again = false;
+            this.schedule(next);
         } catch (e) {
             if (!this.alive || e.code === 'aborted') return;
             if (e.status === 404 || e.status === 401) { this.scene.start('Lobby', { tab: 'room', notice: messageOf(e) }); return; }

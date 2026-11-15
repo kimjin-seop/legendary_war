@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Support\FacingFlag;
+use App\Support\RoomRealtime;
 
 use App\Game\ArmyBuilder;
 use App\Game\Engine;
@@ -183,6 +184,8 @@ class RoomService
             }
             DB::table('room_players')->insert(['room_id' => $room->id, 'user_id' => $user->id, 'side' => 'b', 'ready' => false, 'last_seen_at' => now(), 'created_at' => now(), 'updated_at' => now()]);
 
+            RoomRealtime::room($code);
+
             return $room;
         });
     }
@@ -197,6 +200,7 @@ class RoomService
                 } else {
                     DB::table('room_players')->where('id', $me->id)->delete();
                 }
+                RoomRealtime::room($code);
 
                 return;
             }
@@ -204,6 +208,7 @@ class RoomService
                 $b = $this->battleOf($room);
                 if ($b && $b->status !== 'finished') {
                     $this->forfeit($room, $b, $me->side, 'left');   // 진행 중 나가기 = 기권
+                    RoomRealtime::room($code);
                 }
             }
         });
@@ -217,6 +222,7 @@ class RoomService
                 throw new IllegalAction('room_not_waiting', '대기 중인 방이 아닙니다.', 409);
             }
             DB::table('room_players')->where('id', $me->id)->update(['ready' => $ready, 'last_seen_at' => now(), 'updated_at' => now()]);
+            RoomRealtime::room($code);
         });
     }
 
@@ -251,6 +257,7 @@ class RoomService
             ]);
             DB::table('rooms')->where('id', $room->id)->update(['status' => 'deployment', 'battle_id' => $b->id, 'updated_at' => now()]);
             DB::table('room_players')->where('room_id', $room->id)->update(['confirmed' => false, 'deployment' => null, 'missed_turns' => 0, 'last_seen_at' => now()]);
+            RoomRealtime::room($code);
 
             return DB::table('rooms')->where('id', $room->id)->first();
         });
@@ -321,6 +328,7 @@ class RoomService
             }
             $this->battles->validatePlacementList($user, $b->state, (int) $b->map_id, $me->side, json_decode($me->deployment, true), null, true);
             DB::table('room_players')->where('id', $me->id)->update(['confirmed' => true, 'last_seen_at' => now(), 'updated_at' => now()]);
+            RoomRealtime::room($code);   // 확정 상태(상대 확정 여부) 변화 + 전투 시작 모두 알림
             if (DB::table('room_players')->where('room_id', $room->id)->where('confirmed', false)->exists()) {
                 return;
             }
@@ -440,6 +448,7 @@ class RoomService
 
             return [$room, Engine::redactEvents($all, $me->side), false, false];
         });
+        RoomRealtime::room($code);   // 행동·자동 종료(tick)·기권 결과 알림(트랜잭션 커밋 후라 즉시 전송)
         if ($closed) {
             throw new IllegalAction('battle_finished', '이미 종료된 전투입니다.', 409);
         }
@@ -569,6 +578,37 @@ class RoomService
         return false;
     }
 
+    /**
+     * 스케줄러용 서버 tick: 폴링 요청과 무관하게 진행 중 PvP 방의 턴 마감 자동 종료·시간 초과/90초 끊김 기권을 처리한다.
+     * (웹소켓 연결 시 클라이언트 폴링이 느려져도 판정이 지연되지 않게 한다. poll() 의 지연 tick 은 그대로 둔다.)
+     *
+     * @return int tick 을 실행한 방 수
+     */
+    public function tickAll(): int
+    {
+        $n = 0;
+        foreach (DB::table('rooms')->where('mode', 'pvp')->where('status', 'in_progress')->whereNotNull('battle_id')->get() as $room) {
+            $b = $this->battleOf($room);
+            if (! $b || $b->status !== 'in_progress' || ! $this->tickNeeded($room, $b)) {
+                continue;
+            }
+            try {
+                DB::transaction(function () use ($room) {
+                    $r = DB::table('rooms')->where('id', $room->id)->first();
+                    $this->tick($r, $this->battleOf($r));
+                });
+                $n++;
+                RoomRealtime::room($room->code);
+            } catch (IllegalAction $e) {   // 동시 요청이 먼저 상태를 바꿈 -> 다음 주기에 재평가
+                if ($e->reason !== 'version_conflict') {
+                    throw $e;
+                }
+            }
+        }
+
+        return $n;
+    }
+
     /** 폴링: 서버 계산 남은 시간, 마지막 seq, 상대 접속 상태, after_seq 이후 이벤트 증분 (평시 읽기 전용, 접속 갱신은 throttle) */
     public function poll(User $user, string $code, int $afterSeq): array
     {
@@ -588,10 +628,11 @@ class RoomService
                     throw $e;
                 }
             }
+            RoomRealtime::room($code);   // tick 이 상태를 바꿨을 수 있음(상대 클라이언트에 알림)
             $room = DB::table('rooms')->where('id', $room->id)->first();
             $b = $this->battleOf($room);
         }
-        $players = DB::table('room_players')->join('users', 'users.id', '=', 'room_players.user_id')->where('room_id', $room->id)
+        $players =DB::table('room_players')->join('users', 'users.id', '=', 'room_players.user_id')->where('room_id', $room->id)
             ->orderBy('side')->get(['room_players.*', 'users.name'])
             ->map(function ($p) use ($user) {
                 $since = $p->last_seen_at ? max(0, (int) \Illuminate\Support\Carbon::parse($p->last_seen_at)->diffInSeconds(now(), false)) : null;

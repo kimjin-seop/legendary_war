@@ -8,7 +8,7 @@ import { Modal } from '../ui/Modal.js';
 import { openSettings } from '../ui/SettingsModal.js';
 import { openInstallGuide, installButtonLabel } from '../ui/InstallModal.js';
 import { showToast } from '../ui/Toast.js';
-import { makeText, addBackdrop, fitText, scrollDragged } from '../ui/common.js';
+import { makeText, addBackdrop, fitText, shrinkToFit, scrollDragged } from '../ui/common.js';
 import { slice, icon, skinOn, setSliceSize, skinImage, skinIcon, skinHas } from '../ui/skin.js';
 import { DomInput, bindInputsToModal } from '../ui/DomInput.js';
 import { raritySlotKey, rarityBadge, rarityCss, rarityLabel, compareRarity, rarityColor, RARITY_STARS, normRarity } from '../rarity.js';
@@ -32,6 +32,7 @@ import { heroLabel, heroPlainName, heroShortName, gachaLabel } from '../systems/
 import { skillDisplayName } from '../systems/skills.js';
 import { withJosa } from '../systems/josa.js';
 import { createTabSkeleton, createTabLoadingBadge } from '../ui/TabLoading.js';
+import { createLoadingView } from '../ui/LoadingView.js';
 import { ensurePortrait } from '../ui/PortraitCard.js';
 import { rarityMark, pixelLabel, pixelImage } from '../ui/PixelBadge.js';
 import { isInstant } from '../ui/motion.js';
@@ -144,11 +145,14 @@ export class LobbyScene extends Phaser.Scene {
         this.modalCount = 0;
         this.warUnread = 0; // 씬 인스턴스 재사용: 이전 진입의 읽지 않음 수를 새 탭 바에 잠깐 그리지 않게
         this.inputs = [];
+        this.sortieBusy = false; // 출정 대기(pickStage go) 잠금: 씬 재사용 시 초기화
         this.resumeBusy = false; // 이어하기 연속 클릭 잠금: 씬 재사용 시 이전 진입의 잠금(전환으로 해제 타이머가 안 돈 값) 초기화(War.js 와 같은 방식)
         this.goldCap = null; this.brandLogo = null; this.softTimer = null; this.skel = []; // 씬 재생성 시 이전 인스턴스의 파괴된 UI 참조 제거(재진입 정지 방지)
         syncView();
         setupCamera(this, CSS.bg);
-        relayoutOnChange(this, () => ({ tab: this.tab }));
+        // 화면 재구성(회전·창 크기·성능 가드 품질 변경)으로 씬이 재시작돼도 아직 실행 전인 자동 출정(결과 '다음 스테이지' sortieStageId·autoSortie)을 잃지 않게 함께 넘긴다
+        //  (2026-11-15 '다음 스테이지 누르면 멈춤': 로비 진입 직후 품질 하향 -> {tab} 만으로 재시작 -> 출정 없이 로비에 머묾)
+        relayoutOnChange(this, () => ({ tab: this.tab, ...(this.sortieStageId != null ? { sortieStageId: this.sortieStageId } : {}), ...(this.autoSortie ? { autoSortie: true } : {}) }));
         addBackdrop(this, L.lw, L.lh);
         // 이미지 스킨 배경(bgscreen_lobby, 글자 없음): 화면을 덮도록 cover 배치 + 남색 반투명 덮개(가독성)
         if (this.textures.exists('bgscreen_lobby')) {
@@ -732,8 +736,8 @@ export class LobbyScene extends Phaser.Scene {
                     // 렌더 중 예외는 try/catch 로 못 잡으므로 생성 직후 Container 자식 배열이 정상인지 확인(예약 속성 덮어쓰기 방지)
                     if (!Array.isArray(view.list)) throw new Error('StageMapView.list 가 배열이 아님(Container 예약 속성 충돌)');
                     this.done();
-                    if (this.sortieStageId != null) { const sid = this.sortieStageId; this.sortieStageId = null; const sN = stages.find((x) => Number(x.id) === Number(sid)); if (sN && sN.unlocked !== false) this.time.delayedCall(300, () => { if (this.sys.isActive()) this.pickStage(sN, { direct: true }); }); } // 결과 화면 '다음 스테이지'(하플레이 2026-11-04)
-                    if (this.autoSortie) { this.autoSortie = false; const s0 = stages.find((x) => x.id === model.recStageId); if (s0) this.time.delayedCall(this.noticeMs ? this.noticeMs + 300 : 400, () => { if (this.sys.isActive()) this.pickStage(s0, { direct: true }); }); } // 새 튜토리얼: 프롤로그 직후 추천 첫 스테이지로 바로 출정
+                    if (this.sortieStageId != null) { const sid = this.sortieStageId; const sN = stages.find((x) => Number(x.id) === Number(sid)); if (sN && sN.unlocked !== false) this.time.delayedCall(300, () => { if (!this.sys.isActive() || this.sortieStageId == null) return; this.sortieStageId = null; this.pickStage(sN, { direct: true }); }); else this.sortieStageId = null; } // 결과 화면 '다음 스테이지'(하플레이 2026-11-04)
+                    if (this.autoSortie) { const s0 = stages.find((x) => x.id === model.recStageId); if (s0) this.time.delayedCall(this.noticeMs ? this.noticeMs + 300 : 400, () => { if (!this.sys.isActive() || !this.autoSortie) return; this.autoSortie = false; this.pickStage(s0, { direct: true }); }); else this.autoSortie = false; } // 새 튜토리얼: 프롤로그 직후 추천 첫 스테이지로 바로 출정
                     p.add(view);
                     return;
                 } catch (e) {
@@ -781,10 +785,10 @@ export class LobbyScene extends Phaser.Scene {
 
     // 메인 스토리 탭의 자동 출정(튜토리얼 이동 후): 결과 화면 '다음 스테이지'(sortieStageId)·새 튜토리얼 프롤로그 직후(autoSortie) = 역사 시나리오 지도(tabStage)와 같은 동작
     mainTabSortie(stages, noRec) {
-        if (this.sortieStageId != null) { const sid = this.sortieStageId; const sN = stages.find((x) => Number(x.id) === Number(sid)); if (sN) { this.sortieStageId = null; if (sN.unlocked !== false) this.time.delayedCall(300, () => { if (this.sys.isActive()) this.pickStage(sN, { direct: true }); }); } }
+        if (this.sortieStageId != null) { const sid = this.sortieStageId; const sN = stages.find((x) => Number(x.id) === Number(sid)); if (sN) { if (sN.unlocked !== false) this.time.delayedCall(300, () => { if (!this.sys.isActive() || this.sortieStageId == null) return; this.sortieStageId = null; this.pickStage(sN, { direct: true }); }); else this.sortieStageId = null; } } // 소비(null)는 실제 출정 직전: 그 전에 씬이 재시작되면 relayout 데이터로 이어짐
         if (this.autoSortie) {
             const s0 = noRec ? null : stages.find((s) => stagePlayable(s) && !(s.clear_count > 0)); // stageCards 추천과 같은 규칙
-            if (s0) { this.autoSortie = false; this.time.delayedCall(this.noticeMs ? this.noticeMs + 300 : 400, () => { if (this.sys.isActive()) this.pickStage(s0, { direct: true }); }); }
+            if (s0) this.time.delayedCall(this.noticeMs ? this.noticeMs + 300 : 400, () => { if (!this.sys.isActive() || !this.autoSortie) return; this.autoSortie = false; this.pickStage(s0, { direct: true }); });
         }
     }
 
@@ -908,46 +912,56 @@ export class LobbyScene extends Phaser.Scene {
             s.join_hero?.length && !(s.clear_count > 0) ? `첫 클리어 합류: ${s.join_hero.map(heroNameOf).join(', ')}` : '',
         ].filter(Boolean).join('\n') + '\n' : '';
         const body = `권장 Lv.${s.recommended_level} · 보상 골드 ${s.rewards.gold}${warn}\n${info}\n출정하면 배치 화면으로 이동합니다.`;
+        // 출정 대기 표시(2026-11-15 '다음 스테이지 누르면 멈춤'): 진행 중 전투 조회 + 도전(POST challenge, 서버 부하 시 15~20초)은 화면 변화 없이 기다려
+        //  멈춘 것처럼 보였다 -> 0.3초 넘게 걸리면 입력 차단 덮개 + '출정 준비 중…', 끝나면(모달·오류·씬 이동) 해제. 대기 중 중복 출정 무시
         const go = async () => {
-            // 중간 저장: 같은 스테이지에 열린 전투가 있으면 이어하기/새로 시작 선택, 열린 전투가 상한(max_open)이면 가장 오래된 전투 자동 포기 경고
-            const act = await this.activeBattles();
-            if (!this.sys.isActive()) return;
-            const same = act.battles.find((b) => Number(b.stage_id) === Number(s.id));
-            if (same && !opts.fresh) {
-                new Modal(this, { title: '진행 중인 전투', body: `'${s.name}' 전투가 진행 중입니다(${same.status === 'deployment' ? '배치 중' : `${same.turn}턴`}).
-새로 시작하면 이전 전투는 포기(패배) 처리됩니다.`, w: 520, h: 240,
-                    buttons: [{ label: '취소' }, { label: '새로 시작', variant: 'danger', onClick: async () => { try { await gameApi.battle.abandon(same.battle_id); } catch (e) { if (e?.status !== 404 && e?.status !== 409) { alertModal(this, '포기 실패', messageOf(e)); return; } } this.pickStage(s, { ...opts, direct: true, fresh: true }); } }, { label: '이어하기', variant: 'primary', onClick: () => this.resumeBattle(same) }] });
-                return;
-            }
-            if (!opts.capOk && act.battles.length >= act.maxOpen) {
-                const old = act.battles[act.battles.length - 1]; // 최근 갱신순 -> 마지막이 가장 오래됨
-                // 상한 1(기본): 진행 중 전투 1개 기준 문구 + 이어하기. 상한이 2 이상이면 기존 '가장 오래된 전투' 문구
-                const oldSt = old ? (old.status === 'deployment' ? '배치 중' : `${old.turn ?? 1}턴`) : '';
-                const body = act.maxOpen <= 1
-                    ? `진행 중인 '${old?.stage_name ?? '전투'}' 전투가 있습니다(${oldSt}).
-새로 시작하면 기존 전투는 포기(패배) 처리됩니다.`
-                    : `진행 중인 전투가 ${act.battles.length}개입니다(최대 ${act.maxOpen}개).
-새로 도전하면 가장 오래된 '${old?.stage_name ?? '전투'}' 전투가 자동으로 포기 처리됩니다.`;
-                new Modal(this, { title: act.maxOpen <= 1 ? '진행 중인 전투' : '열린 전투 상한', body, w: 540, h: 240,
-                    buttons: [{ label: '취소' }, { label: act.maxOpen <= 1 ? '새로 시작' : '그래도 도전', variant: 'danger', onClick: () => this.pickStage(s, { ...opts, direct: true, fresh: true, capOk: true }) },
-                        ...(act.maxOpen <= 1 && old ? [{ label: '이어하기', variant: 'primary', onClick: () => this.resumeBattle(old) }] : [])] });
-                return;
-            }
-            try {
-                const r = await gameApi.challenge(s.id);
-                const deploy = { scene: 'Deploy', data: { mode: 'stage', battleId: r.battle.battle_id, info: r.deployment, stageName: s.name, stageCode: s.code } };
-                // 캠페인: 미시청 장 시작(ch1_open)·스테이지 전(<code>_pre) 대사를 재생한 뒤 배치 화면으로
-                if (camp || /^stage_\d+$/.test(s.code ?? '')) await playBeforeStage(this, s, deploy); else this.scene.start(deploy.scene, deploy.data); // 일반 스테이지 stage_NN 도 개전 전 대사(ch30, stage_01 은 장면 없음 -> 바로 배치)
-            } catch (e) {
-                if (e?.code === 'required_hero_missing') { this.heroMissingModal(missingHeroesOf(e.details ?? {})); return; } // 원시 서버 문구 대신 영웅 이름 안내
-                alertModal(this, '도전 실패', messageOf(e));
-            }
+            if (this.sortieBusy) return;
+            this.sortieBusy = true;
+            const wait = createLoadingView(this, { tagline: '출정 준비 중…', overlay: true, indeterminate: true, delay: 300 });
+            try { await this.sortieGo(s, opts, camp); } catch (e) { console.error('[sortie] 출정 실패', e); if (this.sys.isActive()) showToast(this, `출정하지 못했습니다. ${messageOf(e)}`, { kind: 'warn' }); } finally { this.sortieBusy = false; wait.destroy(); }
         };
         if (opts.direct) { go(); return; }
         // 소탕(2026-11-04, docs/SHOP_EXCHANGE_SPEC.md §2): 직접 3성 클리어한 스테이지만 확인창에 '소탕' 버튼(전투 없이 보상만, 일일 한도 공유)
         const sweepBtn = (Number(s.best_stars) || 0) >= 3 ? [{ label: '소탕', onClick: () => this.time.delayedCall(0, () => this.openSweep(s)) }] : [];
         if (!camp && !sweepBtn.length) { confirmModal(this, s.name, body, go, { okLabel: '출정' }); return; }
         new Modal(this, { title: s.name, body, w: 520, h: Math.min(L.lh - 24, 200 + body.split('\n').length * 24), buttons: [{ label: '취소' }, ...sweepBtn, { label: '출정', variant: 'primary', onClick: go }] });
+    }
+
+    // pickStage 출정 본체(진행 중 전투 확인 -> 도전 -> 개전 전 대사 -> 배치). 반환 = 끝(모달 표시·오류 안내·씬 이동 시작)
+    async sortieGo(s, opts, camp) {
+        // 중간 저장: 같은 스테이지에 열린 전투가 있으면 이어하기/새로 시작 선택, 열린 전투가 상한(max_open)이면 가장 오래된 전투 자동 포기 경고
+        const act = await this.activeBattles();
+        if (!this.sys.isActive()) return;
+        const same = act.battles.find((b) => Number(b.stage_id) === Number(s.id));
+        if (same && !opts.fresh) {
+            new Modal(this, { title: '진행 중인 전투', body: `'${s.name}' 전투가 진행 중입니다(${same.status === 'deployment' ? '배치 중' : `${same.turn}턴`}).
+새로 시작하면 이전 전투는 포기(패배) 처리됩니다.`, w: 520, h: 240,
+                buttons: [{ label: '취소' }, { label: '새로 시작', variant: 'danger', onClick: async () => { try { await gameApi.battle.abandon(same.battle_id); } catch (e) { if (e?.status !== 404 && e?.status !== 409) { alertModal(this, '포기 실패', messageOf(e)); return; } } this.pickStage(s, { ...opts, direct: true, fresh: true }); } }, { label: '이어하기', variant: 'primary', onClick: () => this.resumeBattle(same) }] });
+            return;
+        }
+        if (!opts.capOk && act.battles.length >= act.maxOpen) {
+            const old = act.battles[act.battles.length - 1]; // 최근 갱신순 -> 마지막이 가장 오래됨
+            // 상한 1(기본): 진행 중 전투 1개 기준 문구 + 이어하기. 상한이 2 이상이면 기존 '가장 오래된 전투' 문구
+            const oldSt = old ? (old.status === 'deployment' ? '배치 중' : `${old.turn ?? 1}턴`) : '';
+            const body = act.maxOpen <= 1
+                ? `진행 중인 '${old?.stage_name ?? '전투'}' 전투가 있습니다(${oldSt}).
+새로 시작하면 기존 전투는 포기(패배) 처리됩니다.`
+                : `진행 중인 전투가 ${act.battles.length}개입니다(최대 ${act.maxOpen}개).
+새로 도전하면 가장 오래된 '${old?.stage_name ?? '전투'}' 전투가 자동으로 포기 처리됩니다.`;
+            new Modal(this, { title: act.maxOpen <= 1 ? '진행 중인 전투' : '열린 전투 상한', body, w: 540, h: 240,
+                buttons: [{ label: '취소' }, { label: act.maxOpen <= 1 ? '새로 시작' : '그래도 도전', variant: 'danger', onClick: () => this.pickStage(s, { ...opts, direct: true, fresh: true, capOk: true }) },
+                    ...(act.maxOpen <= 1 && old ? [{ label: '이어하기', variant: 'primary', onClick: () => this.resumeBattle(old) }] : [])] });
+            return;
+        }
+        try {
+            const r = await gameApi.challenge(s.id);
+            const deploy = { scene: 'Deploy', data: { mode: 'stage', battleId: r.battle.battle_id, info: r.deployment, stageName: s.name, stageCode: s.code } };
+            // 캠페인: 미시청 장 시작(ch1_open)·스테이지 전(<code>_pre) 대사를 재생한 뒤 배치 화면으로
+            if (camp || /^stage_\d+$/.test(s.code ?? '')) await playBeforeStage(this, s, deploy); else this.scene.start(deploy.scene, deploy.data); // 일반 스테이지 stage_NN 도 개전 전 대사(ch30, stage_01 은 장면 없음 -> 바로 배치)
+        } catch (e) {
+            if (e?.code === 'required_hero_missing') { this.heroMissingModal(missingHeroesOf(e.details ?? {})); return; } // 원시 서버 문구 대신 영웅 이름 안내
+            showToast(this, `도전 실패: ${messageOf(e)}`, { kind: 'error', ms: 3500 }); // 서버 오류·거부 사유는 토스트(사용자 규칙 2026-11-15, 이전 alertModal)
+        }
     }
 
     // 공지·점검(2026-11-04, GET /api/announcements·/api/maintenance): 로비 첫 진입 때 1회.
@@ -1095,7 +1109,7 @@ export class LobbyScene extends Phaser.Scene {
             for (let i = 0; i < max; i += 1) {
                 const id = ids[i]; const h = id != null ? byId.get(id) : null;
                 if (h) {
-                    const card = rowTop ? this.heroRowCard(h, i * (sw + 8), sy, sw, sh, true) : this.heroCard(h, i * (sw + 8), sy, sw, sh, null, true, false, { stats: true });
+                    const card = rowTop ? this.heroRowCard(h, i * (sw + 8), sy, sw, sh, true, false) : this.heroCard(h, i * (sw + 8), sy, sw, sh, null, true, false, { stats: true });
                     this.pressCard(card, sw, sh, () => { ids = ids.filter((x) => x !== id); sync(); }, () => this.heroDetail(h));
                     card.portrait?.load();
                     top.add(card);
@@ -1155,7 +1169,8 @@ export class LobbyScene extends Phaser.Scene {
     }
 
     // 가로 폰(L.short) 편성 탭 가로형 카드(2026-11-15): 좌 = 정사각 초상(등급 표식·병종 뱃지 겹침), 우 = Lv(+편성됨 칩) / 이름 / 공·방 3줄. 높이 64 기준
-    heroRowCard(hh, x, y, w, h, selected = false) {
+    // chip: '편성됨' 칩 표시(기본 = selected). 위쪽 편성 슬롯은 전부 편성 영웅이라 칩 생략 -> Lv 줄 폭 확보(844x390 'Lv...' 잘림, 강화면 2026-11-15)
+    heroRowCard(hh, x, y, w, h, selected = false, chip = selected) {
         const c = this.add.container(x, y); c.clipH = h;
         c.add(slice(this, `${raritySlotKey(hh.rarity)}`, w, h, 'slot'));
         if (selected) c.add(this.add.rectangle(4, 4, w - 8, h - 8, COLOR.accentLight, 0.18).setOrigin(0));
@@ -1171,14 +1186,14 @@ export class LobbyScene extends Phaser.Scene {
             tb.setPosition(6 + ps - 2 - tb.w * ts, 6 + ps - 2 - tb.h * ts);
             c.add(tb);
         }
-        const tx = 6 + ps + 8; const tw = Math.max(20, w - tx - 8);
-        const chipW = selected ? 44 : 0;
-        c.add(fitText(makeText(this, tx, 14, heroLevelText(hh, { short: true }), { size: 12, bold: true, color: CSS.accent, origin: [0, 0.5] }), tw - (chipW ? chipW + 4 : 0)));
-        if (selected) {
+        const tx = 6 + ps + 6; const tw = Math.max(20, w - tx - 6);
+        const chipW = chip ? 44 : 0;
+        c.add(fitText(shrinkToFit(makeText(this, tx, 14, heroLevelText(hh, { short: true }), { size: 12, bold: true, color: CSS.accent, origin: [0, 0.5] }), tw - (chipW ? chipW + 4 : 0), 10), tw - (chipW ? chipW + 4 : 0)));
+        if (chip) {
             c.add(this.add.rectangle(w - 8 - chipW / 2, 14, chipW, 16, COLOR.accent, 0.95).setStrokeStyle(1, COLOR.ink, 1));
             c.add(makeText(this, w - 8 - chipW / 2, 14, '편성됨', { size: 11, bold: true, color: '#0B1020', origin: [0.5, 0.5] }));
         }
-        c.add(fitText(makeText(this, tx, h / 2, heroPlainName(hh), { size: 14, bold: true, origin: [0, 0.5] }), tw, { fallback: heroShortName(hh) }));
+        c.add(fitText(shrinkToFit(makeText(this, tx, h / 2, heroPlainName(hh), { size: 14, bold: true, origin: [0, 0.5] }), tw, 12), tw, { fallback: heroShortName(hh) }));
         const sl = heroStatLine(this, heroStatsNow(hh), tx, h - 14, tw, { size: 12, align: 'left' }); if (sl) c.add(sl);
         return c;
     }
@@ -1242,12 +1257,15 @@ export class LobbyScene extends Phaser.Scene {
     rarityTag(rarity, x, y, textStyle) { return heroRarityTag(this, rarity, x, y, textStyle); } // ui/HeroDetailView 공용
 
     // Lv 표식(pix.level + 숫자, 가운데 정렬 cx, cy). 아틀라스 없으면 텍스트. 영웅 코스트는 2026-11-08 사용자 요청으로 영웅 정보 화면에서 제거(편성 화면에서만 표시)
-    lvTag(hh, cx, cy, size) {
+    // maxW: 좁은 카드(390 편성 슬롯)에서 'Lv.N/M' 이 카드 테두리에 닿지 않게 폭 상한(넘치면 축소)
+    lvTag(hh, cx, cy, size, maxW = 0) {
         const lv = pixelLabel(this, 'pix.level', heroLevelText(hh, { short: true }), makeText, { size: size + 2, textStyle: { color: CSS.accent } });
-        if (!lv) return makeText(this, cx, cy, heroLevelText(hh, { short: true }), { size, color: CSS.accent, origin: [0.5, 0.5] });
+        if (!lv) return shrinkToFit(makeText(this, cx, cy, heroLevelText(hh, { short: true }), { size, color: CSS.accent, origin: [0.5, 0.5] }), maxW || Infinity, 9);
         const c = this.add.container(0, 0);
         const lw = lv.w; // Phaser 4 Container.setPosition 이 .w 를 0 으로 덮어써 먼저 보관
-        lv.setPosition(cx - lw / 2, cy);
+        const s = maxW > 0 && lw > maxW ? maxW / lw : 1;
+        if (s < 1) lv.setScale(s);
+        lv.setPosition(cx - (lw * s) / 2, cy);
         c.add(lv);
         return c;
     }
@@ -1277,7 +1295,7 @@ export class LobbyScene extends Phaser.Scene {
             let ny = ph + 6;
             if (sub) { c.add(fitText(makeText(this, w / 2, ny + 8, sub, { size: 12, color: CSS.muted, origin: [0.5, 0.5] }), w - 12)); ny += 12; }
             c.add(fitText(makeText(this, w / 2, ny + 14, heroPlainName(hh), { size: w < 130 ? 13 : 15, bold: true, origin: [0.5, 0.5] }), w - 10, { fallback: heroShortName(hh) }));
-            c.add(this.lvTag(hh, w / 2, ny + 30, 12));
+            c.add(this.lvTag(hh, w / 2, ny + 30, 12, w - 14));
             if (statH) { const sl = heroStatLine(this, stv, w / 2, ny + 46, w - 10, { size: w < 110 ? 11 : 12 }); if (sl) c.add(sl); }
         } else {
             c.add(this.rarityTag(hh.rarity, 10, 12, { size: 12, heading: true, color: rarityCss(hh.rarity) }));

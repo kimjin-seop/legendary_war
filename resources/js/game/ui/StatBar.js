@@ -34,10 +34,13 @@ export class StatBar extends Phaser.GameObjects.Container {
     set displayHeight(v) { /* 고정 */ }
 
     render(v) {
-        const fw = Math.max(0, (this.trackW - this.fillX * 2) * (v / this.max));
+        if (!this.scene || !this.fill?.scene) return; // 파괴 뒤 남은 트윈(결과창 EXP 연출 중 버튼으로 창을 닫음): NineSlice.preDestroy 가 vertices=[] -> setSize 에서 'resize' TypeError
+        const fw = Math.max(0, (this.trackW - this.fillX * 2) * Math.min(1, v / this.max)); // 상한 초과 시 채움은 트랙 안에서 멈추고 수치만 초과 표기
         this.fill.setVisible(fw >= 4);
         if (fw >= 4) setSliceSize(this.fill, fw, this.fillH);
         this.txt.setText(this.outside ? `${Math.round(v)}/${this.max}` : `${this.labelText} ${Math.round(v)}/${this.max}`);
+        this.txtColor ??= this.txt.style.color;
+        this.txt.setColor(v > this.max ? CSS.dangerText : this.txtColor);
     }
 
     setValue(v, animate = true) {

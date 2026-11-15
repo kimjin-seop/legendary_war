@@ -4,6 +4,10 @@ name: laravel-app
 services:
   app:
     build: .
+    # 웹소켓(Reverb) 키·시크릿: .env 는 건드리지 않는 규칙(AGENTS.md)이라 gitignore 된 .env.reverb 로 주입(없으면 broadcast 비활성=기존 동작)
+    env_file:
+      - path: .env.reverb
+        required: false
     ports:
       - "8000:8000"
     volumes:
@@ -33,6 +37,9 @@ services:
     build: .
     profiles: ["scheduler"]
     restart: unless-stopped
+    env_file:
+      - path: .env.reverb
+        required: false
     volumes:
       - .:/var/www/html
       - vendor:/var/www/html/vendor
@@ -45,6 +52,49 @@ services:
       APP_DEBUG: "true"
       DEV_SQLITE_PATH: /var/www/dbdata/database.sqlite
     command: php artisan schedule:work
+
+  # 웹소켓 서버(Laravel Reverb, 개발 한정). 호스트에는 127.0.0.1:8081 만 노출(브라우저 ws://localhost:8081). 기동: docker compose up -d reverb queue
+  # 로그: docker compose logs -f reverb   /   중지: docker compose stop reverb queue
+  reverb:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - path: .env.reverb
+        required: false
+    ports:
+      - "127.0.0.1:8081:8080"   # 호스트 8080 은 samnet-reverb 가 사용 중이라 8081 로 노출(컨테이너 내부·서버->reverb 는 8080)
+    volumes:
+      - .:/var/www/html
+      - vendor:/var/www/html/vendor
+      - fw_cache:/var/www/html/storage/framework/cache
+      - fw_sessions:/var/www/html/storage/framework/sessions
+      - app_logs:/var/www/html/storage/logs
+      - dbdata:/var/www/dbdata
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      DEV_SQLITE_PATH: /var/www/dbdata/database.sqlite
+    command: php artisan reverb:start --host=0.0.0.0 --port=8080
+
+  # 큐 워커(database 드라이버). 브로드캐스트 푸시는 요청 경로에서 즉시 전송(ShouldBroadcastNow)이라 필수는 아니며, 이후 지연 합치기 잡용.
+  queue:
+    build: .
+    restart: unless-stopped
+    env_file:
+      - path: .env.reverb
+        required: false
+    volumes:
+      - .:/var/www/html
+      - vendor:/var/www/html/vendor
+      - fw_cache:/var/www/html/storage/framework/cache
+      - fw_sessions:/var/www/html/storage/framework/sessions
+      - app_logs:/var/www/html/storage/logs
+      - dbdata:/var/www/dbdata
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      DEV_SQLITE_PATH: /var/www/dbdata/database.sqlite
+    command: php artisan queue:work database --sleep=1 --tries=1 --timeout=60
 
   vite:
     profiles: ["dev"]  # 일상은 build 산출물로 서빙, HMR 필요 시: docker compose --profile dev up -d vite

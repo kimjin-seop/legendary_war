@@ -238,6 +238,7 @@ export function slice(scene, key, w, h, kind, opts = {}) {
     return ns;
 }
 export function setSliceSize(ns, w, h) {
+    if (!ns?.scene) return; // 파괴된 NineSlice(vertices=[])에 크기 설정 금지
     if (!ns.skinAtlas) { ns.setSize(w * S, h * S); return; }
     ns.skinW = w; ns.skinH = h;
     if (is3h(ns.frame)) fit3h(ns); else { const k = unitPxOf(ns.skinAtlasKey ?? SKIN_ATLAS) || 3; ns.setSize(w * k, h * k); }

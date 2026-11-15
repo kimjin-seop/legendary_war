@@ -1,5 +1,6 @@
 import { view, FONT_FAMILY } from '../theme.js';
 import { gameApi } from '../api/gameApi.js';
+import { watchRealtime, WS_SAFETY_POLL_MS } from '../api/realtime.js';
 
 // 방 채팅 패널(pvp 상대 채팅). 대기실(Room)·방 배치(Deploy)·방 전투(Battle) 공용 DOM 오버레이 컴포넌트.
 // 사용: mountRoomChat(scene, { roomCode, anchor: () => ({right|left, top|bottom}: 화면 가장자리에서의 설계 단위 거리), startOpen })
@@ -247,8 +248,16 @@ export class RoomChat {
         this.root.style.display = 'flex';
         this.setOpen(this.open);
         this.renderAll();
+        // 웹소켓 푸시(chat.message) -> 즉시 재조회. 연결 중엔 폴링을 안전망 간격으로 늘리고 끊기면 즉시 기존 주기 복귀
+        this.rt ??= watchRealtime(`room.${this.code}.chat`, {
+            events: { '.chat.message': () => this.kick() },
+            onLive: () => this.kick(),
+            onDown: () => this.kick(),
+        });
         this.schedule(0);
     }
+
+    kick() { clearTimeout(this.timer); this.poll(); }
 
     buildQuick() {
         const st = this.c.settings;
@@ -278,10 +287,11 @@ export class RoomChat {
         this.timer = setTimeout(() => this.poll(), ms);
     }
 
-    nextDelay() { return this.open && !document.hidden ? POLL_OPEN_MS : POLL_IDLE_MS; }
+    nextDelay() { return this.rt?.live() ? WS_SAFETY_POLL_MS : (this.open && !document.hidden ? POLL_OPEN_MS : POLL_IDLE_MS); }
 
     async poll() {
-        if (!this.alive || this.polling) return;
+        if (!this.alive || this.c.gone || !this.c.settings) return;
+        if (this.polling) { this.again = true; return; }
         this.polling = true;
         let next = null;
         try {
@@ -297,7 +307,8 @@ export class RoomChat {
             if ('restricted_until' in d) this.restrictUntil = d.restricted_until ?? null;
             if (this.c.settings) this.c.settings.muted = !!d.muted;
             this.renderAll((d.messages ?? []).length > 0);
-            next = d.has_more ? 0 : this.nextDelay();
+            next = d.has_more || this.again ? 0 : this.nextDelay();
+            this.again = false;
         } catch (e) {
             if (!this.alive || e.code === 'aborted') return;
             if (GONE.has(e.code) || e.status === 403 || e.status === 404 || e.status === 409 || e.status === 410) {
@@ -520,6 +531,7 @@ export class RoomChat {
         this.alive = false;
         clearTimeout(this.timer);
         clearTimeout(this.flashTimer);
+        this.rt?.leave();
         clearInterval(this.throttleTick);
         clearInterval(this.modalSync);
         this.abort?.abort();

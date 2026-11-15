@@ -3701,7 +3701,7 @@ export class BattleScene extends Phaser.Scene {
         });
         if (this.resultCards?.length) delay = 2100;
         bars.forEach(({ bar, to }) => {
-            this.time.delayedCall(delay, () => { audio.play('exp'); const proxy = { v: bar.value }; tween(this, { targets: proxy, to: { v: to }, duration: FX.result.expMs, onUpdate: () => bar.render(proxy.v), onComplete: () => { bar.value = to; bar.render(to); } }); });
+            this.time.delayedCall(delay, () => { if (!bar.scene) return; audio.play('exp'); const proxy = { v: bar.value }; tween(this, { targets: proxy, to: { v: to }, duration: FX.result.expMs, onUpdate: () => bar.render(proxy.v), onComplete: () => { bar.value = to; bar.render(to); } }); });
             delay += FX.result.rowGapMs + FX.result.expMs * 0.6;
         });
         let ci = 0;

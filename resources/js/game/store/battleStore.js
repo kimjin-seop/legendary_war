@@ -11,6 +11,7 @@ import { battleApi, errorText } from '../api/battleApi.js';
 import { gameApi } from '../api/gameApi.js';
 import { elementHitText } from '../systems/elements.js';
 import { errorTag } from '../api/errors.js';
+import { watchRealtime, WS_SAFETY_POLL_MS } from '../api/realtime.js';
 import { SIDE_TEAM, terrainMod, unitType, applyServerRules } from '../data/rules.js';
 import { axisDir, flankOf, setFlankMult } from '../systems/facing.js';
 import { altFromView, altReduce, altSelectCheck, squadKeyOf } from '../systems/alternate.js';
@@ -49,6 +50,8 @@ export function createBattleStore() {
     let pollTimer = 0;
     let expireTimer = 0; // 턴 마감 만료 후 재조회 타이머(onTurnExpired)
     let polling = false;
+    let pollAgain = false; // 푸시가 폴링 중에 도착하면 끝난 뒤 한 번 더 조회
+    let rt = null; // 웹소켓 구독(pvp 방 전투). 연결 중엔 폴링 간격 확대, 끊기면 즉시 기존 주기 복귀
     let itemsLoading = false;
     let stopped = false;
     const alive = () => s.units.filter((u) => u.hp > 0);
@@ -408,10 +411,12 @@ export function createBattleStore() {
     function schedulePoll(ms) {
         if (stopped || s.mode !== 'room' || s.status === 'finished') return;
         clearTimeout(pollTimer);
-        pollTimer = setTimeout(pollOnce, ms ?? (typeof document !== 'undefined' && document.hidden ? 4000 : 1500));
+        pollTimer = setTimeout(pollOnce, ms ?? (rt?.live() ? WS_SAFETY_POLL_MS : (typeof document !== 'undefined' && document.hidden ? 4000 : 1500)));
     }
+    function kickPoll() { if (stopped || s.mode !== 'room' || s.status === 'finished') return; clearTimeout(pollTimer); pollOnce(); }
     async function pollOnce() {
-        if (stopped || polling || s.status === 'finished') return;
+        if (stopped || s.status === 'finished') return;
+        if (polling) { pollAgain = true; return; }
         if (s.busy) { schedulePoll(500); return; }
         polling = true;
         try {
@@ -443,7 +448,9 @@ export function createBattleStore() {
             if (e.status === 404) { toast(errorText(e)); s.status = 'finished'; change(); await loadResult({ win: false, abandoned: true, stars: 0, gold: 0, heroes: [], user: null }); return; }
             pollBackoff = Math.min(10000, (pollBackoff || 1500) * 2);
         } finally { polling = false; }
-        schedulePoll(pollBackoff || undefined);
+        const again = pollAgain;
+        pollAgain = false;
+        schedulePoll(again ? 0 : (pollBackoff || undefined));
     }
 
     async function loadResult(given) {
@@ -720,7 +727,7 @@ export function createBattleStore() {
             ev({ type: 'sync' });
         },
         // 씬 종료 시 폴링 중단
-        stop() { stopped = true; clearTimeout(pollTimer); clearTimeout(expireTimer); },
+        stop() { stopped = true; clearTimeout(pollTimer); clearTimeout(expireTimer); rt?.leave(); rt = null; },
         // 남은 턴 시간(초): 마지막 폴링값에서 경과 시간을 뺀 로컬 추정
         // 턴 남은 시간(ms): 서버 turn_deadline 우선, 없으면 turn_input_seconds 로 턴 시작 시각 기준 추정, 둘 다 없으면 null
         turnRemainingMs() {
@@ -780,7 +787,10 @@ export function createBattleStore() {
                     addLog(`${s.room.mode === 'pvp' ? '대전' : '자유 대전'} 시작 (턴 ${s.turn})`);
                     ev({ type: 'sync' });
                     if (s.status === 'finished') await loadResult(r.result);
-                    else schedulePoll(1500);
+                    else {
+                        if (s.room?.mode === 'pvp') rt = watchRealtime(`room.${s.roomCode}`, { events: { '.room.changed': kickPoll }, onLive: kickPoll, onDown: kickPoll });
+                        schedulePoll(1500);
+                    }
                     return;
                 }
                 if (battleId) {

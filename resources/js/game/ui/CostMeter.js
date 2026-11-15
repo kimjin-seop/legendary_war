@@ -23,7 +23,7 @@ export class CostMeter extends Phaser.GameObjects.Container {
     }
 
     setValue(v) {
-        this.count.setText(`${v}/${this.max}`);
+        this.count.setText(`${v}/${this.max}`).setColor(v > this.max ? CSS.dangerText : CSS.accent); // 상한 초과 = 실제 값 + 위험색(다이아는 i < v 라 max 개에서 멈춤)
         this.pips.forEach((p, i) => p.setFillStyle(COLOR.accent, i < v ? 1 : 0));
     }
 }
