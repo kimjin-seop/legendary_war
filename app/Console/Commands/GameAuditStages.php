@@ -158,7 +158,7 @@ class GameAuditStages extends Command
             }
         }
         $level = max(1, (int) ($this->option('user-level') ?: $s->recommended_level));
-        // (4) 고정/강제 영웅 코스트(영웅+부대) 합 vs 상한 (슬롯 스테이지 cost_cap 우선, 없으면 캠페인 곡선)
+        // (4) 고정/강제 영웅 코스트 합(부대 코스트는 합산하지 않음, troop_cost off) vs 상한 (슬롯 스테이지 cost_cap 우선, 없으면 캠페인 곡선)
         if ($ds !== null || $forcedRaw !== []) {
             $entries = [];
             $tokens = array_merge(array_map(fn ($f) => is_array($f) ? $f : ['hero' => (string) $f], $forcedRaw), $ds['fixed'] ?? []);

@@ -40,15 +40,17 @@ class RoomCostCapTest extends TestCase
         $this->assertCount(5, $out);
     }
 
-    public function test_8코스트_S급_5명은_L방_상한을_넘어_cost_exceeded다(): void
+    public function test_8코스트_S급_5명_영웅합_40은_L방_상한_40이면_통과하고_1_초과면_cost_exceeded다(): void
     {
         [$user, $ids] = $this->validate('any', 8);
+        $cap = (int) config('game.room.cost_cap')['L'];
+        $this->assertCount(5, app(ProgressionService::class)->validateParty($user, $ids, null, [], false, 5, $cap));   // 영웅 합 40 = 상한 40 -> 통과(부대 코스트 미합산)
         try {
-            app(ProgressionService::class)->validateParty($user, $ids, null, [], false, 5, (int) config('game.room.cost_cap')['L']);
+            app(ProgressionService::class)->validateParty($user, $ids, null, [], false, 5, $cap - 1);
             $this->fail('cost_exceeded 기대');
         } catch (IllegalAction $e) {
             $this->assertSame('cost_exceeded', $e->reason);
-            $this->assertSame(40, $e->extra['max'] ?? null);
+            $this->assertSame(39, $e->extra['max'] ?? null);
         }
     }
 }

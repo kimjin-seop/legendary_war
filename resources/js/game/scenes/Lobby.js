@@ -53,6 +53,7 @@ import { tabComingSoon, markSoonTabs } from './lobbyComingSoon.js';
 import { openRecord } from '../ui/RecordPanel.js';
 import { openHeroDetail, heroStatusBody, heroHistorySection, heroRarityTag, heroSectionBg } from '../ui/HeroDetailView.js';
 import { heroLevelText } from '../ui/heroLevel.js';
+import { heroStatsNow, heroStatLine } from '../ui/heroStats.js';
 
 // icon: 아틀라스 ico.<name>(안아트 생성 예정 ico.tab_*). 없으면 글자만(Tabs 폴백)
 const TABS = [
@@ -1061,80 +1062,125 @@ export class LobbyScene extends Phaser.Scene {
         const byId = new Map(pool.map((h) => [h.id ?? h.user_hero_id, h]));
         (lu?.lineup ?? []).forEach((h) => { if (!byId.has(h.user_hero_id)) byId.set(h.user_hero_id, { ...h, id: h.user_hero_id }); });
         const root = this.add.container(a.x, a.y); p.add(root);
-        const nameOf = (h) => h?.display_name ?? h?.name ?? h?.hero ?? '';
-        let scrollY = 0; // 넣기/빼기 후 다시 그릴 때 목록 스크롤 위치 유지
-        const draw = () => {
-            const prev = root.list.find((o) => o instanceof ScrollList); if (prev) scrollY = prev.content.y;
-            root.removeAll(true);
+        // 2026-11-15 보유 영웅도 카드(가로 PC·세로 폰 공통) + 공·방 줄(ui/heroStats, 영웅 상세와 같은 값). 가로 폰(L.short)은 높이가 모자라 가로형 카드(heroRowCard)
+        // 성능(보유 수백 명): 목록은 한 번만 만들고, 넣기/빼기·저장 때는 위 영역(머리줄·슬롯·저장)만 다시 그린 뒤 '편성됨' 상태가 바뀐 카드만 교체.
+        //  화면 밖 카드는 ScrollList 가시성 클리핑으로 숨기고 초상은 보이는 카드만 로드(lazyPortraits). 스크롤 위치는 목록을 유지하므로 그대로
+        const short = L.short;
+        const note = makeText(this, 0, 24, '캠페인 출정은 편성 영웅(+ 필수·고정 영웅, 주인공) 안에서만 고를 수 있습니다.', { size: 12, color: CSS.muted, wrap: a.w });
+        root.add(note);
+        // 편성 슬롯 = 초상 카드(heroCard 비아트형: 초상 지연 로드 + 등급 표식 + 이름 1줄 + Lv + 공·방). 탭 = 빼기, 길게 = 영웅 상세
+        //  높이 = 폭 + 76(초상 >= 50 + 공·방 줄 16). 가로 폰: 슬롯 폭 150 이상이면 가로형 카드(높이 64, 공·방 포함), 좁으면 기존 116 상한 초상 카드(공·방 생략)
+        const sw0 = Math.floor((a.w - (max - 1) * 8) / max);
+        const rowTop = short && sw0 >= 150;
+        const sw = Math.min(rowTop ? 220 : 120, sw0); const sh = rowTop ? 64 : short ? Math.min(sw + 60, 116) : sw + 76;
+        const sy = Math.max(52, Math.ceil(note.y + note.height + 8)); // 안내문이 2줄로 접히면(390) 슬롯 카드를 그 아래로
+        const saveY = sy + sh + 10;
+        const top = this.add.container(0, 0); root.add(top);
+        root.add(fitText(makeText(this, 0, saveY + 20, '보유 영웅 (탭 = 넣기/빼기 · 길게 = 상세)', { size: 13, bold: true, color: CSS.text, origin: [0, 0.5] }), a.w - 150));
+        const ly = saveY + 48; const listH = Math.max(60, a.h - ly);
+        const list = new ScrollList(this, { x: 0, y: ly, w: a.w, h: listH, clip: true, bar: true });
+        root.add(list);
+        const sorted = [...pool].sort((x, y) => (Number(y.level) || 0) - (Number(x.level) || 0));
+        const idOf = (h) => h.id ?? h.user_hero_id;
+        let sync = () => {};
+        const toggle = (id) => {
+            if (ids.includes(id)) ids = ids.filter((x) => x !== id); else if (ids.length < max) ids = [...ids, id]; else { showToast(this, `편성은 최대 ${max}명입니다`); return; }
+            sync();
+        };
+        const drawTop = () => {
+            top.removeAll(true);
             const lv = ids.map((id) => Number(byId.get(id)?.level) || 0);
             const avg = lv.length ? (lv.reduce((x, y) => x + y, 0) / lv.length).toFixed(1) : '-';
-            root.add(makeText(this, 0, 0, `편성 ${ids.length}/${max}  ·  평균 Lv.${avg}`, { size: 16, heading: true, color: '#f0d58c' }));
-            const note = makeText(this, 0, 24, '캠페인 출정은 편성 영웅(+ 필수·고정 영웅, 주인공) 안에서만 고를 수 있습니다.', { size: 12, color: CSS.muted, wrap: a.w });
-            root.add(note);
-            // 편성 슬롯 = 초상 카드(heroCard 비아트형: 초상 지연 로드 + 등급 표식 + 이름 1줄 + Lv, 2026-11-14 모바일 개선). 탭 = 빼기, 길게 = 영웅 상세
-            //  높이 = 폭 + 60(초상 >= 50 확보), 가로 폰(L.short)은 목록 자리를 위해 116 상한
-            const sw = Math.min(120, Math.floor((a.w - (max - 1) * 8) / max)); const sh = L.short ? Math.min(sw + 60, 116) : sw + 60; const sy = Math.max(52, Math.ceil(note.y + note.height + 8)); // 안내문이 2줄로 접히면(390) 슬롯 카드를 그 아래로
+            top.add(makeText(this, 0, 0, `편성 ${ids.length}/${max}  ·  평균 Lv.${avg}`, { size: 16, heading: true, color: '#f0d58c' }));
             for (let i = 0; i < max; i += 1) {
                 const id = ids[i]; const h = id != null ? byId.get(id) : null;
                 if (h) {
-                    const card = this.heroCard(h, i * (sw + 8), sy, sw, sh, null, true);
-                    this.pressCard(card, sw, sh, () => { ids = ids.filter((x) => x !== id); draw(); }, () => this.heroDetail(h));
+                    const card = rowTop ? this.heroRowCard(h, i * (sw + 8), sy, sw, sh, true) : this.heroCard(h, i * (sw + 8), sy, sw, sh, null, true, false, { stats: true });
+                    this.pressCard(card, sw, sh, () => { ids = ids.filter((x) => x !== id); sync(); }, () => this.heroDetail(h));
                     card.portrait?.load();
-                    root.add(card);
+                    top.add(card);
                 } else {
                     const row = listRow(this, { x: i * (sw + 8), y: sy, w: sw, h: sh, selected: false });
                     row.add(makeText(this, sw / 2, sh / 2, '빈 칸', { size: 13, bold: true, color: CSS.muted, origin: [0.5, 0.5] }));
-                    root.add(row);
+                    top.add(row);
                 }
             }
-            const saveY = sy + sh + 10;
-            root.add(new Button(this, { x: a.w - 140, y: saveY, w: 140, h: 40, label: '편성 저장', variant: 'primary', size: 15, disabled: !ids.length, reason: '영웅을 1명 이상 넣어 주세요', onClick: async () => {
-                try { const d = await gameApi.saveLineup(ids); ids = (d?.lineup ?? []).map((h) => h.user_hero_id); showToast(this, '편성을 저장했습니다'); draw(); } catch (e) { alertModal(this, '편성 저장 실패', messageOf(e)); }
+            top.add(new Button(this, { x: a.w - 140, y: saveY, w: 140, h: 40, label: '편성 저장', variant: 'primary', size: 15, disabled: !ids.length, reason: '영웅을 1명 이상 넣어 주세요', onClick: async () => {
+                try { const d = await gameApi.saveLineup(ids); ids = (d?.lineup ?? []).map((h) => h.user_hero_id); showToast(this, '편성을 저장했습니다'); sync(); } catch (e) { alertModal(this, '편성 저장 실패', messageOf(e)); }
             } }));
-            const grid = L.portrait; // 세로 폰: 보유 영웅 = 초상 카드 그리드(3열), 가로·PC = 기존 텍스트 행
-            root.add(fitText(makeText(this, 0, saveY + 20, grid ? '보유 영웅 (탭 = 넣기/빼기 · 길게 = 상세)' : '보유 영웅 (탭 = 넣기/빼기)', { size: 13, bold: true, color: CSS.text, origin: [0, 0.5] }), a.w - 150));
-            const ly = saveY + 48; const list = new ScrollList(this, { x: 0, y: ly, w: a.w, h: Math.max(60, a.h - ly), clip: true, bar: true });
-            root.add(list);
-            const sorted = [...pool].sort((x, y) => (Number(y.level) || 0) - (Number(x.level) || 0));
-            const toggle = (id, inL) => {
-                if (inL) ids = ids.filter((x) => x !== id); else if (ids.length < max) ids = [...ids, id]; else { showToast(this, `편성은 최대 ${max}명입니다`); return; }
-                draw();
-            };
-            if (grid) {
-                const gap = 8; const usable = a.w - 8; // 스크롤바 여유
-                const cols = this.gridCols(usable, 104, gap, [4, 6], 3); // 433(390)·400(360)·478(430) 논리 폭 모두 3열
-                const cw = Math.floor((usable - gap * (cols - 1)) / cols); const ch = Math.round(cw * 0.95) + 64;
-                sorted.forEach((h, k) => {
-                    const id = h.id ?? h.user_hero_id; const inL = ids.includes(id);
-                    const card = this.heroCard(h, (k % cols) * (cw + gap), Math.floor(k / cols) * (ch + gap), cw, ch, null, inL);
-                    if (inL) { // 편성됨 표식: 초상 아래쪽 가운데 금색 칩
-                        const py = ch - 64 - (h.title && ch - 76 >= 50 ? 12 : 0);
-                        card.add(this.add.rectangle(cw / 2, py - 6, 46, 18, COLOR.accent, 0.95).setStrokeStyle(1, COLOR.ink, 1));
-                        card.add(makeText(this, cw / 2, py - 6, '편성됨', { size: 11, bold: true, color: '#0B1020', origin: [0.5, 0.5] }));
-                    }
-                    this.pressCard(card, cw, ch, () => toggle(id, inL), () => this.heroDetail(h));
-                    list.content.add(card);
-                });
-                list.setContentHeight(Math.ceil(sorted.length / cols) * (ch + gap));
-                list.scrollTo(scrollY);
-                list.refreshMask?.();
-                this.lazyPortraits(list); // 보이는 카드 초상만 로드
-                return;
-            }
-            sorted.forEach((h, k) => {
-                const id = h.id ?? h.user_hero_id; const inL = ids.includes(id);
-                const r = listRow(this, { x: 0, y: k * 50, w: a.w - 10, h: 44, selected: inL, onClick: () => {
-                    if (inL) ids = ids.filter((x) => x !== id); else if (ids.length < max) ids = [...ids, id]; else { showToast(this, `편성은 최대 ${max}명입니다`); return; }
-                    draw();
-                } });
-                r.add(fitText(makeText(this, 12, 22, `${nameOf(h)}  ${heroLevelText(h, { short: true })}`, { size: 14, bold: true, color: inL ? '#f0d58c' : CSS.text, origin: [0, 0.5] }), a.w - 120));
-                r.add(makeText(this, a.w - 22, 22, inL ? '편성됨' : '', { size: 12, color: CSS.accent, origin: [1, 0.5] }));
-                list.content.add(r);
-            });
-            list.setContentHeight(sorted.length * 50);
-            list.scrollTo(scrollY);
         };
-        draw();
+        // 보유 영웅 카드 배치: 세로 폰 = 3열(기존), 가로 PC·태블릿 = 최소 폭 124 기준 3~10열 + 카드 한 장이 목록 높이 안에 들도록 열을 늘림, 가로 폰 = 가로형 카드(최소 폭 180, 높이 64)
+        const gap = 8; const usable = a.w - 8; // 스크롤바 여유
+        let cols; let cw; let ch;
+        if (short) {
+            cols = Math.max(1, Math.floor((usable + gap) / (180 + gap))); cw = Math.floor((usable - gap * (cols - 1)) / cols); ch = 64;
+        } else {
+            cols = L.portrait ? this.gridCols(usable, 104, gap, [4, 6], 3) : Math.max(3, Math.min(10, Math.floor((usable + gap) / (124 + gap)))); // 433(390)·400(360)·478(430) 논리 폭 모두 3열
+            const size = () => { cw = Math.floor((usable - gap * (cols - 1)) / cols); ch = Math.round(cw * 0.95) + 80; }; // +80 = 이름·Lv 2줄 + 공·방 줄 + 하단 장식 여유
+            size();
+            while (!L.portrait && ch > listH - 8 && cw > 104 && cols < 12) { cols += 1; size(); }
+        }
+        const makeCard = (h, k) => {
+            const id = idOf(h); const inL = ids.includes(id);
+            const x = (k % cols) * (cw + gap); const y = Math.floor(k / cols) * (ch + gap);
+            const card = short ? this.heroRowCard(h, x, y, cw, ch, inL) : this.heroCard(h, x, y, cw, ch, null, inL, false, { stats: true });
+            if (inL) {
+                card.add(this.add.rectangle(1, 1, cw - 2, ch - 2).setOrigin(0).setStrokeStyle(2, COLOR.accentLight, 1)); // 편성됨 = 테두리 강조
+                if (!short) { // 편성됨 표식: 초상 아래쪽 가운데 금색 칩(가로형 카드는 heroRowCard 가 Lv 줄 오른쪽에 그림)
+                    const py = card.portraitH ? card.portraitH : 20;
+                    card.add(this.add.rectangle(cw / 2, py - 6, 46, 18, COLOR.accent, 0.95).setStrokeStyle(1, COLOR.ink, 1));
+                    card.add(makeText(this, cw / 2, py - 6, '편성됨', { size: 11, bold: true, color: '#0B1020', origin: [0.5, 0.5] }));
+                }
+            }
+            this.pressCard(card, cw, ch, () => toggle(id), () => this.heroDetail(h));
+            card.inL = inL;
+            return card;
+        };
+        const cards = new Map();
+        sorted.forEach((h, k) => { const c = makeCard(h, k); cards.set(idOf(h), c); list.content.add(c); });
+        list.setContentHeight(Math.ceil(sorted.length / cols) * (ch + gap));
+        list.refreshMask?.();
+        this.lazyPortraits(list); // 보이는 카드 초상만 로드
+        sync = () => {
+            if (!root.scene) return;
+            drawTop();
+            sorted.forEach((h, k) => {
+                const id = idOf(h); const old = cards.get(id);
+                if (!old || old.inL === ids.includes(id)) return;
+                const c = makeCard(h, k); cards.set(id, c); list.content.add(c); old.destroy();
+            });
+            list.refreshMask?.();
+        };
+        drawTop();
+    }
+
+    // 가로 폰(L.short) 편성 탭 가로형 카드(2026-11-15): 좌 = 정사각 초상(등급 표식·병종 뱃지 겹침), 우 = Lv(+편성됨 칩) / 이름 / 공·방 3줄. 높이 64 기준
+    heroRowCard(hh, x, y, w, h, selected = false) {
+        const c = this.add.container(x, y); c.clipH = h;
+        c.add(slice(this, `${raritySlotKey(hh.rarity)}`, w, h, 'slot'));
+        if (selected) c.add(this.add.rectangle(4, 4, w - 8, h - 8, COLOR.accentLight, 0.18).setOrigin(0));
+        const ps = h - 12;
+        c.portrait = portraitBox(this, hh, 6, 6, ps, ps, { lazy: true }); c.add(c.portrait);
+        const rtag = this.rarityTag(hh.rarity, 8, 8, { size: 10, heading: true, color: rarityCss(hh.rarity), stroke: { color: '#0B1020', width: 3 } });
+        const rw = rtag.cw ?? rtag.width ?? 0; if (rw > ps - 4) rtag.setScale((ps - 4) / rw);
+        c.add(rtag);
+        const ut = hh.unit_type ?? hh.detail?.unit_type;
+        if (ut) {
+            const tb = troopBadges(this, { heroClass: ut, troopClass: hh.troop_type ?? hh.detail?.troop_type, troopLabel: hh.troop_label ?? hh.detail?.troop_label, size: 14, vertical: false });
+            const ts = Math.min(1, 16 / Math.max(1, tb.h), (ps - 4) / Math.max(1, tb.w)); if (ts < 1) tb.setScale(ts);
+            tb.setPosition(6 + ps - 2 - tb.w * ts, 6 + ps - 2 - tb.h * ts);
+            c.add(tb);
+        }
+        const tx = 6 + ps + 8; const tw = Math.max(20, w - tx - 8);
+        const chipW = selected ? 44 : 0;
+        c.add(fitText(makeText(this, tx, 14, heroLevelText(hh, { short: true }), { size: 12, bold: true, color: CSS.accent, origin: [0, 0.5] }), tw - (chipW ? chipW + 4 : 0)));
+        if (selected) {
+            c.add(this.add.rectangle(w - 8 - chipW / 2, 14, chipW, 16, COLOR.accent, 0.95).setStrokeStyle(1, COLOR.ink, 1));
+            c.add(makeText(this, w - 8 - chipW / 2, 14, '편성됨', { size: 11, bold: true, color: '#0B1020', origin: [0.5, 0.5] }));
+        }
+        c.add(fitText(makeText(this, tx, h / 2, heroPlainName(hh), { size: 14, bold: true, origin: [0, 0.5] }), tw, { fallback: heroShortName(hh) }));
+        const sl = heroStatLine(this, heroStatsNow(hh), tx, h - 14, tw, { size: 12, align: 'left' }); if (sl) c.add(sl);
+        return c;
     }
 
     async tabHero(p) {
@@ -1206,7 +1252,8 @@ export class LobbyScene extends Phaser.Scene {
         return c;
     }
 
-    heroCard(hh, x, y, w, h, onClick, selected = false, art = false) {
+    // opts.stats: 초상 카드 Lv 아래에 공·방 한 줄(ui/heroStats, 편성 탭 2026-11-15). 초상 50 이상을 지킬 수 있을 때만(못 지키면 생략)
+    heroCard(hh, x, y, w, h, onClick, selected = false, art = false, opts = {}) {
         const c = (art && heroMenuCard(this, hh, x, y, w, h, selected)) || this.add.container(x, y);
         c.clipH = h;
         let badgeMaxH = h - 16; // 병종 뱃지 세로 상한(초상 카드 = 초상 영역 안, 아래 칭호·이름을 가리지 않게)
@@ -1214,8 +1261,11 @@ export class LobbyScene extends Phaser.Scene {
         const bg = slice(this, `${raritySlotKey(hh.rarity)}`, w, h, 'slot');
         c.add(bg);
         if (selected) c.add(this.add.rectangle(4, 4, w - 8, h - 8, COLOR.accentLight, 0.18).setOrigin(0));
-        const sub = hh.title && h - 6 - 70 >= 50 ? hh.title : ''; // U14: 칭호는 이름 위 부제(공간 있을 때만)
-        const ph = h - 6 - 58 - (sub ? 12 : 0); // 초상화 높이(아래 이름·Lv 2줄 48 + 하단 프레임 장식 여유 10, Low-3: Lv 줄이 장식에 잘림). 병종은 우상단 뱃지로
+        const stv = opts.stats ? heroStatsNow(hh) : null;
+        const statH = stv && h - 6 - 58 - 16 >= 50 ? 16 : 0; // 공·방 줄 높이
+        const sub = hh.title && h - 6 - 70 - statH >= 50 ? hh.title : ''; // U14: 칭호는 이름 위 부제(공간 있을 때만)
+        const ph = h - 6 - 58 - (sub ? 12 : 0) - statH; // 초상화 높이(아래 이름·Lv 2줄 48 + 하단 프레임 장식 여유 10, Low-3: Lv 줄이 장식에 잘림). 병종은 우상단 뱃지로
+        c.portraitH = ph >= 50 ? ph : 0;
         if (ph >= 50) {
             badgeMaxH = ph - 4;
             // 초상화 카드: 초상화(지연 로드, 폴백 스프라이트/이니셜) + 등급 배지 + 이름·칭호 + Lv
@@ -1228,6 +1278,7 @@ export class LobbyScene extends Phaser.Scene {
             if (sub) { c.add(fitText(makeText(this, w / 2, ny + 8, sub, { size: 12, color: CSS.muted, origin: [0.5, 0.5] }), w - 12)); ny += 12; }
             c.add(fitText(makeText(this, w / 2, ny + 14, heroPlainName(hh), { size: w < 130 ? 13 : 15, bold: true, origin: [0.5, 0.5] }), w - 10, { fallback: heroShortName(hh) }));
             c.add(this.lvTag(hh, w / 2, ny + 30, 12));
+            if (statH) { const sl = heroStatLine(this, stv, w / 2, ny + 46, w - 10, { size: w < 110 ? 11 : 12 }); if (sl) c.add(sl); }
         } else {
             c.add(this.rarityTag(hh.rarity, 10, 12, { size: 12, heading: true, color: rarityCss(hh.rarity) }));
             // 칭호 포함 표시 이름(최대 2줄, 넘치면 칭호 생략형 → 말줄임)

@@ -7,8 +7,8 @@
   보유 필수(대여 없음): 주인공 외 영웅을 미보유하면 입장 422 `required_hero_missing`.
 - 선택 슬롯(free_slots): 스테이지가 정한 지정 타일에 유저가 보유 영웅을 자유롭게 둔다(비워도 확정 가능). `unit_types` 로 병종을 제한할 수 있다(선택).
 - 총 영웅 수 = 고정 + 선택. 슬롯 모드에서 이 슬롯 수가 유저 레벨 곡선 `maxSlots` 를 대체한다(고정 영웅은 슬롯 수 면제, 선택 슬롯 수만 `max_party_slots`).
-- 코스트: 고정(강제 출전) 영웅의 영웅 코스트 + 부대 코스트도 합산에 포함한다(2026-11-08 사용자 번복, 이전에는 면제). 상한 = `rules.deploy_slots.cost_cap`(정수, 선택) 우선, 없으면 `max(현행 곡선 max(user_level_costs, 슬롯x8), (선택 슬롯 수 + 강제·고정 영웅 수) x 8)` (`ProgressionService::campaignCostCap`). 2026-11-14 등급 격차 v1 이후 곡선 부분은 `game.campaign_slots.cost_cap_by_level` 표(없으면 슬롯x8 폴백) + 강제 영웅 수 x 8 로 계산한다(HANDOFF '등급 격차 v1' 절).
-  강제·고정 영웅도 슬롯 1칸 몫(8)의 코스트 예산을 가진다. 코스트 면제를 폐지하자 신규 유저 stage_01 기본 편성(주인공 3 + 이순신 6 + 곽재우 2 + 부대 6 = 17)이 곡선 상한 16에 걸려 422 cost_exceeded 가 났기 때문(2026-11-08 강화면 발견). 강제 영웅이 없거나 캠페인이 아니면(방·PvP·자유전) 종전과 같다.
+- 코스트: 고정(강제 출전) 영웅의 영웅 코스트도 합산에 포함한다(2026-11-08 사용자 번복, 이전에는 면제). 2026-11-15: 부대 병종 코스트는 합산하지 않는다(`game.rules.troop_cost=false`): 판정 = 영웅 코스트 합 <= 상한, 코스트 바 24/24면 출진 가능, 25 이상 cost_exceeded. 상한 = `rules.deploy_slots.cost_cap`(정수, 선택) 우선, 없으면 `max(현행 곡선 max(user_level_costs, 슬롯x8), (선택 슬롯 수 + 강제·고정 영웅 수) x 8)` (`ProgressionService::campaignCostCap`). 2026-11-14 등급 격차 v1 이후 곡선 부분은 `game.campaign_slots.cost_cap_by_level` 표(없으면 슬롯x8 폴백) + 강제 영웅 수 x 8 로 계산한다(HANDOFF '등급 격차 v1' 절).
+  강제·고정 영웅도 슬롯 1칸 몫(8)의 코스트 예산을 가진다. 코스트 면제를 폐지하자 신규 유저 stage_01 기본 편성(주인공 3 + 이순신 6 + 곽재우 2 = 11 + 당시 합산하던 부대 6 = 17, 현재는 부대 미합산이라 11)이 곡선 상한 16에 걸려 422 cost_exceeded 가 났기 때문(2026-11-08 강화면 발견). 강제 영웅이 없거나 캠페인이 아니면(방·PvP·자유전) 종전과 같다.
 - 이 코스트 포함 규칙은 기존 `forced_heroes` 에도 적용된다(슬롯 면제는 유지, 코스트 면제 폐지). `ProgressionService::validateParty` 가 단일 출처.
 - 봇 아군(`rules.ally_npcs`)은 기존 그대로(슬롯·코스트 소비 없음). 부대는 영웅에 딸려 기존 SquadPlanner / `troop_place_radius` 자동 배치.
 - 진행 중(deployment) 전투는 레거시 검증: 슬롯은 전투 생성 시 `battles.state.deploy_slots` 에 고정(스냅샷)되며 키가 없으면 레거시다. 스테이지 데이터를 바꿔도 이미 만든 전투는 불변.
@@ -54,7 +54,7 @@
 | kind | 수준 | 내용 |
 |---|---|---|
 | `slot_invalid` | ERROR | 슬롯 형식/중복, 배치 영역 밖, 통행 불가, 없는 영웅, 주인공 슬롯 순서, ally_npcs 와 겹침 |
-| `forced_cost_over` / `forced_cost_over_legacy` | ERROR | 고정/강제 영웅 코스트(영웅+부대) 합 > 상한(슬롯 스테이지는 cost_cap, 그 외 곡선). 유저 레벨 = `--user-level` 또는 스테이지 recommended_level |
+| `forced_cost_over` / `forced_cost_over_legacy` | ERROR | 고정/강제 영웅 코스트 합(부대 코스트 미합산) > 상한(슬롯 스테이지는 cost_cap, 그 외 곡선). 유저 레벨 = `--user-level` 또는 스테이지 recommended_level |
 | `forced_cost_no_room` | WARN | 합 == 상한(선택 슬롯 코스트 여유 0) |
 | `enemy_alive_over` | ERROR | 적 초기 + 증원(triggers spawn, side b) > `max_alive_per_side_stage` |
 | `enemy_below_ally` | WARN | 적 초기 유닛 수 < 아군 최대 유닛(영웅 슬롯 + 영웅당 부대(레벨·troop_bonus, 선택 슬롯은 최대 troop_bonus 가정) + 아군 NPC 본체·동반병) x ratio |

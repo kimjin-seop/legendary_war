@@ -3,7 +3,7 @@
  "_todo": [
   { "step": "tut_02_first_hero", "when": "영웅 상세 화면 구현 시", "todo": "'영웅' 메뉴에서 보실 수 있습니다 문구를 영웅 상세 라벨에 맞게 구체화." },
   { "step": "tut_06_cost_formation", "when": "장비 도입 시", "todo": "장비가 코스트에 영향을 주지 않는지 확인 후 필요하면 문구 추가." },
-  { "step": "tut_06_cost_formation", "when": "코스트 곡선·troop_cost 규칙 변경 시", "todo": "영웅 코스트+부대 병종 코스트 합산 문구 재확인(현재 troop_cost on, 코드 고정, 부대 병종은 영웅별 고정)." },
+  { "step": "tut_06_cost_formation", "when": "코스트 곡선·troop_cost 규칙 변경 시", "todo": "출전 비용은 편성 영웅 코스트의 합(부대는 코스트에 포함되지 않음, 현재 troop_cost off, 코드 고정) 문구 재확인." },
   { "step": "tut_02_first_hero", "when": "영웅별 고정 부대 병종 구현(heroes.troop_type) 후", "todo": "'영웅이 이끄는 부대의 병종은 영웅마다 정해져 있다' 줄이 영웅 상세의 '병사' 표기 라벨과 일치하는지 확인." },
   { "step": "tut_03_battle_basic", "when": "교대 행동(alternate_activation) 재도입 시", "todo": "현재 대사는 진영 단위 턴제(alternate_activation=false) 기준('아군 턴 N'·'턴 종료'). true로 되돌리면 '부대 행동 종료'·라운드·'이 부대로 행동할까요?'·연속 행동 상한(alt_consecutive_cap) 기준으로 재작성(이전 문안은 database/data/tutorial_dialogue.json.bak-fix-20261101 참고)." },
   { "step": "tut_05_terrain_aura", "when": "부대 붕괴 규칙 플래그화 시", "todo": "conditional_lines(condition=squad_rule_on)는 규칙 플래그가 켜졌을 때만 표시. 현재 코드에서 squad는 항상 on(개발용 고정). 정식 서비스에서 플래그화되면 이 키 처리 확인. (이전에 줄 안에 있던 제작 note를 여기로 이동)" },
@@ -23,7 +23,7 @@
  "tokens": {
   "hero_name": "시작 영웅 이름(heroes.name_ko). 시작 영웅 확정 전이라 토큰 처리",
   "unit_type_name": "시작 영웅 병종명(unit_types.name)",
-  "max_cost": "현재 편성 코스트 상한(user_level_costs.max_cost, Lv1=16: 영웅 코스트+부대 병종 코스트 합 기준)",
+  "max_cost": "현재 편성 코스트 상한(user_level_costs.max_cost, Lv1=16: 편성 영웅 코스트 합 기준, 부대 코스트 없음)",
   "reward_exp": "스테이지 보상 경험치(stages.reward_exp, stage_01=60)",
   "reward_gold": "스테이지 보상 골드(stages.reward_gold, stage_01=100)"
  },
@@ -52,7 +52,7 @@
     { "speaker": "shiori", "expr": "neutral", "text": "지휘관님은 기록 속 영웅을 불러 전장을 바로잡게 됩니다." },
     { "speaker": "shiori", "expr": "serious", "text": "다만 이름 높은 분들의 책은 아직 높은 서가에 잠겨 있습니다. 펼치려면 먼저 지휘를 익히셔야 합니다." },
     { "speaker": "shiori", "expr": "smile", "text": "천 년을 사이에 둔 명장들이 한 전장에 서는 날도 오겠지요. 그 전에, 입구 안내 구역부터입니다." },
-    { "speaker": "shiori", "expr": "neutral", "text": "기록에 없는 일은 없다고 말씀드리겠습니다. 그건 제 규칙입니다." }
+    { "speaker": "shiori", "expr": "neutral", "text": "서고는 조용하지만 책장은 깁니다. 길을 잃으시면 제 뒤를 따라오십시오." }
    ],
    "fail_hints": []
   },
@@ -61,7 +61,7 @@
    "step_no": 2,
    "title": "시작 영웅",
    "lines": [
-    { "speaker": "shiori", "expr": "cheer", "text": "처음 함께하실 영웅은 {hero_name}. 두 분입니다." },
+    { "speaker": "shiori", "expr": "cheer", "text": "처음 함께하실 영웅은 {hero_name}, 두 분입니다. 서고에서 가장 먼저 손을 든 분들이지요." },
     { "speaker": "shiori", "expr": "neutral", "text": "영웅마다 병종이 정해져 있습니다. '영웅' 메뉴에서 보유한 영웅을 확인하실 수 있습니다." },
     { "speaker": "shiori", "expr": "neutral", "text": "영웅은 지휘관으로서 부대를 이끌고 출전합니다. 처음에는 영웅 한 분마다 부대 둘씩입니다." },
     { "speaker": "shiori", "expr": "neutral", "text": "부대 병종은 영웅의 병종을 따릅니다." },
@@ -144,8 +144,8 @@
    "step_no": 6,
    "title": "코스트와 편성",
    "lines": [
-    { "speaker": "shiori", "expr": "neutral", "text": "출전에는 코스트가 듭니다. 영웅과 부대 병종마다 코스트가 정해져 있습니다.", "label_unverified": ["편성", "코스트"] },
-    { "speaker": "shiori", "expr": "neutral", "text": "영웅의 코스트에 그 영웅이 이끄는 부대의 병종 코스트가 더해집니다. 이 합계가 출전 비용입니다.", "label_unverified": ["편성"] },
+    { "speaker": "shiori", "expr": "neutral", "text": "출전에는 코스트가 듭니다. 영웅마다 코스트가 정해져 있습니다.", "label_unverified": ["편성", "코스트"] },
+    { "speaker": "shiori", "expr": "neutral", "text": "편성한 영웅들의 코스트를 모두 더한 값이 출전 비용입니다. 부대는 셈에 넣지 않으니 마음 쓰실 것 없습니다.", "label_unverified": ["편성"] },
     { "speaker": "shiori", "expr": "neutral", "text": "편성한 전체의 합계는 상한을 넘을 수 없습니다. 지금 상한은 {max_cost}입니다.", "label_unverified": ["편성"] },
     { "speaker": "shiori", "expr": "neutral", "text": "지휘관님의 성장에 따라 상한이 달라진다지만, 그건 아직 먼 이야기입니다.", "label_unverified": ["레벨(유저 레벨의 화면 명칭)"] },
     { "speaker": "shiori", "expr": "serious", "text": "강한 영웅만 모으면 금세 넘칩니다. 배분이 곧 전략입니다." },

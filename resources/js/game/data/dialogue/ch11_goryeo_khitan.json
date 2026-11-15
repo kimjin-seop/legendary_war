@@ -1,5 +1,5 @@
 {
- "_note": "11장 '고려와 거란'(가칭) 장면 대사. 원본(database/data) -> resources/js/game/data/dialogue 동기화 대상. 옴니버스 규칙: 서고 장면은 ch11_open / ch11_end 뿐, 시오리는 스테이지 장면·battle_cues 에 없다. 서가 개입 없음. 993년(s1~s2), 1018~19년(s3~s4), 앞 장 회귀 1010~11년(s5~s8 통주·곽주·무로대·이수), 1019년 자주·마탄(s9~s10)로 구성된다. 시간 점프는 s3_pre / s5_pre / s9_pre 첫 caption 으로 알린다. v2(2026-11-09 송서사-3): 정합성 수정(열흘 식량 회수, 소배압 이동 표현, 성종·소배압 직접 발화 제거, 양규 통주 합류 소개, 이름 적기 복선) + 전체 어조 개고(감정 반응·되묻기·밀당). 유닛 id·좌표가 필요한 cue 는 맵 확정 후 채운다(docs/original_story/ch11_goryeo_khitan_outline.md).",
+ "_note": "11장 '고려와 거란'(가칭) 장면 대사. 원본(database/data) -> resources/js/game/data/dialogue 동기화 대상. 옴니버스 규칙: 서고 장면은 ch11_open / ch11_end 뿐, 시오리는 스테이지 장면·battle_cues 에 없다. 서가 개입 없음. 993년(s1~s2), 1018~19년(s3~s4), 앞 장 회귀 1010~11년(s5~s8 통주·곽주·무로대·이수), 1019년 자주(s9)와 마탄(s10, 시랑 조원 부대 연락 장면)으로 구성된다. v2(2026-11-15 사료 대조): s2 안융진(대도수·유방 수성, 서희는 전령 보고 구도), s4 귀주(고려군 남쪽·거란군 북쪽, 남풍에 깃발이 북으로 눕는 순간, 김종현 도착), s10 마탄(조원 전과, 강감찬·김종현 발화 삭제). 시간 점프는 s3_pre / s5_pre / s9_pre 첫 caption 으로 알린다. v2(2026-11-09 송서사-3): 정합성 수정(열흘 식량 회수, 소배압 이동 표현, 성종·소배압 직접 발화 제거, 양규 통주 합류 소개, 이름 적기 복선) + 전체 어조 개고(감정 반응·되묻기·밀당). 유닛 id·좌표가 필요한 cue 는 맵 확정 후 채운다(docs/original_story/ch11_goryeo_khitan_outline.md).",
  "version": 2,
  "protagonist_rule": "주인공 호칭은 항상 '{protagonist_name} 님' 형태만 쓴다(이름 뒤 직접 조사 금지).",
  "speaker_profile": {
@@ -12,7 +12,8 @@
   "hero:npc_so_baeap": { "name": "소배압", "note": "거란 장수. 단호한 하오체. 현재 장면에서는 caption 으로만 등장" },
   "hero:npc_gang_min_cheom": { "name": "강민첨", "note": "고려 장수. 거친 하오체, 투덜대지만 따른다" },
   "hero:npc_yang_gyu": { "name": "양규", "note": "고려 장수(신규). 낮고 단단한 하오체, 사람을 먼저 챙긴다" },
-  "hero:npc_kim_jong_hyeon": { "name": "김종현", "note": "고려 기병 장수(신규). 빠르고 짧은 하오체" },
+  "hero:npc_kim_jong_hyeon": { "name": "김종현", "note": "고려 기병 장수(신규). 빠르고 짧은 하오체. 귀주(s4)에 개경 군을 이끌고 도착하는 장면에만 등장" },
+  "hero:npc_bobyeong": { "name": "보병", "note": "s10 조원 부대 전령 역(기존 공용 NPC 이름표 재사용). 조원 본인은 화자로 쓰지 않고 이 전령의 전언으로 처리한다. 존댓말" },
   "hero:npc_captive_headman": { "name": "포로 대표", "note": "끌려가던 마을 사람들의 대표(신규, 이름 미상). 지친 합쇼체 섞인 하오체" }
  },
  "arc": {
@@ -20,7 +21,7 @@
   "table": [
    { "phase": "기", "scene": "ch11_open", "what": "서고 입구, 압록강 이남" },
    { "phase": "기", "scene": "ch11_s1", "what": "993년 담판 길. 서희를 호위하는 연락 장교" },
-   { "phase": "승", "scene": "ch11_s2", "what": "안융진. 담판 뒤의 시간 벌기 (열흘 식량 카운트다운 회수)" },
+   { "phase": "승", "scene": "ch11_s2", "what": "안융진. 대도수·유방의 수성과 서희의 담판 (열흘 식량 카운트다운 회수)" },
    { "phase": "승", "scene": "ch11_s5", "what": "1010년 통주(앞 장 회귀). 세 군진을 깃발로 잇기" },
    { "phase": "승", "scene": "ch11_s6", "what": "1011년 곽주. 밤 횃불 신호로 문 열기" },
    { "phase": "전", "scene": "ch11_s7", "what": "1011년 무로대. 포로의 이름을 적기 (복선)" },
@@ -28,7 +29,7 @@
    { "phase": "전", "scene": "ch11_s3", "what": "1018년 흥화진. 신호로 터뜨린 물" },
    { "phase": "결", "scene": "ch11_s9", "what": "1019년 자주. 선을 줄이는 신호" },
    { "phase": "결", "scene": "ch11_s4", "what": "귀주. 바람이 돌아선 오후. 말과 칼의 답" },
-   { "phase": "결", "scene": "ch11_s10", "what": "마탄. 이긴 수는 적지 않는다" },
+   { "phase": "결", "scene": "ch11_s10", "what": "마탄. 조원의 강변 전투, 이긴 수는 적지 않는다" },
    { "phase": "결", "scene": "ch11_end", "what": "서고 퇴장" }
   ],
   "play_order_note": "게임 진행 순서는 s1 -> s10 번호순이다. arc 표는 서사상 시간순(993 -> 1010~11 -> 1018~19)에 가깝게 묶은 것이며 s5~s8 은 s4 이후 앞 장 회귀로 재생된다."
@@ -46,7 +47,7 @@
     { "speaker": "protagonist", "expr": "neutral", "text": "이름이 지워진 겁니까." },
     { "speaker": "shiori", "expr": "neutral", "text": "지워진 게 아니라 처음부터 없었습니다. 그 자리에 서시면 {protagonist_name} 님이 그 수행 사자가 됩니다." },
     { "speaker": "protagonist", "expr": "neutral", "text": "말로 시작해서 칼로 끝나는 책 같군요. 끝까지 손에 땀이 나겠습니다." },
-    { "speaker": "shiori", "expr": "smile", "text": "말이 칼의 시간을 벌어 주기도 하지요. 땀은 장갑 안에 숨기십시오." },
+    { "speaker": "shiori", "expr": "smile", "text": "넘겨 보시면 압니다. 땀은 장갑 안에 숨기십시오." },
     { "speaker": "caption", "text": "{protagonist_name} 님이 외투 안주머니에서 손을 뺀다. 낡은 놋쇠 방울이 짧게 한 번 운다." },
     { "speaker": "shiori", "expr": "neutral", "text": "척후가 깔린 길에서는 곤란한 물건입니다. 소리가 멀리 갑니다." },
     { "speaker": "protagonist", "expr": "neutral", "text": "길잡이였던 아버지 것입니다. 안다고 잘못 말했다가 일행을 잃은 뒤로는, 모르는 길에서만 이 방울을 울렸다고 합니다." },
@@ -92,8 +93,15 @@
     { "speaker": "hero:seo_hui", "expr": "neutral", "text": "압록강 안팎에 여진이 길을 막고 있기 때문이오. 그 땅을 우리가 얻어 길을 트면, 거란에 사신을 못 보낼 까닭이 없소." },
     { "speaker": "hero:npc_so_sonnyeong", "expr": "neutral", "text": "...길을 트겠다. 그것이 조건이오?" },
     { "speaker": "hero:seo_hui", "expr": "neutral", "text": "조건이 아니라 부탁이오. 부탁은 들어주는 쪽이 체면을 얻소." },
+    { "speaker": "hero:npc_so_sonnyeong", "expr": "serious", "text": "부탁이라. 그 말을 그대로 우리 쪽 윗사람에게 전하면 웃을 거요." },
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "웃으면 다행이오. 화를 내면 싸움이 이어지는 것이고." },
+    { "speaker": "hero:npc_so_sonnyeong", "expr": "neutral", "text": "하나만 묻겠소. 사신이 이리 태연한 건 믿는 구석이 있어서요, 겁이 없어서요." },
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "둘 다 아니오. 돌아갈 길이 있어서요. 빈손으로 못 돌아가는 쪽이 먼저 겁을 먹는 법이오." },
     { "speaker": "protagonist", "expr": "neutral", "text": "공, 거란 진영 뒤쪽 숲에 병력이 모여 있습니다. 협상이 길어지면 움직일 겁니다." },
-    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "아는 티는 내지 마시오. 저쪽이 우리가 안다는 걸 모르는 동안은 우리 패요. 안융진 방비나 단단히 해 두시오." }
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "아는 티는 내지 마시오. 저쪽이 우리가 안다는 걸 모르는 동안은 우리 패요. 안융진에 전령부터 보내 두시오. 그 성이 버티는 만큼 내 말에 무게가 실리오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "숲에 모인 수를 세어 보니 서른은 넘습니다." },
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "서른이라. 그 수를 소손녕에게 들려줄 마음은 없소. 대신 그의 눈이 숲 쪽으로 몇 번 가는지 세어 두시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "이미 두 번입니다." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -102,11 +110,11 @@
    "id": "ch11_s2_pre",
    "stage_code": "ch11_s2",
    "timing": "before_battle",
-   "bg": "안융진 성벽 위의 이른 아침. 강바람에 군기가 흔들리고 멀리 거란 군의 먼지가 일어난다",
+   "bg": "서희 진영 천막의 이른 아침. 안융진에서 달려온 전령의 말발굽에 서리 묻은 흙이 묻어 있다",
    "lines": [
-    { "speaker": "caption", "text": "993년. 담판이 이어지는 동안에도 거란군은 안융진을 쳤다. 이 성은 끝까지 버텨 냈다." },
-    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "담판은 아직 끝나지 않았소. 안융진이 버티는 동안만 내 말에 무게가 실리오." },
-    { "speaker": "protagonist", "expr": "neutral", "text": "성벽 서쪽 모퉁이가 가장 약합니다. 제가 그쪽 신호 지점에 서서 증원이 필요하면 깃발을 올리겠습니다. 그리고... 성 안 식량이 열흘 치입니다. 날짜를 세어 두겠습니다." },
+    { "speaker": "caption", "text": "993년 겨울. 서희와 소손녕의 담판은 중단됐다. 소손녕은 봉산군을 깬 뒤 안융진을 치러 갔고, 서희는 그 결과가 오는 대로 담판을 다시 열려 한다. 안융진에는 중랑장 대도수와 낭장 유방이 있다." },
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "소손녕은 담판을 접고 안융진으로 갔소. 거기서 길이 막히면 다시 내 앞에 앉을 것이오. 대도수와 유방이 얼마나 버티느냐가 곧 내 말의 무게요." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "전령 말로는 성 서쪽 모퉁이가 가장 얇다 합니다. 제가 그쪽 신호 지점으로 가서 증원이 필요하면 깃발을 올리겠습니다. 그리고... 성 안 식량이 열흘 치랍니다. 날짜를 세어 두겠습니다." },
     { "speaker": "hero:seo_hui", "expr": "neutral", "text": "세지 마시오. 세는 얼굴은 성 안 사람들에게 옮소." },
     { "speaker": "protagonist", "expr": "neutral", "text": "혼자 세겠습니다. 입 밖에는 내지 않습니다." },
     { "speaker": "hero:seo_hui", "expr": "neutral", "text": "그렇다면 허락하오. 대신 성을 지키는 이들에게는 이렇게 전하시오. 시간은 우리 편이라고." },
@@ -121,15 +129,23 @@
    "id": "ch11_s2_post",
    "stage_code": "ch11_s2",
    "timing": "after_clear",
-   "bg": "안융진 성문 앞의 저녁. 부서진 사다리와 깃발이 성벽 아래에 쌓여 있다",
+   "bg": "담판 자리의 저녁. 안융진에서 올라온 부서진 사다리 조각과 깃발이 천막 앞에 놓여 있다",
    "lines": [
     { "speaker": "hero:npc_so_sonnyeong", "expr": "serious", "text": "...성이 열리지 않소. 이 이상 피를 흘리면 얻는 것보다 잃는 것이 크오." },
     { "speaker": "hero:seo_hui", "expr": "neutral", "text": "이제야 계산이 맞는군. 약속하신 길을 말하겠소. 강동의 땅은 우리가 얻어 길을 열고, 거란에는 사신을 보내겠소." },
     { "speaker": "hero:npc_so_sonnyeong", "expr": "serious", "text": "...사신 일, 잊지 마시오. 물러나겠소." },
+    { "speaker": "hero:npc_so_sonnyeong", "expr": "serious", "text": "한 가지 더 있소. 군을 그냥 물리면 나는 윗사람에게 무어라 보고하오." },
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "강동의 땅을 얻어 거란으로 가는 길을 열기로 했다고 하시오. 빈손이 아니라 약속을 들고 가는 것이오." },
+    { "speaker": "hero:npc_so_sonnyeong", "expr": "neutral", "text": "...말로 이기는 사람은 칼 든 사람보다 사람을 더 피곤하게 하오." },
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "피곤하게 한 건 그쪽이오. 우리는 앉아서 얘기하자고 했소." },
     { "speaker": "protagonist", "expr": "neutral", "text": "여드레째입니다. 열흘 안에 닿았습니다." },
     { "speaker": "hero:seo_hui", "expr": "neutral", "text": "혼자 센 보람이 있었군. 이틀 남기고 끝낸 담판이니 사자 몫으로 기억해 두겠소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "안융진에서 막 돌아왔습니다. 서쪽 모퉁이를 대도수 중랑장과 유방 낭장이 끝내 지켰습니다. 제가 신호 지점에서 보았습니다." },
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "그 두 이름을 먼저 임금께 올리시오. 말은 내가 했어도 성은 그 두 사람이 지켰소." },
     { "speaker": "protagonist", "expr": "neutral", "text": "임금께 먼저 소식을 올리겠습니다. 승전이라 고하면 되겠습니까." },
-    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "승리라 하지 마시오. 평화라 하시오. 이긴 소식은 다음 싸움을 부르고, 평화는 지켜야 하는 것이오." }
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "승리라 하지 마시오. 평화라 하시오. 이긴 소식은 다음 싸움을 부르고, 평화는 지켜야 하는 것이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "성 안 사람들에게는 시간이 우리 편이었다고 전할까요." },
+    { "speaker": "hero:seo_hui", "expr": "neutral", "text": "편으로 만들었다고 전하시오. 그 한마디 차이를 아는 이들이 성을 지켰소." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -141,7 +157,7 @@
    "bg": "흥화진 성 앞 강가의 겨울 새벽. 얼어붙은 강 위로 군기가 늘어서고 소가죽 끈이 둑에 묶여 있다",
    "lines": [
     { "speaker": "caption", "text": "1018년 12월. 25년 뒤 거란의 소배압이 대군을 이끌고 다시 쳐들어왔다. 고려는 강감찬을 상원수로 세웠다. 강 건너 거란 진영의 북소리는 흥화진을 비껴 남쪽으로 이어진다." },
-    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "저 북소리는 이 성에 발을 묶일 마음이 없다는 소리요. 그냥 지나쳐 개경으로 갈 게요. 그러니 강이 필요하오." },
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "저 북소리는 이 성에 발을 묶일 마음이 없다는 소리요. 그냥 지나쳐 개경으로 갈 것이오. 그러니 강이 필요하오." },
     { "speaker": "protagonist", "expr": "neutral", "text": "상류 둑에 소가죽 끈으로 물을 막아 두었습니다. 끊는 때는 제가 신호로 정하라 하셨는데... 이렇게 큰일을 제게 맡기셔도 되는 겁니까." },
     { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "큰일일수록 작은 손이 하는 게 낫소. 큰 손이 하면 소문이 먼저 나니까. 적 기병이 강 한가운데 이르렀을 때 끊으시오. 이르면 물이 허공에 흩어지고, 늦으면 적이 이미 건넌 뒤요." },
     { "speaker": "protagonist", "expr": "neutral", "text": "선두가 중앙 말뚝을 지날 때 깃발을 내리겠습니다." },
@@ -159,9 +175,15 @@
    "bg": "물이 빠진 강바닥의 오후. 얼음 조각이 둑에 쌓여 있다",
    "lines": [
     { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "첫 매듭은 풀렸소. 하지만 적은 아직 크게 꺾이지 않았소. 몰려 있던 물이 빠졌을 뿐이오." },
-    { "speaker": "protagonist", "expr": "neutral", "text": "소배압이 흥화진을 지나 개경 쪽으로 내려갔다는 보고가 들어왔습니다. 강에서 한 번 맞았으니 돌아올 땐 다른 길을 찾을 겁니다. 퇴로를 막을 자리가 필요합니다." },
-    { "speaker": "protagonist", "expr": "neutral", "text": "귀주 벌판에는 숨을 곳이 없습니다. 북쪽 언덕만 높습니다. 제가 그 언덕에 먼저 오르겠습니다." },
-    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "쫓기는 군대는 가장 빠른 길로 달아나오. 그 길이 귀주 벌판이오. 우리는 거기서 기다리면 되오. 기다림은 늙은이가 잘하는 일이오." }
+    { "speaker": "protagonist", "expr": "neutral", "text": "끈을 벤 병사가 손이 얼어 칼을 놓지 못합니다. 불 곁으로 데려가겠습니다." },
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "그리하시오. 칼은 내가 받아 두겠소. 세 번째 몫이 아직 남았으니." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "세 번째는 필요 없었습니다. 두 번에 끊겼습니다." },
+    { "speaker": "hero:gang_gamchan", "expr": "smile", "text": "다행이오. 늙은 몸을 아낀 걸로 치겠소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "소배압이 흥화진을 지나 개경 쪽으로 내려갔다는 보고가 들어왔습니다. 강에서 한 번 맞았으니 돌아올 땐 다른 길을 찾을 겁니다. 돌아가는 길목에서 맞설 자리가 필요합니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "귀주 벌판에는 숨을 곳이 없습니다. 남쪽 언덕만 높습니다. 이맘때 비바람은 남쪽에서 올라온다 하니, 제가 그 언덕에 먼저 올라 깃발을 보겠습니다." },
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "쫓기는 군대는 가장 빠른 길로 달아나오. 그 길이 귀주 벌판이오. 우리는 거기서 기다리면 되오. 기다림은 늙은이가 잘하는 일이오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "귀주로 식량과 교대할 병사를 먼저 보내 두겠습니다." },
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "계산이 빠르군. 그래도 제일 먼저 챙길 건 잠이오. 잘 잔 병사가 깃발을 하나 더 본다오." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -170,15 +192,18 @@
    "id": "ch11_s4_pre",
    "stage_code": "ch11_s4",
    "timing": "before_battle",
-   "bg": "귀주 벌판의 이른 아침. 양쪽 군대가 마주 서고 북쪽에서 찬바람이 불어온다",
+   "bg": "귀주 벌판의 이른 아침. 남쪽에 고려군, 북쪽에 거란군이 마주 서고 남쪽 하늘에서 비를 머금은 바람이 올라온다",
    "lines": [
-    { "speaker": "caption", "text": "1019년 2월. 개경에서 물러난 거란군이 귀주 벌판을 지나려 한다. 고려군은 이 벌판에서 길을 막는다." },
-    { "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "북풍이오, 공. 활을 쏴 봐야 화살이 도로 밀려 오르오. 이대로면 저쪽 화살만 우리 머리 위에 떨어지오." },
+    { "speaker": "caption", "text": "1019년 2월. 개경에서 물러난 거란군이 귀주 벌판에서 고려군과 마주 선다. 개경에서 올라온 김종현의 군이 막 고려군 진에 닿는다." },
+    { "speaker": "hero:npc_kim_jong_hyeon", "expr": "neutral", "text": "개경 군이오. 이제야 닿았소. 어느 쪽 자리를 메우면 되오?" },
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "먼저 밀릴 쪽이오. 숨 돌릴 틈은 없을 것이오." },
+    { "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "바람이 잠잠하오, 공. 이래서는 화살이 멀리 안 가오. 저쪽 기병이 먼저 붙으면 활이 소용없소." },
     { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "그러니 지금은 쏘지 마시오. 바람은 한자리에 오래 머물지 않소." },
     { "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "그 사이 기병이 가운데를 밀면 어쩌시오. 하늘이 돕기를 앉아서 기다리란 말이오?" },
     { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "하늘만 기다리라 한 적은 없소. 신호 맡은 사람이 있지 않소." },
-    { "speaker": "protagonist", "expr": "neutral", "text": "벌판 북쪽 언덕 신호 지점에서 깃발로 바람의 방향을 알리겠습니다. 틀리면... 제가 틀린 게 됩니다." },
-    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "틀리면 내가 틀린 것이오. 깃발이 북쪽으로 눕는 순간이오. 그때 북소리를 올리시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "벌판 남쪽 언덕 신호 지점에서 깃발로 바람의 방향을 알리겠습니다. 틀리면... 제가 틀린 게 됩니다." },
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "틀리면 내가 틀린 것이오. 남풍이 깃발을 북으로 눕히는 순간이 때요. 활은 그때까지 아끼시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "깃발이 북쪽으로 눕는 순간 북을 올리십시오." },
     { "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "그 깃발, 믿어도 되겠소?" },
     { "speaker": "protagonist", "expr": "neutral", "text": "믿으실 필요 없습니다. 보시면 됩니다." },
     { "speaker": "caption", "text": "목표: 신호 지점에 닿아 총공격 시점을 알리고 거란 군 후위 지휘관을 쓰러뜨린다. 강감찬이 쓰러지면 패배한다." }
@@ -192,11 +217,17 @@
    "timing": "after_clear",
    "bg": "해 질 녘의 귀주 벌판. 버려진 군기와 수레가 바람에 흔들린다",
    "lines": [
-    { "speaker": "caption", "text": "거란군은 크게 무너져 압록강을 건너 돌아갔다. 살아 돌아간 이는 극히 적었다." },
+    { "speaker": "caption", "text": "거란군은 크게 무너져 압록강 쪽으로 달아났다. 살아 돌아간 이는 극히 적었다." },
+    { "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "비바람이 몰아치자 화살이 하늘을 덮었소. 그 바람이 저쪽 얼굴을 때렸소. 내 평생 그리 많은 화살은 처음 보오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "깃발이 북으로 눕는 걸 보시고 북을 올리셨습니다. 저는 제 손이 먼저 떨렸습니다." },
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "떨리는 손으로도 방향은 틀리지 않았소. 그거면 되오." },
+    { "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "...믿어도 되겠냐고 물은 건 취소하겠소. 자네 깃발은 보면 믿게 되는 깃발이오." },
     { "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "...끝났소, 공. 이제 평화가 올 것 같소?" },
     { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "싸움이 끝난다고 평화가 오는 건 아니오. 서희 공이 말로 열어 둔 길 위에서 우리가 칼로 지킨 것이오." },
     { "speaker": "protagonist", "expr": "neutral", "text": "그 길이 이어지려면 이번엔 글로 매듭을 지어야겠군요. 칼은 오늘 쓰였으니까요." },
-    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "그렇소. 말이 연 길을 칼이 지키고, 칼이 지킨 길을 다시 말이 이어야 하오. 어느 한쪽만 자랑하는 자를 조심하시오." }
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "그렇소. 말이 연 길을 칼이 지키고, 칼이 지킨 길을 다시 말이 이어야 하오. 어느 한쪽만 자랑하는 자를 조심하시오." },
+    { "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "그럼 쫓아갑시다. 놈들이 강을 건너기 전에." },
+    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "서두르는 걸 보니 아직 젊소. 그래도 가야지. 말 먼저 먹이고." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -224,9 +255,15 @@
    "timing": "after_clear",
    "bg": "저녁의 통주 들판. 눈 위에 말발굽 자국이 어지럽게 찍혀 있고 군진 사이로 횃불이 켜진다",
    "lines": [
-    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "첫날은 버텼소. 그러나 이 대열이 오래 가지는 못하오." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "오늘은 진이 꺾이지 않았소. 그러나 이 대열이 오래 가지는 못하오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "깃발은 세 번 올랐습니다. 두 번째 군진 쪽이 가장 늦게 보였습니다." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "그쪽은 지대가 낮소. 내일은 깃대를 더 높이 세우시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "높이면 적의 활에도 잘 보입니다." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "보이는 게 낫소. 안 보여서 무너지는 것보다는." },
     { "speaker": "protagonist", "expr": "neutral", "text": "적이 이 진을 두고 길을 바꿀 것 같습니다. 남쪽으로 돌아 나갈 길을 찾겠습니다." },
-    { "speaker": "hero:npc_yang_gyu", "expr": "serious", "text": "진이 무너져도 성은 남는다. 성이 남으면 다음이 있소. 다음이 있는 한 우리는 진 거라 부르지 않소." }
+    { "speaker": "hero:npc_yang_gyu", "expr": "serious", "text": "진이 무너져도 성은 남소. 성이 남으면 다음이 있소. 다음이 있는 한 우리는 진 거라 부르지 않소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "성을 지켜 본 사람의 말이니 믿겠습니다." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "믿지 말고 다음 싸움에서 보시오. 말은 누구나 하오." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -242,7 +279,7 @@
     { "speaker": "protagonist", "expr": "neutral", "text": "성 서쪽 문 옆 수문이 얼음에 막혀 있습니다. 그 신호 지점에서 제가 먼저 안으로 들어가 문빗장 위치를 확인하겠습니다." },
     { "speaker": "hero:npc_yang_gyu", "expr": "serious", "text": "혼자 들어가겠다고. 들켜도 안으로 구하러 갈 수 없소. 그건 알고 하는 소리요?" },
     { "speaker": "protagonist", "expr": "neutral", "text": "압니다. 그래서 횃불로 알리겠습니다. 안쪽에서 두 번 흔들면 문 앞으로 오십시오. 세 번이면 오지 마십시오." },
-    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "두 번이면 가고, 세 번이면 물러선다. 귀는 믿지 말고 눈을 믿으시오. 얼음 밑 물소리가 요란한 밤이오." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "두 번이면 가고, 세 번이면 물러서겠소. 귀는 믿지 말고 눈을 믿으시오. 얼음 밑 물소리가 요란한 밤이오." },
     { "speaker": "caption", "text": "목표: 서쪽 신호 지점에 닿아 성문을 열고 곽주 성내 구역을 점령한다. 양규가 쓰러지면 패배한다." }
    ],
    "unlock_hero": null,
@@ -256,9 +293,13 @@
    "lines": [
     { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "문이 열렸소. ...횃불 든 손이 떨리는데, 추워서요 무서워서요." },
     { "speaker": "protagonist", "expr": "neutral", "text": "...둘 다입니다." },
-    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "그럼 정상이오. 성 안에 갇혀 있던 사람들부터 살피시오." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "둘 다라면 사람 맞소. 성 안에 갇혀 있던 사람들부터 살피시오." },
     { "speaker": "protagonist", "expr": "neutral", "text": "먼저 이분들을 안전한 곳으로 옮기겠습니다. 성을 지키는 일은 그다음에..." },
-    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "그다음이 아니라 지금 하시오. 성은 나중에 세워도 되지만 사람은 나중에 세울 수 없소." }
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "그다음이 아니라 지금 하시오. 성은 나중에 세워도 되지만 사람은 나중에 세울 수 없소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "알겠습니다. 불과 물부터 드리겠습니다. 이 아이는 열이 있습니다." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "군의를 부르시오. 내 몫의 마른 고기도 가져가시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "공의 몫은 어떻게 하십니까." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "다음 성에서 구하면 되오. 곽주 사람들이 문이 열린 걸 아직 못 믿는 눈치니, 믿게 하는 건 말이 아니라 밥이오." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -292,7 +333,13 @@
     { "speaker": "hero:npc_captive_headman", "expr": "neutral", "text": "...돌아왔소. 집에서 멀지 않은 곳이오. 자꾸 꿈이 아닌가 확인하게 되오." },
     { "speaker": "protagonist", "expr": "neutral", "text": "아침에 적은 장부와 지금 사람 수를 맞춰 보았습니다. 한 명도 빠지지 않았습니다." },
     { "speaker": "hero:npc_captive_headman", "expr": "serious", "text": "...이름까지 다 적었소? 우리 같은 사람 이름을?" },
-    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "이름을 적는 것은 좋은 일이오. 이름이 있어야 돌아갈 곳이 있소." }
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "이름을 적는 것은 좋은 일이오. 이름이 있어야 돌아갈 곳이 있소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "집까지 모실 호위를 붙이겠습니다. 장부 순서대로 열 명씩 출발합니다." },
+    { "speaker": "hero:npc_captive_headman", "expr": "neutral", "text": "열 명씩이라. 아까 아이를 업은 사람은 어디에 적었소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "맨 앞 줄입니다. 본인에게 직접 물어서 적었습니다." },
+    { "speaker": "hero:npc_captive_headman", "expr": "serious", "text": "틀리게 적지는 않았소?" },
+    { "speaker": "protagonist", "expr": "neutral", "text": "본인이 두 번 말하게 했습니다." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "눈이 더 쌓이기 전에 출발하시오. 길이 막히면 이름도 소용없소." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -320,13 +367,13 @@
    "timing": "after_clear",
    "bg": "골짜기의 낮. 버려진 수레와 짐이 길가에 쌓여 있다",
    "lines": [
-    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "후미를 끊었소. 그러나 이 병력으로 본대까지 막지는 못하오." },
+    { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "후미를 끊었소. 그러나 이 병력으로 거란 본대까지 막지는 못하오." },
     { "speaker": "protagonist", "expr": "serious", "text": "병력이 절반만 남았습니다. 공, 이번이 마지막 습격이어야 합니다. 제 계산으로는..." },
     { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "자네 계산은 믿소. 그래도 갈 사람이 있으면 가야 하오." },
     { "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "포로 장부는 자네가 맡으시오. 돌아간 사람 수는 자네 손에서 끝나야 하오." },
     { "speaker": "protagonist", "expr": "serious", "text": "공이 돌아오시면 직접 가져가십시오." },
     { "speaker": "hero:npc_yang_gyu", "expr": "smile", "text": "그럴 수도 있겠지. 그래도 맡기오." },
-    { "speaker": "protagonist", "expr": "neutral", "text": "...맡겠습니다. 공의 이름은 맨 앞 줄에 적겠습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "...맡겠습니다. 대신 돌아와서 검수하십시오. 맡은 물건은 돌려드려야 하니까요." },
     { "speaker": "caption", "text": "같은 달 말, 양규는 애전에서 거란 본대와 맞서다 돌아오지 못했다." }
    ],
    "unlock_hero": null,
@@ -339,12 +386,12 @@
    "bg": "자주 부근 언덕의 이른 아침. 능선 아래로 좁은 길이 이어지고 퇴각하는 거란군의 깃발이 멀리 보인다",
    "lines": [
     { "speaker": "caption", "text": "같은 책의 앞 장, 귀주 싸움 직전의 일지. 1019년 겨울이 끝나갈 무렵. 개경에서 물러난 거란군이 북쪽으로 향한다. 강민첨은 자주 언덕에서 길을 가로막는다." },
-    { "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "여기서 버티면 뒤에서 본대가 오고, 못 버티면 우리가 길을 열어 주는 셈이오. 어느 쪽이든 마음에 안 드오." },
-    { "speaker": "protagonist", "expr": "neutral", "text": "언덕 신호 지점에서 후속 부대가 오는 방향을 알리겠습니다. 오기 전까지는 제가 정한 선 위에만 서 주십시오." },
+    { "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "여기서 버티면 아군 본대가 뒤에서 올라오고, 못 버티면 거란 후속 부대에 길을 열어 주는 셈이오. 어느 쪽이든 마음에 안 드오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "언덕 신호 지점에서 거란 후속 부대가 오는 방향을 알리겠습니다. 오기 전까지는 제가 정한 선 위에만 서 주십시오." },
     { "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "선? 내가 갓 들어온 졸병이오? ...좋소, 그 선이 끊기면 말하시오." },
     { "speaker": "protagonist", "expr": "neutral", "text": "끊길 때가 아니라 선을 줄여야 할 때를 알리겠습니다. 줄여도 길은 막혀 있습니다." },
     { "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "줄여도 막혀 있다. 말은 번지르르하군. 두고 봅시다." },
-    { "speaker": "caption", "text": "목표: 언덕 신호 지점에 닿아 후속 부대를 부르고 정해진 턴 동안 버틴다. 강민첨이 쓰러지면 패배한다." }
+    { "speaker": "caption", "text": "목표: 언덕 신호 지점에 닿아 아군 본대를 부르고 정해진 턴 동안 버틴다. 강민첨이 쓰러지면 패배한다." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -356,8 +403,14 @@
    "bg": "저녁의 자주 언덕. 사방이 눈에 덮이고 군기 몇 개가 비스듬히 꽂혀 있다",
    "lines": [
     { "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "버텼소. ...숨 좀 돌립시다. 다음은 어디요? 쉴 틈은 없겠지." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "선은 두 번 줄였습니다. 첫 번째 때는 화를 내셨지요." },
+    { "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "화낸 게 아니라 확인한 거요. ...두 번째는 말없이 따랐잖소." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그래서 쓰러진 병사가 적었습니다." },
+    { "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "그건 군공으로 올리시오. 내 몫 말고 졸병들 몫으로." },
     { "speaker": "protagonist", "expr": "neutral", "text": "거란 본대가 귀주로 향합니다. 거기가 마지막 길목입니다." },
-    { "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "그럼 먼저 가서 자리를 잡아 두겠소. 늦게 가는 쪽이 땅을 고르지 못하는 법이오. 자네 깃발이나 잘 올리시오." }
+    { "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "그럼 먼저 가서 자리를 잡아 두겠소. 늦게 가는 쪽이 땅을 고르지 못하는 법이오. 자네 깃발이나 잘 올리시오." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "귀주에서는 바람을 가리켜야 합니다. 틀리지 않게 하겠습니다." },
+    { "speaker": "hero:npc_gang_min_cheom", "expr": "smile", "text": "틀리면 내가 욕하겠소. 맞으면 술을 사지." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -366,16 +419,15 @@
    "id": "ch11_s10_pre",
    "stage_code": "ch11_s10",
    "timing": "before_battle",
-   "bg": "마탄 강변의 늦은 오후. 얼음이 반쯤 녹은 강 위로 거란 군의 후미가 건너고 있다",
+   "bg": "마탄 강변의 늦은 오후. 얼음이 반쯤 녹은 강가에 거란 군의 후미가 몰려 있다",
    "lines": [
-    { "speaker": "caption", "text": "1019년 2월. 귀주에서 크게 무너진 거란군은 압록강 쪽으로 서둘러 물러났다. 고려군은 마탄에서 그 뒤를 쫓는다." },
-    { "speaker": "hero:npc_kim_jong_hyeon", "expr": "serious", "text": "얼음이 얇소. 그렇다고 기다리면 저놈들이 강을 건너 흩어지오. 어쩌겠소." },
-    { "speaker": "protagonist", "expr": "neutral", "text": "제가 얼음이 두꺼운 두 지점을 먼저 밟아 확인하겠습니다. 첫 지점과 둘째 지점에서 신호를 올리면 그 길로만 건너십시오." },
-    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "쫓되 욕심은 부리지 마시오. 강을 건너면 끝나는 추격이오." },
-    { "speaker": "hero:npc_kim_jong_hyeon", "expr": "serious", "text": "건너가면 안 되오?" },
-    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "건너면 이번엔 우리가 쫓기는 쪽이 되오. 이기고 난 뒤에 지는 길을 걷지 마시오." },
-    { "speaker": "protagonist", "expr": "neutral", "text": "둘째 지점이 마지막 선입니다. 신호에도 그 말을 담겠습니다." },
-    { "speaker": "caption", "text": "목표: 도하 신호 지점 두 곳에 닿아 안전한 길을 알리고 거란 후미 부대를 격파한다. 강감찬이 쓰러지면 패배한다." }
+    { "speaker": "caption", "text": "마탄. 시랑 조원이 강변에서 거란군을 친다. {protagonist_name} 님은 연락 장교로 조원의 진에 배속된다." },
+    { "speaker": "hero:npc_bobyeong", "expr": "serious", "text": "조 시랑께서 물으십니다. 강변에서 얼음을 믿을 만한 길이 어디냐고요. 강이 더 녹으면 저쪽이 흩어진다 하십니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "제가 얼음이 두꺼운 두 지점을 먼저 밟아 확인하겠습니다. 첫 지점과 둘째 지점에서 신호를 올리면 그 길로만 나가십시오." },
+    { "speaker": "hero:npc_bobyeong", "expr": "serious", "text": "발을 헛디디면 어찌합니까. 우리 쪽에서는 구하러 갈 수 없습니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "그래서 소리가 아니라 깃발로 알립니다. 둘째 지점이 마지막 선입니다. 그 선을 넘으면 얼음이 얇습니다." },
+    { "speaker": "hero:npc_bobyeong", "expr": "neutral", "text": "마지막 선이라고 시랑께 그대로 전하겠습니다." },
+    { "speaker": "caption", "text": "목표: 도하 신호 지점 두 곳에 닿아 안전한 길을 알린다." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -386,9 +438,14 @@
    "timing": "after_clear",
    "bg": "저녁의 마탄 강변. 얼음 조각 사이로 군기가 가라앉고 병사들이 숨을 몰아쉰다",
    "lines": [
-    { "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "여기까지요. 강 너머는 다음 사람들이 쓸 이야기요." },
-    { "speaker": "protagonist", "expr": "neutral", "text": "일지에는 날짜와 강 이름만 적겠습니다. 이긴 수는 적지 않겠습니다." },
-    { "speaker": "hero:gang_gamchan", "expr": "smile", "text": "그것이 좋겠소. 이긴 수는 사람들이 알아서 센다오. 대개 실제보다 크게 세지." }
+    { "speaker": "hero:npc_bobyeong", "expr": "neutral", "text": "시랑께서 군을 거두라 하십니다. 강 이쪽에서 끝내라는 말씀입니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "마지막 선 밖으로 나간 병사는 없습니다. 둘째 지점 앞에서 다들 멈췄습니다." },
+    { "speaker": "hero:npc_bobyeong", "expr": "serious", "text": "멈추기 쉽지 않았습니다. 앞에 등이 보이는데 말입니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "깃발이 멈추라 했으니 멈춘 겁니다. 그 말을 한 쪽이 욕을 먹어야 합니다. 제가 먹겠습니다." },
+    { "speaker": "hero:npc_bobyeong", "expr": "neutral", "text": "일지에는 뭐라 적으십니까. 시랑께서 궁금해하십니다." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "날짜와 강 이름만 적겠습니다. 이긴 수는 적지 않겠습니다." },
+    { "speaker": "hero:npc_bobyeong", "expr": "smile", "text": "수를 안 적으면 뒷사람이 제멋대로 부풀릴 텐데요." },
+    { "speaker": "protagonist", "expr": "neutral", "text": "어차피 사람들이 알아서 셉니다. 대개 실제보다 크게요. 강 이름이라도 정확히 남겨야죠." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -399,11 +456,11 @@
    "timing": "chapter_end",
    "bg": "시간의 서고. 강바람이 가신 복도. 책장 사이에 접은 문서 한 장이 꽂혀 있다",
    "lines": [
-    { "speaker": "shiori", "expr": "neutral", "text": "993년의 담판과 1019년의 귀주, 그 사이 통주에서 이수까지의 겨울이 한 책에 묶였습니다. 말과 칼이 같은 길 위에 있었습니다." },
+    { "speaker": "shiori", "expr": "neutral", "text": "이 책장은 여기까지입니다. 기록은 {protagonist_name} 님의 일지에 맡기겠습니다." },
     { "speaker": "protagonist", "expr": "neutral", "text": "그 길에 깃발을 올리고 이름을 적은 사람도 있었다고 적어 두겠습니다." },
     { "speaker": "caption", "text": "{protagonist_name} 님이 방울을 접은 문서 위에 내려놓는다. 소리는 나지 않는다." },
     { "speaker": "protagonist", "expr": "neutral", "text": "이 길에서는 한 번도 울리지 않았습니다. 모른다고 말하면 길을 아는 사람이 곁으로 와 줬으니까요." },
-    { "speaker": "shiori", "expr": "smile", "text": "그 쪽만은 비워 두지 않겠습니다. 다음 책장으로 가시지요." }
+    { "speaker": "shiori", "expr": "smile", "text": "그 쪽은 비워 두지 않겠습니다. 다음 책장으로 가시지요." }
    ],
    "unlock_hero": null,
    "relation_ref": []
@@ -422,9 +479,9 @@
   "ch11_s2": [
    { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "성벽 아래에서 사다리 소리가 들린다." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_so_sonnyeong", "expr": "serious", "text": "담판은 담판이고 성은 성이오. 오늘 안에 서쪽을 열어 보시오!" },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:seo_hui", "expr": "neutral", "text": "서둘러 얻은 성은 오래 못 가오. 저들이 사다리를 몇이나 쓰는지 세어 보시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "서희의 전갈이 닿는다. 서둘러 얻은 성은 오래 못 간다. 저들이 사다리를 몇이나 쓰는지 세어 보내라." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "열둘입니다. 그중 셋이 서쪽 모퉁이에 몰립니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:seo_hui", "expr": "neutral", "text": "그럼 서쪽만 지키면 되오. 나머지는 오르다 지칠 것이오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "전갈이 다시 닿는다. 그렇다면 서쪽만 지키면 된다. 나머지는 오르다 지칠 것이다." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "증원을 청할 신호 자리를 보아 두겠습니다. ...사다리가 열둘이니 오늘이 사흘째라 치겠습니다." },
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "서쪽 모퉁이입니다. 증원을 청합니다!" }
   ],
@@ -439,55 +496,55 @@
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal", "tiles": [] } }, "do": "sfx", "key": "sfx_water_rise" }
   ],
   "ch11_s4": [
-   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "북쪽에서 불어오던 찬바람이 벌판 한가운데에서 잠깐 멎는다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "바람이 북에서 부는 동안은 저쪽이 유리하오. 멎기를 기다리시오." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "기다리는 사이 저쪽 기병이 가운데를 밀면 어쩌시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "남쪽에서 오던 바람이 벌판 한가운데에서 잠깐 멎는다. 북쪽 거란 진영의 군기도 늘어져 있다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "바람이 멎었소. 이제부터는 깃발만 보시오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "저쪽 기병이 벌써 가운데로 붙었소. 이대로 받아야 하오?" },
    { "on": { "battle_start": true }, "do": "say", "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "밀리면 한 걸음씩 물러서시오. 땅은 내주어도 대열은 내주지 마시오." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "깃발이 막 흔들리기를 멈췄습니다. 방향이 바뀔 듯합니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "그때 북을 올리시오. 바람이 우리 편이 되면 화살이 멀리 가오." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "깃발이 축 처졌습니다. 남쪽 하늘이 어둡습니다. 바람이 다시 올라올 듯합니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:gang_gamchan", "expr": "neutral", "text": "깃발이 북으로 눕거든 북을 올리시오. 바람이 등을 밀면 화살이 멀리 가오." },
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "깃발이 북쪽으로 누웠습니다! 북소리를 올리십시오!" },
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "signal", "tiles": [] } }, "do": "sfx", "key": "sfx_battle_charge" }
   ],
   "ch11_s5": [
    { "on": { "battle_start": true }, "do": "camera", "mode": "overview", "ms": 900 },
    { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "눈 덮인 평원 끝에서 말발굽 소리가 땅을 울린다. 세 군진의 깃발이 바람에 흔들린다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "세 군진이 벌어졌다. 가운데부터 붙인다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "세 군진이 벌어졌소. 가운데부터 붙이겠소." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "오른쪽 군진 뒤로 기병 먼지가 돌아듭니다!" },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "알고 있다. 돌아드는 데는 시간이 걸린다. 그동안 오른쪽을 한 걸음 앞에 세워라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "알고 있소. 돌아드는 데는 시간이 걸리오. 그동안 오른쪽을 한 걸음 앞에 세우시오." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "깃발로 알리겠습니다. 한꺼번에 움직이면 눈에 띄니 순서를 두겠습니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "순서는 오른쪽, 가운데, 왼쪽이다. 틀리면 구멍이 난다. 구멍은 곧 사람이다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "순서는 오른쪽, 가운데, 왼쪽이오. 틀리면 구멍이 나오. 구멍은 곧 사람이오." },
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "army_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "오른쪽 군진이 밀립니다! 가운데 군진, 옆으로 붙으십시오!" },
    { "on": { "turn": 1, "when": { "type": "flag", "key": "army_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
-   { "on": { "turn": 6 }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "serious", "text": "진을 붙여라. 빈틈을 보이지 마라." }
+   { "on": { "turn": 6 }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "serious", "text": "진을 붙이시오. 빈틈을 보이지 마시오." }
   ],
   "ch11_s6": [
    { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "서리 낀 성벽 위로 횃불이 드문드문 흔들린다. 성 안은 조용하다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "성벽 위가 조용하다. 조용한 성은 비었거나 기다리는 성이다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "성벽 위가 조용하오. 조용한 성은 비었거나 기다리는 성이오." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "횃불 사이가 넓습니다. 지키는 병사가 적어 보입니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "적다고 얕보지 마라. 일부러 불을 줄여 놓았을 수도 있다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "적다고 얕보지 마시오. 일부러 불을 줄여 놓았을 수도 있소." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "빗장 쪽 불이 한 번 꺼졌다 켜졌습니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "횃불을 두 번 흔들면 문으로 간다. 세 번 흔들면 물러선다. 그 둘만 기억해라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "횃불을 두 번 흔들면 문으로 가겠소. 세 번 흔들면 물러서겠소. 그 둘만 기억하시오." },
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "gate_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "빗장 위치를 확인했습니다. ...횃불을 두 번 흔듭니다." },
    { "on": { "turn": 1, "when": { "type": "flag", "key": "gate_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
-   { "on": { "turn": 1, "when": { "type": "flag", "key": "gate_signal_up" } }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "두 번이다. 문이 열린다. 들어가라." }
+   { "on": { "turn": 1, "when": { "type": "flag", "key": "gate_signal_up" } }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "두 번이오. 문이 열리오. 들어갑시다." }
   ],
   "ch11_s7": [
    { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "눈 위에 발자국이 길게 이어진다. 아이를 업은 사람들이 한 줄로 걷는다." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_captive_headman", "expr": "serious", "text": "아이가 걷지를 못합니다. 업고 가도 되겠습니까." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "업고 가십시오. 줄에서만 벗어나지 마십시오." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "앞길은 내가 연다. 뒤는 맡기겠다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "앞길은 내가 열겠소. 뒤는 맡기겠소." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_captive_headman", "expr": "neutral", "text": "이 눈 속에서 길을 아는 사람은 저희입니다. 저희가 앞에 서겠습니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "길을 아는 사람이 앞에 서라. 칼 든 자는 양옆을 맡는다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "길을 아는 사람이 앞에 서시오. 칼 든 자는 양옆을 맡겠소." },
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "escort_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "이쪽 길입니다! 깃발이 가리키는 쪽으로만 걸으십시오!" },
    { "on": { "turn": 1, "when": { "type": "flag", "key": "escort_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
-   { "on": { "turn": 5 }, "do": "say", "speaker": "hero:npc_captive_headman", "expr": "serious", "text": "뒤처지는 이를 업어라. 한 사람도 두고 가지 마라." }
+   { "on": { "turn": 5 }, "do": "say", "speaker": "hero:npc_captive_headman", "expr": "serious", "text": "뒤처지는 이를 업으시오. 한 사람도 두고 가지 맙시다." }
   ],
   "ch11_s8": [
    { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "골짜기 아래로 수레 바퀴 소리가 느리게 이어진다. 비탈 위 눈이 조용히 흘러내린다." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레가 길게 늘어졌습니다. 앞뒤 간격이 벌어집니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "비탈 위 병사에게 일러라. 신호 전에 눈을 건드리지 마라. 눈이 흘러내리면 들킨다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "비탈 위 병사에게 일러 두시오. 신호 전에 눈을 건드리지 말라고. 눈이 흘러내리면 들키오." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "serious", "text": "벌써 한 군데 흘러내렸습니다. 거란 척후가 위를 올려다봅니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "그럼 지금은 기다림뿐이다. 척후가 지나가면 신호를 올려라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_yang_gyu", "expr": "neutral", "text": "그럼 지금은 기다릴 뿐이오. 척후가 지나가면 신호를 올리시오." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "신호 지점으로 가겠습니다. 수레가 가장 길어졌을 때 올리겠습니다." },
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "ambush_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "수레가 열 대를 넘었습니다. 대열이 가장 깁니다. 지금입니다!" },
    { "on": { "turn": 1, "when": { "type": "flag", "key": "ambush_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
@@ -496,24 +553,24 @@
   "ch11_s9": [
    { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "눈바람이 언덕 위로 몰아친다. 퇴각하는 군기가 길 아래에서 천천히 늘어난다." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "거란 놈들 물러나는 꼴이 개운치 않소. 뒤에서 오는 것이 있소." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "동쪽 능선에 먼지가 오릅니다. 후속 부대일 수 있습니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "그럼 길을 좁혀 놓고 기다리자. 좁은 길에서는 머릿수가 소용없다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "동쪽 능선에 먼지가 오릅니다. 거란 후속 부대일 수 있습니다." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "그럼 길을 좁혀 놓고 기다립시다. 좁은 길에서는 머릿수가 소용없소." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "선을 줄이는 신호를 올리겠습니다. 능선 위로 가야 합니다." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_gang_min_cheom", "expr": "neutral", "text": "가시오. 내려오는 놈은 내가 받겠소." },
-   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "hill_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "동쪽 능선에서 먼지가 일고 있습니다. 후속 부대가 옵니다. 선을 줄이십시오!" },
+   { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "hill_signal", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "동쪽 능선에서 먼지가 일고 있습니다. 거란 후속 부대가 옵니다. 선을 줄이십시오!" },
    { "on": { "turn": 1, "when": { "type": "flag", "key": "hill_signal_up" } }, "do": "sfx", "key": "sfx_battle_charge" },
-   { "on": { "turn": 7 }, "do": "say", "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "조금만 더 버텨라. 곧 온다." }
+   { "on": { "turn": 7 }, "do": "say", "speaker": "hero:npc_gang_min_cheom", "expr": "serious", "text": "조금만 더 버티시오. 아군 본대가 곧 오오." }
   ],
   "ch11_s10": [
    { "on": { "battle_start": true }, "do": "say", "speaker": "narrator", "text": "강 위의 얼음이 가끔 갈라지는 소리를 낸다. 건너편 거란군 후미가 서둘러 뒤를 돌아본다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_kim_jong_hyeon", "expr": "neutral", "text": "후미가 얼음 위에 있다. 말 먼저 올려라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_bobyeong", "expr": "neutral", "text": "시랑께서 말 먼저 올리라 하십니다. 후미가 얼음 위에 있습니다." },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "얼음이 반쯤 녹았습니다. 두꺼운 곳과 얇은 곳이 섞여 있습니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_kim_jong_hyeon", "expr": "neutral", "text": "어디가 두꺼운가." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_bobyeong", "expr": "neutral", "text": "어디가 두껍습니까?" },
    { "on": { "battle_start": true }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "표시한 줄 안쪽입니다. 그 선을 넘으면 말 무게를 못 버팁니다." },
-   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_kim_jong_hyeon", "expr": "neutral", "text": "줄 안으로 몰아라. 줄 밖으로는 한 발도 내딛지 마라." },
+   { "on": { "battle_start": true }, "do": "say", "speaker": "hero:npc_bobyeong", "expr": "neutral", "text": "줄 안으로 몰아넣으라 하십니다. 줄 밖으로는 한 발도 안 됩니다." },
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "cross_1", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "neutral", "text": "얼음이 두껍습니다. 이 길로 건너십시오!" },
    { "on": { "turn": 1, "when": { "type": "in_zone", "unit": "@protagonist", "zone_ref": "cross_2", "tiles": [] } }, "do": "say", "speaker": "protagonist", "expr": "serious", "text": "여기까지입니다! 이 선을 넘으면 얼음이 얇습니다!" },
-   { "on": { "turn": 6 }, "do": "say", "speaker": "hero:npc_kim_jong_hyeon", "expr": "neutral", "text": "말을 몰아라. 놓치기 전에 따라붙어라." }
+   { "on": { "turn": 6 }, "do": "say", "speaker": "hero:npc_bobyeong", "expr": "neutral", "text": "말을 몰아 따라붙으라 하십니다. 놓치기 전에." }
   ]
  }
 }

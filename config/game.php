@@ -63,7 +63,7 @@ return [
         'ranged_counter' => false,       // 원거리 간 반격(거리 2 대 2): 기본 off, 사용자 플레이 후 채택 결정
         'turn_limit_rule' => 'alive_then_ratio',   // 턴 상한 판정(채택): hp_sum(HP 절대 합, 구 규칙) / hp_ratio(남은HP/초기HP 비율) / alive_then_ratio(생존 수 우선, 동수면 비율). 동점=무승부
         'turn_limit_noncombatant_weight' => 1.0, // alive_then_ratio 생존 수에서 치유사(지휘관 제외) 가중치. 1.0=동일(기본), 0=무시
-        'troop_cost' => true,   // 편성 코스트에 부대 병종 코스트 합산(항상 on, 개발용)
+        'troop_cost' => false,  // 편성 코스트에 부대 병종 코스트 합산(2026-11-15 off: 출전 코스트 = 영웅 코스트 합 대 상한만. 켜면 구 규칙 복귀)
         // [규칙 전부 on 전환] 아래 5개 지형 2단계 옵션 롤백값: highground 1.0 / forest_cover 1.0 / village_heal 0.0 / def_total_cap 0
         'highground_mult' => 1.15,       // 고지 공격 배율(1.0=off). 맵 rules로 맵 단위 on/off 가능. 반격에도 적용됨
         'forest_cover_mult' => 0.9,      // 숲 원거리 엄폐 배율(1.0=off)

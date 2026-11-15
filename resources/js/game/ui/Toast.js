@@ -235,15 +235,53 @@ function enter(scene, st, c, ms) {
 }
 const sceneOk = (scene) => !!(scene?.sys && scene.add && scene.time && scene.tweens);
 
+// 가로 기준: 씬이 toastX(중심 x)·toastMaxW(최대 폭)를 정하면 그 영역 안(예: 배치 화면 = 맵 영역 가로 중앙), 없으면 화면 가운데
+const centerX = (scene) => (Number.isFinite(scene?.toastX) ? scene.toastX : L.lw / 2);
+const widthCap = (scene) => Math.min(460, L.lw - 24, Number.isFinite(scene?.toastMaxW) ? Math.max(160, scene.toastMaxW) : Infinity);
+
+// 스크린리더용 숨김 상태 영역(role=status, aria-live=polite): 캔버스 토스트 문구를 함께 읽힌다. DOM 이 없거나 실패해도 무시
+let liveEl = null;
+function announce(text) {
+    try {
+        if (typeof document === 'undefined' || !document.body) return;
+        if (!liveEl || !liveEl.isConnected) {
+            liveEl = document.createElement('div');
+            liveEl.setAttribute('role', 'status');
+            liveEl.setAttribute('aria-live', 'polite');
+            liveEl.style.cssText = 'position:fixed;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;pointer-events:none;left:-9999px;top:0';
+            document.body.appendChild(liveEl);
+        }
+        liveEl.textContent = '';
+        liveEl.textContent = text;
+    } catch { /* 접근성 보조 실패가 게임을 멈추지 않는다 */ }
+}
+
+// 키 토스트 닫기: 조건이 해소된 경고(opts.key 로 띄운 것)를 바로 걷어낸다
+export function dismissToast(scene, key) {
+    if (!key || !scene) return;
+    const st = stacks.get(scene);
+    st?.shown.filter((c) => c.toastKey === key && !c.toastLeaving).forEach((c) => dismiss(scene, st, c));
+}
+
 // ---- 공개 API ----
 // 하단 중앙 토스트(기존 시그니처 호환). opts.kind 생략 시 자동 분류
-export function showToast(scene, message, { ms = 1300, kind } = {}) {
+// opts.key: 같은 키 토스트는 하나만 유지(같은 문구 = 유지 시간만 갱신·무음, 다른 문구 = 교체). dismissToast(scene, key) 로 닫기
+// opts.maxLines: 최대 줄 수(기본 2)
+export function showToast(scene, message, { ms = 1300, kind, key, maxLines = 2 } = {}) {
     if (!sceneOk(scene)) return null;
     const k = KIND[kind] ? kind : inferToastKind(message);
     const st = stackOf(scene);
     const text = String(message ?? '');
+    let quiet = false;
+    if (key) {
+        const same = st.shown.filter((c) => c.scene && !c.toastLeaving && c.toastKey === key);
+        const hit = same.find((c) => c.toastMsg === text && c.toastKind === k);
+        if (hit) { arm(scene, st, hit, ms); return hit; }
+        quiet = same.length > 0; // 문구만 바뀐 교체는 효과음·흔들림 생략(편성 중 탭마다 울리지 않게)
+        same.forEach((c) => dismiss(scene, st, c, true));
+    }
     // 같은 문구·종류가 떠 있으면 병합(x2, x3…)
-    const dup = st.shown.find((c) => c.scene && !c.toastLeaving && c.toastMsg === text && c.toastKind === k && !c.toastReward);
+    const dup = key ? null : st.shown.find((c) => c.scene && !c.toastLeaving && c.toastMsg === text && c.toastKind === k && !c.toastReward && !c.toastKey);
     if (dup) {
         dup.toastCount += 1;
         setCountChip(dup.toastCountText, `x${dup.toastCount}`);
@@ -253,16 +291,16 @@ export function showToast(scene, message, { ms = 1300, kind } = {}) {
         playToastSfx(scene, k);
         return dup;
     }
-    const maxW = Math.min(460, L.lw - 24);
-    const narrow = L.lw < 480; // 세로 폰: 글자 16 + 최대 2줄(넘치면 글자 크기 최소 13 까지 줄인 뒤 말줄임)
+    const maxW = widthCap(scene);
+    const narrow = maxW < 456; // 세로 폰·좁은 영역: 글자 16 + 최대 2줄(넘치면 글자 크기 최소 13 까지 줄인 뒤 말줄임)
     const badgeR = 13; const padL = 14 + badgeR * 2 + 10; const padR = narrow ? 16 : 26;
     const t = makeText(scene, 0, 0, text, { size: narrow ? 16 : 17, color: (KIND[k]).text, origin: [0, 0.5], wrap: maxW - padL - padR, bold: k !== 'info' });
-    shrinkToFit(t, maxW - padL - padR, 13, { maxLines: 2 });
-    fitText(t, maxW - padL - padR, { maxLines: 2 });
+    shrinkToFit(t, maxW - padL - padR, 13, { maxLines });
+    fitText(t, maxW - padL - padR, { maxLines });
     const w = Math.max(160, Math.min(maxW, t.width + padL + padR));
     const h = Math.max(46, t.height + 20);
-    const c = scene.add.container(L.lw / 2, anchorBottom(scene) - h / 2).setDepth(DEPTH);
-    c.toastH = h; c.toastMsg = text; c.toastKind = k; c.toastCount = 1;
+    const c = scene.add.container(centerX(scene), anchorBottom(scene) - h / 2).setDepth(DEPTH);
+    c.toastH = h; c.toastMsg = text; c.toastKind = k; c.toastCount = 1; c.toastKey = key ?? null;
     const badge = kindBadge(scene, k, badgeR).setPosition(-w / 2 + 14 + badgeR, 0);
     t.setPosition(-w / 2 + padL, 0);
     // 병합 수(x2…) = 판 오른쪽 위 모서리에 걸친 배지(a27b QA: 문구 끝 괄호에 붙어 'x2' 가 문장처럼 읽힘)
@@ -273,14 +311,15 @@ export function showToast(scene, message, { ms = 1300, kind } = {}) {
     if (rich()) {
         badge.setScale(0); scene.tweens.add({ targets: badge, scale: 1, duration: 320, delay: 120, ease: 'Back.easeOut' });
         if (k === 'success' || k === 'reward') { twinkle(scene, c, -w / 2 + 6, -h / 2 + 4, 7, 260); twinkle(scene, c, w / 2 - 8, h / 2 - 5, 6, 380); }
-        if (k === 'error') scene.time.delayedCall(200, () => { if (c.scene && !c.toastLeaving) shake(scene, c); });
+        if (k === 'error' && !quiet) scene.time.delayedCall(200, () => { if (c.scene && !c.toastLeaving) shake(scene, c); });
     }
-    playToastSfx(scene, k);
+    if (!quiet) playToastSfx(scene, k);
+    announce(text);
     return c;
 }
 function shake(scene, c) {
     if (c.toastShaking) return; // 진입 트윈(y·alpha·scale)은 건드리지 않도록 x 전용 트윈만, 중복 실행 방지
-    const x0 = L.lw / 2;
+    const x0 = c.x; // 토스트 중심(씬 toastX 기준일 수 있음)
     c.toastShaking = true;
     c.x = x0;
     scene.tweens.add({ targets: c, x: x0 + 7, duration: 45, yoyo: true, repeat: 3, ease: 'Sine.easeInOut', onComplete: () => { c.toastShaking = false; if (c.scene) c.x = x0; } });

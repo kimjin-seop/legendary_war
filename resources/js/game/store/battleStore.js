@@ -503,8 +503,8 @@ export function createBattleStore() {
         // (이전: 편성 밖 대기 영웅까지 슬롯을 채워 출전 -> 서버 코스트 합산 초과(cost_exceeded)로 진입 실패)
         const party = (dep.default_party ?? []).filter((id, i, a) => cand.has(id) && a.indexOf(id) === i);
         const order = party.length ? party : dep.candidates.map((c) => c.user_hero_id);
-        // 부대 코스트(squad 배치 응답의 formation[].troops[].cost, 서버 계산 구성)를 영웅 코스트와 함께 합산해 상한 안에서 고른다(최종 판정은 서버)
-        const troopCostOf = (id) => (dep.squad ? ((dep.formation?.[id] ?? dep.formation?.[String(id)])?.troops ?? []).reduce((a, t) => a + (Number(t.cost) || 0), 0) : 0);
+        // 부대 코스트는 서버 규칙 rules.troop_cost 가 켜진 경우에만 합산한다(기본 off = 영웅 코스트만, 값이 없으면 off). 최종 판정은 서버
+        const troopCostOf = (id) => (s.troopCostOn === true && dep.squad ? ((dep.formation?.[id] ?? dep.formation?.[String(id)])?.troops ?? []).reduce((a, t) => a + (Number(t.cost) || 0), 0) : 0);
         // 필수 출전(forced[]·candidates[].forced·고정 슬롯 영웅)은 슬롯 수 면제(Deploy.isFreeSlot·서버 validateParty 와 같은 규칙), 항상 맨 앞에 포함. 코스트는 합산
         const forcedIds = new Set();
         (dep.forced ?? []).forEach((f) => { const c = f?.user_hero_id != null ? cand.get(f.user_hero_id) : dep.candidates.find((x) => x.hero === f?.hero); if (c && f.free_slot !== false) forcedIds.add(c.user_hero_id); });
@@ -764,7 +764,7 @@ export function createBattleStore() {
             change();
             return run(async () => {
                 // 공개 규칙표(지형 전체·병종 기본 능력치·오라 카탈로그): 진입 시 1회, 실패하면 FE 시작값 유지
-                battleApi.rules().then((r) => { applyServerRules(r); setAuraCatalog(r?.auras); change(); }).catch(() => {});
+                battleApi.rules().then((r) => { s.troopCostOn = r?.troop_cost === true; applyServerRules(r); setAuraCatalog(r?.auras); change(); }).catch(() => {});
                 try { const pr = await battleApi.profile(); s.profileBefore = pr.profile; setFlankMult(pr.rules?.facing_mult); setForecastRules(pr.rules); if (pr.rules?.ally_passthrough_cost != null) setAllyPassCost(pr.rules.ally_passthrough_cost); } catch (e) { if (e.status === 401) throw e; }
                 let view;
                 let dep = null;

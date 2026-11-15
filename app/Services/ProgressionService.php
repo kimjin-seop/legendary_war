@@ -252,7 +252,7 @@ class ProgressionService
             throw new IllegalAction('party_empty', '출격 영웅이 최소 1명 필요합니다.');
         }
         $slots = $fixedSlots ?? $this->maxSlots($this->level($user), $campaign);   // fixedSlots: 방 대전 맵 크기별 고정 출전수(레벨 슬롯 대체)
-        $freeIds = [];   // 강제/대여(고정 슬롯) 영웅은 슬롯 수만 면제한다. 코스트(영웅+부대)는 합산에 포함(2026-11-08 변경: 기존에는 면제)
+        $freeIds = [];   // 강제/대여(고정 슬롯) 영웅은 슬롯 수만 면제한다. 코스트는 합산에 포함(2026-11-08 변경: 기존에는 면제. 부대 코스트는 troop_cost off 라 0)
         if ($forced) {
             foreach (DB::table('user_heroes')->where('user_id', $user->id)->whereIn('id', $userHeroIds)->get() as $uh) {
                 $h0 = $this->data->heroById((int) $uh->hero_id);

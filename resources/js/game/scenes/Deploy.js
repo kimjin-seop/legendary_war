@@ -26,7 +26,7 @@ const CHIP_LH = 22; // 칩 줄이 넘칠 때 다음 줄 간격(병사 뱃지가 
 import { Button } from '../ui/Button.js';
 import { CostMeter } from '../ui/CostMeter.js';
 import { StatBar } from '../ui/StatBar.js';
-import { showToast } from '../ui/Toast.js';
+import { showToast, dismissToast } from '../ui/Toast.js';
 import { makeText, addBackdrop, fitText } from '../ui/common.js';
 import { slice, skinIcon } from '../ui/skin.js';
 import { openHeroDetail } from '../ui/HeroDetailView.js';
@@ -90,6 +90,8 @@ export class DeployScene extends Phaser.Scene {
     create() {
         this.modalCount = 0;
         this.toastInset = undefined; // 범례·줌 도구 위치로 다시 정함(씬 재사용)
+        this.toastX = undefined; this.toastMaxW = undefined; // build 가 맵 영역 기준으로 다시 정함
+        this.warnMsg = undefined; // 편성 경고 토스트로 마지막에 띄운 문구(바뀔 때만 새로 띄움)
         this.submitting = null; // 배치 확정 진행 중 문구(씬 재사용 시 초기화)
         syncView();
         setupCamera(this, CSS.bg);
@@ -243,6 +245,10 @@ export class DeployScene extends Phaser.Scene {
         const side = portrait ? { x: left, y: bottom - sideH, w: sideW, h: sideH } : { x: right - sideW, y: top, w: sideW, h: sideH };
         // 2026-11-14 배치 화면 개편: 맵 = 가용 영역 전체(제목·안내·적 요약·범례는 맵 위 반투명 패널로 겹침, 맵을 줄이지 않음). 확대/축소·팬은 모든 화면
         const map = portrait ? { x: left, y: top, w: right - left, h: side.y - m - top } : { x: left, y: top, w: side.x - m - left, h: bottom - top };
+        // 토스트 = 맵 영역 가로 중앙·하단(편성 패널과 겹치지 않게): 가로는 오른쪽 패널 제외, 세로 폰은 하단 패널 위로. 줌 도구 줄이 있으면 buildZoomTools 가 그 위로 더 올림
+        this.toastX = map.x + map.w / 2;
+        this.toastMaxW = map.w - 16;
+        this.toastInset = Math.max(this.toastInset ?? 0, L.lh - (map.y + map.h) + 6);
         // 머리 패널(제목·버튼·안내·적 요약) 바탕: 글자보다 먼저 만들어 아래 층에 둔다(크기는 내용 측정 후 drawHdr)
         this.hdrBg = this.add.graphics();
         this.hdrSkin = this.add.container(0, 0); // 머리 패널 스킨(9-슬라이스 'panel' 금테·모서리 장식, drawHdr 에서 크기에 맞춰 다시 그림)
@@ -550,7 +556,7 @@ export class DeployScene extends Phaser.Scene {
         this.input.on('wheel', list.onWheel);
     }
 
-    // 영웅 코스트 합(출전=배치한 영웅만). 2026-11-08 서버 규칙: 필수 출전·고정 슬롯 영웅도 영웅·부대 코스트 모두 합산(코스트 면제 폐지, 슬롯 면제 free_slot 은 유지)
+    // 영웅 코스트 합(출전=배치한 영웅만). 필수 출전·고정 슬롯 영웅도 코스트에 합산(코스트 면제 없음, 슬롯 면제 free_slot 은 유지). 부대 코스트는 없다
     costOf() { return this.placements.reduce((s, p) => s + (this.byId.get(p.user_hero_id)?.cost ?? 0), 0); }
     isForced(id) { return !!this.forced?.has(id); }
     // 슬롯 모드: 영웅 id 를 (x,y)에 둘 수 없는 사유(서버 not_a_slot / slot_hero_mismatch / slot_unit_type_mismatch 와 같은 조건). 둘 수 있거나 레거시면 null
@@ -608,17 +614,15 @@ export class DeployScene extends Phaser.Scene {
         return g;
     }
 
-    // 출전 코스트(서버가 단일 출처). 배치가 저장된 편성(default_party, 같은 순서)과 같고 부대를 바꾸지 않았으면 서버 default_party_cost 를 그대로 쓰고,
-    // 아니면 영웅 합 + 부대 합(formation 서버 구성 기준, 빈 부대는 서버 프리셋 폴백이므로 formation 값)으로 추정한다.
-    // 추정치는 진영 유닛 상한 감축(max_units_per_side) 때문에 서버보다 클 수 있다 -> 추정 초과는 안내만, 확정 차단은 서버 값/영웅 합 초과만.
+    // 출전 코스트(서버가 단일 출처). 배치가 저장된 편성(default_party, 같은 순서)과 같으면 서버 default_party_cost 를 그대로 쓰고,
+    // 아니면 편성 영웅 코스트 합으로 계산한다(부대는 코스트에 포함되지 않아 troop 은 항상 0).
     costInfo() {
         const info = this.info;
         const hero = this.costOf();
         const sc = info.default_party_cost;
         const same = (info.default_party ?? []).join(',') === this.placements.map((p) => p.user_hero_id).join(',');
         if (sc && typeof sc === 'object' && sc.total != null && same && !this.troopsDirty) return { hero: sc.hero ?? hero, troop: sc.troop ?? 0, total: sc.total, exact: true };
-        const troop = this.troopCost();
-        return { hero, troop, total: hero + troop, exact: !this.squad };
+        return { hero, troop: 0, total: hero, exact: true };
     }
 
     render() {
@@ -781,16 +785,28 @@ export class DeployScene extends Phaser.Scene {
         else if (req && this.slotUsed() !== req) why = `이 맵은 ${req}명을 출전시켜야 합니다. (${this.slotUsed()}/${req})`;
         else if ([...(this.forced?.keys() ?? [])].some((id) => !this.placements.some((p) => p.user_hero_id === id))) why = `필수 출전 영웅(${[...this.forced.keys()].filter((id) => !this.placements.some((p) => p.user_hero_id === id)).map((id) => heroLabel(this.byId.get(id) ?? {}, { compact: true })).join(', ')})을 배치하세요.`;
         else if (ci.hero > info.max_cost) why = `영웅 코스트 ${ci.hero}만으로 상한 ${info.max_cost}을 초과했습니다.${fcNote}`;
-        else if (ci.exact && cost > info.max_cost) why = `출전 코스트 ${cost}(영웅 ${ci.hero} + 부대 ${ci.troop})가 상한 ${info.max_cost}을 초과했습니다.${fcNote}`;
+        else if (ci.exact && cost > info.max_cost) why = `출전 코스트 ${cost}가 상한 ${info.max_cost}을 초과했습니다.${fcNote}`;
         if (this.info.confirmed) why = '이미 확정했습니다. 상대를 기다리는 중입니다.';
         // 진영 유닛 상한 초과는 막지 않고 안내만(서버가 부대 많은 영웅부터 1기씩 균등 감축). 예상 코스트 초과도 안내만(최종 판정은 서버)
-        const costNote = !why && !ci.exact && cost > info.max_cost ? `예상 출전 코스트 ${cost}(영웅 ${ci.hero} + 부대 ${ci.troop})가 상한 ${info.max_cost}을 넘을 수 있습니다. 부대를 줄이세요(최종 판정은 서버).` : '';
-        const capNote = costNote || (!why && this.squad && info.max_units_per_side && units > info.max_units_per_side ? `유닛 상한 ${info.max_units_per_side} 초과분은 서버가 균등 감축합니다.` : '');
-        if (this.submitting) { this.reasonT.setText(this.submitting); this.confirmBtn.setDisabled(true); this.confirmBtn.reason = this.submitting; this.syncHint(); return; } // 제출 중: 다른 갱신(render)이 버튼을 다시 켜지 않게
-        this.reasonT.setText(why ? '! ' + why : capNote);
+        // 2026-11-15: 출전 코스트는 영웅 코스트 합 대 상한(코스트 바)만 판정한다. 부대 코스트 합산 경고 제거
+        const capNote = (!why && this.squad && info.max_units_per_side && units > info.max_units_per_side ? `유닛 상한 ${info.max_units_per_side} 초과분은 서버가 균등 감축합니다.` : '');
+        if (this.submitting) { this.reasonT.setText(this.submitting); this.confirmBtn.setDisabled(true); this.confirmBtn.reason = this.submitting; this.syncWarnToast(''); this.syncHint(); return; } // 제출 중: 다른 갱신(render)이 버튼을 다시 켜지 않게
+        // 2026-11-15 사용자 요청: 장문 오류·경고는 맵 중간 하단 토스트로, 게이지 아래에는 짧은 상태만
+        this.reasonT.setText(why ? '! 확정 불가' : '');
+        this.syncWarnToast(why || capNote, !!why);
         this.confirmBtn.setDisabled(!!why);
         this.confirmBtn.reason = why;
         this.syncHint();
+    }
+
+    // 편성 경고 토스트(키 'deploy-warn'): 문구가 바뀌면 새로 띄우고, 같으면 떠 있는 동안 유지 시간만 갱신, 조건이 해소되면 닫는다.
+    // 첫 화면의 '최소 1명 배치' 안내는 기본 상태라 띄우지 않는다(확정 버튼을 누르면 사유 토스트로 나옴)
+    syncWarnToast(msg, blocking = false) {
+        const prev = this.warnMsg;
+        this.warnMsg = msg;
+        if (!msg) { if (prev) dismissToast(this, 'deploy-warn'); return; }
+        if (prev === undefined && !this.placements?.length) return;
+        showToast(this, msg, { key: 'deploy-warn', kind: 'warn', ms: blocking ? 3200 : 4000 });
     }
 
     syncHint() {
@@ -1051,9 +1067,8 @@ export class DeployScene extends Phaser.Scene {
         const info = this.info;
         const order = ids ?? [...info.candidates].sort((a, b) => (b.level - a.level) || (b.cost - a.cost)).map((c) => c.user_hero_id);
         const picked = [...(this.forced?.keys() ?? [])]; // 필수 출전: 항상 포함(맨 앞 = 지휘관), 슬롯 면제(코스트는 합산)
-        // 출전 코스트 = 영웅 코스트 + 그 영웅 부대 코스트(costInfo/troopCost 와 같은 계산). 2026-11-03 강화면 16차: 부대 코스트를 빼고 골라 상한 초과(서버 422)
-        // 서버 ProgressionService::validateParty(2026-11-08): 필수 출전·고정 영웅도 영웅·부대 코스트 합산(상한도 그만큼 늘어난 값이 max_cost 로 온다)
-        const partCost = (id) => (this.byId.get(id)?.cost ?? 0) + this.heroTroopCost(id);
+        // 출전 코스트 = 편성 영웅 코스트의 합(부대 병종은 코스트에 포함되지 않는다, 2026-11-15). 필수 출전·고정 영웅도 합산하며 상한은 max_cost 로 온다
+        const partCost = (id) => this.byId.get(id)?.cost ?? 0;
         if (this.mode === 'room') this.autoPickRoom(order, picked); // 방 대전: 필수 인원(required_party) 우선 + 진영 유닛 상한 감축 반영 코스트
         else {
             let cost = picked.reduce((a, id) => a + partCost(id), 0);
@@ -1080,7 +1095,7 @@ export class DeployScene extends Phaser.Scene {
     // 방 대전 자동 편성(picked 에 필수 출전이 들어 있는 상태로 호출, picked 를 채운다).
     // 1) 레벨 순(order)으로 상한(코스트·인원) 안에서 고른다. 코스트는 서버와 같이 진영 유닛 상한 감축을 반영(partyCostRoom).
     // 2) 그래도 필수 인원(required_party)에 못 미치면 필수 출전만 남기고, 매 단계 합계가 가장 작아지는 영웅을 더해 인원을 채운다.
-    //    채운 뒤에도 예상 코스트가 상한을 넘으면 그대로 두고 화면 안내(costNote)만 한다(최종 판정은 서버).
+    //    채운 뒤에도 예상 코스트가 상한을 넘으면 그대로 두고 화면 안내만 한다(최종 판정은 서버).
     autoPickRoom(order, picked) {
         const info = this.info;
         const req = Number(info.required_party) > 0 ? Math.min(Number(info.required_party), info.max_party_slots) : 0;
@@ -1107,9 +1122,9 @@ export class DeployScene extends Phaser.Scene {
         }
     }
 
-    // 방 대전 출전 코스트 추정(영웅 + 부대, 필수 출전 포함). 부대는 진영 유닛 상한 감축 반영(cappedTroopCost)
+    // 방 대전 출전 코스트 추정(편성 영웅 코스트 합, 필수 출전 포함. 부대는 코스트에 포함되지 않는다)
     partyCostRoom(ids) {
-        return ids.reduce((a, id) => a + (this.byId.get(id)?.cost ?? 0), 0) + this.cappedTroopCost(ids);
+        return ids.reduce((a, id) => a + (this.byId.get(id)?.cost ?? 0), 0);
     }
 
     // 마지막 출격 구성(서버 default_party = parties, 캠페인 배치 확정 시 rememberLastParty 자동 저장) 중 현재 후보에 있는 영웅.
@@ -1433,45 +1448,6 @@ export class DeployScene extends Phaser.Scene {
         this.render();
     }
 
-    troopCost() {
-        if (!this.squad) return 0;
-        const formTroops = (id) => (this.info.formation?.[id] ?? this.info.formation?.[String(id)])?.troops ?? [];
-        if (this.mode === 'room') return this.cappedTroopCost(this.placements.map((p) => p.user_hero_id)); // 방 대전: 서버처럼 진영 유닛 상한 감축 반영
-        return this.placements.reduce((s, p) => s + this.heroTroopCost(p.user_hero_id, formTroops), 0); // 필수 출전 영웅의 부대도 합산(2026-11-08 서버 규칙)
-    }
-
-    // 영웅 1명의 부대 유닛별 코스트 목록(소속 off = []). 빈 부대는 서버가 프리셋으로 폴백 -> 서버가 준 구성(formation)의 코스트로 추정
-    heroTroopUnitCosts(id, formTroops = (k) => (this.info.formation?.[k] ?? this.info.formation?.[String(k)])?.troops ?? []) {
-        if (!this.squad) return [];
-        const list = this.troops?.get(id) ?? [];
-        if (!list.length) return formTroops(id).map((t) => Number(t.cost) || 0);
-        return list.map((t) => this.classCost[t.class] ?? 1); // 코스트 미상 병종은 서버 기본값(1)으로 추정
-    }
-
-    // 영웅 1명의 부대 코스트(감축 전). 자동 편성(스테이지)·예상 출전 코스트 공용
-    heroTroopCost(id, formTroops) {
-        return this.heroTroopUnitCosts(id, formTroops).reduce((a, c) => a + c, 0);
-    }
-
-    // 부대 코스트 합(진영 유닛 상한 감축 반영). 서버 ProgressionService::costBreakdown -> SquadPlanner::plan 과 같은 규칙:
-    // 합산 대상 = 출전 영웅 전원(순서 유지, 2026-11-08 필수 출전 포함), 영웅 수 + 부대 수가 max_units_per_side 를 넘으면
-    // 부대가 가장 많은 영웅(동률이면 뒤 순서)의 마지막 부대부터 1기씩 감축
-    cappedTroopCost(ids) {
-        if (!this.squad) return 0;
-        const lists = ids.map((id) => [...this.heroTroopUnitCosts(id)]);
-        const max = Number(this.info.max_units_per_side) || 0;
-        if (max > 0) {
-            let total = lists.length + lists.reduce((a, l) => a + l.length, 0);
-            while (total > max) {
-                let pick = -1;
-                lists.forEach((l, i) => { if (l.length && (pick < 0 || l.length >= lists[pick].length)) pick = i; });
-                if (pick < 0) break;
-                lists[pick].pop(); total -= 1;
-            }
-        }
-        return lists.reduce((a, l) => a + l.reduce((b, c) => b + c, 0), 0);
-    }
-
     // 빈 배치 칸(청색) 탭: 목록에서 고른 영웅 놓기 / 맵에서 집어 든 유닛 옮기기(검증은 canDrop, 최종 판정은 서버)
     tapTile(x, y) {
         if (this.info.confirmed) return;
@@ -1535,7 +1511,7 @@ export class DeployScene extends Phaser.Scene {
                 confirmModal(this, '편성 확인', messageOf(e), () => this.scene.start('Lobby', { tab: 'lineup' }), { okLabel: '편성 화면으로' });
                 return;
             }
-            alertModal(this, '배치 오류', (e.fields ? Object.values(e.fields).join('\n') + '\n' : '') + messageOf(e));
+            showToast(this, (e.fields ? Object.values(e.fields).join(' ') + ' ' : '') + messageOf(e), { key: 'deploy-error', kind: 'error', ms: 4500, maxLines: 3 }); // 서버 거절도 맵 중간 하단 토스트(2026-11-15)
         }
     }
 

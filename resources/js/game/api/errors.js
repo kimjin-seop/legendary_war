@@ -145,9 +145,9 @@ export function costExceededText(err) {
     const { used, max, hero, troop } = costNumbers(err);
     if (used == null && max != null) return `편성 코스트가 상한을 초과했습니다. 이 맵의 코스트 상한은 ${max}입니다.`; // 방 대전: details.max = 맵 크기별 상한(서버 cost_cap, 현행 S24/M32/L40)
     if (used == null || max == null) return ERROR_MESSAGES.cost_exceeded;
-    const parts = hero != null && troop != null ? ` (영웅 ${hero} + 부대 ${troop})` : '';
+    const parts = hero != null && troop != null && troop > 0 ? ` (영웅 ${hero} + 부대 ${troop})` : '';
     const over = used > max ? ` ${used - max}만큼 넘습니다.` : '';
-    return `출전 코스트 ${used} / 상한 ${max}${parts}로 상한을 초과했습니다.${over} 코스트가 큰 영웅을 바꾸거나 부대를 줄여 주세요.`; // 등급 코스트 C2/B3/A5/S8(서버값)
+    return `출전 코스트 ${used} / 상한 ${max}${parts}로 상한을 초과했습니다.${over} ${troop != null && troop > 0 ? '코스트가 큰 영웅을 바꾸거나 부대를 줄여 주세요.' : '코스트가 큰 영웅을 바꿔 주세요.'}`; // 등급 코스트 C2/B3/A5/S8(서버값)
 }
 
 // 소환(가챠) 펜 부족 안내(송서사 확정 2026-11-14). 10연은 서버 price_pen.ten 숫자로 '10연 소환에는 펜 N개가 필요합니다.'를 앞에 붙인다.

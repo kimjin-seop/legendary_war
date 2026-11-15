@@ -28,7 +28,8 @@ class PartyCostTest extends TestCase
         $user = User::find($uid);
         $hero = ['uh' => DB::table('user_heroes')->find($uh[0]), 'hero' => app(\App\Services\GameData::class)->heroById((int) DB::table('user_heroes')->find($uh[0])->hero_id)];
         $c = $svc->costBreakdown($user, [$uh[0] => $hero]);
-        $this->assertGreaterThan($hero['hero']['cost'], $c['total']);   // 부대 코스트가 합산됨
+        $this->assertSame((int) $hero['hero']['cost'], $c['total']);   // 2026-11-15: 출전 코스트 = 영웅 코스트 합(부대 미합산, 코스트 바 기준)
+        $this->assertSame(0, $c['troop']);
         // 상한을 출전 1명의 합계와 정확히 같게(경계) 설정: 파티에 벤치 영웅(2번째)이 있어도 출전 1명은 통과해야 한다
         DB::table('user_level_costs')->where('level', 1)->update(['max_cost' => $c['total']]);
         $this->assertCount(1, $svc->validateParty($user, [$uh[0]]));

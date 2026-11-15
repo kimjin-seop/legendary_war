@@ -7,7 +7,7 @@
 - `heroes.unit_type`(영웅 지휘관 class)은 부대 병종(`hero_troop_types`)과 별개다. class heavy 영웅이 **11명** 있고(부대 병종 heavy 13명과 다른 집합), mage 16명·healer 14명이 이미 class로 존재한다. heavy 삭제는 두 곳 모두 영향을 준다.
 - 부대 병종은 영웅당 1종 고정이며 슬롯 수(Lv1/10/20에 2/3/4) 전부가 그 병종이다(SquadPlanner).
 - move_type은 foot/mounted/heavy/flying. 물 타일은 flying 외 전부 통행 불가. 맵 물+여울 비중은 maps.json 4.7%, maps_pack20 5.9%.
-- 코스트: 영웅 코스트 + 부대 병종 코스트 합이 `user_level_costs.max_cost`(Lv1 16)에 들어간다.
+- 코스트: 편성 영웅 코스트의 합이 `user_level_costs.max_cost`(Lv1 16)에 들어간다. 2026-11-15부터 부대 병종 코스트는 합산하지 않는다(`game.rules.troop_cost=false`). 아래 병종 코스트 표는 troop_cost 를 다시 켤 때를 위한 참고값이다.
 - 피해식: round((atk x 총배율 - def x (1+방어%)) x 1.2). 총배율 clamp 0.6~1.5, 측/후방 x1.15/x1.30(상한 1.8).
 
 ## 1. 9종 요약 (HP/공격/방어/이동/사거리, 코스트)

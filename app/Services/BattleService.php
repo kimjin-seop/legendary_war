@@ -478,7 +478,7 @@ class BattleService
             'min_party' => $lc['required'] ?? 1, 'pool_size' => $lc ? $lc['current'] : count($candidates), 'lineup_ready' => $lc['ready'] ?? true, 'lineup_reason' => $lc['reason'] ?? null,   // 서버 단일 권위: 풀(라인업+필수/고정/대여+주인공) < min_party 면 PUT deployment 가 lineup_insufficient
             'slot_mode' => $slots !== null, 'slots' => $slots ? $this->slotsView($slots, $forced, $candidates) : [],   // 배치 슬롯(슬롯 스테이지만): kind fixed=잠김(영웅 고정)/free=유저 선택. 슬롯 외 타일 배치는 not_a_slot
             'slot_counts' => $slots ? ['fixed' => count($slots['fixed']), 'free' => count($slots['free']), 'total' => count($slots['fixed']) + count($slots['free'])] : null,
-            'forced_cost' => $this->progress->costBreakdown($user, $forcedHeroes, null, true),   // 강제/고정 영웅 코스트(영웅+부대): 코스트 상한 합산에 포함된다
+            'forced_cost' => $this->progress->costBreakdown($user, $forcedHeroes, null, true),   // 강제/고정 영웅 코스트(영웅 코스트 합, troop_cost off 면 부대 0): 코스트 상한 합산에 포함된다
             'cost_cap_source' => ($slots['cost_cap'] ?? null) !== null ? 'stage' : 'level',
             'stage_name' => $stage->name ?? null, 'recommended_level' => isset($stage->recommended_level) ? (int) $stage->recommended_level : null,
             'max_cost' => $maxCost, 'max_party_slots' => $slots ? count($slots['free']) : $this->progress->maxSlots($this->progress->level($user), true),   // 캠페인 곡선(슬롯 스테이지: 선택 슬롯 수 = 고정 영웅 제외 출전 가능 수, 코스트 상한은 rules.deploy_slots.cost_cap 우선)
