@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Events\RealtimePing;
 use App\Events\RoomChanged;
+use App\Support\RoomRealtime;
 use App\Events\RoomChatPosted;
 use App\Services\RoomService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -75,6 +77,28 @@ class RoomRealtimeTest extends TestCase
         $this->as($outsider)->postJson('/api/broadcasting/auth', $body)->assertStatus(403);
         $this->as($host)->postJson('/api/broadcasting/auth', $body)->assertOk()->assertJsonStructure(['auth']);
         $this->as($host)->postJson('/api/broadcasting/auth', ['socket_id' => '123.456', 'channel_name' => "private-room.$code.chat"])->assertOk();
+    }
+
+    public function test_2단계_채널은_본인_시즌가입자_로비만_통과하고_ping은_합쳐진다(): void
+    {
+        Event::fake([RoomChanged::class, RoomChatPosted::class, RealtimePing::class]);
+        $this->useReverb();
+        $a = $this->guest('alpha');
+        $b = $this->guest('bravo');
+        [$idA, $idB] = DB::table('users')->orderByDesc('id')->limit(2)->pluck('id')->reverse()->values()->all();   // 방금 만든 게스트 2명(a, b 순)
+        $auth = fn (string $t, string $ch) => $this->as($t)->postJson('/api/broadcasting/auth', ['socket_id' => '123.456', 'channel_name' => "private-$ch"]);
+
+        $auth($a, "user.$idA")->assertOk()->assertJsonStructure(['auth']);
+        $auth($a, "user.$idB")->assertStatus(403);   // 남의 user 채널(rank.matched) 구독 불가
+        $auth($a, 'war.1')->assertStatus(403);       // 시즌 비가입자
+        $auth($a, 'lobby')->assertOk();
+
+        // 공개 방 생성 -> lobby.changed 1회, war ping 은 3초 합치기
+        $this->as($b)->postJson('/api/rooms', ['mode' => 'pvp', 'visibility' => 'public'])->assertCreated();
+        Event::assertDispatched(RealtimePing::class, fn ($e) => $e->channel === 'lobby' && $e->name === 'lobby.changed');
+        RoomRealtime::war(7, 1);
+        RoomRealtime::war(7, 2);
+        Event::assertDispatchedTimes(RealtimePing::class, 2);   // lobby 1 + war 1(두 번째는 합쳐짐)
     }
 
     public function test_서버_tick은_폴링_없이_끊긴_참가자를_기권_처리한다(): void

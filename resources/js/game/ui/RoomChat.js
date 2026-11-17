@@ -250,7 +250,11 @@ export class RoomChat {
         this.renderAll();
         // 웹소켓 푸시(chat.message) -> 즉시 재조회. 연결 중엔 폴링을 안전망 간격으로 늘리고 끊기면 즉시 기존 주기 복귀
         this.rt ??= watchRealtime(`room.${this.code}.chat`, {
-            events: { '.chat.message': () => this.kick() },
+            events: {
+                '.chat.message': () => this.kick(),
+                // 관리자 삭제(id>0): 목록에서 제거. id=0(제재·해제 등 상태 변화)은 재조회로 can_send·제한 시각 갱신
+                '.chat.removed': (d) => { if (d?.id > 0 && this.c.msgs.delete(d.id)) this.renderAll(); this.kick(); },
+            },
             onLive: () => this.kick(),
             onDown: () => this.kick(),
         });

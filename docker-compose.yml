@@ -8,8 +8,10 @@ services:
     env_file:
       - path: .env.reverb
         required: false
-    ports:
-      - "8000:8000"
+    # 호스트 :8000 은 아래 proxy(nginx)가 받아 app:8000(HTTP)·reverb:8080(/app 웹소켓)으로 나눠 전달한다(같은 출처).
+    # app 직접 접속이 필요하면 임시로 ports: ["8000:8000"] 복구 후 proxy 서비스를 중지한다.
+    expose:
+      - "8000"
     volumes:
       - .:/var/www/html
       # vendor는 컨테이너 내부 볼륨 유지 (Windows bind mount I/O 성능 문제 회피)
@@ -29,6 +31,18 @@ services:
       PHP_CLI_SERVER_WORKERS: "6"
       # 신전투 확인용(개발 한정). 롤백: 이 줄 삭제 후 app 재기동
       GAME_MICRO_MODE: "on"
+
+  # 앞단 얇은 프록시(개발 한정, 웹소켓 같은 출처 통합): 호스트 :8000 -> / = app, /app·/apps = reverb. (삼넷은 8100·8080, 레전드리 reverb 직접 노출은 8081)
+  # 설정: docker/nginx-dev.conf. 로그: docker compose logs -f proxy
+  proxy:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    depends_on:
+      - app
+    volumes:
+      - ./docker/nginx-dev.conf:/etc/nginx/conf.d/default.conf:ro
 
   # 개발 한정 스케줄러(시즌 전쟁 war:tick 시간당 배치 등). 기본 `up`에는 포함되지 않고 `docker compose up -d scheduler`로만 기동.
   # app과 같은 소스·볼륨(dbdata 포함)·환경변수를 써서 웹/CLI와 같은 DB(/var/www/dbdata/database.sqlite)를 본다.

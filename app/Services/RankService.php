@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Game\IllegalAction;
 use App\Models\Battle;
 use App\Models\User;
+use App\Support\RoomRealtime;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -352,6 +353,23 @@ class RankService
             'season_id' => $s->id, 'room_id' => $room->id, 'battle_id' => $started->battle_id, 'user_a_id' => $u1, 'user_b_id' => $u2,
             'rating_a_before' => $r1, 'rating_b_before' => $r2, 'status' => 'active', 'created_at' => now(), 'updated_at' => now(),
         ]);
+        $matchId = (int) DB::table('rank_matches')->where('room_id', $room->id)->value('id');
+        RoomRealtime::rankMatched($u1, $matchId);   // 웹소켓 ping(커밋 후): 두 유저가 GET /rank/queue 를 즉시 재조회
+        RoomRealtime::rankMatched($u2, $matchId);
+    }
+
+    /** 스케줄러(5초) 매칭: 폴링 없이도(웹소켓 연결로 클라이언트 폴링이 느려져도) 대기열을 맞춘다. 유령 대기 정리는 tryMatch 가 수행 */
+    public function matchQueued(): int
+    {
+        if (! $this->enabled()) {
+            return 0;
+        }
+        $before = DB::table('rank_queue')->count();
+        foreach (DB::table('rank_queue')->orderBy('id')->pluck('user_id') as $uid) {
+            $this->tryMatch((int) $uid);
+        }
+
+        return $before - DB::table('rank_queue')->count();
     }
 
     // ---------- 정산/이탈 ----------

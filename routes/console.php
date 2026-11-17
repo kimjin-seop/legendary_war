@@ -22,6 +22,10 @@ Illuminate\Support\Facades\Schedule::call(function () {
     }
 })->name('rank:sweep')->everyMinute()->withoutOverlapping();
 
+// 랭크 대기열 서버 매칭(5초): 웹소켓 연결로 클라이언트 폴링이 느려져도 매칭이 지연되지 않게 한다. rank.enabled=false 면 no-op
+Illuminate\Support\Facades\Schedule::call(fn () => app(\App\Services\RankService::class)->matchQueued())
+    ->name('rank:match')->everyFiveSeconds()->withoutOverlapping();
+
 // 방 전투 서버 tick(5초): PvP 턴 마감 자동 종료·시간 초과·90초 끊김 기권을 폴링과 무관하게 처리(웹소켓 연결 시 클라이언트 폴링이 느려져도 판정 지연 없음).
 // 개발 compose scheduler 서비스(schedule:work)가 구동. 폴링 쪽 지연 tick 은 그대로 유지(이중 안전망).
 Illuminate\Support\Facades\Schedule::call(fn () => app(\App\Services\RoomService::class)->tickAll())

@@ -95,6 +95,16 @@
 | 푸시 | 완료 | private `room.{code}`: `room.changed {seq}`(join/leave/ready/start/confirm/action/기권·tick, pvp 방만), private `room.{code}.chat`: `chat.message {id}`. 커밋 후(`DB::afterCommit`) `ShouldBroadcastNow` 즉시 전송, 실패는 삼키고 report(Guzzle timeout 2초). 발행 진입점 `App\Support\RoomRealtime` |
 | 서버 tick | 완료 | `RoomService::tickAll()` + `routes/console.php` `room:tick`(5초, scheduler 서비스 필요: `docker compose up -d scheduler`). 폴링 지연 tick 도 유지 |
 | FE | 완료(빌드까지) | `api/realtime.js`(`watchRealtime`) -> Room.js·battleStore(pvp)·RoomChat 가 구독, 푸시 시 즉시 재조회. 구독 성공 시 폴링 20초(안전망), 끊김/구독 실패 시 즉시 기존 1.5~4초 복귀, 재연결 직후 1회 즉시 조회. 폴링 코드는 제거하지 않음 |
-| 미적용(2단계~) | 대기 | 랭크 매칭 `user.{id}`, war unread, 공지/점검 `lobby`, 시즌 전쟁 `war.changed`, 명령 WS RPC(B/C안, 별도 승인), 채팅 삭제/제재 `chat.removed` |
+| 미적용(3단계~) | 대기 | 공지/점검(`maintenance.changed`·`announcement.changed`), 시즌 전쟁 War 씬 내부 실시간 갱신, 명령 WS RPC(B/C안, 별도 승인) |
+
+### 6-2. 2단계 구현 (2026-11-15, 개발 환경 한정, 빌드·재기동은 팀장 몫)
+| 항목 | 상태 | 내용 |
+|---|---|---|
+| 앞단 프록시(같은 출처) | 코드 완료 | compose `proxy`(nginx:alpine, `docker/nginx-dev.conf`): **호스트 :8000 -> 컨테이너 80**, `/`=app:8000, `/app/`·`/apps/`=reverb:8080(Upgrade). app 은 호스트 포트 게시 해제(`expose 8000`), reverb 직접 노출 127.0.0.1:8081 은 유지(비상 경로). 변수 proxy_pass+resolver 라 reverb/app 이 꺼져도 기동. 포트: 레전드리 8000·8081·5173, 삼넷 8100·8080(충돌 없음). 적용: `docker compose up -d app proxy reverb queue` (app 재생성 필요) |
+| FE 접속 설정 | 완료 | `VITE_REVERB_HOST` 미지정이면 현재 접속 출처(호스트·포트·프로토콜)의 `/app` 로 접속(`wss` 자동). 기존 `.env.reverb` 의 `VITE_REVERB_PORT` 는 HOST 를 지정할 때만 사용 -> 값 변경 불필요, **재빌드만 필요**(`VITE_REVERB_APP_KEY` 필요) |
+| 채널·이벤트 | 완료 | `RealtimePing`(공용 ShouldBroadcastNow): private `user.{id}` `rank.matched {match_id}`(매칭 양쪽, 본인만 인증) / private `war.{season}` `war.changed {seq}`(WarService::event 훅, 시즌 가입자만, 시즌당 3초 합치기) / private `lobby` `lobby.changed`(공개 pvp 방 생성·참가·퇴장·시작, 1초 합치기, 로그인 전원) / `room.{code}.chat` `chat.removed {id}`(관리자 삭제 id>0, 제재·해제 id=0 -> 상태 재조회). 진입점 `RoomRealtime` |
+| 서버 매칭 | 완료 | `RankService::matchQueued()` + `routes/console.php` `rank:match`(5초, scheduler). 폴링 없이도 매칭되므로 연결 시 대기열 폴링을 2초 -> 10초로 확대(서버 stale 20초 미만 유지) |
+| FE | 완료 | lobbyRank(user 채널, 연결 시 10초/끊김 2초), Lobby(war 채널: 연결 시 60초 -> 180초 안전망, lobby 채널: 방 목록 탭 자동 갱신·코드 입력 중 제외), RoomChat(`chat.removed`: 삭제 반영) |
+| 테스트 | 완료 | `RoomRealtimeTest`: user/war/lobby 채널 인증(남의 user·비가입 war 403), lobby ping, war ping 합치기 |
 
 운영 메모: Reverb 와 queue/scheduler 가 꺼져도 게임은 폴링으로 동작한다(scheduler 가 꺼지면 tick 은 폴링 요청 기반으로만 처리됨). `config/reverb.php` allowed_origins 는 기본 `*`(개발) — 운영 전 도메인 제한 필요. 실화면 검증(2클라이언트 동기화, Reverb 중단 시 폴링 복귀)은 강화면 몫.

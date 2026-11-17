@@ -131,6 +131,8 @@ class RoomService
             ]);
             DB::table('room_players')->insert(['room_id' => $id, 'user_id' => $user->id, 'side' => 'a', 'ready' => true, 'last_seen_at' => now(), 'created_at' => now(), 'updated_at' => now()]);
 
+            $visibility === 'public' && $mode === 'pvp' && RoomRealtime::lobby();
+
             return DB::table('rooms')->where('id', $id)->first();
         });
     }
@@ -185,6 +187,7 @@ class RoomService
             DB::table('room_players')->insert(['room_id' => $room->id, 'user_id' => $user->id, 'side' => 'b', 'ready' => false, 'last_seen_at' => now(), 'created_at' => now(), 'updated_at' => now()]);
 
             RoomRealtime::room($code);
+            RoomRealtime::lobby();
 
             return $room;
         });
@@ -201,6 +204,7 @@ class RoomService
                     DB::table('room_players')->where('id', $me->id)->delete();
                 }
                 RoomRealtime::room($code);
+                RoomRealtime::lobby();
 
                 return;
             }
@@ -258,6 +262,7 @@ class RoomService
             DB::table('rooms')->where('id', $room->id)->update(['status' => 'deployment', 'battle_id' => $b->id, 'updated_at' => now()]);
             DB::table('room_players')->where('room_id', $room->id)->update(['confirmed' => false, 'deployment' => null, 'missed_turns' => 0, 'last_seen_at' => now()]);
             RoomRealtime::room($code);
+            RoomRealtime::lobby();
 
             return DB::table('rooms')->where('id', $room->id)->first();
         });

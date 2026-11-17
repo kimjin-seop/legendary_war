@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Game\IllegalAction;
+use App\Support\RoomRealtime;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -46,6 +47,8 @@ class AdminChatController extends Controller
                 'before' => json_encode(['deleted_at' => null, 'room_id' => (int) $m->room_id, 'author_user_id' => (int) $m->user_id]), 'after' => json_encode(['deleted' => true]), 'created_at' => now(),
             ]);
         });
+        $code = DB::table('rooms')->where('id', $m->room_id)->value('code');
+        $code && RoomRealtime::chatRemoved((string) $code, (int) $m->id);   // 웹소켓 ping: 방 참가자 화면에서 삭제된 메시지 제거
 
         return response()->json(['ok' => true, 'already_deleted' => false]);
     }
@@ -81,6 +84,7 @@ class AdminChatController extends Controller
             DB::table('chat_reports')->where('target_user_id', $u->id)->whereNull('handled_at')->update(['handled_at' => now(), 'handled_by_user_id' => $request->user()->id, 'handled_action' => 'sanctioned']);
             $this->audit($request, 'chat_restrict', 'users', $u->id, ['chat_restricted_until' => $u->chat_restricted_until], ['chat_restricted_until' => $until->toDateTimeString(), 'minutes' => (int) $d['minutes'], 'reason' => $d['reason']]);
         });
+        $this->pingUserRooms((int) $u->id);
 
         return response()->json(['ok' => true, 'restricted_until' => $until->toIso8601String()]);
     }
@@ -94,8 +98,18 @@ class AdminChatController extends Controller
             DB::table('users')->where('id', $u->id)->update(['chat_restricted_until' => null, 'chat_sanctioned_at' => now()]);
             $this->audit($request, 'chat_unrestrict', 'users', $u->id, ['chat_restricted_until' => $u->chat_restricted_until], ['chat_restricted_until' => null, 'reason' => $d['reason']]);
         });
+        $this->pingUserRooms((int) $u->id);
 
         return response()->json(['ok' => true, 'restricted_until' => null]);
+    }
+
+    /** 제재 부여·해제: 대상이 참여 중인 방 채팅에 상태 변화 ping(id=0) -> 클라이언트가 can_send·제한 시각을 즉시 재조회 */
+    private function pingUserRooms(int $userId): void
+    {
+        foreach (DB::table('room_players')->join('rooms', 'rooms.id', '=', 'room_players.room_id')->where('room_players.user_id', $userId)
+            ->whereIn('rooms.status', ['waiting', 'deployment', 'in_progress'])->pluck('rooms.code') as $code) {
+            RoomRealtime::chatRemoved((string) $code, 0);
+        }
     }
 
     private function audit(Request $r, string $action, string $entity, string|int|null $key, ?array $before, ?array $after): void

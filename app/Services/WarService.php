@@ -845,6 +845,7 @@ class WarService
             'season_id' => $seasonId, 'type' => $type, 'season_country_id' => $seasonCountryId, 'season_territory_id' => $seasonTerritoryId,
             'user_id' => $userId, 'payload' => json_encode($payload, JSON_UNESCAPED_UNICODE), 'created_at' => now(),
         ]);
+        \App\Support\RoomRealtime::war($seasonId);   // 웹소켓 ping(커밋 후, 3초 합치기): 가입자 클라이언트가 안 읽음 수·전황을 재조회
     }
 
     private function addContribution(object $tb, int $userId, string $kind, int $points): void

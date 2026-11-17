@@ -10,3 +10,7 @@ use Illuminate\Support\Facades\Broadcast;
 */
 Broadcast::channel('room.{code}', fn (User $user, string $code) => RoomRealtime::isMember($user, $code));
 Broadcast::channel('room.{code}.chat', fn (User $user, string $code) => RoomRealtime::isMember($user, $code));
+// 2단계: 본인 전용(rank.matched), 시즌 가입자(war.changed), 로그인 전원(lobby.changed: 공개 방 목록 변화 신호뿐)
+Broadcast::channel('user.{id}', fn (User $user, string $id) => RoomRealtime::isSelf($user, $id));
+Broadcast::channel('war.{seasonId}', fn (User $user, string $seasonId) => RoomRealtime::isSeasonMember($user, $seasonId));
+Broadcast::channel('lobby', fn (User $user) => true);

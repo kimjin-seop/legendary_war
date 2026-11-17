@@ -6,7 +6,7 @@ import { api } from './client.js';
 // - 명령(행동·확정·채팅 전송 등)은 HTTP 그대로. 폴링 코드는 제거하지 않는다: 연결이 살아 있으면 호출 측이 폴링 간격을 늘리고(안전망),
 //   끊기거나 구독 실패하면 즉시 기존 주기로 복귀한다. 재연결·구독 성공 직후에는 onLive 로 1회 즉시 재조회해 누락을 보정한다.
 // - 채널 인증: POST /api/broadcasting/auth 를 공통 api() 로 호출 -> 회원(쿠키+CSRF)·게스트(X-Guest-Token) 모두 기존 방식 그대로.
-// - 설정: Vite env VITE_REVERB_APP_KEY(없으면 기능 전체 비활성 = 폴링만), VITE_REVERB_HOST(기본: 현재 호스트), VITE_REVERB_PORT(기본 8080), VITE_REVERB_SCHEME(기본 http).
+// - 설정: Vite env VITE_REVERB_APP_KEY(없으면 기능 전체 비활성 = 폴링만), VITE_REVERB_HOST(미지정 = 같은 출처 /app 프록시. 지정 시에만 PORT·SCHEME 사용).
 const ENV = import.meta.env ?? {};
 const APP_KEY = ENV.VITE_REVERB_APP_KEY || '';
 
@@ -22,13 +22,17 @@ function getEcho() {
     if (echo) return echo;
     try {
         window.Pusher = Pusher;
-        const tls = (ENV.VITE_REVERB_SCHEME || 'http') === 'https';
+        // 기본 = 같은 출처(현재 접속 호스트·포트·프로토콜): 앞단 프록시(docker/nginx-dev.conf)가 /app 을 reverb 로 전달한다.
+        // VITE_REVERB_HOST 를 지정한 경우에만 별도 호스트·포트(VITE_REVERB_PORT/SCHEME)로 직접 접속한다(예: 127.0.0.1:8081).
+        const own = !ENV.VITE_REVERB_HOST;
+        const tls = own ? window.location.protocol === 'https:' : (ENV.VITE_REVERB_SCHEME || 'http') === 'https';
+        const port = own ? (Number(window.location.port) || (tls ? 443 : 80)) : (Number(ENV.VITE_REVERB_PORT) || (tls ? 443 : 8080));
         echo = new Echo({
             broadcaster: 'reverb',
             key: APP_KEY,
-            wsHost: ENV.VITE_REVERB_HOST || window.location.hostname,
-            wsPort: Number(ENV.VITE_REVERB_PORT) || 8080,
-            wssPort: Number(ENV.VITE_REVERB_PORT) || 443,
+            wsHost: own ? window.location.hostname : ENV.VITE_REVERB_HOST,
+            wsPort: port,
+            wssPort: port,
             forceTLS: tls,
             enabledTransports: ['ws', 'wss'],
             disableStats: true,

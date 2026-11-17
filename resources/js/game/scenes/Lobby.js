@@ -23,6 +23,7 @@ import { ensureSkillIcons, skillIconFrame, skillIconImage, skillIconsListed, ski
 import { COLOR, CSS, GRADE, syncView, MIN_TOUCH, view } from '../theme.js';
 import { L, setupCamera, relayoutOnChange } from '../layout.js';
 import { auth, session, sessionCache } from '../api/client.js';
+import { watchRealtime } from '../api/realtime.js';
 import { gameApi, publicRules, newGachaRequestId } from '../api/gameApi.js';
 import { ensureScope, warmScope, prefetchPortraits, ensurePortraitTex, unitPortraitLogical, loaded, texKey } from '../assets.js';
 import { protagonistInfo } from '../dialogue/dialogueData.js';
@@ -187,6 +188,7 @@ export class LobbyScene extends Phaser.Scene {
         gameApi.profile(true).then((prof) => { this.refreshBar(); this.syncGachaTab(); maybeCharacterCreate(this, prof).then((went) => { if (!went) { reveal(); this.drawBadge(); } if (!went && this.sys.isActive()) this.maybeAutoTutorial(prof); if (!went && this.sys.isActive()) this.maybeGachaConcept(prof); }).catch(() => { reveal(); this.maybeAutoTutorial(prof); }); }).catch(() => reveal()); // 캐릭터 생성(protagonist_needed) 우선, 아니면 튜토리얼 자동 시작
         refreshQuestBadge(this); // 퀘스트 빨간 점(로비 진입마다)
         this.startWarUnread(); // 시즌 전쟁 전황 읽지 않음 뱃지(로비 진입마다 + 60초, 탭 비활성 시 건너뜀)
+        this.startLobbyPush(); // 웹소켓 lobby.changed -> 방 목록 탭이면 자동 갱신(없어도 새로고침 버튼 동작 그대로)
         this.time.delayedCall(2500, () => this.idlePrefetch()); // 로비 대기 중 저우선 예열(첫 화면 요청과 경쟁하지 않게 지연)
         this.time.delayedCall(600, () => this.preloadHeroThumbs()); // 영웅 탭 카드 썸네일 선로딩(보유 영웅, 텍스처까지) — 첫 진입 시 글자 자리표시 -> 교체 점프 방지
     }
@@ -555,10 +557,28 @@ export class LobbyScene extends Phaser.Scene {
             warUnreadCount().then((n) => { if (!this.sys.isActive()) return; this.warUnread = n; this.applyWarBadge(); });
         };
         poll();
-        this.time.addEvent({ delay: 60000, loop: true, callback: poll });
+        // 웹소켓(war.{season}) 연결 중엔 폴링 안전망 간격 3배(180초), 끊기면 60초로 복귀. war.changed 푸시는 서버가 3초 단위로 합친다
+        let skip = 0;
+        this.time.addEvent({ delay: 60000, loop: true, callback: () => { if (this.warRt?.live() && ++skip % 3) return; poll(); } });
         const onVis = () => { if (!document.hidden) poll(); };
         document.addEventListener('visibilitychange', onVis);
-        this.events.once('shutdown', () => document.removeEventListener('visibilitychange', onVis));
+        this.events.once('shutdown', () => { document.removeEventListener('visibilitychange', onVis); this.warRt?.leave(); this.warRt = null; });
+        gameApi.war.active().then((a) => {
+            if (!this.sys.isActive() || a?.season_id == null || a.joined === false) return;
+            this.warRt = watchRealtime(`war.${a.season_id}`, { events: { '.war.changed': poll }, onLive: poll, onDown: poll });
+        }).catch(() => { /* 푸시 없이 폴링만 */ });
+    }
+
+    // 공개 방 목록 변화 푸시: 방 대전 탭이 열려 있고 입장 코드를 입력 중이 아닐 때만 목록 재조회(1초 디바운스)
+    startLobbyPush() {
+        if (session.kind === 'none') return;
+        let t = null;
+        const refresh = () => {
+            clearTimeout(t);
+            t = setTimeout(() => { if (this.sys.isActive() && this.tab === 'room' && !(this.roomCodeInput?.value?.trim?.())) this.show('room', { soft: true }); }, 1000);
+        };
+        const rt = watchRealtime('lobby', { events: { '.lobby.changed': refresh } });
+        this.events.once('shutdown', () => { clearTimeout(t); rt.leave(); });
     }
 
     // 진입점 빨간 숫자 뱃지(최대 9+): 그룹 모드 = 하단 '멀티' 칸 + 멀티 서브 탭 '시즌 전쟁', 비그룹 = 하단 '방 대전' 칸(시즌 전쟁 버튼이 있는 탭)
@@ -1376,6 +1396,7 @@ export class LobbyScene extends Phaser.Scene {
         const inputW = nb ? a.w - 96 : Math.min(200, a.w - (bw + 8) * 2 - 96);
         const ix = nb ? a.x : a.x + (bw + 8) * 2;
         const inp = new DomInput(this, { x: this.panel.x + ix, y: this.panel.y + ry, w: inputW, h: 48, placeholder: '입장 코드 8자', maxLength: 8, autocomplete: 'off', ariaLabel: '입장 코드', onEnter: () => join() });
+        this.roomCodeInput = inp; // 로비 푸시(lobby.changed) 자동 갱신이 입력 중에는 건너뛰도록 참조
         this.inputs.push(inp);
         const join = async () => {
             const code = inp.value.trim().toUpperCase();

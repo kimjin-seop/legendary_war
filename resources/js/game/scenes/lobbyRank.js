@@ -10,8 +10,11 @@ import { COLOR, CSS } from '../theme.js';
 import { gameApi } from '../api/gameApi.js';
 import { messageOf } from '../api/errors.js';
 import { pixelImage, rankTier } from '../ui/PixelBadge.js';
+import { watchRealtime } from '../api/realtime.js';
+import { session } from '../api/client.js';
 
 const POLL_MS = 2000;
+const WS_RANK_POLL_MS = 10000;
 const mmss = (sec) => { const s = Math.max(0, Math.floor(Number(sec) || 0)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
 const record = (e) => `${e?.wins ?? 0}승 ${e?.losses ?? 0}패${e?.draws ? ` ${e.draws}무` : ''}`;
 const dateKo = (iso) => { const d = iso ? new Date(iso) : null; return d && !Number.isNaN(d.getTime()) ? `${d.getMonth() + 1}/${d.getDate()}` : ''; };
@@ -26,8 +29,9 @@ export async function tabRank(scene, p) {
     const list = new ScrollList(scene, { x: a.x, y: listTop, w: a.w, h: a.y + a.h - listTop, clip: true, bar: true });
     p.add(list);
     let poll = null;
+    let rt = null;
     const stopPoll = () => { poll?.remove(false); poll = null; };
-    p.once('destroy', stopPoll);
+    p.once('destroy', () => { stopPoll(); rt?.leave(); });
 
     // ---- 내 랭크 ----
     const drawMe = (d) => {
@@ -51,7 +55,8 @@ export async function tabRank(scene, p) {
         if (st?.state === 'queued') {
             say(`상대를 찾는 중 ${mmss(st.waited_seconds)}${st.range ? ` · 레이팅 ±${st.range}` : ''}${st.timeout_in != null ? ` · ${mmss(st.timeout_in)} 뒤 자동 취소` : ''}`, '#9fd8ff');
             qBox.add(qBtn('취소', () => act(() => gameApi.rank.cancel())));
-            if (!poll) poll = scene.time.addEvent({ delay: POLL_MS, loop: true, callback: () => refreshQueue() });
+            // 웹소켓 연결 중엔 안전망 간격(서버 stale 20초 미만 유지: 서버가 5초마다 매칭도 수행), 끊기면 2초로 복귀
+            if (!poll) poll = scene.time.addEvent({ delay: rt?.live() ? WS_RANK_POLL_MS : POLL_MS, loop: true, callback: () => refreshQueue() });
         } else if (st?.state === 'matched') {
             stopPoll();
             say(`매칭 완료 · 상대 ${st.opponent?.name ?? '?'} (${st.opponent?.rating ?? '-'})${st.deploy_deadline_seconds ? ` · ${mmss(st.deploy_deadline_seconds)} 안에 배치` : ''}`, '#f0d58c');
@@ -114,5 +119,11 @@ export async function tabRank(scene, p) {
     if (!alive()) return;
     drawMe(me);
     drawList(rk);
+    // 웹소켓 푸시(rank.matched, user.{id}) -> 즉시 재조회. 연결·끊김 전환 시 폴링 타이머를 새 간격으로 재설정
+    const uid = session.user?.id;
+    if (uid && session.kind === 'member') {
+        const resync = () => { if (!alive()) return; stopPoll(); refreshQueue(); };
+        rt = watchRealtime(`user.${uid}`, { events: { '.rank.matched': resync }, onLive: resync, onDown: resync });
+    }
     refreshQueue();
 }
